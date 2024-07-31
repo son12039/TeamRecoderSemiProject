@@ -21,6 +21,10 @@ public class SignUpService {
 		
 	}
 	
+	public SignUp login(SignUp signup) {
+		
+		return Mapper.login(signup);
+	}
 	
 
 }

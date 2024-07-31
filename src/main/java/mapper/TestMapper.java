@@ -9,4 +9,5 @@ public interface TestMapper {
 	
 	void register(SignUp signup);
 
+	SignUp login(SignUp signup);
 }

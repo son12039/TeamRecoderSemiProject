@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,20 +8,21 @@
     <title>Insert title here</title>
   </head>
   <body>
-    <form action="/signup" method="post">
-      아이디 : <input type="text" name="id" /><br />
-      비밀번호 : <input type="pwd" name="pwd" /><br />
-      주소 : <input type="text" name="addr" /><br />
-      전화번호 : <input type="text" name="phone" /><br />
-      이메일 : <input type="text" name="email" /><br />
-      이름 : <input type="text" name="name" /><br />
-      나이 : <input type="text" name="age" /><br />
-      <label>
-        성별 : 남<input type="checkbox" name="gender"  value="M"/> 여<input
-          type="checkbox"
-          name="gender" value="F" /></label
-      ><br />
-      <input type="submit" value="회원가입" />
+    
+     
+   
+   <c:if test="${mem.name == null }">
+    <a href="/register"> 회원가입</a>
+    <form action="/login" method="post"> 
+    아이디 : <input type="text" name="id"> <br>
+    비밀번호 : <input type="text" name="pwd"> <br>
+    <input type="submit" value="확인"> <br>
+ 
     </form>
+       </c:if>
+       
+       <c:if test="${mem.name != null}">
+       <h1>${mem.name} 님 환영합니다</h1>
+       </c:if>
   </body>
 </html>

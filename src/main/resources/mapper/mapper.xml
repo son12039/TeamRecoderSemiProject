@@ -4,4 +4,9 @@
    INSERT INTO sign_up (id,pwd,name)
    VALUES (#{id},#{pwd},#{name})
  </insert>
+ <select id="login" parameterType="SignUp" resultType="SignUp">
+ SELECT *
+ FROM sign_up
+ WHERE id=#{id} AND pwd=#{pwd}
+ </select>
  </mapper>

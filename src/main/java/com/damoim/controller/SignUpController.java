@@ -1,5 +1,12 @@
 package com.damoim.controller;
 
-public class SignUpController {
+import org.springframework.stereotype.Controller;
 
+@Controller
+public class SignUpController {
+	
+//	회원가입
+	
+	
+	
 }

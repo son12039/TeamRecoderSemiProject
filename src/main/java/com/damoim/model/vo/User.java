@@ -6,9 +6,9 @@ import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 public class User {
-    private Integer userCode; // 유저코드
+    private int userCode; // 유저코드
     private String id; // 유저아이디
-    private Double userManner; // 유저온도
+    private double userManner; // 유저온도
     private String userName; // 닉네임
     private String userImg; // 유저프로필사진
     private String userHobby; // 유저 관심사

@@ -1,6 +1,9 @@
 package com.damoim.service;
 
-import java.util.List;
+import org.springframework.stereotype.Service;
+
+@Service
+public class SignUpService {
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

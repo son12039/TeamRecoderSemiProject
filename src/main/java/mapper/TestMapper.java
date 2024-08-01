@@ -2,12 +2,12 @@ package mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.damoim.model.vo.SignUp;
+import com.damoim.model.vo.Member;
 
 @Mapper
 public interface TestMapper {
 	
-	void register(SignUp signup);
+	void register(Member user);
 
-	SignUp login(SignUp signup);
+	Member login(Member user);
 }

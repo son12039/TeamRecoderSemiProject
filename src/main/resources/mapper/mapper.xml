@@ -1,12 +1,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.TestMapper">
- <insert id="register" parameterType="SignUp">
-   INSERT INTO sign_up (id,pwd,name)
-   VALUES (#{id},#{pwd},#{name})
+ <insert id="register" parameterType="Member">
+   INSERT INTO member (id,pwd,name,age)
+   VALUES (#{id},#{pwd},#{name},#{age})
  </insert>
- <select id="login" parameterType="SignUp" resultType="SignUp">
+ <select id="login" parameterType="Member" resultType="Member">
  SELECT *
- FROM sign_up
+ FROM member
  WHERE id=#{id} AND pwd=#{pwd}
  </select>
  </mapper>

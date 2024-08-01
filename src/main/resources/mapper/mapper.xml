@@ -9,4 +9,19 @@
  FROM member
  WHERE id=#{id} AND pwd=#{pwd}
  </select>
+ 
+  <select id="pwdCheck" parameterType="Member" resultType="Member">
+ SELECT *
+ FROM member
+ WHERE id=#{id} AND pwd=#{pwd}
+ </select>
+ 
+ 
+ <update id="update" parameterType="Member">
+ UPDATE  member
+ SET  pwd=#{pwd}   
+ WHERE id=#{id}
+ </update>
+ 
+
  </mapper>

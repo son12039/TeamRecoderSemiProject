@@ -26,5 +26,13 @@ public class MemberService {
 		return Mapper.login(member);
 	}
 	
-
+	public Member pwdCheck(Member member) {
+		
+		return Mapper.pwdCheck(member);
+	}
+    
+	public void update(Member member) {
+		
+		Mapper.update(member);
+	}
 }

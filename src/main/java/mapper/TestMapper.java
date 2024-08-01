@@ -7,7 +7,13 @@ import com.damoim.model.vo.Member;
 @Mapper
 public interface TestMapper {
 	
-	void register(Member user);
+	void register(Member member);
 
-	Member login(Member user);
+	Member login(Member member);
+	
+	
+	
+	Member pwdCheck(Member member);
+	
+	void update(Member member);
 }

@@ -18,4 +18,10 @@ public class PageController {
 		 return "mypage/register";
 	 }
 	 
+	 @GetMapping("/mypage")
+	 public String mypage() {
+		 
+		 return "mypage/mypage1";
+	 }
+	 
 }

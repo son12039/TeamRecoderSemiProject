@@ -20,19 +20,24 @@ pageEncoding="UTF-8"%>
       <body>
         <div class="header">
           <div class="header_left">
-            <div class="LOGO">LOGO</div>
+            <div class="LOGO">DAMOIM</div>
             <div class="menu">menu1</div>
             <div class="menu">menu2</div>
             <div class="menu">menu3</div>
             <div class="menu">menu4</div>
             <div class="header_right">
+          <c:if test="${empty mem}">
               <div class="header_right_menu">
                 <a href="/signUp">회원가입</a>
               </div>
-              <div class="header_right_menu"><a href="/login">로그인</a></div>
+            
+              </c:if>
+              <c:if test="${not empty mem}">
               <div class="header_right_menu">
-                <a href="/mypage">마이페이지</a>
+                <a href="/mypage">마이페이지</a> 
+                <a href="/logout">로그아웃</a>
               </div>
+              </c:if>
             </div>
           </div>
         </div>

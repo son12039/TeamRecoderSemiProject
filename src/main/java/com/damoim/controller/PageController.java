@@ -8,7 +8,7 @@ public class PageController {
 	
 	@GetMapping("/")
 	public String index() {
-		return "login";
+		return "index";
 	}
 
 //	

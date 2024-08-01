@@ -8,5 +8,7 @@
 </head>
 <body>
 	<h1>테 스 트</h1>
+	<li><a href="location">대분류 테스트</a></li>
+	
 </body>
 </html>

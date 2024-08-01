@@ -5,7 +5,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Insert title here</title>
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/signUp.css"/>
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css"/>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css"/>
     
   </head>
@@ -23,7 +23,6 @@
           type="checkbox"
           name="gender" /></label
       ><br />
-
       <input type="submit" value="회원가입" />
     </form>
   </body>

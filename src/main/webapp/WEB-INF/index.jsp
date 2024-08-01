@@ -12,7 +12,11 @@
 <body>
     <div class="container">
         <section class="one">
+        <a href="/mypage/mypage">마이페이지</a>
+        <a href="/login/login">로그인</a>
+        <a href="/regiter">회원가입</a>
             <h1>First Page</h1>
+            
         </section>
         <section class="two">
             <h1>First Page</h1>

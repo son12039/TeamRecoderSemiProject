@@ -10,26 +10,20 @@ public class PageController {
 	public String index() {
 		return "index";
 	}
+	@GetMapping("/mypage")
+	public String mypage() {
+		return "/mypage/mypage";
+	}
+	
+	@GetMapping("/login")
+	public String login() {
+		return "/login/login";
+	}
 	
 	@GetMapping("/")
-	public String login() {
-		return "login";
+	public String register() {
+		return "/register/register";
 	}
-	@GetMapping("/")
-	public String signUp() {
-		return "signUp";
-	}
-//	
-//	@GetMapping("/")
-//	public String register() {
-//		return "register";
-//	}
-//	
-//	@GetMapping("/")
-//	public String mypage() {
-//		return "mypage";
-//	}
-//	
-//	
+
 	
 }

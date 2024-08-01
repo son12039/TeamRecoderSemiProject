@@ -24,12 +24,10 @@ pageEncoding="UTF-8"%>
             <div class="menu">menu3</div>
             <div class="menu">menu4</div>
             <div class="header_right">
-              <div class="header_right_menu">
-                <a href="/signUp">회원가입</a>
+              <div class="header_right_menu"><a href="/register">회원가입</a>
               </div>
               <div class="header_right_menu"><a href="/login">로그인</a></div>
-              <div class="header_right_menu">
-                <a href="/mypage">마이페이지</a>
+              <div class="header_right_menu"><a href="/mypage">마이페이지</a>
               </div>
             </div>
           </div>

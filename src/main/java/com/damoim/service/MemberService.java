@@ -2,9 +2,9 @@ package com.damoim.service;
 
 import org.springframework.stereotype.Service;
 
-import com.damoim.model.vo.SignUp;
+import com.damoim.model.vo.Member;
 
-import mapper.SignUpMapper;
+import mapper.MemberMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,16 +12,15 @@ import org.springframework.stereotype.Service;
 //xml -> Mapper -> service -> controller
 
 @Service
-public class SignUpService {
+public class MemberService {
 	
 	@Autowired
-	private SignUpMapper mapper;
+	private MemberMapper mapper;
 	
-	public void signUp(SignUp signUp) {
-		mapper.register(signUp);
+	public void member(Member member) {
+		mapper.register(member);
 	}
-		
-
+	
 	
 	
 }

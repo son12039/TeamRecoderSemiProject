@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<mapper namespace="mapper.SignUpMapper">
-<insert id="signUp" parameterType="signUp">
-</insert>
-	INSERT INTO sign_up
-	VALUES (#{id},#{pwd},#{addr},#{phone},#{email},#{name},#{age},#{gender})
-</mapper>

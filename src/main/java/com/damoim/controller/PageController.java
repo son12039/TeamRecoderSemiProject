@@ -8,17 +8,9 @@ public class PageController {
 	
 	@GetMapping("/")
 	public String index() {
-		return "index";
-	}
-	
-	@GetMapping("/")
-	public String login() {
 		return "login";
 	}
-	@GetMapping("/")
-	public String signUp() {
-		return "signUp";
-	}
+
 //	
 //	@GetMapping("/")
 //	public String register() {

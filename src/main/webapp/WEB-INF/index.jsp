@@ -1,32 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="${pageContext.request.contextPath}/css/index.css"
+    />
+    <link
+      rel="stylesheet"
+      href="${pageContext.request.contextPath}/css/reset.css"
+    />
+  </head>
+  <body>
     <div class="container">
-        <section class="one">
-            <h1>First Page</h1>
-        </section>
-        <section class="two">
-            <h1>First Page</h1>
-        </section>
-        <section class="three">
-            <h1>First Page</h1>
-        </section>
-        <section class="four">
-            <h1>First Page</h1>
-        </section>
-        <section class="five">
-            <h1>First Page</h1>
-        </section>
+      <section class="one">
+        <h1>First Page</h1>
+      </section>
+      <section class="two">
+        <h1>First Page</h1>
+      </section>
+      <section class="three">
+        <h1>First Page</h1>
+      </section>
+      <section class="four">
+        <h1>First Page</h1>
+      </section>
+      <section class="five">
+        <h1>First Page</h1>
+      </section>
     </div>
     <script src="mainpage.js"></script>
-</body>
+  </body>
 </html>

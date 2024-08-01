@@ -1,7 +1,7 @@
 -- drop schema damoim;
-create schema damoim;
+-- create schema damoim;
 
-CREATE TABLE sign_up ( -- 회원가입
+CREATE TABLE user_info ( -- 회원가입
     id VARCHAR(50) PRIMARY KEY, -- 아이디
     pwd VARCHAR(255) NOT NULL, -- 비밀번호
     addr VARCHAR(255), -- 주소
@@ -154,7 +154,7 @@ CREATE TABLE image ( -- 사진 테이블
     meet_code INT -- 모임게시판코드 / 외래키
 );
 
-ALTER TABLE user ADD FOREIGN KEY (id) REFERENCES sign_up (id);
+ALTER TABLE user ADD FOREIGN KEY (id) REFERENCES user_info (id);
 
 ALTER TABLE type_category_small ADD FOREIGN KEY (type_la_code) REFERENCES type_category_large(type_la_code); 
 

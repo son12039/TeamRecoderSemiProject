@@ -3,7 +3,7 @@ package com.damoim.controller;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class SignUpController {
+public class UserInfoController {
 	
 //	회원가입
 	

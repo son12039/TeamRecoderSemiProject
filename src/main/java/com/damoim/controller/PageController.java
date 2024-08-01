@@ -11,17 +11,17 @@ public class PageController {
 		return "index";
 	}
 
-//	
-//	@GetMapping("/")
-//	public String register() {
-//		return "register";
-//	}
-//	
-//	@GetMapping("/")
-//	public String mypage() {
-//		return "mypage";
-//	}
-//	
-//	
+	
+	@GetMapping("/signUp")
+	public String signUp() {
+		return "signUp/signUp";
+	}
+	
+	@GetMapping("/mypage")
+	public String mypage() {
+		return "mypage/mypage";
+	}
+	
+	
 	
 }

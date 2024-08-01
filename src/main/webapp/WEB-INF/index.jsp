@@ -35,7 +35,7 @@ pageEncoding="UTF-8"%>
             </div>
           </div>
         </div>
-        <c:if test="${empty mem}">
+        <c:if test="${member == null}">
         <div class="container">
           <div class="login-box">
             <h1>로그인</h1>
@@ -63,10 +63,11 @@ pageEncoding="UTF-8"%>
             </div>
           </div>
           </c:if>
-          <c:if test="${not empty mem }">
+          <c:if test="${member != null}">
+          
           <div class="container">
           <div class="login-box">
-            <h1>${mem.name}님 환영합니다~</h1>
+            <h1>${member.name}님 환영합니다~</h1>
             </div>
           </div>
           </c:if>

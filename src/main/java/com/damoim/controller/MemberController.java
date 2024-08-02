@@ -31,7 +31,7 @@ public class MemberController {
 		service.signUp(member);
 		
 		
-		return "redirect:mypage/mypage.jsp";
+		return "redirect:/";
 		
 	}
 //	회원가입

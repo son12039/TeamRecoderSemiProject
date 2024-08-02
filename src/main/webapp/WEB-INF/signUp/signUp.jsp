@@ -55,7 +55,8 @@
             <label for="genderM">남성</label><input type="radio" id="genderM" name="gender" value="M" /> 
             <label for="genderF">여성</label><input type="radio" id="genderF" name="gender" value="F" /> 
           </div>
-          <div class="navigation-buttons">
+          <div class="pageButtons">
+            <button type="reset" onclick="location.href='/'">홈 화면으로</button>
             <button type="button" onclick="showPage('page2')">다음 페이지</button>
           </div>
         </div>
@@ -119,12 +120,11 @@
             />
           </div>
           <div>
-          <div class="navigation-buttons">
+          <div class="pageButtons">
             <button type="button" onclick="showPage('page1')">이전 페이지</button>
+             <input id="singUp" type="submit" value="회원가입" />
           </div>
-          <div  class="formBox">
-            <input id="sub" type="submit" value="회원가입" />
-          </div>
+       
           </div>
         </div>
       </div>

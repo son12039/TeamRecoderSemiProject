@@ -74,13 +74,13 @@ main {
 
 
 /* 네비게이션 버튼 */
-.navigation-buttons {
+.pageButtons {
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
 }
 
-.navigation-buttons button {
+.pageButtons button,#singUp {
   background-color: #e0e0e0;
   color: #333;
   border: none;
@@ -91,16 +91,13 @@ main {
   transition: background-color 0.3s ease;
 }
 
-.navigation-buttons button:hover {
+.pageButtons button:hover {
   background-color: #d5d5d5;
 }
-#sub{
-background-color: #e0e0e0;
-  color: #333;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
+#genderM, #genderF{
+	width: 20px;
+	height: 20px;
 }
+
+
+

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,11 +13,15 @@
 <body>
     <div class="container">
         <section class="one">
-        <a href="/mypage/mypage">마이페이지</a>
-        <a href="/login/login">로그인</a>
+        <a href="/mypage">마이페이지</a>
+        <a href="/login">로그인</a>
         <a href="/regiter">회원가입</a>
+		<c:forEach items="${Profile}" var = "image">
+		<div>
+			<img src="${image.imgUrl}"/>
+		</div>
+		</c:forEach>
             <h1>First Page</h1>
-            
         </section>
         <section class="two">
             <h1>First Page</h1>

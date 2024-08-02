@@ -42,7 +42,7 @@ pageEncoding="UTF-8"%>
               </div>
               <div class="textbox">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="비밀번호" name="password" />
+                <input type="password" placeholder="비밀번호" name="pwd" />
               </div>
               <input type="submit" class="btn" value="로그인" />
             </form>

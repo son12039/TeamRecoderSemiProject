@@ -1,1 +1,41 @@
 @charset "UTF-8";
+/*스크롤 바 안보이게 하기*/
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+/*스크롤 이벤트 */
+.container{
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+section{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+}
+h1{
+color: rgb(226, 226, 226);
+font-size: 100px;
+text-shadow: 5px 1px 4px #000;
+}
+
+.one{
+    background-color: rgb(36, 164, 138);
+}
+.two{
+    background-color: rgb(211, 79, 79);
+}
+.three{
+    background-color: rgb(170, 187, 95);
+}
+.four{
+    background-color: rgb(27, 63, 224);
+}
+.five{
+    background-color: rgb(36, 164, 138);
+}

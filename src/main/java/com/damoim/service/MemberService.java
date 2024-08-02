@@ -2,6 +2,7 @@ package com.damoim.service;
 
 import org.springframework.stereotype.Service;
 
+
 import com.damoim.model.vo.Member;
 
 import mapper.MemberMapper;
@@ -16,10 +17,19 @@ public class MemberService {
 	
 	@Autowired
 	private MemberMapper mapper;
-	
-	public void member(Member member) {
+
+	public void register(Member member) {
 		mapper.register(member);
 	}
+	
+	public Member login(Member member) {
+		return mapper.login(member);
+	}
+	
+	
+	
+	
+	
 	
 	
 	

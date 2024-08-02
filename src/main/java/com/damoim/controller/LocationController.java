@@ -1,31 +1,50 @@
 package com.damoim.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.damoim.model.vo.LocationCategoryLarge;
+import com.damoim.service.LocationService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class LocationController {
+	
+	@Autowired
+	private LocationService service;
 	
 	@GetMapping("/")
 	public String index() {
 		return "index";
 	}
 	
-	 @GetMapping("location")
-	    public String location(@RequestParam(value = "location", required = false, defaultValue = "Unknown") String location) {
-		 	
-		 	int a = 0;
-		 	
-	        if ("서울".equals(location)) {
-	            a = 1;
-	        } else if ("경기".equals(location)) {
-	            System.out.println("경기가 선택되었습니다.");
-	        } else if ("인천".equals(location)) {
-	            System.out.println("인천이 선택되었습니다.");
-	        } else {
-	            System.out.println("알 수 없는 지역이 선택되었습니다.");
-	        }
-	        return "Location"; // "Location"은 반환할 뷰의 이름입니다.
-	    }
+	 @GetMapping("/location")
+	 public String location(Model model) {
+		 model.addAttribute("allLocation",service.allLocation());
+	 return "Location";
+	 }
+	
+	 @GetMapping("/locations")
+	 public String location(@RequestParam("location") String locLargeCode, Model model) {
+		System.out.println(locLargeCode);
+		model.addAttribute("LocationCategoryLarge", service.LocationCategoryLarge());
+		return "Location";
+	 }
+	
+//	 @GetMapping("/location")
+//	    public String location(@RequestParam(value = "location", defaultValue = "unknown") String location) {
+//		 System.out.println(location);
+//		 return "Location";
+//	 }
+	
+	
 }

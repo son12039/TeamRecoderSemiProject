@@ -14,7 +14,11 @@ public class LocationService {
 	@Autowired
 	private locationCategoryLargeMapper locationMapper;
 	
-	public String lacationLargeMappr(){
+	public List<String> LocationCategoryLarge(){
 		return locationMapper.LocationCategoryLarge();
+	}
+	
+	public List<LocationCategoryLarge> allLocation(){
+		return locationMapper.allLocation();
 	}
 }

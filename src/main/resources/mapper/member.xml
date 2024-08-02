@@ -1,28 +1,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.MemberMapper">
-<resultMap id="userMap"  type="User" >
-    <id column="user_code" property="userCode"/>
-    <result column="user_manner" property="userManner"/>
-    <result column="user_name" property="userName"/>
-    <result column="user_img" property="userImg"/>
-    <result column="user_hobby" property="userHobby"/>
-    <result column="user_info" property="userInfo"/>
-    <result column="user_location" property="userLocation"/>
-    <result column="user_type" property="userType"/>
-     <result column="id" property="id"/>
-</resultMap>
+
 
 	<select id="login" parameterType="Member" resultType="Member">
 		SELECT * FROM member 
 		WHERE id = #{id} AND pwd = #{pwd}
 	</select>
 	<insert id="signUp" parameterType="Member">
-		INSERT INTO member(id,pwd, addr,phone,email,name,age,gender)
-		VALUES (#{id},#{pwd},#{addr},#{phone},#{email},#{name},#{age},#{gender})
+		INSERT INTO member(id, pwd, addr, phone, email, name, age, gender, nickname, member_img, member_hobby, member_info, member_location,member_type)
+		VALUES (#{id}, #{pwd}, #{addr}, #{phone}, #{email},#{name}, #{age},#{gender},
+				#{nickname},#{MemberImg},#{MemberHobby},#{MemberInfo},#{MemberLocation},#{MemberType} )			
 	</insert>
-	  <insert id="signUp2" parameterType="User">
-		INSERT INTO user (user_name, user_img, user_hobby, user_info, user_location, user_type, id )
-		VALUES (#{userName},#{userImg},#{userHobby},#{userInfo},#{userLocation},#{userType}, #{id})
-	</insert>
+
 	
 </mapper> 

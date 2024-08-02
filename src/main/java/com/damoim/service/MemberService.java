@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.damoim.model.vo.Member;
-import com.damoim.model.vo.User;
+
 
 import mapper.MemberMapper;
 
@@ -26,9 +26,8 @@ public class MemberService {
 	}
 	
 	@Transactional
-	public void signUp(User user, Member member) {
-		mapper.signUp2(user);
-		mapper.signUp(member);
+	public void signUp(Member member) {
+			mapper.signUp(member);
 		
 	}	
 

@@ -1,4 +1,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.MembershipMapper">
 
+
+
+<resultMap type="MembershipUserList" id="membershipmap">
+<id column = "list_code" property="listCode"/>
+<result column="list_grade" property="listGrade"/>
+<association property="member" javaType="Member">
+<id column ="id" property="id"/>
+<result column="name" property="name"/>
+<result column="nickname" property="nickname"/>
+<result column="member_img" property="memberImg"/>
+</association>
+<association property="membership" javaType="Membership">
+<id column="membership_code" property="membershipCode"/>
+ <result column="Membership_name" property="membershipName"/>
+ <result column="Membership_img" property="membershipImg"/>
+ <result column="Membership_info" property="membershipInfo"/>
+ <result column="Mebership_date"  property="membershipDate"/>
+ <result column="Membership_grade" property="membershipGrade"/>
+ <result column="Membership_max" property="membershipMax"/>
+</association>
+</resultMap>
+
+<select id="allMembership" resultMap="membershipmap">
+SELECT *
+FROM membership_user_list
+JOIN membership USING (membership_code)
+JOIN member USING (id); 
+</select>
+
+
+
+
+
+
+
+
+
  </mapper>

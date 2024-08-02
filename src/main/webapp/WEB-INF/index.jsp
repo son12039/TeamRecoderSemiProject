@@ -8,16 +8,19 @@ pageEncoding="UTF-8"%>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>로그인 페이지</title>
-        <link
-          rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/login.css"
-        />
+      
         <link
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/reset.css"
         />
+          <link
+          rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/login.css"
+        />
+       
       </head>
       <body>
+     
         <div class="header">
           <div class="header_left">
             <div class="LOGO">DAMOIM</div>
@@ -28,7 +31,7 @@ pageEncoding="UTF-8"%>
             <div class="header_right">
           <c:if test="${empty mem}">
               <div class="header_right_menu">
-                <a href="/signUp">회원가입</a>
+                <a href="/">회원가입</a>
               </div>
             
               </c:if>
@@ -77,7 +80,24 @@ pageEncoding="UTF-8"%>
           </div>      
           </c:if>
         </div>
-        <div></div>
+        <div class="membership-list">
+        
+       <c:forEach  items="${list}" var="id">
+       <div class="membership-card">
+       <div class="membership-img">
+       <img  src="${id.membership.membershipImg}">    
+       </div>  
+       <div class="membership-info">
+       <h1 class="membership-name"> ${id.membership.membershipName}</h1>
+       <h2>${id.membership.membershipInfo} </h2>   
+       <h2>호스트 : ${id.member.nickname}</h2>  
+       <img  src="${id.member.memberImg}"> 
+       </div>
+       </div>
+       </c:forEach>
+         </div>
+        
+         
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         <script src="login.js"></script>
       </body>

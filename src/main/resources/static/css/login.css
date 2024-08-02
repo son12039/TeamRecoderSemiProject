@@ -135,3 +135,62 @@
     display: none;
   }
 }
+
+
+.membership-list {
+	width: 1000px;
+	display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  margin: auto;
+  border-radius: 15px;
+    
+   
+	
+}
+.membership-card{
+	display: flex;
+	width:49%;
+	background-color: white;
+	 border-radius: 15px;
+	 margin: 5px;
+}
+img {
+	
+	border-radius: 15px;
+	width: 200px;
+	height: 200px;
+	margin:20px;
+}
+
+body{
+	background-color: beige;
+}
+
+.membership-name {
+	font-weight: bolder;
+	font-size: 20px;
+	
+}	
+
+.membership-info {
+	
+	width: 200px;
+	height: 200px;
+	margin:20px;
+	border-radius: 15px;
+	
+}
+
+.membership-info h1{
+	font-weight: bolder;
+	font-size: 20px;
+}
+.membership-info h2{
+	margin-top:30px;
+	color: #999;
+}
+
+
+

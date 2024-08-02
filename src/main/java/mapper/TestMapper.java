@@ -12,7 +12,6 @@ public interface TestMapper {
 	Member login(Member member);
 	
 	
-	
 	Member pwdCheck(Member member);
 	
 	void update(Member member);

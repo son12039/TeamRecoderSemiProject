@@ -27,7 +27,7 @@ public class MemberController {
 
 //	String id, String pwd, int age
 	
-	@PostMapping("/signup")
+	@PostMapping("/register")
 	public String register(Member member) {
 		
 

@@ -80,7 +80,7 @@ pageEncoding="UTF-8"%>
         
         <div class="membership-list">
         
-       <c:forEach  items="${list}" var="id">
+       <c:forEach  items="${list}" var="id" >
       
        <div class="membership-card">
        <div class="membership-img">
@@ -92,6 +92,8 @@ pageEncoding="UTF-8"%>
        <h1 class="membership-name"> ${id.membership.membershipName}</h1>
        <h2>${id.membership.membershipInfo} </h2>   
        <h2>호스트 : ${id.member.nickname}, 멤버쉽 코드 : ${id.membership.membershipCode}</h2>
+       <input type="hidden" name="code" value="${id.membership.membershipCode}">
+       <h3> {Count}/${id.membership.membershipMax}</h3>
       
           
         <c:choose>

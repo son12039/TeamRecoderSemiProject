@@ -14,16 +14,17 @@ public class PageController {
 	@Autowired
 	private MembershipService service;
 
+	
 	@GetMapping("/")
-	public String index(Model model) {
-		System.out.println(1);
-
-		System.out.println(service.allMembership().get(0).getMember().getMemberImg());
-		System.out.println(service.allMembership());
+	public String index(Model model ) {
+		
 		model.addAttribute("list", service.allMembership());
+//		int i = service.allMembership().get(0).getMembership().getMembershipCode();
+//		model.addAttribute("Count", service.membershipUserCount(i));
 
 		return "index";
 	}
+	 
 
 	@GetMapping("/signUp")
 	public String signUp() {
@@ -40,13 +41,7 @@ public class PageController {
 
  
 	 
-	 @GetMapping("/{membershipCode}")
-		public String main(@PathVariable("membershipCode") Integer membershipCode, Model model) {
-			model.addAttribute("main",service.main(membershipCode));
-			System.out.println(service.main(membershipCode));
-			System.out.println(11111);
-			return "mypage/main";
-		}
+	
 		
 	 
 }

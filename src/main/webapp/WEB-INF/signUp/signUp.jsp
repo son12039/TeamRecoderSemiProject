@@ -20,18 +20,10 @@
           <h2>*회원가입*</h2>
           <div class="formBox">
             <label for="id">아이디</label>
-            <form action="/idCheck" method="post">
-            <input type="submit" value="중복 확인"> 
+            <button type="button">중복확인</button>
+    
             <input type="text" id="id" name="id" required placeholder="아이디를 입력하세요" autofocus />
-             </form>
-             <c:choose>
-            	<c:when test="${idResult}"> 
-            		<input type="text" name="id" value="${member.id}">
-            	</c:when>
-            	<c:otherwise>
-            		
-            	</c:otherwise>
-             </c:choose>
+            
              
           </div>
           <div class="formBox">
@@ -78,11 +70,9 @@
           <h2>*회원가입*</h2>
           <div class="formBox">
             <label for="nickname">닉네임</label> 
-                        <form action="/nicknameCheck" method="post"><input type="submit" value="중복 확인"> 
+              <button type="button">중복확인</button>      
             <input type="text" id="nickname" name="nickname"  placeholder="닉네임을 입력하세요" required />
-             </form>
-             <input type="hidden" name="nickname" value="${member.nickname}">
-     
+          
           </div>
           <div class="formBox">
             <label for="memberImg">프로필 사진</label>

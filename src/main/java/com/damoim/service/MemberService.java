@@ -39,6 +39,15 @@ public class MemberService {
 		
 	}
 
-	
-	
+
+
+	public Member pwdCheck(Member member) {
+		
+		return mapper.pwdCheck(member);
+	}
+    
+	public void update(Member member) {
+		
+		mapper.update(member);
+	}
 }

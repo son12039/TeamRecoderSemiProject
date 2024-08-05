@@ -25,12 +25,12 @@
 		<result column="meet_creat_date" property="meetCreatDate"/>
 	</association>
 	</resultMap>
-
 <!-- Main 생성 -->
 	<insert id="mainCreate" parameterType="Main">
 		INSERT INTO main (main_name, main_text)
 		VALUES (#{mainName},#{mainText})
 	</insert>
+	
 
 </mapper>
 

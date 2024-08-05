@@ -13,16 +13,5 @@ import com.damoim.service.ImageService;
 public class ImageController {
 	
 	
-	@Autowired
-	private ImageService image;
-	
-	@GetMapping("/")
-	public String index(Model model) {
-		model.addAttribute("Profile", image.profile());
-		return "index";
-	
-	}
-	
-	
 	
 }

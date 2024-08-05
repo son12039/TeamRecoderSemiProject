@@ -9,26 +9,11 @@
     <title>클럽 생성</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mainCreate.css" />
     <link rel="stylesheet" href="/${pageContext.request.contextPath}/css/reset.css" />
-    
   </head>
   <body>
     <div class="container">
+    <c:if test="${grade.listGrade eq 'host' or 'admin'}">
       <h1>클럽 생성</h1>
-      	<!-- <where>방식 -->
-<!--  	<where>
-		<if test="select == 'all'">
-			id LIKE CONCAT('%', #{keyword},'%')
-			OR name LIKE CONCAT('%', #{keyword},'%')
-		</if>
-		<if test="select == 'id'">
-			id LIKE CONCAT('%', #{keyword},'%')
-		</if>
-		<if test="select == 'name'">
-			name LIKE CONCAT('%', #{keyword},'%')
-		</if> 
-	</where> -->
-      <c:choose>
-      		<c:when test="${vo.listGrade eq 'host'}">
       <form action="/mainCreate" method="post" enctype="multipart/form-data">
         <div class="create_box">
           <label>클럽 이름:
@@ -55,11 +40,11 @@
         </div>
         <button type="submit">생성</button>
       </form>
-      </c:when>
-      <c:otherwise>
+      </c:if>
+      <c:if test="${grade.listGrade eq 'nomal'}">
       <h1>클럽생성은 호스트만 가능합니다</h1>
-      </c:otherwise>
-       </c:choose>
+      </c:if>
+       
     </div>
   </body>
 </html>

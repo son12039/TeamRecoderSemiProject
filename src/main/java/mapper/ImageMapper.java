@@ -8,5 +8,5 @@ import com.damoim.model.vo.Image;
 
 @Mapper
 public interface ImageMapper {
-	List<Image> profile();
+	
 }

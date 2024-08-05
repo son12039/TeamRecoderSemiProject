@@ -1,0 +1,29 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.locationCategoryMapper">
+
+	<resultMap id="LocationCategory" type="LocationCategoryLarge">
+		<id column="loc_la_code" property="locLargeCode"/>
+		<result column="loc_la_name" property="locLargeName"/>
+	</resultMap>
+	
+	<!-- 이거는 전체 보여주는거 -->
+	<select id="allLocationLarge" resultMap="LocationCategory">
+		SELECT * FROM LOCATION_CATEGORY_LARGE
+	</select>
+	
+
+<!-- 
+<resultMap id="smallCategories" type="LocationCategorySmall">
+			<id column="loc_s_code" property="locSmallCode"/>
+			<result column="loc_s_name" property="locSmallName"/>
+		</resultMap>
+ 
+	 소분류
+	<select id="allLocationSmall" parameterType="Integer" resultMap="smallCategories">
+		SELECT * FROM location_category_small
+		WHERE loc_la_code = #{code}
+	</select>
+
+ -->
+	
+</mapper>

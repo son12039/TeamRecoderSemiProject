@@ -6,19 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.damoim.model.vo.LocationCategoryLarge;
+import com.damoim.model.vo.LocationCategorySmall;
 
-import mapper.locationCategoryLargeMapper;
+import mapper.locationCategoryMapper;
 
 @Service
 public class LocationService {
 	@Autowired
-	private locationCategoryLargeMapper locationMapper;
+	private locationCategoryMapper locationLargeMapper;
 	
-	public List<String> LocationCategoryLarge(){
-		return locationMapper.LocationCategoryLarge();
-	}
+	//소분류 찾아내기
 	
+//	public List<LocationCategorySmall> LocationCategoryLarge(){
+//		return locationLargeMapper.allLocationSmall();
+//	}
+	
+	// 대분류 리스트 뽑아내기
 	public List<LocationCategoryLarge> allLocation(){
-		return locationMapper.allLocation();
+		return locationLargeMapper.allLocationLarge();
 	}
 }

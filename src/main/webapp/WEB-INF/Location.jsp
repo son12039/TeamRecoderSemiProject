@@ -9,7 +9,7 @@
 </head>
 <body>
 <c:forEach items="${allLocation}" var="Location">
-	 <form action="/locations" method="get">
+	 <form action="/location" method="get">
 		<input type="hidden" name="location" value="${Location.locLargeCode}" />
 		<input type="submit" value="${Location.locLargeName}"/>
 	</form>

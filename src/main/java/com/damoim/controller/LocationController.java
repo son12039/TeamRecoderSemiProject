@@ -26,18 +26,12 @@ public class LocationController {
 	public String index() {
 		return "index";
 	}
-	
-	 @GetMapping("/location")
-	 public String location(Model model) {
-		 model.addAttribute("allLocation",service.allLocation());
-	 return "Location";
-	 }
-	
-	 @GetMapping("/locations")
-	 public String location(@RequestParam("location") String locLargeCode, Model model) {
-		System.out.println(locLargeCode);
-		model.addAttribute("LocationCategoryLarge", service.LocationCategoryLarge());
-		return "Location";
+	// 화면에 보이게 만들기	 
+	 //화면 대분류 코드 추가
+	 @GetMapping("location")
+	 public String location( Model model) {
+		model.addAttribute("allLocation",service.allLocation());
+		return "/location";
 	 }
 	
 //	 @GetMapping("/location")

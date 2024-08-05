@@ -25,6 +25,8 @@ public class MemberService {
 		return mapper.login(member);
 	}
 	
+	 
+	
 	@Transactional
 	public void signUp(Member member) {
 			mapper.signUp(member);

@@ -31,10 +31,20 @@ JOIN member USING (id)
 WHERE list_grade = "host";
 </select>
 
-<select id="main" parameterType="Membership"  resultMap="membershipmap">
+
+
+
+
+
+
+
+
+<select id="main" parameterType="Integer"  resultMap="membershipmap">
 SELECT *
-FROM  membership
-WHERE membership_code = ${membershipCode}
+FROM membership_user_list
+JOIN membership USING (membership_code)
+JOIN member USING (id)
+WHERE membership_code = "${memebershipCode}" ;
 </select>
 
 

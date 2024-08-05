@@ -8,8 +8,6 @@
     <title>회원가입</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/signUp.css"/>
-    
-    
   </head>
   <body>
   <main>
@@ -20,19 +18,8 @@
           <h2>*회원가입*</h2>
           <div class="formBox">
             <label for="id">아이디</label>
-            <form action="/idCheck" method="post">
-            <input type="submit" value="중복 확인"> 
+            <button type="button">중복확인</button>
             <input type="text" id="id" name="id" required placeholder="아이디를 입력하세요" autofocus />
-             </form>
-             <c:choose>
-            	<c:when test="${idResult}"> 
-            		<input type="text" name="id" value="${member.id}">
-            	</c:when>
-            	<c:otherwise>
-            		
-            	</c:otherwise>
-             </c:choose>
-             
           </div>
           <div class="formBox">
             <label for="pwd">비밀번호</label>
@@ -64,25 +51,21 @@
           </div>
           <div class="formBox">
             <label for="gender">성별</label>
-            <label for="genderM">남성</label><input type="radio" id="genderM" name="gender" value="M" /> 
-            <label for="genderF">여성</label><input type="radio" id="genderF" name="gender" value="F" /> 
+            <label for="genderM">남성</label><input type="radio" id="genderM" name="gender" value="M" />
+            <label for="genderF">여성</label><input type="radio" id="genderF" name="gender" value="F" />
           </div>
           <div class="pageButtons">
             <button type="reset" onclick="location.href='/'">홈 화면으로</button>
             <button type="button" onclick="showPage('page2')">다음 페이지</button>
           </div>
         </div>
-
         <!-- 페이지 2 -->
         <div id="page2" class="page hidden">
           <h2>*회원가입*</h2>
           <div class="formBox">
-            <label for="nickname">닉네임</label> 
-                        <form action="/nicknameCheck" method="post"><input type="submit" value="중복 확인"> 
+            <label for="nickname">닉네임</label>
+              <button type="button">중복확인</button>
             <input type="text" id="nickname" name="nickname"  placeholder="닉네임을 입력하세요" required />
-             </form>
-             <input type="hidden" name="nickname" value="${member.nickname}">
-     
           </div>
           <div class="formBox">
             <label for="memberImg">프로필 사진</label>
@@ -134,7 +117,6 @@
             <button type="button" onclick="showPage('page1')">이전 페이지</button>
              <input id="singUp" type="submit" value="회원가입" />
           </div>
-       
           </div>
         </div>
       </div>

@@ -41,8 +41,10 @@ public class PageController {
  
 	 
 	 @GetMapping("/{membershipCode}")
-		public String main(@PathVariable("membershipCode") String membershipCode, Model model) {
-			
+		public String main(@PathVariable("membershipCode") Integer membershipCode, Model model) {
+			model.addAttribute("main",service.main(membershipCode));
+			System.out.println(service.main(membershipCode));
+			System.out.println(11111);
 			return "mypage/main";
 		}
 		

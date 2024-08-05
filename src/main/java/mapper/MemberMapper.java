@@ -12,5 +12,6 @@ public interface MemberMapper {
 	void signUp(Member member);
 	Member idCheck(Member member);
 	Member nicknameCheck(Member member);
-	
+	Member pwdCheck(Member member);	
+	void update(Member member);
 }

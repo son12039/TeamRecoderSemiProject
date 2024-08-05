@@ -2,6 +2,7 @@ package com.damoim.model.vo;
 
 import java.sql.Date;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +16,7 @@ public class Main {
     private int mainViews; // 조회수
     private Date mainDate; // 홍보글게시날짜
     private int userCode; // 유저 코드
+    private Image image;
+    private MembershipMeetings membershipMeetings;
 }
 

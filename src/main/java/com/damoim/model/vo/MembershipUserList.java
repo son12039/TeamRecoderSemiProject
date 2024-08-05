@@ -10,5 +10,7 @@ public class MembershipUserList {
     private String listGrade; // 멤버등급
     private int userCode; // 유저코드
     private int membershipCode; // 클럽코드
+    private Image image;
+    private Main main;
 }
 

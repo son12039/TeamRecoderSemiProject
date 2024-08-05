@@ -6,23 +6,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class PageController {
 	
-
-	
-//	@GetMapping("/mypage")
-//	public String mypage() {
-//		return "/mypage/mypage";
-//	}
-	
-	@GetMapping("/login")
-	public String login() {
-		return "/login/login";
+//	마이페이지
+	@GetMapping("/mypage")
+	public String mypage() {
+		return "/mypage/mypage";
 	}
 	
-	
-	
+//	로그인 페이지
+	@GetMapping("/login")
+	public String login() {
+		return "/mypage/login";
+	}
+//	회원가입 페이지
 	@GetMapping("/register")
 	public String register() {
-		return "/register/register";
+		return "/mypage/register";
+	}
+//	main 생성 페이지
+	@GetMapping("/mainCreate")
+	public String mainCreate() {
+		return "/mypage/mainCreate";
 	}
 	
 	

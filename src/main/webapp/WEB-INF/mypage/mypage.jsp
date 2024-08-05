@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,20 +29,20 @@
           <label for="id">
             <div class="info">
               <div class="text">아이디</div>
-              <h1>sdm</h1>
+              <h1></h1>
             </div></label
           >
           <div class="info">
             <div class="text">이름</div>
-            <h1>서동문</h1>
+            <h1></h1>
           </div>
           <div class="info">
             <div class="text">연락처</div>
-            <h1>01026110875</h1>
+            <h1></h1>
           </div>
           <div class="info">
             <div class="text">주소</div>
-            <h1>부천</h1>
+            <h1></h1>
           </div>
           <div class="info">
             <div class="text">Email</div>

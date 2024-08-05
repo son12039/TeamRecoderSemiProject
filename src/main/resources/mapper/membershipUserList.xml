@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.MembershipUserListMapper">
+<!-- 멤버 정보 조회 -->
+<select id="listGrade" parameterType="MembershipUserList" resultType="MembershipUserList">
+	SELECT list_grade,membership_code
+	FROM membership_user_list
+	WHERE list_grade IN ('host') AND ('admin')
+</select>
+</mapper>

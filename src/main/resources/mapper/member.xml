@@ -1,30 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.MemberMapper">
-<!-- image 테이블 -->
-	<resultMap id = "profile" type="Image">
-		<id column="img_code" property="imgCode"/>
-		<result column="img_url" property="imgUrl"/>
-<!-- JOIN main 테이블 -->
-	<association property="main" javaType="Main">
-		<id column="main_code" property="mainCode"/>
-		<result column="membership_code" property="membershipCode"/>
-		<result column="main_name" property="mainName"/>
-		<result column="main_text" property="mainText"/>
-		<result column="main_views" property="mainViews"/>
-		<result column="main_date" property="mainDate"/>
-		<result column="id" property="id"/>
-	</association>
-<!-- JOIN membership_meetings 테이블 -->
-	<association property="meetCode" javaType="MembershipMeetings">
-		<result column="membership_code" property="membershipCode"/>
-		<result column="meet_date_start" property="meetDateStart"/>
-		<result column="meet_date_end" property="meetDateEnd"/>
-		<result column="meet_agree_code" property="meetAgreeCode"/>
-		<result column="meet_info" property="meetInfo"/>
-		<result column="meet_creat_date" property="meetCreatDate"/>
-	</association>
-	</resultMap>
+
 <!-- 회원가입 -->
 	<insert id="register" parameterType="Member">
 		INSERT INTO member
@@ -36,11 +13,9 @@
 		FROM member
 		WHERE ( id= #{id} AND pwd = #{pwd} )
 	</select>
-<!-- 이미지 -->
-	<select id="profile" resultMap="profile">
-		SELECT img_url
-		FROM image
-		LEFT JOIN main USING (main_code)
-		LEFT JOIN membership_meetings USING (meet_code)
-	</select>
+
+	
+	
+	
+	
 </mapper>

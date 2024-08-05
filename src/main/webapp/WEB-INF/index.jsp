@@ -15,7 +15,8 @@
         <section class="one">
         <a href="/mypage">마이페이지</a>
         <a href="/login">로그인</a>
-        <a href="/regiter">회원가입</a>
+        <a href="/register">회원가입</a>
+        <a href="/mainCreate">클럽생성</a>
 		<c:forEach items="${Profile}" var = "image">
 		<div>
 			<img src="${image.imgUrl}"/>

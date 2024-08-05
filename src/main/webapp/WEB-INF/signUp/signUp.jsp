@@ -8,8 +8,6 @@
     <title>회원가입</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/signUp.css"/>
-    
-    
   </head>
   <body>
   <main>
@@ -56,15 +54,14 @@
           </div>
           <div class="formBox">
             <label for="gender">성별</label>
-            <label for="genderM">남성</label><input type="radio" id="genderM" name="gender" value="M" /> 
-            <label for="genderF">여성</label><input type="radio" id="genderF" name="gender" value="F" /> 
+            <label for="genderM">남성</label><input type="radio" id="genderM" name="gender" value="M" />
+            <label for="genderF">여성</label><input type="radio" id="genderF" name="gender" value="F" />
           </div>
           <div class="pageButtons">
             <button type="reset" onclick="location.href='/'">홈 화면으로</button>
             <button type="button" onclick="showPage('page2')">다음 페이지</button>
           </div>
         </div>
-
         <!-- 페이지 2 -->
         <div id="page2" class="page hidden">
           <h2>*회원가입*</h2>
@@ -124,7 +121,6 @@
             <button type="button" onclick="showPage('page1')">이전 페이지</button>
              <input id="singUp" type="submit" value="회원가입" />
           </div>
-       
           </div>
         </div>
       </div>

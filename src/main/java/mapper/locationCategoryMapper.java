@@ -6,6 +6,6 @@ import com.damoim.model.vo.LocationCategoryLarge;
 import com.damoim.model.vo.LocationCategorySmall;
 
 public interface locationCategoryMapper {
-//	List<LocationCategorySmall> allLocationSmall();
+	List<LocationCategorySmall> allLocationSmall(int locLargeCode);
 	List<LocationCategoryLarge> allLocationLarge();
 }

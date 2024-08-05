@@ -22,23 +22,24 @@ public class LocationController {
 	@Autowired
 	private LocationService service;
 	
-	@GetMapping("/")
-	public String index() {
-		return "index";
-	}
 	// 화면에 보이게 만들기	 
 	 //화면 대분류 코드 추가
 	 @GetMapping("location")
 	 public String location( Model model) {
 		model.addAttribute("allLocation",service.allLocation());
-		return "/location";
+		return "location/Location";
 	 }
 	
-//	 @GetMapping("/location")
-//	    public String location(@RequestParam(value = "location", defaultValue = "unknown") String location) {
-//		 System.out.println(location);
-//		 return "Location";
-//	 }
-	
-	
+	 @GetMapping("/location/Locations")
+	 public String handleLocation(@RequestParam("location") int locLargeCode, Model model) {
+		 System.out.println(locLargeCode);
+	     model.addAttribute("LocationSmallList", service.LocationCategoryLarge(locLargeCode));
+	     return "location/LocationSmall";
+	 }
+	 
+	 @GetMapping("type")
+	 public String tpye( Model model) {
+//		model.addAttribute("allType",service.allLocation());
+		return "location/type";
+	 }
 }

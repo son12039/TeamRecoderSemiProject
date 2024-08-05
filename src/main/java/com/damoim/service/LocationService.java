@@ -17,9 +17,9 @@ public class LocationService {
 	
 	//소분류 찾아내기
 	
-//	public List<LocationCategorySmall> LocationCategoryLarge(){
-//		return locationLargeMapper.allLocationSmall();
-//	}
+	public List<LocationCategorySmall> LocationCategoryLarge(int locLargeCode){
+		return locationLargeMapper.allLocationSmall(locLargeCode);
+	}
 	
 	// 대분류 리스트 뽑아내기
 	public List<LocationCategoryLarge> allLocation(){

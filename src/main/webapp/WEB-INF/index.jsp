@@ -18,7 +18,9 @@ pageEncoding="UTF-8"%>
        
       </head>
       <body>
-     
+      <form action="/location" method="get">위치기능<input type="submit"></form>
+      <form action="/type" method="get">유형기능<input type="submit"></form>
+           
         <div class="header">
           <div class="header_left">
           <a href="/"> <div class="LOGO">DAMOIM</div></a> 

@@ -13,7 +13,13 @@ import com.damoim.model.vo.MembershipUserList;
 @Service
 public class MembershipUserListService {
 	
-
+	@Autowired
+	private MembershipUserListMapper mapper;
+	
+	public List<MembershipUserList> membershipUserList(MembershipUserList membershipUserList){
+		
+		 return mapper.membershipUserList(membershipUserList);
+	}
 	
 
 }

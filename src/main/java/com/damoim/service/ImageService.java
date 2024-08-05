@@ -13,12 +13,12 @@ import mapper.ImageMapper;
 @Service
 public class ImageService {
 	
-	@Autowired
-	private ImageMapper image;
+//	@Autowired
+//	private ImageMapper image;
 	
-	public List<Image> profile() {
-		return image.profile();
-	}
+//	public List<Image> profile() {
+//		return image.profile();
+//	}
 	
 
 }

@@ -23,7 +23,6 @@ public class PageController {
 		return "index";
 	}
 	
-
 	@GetMapping("/signUp")
 	public String signUp() {
 		return "signUp/signUp";

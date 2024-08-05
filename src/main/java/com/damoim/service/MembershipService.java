@@ -13,14 +13,7 @@ import mapper.MembershipMapper;
 @Service
 public class MembershipService {
 	
-	@Autowired
-	private MembershipMapper Mapper;
-	
-	public List<MembershipUserList> allMembership(){
-		
-		return Mapper.allMembership();
-	}
-	
+
 	
 
 }

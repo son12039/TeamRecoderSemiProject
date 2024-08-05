@@ -43,6 +43,19 @@
   width: 100%;
   height: 80vh;
 }
+.searchBox{
+	display: flex;
+	justify-content : space-between;
+	
+
+}
+.search{
+	display: flex;
+	justify-content : space-between;
+	background-color: white;
+	padding: 10px;
+	margin: 5px
+}
 .login-box {
   background: rgba(255, 255, 255, 0.1);
   padding: 40px;
@@ -53,7 +66,7 @@
 }
 .login-box h1 {
   margin-bottom: 30px;
-  color: #271E04;
+  color: #271e04;
   font-size: 2em;
 }
 .textbox {
@@ -65,7 +78,7 @@
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
-  color: #271E04;
+  color: #271e04;
 }
 .textbox input {
   width: 100%;
@@ -73,7 +86,7 @@
   background: rgba(255, 255, 255, 0.2);
   border: none;
   border-radius: 5px;
-  color: #0A0A0A;
+  color: #0a0a0a;
   font-size: 1em;
 }
 .textbox input::placeholder {
@@ -81,7 +94,7 @@
 }
 .btn {
   width: 100%;
-  background: #FFCC33;
+  background: #ffcc33;
   border: none;
   padding: 15px;
   color: #000000;
@@ -92,7 +105,7 @@
   margin-bottom: 20px;
 }
 .btn:hover {
-  background: #FF9966;
+  background: #ff9966;
 }
 .login-boxs {
   display: flex;
@@ -104,10 +117,7 @@
   width: 100%;
   background-color: rgb(23, 78, 166);
 }
-.naver_box {
-}
-.facebook_box {
-}
+
 /*====== (keyframes) ===========================*/
 @keyframes textSlide {
   from {
@@ -136,66 +146,56 @@
   }
 }
 
-
 .membership-list {
-	width: 1000px;
-	display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
+  width: 1000px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
   margin: auto;
   border-radius: 15px;
-    
-   
-	
 }
-.membership-card{
-	display: flex;
-	width:49%;
-	background-color: white;
-	 border-radius: 15px;
-	 margin: 5px;
+.membership-card {
+  display: flex;
+  width: 49%;
+  background-color: white;
+  border-radius: 15px;
+  margin: 5px;
 }
 img {
-	
-	border-radius: 15px;
-	width: 200px;
-	height: 200px;
-	margin:20px;
+  border-radius: 15px;
+  width: 200px;
+  height: 200px;
+  margin: 20px;
 }
 
-body{
-	background-color: beige;
+body {
+  background-color: beige;
 }
 
 .membership-name {
-	font-weight: bolder;
-	font-size: 20px;
-	
-}	
+  font-weight: bolder;
+  font-size: 20px;
+}
 
 .membership-info {
-	
-	width: 200px;
-	height: 200px;
-	margin:20px;
-	border-radius: 15px;
-	
+  width: 200px;
+  height: 200px;
+  margin: 20px;
+  border-radius: 15px;
 }
 
-.membership-info h1{
-	font-weight: bolder;
-	font-size: 20px;
+.membership-info h1 {
+  font-weight: bolder;
+  font-size: 20px;
 }
-.membership-info h2{
-	margin-top:30px;
-	color: #999;
-}
-
-.user-img{
-	border-radius: 50%;
-	width: 50px;
-	height: 50px;
+.membership-info h2 {
+  margin-top: 30px;
+  color: #999;
 }
 
-
+.user-img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}

@@ -13,38 +13,57 @@ import com.damoim.service.MemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.RequestBody;
-
-
 
 @Controller
 public class MemberController {
-
 	@Autowired
-	 private MemberService service;
-	
-	 
-
-//	String id, String pwd, int age
-	
-	@PostMapping("/register")
-	public String register(Member member) {
-		
-
-		service.register(member);
-		System.out.println(member);
-		return "redirect:/";
-	}
+	private MemberService service;
 	
 	@PostMapping("/login")
-	public String login(Member member, HttpServletRequest request) {
-		 
+	public String login(Member member,HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.setAttribute("mem", service.login(member));
+		return "redirect:/";
+		
+	}
+	@PostMapping("/idCheck")
+	public String idCheck(Member member,Model model) {
+		boolean idResult = false;
+		Member mem = service.idCheck(member);
+		if(mem == null) {
+			idResult = true;
+			model.addAttribute("idResult", idResult);
+		}else {
+			model.addAttribute("idResult", idResult);
+		}
+		return "signUp/signUp";
+		
+	}
+	@PostMapping("/nicknameCheck")
+	public String nicknameCheck(Member member,Model model) {
+		boolean nicknameResult = false;
+		Member mem = service.idCheck(member);
+		if(mem == null) {
+			nicknameResult = true;
+			model.addAttribute("idResult", nicknameResult);
+		}else {
+			model.addAttribute("idResult", nicknameResult);
+		}
+		return "signUp/signUp";
+	}
+
+	@PostMapping("/signUp")
+	public String signUp(Member member) {
+		
+		System.out.println(member);
+		
+		service.signUp(member);
+		
 		
 		return "redirect:/";
+		
 	}
-	
+
 	@GetMapping("/logout")
     public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();

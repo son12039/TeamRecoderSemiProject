@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage.css" />
+    <link
+      rel="stylesheet"
+      href="${pageContext.request.contextPath}/css/reset.css"
+    />
+    <link
+      rel="stylesheet"
+      href="${pageContext.request.contextPath}/css/mypage.css"
+    />
     <title>Document</title>
   </head>
   <body>
@@ -18,7 +24,7 @@
         <div class="menu">menu3</div>
         <div class="menu">menu4</div>
         <div class="header_right">
-        <a href="/">HOME</a>
+          <a href="/">HOME</a>
           <a href="/logout">로그아웃</a>
         </div>
       </div>
@@ -32,12 +38,11 @@
             </div></label
           >
           <div class="info">
-          <div class="text"> 비밀번호 변경 </div>
-          <form action="/update" method="post">
-   <input type="text" name="pwd" value="${mem.pwd}">
-   <input type="submit" value="수정">
- </form>
-          
+            <div class="text">비밀번호 변경</div>
+            <form action="/update" method="post">
+              <input type="text" name="pwd" value="${mem.pwd}" />
+              <input type="submit" value="수정" />
+            </form>
           </div>
           <div class="info">
             <div class="text">이름</div>

@@ -1,21 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
     <!DOCTYPE html>
     <html lang="en">
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>로그인 페이지</title>
-      
         <link
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/reset.css"
         />
           <link
           rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/login.css"
+          href="${pageContext.request.contextPath}/css/index.css"
         />
        
       </head>
@@ -23,7 +21,7 @@ pageEncoding="UTF-8"%>
      
         <div class="header">
           <div class="header_left">
-            <div class="LOGO">DAMOIM</div>
+          <a href="/"> <div class="LOGO">DAMOIM</div></a> 
             <div class="menu">menu1</div>
             <div class="menu">menu2</div>
             <div class="menu">menu3</div>
@@ -31,7 +29,7 @@ pageEncoding="UTF-8"%>
             <div class="header_right">
           <c:if test="${empty mem}">
               <div class="header_right_menu">
-                <a href="/">회원가입</a>
+                <a href="/signUp">회원가입</a>
               </div>
             
               </c:if>
@@ -57,17 +55,15 @@ pageEncoding="UTF-8"%>
                 <i class="fas fa-lock"></i>
                 <input type="password" placeholder="비밀번호" name="pwd" />
               </div>
-             <a href="/register">아직 회원이 아니라면?</a> <input type="submit" class="btn" value="로그인" />
+            <input type="submit" class="btn" value="로그인" />
             </form>
-            <div class="login-boxs">
-              <div class="google_box">
-                <a href="https://www.google.com/">GOOGLE</a>
+            <div class="searchBox">
+              <div>
+                <a class="search" href="https://www.google.com/">아이디 / 비밀번호 찾기</a>
               </div>
-              <div class="naver_box">
-                <a href="https://www.naver.com/">NAVER</a>
-              </div>
-              <div class="facebook_box">
-                <a href="https://www.facebook.com/">FACEBOOK</a>
+              
+              <div>
+                <a class="search" href="/signUp">회원가입</a>
               </div>
             </div>
           </div>

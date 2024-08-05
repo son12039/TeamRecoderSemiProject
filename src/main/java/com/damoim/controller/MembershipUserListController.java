@@ -1,5 +1,8 @@
 package com.damoim.controller;
 
-public class MembershipUserListController {
+import org.springframework.stereotype.Controller;
 
+@Controller
+public class MembershipUserListController {
+	
 }

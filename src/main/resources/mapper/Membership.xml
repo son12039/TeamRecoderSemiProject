@@ -31,7 +31,11 @@ JOIN member USING (id)
 WHERE list_grade = "host";
 </select>
 
-
+<select id="main" parameterType="Membership"  resultMap="membershipmap">
+SELECT *
+FROM  membership
+WHERE membership_code = ${membershipCode}
+</select>
 
 
 

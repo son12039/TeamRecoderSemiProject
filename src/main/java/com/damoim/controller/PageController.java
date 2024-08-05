@@ -1,32 +1,48 @@
 package com.damoim.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.damoim.service.MembershipService;
 
 @Controller
 public class PageController {
 	
-//	마이페이지
-	@GetMapping("/mypage")
-	public String mypage() {
-		return "/mypage/mypage";
+
+
+	@Autowired
+	private MembershipService service;
+	
+
+	@GetMapping("/")
+	public String index(Model model) {
+		model.addAttribute("list", service.allMembership());
+		return "index";
 	}
 	
-//	로그인 페이지
-	@GetMapping("/login")
-	public String login() {
-		return "/mypage/login";
+
+	@GetMapping("/signUp")
+	public String signUp() {
+		return "signUp/signUp";
 	}
-//	회원가입 페이지
-	@GetMapping("/register")
-	public String register() {
-		return "/mypage/register";
+	
+	@GetMapping("/mypage")
+	public String mypage() {
+		return "mypage/mypage";
 	}
-//	main 생성 페이지
 	@GetMapping("/mainCreate")
 	public String mainCreate() {
 		return "/mypage/mainCreate";
 	}
 	
 	
+	
+
+
+ 
+	 
+
 }

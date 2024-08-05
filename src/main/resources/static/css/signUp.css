@@ -1,1 +1,103 @@
-@charset "UTF-8";
+/* 전체 레이아웃 */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  padding: 40px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 페이지 스타일 */
+.page {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+}
+
+.page.visible {
+  display: flex;
+}
+
+.page h2 {
+  margin: 0 0 30px;
+  font-size: 30px;
+  color: #000;
+  text-align: center;
+}
+
+
+.formBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+
+.formBox label {
+  font-weight: bold;
+  margin-right: 50px;
+  margin-left : 50px;
+  color: #333;
+}
+
+
+.formBox input {
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+
+
+/* 네비게이션 버튼 */
+.pageButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.pageButtons button,#singUp {
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.pageButtons button:hover {
+  background-color: #d5d5d5;
+}
+#genderM, #genderF{
+	width: 20px;
+	height: 20px;
+}
+
+
+

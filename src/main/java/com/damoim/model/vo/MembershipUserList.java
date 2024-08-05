@@ -12,5 +12,7 @@ public class MembershipUserList {
     private int membershipCode; // 클럽코드
     private Image image;
     private Main main;
+    private Member member; // 멤버 연결 
+    private Membership membership; // 멤버십 연결 
 }
 

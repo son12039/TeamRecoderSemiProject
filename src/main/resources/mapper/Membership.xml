@@ -44,11 +44,16 @@ SELECT *
 FROM membership_user_list
 JOIN membership USING (membership_code)
 JOIN member USING (id)
-WHERE membership_code = "${memebershipCode}" ;
+WHERE membership_code = "${memebershipCode}" AND list_grade = "host" ;
 </select>
 
 
-
+<select id="count" parameterType="Integer" resultType="Integer">
+SELECT count(*) as count
+FROM membership_user_list
+WHERE membership_code= #{i}
+GROUP BY membership_code;
+</select>
 
 
 

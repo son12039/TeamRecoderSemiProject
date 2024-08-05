@@ -80,7 +80,7 @@ pageEncoding="UTF-8"%>
         
         <div class="membership-list">
         
-       <c:forEach  items="${list}" var="id">
+       <c:forEach  items="${list}" var="id" varStatus="status">
       
        <div class="membership-card">
        <div class="membership-img">
@@ -92,10 +92,14 @@ pageEncoding="UTF-8"%>
        <h1 class="membership-name"> ${id.membership.membershipName}</h1>
        <h2>${id.membership.membershipInfo} </h2>   
        <h2>호스트 : ${id.member.nickname}, 멤버쉽 코드 : ${id.membership.membershipCode}</h2>
+     
+       <h3>가입인원수 : ${codeList.get(status.index)}</h3>
+        
       
-          
+
         <c:choose>
-        <c:when test="${id.member.memberImg.equals('')}">
+        
+        <c:when test="${id.member.memberImg == ''}">
         <img class="user-img" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
         </c:when>
         <c:otherwise>

@@ -26,6 +26,9 @@ public class MembershipService {
 		return Mapper.main(membershipCode);
 	}
 	
-	
+	public Integer count(Integer membershipCode) {
+		
+		return Mapper.count(membershipCode);
+	}
 
 }

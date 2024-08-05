@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -19,16 +20,27 @@
           <h2>*회원가입*</h2>
           <div class="formBox">
             <label for="id">아이디</label>
+            <form action="/idCheck" method="post">
+            <input type="submit" value="중복 확인"> 
             <input type="text" id="id" name="id" required placeholder="아이디를 입력하세요" autofocus />
-              
+             </form>
+             <c:choose>
+            	<c:when test="${idResult}"> 
+            		<input type="text" name="id" value="${member.id}">
+            	</c:when>
+            	<c:otherwise>
+            		
+            	</c:otherwise>
+             </c:choose>
+             
           </div>
           <div class="formBox">
             <label for="pwd">비밀번호</label>
-            <input type="password" id="pwd" name="pwd" required placeholder="비밀번호를 입력하세요" />
+            <input type="password" id="pwd" name="pwd"  placeholder="비밀번호를 입력하세요" />
           </div>
           <div class="formBox">
             <label for="pwdc">비밀번호 확인</label>
-            <input type="password" id="pwdc" required  placeholder="비밀번호를 입력하세요" />
+            <input type="password" id="pwdc"   placeholder="비밀번호를 입력하세요" />
           </div>
           <div class="formBox">
             <label for="addr">주소</label>
@@ -40,11 +52,11 @@
           </div>
           <div class="formBox">
             <label for="email">이메일</label>
-            <input type="text" id="email" name="email" required placeholder="이메일을 입력하세요" />
+            <input type="text" id="email" name="email"  placeholder="이메일을 입력하세요" />
           </div>
           <div class="formBox">
             <label for="name">이름</label>
-            <input type="text" id="name" name="name" required placeholder="이름을 입력하세요" />
+            <input type="text" id="name" name="name"  placeholder="이름을 입력하세요" />
           </div>
           <div class="formBox">
             <label for="age">나이</label>
@@ -65,22 +77,20 @@
         <div id="page2" class="page hidden">
           <h2>*회원가입*</h2>
           <div class="formBox">
-            <label for="nickname">닉네임</label>
-            <input
-              type="text"
-              id="nickname"
-              name="nickname"
-              placeholder="닉네임을 입력하세요"
-              required
-            />
+            <label for="nickname">닉네임</label> 
+                        <form action="/nicknameCheck" method="post"><input type="submit" value="중복 확인"> 
+            <input type="text" id="nickname" name="nickname"  placeholder="닉네임을 입력하세요" required />
+             </form>
+             <input type="hidden" name="nickname" value="${member.nickname}">
+     
           </div>
           <div class="formBox">
-            <label for="memberImg">유저 프로필 사진 URL</label>
+            <label for="memberImg">프로필 사진</label>
             <input
-              type="text"
+              type="file"
               id="memberImg"
               name="memberImg"
-              placeholder="프로필 사진 URL을 입력하세요"
+              placeholder="프로필 사진을 선택하시오"
             />
           </div>
           <div class="formBox">

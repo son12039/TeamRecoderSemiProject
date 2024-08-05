@@ -29,7 +29,15 @@ public class MemberService {
 	public void signUp(Member member) {
 			mapper.signUp(member);
 		
-	}	
+	}
+	public Member idCheck(Member member) {
+		return mapper.idCheck(member);
+		
+	}
+	public Member nicknameCheck(Member member) {
+		return mapper.nicknameCheck(member);
+		
+	}
 
 	
 	

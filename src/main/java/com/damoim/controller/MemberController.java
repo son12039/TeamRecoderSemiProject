@@ -2,6 +2,7 @@ package com.damoim.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -23,9 +24,35 @@ public class MemberController {
 		return "redirect:/";
 		
 	}
+	@PostMapping("/idCheck")
+	public String idCheck(Member member,Model model) {
+		boolean idResult = false;
+		Member mem = service.idCheck(member);
+		if(mem == null) {
+			idResult = true;
+			model.addAttribute("idResult", idResult);
+		}else {
+			model.addAttribute("idResult", idResult);
+		}
+		return "signUp/signUp";
+		
+	}
+	@PostMapping("/nicknameCheck")
+	public String nicknameCheck(Member member,Model model) {
+		boolean nicknameResult = false;
+		Member mem = service.idCheck(member);
+		if(mem == null) {
+			nicknameResult = true;
+			model.addAttribute("idResult", nicknameResult);
+		}else {
+			model.addAttribute("idResult", nicknameResult);
+		}
+		return "signUp/signUp";
+	}
 
 	@PostMapping("/signUp")
 	public String signUp(Member member) {
+		
 		System.out.println(member);
 		
 		service.signUp(member);

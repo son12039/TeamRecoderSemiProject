@@ -6,14 +6,14 @@ CREATE TABLE member ( -- 회원가입
     pwd VARCHAR(255) NOT NULL, -- 비밀번호
     addr VARCHAR(255), -- 주소
     phone VARCHAR(20), -- 전화번호
-    email VARCHAR(100) UNIQUE, -- 이메일
+    email VARCHAR(100), -- 이메일
     name VARCHAR(50), -- 이름
     age INT, -- 나이
     gender CHAR(1), -- 성별 M/F
     status BOOLEAN DEFAULT TRUE, -- 유저 가입,탈퇴 여부
 	member_manner DECIMAL(4,2) DEFAULT (36.50), -- 유저온도 0.00 ~ 99.99까지가능
     nickname VARCHAR(50) UNIQUE, -- 닉네임
-    member_img VARCHAR(255), -- 유저프로필사진
+    member_img VARCHAR(255) DEFAULT("http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg"), -- 유저프로필사진
     member_hobby TEXT, -- 유저 관심사
     member_info TEXT, -- 유저 간단한 자기소개
     member_location VARCHAR(100), -- 유저선호지역

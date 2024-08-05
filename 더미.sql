@@ -21,3 +21,5 @@ values ('asd123', '123' , '감자왕국',"010-0000-1234",'감자',5,'M','감자�
 
 insert into user (id, user_name, user_info)
 values ('asd123','감자대마왕', '저는감자를좋아해요');
+
+SELECT * FROM membership_us

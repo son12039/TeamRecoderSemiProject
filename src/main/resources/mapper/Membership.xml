@@ -27,7 +27,8 @@
 SELECT *
 FROM membership_user_list
 JOIN membership USING (membership_code)
-JOIN member USING (id); 
+JOIN member USING (id)
+WHERE list_grade = "host";
 </select>
 
 

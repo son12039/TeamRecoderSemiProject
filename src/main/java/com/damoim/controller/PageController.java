@@ -20,7 +20,8 @@ public class PageController {
 	 public String index(Model model) {
 		 System.out.println(1);
 		
-		 
+		
+		 System.out.println(service.allMembership().get(0).getMember().getMemberImg());
 		 System.out.println(service.allMembership());
 		 model.addAttribute("list",service.allMembership());
 		

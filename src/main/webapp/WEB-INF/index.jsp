@@ -80,6 +80,8 @@ pageEncoding="UTF-8"%>
           </div>      
           </c:if>
         </div>
+        
+        
         <div class="membership-list">
         
        <c:forEach  items="${list}" var="id">
@@ -90,12 +92,24 @@ pageEncoding="UTF-8"%>
        <div class="membership-info">
        <h1 class="membership-name"> ${id.membership.membershipName}</h1>
        <h2>${id.membership.membershipInfo} </h2>   
-       <h2>호스트 : ${id.member.nickname}</h2>  
-       <img  src="${id.member.memberImg}"> 
+       <h2>호스트 : ${id.member.nickname}</h2>
+      
+    
+        <c:choose>
+        <c:when test="${id.member.memberImg.equals('')}">
+        <img class="user-img" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+        </c:when>
+        <c:otherwise>
+       <img class="user-img" src="${id.member.memberImg}"> 
+       </c:otherwise>
+       </c:choose>
+    
+     
        </div>
        </div>
        </c:forEach>
-         </div>
+        </div>
+      
         
          
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>

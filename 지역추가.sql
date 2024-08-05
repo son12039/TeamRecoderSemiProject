@@ -1,7 +1,7 @@
 
 
--- SELECT * FROM location_category_large
--- join location_category_small using (loc_la_code);
+SELECT * FROM location_category_large
+join location_category_small using (loc_la_code);
 
 
 -- 위치대분류 데이터 삽입

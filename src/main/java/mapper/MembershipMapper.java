@@ -11,5 +11,7 @@ import com.damoim.model.vo.MembershipUserList;
 public interface MembershipMapper {
 	
 	List<MembershipUserList> allMembership();
+	MembershipUserList main(int membershipCode);
+	int membershipUserCount(int membershipCode);
 
 }

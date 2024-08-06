@@ -32,13 +32,16 @@ JOIN membership USING (membership_code)
 JOIN member USING (id)
 WHERE list_grade = "host";
 </select>
+<insert id="membershipApply" parameterType="MemberListDTO">
+INSERT INTO membership_user_list(membership_code , id,list_grade)
+VALUES(#{membershipCode},#{id},#{listGrade})
+</insert>
 
-
-
-
-
-
-
+<select id="checkMember" parameterType="MemberListDTO" resultType="MemberListDTO">
+        SELECT *
+        FROM membership_user_list
+        WHERE id = #{id} AND membership_code = #{membershipCode};
+</select>
 
 
 <select id="main" parameterType="Integer"  resultMap="membershipmap">
@@ -52,7 +55,7 @@ WHERE membership_code = "${memebershipCode}" AND list_grade = "host";
 <select id="membershipUserCount" parameterType="Integer"  resultType="Integer">
 	SELECT count(membership_code) as count
 	FROM membership_user_list
-	WHERE membership_code = #{membershipCode}
+	WHERE membership_code = #{membershipCode} AND list_grade != "guest"
 	GROUP BY membership_code
 </select>
 

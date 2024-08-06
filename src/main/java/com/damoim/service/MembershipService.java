@@ -29,8 +29,12 @@ public class MembershipService {
    public int membershipUserCount(int count){
 		return Mapper.membershipUserCount(count);
  	}
-   public void membershipApply() {
+   public void membershipApply(MemberListDTO member) {
+	   Mapper.membershipApply(member);
 	   
+   }
+   public MemberListDTO checkMember(MemberListDTO member) {
+	   return Mapper.checkMember(member);
    }
 	
 	

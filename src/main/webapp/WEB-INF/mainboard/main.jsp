@@ -23,14 +23,19 @@
     <p>인원 현황 :  ${membershipUserCount}/${main.membership.membershipMax}</p>
     <h4>호스트 : ${main.member.nickname}</h4>
     <p>가입조건 : 사지멀쩡한 남녀노소 누구나!!</p>
-   <c:if test="${mem != null}"> 
+    <c:choose>
+   <c:when test="${checkMember == null && mem != null}"> 
     <form action="/membershipApply" method="post">
     <input type="submit" value="가입 신청하기">
     <input type="hidden" name="membershipCode" value="${main.membership.membershipCode}">
     <input type="hidden" name="id" value="${mem.id}">
     <input type="hidden" name="listGrade" value="guest">
     </form>
-    </c:if>
+    </c:when>
+    <c:when test="${checkMember != null}">
+    <h2>이미 가입 신청한 클럽이거나 가입한 클럽입니다.</h2>
+    </c:when>
+    </c:choose>
 </div>
 </body>
 </html>

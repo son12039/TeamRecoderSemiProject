@@ -14,6 +14,8 @@ public class MembershipController {
 	
 	@PostMapping("/membershipApply")
 	public String membershipApply(MemberListDTO member) {
+		System.out.println(member);
+		service.membershipApply(member);
 		
 		return "redirect:/";	
 	}

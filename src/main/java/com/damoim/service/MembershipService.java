@@ -39,12 +39,11 @@ public class MembershipService {
 	
 
 	public void makeMembership(Membership membership) {
-		System.out.println("----Service!!");
-		System.out.println();
+
 		Mapper.makeMembership(membership);
 	}
 	
-	public void host(MembershipUserList list) {
+	public void host(MemberListDTO list) {
 		Mapper.host(list);
 	}
 	

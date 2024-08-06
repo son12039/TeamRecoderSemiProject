@@ -17,56 +17,42 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
-
 @Controller
 public class MembershipController {
-       
-	   @Autowired
-	   private MembershipService service;
-	
-	   
-	   @GetMapping("/makeMembership")
-	   public String makeMembership(  ) {
-	   	return  "/mypage/makeMembership";
-	   }
-	   
-	   @PostMapping("/makeMembership")
-	   public String makeMembership(MembershipDTO dto) {
-		 	System.out.println(dto.getListGrade());
-		 	
-		 Membership membership = Membership.builder()
-	 		.membershipName(dto.getMembershipName())
-	 		.membershipInfo(dto.getMembershipInfo())
-	 		.membershipMax(Integer.parseInt(dto.getMembershipMax())).build();
-		 
-		  service.makeMembership(membership);
-		  
-		  System.out.println(membership.getMembershipCode());
-		  
 
-		  
-		 MembershipUserList list = MembershipUserList.builder()
-				 							.listGrade(dto.getListGrade())
-				 							.id(dto.getId())
-				 							.membershipCode(membership.getMembershipCode())
-				 							.build();
-	   	service.host(list);
-	  
-	   	
-	   	return "redirect:/";
-	   }
-	   
-	   
-	   
-	   @PostMapping("/membershipApply")
-	public String membershipApply(MemberListDTO member) {
-		System.out.println(member);
-		service.membershipApply(member);
-		
-		return "redirect:/";	
+	@Autowired
+	private MembershipService service;
+
+	@GetMapping("/makeMembership")
+	public String makeMembership() {
+		return "/mypage/makeMembership";
 	}
-	   
-	   
-	   
-	
+
+	@PostMapping("/makeMembership")
+	public String makeMembership(MembershipDTO dto) {
+		Membership membership = Membership.builder()
+				.membershipName(dto.getMembershipName())
+				.membershipInfo(dto.getMembershipInfo())
+				.membershipMax(Integer.parseInt(dto.getMembershipMax())
+						).build();
+		
+		service.makeMembership(membership);
+
+		MemberListDTO list = new MemberListDTO();
+				list.setId(dto.getId());
+				list.setListGrade(dto.getListGrade());
+				list.setMembershipCode(membership.getMembershipCode());
+		
+		service.host(list);
+
+		return "redirect:/";
+	}
+
+	@PostMapping("/membershipApply")
+	public String membershipApply(MemberListDTO member) {
+		service.membershipApply(member);
+
+		return "redirect:/";
+	}
+
 }

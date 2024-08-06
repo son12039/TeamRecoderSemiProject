@@ -64,15 +64,14 @@ WHERE membership_code= #{i}
 GROUP BY membership_code;
 </select>
 
-<insert id="makeMembership" parameterType="Membership">
+<insert id="makeMembership" parameterType="Membership" useGeneratedKeys="true" keyProperty="membershipCode">
 INSERT INTO membership(membership_name,membership_img,membership_info,membership_max) 
 VALUES(#{membershipName},#{membershipImg},#{membershipInfo},#{membershipMax})
-
 </insert>
 
 <insert id="host" parameterType="MembershipUserList">
-INSERT INTO member_user_list (list_grade,id,membership_code) 
-VALUES ("host",#{id},#{membershipCode})
+INSERT INTO membership_user_list (list_grade,id,membership_code) 
+VALUES ("host",#{id},#{membershipCode});
 </insert>
 
 

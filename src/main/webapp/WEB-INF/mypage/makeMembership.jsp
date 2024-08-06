@@ -12,7 +12,8 @@
   사진첨부: <input type="file" name="membershipImg">
    클럽소개 :<input type="text" name="membershipInfo">
     최대 인원 : <input type="text" name="membershipMax">
-     <input type="hidden" name=id value="${mem.id}">
+    <h2> ${mem.id}</h2>
+     <input type="hidden" name="id" value="${mem.id}">
      <input type="hidden" name="listGrade" value="host">
     <button type="submit">클럽생성</button>
     </form>

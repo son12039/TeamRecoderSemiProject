@@ -1,10 +1,11 @@
 package com.damoim.model.vo;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @AllArgsConstructor @NoArgsConstructor
+@Data @AllArgsConstructor @NoArgsConstructor @Builder
 public class Member {
     private String id; // 아이디
     private String pwd; // 비밀번호

@@ -29,23 +29,24 @@ public class MembershipService {
    public int membershipUserCount(int count){
 		return Mapper.membershipUserCount(count);
  	}
+   
+   
+   
    public void membershipApply(MemberListDTO member) {
 	   Mapper.membershipApply(member);
-	   
-   }
-   public MemberListDTO checkMember(MemberListDTO member) {
-	   return Mapper.checkMember(member);
    }
 	
 
 	public void makeMembership(Membership membership) {
-
+		
 		Mapper.makeMembership(membership);
 	}
 	
 	public void host(MemberListDTO list) {
 		Mapper.host(list);
 	}
-	
+	public MemberListDTO checkMember(MemberListDTO member) {
+		return Mapper.checkMember(member);
+	}
 
 }

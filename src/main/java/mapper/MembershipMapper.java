@@ -15,9 +15,14 @@ public interface MembershipMapper {
 	List<MembershipUserList> allMembership();
 	MembershipUserList main(int membershipCode);
 	int membershipUserCount(int membershipCode);
+	
+
 	void membershipApply(MemberListDTO member);
-	MemberListDTO checkMember(MemberListDTO member);
+	
 	void makeMembership(Membership membership);
+	
 	void host(MemberListDTO list);
+	
+	MemberListDTO checkMember(MemberListDTO member);
 
 }

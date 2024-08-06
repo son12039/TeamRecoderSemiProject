@@ -14,4 +14,7 @@ public interface MemberMapper {
 	Member nicknameCheck(Member member);
 	Member pwdCheck(Member member);	
 	void update(Member member);
+	
+	
+	String grade(Member member);
 }

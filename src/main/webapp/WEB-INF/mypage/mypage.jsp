@@ -70,7 +70,7 @@ pageEncoding="UTF-8"%>
           </div>
           <div class="info">
             <div class="text">회원등급</div>
-            <h1></h1>
+            <h1>${mem.listGrade}</h1>
           </div>
         </div>
       </div>

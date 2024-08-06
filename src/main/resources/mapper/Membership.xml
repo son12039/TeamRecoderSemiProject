@@ -33,6 +33,20 @@
 		WHERE list_grade = "host";
 	</select>
 	
+	
+	
+	<select id="grade" parameterType="Member" resultMap="membershipmap">
+		SELECT *
+		FROM membership_user_list
+		JOIN membership USING (membership_code)
+		JOIN member USING (id)
+		WHERE id=#{id};
+		
+	</select>
+	
+	
+	
+	
 	<insert id="membershipApply" parameterType="MemberListDTO">
 		INSERT INTO membership_user_list(membership_code , id,list_grade)
 		VALUES(#{membershipCode},#{id},#{listGrade})

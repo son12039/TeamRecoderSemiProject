@@ -39,4 +39,18 @@ WHERE list_grade = "host";
 
 
 
+<select id="main" parameterType="Integer"  resultMap="membershipmap">
+SELECT *
+FROM membership_user_list
+JOIN membership USING (membership_code)
+JOIN member USING (id)
+WHERE membership_code = "${memebershipCode}" ;
+</select>
+
+
+
+
+
+
+
  </mapper>

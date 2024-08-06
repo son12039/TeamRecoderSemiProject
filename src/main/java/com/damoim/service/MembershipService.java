@@ -21,6 +21,11 @@ public class MembershipService {
 		return Mapper.allMembership();
 	}
 	
+   public MembershipUserList main(Integer membershipCode){
+		
+		return Mapper.main(membershipCode);
+	}
+	
 	
 
 }

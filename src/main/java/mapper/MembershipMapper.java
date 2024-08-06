@@ -3,6 +3,7 @@ package mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 
 import com.damoim.model.dto.SearchDTO;
 import com.damoim.model.vo.Member;
@@ -13,7 +14,11 @@ import com.damoim.model.vo.MembershipUserList;
 public interface MembershipMapper {
 	
 	List<MembershipUserList> allMembership();
-	Member search (SearchDTO dto);
-	
-	
+	MembershipUserList main(int membershipCode);
+	int membershipUserCount(int membershipCode);
+	void membershipApply(MemberListDTO member);
+	MemberListDTO checkMember(MemberListDTO member);
+	void makeMembership(Membership membership);
+	void host(MemberListDTO list);
+
 }

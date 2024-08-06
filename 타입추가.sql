@@ -1,60 +1,45 @@
+INSERT INTO type_category (type_la_name, type_s_name) VALUES
+('액티비티', '자전거'),
+('액티비티', '배드민턴'),
+('액티비티', '등산'),
+('액티비티', '야구'),
+('액티비티', '서핑'),
+('액티비티', '클라이밍'),
+('액티비티', '농구');
 
+-- 푸드, 드링크 대분류 및 소분류 데이터 삽입
+INSERT INTO type_category (type_la_name, type_s_name) VALUES
+('푸드,드링크', '맛집투어'),
+('푸드,드링크', '베이킹'),
+('푸드,드링크', '카페'),
+('푸드,드링크', '위스키'),
+('푸드,드링크', '전통주');
 
-INSERT INTO type_category_large(type_la_name) VALUES("액티비티");
-INSERT INTO type_category_large(type_la_name) VALUES("푸드,드링크");
-INSERT INTO type_category_large(type_la_name) VALUES("취미");
-INSERT INTO type_category_large(type_la_name) VALUES("문화예술");
-INSERT INTO type_category_large(type_la_name) VALUES("스터디");
-START TRANSACTION;
--- 액티비티의 type_la_code를 찾기
-SET @activity_code = (SELECT type_la_code FROM type_category_large WHERE type_la_name = '액티비티');
--- 푸드, 드링크의 type_la_code를 찾기
-SET @food_drink_code = (SELECT type_la_code FROM type_category_large WHERE type_la_name = '푸드,드링크');
--- 취미의 type_la_code를 찾기
-SET @hobby_code = (SELECT type_la_code FROM type_category_large WHERE type_la_name = '취미');
--- 문화예술의 type_la_code를 찾기
-SET @culture_arts_code = (SELECT type_la_code FROM type_category_large WHERE type_la_name = '문화예술');
--- 스터디의 type_la_code를 찾기
-SET @study_code = (SELECT type_la_code FROM type_category_large WHERE type_la_name = '스터디');
--- 액티비티 관련 데이터 삽입
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('자전거', @activity_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('배드민턴', @activity_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('등산', @activity_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('야구', @activity_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('서핑', @activity_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('클라이밍', @activity_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('농구', @activity_code);
--- 푸드, 드링크 관련 데이터 삽입
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('맛집투어', @food_drink_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('베이킹', @food_drink_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('카페', @food_drink_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('위스키', @food_drink_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('전통주', @food_drink_code);
--- 취미 관련 데이터 삽입
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('공예', @hobby_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('보드게임', @hobby_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('드로잉', @hobby_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('PC게임', @hobby_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('모바일게임', @hobby_code);
--- 문화예술 관련 데이터 삽입
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('영화', @culture_arts_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('전시', @culture_arts_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('페스티벌', @culture_arts_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('힙합', @culture_arts_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('미술', @culture_arts_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('대중가요', @culture_arts_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('콘서트', @culture_arts_code);
--- 스터디 관련 데이터 삽입
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('코딩', @study_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('공무원', @study_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('자격증', @study_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('영어', @study_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('중국어', @study_code);
-INSERT INTO type_category_small(type_s_name, type_la_code) VALUES ('일본어', @study_code);
-COMMIT;
+-- 취미 대분류 및 소분류 데이터 삽입
+INSERT INTO type_category (type_la_name, type_s_name) VALUES
+('취미', '공예'),
+('취미', '보드게임'),
+('취미', '드로잉'),
+('취미', 'PC게임'),
+('취미', '모바일게임');
 
-SELECT *
-FROM type_category_small
-JOIN type_category_large USING (type_la_code);
-SELECT *
-FROM type_category_large;
+-- 문화예술 대분류 및 소분류 데이터 삽입
+INSERT INTO type_category (type_la_name, type_s_name) VALUES
+('문화예술', '영화'),
+('문화예술', '전시'),
+('문화예술', '페스티벌'),
+('문화예술', '힙합'),
+('문화예술', '미술'),
+('문화예술', '대중가요'),
+('문화예술', '콘서트');
+
+-- 스터디 대분류 및 소분류 데이터 삽입
+INSERT INTO type_category (type_la_name, type_s_name) VALUES
+('스터디', '코딩'),
+('스터디', '공무원'),
+('스터디', '자격증'),
+('스터디', '영어'),
+('스터디', '중국어'),
+('스터디', '일본어');
+
+SELECT * FROM type_category;

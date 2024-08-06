@@ -2,6 +2,7 @@ package com.damoim.service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +15,12 @@ import com.damoim.model.vo.MembershipUserList;
 public class MembershipUserListService {
 	
 	@Autowired
-	private MembershipUserListMapper mapper;
+	private MembershipUserListMapper listMapper;
 	
-	public List<MembershipUserList> membershipUserList(MembershipUserList membershipUserList){
+	public List<MembershipUserList> membershipUserList() {
 		
-		 return mapper.membershipUserList(membershipUserList);
+		return listMapper.membershipUserList();
 	}
-	
 
 }
 

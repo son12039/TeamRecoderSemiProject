@@ -1,16 +1,18 @@
 package com.damoim.service;
 
 import org.springframework.stereotype.Service;
+
 import org.springframework.transaction.annotation.Transactional;
 
+import com.damoim.model.dto.SearchDTO;
 import com.damoim.model.vo.Member;
 
 
 import mapper.MemberMapper;
 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 //xml -> Mapper -> service -> controller
 
@@ -50,5 +52,11 @@ public class MemberService {
 		
 		mapper.update(member);
 	}
+
+	public List<Member> search(SearchDTO dto) {
+		return mapper.search(dto);
+	}
+	
+
 	
 }

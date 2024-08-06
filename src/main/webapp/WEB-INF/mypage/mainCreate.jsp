@@ -12,7 +12,6 @@
   </head>
   <body>
     <div class="container">
-    <c:if test="${grade.listGrade eq 'host' or 'admin'}">
       <h1>클럽 생성</h1>
       <form action="/mainCreate" method="post" enctype="multipart/form-data">
         <div class="create_box">
@@ -40,11 +39,6 @@
         </div>
         <button type="submit">생성</button>
       </form>
-      </c:if>
-      <c:if test="${grade.listGrade eq 'nomal'}">
-      <h1>클럽생성은 호스트만 가능합니다</h1>
-      </c:if>
-       
     </div>
   </body>
 </html>

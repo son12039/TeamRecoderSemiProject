@@ -51,7 +51,7 @@ prefix="c" %>
           </div>
           <div class="info">
             <div class="text">연락처</div>
-            <h1>01026110875</h1>
+            <h1></h1>
           </div>
           <div class="info">
             <div class="text">주소</div>

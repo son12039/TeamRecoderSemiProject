@@ -9,9 +9,5 @@ import com.damoim.model.vo.MembershipUserList;
 @Mapper
 public interface MembershipUserListMapper {
 	
-	List<MembershipUserList> membershipUserList(MembershipUserList membershipUserList);
-	
-	
-	
-	
+	List<MembershipUserList> membershipUserList();
 }

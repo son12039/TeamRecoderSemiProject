@@ -30,6 +30,9 @@
 	SELECT *
 	FROM member
 	LEFT JOIN membership_user_list USING (id)
-	WHERE list_grade = ${#list_grade});
+	WHERE list_grade IN ('host');
 	</select>
+	
+	
+	
 </mapper>

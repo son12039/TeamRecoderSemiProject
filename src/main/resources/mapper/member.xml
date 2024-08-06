@@ -28,7 +28,18 @@
 		VALUES (#{id}, #{pwd}, #{addr}, #{phone}, #{email},#{name}, #{age},#{gender},
 				#{nickname},#{MemberImg},#{MemberHobby},#{MemberInfo},#{MemberLocation},#{MemberType} )			
 	</insert>
+	<select id="search" parameterType="SearchDTO" resultType="Member">
+			SELECT * FROM member
+		<if test = "select == 'nickname'">
+			WHERE nickname LIKE CONCAT('%', #{keyword},'%')
+		</if>
+<!-- 		<when test="select == 'id'">
+			id LIKE CONCAT('%', #{keyword},'%')
+		</when>
+		<when test="select == 'name'">
+			name LIKE CONCAT('%', #{keyword},'%') -->
+	</select>
 	
-
+	
 	
 </mapper> 

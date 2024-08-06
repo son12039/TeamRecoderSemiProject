@@ -15,36 +15,36 @@ import mapper.MembershipMapper;
 public class MembershipService {
 	
 	@Autowired
-	private MembershipMapper Mapper;
+	private MembershipMapper mapper;
 	
 	public List<MembershipUserList> allMembership(){
 		
-		return Mapper.allMembership();
+		return mapper.allMembership();
 	}
 	
    public MembershipUserList main(Integer membershipCode){
 		
-		return Mapper.main(membershipCode);
+		return mapper.main(membershipCode);
 	}
    public int membershipUserCount(int count){
-		return Mapper.membershipUserCount(count);
+		return mapper.membershipUserCount(count);
  	}
    public void membershipApply(MemberListDTO member) {
-	   Mapper.membershipApply(member);
+	   mapper.membershipApply(member);
 	   
    }
    public MemberListDTO checkMember(MemberListDTO member) {
-	   return Mapper.checkMember(member);
+	   return mapper.checkMember(member);
    }
 	
 
 	public void makeMembership(Membership membership) {
 
-		Mapper.makeMembership(membership);
+		mapper.makeMembership(membership);
 	}
 	
 	public void host(MemberListDTO list) {
-		Mapper.host(list);
+		mapper.host(list);
 	}
 	
 

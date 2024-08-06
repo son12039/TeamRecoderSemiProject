@@ -30,5 +30,10 @@ public class MembershipService {
 		
 		return Mapper.count(membershipCode);
 	}
+	
+	public void makeMembership(Membership membership) {
+		
+		Mapper.makeMembership(membership);
+	}
 
 }

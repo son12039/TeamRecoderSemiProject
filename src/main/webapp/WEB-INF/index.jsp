@@ -72,6 +72,10 @@ pageEncoding="UTF-8"%>
           <div class="container">
           <div class="login-box">
             <h1>${mem.name}님 환영합니다~</h1>
+              <form action="/makeMembership">            
+              <input type="hidden" name=id value="${mem.id}">
+              <button type="submit" value="클럽생성">클럽 만들기 </button>
+              </form>
             </div>
           </div>      
           </c:if>
@@ -95,9 +99,10 @@ pageEncoding="UTF-8"%>
        <input type="hidden" name="code" value="${id.membership.membershipCode}">
        <h3> 인원 현황 ${countList.get(status.index)}/${id.membership.membershipMax}</h3>
       
-          
+
         <c:choose>
-        <c:when test="${id.member.memberImg.equals('')}">
+        
+        <c:when test="${id.member.memberImg == ''}">
         <img class="user-img" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
         </c:when>
         <c:otherwise>

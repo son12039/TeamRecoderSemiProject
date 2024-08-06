@@ -37,6 +37,16 @@ public class MembershipService {
 	   return Mapper.checkMember(member);
    }
 	
+
+	public void makeMembership(Membership membership) {
+		System.out.println("----Service!!");
+		System.out.println();
+		Mapper.makeMembership(membership);
+	}
+	
+	public void host(MembershipUserList list) {
+		Mapper.host(list);
+	}
 	
 
 }

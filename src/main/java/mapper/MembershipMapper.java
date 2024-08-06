@@ -3,6 +3,7 @@ package mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Membership;
@@ -16,4 +17,10 @@ public interface MembershipMapper {
 	int membershipUserCount(int membershipCode);
 	void membershipApply(MemberListDTO member);
 	MemberListDTO checkMember(MemberListDTO member);
+	
+
+	void makeMembership(Membership membership);
+	
+	void host(MembershipUserList list);
+
 }

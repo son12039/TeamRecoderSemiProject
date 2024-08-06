@@ -9,16 +9,9 @@ import lombok.Setter;
 public class MemberListDTO {
 	
 	
-	    private String membershipCode;
-	    private String membershipName;
-	    private String membershipImg;
-	    private String membershipInfo;
-	    private String membershipDate;
-	    private String membershipGrade;
-	    private int membershipMax;
-	    private int count;
-	    private Member host;
-
+	    private int membershipCode; // 코드
+	    private String id; // 아이디
+	    private String listGrade; // 등급
 		
 	}
 

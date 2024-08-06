@@ -63,7 +63,7 @@ pageEncoding="UTF-8"%>
               </div>
               
               <div>
-                <a class="search" href="/signUp">회원가입</a>
+                <a class="search"  href="/signUp">회원가입</a>
               </div>
             </div>
           </div>
@@ -91,9 +91,9 @@ pageEncoding="UTF-8"%>
        <div class="membership-info">
        <h1 class="membership-name"> ${id.membership.membershipName}</h1>
        <h2>${id.membership.membershipInfo} </h2>   
-       <h2>호스트 : ${id.member.nickname}, 멤버쉽 코드 : ${id.membership.membershipCode}</h2>
+       <h2>호스트 : ${id.member.nickname}</h2>
        <input type="hidden" name="code" value="${id.membership.membershipCode}">
-       <h3> ${countList.${status.index}}/${id.membership.membershipMax}</h3>
+       <h3> 인원 현황 ${countList.get(status.index)}/${id.membership.membershipMax}</h3>
       
           
         <c:choose>

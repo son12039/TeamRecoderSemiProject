@@ -1,10 +1,11 @@
 
 
 SELECT *
-FROM type_category_small
-JOIN type_category_large USING (type_la_code);
+FROM type_category;
+
 SELECT *
-FROM type_category_large;
+FROM location_category;
+
 
 SELECT *
 FROM member;

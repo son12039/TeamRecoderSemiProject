@@ -12,7 +12,6 @@ public interface MembershipMapper {
 	
 	List<MembershipUserList> allMembership();
 	MembershipUserList main(int membershipCode);
-	Integer count(Integer membershipCode);
-	void makeMembership(Membership membership);
+	int membershipUserCount(int membershipCode);
 
 }

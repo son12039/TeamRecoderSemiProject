@@ -21,25 +21,20 @@ CREATE TABLE member ( -- 회원가입
     
     
 );
-CREATE TABLE type_category_large ( -- 유형대분류
-    type_la_code INT PRIMARY KEY auto_increment, -- 대분류코드 mc 메인카테고리 줄임말
-    type_la_name VARCHAR(50) UNIQUE -- 대분류이름
-);
-CREATE TABLE type_category_small  ( -- 유형소분류
-    type_s_code INT PRIMARY KEY auto_increment, -- 소분류코드
-    type_s_name VARCHAR(50) UNIQUE, -- 소분류이름
-    type_la_code INT -- 대분류코드 /외래키
+
+CREATE TABLE type_category ( -- 유형 분류
+    type_code INT PRIMARY KEY auto_increment, -- 소분류코드
+    type_la_name VARCHAR(50),
+    type_s_name VARCHAR(50) -- 소분류이름
+
     
 );
 
-CREATE TABLE location_category_large ( -- 위치대분류
-    loc_la_code INT PRIMARY KEY auto_increment, -- 위치대분류코드 -- 대분류코드 ml 메인지역 줄임말
-    loc_la_name VARCHAR(50) -- 위치대분류이름
-);
-CREATE TABLE location_category_small ( -- 위치소분류
-    loc_s_code INT PRIMARY KEY auto_increment, -- 위치소분류코드
-    loc_s_name VARCHAR(50), -- 위치소분류이름
-    loc_la_code INT -- 위치대분류코드 /외래키
+CREATE TABLE location_category ( -- 위치 분류
+    loc_code INT PRIMARY KEY auto_increment, -- 위치 분류 코드
+	loc_la_name VARCHAR(50), -- ex) 서울 , 경기, 부산, 강원
+    loc_s_name VARCHAR(50) -- 위치소분류 ex) 서울이면 강남구, 서초구  경기면 성남시, 부천시 이런식으로
+   
 );
 
 
@@ -58,14 +53,14 @@ CREATE TABLE membership ( -- 클럽
 
 CREATE TABLE membership_type  ( -- 클럽 유형 리스트
     mem_type_code INT PRIMARY KEY auto_increment, -- 클럽 유형 리스트 코드
-    type_s_code INT, -- 소분류이름 / 외래키
+    type_code INT, -- 소분류이름 / 외래키
     membership_code INT -- 클럽 /외래키
 );
 
 
 CREATE TABLE membership_location  ( -- 클럽 지역 리스트
     mem_loc_code INT PRIMARY KEY auto_increment, -- 클럽 지역 리스트 코드
-    loc_s_code INT, -- 소분류 / 외래키
+    loc_code INT, -- 소분류 / 외래키
     membership_code INT -- 클럽 /외래키
 );
 
@@ -118,25 +113,13 @@ CREATE TABLE meetings_comment (
 
 
 
-CREATE TABLE main ( -- 클럽홍보게시판
-	main_code INT PRIMARY KEY auto_increment, -- 홍보게시판코드
-    membership_code INT UNIQUE, -- 클럽코드 /외래키
-    main_name VARCHAR(255), -- 홍보글제목
-    main_text TEXT, -- 홍보내용
-    main_views INT, -- 조회수
-    main_date DATE DEFAULT(current_date), -- 홍보글게시날짜
-   id VARCHAR(50) -- 유저 코드 / 외래키
-
-);
-
-
 -- 확정
 CREATE TABLE main_comment (
     main_comment_code INT PRIMARY KEY auto_increment, -- 댓글코드
     main_comment_text TEXT, -- 홍보게시판 댓글 내용
     main_comment_date DATE DEFAULT(current_date), -- 댓글 게시시간
 	id VARCHAR(50), --  /외래키  누가 ?
-	main_code INT, -- /왜래키 어떤클럽 홍보 게시판?
+	membership_code INT, -- /왜래키 어떤클럽 홍보 게시판?
 	main_parents_comment_code INT -- /대댓글
 
 );
@@ -147,19 +130,17 @@ CREATE TABLE main_comment (
 CREATE TABLE image ( -- 사진 테이블
     img_code INT PRIMARY KEY auto_increment, -- 사진코드
 	img_url VARCHAR(255), -- 사진
-	main_code INT, -- 홍보게시판코드 / 외래키
+	membership_code INT, -- 홍보게시판코드 / 외래키
     meet_code INT -- 모임게시판코드 / 외래키
 );
 
-ALTER TABLE type_category_small ADD FOREIGN KEY (type_la_code) REFERENCES type_category_large(type_la_code); 
-
-ALTER TABLE location_category_small ADD FOREIGN KEY (loc_la_code) REFERENCES location_category_large(loc_la_code);
 
 
-ALTER TABLE membership_type ADD  FOREIGN KEY (type_s_code) REFERENCES type_category_small(type_s_code);
+
+ALTER TABLE membership_type ADD  FOREIGN KEY (type_code) REFERENCES type_category(type_code);
 ALTER TABLE membership_type ADD  FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
 
-ALTER TABLE membership_location ADD  FOREIGN KEY (loc_s_code) REFERENCES location_category_small(loc_s_code);
+ALTER TABLE membership_location ADD  FOREIGN KEY (loc_code) REFERENCES location_category(loc_code);
 ALTER TABLE membership_location ADD  FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
 
 ALTER TABLE membership_user_list ADD  FOREIGN KEY (id) REFERENCES member(id);
@@ -177,19 +158,15 @@ ALTER TABLE meetings_comment ADD  FOREIGN KEY (id) REFERENCES member(id);
 ALTER TABLE meetings_comment ADD  FOREIGN KEY (meet_code) REFERENCES membership_meetings(meet_code);
 ALTER TABLE meetings_comment ADD  FOREIGN KEY (meet_parents_comment_code) REFERENCES meetings_comment(meet_comment_code);
 
-ALTER TABLE main ADD  FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
-ALTER TABLE main ADD  FOREIGN KEY (id) REFERENCES member(id);
-
-
 
 ALTER TABLE main_comment ADD  FOREIGN KEY (id) REFERENCES member(id);
-ALTER TABLE main_comment ADD  FOREIGN KEY (main_code) REFERENCES main(main_code);
+ALTER TABLE main_comment ADD  FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
 ALTER TABLE main_comment ADD  FOREIGN KEY (main_parents_comment_code) REFERENCES main_comment(main_comment_code);
 
 
 
 ALTER TABLE image ADD  FOREIGN KEY (meet_code) REFERENCES membership_meetings(meet_code);
-ALTER TABLE image ADD  FOREIGN KEY (main_code) REFERENCES main(main_code);
+ALTER TABLE image ADD  FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
 
 ALTER TABLE membership_meetings ADD list_code INT;
 

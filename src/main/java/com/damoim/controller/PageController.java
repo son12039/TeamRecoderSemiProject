@@ -19,34 +19,22 @@ public class PageController {
 	@Autowired
 	private MembershipService service;
 
+	
 	@GetMapping("/")
-	public String index(Model model) {
-//		System.out.println(1);
-//
-//		System.out.println(service.allMembership().get(0).getMember().getMemberImg());
-//		System.out.println(service.allMembership().get(3).getMembership().getMembershipCode());
+	public String index(Model model ) {
+		
+		List<Integer> countList = new ArrayList();
 		model.addAttribute("list", service.allMembership());
-		model.addAttribute("count", service.count(1));
-//		System.out.println("카운트");
-//		
-		Integer i = service.allMembership().get(3).getMembership().getMembershipCode();
-		System.out.println("카운트 대상 코드 : "+ i);
-        System.out.println(service.count(i));
-        
-        List<Integer> codeList = new ArrayList<>();
-        
-        for(int j=0; j<service.allMembership().size(); j++) {
-        Integer k= service.allMembership().get(j).getMembership().getMembershipCode();
-        System.out.println("맴버쉽코드 : " +  k +"인원수  " + service.count(k));
-      
-        //model.addAttribute( "code", service.count(k));
-        codeList.add(service.count(k));
-      
-        }
-        model.addAttribute("codeList",codeList);
-        System.out.println("사이즈" + service.allMembership().size());	
+		for(int i = 0; i < service.allMembership().size(); i++) {
+		int j = service.allMembership().get(i).getMembership().getMembershipCode();
+		countList.add(service.membershipUserCount(j));
+		
+		}
+		
+		model.addAttribute("countList", countList);
 		return "index";
 	}
+	 
 
 	@GetMapping("/signUp")
 	public String signUp() {
@@ -63,13 +51,7 @@ public class PageController {
 
  
 	 
-	 @GetMapping("/{membershipCode}")
-		public String main(@PathVariable("membershipCode") Integer membershipCode, Model model) {
-			model.addAttribute("main",service.main(membershipCode));
-			System.out.println(service.main(membershipCode));
-			System.out.println(11111);
-			return "mypage/main";
-		}
+	
 		
 	 
 }

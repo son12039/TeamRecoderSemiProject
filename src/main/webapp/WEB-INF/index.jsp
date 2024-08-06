@@ -63,7 +63,7 @@ pageEncoding="UTF-8"%>
               </div>
               
               <div>
-                <a class="search" href="/signUp">회원가입</a>
+                <a class="search"  href="/signUp">회원가입</a>
               </div>
             </div>
           </div>
@@ -84,7 +84,7 @@ pageEncoding="UTF-8"%>
         
         <div class="membership-list">
         
-       <c:forEach  items="${list}" var="id" varStatus="status">
+       <c:forEach  items="${list}" var="id" varStatus="status" >
       
        <div class="membership-card">
        <div class="membership-img">
@@ -95,10 +95,9 @@ pageEncoding="UTF-8"%>
        <div class="membership-info">
        <h1 class="membership-name"> ${id.membership.membershipName}</h1>
        <h2>${id.membership.membershipInfo} </h2>   
-       <h2>호스트 : ${id.member.nickname}, 멤버쉽 코드 : ${id.membership.membershipCode}</h2>
-     
-       <h3>가입인원수 : ${codeList.get(status.index)}</h3>
-        
+       <h2>호스트 : ${id.member.nickname}</h2>
+       <input type="hidden" name="code" value="${id.membership.membershipCode}">
+       <h3> 인원 현황 ${countList.get(status.index)}/${id.membership.membershipMax}</h3>
       
 
         <c:choose>

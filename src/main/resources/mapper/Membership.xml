@@ -23,6 +23,8 @@
 </association>
 </resultMap>
 
+
+
 <select id="allMembership" resultMap="membershipmap">
 SELECT *
 FROM membership_user_list
@@ -44,7 +46,14 @@ SELECT *
 FROM membership_user_list
 JOIN membership USING (membership_code)
 JOIN member USING (id)
-WHERE membership_code = "${memebershipCode}" AND list_grade = "host" ;
+WHERE membership_code = "${memebershipCode}" AND list_grade = "host";
+</select>
+
+<select id="membershipUserCount" parameterType="Integer"  resultType="Integer">
+	SELECT count(membership_code) as count
+	FROM membership_user_list
+	WHERE membership_code = #{membershipCode}
+	GROUP BY membership_code
 </select>
 
 
@@ -65,10 +74,6 @@ VALUES(#{membershipName},#{membershipImg},#{membershipInfo},#{membershipMax})
 INSERT INTO member_user_list (list_grade,id,membership_code) 
 VALUES ("host",#{id},#{membershipCode})
 </insert>
-
-
-
-
 
 
 

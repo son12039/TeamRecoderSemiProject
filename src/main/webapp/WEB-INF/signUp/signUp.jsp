@@ -19,7 +19,10 @@
           <div class="formBox">
             <label for="id">아이디</label>
             <button type="button">중복확인</button>
+    
             <input type="text" id="id" name="id" required placeholder="아이디를 입력하세요" autofocus />
+            
+             
           </div>
           <div class="formBox">
             <label for="pwd">비밀번호</label>
@@ -63,9 +66,10 @@
         <div id="page2" class="page hidden">
           <h2>*회원가입*</h2>
           <div class="formBox">
-            <label for="nickname">닉네임</label>
-              <button type="button">중복확인</button>
+            <label for="nickname">닉네임</label> 
+              <button type="button">중복확인</button>      
             <input type="text" id="nickname" name="nickname"  placeholder="닉네임을 입력하세요" required />
+          
           </div>
           <div class="formBox">
             <label for="memberImg">프로필 사진</label>

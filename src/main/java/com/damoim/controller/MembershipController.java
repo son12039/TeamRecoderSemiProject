@@ -2,6 +2,10 @@ package com.damoim.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.damoim.model.dto.MemberListDTO;
+import com.damoim.service.MembershipService;
 
 import com.damoim.model.vo.Membership;
 import com.damoim.service.MembershipService;
@@ -30,6 +34,11 @@ public class MembershipController {
 	   	
 	   	return "redirect:/";
 	   }
+	   @PostMapping("/membershipApply")
+	public String membershipApply(MemberListDTO member) {
+		
+		return "redirect:/";	
+	}
 	   
 	   
 	   

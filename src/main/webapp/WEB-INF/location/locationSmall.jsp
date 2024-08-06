@@ -10,7 +10,7 @@
 <body>
 <c:forEach items="${LocationSmallList}" var="Location">
     <div>
-        <p>Location Name: ${Location.locSmallName}</p>
+        <p>Location Name: ${Location.locSName}</p>
     </div>
 </c:forEach>
 </body>

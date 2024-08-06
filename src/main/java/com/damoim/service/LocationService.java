@@ -5,8 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.damoim.model.vo.LocationCategoryLarge;
-import com.damoim.model.vo.LocationCategorySmall;
+import com.damoim.model.vo.LocationCategory;
 
 import mapper.locationCategoryMapper;
 
@@ -17,12 +16,12 @@ public class LocationService {
 	
 	//소분류 찾아내기
 	
-	public List<LocationCategorySmall> LocationCategoryLarge(int locLargeCode){
-		return locationLargeMapper.allLocationSmall(locLargeCode);
+	public List<LocationCategory> LocationCategoryLarge(String locLargeName){
+		return locationLargeMapper.allLocationSmall(locLargeName);
 	}
 	
 	// 대분류 리스트 뽑아내기
-	public List<LocationCategoryLarge> allLocation(){
+	public List<LocationCategory> allLocation(){
 		return locationLargeMapper.allLocationLarge();
 	}
 }

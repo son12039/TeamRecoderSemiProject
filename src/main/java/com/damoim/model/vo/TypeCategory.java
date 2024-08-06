@@ -6,9 +6,10 @@ import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 public class TypeCategory {
-    private int typeSmallCode; // 소분류코드
-    private String typeSmallName; // 소분류이름
-    private String typeLargeName; // 대분류이름
+    private int typeCode; 
+    private String typeLaName; 
+    private String typeSName;
 }
 
 
+//type_code, type_la_name, type_s_name

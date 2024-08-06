@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.damoim.model.vo.LocationCategoryLarge;
 import com.damoim.service.LocationService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,19 +26,20 @@ public class LocationController {
 	 @GetMapping("location")
 	 public String location( Model model) {
 		model.addAttribute("allLocation",service.allLocation());
-		return "location/Location";
+		return "location/location";
 	 }
 	
-	 @GetMapping("/location/Locations")
-	 public String handleLocation(@RequestParam("location") int locLargeCode, Model model) {
-		 System.out.println(locLargeCode);
-	     model.addAttribute("LocationSmallList", service.LocationCategoryLarge(locLargeCode));
-	     return "location/LocationSmall";
+	 @GetMapping("/location/locations")
+	 public String locationSmall(@RequestParam("location") String locLargeName, Model model) {
+	     model.addAttribute("LocationSmallList", service.LocationCategoryLarge(locLargeName));
+	     return "location/locationSmall";
 	 }
 	 
-	 @GetMapping("type")
-	 public String tpye( Model model) {
+	 
+	 // 유형
+//	 @GetMapping("type")
+//	 public String tpye( Model model) {
 //		model.addAttribute("allType",service.allLocation());
-		return "location/type";
-	 }
+//		return "location/type";
+//	 }
 }

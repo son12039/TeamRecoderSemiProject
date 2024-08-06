@@ -6,13 +6,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/location.css"/>
 </head>
 <body>
-	<c:forEach items="${allType}" var="type">
-		 <form action="/location/typeSmall" method="get">
-			<input type="hidden" name="type" value="${type.locLargeCode}" />
-			<input type="submit" value="${type.locLargeName}"/>
-		</form>
-	</c:forEach>
+	
+	<div class="locationTable">
+      <div class="location">
+		<c:forEach items="${allType}" var="type">
+			 <form action="/locationtype" method="get">
+				<input type="hidden" name="type" value="${type.typeLaName}" />
+				<input type="submit" value="${type.typeLaName}"/>
+			</form>
+		</c:forEach>
+      </div>
+    </div>
 </body>
 </html>

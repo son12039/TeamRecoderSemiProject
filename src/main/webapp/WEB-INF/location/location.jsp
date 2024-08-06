@@ -13,9 +13,9 @@
     <div class="locationTable">
       <div class="location">
 		<c:forEach items="${allLocation}" var="Location">
-			 <form action="/location/Locations" method="get">
-				<input type="hidden" name="location" value="${Location.locLargeCode}" />
-				<input type="submit" value="${Location.locLargeName}"/>
+			 <form action="/location/locations" method="get">
+				<input type="hidden" name="location" value="${Location.locLaName}" />
+				<input type="submit" value="${Location.locLaName}"/>
 			</form>
 		</c:forEach>
       </div>

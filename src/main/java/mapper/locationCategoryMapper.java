@@ -2,10 +2,9 @@ package mapper;
 
 import java.util.List;
 
-import com.damoim.model.vo.LocationCategoryLarge;
-import com.damoim.model.vo.LocationCategorySmall;
+import com.damoim.model.vo.LocationCategory;
 
 public interface locationCategoryMapper {
-	List<LocationCategorySmall> allLocationSmall(int locLargeCode);
-	List<LocationCategoryLarge> allLocationLarge();
+	List<LocationCategory> allLocationSmall(String locLargeName);
+	List<LocationCategory> allLocationLarge();
 }

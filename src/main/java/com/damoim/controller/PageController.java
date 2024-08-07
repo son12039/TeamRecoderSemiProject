@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.damoim.model.dto.SearchDTO;
 import com.damoim.model.vo.Member;
+import com.damoim.service.MemberService;
 import com.damoim.service.MembershipService;
 
 
@@ -27,21 +28,22 @@ public class PageController {
 
 	@Autowired
 	private MembershipService service;
-	
+	private MemberService memberService;
 
 	
 	@GetMapping("/")
-	public String index(Model model ) {
+	public String index(Model model) {
 		
 		List<Integer> countList = new ArrayList();
 		model.addAttribute("list", service.allMembership());
+//		model.addAttribute("allMember", memberService.allMember());
 		for(int i = 0; i < service.allMembership().size(); i++) {
 		int j = service.allMembership().get(i).getMembership().getMembershipCode();
 		countList.add(service.membershipUserCount(j));
 		
 		}
-		
 		model.addAttribute("countList", countList);
+		
 		return "index";
 	}
 	 
@@ -55,20 +57,13 @@ public class PageController {
 	public String mypage() {
 		return "mypage/mypage";
 	}
+	
 	@GetMapping("/mainCreate")
 	public String mainCreate() {
 		return "/mypage/mainCreate";
 	}
 	
-	@GetMapping("/logout")
-	public String logout(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		Member member = (Member) session.getAttribute("vo");
-		if(member != null)session.invalidate();
-		return "redirect:/";
-	
-	
-	}
+
 	
 	
 	 

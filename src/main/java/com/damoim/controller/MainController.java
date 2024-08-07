@@ -1,6 +1,7 @@
 package com.damoim.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,8 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
+
 import com.damoim.service.MemberService;
 import com.damoim.service.MembershipService;
+
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -17,35 +20,26 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class MainController {
 	
-	@Autowired
-	private MainService mainService;
-	private MembershipUserListService listService;
 	
 //	main 생성 post 받음
-	@PostMapping("/mainCreate")
-	public String mainCreate(MembershipUserList vo , HttpServletRequest request, Main main) {
-		HttpSession session = request.getSession();
-//		listService는 MembershipUserListMapper
-		session.setAttribute("grade", listService.membershipUserList());
-		if(vo.getListGrade().equals("host") || vo.getListGrade().equals("admin")) {
-			mainService.mainCreate(main);
-			System.out.println("유저 등급 : " + vo.getListGrade());
-		}
-		
-		System.out.println("유저 등급 : " + vo.getListGrade());
-		
-		return "redirect:/";
-	}
+//	@PostMapping("/mainCreate")
+//	public String mainCreate(MembershipUserList vo , HttpServletRequest request) {
+//		HttpSession session = request.getSession();
+////		listService는 MembershipUserListMapper
+//		session.setAttribute("grade", listService.membershipUserList());
+//		if(vo.getListGrade().equals("host") || vo.getListGrade().equals("admin")) {
+//			mainService.mainCreate(main);
+//			System.out.println("유저 등급 : " + vo.getListGrade());
+//		}
+//		
+//		System.out.println("유저 등급 : " + vo.getListGrade());
+//		
+//		return "redirect:/";
+//	}
 	
+	@Autowired 
+	private MembershipService service;
 	
-	
-	
-	
-	
-	
-	
-	@Autowired MembershipService service;
-
 	 @GetMapping("/{membershipCode}")
 		public String main(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO member, Model model,HttpServletRequest request) {
 			model.addAttribute("main",service.main(membershipCode));
@@ -58,7 +52,7 @@ public class MainController {
 				System.out.println("삽입후" +member);
 			
 			model.addAttribute("checkMember" , service.checkMember(member));
-				
+			
 			}
 			
 			

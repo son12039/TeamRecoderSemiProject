@@ -29,15 +29,23 @@
 				#{nickname},#{MemberImg},#{MemberHobby},#{MemberInfo},#{MemberLocation},#{MemberType} )			
 	</insert>
 	<select id="search" parameterType="SearchDTO" resultType="Member">
-			SELECT * FROM member
-		<if test = "select == 'nickname'">
+		SELECT * FROM member
+		JOIN membership_user_list USING (id)
+		JOIN membership USING(membership_code)
+	<choose>
+		<when test="select == 'nickname'">
 			WHERE nickname LIKE CONCAT('%', #{keyword},'%')
-		</if>
-<!-- 		<when test="select == 'id'">
-			id LIKE CONCAT('%', #{keyword},'%')
+		</when>	
+		<when test = "select == 'age'">
+			WHERE age LIKE CONCAT('%', #{keyword},'%')
 		</when>
-		<when test="select == 'name'">
-			name LIKE CONCAT('%', #{keyword},'%') -->
+	</choose>
+	</select>
+	
+	<select id ="memberInfo" parameterType="Member" resultType="Member">
+		SELCET * 
+		FROM member
+		WHERE id = #{id}
 	</select>
 	
 	

@@ -7,15 +7,10 @@ pageEncoding="UTF-8"%>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>로그인 페이지</title>
-        <link
-          rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/reset.css"
-        />
-          <link
-          rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/index.css"
-        />
-       
+        <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/reset.css"/>
+          <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/index.css"/>
       </head>
       <body>
      
@@ -61,9 +56,10 @@ pageEncoding="UTF-8"%>
               <div>
                 <a class="search" href="https://www.google.com/">아이디 / 비밀번호 찾기</a>
               </div>
-              
               <div>
                 <a class="search"  href="/signUp">회원가입</a>
+
+             
               </div>
             </div>
           </div>
@@ -89,6 +85,7 @@ pageEncoding="UTF-8"%>
        <div class="membership-card">
        <div class="membership-img">
        <a href="/${id.membership.membershipCode}">
+       
        <img  src="${id.membership.membershipImg}">    
        </a>
        </div>  
@@ -98,10 +95,9 @@ pageEncoding="UTF-8"%>
        <h2>호스트 : ${id.member.nickname}</h2>
        <input type="hidden" name="code" value="${id.membership.membershipCode}">
        <h3> 인원 현황 ${countList.get(status.index)}/${id.membership.membershipMax}</h3>
-      
-
+      	
+		
         <c:choose>
-        
         <c:when test="${id.member.memberImg == ''}">
         <img class="user-img" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
         </c:when>

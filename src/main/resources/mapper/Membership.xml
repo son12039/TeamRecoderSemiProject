@@ -4,23 +4,26 @@
 
 
 <resultMap type="MembershipUserList" id="membershipmap">
-<id column = "list_code" property="listCode"/>
-<result column="list_grade" property="listGrade"/>
-<association property="member" javaType="Member">
-<id column ="id" property="id"/>
-<result column="name" property="name"/>
-<result column="nickname" property="nickname"/>
-<result column="member_img" property="memberImg"/>
-</association>
-<association property="membership" javaType="Membership">
-<id column="membership_code" property="membershipCode"/>
- <result column="Membership_name" property="membershipName"/>
- <result column="Membership_img" property="membershipImg"/>
- <result column="Membership_info" property="membershipInfo"/>
- <result column="Mebership_date"  property="membershipDate"/>
- <result column="Membership_grade" property="membershipGrade"/>
- <result column="Membership_max" property="membershipMax"/>
-</association>
+	<id column="list_code" property="listCode" />
+	<result column="list_grade" property="listGrade" />
+	<association property="member" javaType="Member">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="nickname" property="nickname" />
+		<result column="member_img" property="memberImg" />
+	</association>
+	
+	<association property="membership" javaType="Membership">
+		<id column="membership_code" property="membershipCode" />
+		<result column="Membership_name" property="membershipName" />
+		<result column="Membership_img" property="membershipImg" />
+		<result column="Membership_info" property="membershipInfo" />
+		<result column="Mebership_date" property="membershipDate" />
+		<result column="Membership_grade" property="membershipGrade" />
+		<result column="Membership_max" property="membershipMax" />
+	</association>
+
+
 </resultMap>
 
 
@@ -55,35 +58,39 @@
 		WHERE membership_code = "${memebershipCode}" AND list_grade = "host";
 	</select>
 
-<select id="membershipUserCount" parameterType="Integer"
-	resultType="Integer">
-	SELECT count(membership_code) as count
-	FROM
-	membership_user_list
-	WHERE membership_code = #{membershipCode} AND
-	list_grade != "guest"
-	GROUP BY membership_code
-</select>
+	<select id="membershipUserCount" parameterType="Integer"
+		resultType="Integer">
+		SELECT count(membership_code) as count
+		FROM
+		membership_user_list
+		WHERE membership_code = #{membershipCode} AND
+		list_grade != "guest"
+		GROUP BY membership_code
+	</select>
 
 
-<select id="count" parameterType="Integer" resultType="Integer">
-SELECT count(*) as count
-FROM membership_user_list
-WHERE membership_code= #{i}
-GROUP BY membership_code;
-</select>
+	<select id="count" parameterType="Integer" resultType="Integer">
+		SELECT count(*) as count
+		FROM membership_user_list
+		WHERE membership_code= #{i}
+		GROUP BY membership_code;
+	</select>
 
-<insert id="makeMembership" parameterType="Membership" useGeneratedKeys="true" keyProperty="membershipCode">
-INSERT INTO membership(membership_name,membership_img,membership_info,membership_max) 
-VALUES(#{membershipName},#{membershipImg},#{membershipInfo},#{membershipMax})
-</insert>
+	<insert id="makeMembership" parameterType="Membership"
+		useGeneratedKeys="true" keyProperty="membershipCode">
+		INSERT INTO
+		membership(membership_name,membership_img,membership_info,membership_max)
+		VALUES(#{membershipName},#{membershipImg},#{membershipInfo},#{membershipMax})
+	</insert>
 
-<insert id="host" parameterType="MemberListDTO">
-INSERT INTO membership_user_list (list_grade,id,membership_code) 
-VALUES (#{listGrade},#{id},#{membershipCode});
-</insert>
+	<insert id="host" parameterType="MemberListDTO">
+		INSERT INTO membership_user_list (list_grade,id,membership_code)
+		VALUES (#{listGrade},#{id},#{membershipCode});
+	</insert>
 
 
 
 
  </mapper>
+ 
+ 

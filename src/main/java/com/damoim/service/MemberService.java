@@ -10,6 +10,7 @@ import com.damoim.model.vo.Member;
 
 import mapper.MemberMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,6 @@ public class MemberService {
 		return mapper.login(member);
 		
 	}
-	
-	 
 	
 	@Transactional
 	public void signUp(Member member) {
@@ -54,11 +53,34 @@ public class MemberService {
 		
 		mapper.update(member);
 	}
-
-	public List<Member> search(SearchDTO dto) {
-		return mapper.search(dto);
+	
+	public Member memberInfo(Member member) {
+		return mapper.memberInfo();
 	}
 	
-
+	
+	
+	
+	
+	
+	
+	
+//	public ArrayList<Member> search(SearchDTO dto) {
+//		return mapper.search(dto);
+//	}
+	
+//	public ArrayList<Member> allMember() {
+//		return mapper.allMember();
+//	}
+//    <!-- 검색 시도중!!!!! -->
+//    <!--   <form action="/search">
+//   <c:forEach items="${mem != null ? mem : search} var="member">
+//      <input type="text" name = keyword >
+//      <button type="submit" value="닉네임검색">닉네임 검색</button>
+//      <h1>닉네임 : ${member.nickname}</h1>
+//      <h1>나이 : ${member.age}</h1>
+//      	</c:forEach>
+//      </form> -->
+//  	<!-- 검색 시도중!!!!! -->
 	
 }

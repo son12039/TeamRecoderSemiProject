@@ -1,5 +1,6 @@
 package mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,7 +20,8 @@ public interface MemberMapper {
 	Member nicknameCheck(Member member);
 	Member pwdCheck(Member member);	
 	void update(Member member);
-	List<Member> search(SearchDTO dto);
-
+	Member memberInfo();
+//	ArrayList<Member> search(SearchDTO dto);
+//	ArrayList<Member> allMember();
 	
 }

@@ -11,7 +11,7 @@ import lombok.Setter;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class MemberListDTO {
 	
-	
+		
 	    private int membershipCode; // 코드
 	    private String id; // 아이디
 	    private String listGrade; // 등급

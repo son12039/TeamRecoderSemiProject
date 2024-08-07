@@ -10,13 +10,12 @@
 <body>
       
      
-        
-        <form action="/pwdCheck" method="post">
-        비밀번호 입력 :  <input type="password" name="pwd">
-        <input type="hidden" name="id" value="${mem.id}">
-        <input type="submit" value="확인">
-        </form>
-       
+              <c:forEach items="${membershipList}" var="list">
+              <a><div>${list.membershipCode}</div>
+              	<div>${list.listGrade}</div>
+              	<div>${list.id}</div>
+              	</a> 
+              </c:forEach>
 
 </body>
 </html>

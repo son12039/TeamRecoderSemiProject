@@ -16,12 +16,12 @@
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/myMembership.css"
         />
-        
         <style>
-        .membership-card { display: none; }
-        .active { display: block; }
-    </style>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        .membership-card{
+        display: none;
+        }
+        
+        </style>
 </head>
 <body>
 
@@ -37,18 +37,43 @@
   </c:forEach>
   
    --%>
+     <c:set var="hasHost" value="${false}" />
+
+    <!-- Iterate through memberships to check for 'host' -->
+    <c:forEach items="${membership}" var="mem">
+        <c:if test="${mem.listGrade == 'host'}">
+            <c:set var="hasHost" value="${true}" />
+        </c:if>
+    </c:forEach>
+
+    <!-- Display the form to create a club only if no 'host' is present -->
+
+
+ 
+	    <c:choose>
+        <c:when test="${!hasHost}">
+            <form action="/makeMembership">            
+                <input type="hidden" name="id" value="${mem.id}">
+                <button type="submit" value="클럽생성">클럽 만들기</button>
+            </form>
+        </c:when>
+        <c:otherwise>
+
+            <p>클럽 생성 기능이 활성화되지 않았습니다. 이미 보유중인 크럽이 있습니다.</p>
+        </c:otherwise>
+        </c:choose>
    
-<div class="membership-type">
-        <button class="all" data-target="allmem">전체 목록</button>
-        <button class="mine" data-target="minemem">내가 만든 모임</button>
-        <button class="ing" data-target="ingmem">가입 중인 모임</button>
-        <button class="wait" data-target="waitmem">가입 대기중인 모임</button>
-    </div>
-  <div class="membership-card" id="allmem" >
-  
+   <div class="membership-type">
+  <button id="all-club-button">전체 목록 </button>  
+  <button id="manage-club-button">내가 관리중인 클럽</button>  
+  <button id="belong-club-button">가입 중인 클럽</button>  
+  <button id="wait-club-button">가입 대기중인 클럽</button>  
+  </div>
+  <div class="membership-card" id= "all-club" style="display: block;" >
+  <h1>전체 보기</h1>
    <c:forEach items="${membership}" var="mem">
     
-    <div class="membership-each" >
+    <div class="membership-each"   >
      <div><img  class="membership-img" src="${mem.membership.membershipImg}"></div>
      <div class="membership-String">
      <div><p>${mem.membership.membershipName} </p></div>
@@ -58,8 +83,8 @@
   
    </c:forEach>
     </div>
-  <div class="membership-card"  id="waitmem">
-  
+  <div class="membership-card" id = "wait-club">
+  <h1>가입 대기중인 클럽 보기</h1>
    <c:forEach items="${membership}" var="mem">
     
     <c:if test="${mem.listGrade == 'guest'}">
@@ -75,11 +100,11 @@
    </c:forEach>
   </div>
   
-  <div class="membership-card" id="minemem">
-  
+  <div class="membership-card" id = "manage-club">
+  <h1>관리중인 클럽 보기</h1>
    <c:forEach items="${membership}" var="mem">
     
-    <c:if test="${mem.listGrade == 'host'}">
+    <c:if test="${mem.listGrade == 'host' || mem.listGrade == 'admin'}">
    <div class="membership-each">
      <div><img  class="membership-img" src="${mem.membership.membershipImg}"></div>
      <div class="membership-String">
@@ -91,11 +116,11 @@
   
    </c:forEach>
   </div>
-  <div class="membership-card"  id="ingmem">
-  
+  <div class="membership-card" id = "belong-club">
+  <h1>가입 된 클럽 보기</h1>
    <c:forEach items="${membership}" var="mem">
     
-    <c:if test="${mem.listGrade != 'guest'}">
+    <c:if test="${mem.listGrade == 'regular'|| mem.listGrade == 'host' || mem.listGrade == 'admin'}">
    <div class="membership-each">
      <div><img  class="membership-img" src="${mem.membership.membershipImg}"></div>
      <div class="membership-String">

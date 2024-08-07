@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+ 
 
     <link
           rel="stylesheet"
@@ -16,6 +16,12 @@
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/myMembership.css"
         />
+        
+        <style>
+        .membership-card { display: none; }
+        .active { display: block; }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 
@@ -32,12 +38,12 @@
   
    --%>
    
-   <div class="membership-type">
-  <button class="all">전체 목록 </button>  
-  <button class="mine">내가 만든 모임</button>  
-  <button class="ing">가입 중인 모임</button>  
-  <button class="wait">가입 대기중인 모임</button>  
-  </div>
+<div class="membership-type">
+        <button class="all" data-target="allmem">전체 목록</button>
+        <button class="mine" data-target="minemem">내가 만든 모임</button>
+        <button class="ing" data-target="ingmem">가입 중인 모임</button>
+        <button class="wait" data-target="waitmem">가입 대기중인 모임</button>
+    </div>
   <div class="membership-card" id="allmem" >
   
    <c:forEach items="${membership}" var="mem">
@@ -52,7 +58,7 @@
   
    </c:forEach>
     </div>
-  <div class="membership-card" style="display: none">
+  <div class="membership-card"  id="waitmem">
   
    <c:forEach items="${membership}" var="mem">
     
@@ -69,7 +75,7 @@
    </c:forEach>
   </div>
   
-  <div class="membership-card" style="display: none">
+  <div class="membership-card" id="minemem">
   
    <c:forEach items="${membership}" var="mem">
     
@@ -85,11 +91,11 @@
   
    </c:forEach>
   </div>
-  <div class="membership-card" style="display: none">
+  <div class="membership-card"  id="ingmem">
   
    <c:forEach items="${membership}" var="mem">
     
-    <c:if test="${mem.listGrade == 'admin'}">
+    <c:if test="${mem.listGrade != 'guest'}">
    <div class="membership-each">
      <div><img  class="membership-img" src="${mem.membership.membershipImg}"></div>
      <div class="membership-String">
@@ -101,6 +107,8 @@
   
    </c:forEach>
   </div>
-  <script src="${pageContext.request.contextPath}/js/myMembership.js"></script>
+  <script src="${pageContext.request.contextPath}/js/myMembership.js">
+     
+    </script>
 </body>
 </html>

@@ -75,10 +75,7 @@ pageEncoding="UTF-8"%>
           <div class="container">
           <div class="login-box">
             <h1>${mem.name}님 환영합니다~</h1>
-              <form action="/makeMembership">            
-              <input type="hidden" name=id value="${mem.id}">
-              <button type="submit" value="클럽생성">클럽 만들기 </button>
-              </form>
+
 
               
             </div>

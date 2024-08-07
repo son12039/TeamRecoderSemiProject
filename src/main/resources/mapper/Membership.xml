@@ -47,7 +47,13 @@
 		WHERE list_grade = "host";
 	</select>
 	
-	
+	<select id="MembershipAllInfo" parameterType="Integer" resultMap="membershipmap">
+		SELECT *
+		FROM membership_user_list
+		JOIN membership USING (membership_code)
+		JOIN member USING (id)
+		WHERE membership_code = #{membership_code};
+	</select>
 	
 
 	
@@ -120,6 +126,12 @@ VALUES (#{listGrade},#{id},#{membershipCode});
 		WHERE id=#{id};
 		
 	</select>
+	
+	<update id="agreeMemeber" parameterType="MemberListDTO">
+	  UPDATE membership_user_list 
+   		SET list_grade = #{listGrade}
+		WHERE id = #{id} AND membership_code = #{membershipCode}
+	</update>
 
 
  </mapper>

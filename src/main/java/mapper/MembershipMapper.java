@@ -17,6 +17,7 @@ public interface MembershipMapper {
 	MembershipUserList main(int membershipCode);
 	int membershipUserCount(int membershipCode);
 	
+	List<MembershipUserList> MembershipAllInfo(int membershipCode);
 
 	void membershipApply(MemberListDTO member);
 	
@@ -27,4 +28,6 @@ public interface MembershipMapper {
 	MemberListDTO checkMember(MemberListDTO member);
 
 	List<MembershipUserList> grade(Member member);
+	
+	void agreeMemeber(MemberListDTO member);
 }

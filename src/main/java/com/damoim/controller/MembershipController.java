@@ -1,5 +1,7 @@
 package com.damoim.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,8 +49,8 @@ public class MembershipController {
 			
 			return "mainboard/main";
 		}
-
-	 @PostMapping("/{membershipCode}")
+	 
+	 @GetMapping("/{membershipCode}club")
 		public String membershipPage(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO member, Model model,HttpServletRequest request) {
 			model.addAttribute("main",service.main(membershipCode));
 			model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));
@@ -62,10 +64,37 @@ public class MembershipController {
 			model.addAttribute("checkMember" , service.checkMember(member));
 				
 			}
+			List<MembershipUserList> list = service.MembershipAllInfo(membershipCode);
+			System.out.println(list.get(0));
 			
-			
+			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
 			return "membership/membershipPage";
 		}
+	 @GetMapping("/agreeMember")
+	 public String agreeMemeber(MemberListDTO member) {
+		 service.agreeMemeber(member);
+		return null;
+		 
+	 }
+
+//	 @PostMapping("/{membershipCode}")
+//		public String membershipPage(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO member, Model model,HttpServletRequest request) {
+//			model.addAttribute("main",service.main(membershipCode));
+//			model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));
+//			HttpSession session = request.getSession();
+//			Member mem = (Member) session.getAttribute("mem");
+//			if(mem != null) {
+//				System.out.println("시작" + member);
+//				member.setId(mem.getId());
+//				System.out.println("삽입후" +member);
+//			
+//			model.addAttribute("checkMember" , service.checkMember(member));
+//				
+//			}
+//			
+//			
+//			return "membership/membershipPage";
+//		}
 	@GetMapping("/makeMembership")
 	public String makeMembership() {
 		return "/mypage/makeMembership";

@@ -22,6 +22,11 @@ public class MembershipService {
 		
 		return mapper.allMembership();
 	}
+	public List<MembershipUserList> MembershipAllInfo(int membershipCode){
+		
+		return mapper.MembershipAllInfo(membershipCode);
+		
+	}
 	
    public MembershipUserList main(Integer membershipCode){
 		
@@ -52,12 +57,13 @@ public class MembershipService {
 	public void host(MemberListDTO list) {
 		mapper.host(list);
 	}
-	public MemberListDTO checkMember(MemberListDTO member) {
-		return mapper.checkMember(member);
-	}
 	
 	public List<MembershipUserList> grade(Member member){
 		return mapper.grade(member);
+	}
+	public void agreeMemeber(MemberListDTO member) {
+		mapper.agreeMemeber(member);
+		
 	}
 
 }

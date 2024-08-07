@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.service.MemberService;
+import com.damoim.service.MembershipService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -22,9 +24,23 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 	
+	@Autowired
+	private MembershipService infoService;
+	
 	@PostMapping("/login")
-	public String login(Member member,HttpServletRequest request) {
+	public String login(MemberInfoDTO info,HttpServletRequest request) {
 		HttpSession session = request.getSession();
+		Member member = new Member();
+		member.setId(info.getId());		
+		member.setPwd(info.getPwd());
+		
+		
+		System.out.println(service.login(member));
+		
+		System.out.println( infoService.grade(member));
+		
+		session.setAttribute("info", infoService.grade(member));
+		
 		session.setAttribute("mem", service.login(member));
         ArrayList<MemberListDTO> membershipList = service.loginMemberMembership(member);
 
@@ -118,6 +134,19 @@ public class MemberController {
 	  session.setAttribute("mem",member);
 		
 		return "redirect:/pwdCheck";
+	}
+	
+	@GetMapping("/myMembership")
+	public String myMembership(MemberInfoDTO info, Model model) {
+		Member member = new Member();
+		member.setId(info.getId());
+		System.out.println(info.getId());
+		System.out.println(member);
+		
+		
+		model.addAttribute("membership", infoService.grade(member));
+		
+		return "/mypage/myMembership";
 	}
 	
 

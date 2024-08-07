@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+.membership-card{
+	
+	width: 40%;
+	background-color: beige;
+	
+	border: 1px solid;
+	
+	margin: auto;
+	margin-top:20px;
+	
+	
+}
+
+.membership-img {
+	
+	width:200px;
+	height: 200px;
+	border-radius: 50%;
+	border: 1px solid;
+}
+
+.membership-each{
+	display: flex;
+}
+.membership-name p{
+	font-size: 32px;
+	font-weight: bold;
+}
+
+.membership-info p{
+	margin-top: 20px;
+	margin-left: 20px;
+}
+.myGrade p{
+	
+	color:brown;
+	margin-left: 400px;
+	margin-top:50px;
+}

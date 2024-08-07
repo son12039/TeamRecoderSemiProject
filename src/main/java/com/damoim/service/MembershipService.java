@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipUserList;
 
@@ -29,6 +30,9 @@ public class MembershipService {
    public int membershipUserCount(int count){
 		return mapper.membershipUserCount(count);
  	}
+   
+   
+   
    public void membershipApply(MemberListDTO member) {
 	   mapper.membershipApply(member);
 	   
@@ -36,6 +40,7 @@ public class MembershipService {
    
    public MemberListDTO checkMember(MemberListDTO member) {
 	   return mapper.checkMember(member);
+	   
    }
 	
 
@@ -47,6 +52,12 @@ public class MembershipService {
 	public void host(MemberListDTO list) {
 		mapper.host(list);
 	}
+	public MemberListDTO checkMember(MemberListDTO member) {
+		return mapper.checkMember(member);
+	}
 	
+	public List<MembershipUserList> grade(Member member){
+		return mapper.grade(member);
+	}
 
 }

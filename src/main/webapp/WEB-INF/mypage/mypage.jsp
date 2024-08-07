@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+pageEncoding="UTF-8"%> <%@ taglib prefix="c"
+uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -62,24 +62,36 @@ pageEncoding="UTF-8"%>
             <h1>${mem.email}</h1>
           </div>
           <div class="info">
-            <div class="text">나이</div>
-            <h1>${mem.age}</h1>
-          </div>
-          <div class="info">
             <div class="text">성별</div>
-					<c:choose>
-						<c:when test="${mem.gender} == M">
-							<h1>남자</h1>
-						</c:when>
-						<c:otherwise>
-							<h1>여자</h1>
-						</c:otherwise>
-					</c:choose>
-				</div>
+            <c:choose>
+              <c:when test="${mem.gender} == M">
+                <h1>남자</h1>
+              </c:when>
+              <c:otherwise>
+                <h1>여자</h1>
+              </c:otherwise>
+            </c:choose>
+          </div>
           <div class="info">
             <div class="text">회원온도</div>
             <h1>${mem.memberManner}</h1>
+            <h1></h1>
           </div>
+          <c:forEach items="${info}" var="info">
+            <div class="info">
+              <div class="text">모임명</div>
+              <h1>${info.membership.membershipName}</h1>
+
+              <c:choose>
+                <c:when test="${info.listGrade == 'guest'}">
+                  <h1>가입 대기중입니다</h1>
+                </c:when>
+                <c:when test="${info.listGrade == 'host'}">
+                  <h1>${info.listGrade}</h1>
+                </c:when>
+              </c:choose>
+            </div>
+          </c:forEach>
         </div>
       </div>
     </div>

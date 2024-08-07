@@ -36,6 +36,7 @@ pageEncoding="UTF-8"%>
               <c:if test="${not empty mem}">
               <div class="header_right_menu">
                 <a href="/mypage">마이페이지</a> 
+                <a href="/myMembershipPage">나의 클럽</a>
                 <a href="/logout">로그아웃</a>
               </div>
               </c:if>
@@ -76,6 +77,8 @@ pageEncoding="UTF-8"%>
               <input type="hidden" name=id value="${mem.id}">
               <button type="submit" value="클럽생성">클럽 만들기 </button>
               </form>
+
+              
             </div>
           </div>      
           </c:if>

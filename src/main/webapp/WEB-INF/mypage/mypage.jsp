@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -50,15 +51,15 @@ pageEncoding="UTF-8"%>
           </div>
           <div class="info">
             <div class="text">연락처</div>
-            <h1>01026110875</h1>
+            <h1>${mem.phone}</h1>
           </div>
           <div class="info">
             <div class="text">주소</div>
-            <h1>부천</h1>
+            <h1>${mem.addr}</h1>
           </div>
           <div class="info">
             <div class="text">Email</div>
-            <h1></h1>
+            <h1>${mem.email}</h1>
           </div>
           <div class="info">
             <div class="text">나이</div>
@@ -66,11 +67,18 @@ pageEncoding="UTF-8"%>
           </div>
           <div class="info">
             <div class="text">성별</div>
-            <h1></h1>
-          </div>
+					<c:choose>
+						<c:when test="${mem.gender} == M">
+							<h1>남자</h1>
+						</c:when>
+						<c:otherwise>
+							<h1>여자</h1>
+						</c:otherwise>
+					</c:choose>
+				</div>
           <div class="info">
-            <div class="text">회원등급</div>
-            <h1></h1>
+            <div class="text">회원온도</div>
+            <h1>${mem.memberManner}</h1>
           </div>
         </div>
       </div>

@@ -1,5 +1,7 @@
 package com.damoim.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.service.MemberService;
 
@@ -23,6 +26,16 @@ public class MemberController {
 	public String login(Member member,HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.setAttribute("mem", service.login(member));
+        ArrayList<MemberListDTO> membershipList = service.loginMemberMembership(member);
+
+   
+        for (MemberListDTO i : membershipList) {
+            System.out.println(i);
+        }
+
+        session.setAttribute("membershipList", membershipList);
+
+		
 		return "redirect:/";
 		
 	}

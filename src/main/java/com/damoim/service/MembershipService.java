@@ -33,6 +33,7 @@ public class MembershipService {
 	   mapper.membershipApply(member);
 	   
    }
+   
    public MemberListDTO checkMember(MemberListDTO member) {
 	   return mapper.checkMember(member);
    }

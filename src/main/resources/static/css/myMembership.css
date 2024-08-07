@@ -8,8 +8,25 @@
 	border: 1px solid;
 	
 	margin: auto;
-	margin-top:20px;
 	
+	
+	
+}
+.membership-type{
+	display: flex;
+	justify-content: center;
+	
+	
+}
+.membership-type button{
+
+	width:189.7975px;
+	margin-top:20px;
+	background-color: white;
+	cursor: pointer;
+	
+	line-height: 55px;
+
 	
 }
 

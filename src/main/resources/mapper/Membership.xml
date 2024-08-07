@@ -35,14 +35,7 @@
 	
 	
 	
-	<select id="grade" parameterType="Member" resultMap="membershipmap">
-		SELECT *
-		FROM membership_user_list
-		JOIN membership USING (membership_code)
-		JOIN member USING (id)
-		WHERE id=#{id};
-		
-	</select>
+
 	
 	
 	
@@ -98,6 +91,15 @@ VALUES (#{listGrade},#{id},#{membershipCode});
 </insert>
 
 
+
+<select id="grade" parameterType="Member" resultMap="membershipmap">
+		SELECT *
+		FROM membership_user_list
+		JOIN membership USING (membership_code)
+		JOIN member USING (id)
+		WHERE id=#{id};
+		
+	</select>
 
 
  </mapper>

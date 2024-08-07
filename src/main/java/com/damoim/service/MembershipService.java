@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipUserList;
 
@@ -47,6 +48,10 @@ public class MembershipService {
 	}
 	public MemberListDTO checkMember(MemberListDTO member) {
 		return Mapper.checkMember(member);
+	}
+	
+	public List<MembershipUserList> grade(Member member){
+		return Mapper.grade(member);
 	}
 
 }

@@ -27,9 +27,6 @@ public class MembershipService {
 		return mapper.allMembership();
 	}
 
-	public ArrayList<Member> search(SearchDTO dto) {
-		return mapper.search(dto);
-	}
 	
    public MembershipUserList main(Integer membershipCode){
 		

@@ -42,6 +42,7 @@ public class PageController {
 		countList.add(service.membershipUserCount(j));
 		
 		}
+		
 		model.addAttribute("countList", countList);
 		
 		return "index";

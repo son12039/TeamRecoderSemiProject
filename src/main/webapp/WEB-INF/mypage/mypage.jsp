@@ -3,12 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>회원 정보 수정</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage.css" />
   </head>
+  
   <body>
     <div class="container">
       <h1>회원 정보 수정</h1>
@@ -45,12 +47,12 @@
         </div>
         <div class="form-group">
           <label >나이</label>
-          <p>${mem.age}</p>
+          <!-- <p>${mem.age}</p> -->
           <input type="number" id="age" name="age" placeholder="age" />
         </div>
         <div class="form-group">
           <label >성별</label>
-          <p>${mem.gender}</p>
+          <!-- <p>${mem.gender}</p> -->
           <select id="gender" name="gender" >
             <option value="" disabled selected>선택하세요</option>
             <option value="male">남성</option>

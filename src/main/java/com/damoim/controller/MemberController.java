@@ -37,14 +37,14 @@ public class MemberController {
 		
 		System.out.println(service.login(member));
 		
-		System.out.println( infoService.grade(member));
+		System.out.println(infoService.grade(member));
 		
 		session.setAttribute("info", infoService.grade(member));
 		
 		session.setAttribute("mem", service.login(member));
         ArrayList<MemberListDTO> membershipList = service.loginMemberMembership(member);
-
-   
+        
+        
         for (MemberListDTO i : membershipList) {
             System.out.println(i);
         }

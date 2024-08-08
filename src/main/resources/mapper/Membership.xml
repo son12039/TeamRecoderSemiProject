@@ -26,6 +26,7 @@
 		<result column="nickname" property="nickname" />
 		<result column="member_img" property="memberImg" />
 	</association>
+	
 	<association property="membership" javaType="Membership">
 		<id column="membership_code" property="membershipCode" />
 		<result column="Membership_name" property="membershipName" />
@@ -124,15 +125,13 @@
 
 
 
-	<select id="grade" parameterType="Member"
-		resultMap="membershipmap">
+	<select id="grade" parameterType="Member" resultMap="membershipmap">
 		SELECT *
 		FROM membership_user_list
 		JOIN membership USING
 		(membership_code)
 		JOIN member USING (id)
-		WHERE id=#{id};
-
+		WHERE id=#{id}
 	</select>
 
 	<update id="agreeMemeber" parameterType="MemberListDTO">

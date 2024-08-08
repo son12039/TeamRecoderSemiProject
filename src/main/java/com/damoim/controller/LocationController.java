@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.damoim.model.vo.LocationCategory;
 import com.damoim.service.LocationService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,17 +31,18 @@ public class LocationController {
 		return "location/location";
 	 }
 	
-	 @GetMapping("/location/locations")
-	 public String locationSmall(@RequestParam("location") String locLargeName, Model model) {
-	     model.addAttribute("LocationSmallList", service.LocationCategoryLarge(locLargeName));
-	     return "location/locationSmall";
+	 
+	 // Ajax
+	 @ResponseBody
+	 @GetMapping("/locationCategory")
+	 public List<String> locationSmall(String location,Model model) {
+	     List<String> aaa= new ArrayList<String>();
+	     List<LocationCategory> aaaa = service.LocationCategoryLarge(location);
+	     for( LocationCategory a : aaaa) {
+	    	 aaa.add(a.getLocSName());
+	     }
+	     return aaa;
 	 }
 	 
-	 
-	 // 유형
-//	 @GetMapping("type")
-//	 public String tpye( Model model) {
-//		model.addAttribute("allType",service.allLocation());
-//		return "location/type";
-//	 }
+	
 }

@@ -18,8 +18,6 @@ pageEncoding="UTF-8"%>
        
       </head>
       <body>
-      <form action="/location" method="get">위치기능<input type="submit"></form>
-      <form action="/type" method="get">유형기능<input type="submit"></form>
            
         <div class="header">
           <div class="header_left">
@@ -79,7 +77,10 @@ pageEncoding="UTF-8"%>
           </c:if>
         </div>
         
-        
+      <form action="/location" method="get">위치기능<input type="submit"></form>
+      <form action="/type" method="get">유형기능<input type="submit"></form>
+      
+
         <div class="membership-list">
         
        <c:forEach  items="${list}" var="id" varStatus="status" >

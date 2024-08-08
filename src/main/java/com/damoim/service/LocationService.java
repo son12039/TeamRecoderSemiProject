@@ -14,14 +14,14 @@ public class LocationService {
 	@Autowired
 	private locationCategoryMapper locationLargeMapper;
 	
-	//소분류 찾아내기
-	
-	public List<LocationCategory> LocationCategoryLarge(String locLargeName){
-		return locationLargeMapper.allLocationSmall(locLargeName);
-	}
-	
 	// 대분류 리스트 뽑아내기
 	public List<LocationCategory> allLocation(){
 		return locationLargeMapper.allLocationLarge();
 	}
+	
+	//소분류 찾아내기
+	public List<LocationCategory> LocationCategoryLarge(String location){
+		return locationLargeMapper.allLocationSmall(location);
+	}
+
 }

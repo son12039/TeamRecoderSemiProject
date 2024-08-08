@@ -6,7 +6,6 @@ FROM type_category;
 SELECT *
 FROM location_category;
 
-
 SELECT *
 FROM member;
 

@@ -72,7 +72,7 @@
   <div class="membership-card" id= "all-club" style="display: block;" >
   <h1>전체 보기</h1>
    <c:forEach items="${membership}" var="mem">
-    
+    <a href="/${mem.membership.membershipCode}club">
     <div class="membership-each"   >
      <div><img  class="membership-img" src="${mem.membership.membershipImg}"></div>
      <div class="membership-String">
@@ -80,7 +80,7 @@
      <div><p>${mem.membership.membershipInfo}</p></div>
      </div>
     </div>
-  
+ 	 </a>
    </c:forEach>
     </div>
   <div class="membership-card" id = "wait-club">
@@ -88,6 +88,7 @@
    <c:forEach items="${membership}" var="mem">
     
     <c:if test="${mem.listGrade == 'guest'}">
+    <a href="/${mem.membership.membershipCode}club">
   <div class="membership-each">
      <div><img  class="membership-img" src="${mem.membership.membershipImg}"></div>
      <div class="membership-String">
@@ -95,6 +96,7 @@
      <div><p>${mem.membership.membershipInfo}</p></div>
      </div>
     </div>
+    </a>
     </c:if>
   
    </c:forEach>
@@ -105,6 +107,7 @@
    <c:forEach items="${membership}" var="mem">
     
     <c:if test="${mem.listGrade == 'host' || mem.listGrade == 'admin'}">
+    <a href="/${mem.membership.membershipCode}club">
    <div class="membership-each">
      <div><img  class="membership-img" src="${mem.membership.membershipImg}"></div>
      <div class="membership-String">
@@ -112,6 +115,7 @@
      <div><p>${mem.membership.membershipInfo}</p></div>
      </div>
     </div>
+    </a>
     </c:if>
   
    </c:forEach>
@@ -121,6 +125,7 @@
    <c:forEach items="${membership}" var="mem">
     
     <c:if test="${mem.listGrade == 'regular'|| mem.listGrade == 'host' || mem.listGrade == 'admin'}">
+   <a href="/${mem.membership.membershipCode}club">
    <div class="membership-each">
      <div><img  class="membership-img" src="${mem.membership.membershipImg}"></div>
      <div class="membership-String">
@@ -128,6 +133,7 @@
      <div><p>${mem.membership.membershipInfo}</p></div>
      </div>
     </div>
+    </a>
     </c:if>
   
    </c:forEach>

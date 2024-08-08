@@ -43,7 +43,7 @@
 	<select id="nicknameCheck" parameterType="Member"
 		resultType="Member">
 		SELECT * FROM member
-		WHERE id = #{nickname}
+		WHERE nickname = #{nickname}
 	</select>
 	
 	<insert id="signUp" parameterType="Member">

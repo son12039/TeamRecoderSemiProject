@@ -31,13 +31,14 @@ pageEncoding="UTF-8"%>
           <c:if test="${empty mem}">
               <div class="header_right_menu">
                 <a href="/signUp">회원가입</a>
-                <a href="/loginPage">로그인</a>
+                <a href="/loginPage">로그인</a> 
               </div>
             
               </c:if>
               <c:if test="${not empty mem}">
               <div class="header_right_menu">
-                <a href="/mypage">마이페이지</a> 
+                <a href="/mypage">마이페이지</a>
+                
                
               <a href="/myMembership?id=${mem.id}">나의 모임</a>  
             
@@ -59,8 +60,12 @@ pageEncoding="UTF-8"%>
               <div class="textbox">
                 <i class="fas fa-lock"></i>
                 <input type="password" placeholder="비밀번호" name="pwd" id="pwd" />
-                
-              
+                <c:if test="${result == false}">
+                <p>아이디 또는 비밀번호가 일치하지 않습니다 </p>
+                </c:if>
+            
+               
+                 
              
               </div>
             <input type="submit" class="btn" value="로그인" />

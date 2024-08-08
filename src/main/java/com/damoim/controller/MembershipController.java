@@ -34,9 +34,14 @@ public class MembershipController {
 	
 	 @GetMapping("/{membershipCode}") // 클럽 홍보 페이지 각각 맞춰 갈수있는거
 		public String main(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO member, Model model,HttpServletRequest request) {
+		 
+		 System.out.println(service.main(membershipCode).getListCode());
+		 
 			model.addAttribute("main",service.main(membershipCode));
+			
 			model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));
 			HttpSession session = request.getSession();
+			
 			Member mem = (Member) session.getAttribute("mem");
 			
 			if(mem != null) {

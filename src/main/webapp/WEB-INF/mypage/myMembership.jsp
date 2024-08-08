@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+ 
 
     <link
           rel="stylesheet"
@@ -16,6 +16,8 @@
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/myMembership.css"
         />
+        
+      <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
         <style>
         .membership-card{
         display: none;
@@ -138,6 +140,9 @@
   
    </c:forEach>
   </div>
-  <script src="${pageContext.request.contextPath}/js/myMembership.js"></script>
+  
+  
+  <script src="${pageContext.request.contextPath}/js/myMembership.js">  
+    </script>
 </body>
 </html>

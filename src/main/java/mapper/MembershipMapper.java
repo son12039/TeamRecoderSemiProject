@@ -23,13 +23,11 @@ public interface MembershipMapper {
 	void makeMembership(Membership membership);
 	void host(MemberListDTO list);
 	ArrayList<Member> allMember();
-	
 	List<MembershipUserList> MembershipAllInfo(int membershipCode);
-
 	void membershipApply(MemberListDTO member);
-
-	List<MembershipUserList> grade(Member member);
 	
+	List<MembershipUserList> grade(Member member);
+
 	void agreeMemeber(MemberListDTO member);
 }
 

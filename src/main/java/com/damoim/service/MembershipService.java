@@ -1,6 +1,5 @@
 package com.damoim.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -65,6 +64,7 @@ public class MembershipService {
 	public List<MembershipUserList> grade(Member member){
 		return mapper.grade(member);
 	}
+	
 	public void agreeMemeber(MemberListDTO member) {
 		mapper.agreeMemeber(member);
 		

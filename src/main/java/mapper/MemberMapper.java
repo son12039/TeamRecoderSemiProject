@@ -26,8 +26,5 @@ public interface MemberMapper {
 	Member pwdCheck(Member member);	
 	void update(Member member);
 	Member memberInfo();
-//	ArrayList<Member> search(SearchDTO dto);
-
-
 	String grade(Member member);
 }

@@ -36,56 +36,57 @@
 		<result column="Membership_max" property="membershipMax" />
 	</association>
 </resultMap>
-
-
-
+	
 	<select id="allMembership" resultMap="membershipmap">
 		SELECT *
-		FROM membership_user_list
+		FROM
+		membership_user_list
 		JOIN membership USING (membership_code)
-		JOIN member USING (id)
+		JOIN member
+		USING (id)
 		WHERE list_grade = "host";
 	</select>
-	
-	<select id="MembershipAllInfo" parameterType="Integer" resultMap="membershipmap">
+
+	<select id="MembershipAllInfo" parameterType="Integer"
+		resultMap="membershipmap">
 		SELECT *
 		FROM membership_user_list
-		JOIN membership USING (membership_code)
+		JOIN membership USING
+		(membership_code)
 		JOIN member USING (id)
-		WHERE membership_code = #{membership_code};
+		WHERE membership_code =
+		#{membership_code};
 	</select>
 	
-
-	
-	
-	
-	
 	<insert id="membershipApply" parameterType="MemberListDTO">
-		INSERT INTO membership_user_list(membership_code , id,list_grade)
+		INSERT INTO
+		membership_user_list(membership_code , id,list_grade)
 		VALUES(#{membershipCode},#{id},#{listGrade})
 	</insert>
 
-<select id="checkMember" parameterType="MemberListDTO"
-	resultMap="memberListmap">
-	SELECT *
-	FROM membership_user_list
-	WHERE id = #{id} AND membership_code = #{membershipCode};
-</select>
-<select id="myMembership" parameterType="Integer"
-	resultMap="membershipMap">
-	SELECT *
-	FROM membership
-	WHERE membership_code = #{membershipCode}
-</select>
+	<select id="checkMember" parameterType="MemberListDTO"
+		resultMap="memberListmap">
+		SELECT *
+		FROM membership_user_list
+		WHERE id = #{id} AND membership_code = #{membershipCode};
+	</select>
+	<select id="myMembership" parameterType="Integer"
+		resultMap="membershipMap">
+		SELECT *
+		FROM membership
+		WHERE membership_code = #{membershipCode}
+	</select>
 
 
 	<select id="main" parameterType="Integer"
 		resultMap="membershipmap">
 		SELECT *
 		FROM membership_user_list
-		JOIN membership USING (membership_code)
+		JOIN membership USING
+		(membership_code)
 		JOIN member USING (id)
-		WHERE membership_code = "${memebershipCode}" AND list_grade = "host";
+		WHERE membership_code =
+		"${memebershipCode}" AND list_grade = "host";
 	</select>
 
 	<select id="membershipUserCount" parameterType="Integer"
@@ -100,7 +101,8 @@
 
 
 	<select id="count" parameterType="Integer" resultType="Integer">
-		SELECT count(*) as count
+		SELECT
+		count(*) as count
 		FROM membership_user_list
 		WHERE membership_code= #{i}
 		GROUP BY membership_code;
@@ -114,25 +116,30 @@
 	</insert>
 
 	<insert id="host" parameterType="MemberListDTO">
-		INSERT INTO membership_user_list (list_grade,id,membership_code)
-		VALUES (#{listGrade},#{id},#{membershipCode});
+		INSERT INTO membership_user_list
+		(list_grade,id,membership_code)
+		VALUES
+		(#{listGrade},#{id},#{membershipCode});
 	</insert>
 
 
 
-<select id="grade" parameterType="Member" resultMap="membershipmap">
+	<select id="grade" parameterType="Member"
+		resultMap="membershipmap">
 		SELECT *
 		FROM membership_user_list
-		JOIN membership USING (membership_code)
+		JOIN membership USING
+		(membership_code)
 		JOIN member USING (id)
 		WHERE id=#{id};
-		
+
 	</select>
-	
+
 	<update id="agreeMemeber" parameterType="MemberListDTO">
-	  UPDATE membership_user_list 
-   		SET list_grade = #{listGrade}
-		WHERE id = #{id} AND membership_code = #{membershipCode}
+		UPDATE membership_user_list
+		SET list_grade = #{listGrade}
+		WHERE id = #{id} AND membership_code =
+		#{membershipCode}
 	</update>
 
 

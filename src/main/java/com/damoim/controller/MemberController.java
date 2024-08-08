@@ -54,6 +54,7 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
+	
 	@ResponseBody
 	@PostMapping("/idCheck") //회원가입시 id 체크
 	public boolean idCheck(Member member) {

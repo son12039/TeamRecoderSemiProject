@@ -30,7 +30,7 @@ pageEncoding="UTF-8"%>
               </c:if>
               <c:if test="${not empty mem}">
               <div class="header_right_menu">
-                <a href="/mypage">마이페이지</a> 
+                <a href="/update">마이페이지</a> 
                 <a href="/logout">로그아웃</a>
               </div>
               </c:if>

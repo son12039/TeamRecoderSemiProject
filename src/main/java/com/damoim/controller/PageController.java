@@ -28,7 +28,6 @@ public class PageController {
 
 	@Autowired
 	private MembershipService service;
-	private MemberService memberService;
 
 	
 	@GetMapping("/")
@@ -54,15 +53,12 @@ public class PageController {
 		return "signUp/signUp";
 	}
 	
-	@GetMapping("/mypage")
+	// 회원정보 수정 페이지
+	@GetMapping("/update")
 	public String mypage() {
-		return "mypage/mypage";
+		return "mypage/update";
 	}
-	
-	@GetMapping("/mainCreate")
-	public String mainCreate() {
-		return "/mypage/mainCreate";
-	}
+
 	
 
 	

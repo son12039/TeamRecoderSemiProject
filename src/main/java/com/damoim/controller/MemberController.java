@@ -21,6 +21,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MemberController {
+	
 	@Autowired
 	private MemberService service;
 	
@@ -30,8 +31,8 @@ public class MemberController {
 		session.setAttribute("mem", service.login(member));
 		System.out.println(member);
 		return "redirect:/";
-		
 	}
+	
 	@PostMapping("/idCheck")
 	public String idCheck(Member member,Model model) {
 		boolean idResult = false;
@@ -65,7 +66,6 @@ public class MemberController {
 		
 		service.signUp(member);
 		
-		
 		return "redirect:/";
 		
 	}
@@ -84,40 +84,40 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		session.setAttribute("check", service.pwdCheck(member));
 		
-		
-		return "/mypage/mypage";
+		return "/mypage/update";
 	}
 	
-	@GetMapping("/pwdCheck")
-	public String page() {
-		
-		return  "/mypage/mypage";
-	}
-
+	
+	// 회원정보 수정
 	@PostMapping("/update")
 	public String update(Member member, HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
-		
 		Member member2 = (Member) session.getAttribute("mem"); // 2차 인증시 생성된 세션
-
+		
 		if (member.getId() == null)
 			member.setId(member2.getId());
 		
+		Member memCheck = (Member) session.getAttribute("mem");
+		session.setAttribute("mem", member);
 		service.update(member);
 		
-		Member memCheck = (Member) session.getAttribute("mem");
-		System.out.println(memCheck);
-		session.setAttribute("mem", member);
+		System.out.println(member.getPwd()); // 1234 (수정할 비밀번호)
+		System.out.println(member2.getPwd()); // 123 (원래 비밀번호)
 		
-		return "redirect:/pwdCheck";
+		if (member.getPwd().equals(member2.getPwd())) {
+			// 수정할 비밀번호가 같은경우
+			return "/mypage/update_fail";
+		} else {
+			// 수정할 비밀번호가 다른경우 수정
+			service.update(member);
+			memCheck = (Member) session.getAttribute("mem");
+			session.setAttribute("mem", member);
+			return "/mypage/update_ok";
+		}
+		
+		
 	}
-
-//	@GetMapping("/search")
-//	public String search (SearchDTO dto, Model model){
-//		model.addAttribute("search",service.search(dto));
-//		return "index";
-//	}
 	
 
 }

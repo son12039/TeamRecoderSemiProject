@@ -105,6 +105,7 @@ CREATE TABLE membership_meetings ( -- 클럽모임게시판
     meet_info TEXT, -- 모임관련 정보
     meet_creat_date DATE default(current_date)
 );
+
 CREATE TABLE meetings_agree (-- 클럽 모임게시판 - 클럽 회원 리스트 참여여부 테이블 
 	meet_agree_code INT PRIMARY KEY auto_increment,
     meet_agree_yn BOOLEAN DEFAULT(false),

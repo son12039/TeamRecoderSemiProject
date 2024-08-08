@@ -3,11 +3,13 @@ package com.damoim.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
 
 
 import mapper.MemberMapper;
 
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,10 @@ public class MemberService {
 		
 		return mapper.login(member);
 	}
+	public ArrayList<MemberListDTO> loginMemberMembership(Member member){
+		return mapper.loginMemberMembership(member);
+		
+	}
 	
 	 
 	
@@ -32,6 +38,7 @@ public class MemberService {
 			mapper.signUp(member);
 		
 	}
+	
 	public Member idCheck(Member member) {
 		return mapper.idCheck(member);
 		

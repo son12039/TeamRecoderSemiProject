@@ -36,6 +36,9 @@ pageEncoding="UTF-8"%>
               <c:if test="${not empty mem}">
               <div class="header_right_menu">
                 <a href="/mypage">마이페이지</a> 
+               
+              <a href="/myMembership?id=${mem.id}">나의 모임</a>  
+            
                 <a href="/logout">로그아웃</a>
               </div>
               </c:if>
@@ -63,7 +66,7 @@ pageEncoding="UTF-8"%>
               </div>
               
               <div>
-                <a class="search" href="/signUp">회원가입</a>
+                <a class="search"  href="/signUp">회원가입</a>
               </div>
             </div>
           </div>
@@ -72,6 +75,9 @@ pageEncoding="UTF-8"%>
           <div class="container">
           <div class="login-box">
             <h1>${mem.name}님 환영합니다~</h1>
+
+
+              
             </div>
           </div>      
           </c:if>
@@ -80,7 +86,7 @@ pageEncoding="UTF-8"%>
         
         <div class="membership-list">
         
-       <c:forEach  items="${list}" var="id">
+       <c:forEach  items="${list}" var="id" varStatus="status" >
       
        <div class="membership-card">
        <div class="membership-img">
@@ -91,11 +97,14 @@ pageEncoding="UTF-8"%>
        <div class="membership-info">
        <h1 class="membership-name"> ${id.membership.membershipName}</h1>
        <h2>${id.membership.membershipInfo} </h2>   
-       <h2>호스트 : ${id.member.nickname}, 멤버쉽 코드 : ${id.membership.membershipCode}</h2>
+       <h2>호스트 : ${id.member.nickname}</h2>
+       <input type="hidden" name="code" value="${id.membership.membershipCode}">
+       <h3> 인원 현황 ${countList.get(status.index)}/${id.membership.membershipMax}</h3>
       
-          
+
         <c:choose>
-        <c:when test="${id.member.memberImg.equals('')}">
+        
+        <c:when test="${id.member.memberImg == ''}">
         <img class="user-img" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
         </c:when>
         <c:otherwise>

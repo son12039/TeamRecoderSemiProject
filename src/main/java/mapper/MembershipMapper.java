@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 
 import com.damoim.model.dto.MemberListDTO;
-import com.damoim.model.dto.SearchDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipUserList;
@@ -24,5 +23,18 @@ public interface MembershipMapper {
 	void host(MemberListDTO list);
 	ArrayList<Member> allMember();
 	
+	
+	List<MembershipUserList> MembershipAllInfo(int membershipCode);
 
+	void membershipApply(MemberListDTO member);
+	
+	void makeMembership(Membership membership);
+	
+	void host(MemberListDTO list);
+	
+	MemberListDTO checkMember(MemberListDTO member);
+
+	List<MembershipUserList> grade(Member member);
+	
+	void agreeMemeber(MemberListDTO member);
 }

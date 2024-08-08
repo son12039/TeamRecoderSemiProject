@@ -6,16 +6,24 @@ FROM type_category;
 SELECT *
 FROM location_category;
 
-
 SELECT *
 FROM member;
 
 select *
 from member ;
 
+		SELECT list_grade, id, membership_code 
+		FROM membership_user_list
+		WHERE id = 'asd123';
 
 select *
 from membership ;
+
+SELECT *
+FROM membership_user_list
+JOIN membership USING (membership_code)
+JOIN member USING (id)
+WHERE membership_code = 1;
 
 SELECT * FROM membership_user_list;
 

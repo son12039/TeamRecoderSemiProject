@@ -31,6 +31,9 @@ pageEncoding="UTF-8"%>
               <c:if test="${not empty mem}">
               <div class="header_right_menu">
                 <a href="/update">마이페이지</a> 
+               
+              <a href="/myMembership?id=${mem.id}">나의 모임</a>  
+            
                 <a href="/logout">로그아웃</a>
               </div>
               </c:if>
@@ -68,10 +71,9 @@ pageEncoding="UTF-8"%>
           <div class="container">
           <div class="login-box">
             <h1>${mem.name}님 환영합니다~</h1>
-              <form action="/makeMembership">            
-              <input type="hidden" name=id value="${mem.id}">
-              <button type="submit" value="클럽생성">클럽 만들기 </button>
-              </form>
+
+
+              
             </div>
           </div>      
           </c:if>
@@ -105,15 +107,11 @@ pageEncoding="UTF-8"%>
        <img class="user-img" src="${id.member.memberImg}"> 
        </c:otherwise>
        </c:choose>
-          
-     
        </div>
        </div>
       
        </c:forEach>
         </div>
-      
-        
          
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         <script src="login.js"></script>

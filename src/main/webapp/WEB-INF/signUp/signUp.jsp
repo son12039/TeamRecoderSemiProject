@@ -8,22 +8,24 @@
     <title>회원가입</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/signUp.css"/>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   </head>
   <body>
   <main>
-    <form action="/signUp" method="post">
+    <form id="signUpForm" action="/signUp" method="post">
       <div class="container">
         <!-- 페이지 1 -->
         <div id="page1" class="page visible">
           <h2>*회원가입*</h2>
           <div class="formBox">
             <label for="id">아이디</label>
-            <button type="button">중복확인</button>
+            <div id="idResult" ></div>
     
             <input type="text" id="id" name="id" required placeholder="아이디를 입력하세요" autofocus />
             
              
           </div>
+          
           <div class="formBox">
             <label for="pwd">비밀번호</label>
             <input type="password" id="pwd" name="pwd"  placeholder="비밀번호를 입력하세요" />
@@ -67,7 +69,7 @@
           <h2>*회원가입*</h2>
           <div class="formBox">
             <label for="nickname">닉네임</label> 
-              <button type="button">중복확인</button>      
+              	<div id="nicknameResult" ></div>   
             <input type="text" id="nickname" name="nickname"  placeholder="닉네임을 입력하세요" required />
           
           </div>

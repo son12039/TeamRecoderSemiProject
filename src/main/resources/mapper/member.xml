@@ -1,6 +1,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.MemberMapper">
-	
+	<resultMap type="MemberListDTO" id="memberListmap">
+		<result column="id" property="id"/>
+		<result column="list_grade" property="listGrade"/>
+		<result column="membership_code" property="membershipCode"/>
+		
+	</resultMap>
+
 	<select id="pwdCheck" parameterType="Member" resultType="Member">
 		SELECT *
 		FROM member
@@ -15,24 +21,40 @@
 	</update>
 	
 	<select id="login" parameterType="Member" resultType="Member">
-		SELECT * FROM member 
+		SELECT *
+		FROM member
 		WHERE id = #{id} AND pwd = #{pwd}
 	</select>
-	
+
+
+
+	<select id="loginMemberMembership" parameterType="Member"
+		resultMap="memberListmap">
+		SELECT *
+		FROM membership_user_list
+		WHERE id = #{id}
+	</select>
+
 	<select id="idCheck" parameterType="Member" resultType="Member">
-		SELECT * FROM member 
+		SELECT *
+		FROM member
 		WHERE id = #{id}
 	</select>
 	
-	<select id="nicknameCheck" parameterType="Member" resultType="Member">
+	<select id="nicknameCheck" parameterType="Member"
+		resultType="Member">
 		SELECT * FROM member
-		WHERE id = #{nickname}
+		WHERE nickname = #{nickname}
 	</select>
 	
 	<insert id="signUp" parameterType="Member">
-		INSERT INTO member(id, pwd, addr, phone, email, name, age, gender, nickname, member_img, member_hobby, member_info, member_location,member_type)
-		VALUES (#{id}, #{pwd}, #{addr}, #{phone}, #{email},#{name}, #{age},#{gender},
-				#{nickname},#{MemberImg},#{MemberHobby},#{MemberInfo},#{MemberLocation},#{MemberType} )			
+		INSERT INTO member(id, pwd,
+		addr, phone, email, name, age, gender, nickname, member_img,
+		member_hobby, member_info, member_location,member_type)
+		VALUES (#{id},
+		#{pwd}, #{addr}, #{phone}, #{email},#{name}, #{age},#{gender},
+		#{nickname},#{memberImg},#{memberHobby},#{memberInfo},#{memberLocation},#{memberType}
+		)
 	</insert>
 	
 	<select id="search" parameterType="SearchDTO" resultType="Member">

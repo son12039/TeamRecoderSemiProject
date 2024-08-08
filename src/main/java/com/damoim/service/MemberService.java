@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.damoim.model.dto.SearchDTO;
+import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
 
 
@@ -25,6 +25,10 @@ public class MemberService {
 	
 	public Member login(Member member) {
 		return mapper.login(member);
+		
+	}
+	public ArrayList<MemberListDTO> loginMemberMembership(Member member){
+		return mapper.loginMemberMembership(member);
 		
 	}
 	

@@ -2,6 +2,7 @@ package com.damoim.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,44 +21,8 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class MainController {
 	
+
 	
-//	main 생성 post 받음
-//	@PostMapping("/mainCreate")
-//	public String mainCreate(MembershipUserList vo , HttpServletRequest request) {
-//		HttpSession session = request.getSession();
-////		listService는 MembershipUserListMapper
-//		session.setAttribute("grade", listService.membershipUserList());
-//		if(vo.getListGrade().equals("host") || vo.getListGrade().equals("admin")) {
-//			mainService.mainCreate(main);
-//			System.out.println("유저 등급 : " + vo.getListGrade());
-//		}
-//		
-//		System.out.println("유저 등급 : " + vo.getListGrade());
-//		
-//		return "redirect:/";
-//	}
-	
-	@Autowired 
-	private MembershipService service;
-	
-	 @GetMapping("/{membershipCode}")
-		public String main(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO member, Model model,HttpServletRequest request) {
-			model.addAttribute("main",service.main(membershipCode));
-			model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));
-			HttpSession session = request.getSession();
-			Member mem = (Member) session.getAttribute("mem");
-			if(mem != null) {
-				System.out.println("시작" + member);
-				member.setId(mem.getId());
-				System.out.println("삽입후" +member);
-			
-			model.addAttribute("checkMember" , service.checkMember(member));
-			
-			}
-			
-			
-			return "mainboard/main";
-		}
 }
 
 

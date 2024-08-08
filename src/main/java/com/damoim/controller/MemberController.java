@@ -2,18 +2,18 @@ package com.damoim.controller;
 
 import java.util.ArrayList;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.damoim.model.dto.SearchDTO;
+import com.damoim.model.dto.MemberInfoDTO;
+import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.service.MemberService;
+import com.damoim.service.MembershipService;
 
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,42 +24,58 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService service;
+	private MembershipService infoService;
+
 	
-	@PostMapping("/login")
-	public String login(Member member,HttpServletRequest request) {
+	@PostMapping("/login") // 로그인 메서드
+	public String login(MemberInfoDTO info,HttpServletRequest request) {
 		HttpSession session = request.getSession();
+		Member member = new Member();
+		member.setId(info.getId());		
+		member.setPwd(info.getPwd());
+		
+		
+		System.out.println(service.login(member));
+		
+		System.out.println( infoService.grade(member));
+		
+		session.setAttribute("info", infoService.grade(member));
+		
 		session.setAttribute("mem", service.login(member));
-		System.out.println(member);
+        ArrayList<MemberListDTO> membershipList = service.loginMemberMembership(member);
+
+   
+        for (MemberListDTO i : membershipList) {
+            System.out.println(i);
+        }
+
+        session.setAttribute("membershipList", membershipList);
+
+		
 		return "redirect:/";
 	}
-	
-	@PostMapping("/idCheck")
-	public String idCheck(Member member,Model model) {
-		boolean idResult = false;
+	@ResponseBody
+	@PostMapping("/idCheck") //회원가입시 id 체크
+	public boolean idCheck(Member member) {
+		
 		Member mem = service.idCheck(member);
-		if(mem == null) {
-			idResult = true;
-			model.addAttribute("idResult", idResult);
-		}else {
-			model.addAttribute("idResult", idResult);
-		}
-		return "signUp/signUp";
+		System.out.println("ID 체크 도착 : " + mem);
+		return mem == null;
+		
 		
 	}
-	@PostMapping("/nicknameCheck")
-	public String nicknameCheck(Member member,Model model) {
-		boolean nicknameResult = false;
-		Member mem = service.idCheck(member);
-		if(mem == null) {
-			nicknameResult = true;
-			model.addAttribute("idResult", nicknameResult);
-		}else {
-			model.addAttribute("idResult", nicknameResult);
-		}
-		return "signUp/signUp";
+	@ResponseBody
+	@PostMapping("/nicknameCheck") // 회원가입시 닉네임 중복 체크 
+	public boolean nicknameCheck(Member member) {
+		Member mem = service.nicknameCheck(member);
+		System.out.println("닉네임 체크 도착 : " + mem);
+		return mem == null;
+			
+		
+		
 	}
 
-	@PostMapping("/signUp")
+	@PostMapping("/signUp") // 회원가입 메서드
 	public String signUp(Member member) {
 		
 		System.out.println(member);
@@ -70,7 +86,7 @@ public class MemberController {
 		
 	}
 
-	@GetMapping("/logout")
+	@GetMapping("/logout") // 로그아웃 메서드
     public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate();
@@ -78,7 +94,7 @@ public class MemberController {
 	}
 	
 	
-	@PostMapping("/pwdCheck")
+	@PostMapping("/pwdCheck") // 아마 비밀번호 체크용 미리?
 	public String pwdCheck(Member member, HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
@@ -87,9 +103,8 @@ public class MemberController {
 		return "/mypage/update";
 	}
 	
-	
-	// 회원정보 수정
-	@PostMapping("/update")
+
+	@PostMapping("/update") 
 	public String update(Member member, HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
@@ -117,6 +132,19 @@ public class MemberController {
 		}
 		
 		
+	}
+	
+	@GetMapping("/myMembership") // 내가 가입한 클럽확인
+	public String myMembership(MemberInfoDTO info, Model model) {
+		Member member = new Member();
+		member.setId(info.getId());
+		System.out.println(info.getId());
+		System.out.println(member);
+		
+		
+		model.addAttribute("membership", infoService.grade(member));
+		
+		return "/mypage/myMembership";
 	}
 	
 

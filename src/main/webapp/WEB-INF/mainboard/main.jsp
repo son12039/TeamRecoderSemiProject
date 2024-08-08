@@ -35,6 +35,7 @@
     <c:when test="${checkMember != null}">
     <h2>이미 가입 신청한 클럽이거나 가입한 클럽입니다.</h2>
     </c:when>
+    
     </c:choose>
 </div>
 </body>

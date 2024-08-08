@@ -16,6 +16,8 @@
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/myMembership.css"
         />
+        
+      <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
         <style>
         .membership-card{
         display: none;
@@ -132,8 +134,9 @@
   
    </c:forEach>
   </div>
-  <script src="${pageContext.request.contextPath}/js/myMembership.js">
-     
+  
+  
+  <script src="${pageContext.request.contextPath}/js/myMembership.js">  
     </script>
 </body>
 </html>

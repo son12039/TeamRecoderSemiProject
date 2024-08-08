@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MemberInfoDTO;
@@ -27,18 +28,26 @@ public class MemberController {
 	@Autowired
 	private MembershipService infoService;
 	
+	
+	 int count =0;	
 	@PostMapping("/login")
 	public String login(MemberInfoDTO info,HttpServletRequest request) {
+		boolean check  = true;
 		HttpSession session = request.getSession();
+				
 		Member member = new Member();
+		
 		member.setId(info.getId());		
+		
 		member.setPwd(info.getPwd());
 		
 		
-		System.out.println(service.login(member));
+//		System.out.println(service.login(member));
 		
-		System.out.println( infoService.grade(member));
-		
+//		System.out.println( infoService.grade(member));
+	
+		// 로그인 성공 !
+if(service.login(member) != null) {
 		session.setAttribute("info", infoService.grade(member));
 		
 		session.setAttribute("mem", service.login(member));
@@ -48,13 +57,32 @@ public class MemberController {
         for (MemberListDTO i : membershipList) {
             System.out.println(i);
         }
-
+              
+        count =0;
         session.setAttribute("membershipList", membershipList);
+        
+        session.setAttribute("loginCheck", check);
+    
+        
+        return "redirect:/";
+        
+   // 로그인 실패!     
+   } else {
+		/*
+		 * if(count < 5) count++; check =false; session.setAttribute("loginCheck",
+		 * check); session.setAttribute("count", count);
+		 */
+	  check= false; 
+	session.setAttribute("result", check);
+	
+	return "login/login";
+}
 
-		
-		return "redirect:/";
-		
+
+
+
 	}
+	
 	@PostMapping("/idCheck")
 	public String idCheck(Member member,Model model) {
 		boolean idResult = false;
@@ -149,5 +177,11 @@ public class MemberController {
 		return "/mypage/myMembership";
 	}
 	
+	
+	
+		
+	
+	}
+	
 
-}
+

@@ -25,4 +25,4 @@ $(document).ready(function() {
       content.slideDown(500); // 클릭된 카드의 내용만 표시하기
     }
   });
-});
+

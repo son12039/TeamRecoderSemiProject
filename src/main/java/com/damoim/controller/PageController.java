@@ -100,7 +100,7 @@ public class PageController {
 		
 		
 		 
-	 	return "login/login";
+	 	return "login/loginPage";
 	 }
 	 
 	

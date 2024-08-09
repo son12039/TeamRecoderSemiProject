@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,33 +30,38 @@ public class MemberController {
 	@Autowired
 	private MembershipService infoService;
 	
-	@PostMapping("/login") // 로그인 메서드
-	public String login(Member member, HttpServletRequest request) {
-
-		HttpSession session = request.getSession();
-
-		// 로그인 성공 !
-		if (service.login(member) != null) {
-
-			session.setAttribute("mem", service.login(member));
-			ArrayList<MemberListDTO> membershipList = service.loginMemberMembership(member);
-
-			session.setAttribute("membershipList", membershipList);
-
-
-			return "redirect:/";
-
-			// 로그인 실패!
-		} 
-			return "login/login";
-
-	}
 	
-	// 회원가입 관련 시작!!
-	@ResponseBody
-	@PostMapping("/idCheck") //회원가입시 id 체크
-	public boolean idCheck(Member member) {
-		
+	
+ // 일단 확정 08 09 
+// 로그인 , 해당 회원 정보 , 가입 클럽 코드 및 등급을 세션에 
+		@ResponseBody
+		@PostMapping("/login")
+		public boolean login(Member member, HttpServletRequest request, Model model) {
+			boolean check = true;
+			HttpSession session = request.getSession();
+			// 로그인 성공 !
+			if (service.login(member) != null) {
+				
+				session.setAttribute("mem", service.login(member)); // 로그인 정보 세션에
+				// 내가 가입한 클럽 정보 체크용
+				ArrayList<MemberListDTO> membershipList = service.loginMemberMembership(member);
+
+				// 위정보 세션추가
+				session.setAttribute("membershipList", membershipList);
+
+				return true;
+
+				// 로그인 실패!
+			} 
+				return false;			
+
+		}
+	
+	// 삭제예정
+// 회원가입 관련 아이디 중복 체크용 
+	@PostMapping("/idCheck")
+	public String idCheck(Member member,Model model) {
+		boolean idResult = false;
 		Member mem = service.idCheck(member);
 		return mem == null;
 		

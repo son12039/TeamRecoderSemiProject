@@ -1,0 +1,30 @@
+
+.type {	
+  background-color: orange;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.typebox{
+	display: flex;
+	background-color: red;
+	padding : 30px;
+}
+.typeTableChild { /*.locationTableChild*/
+  background-color: aqua;
+  height : 50px
+}
+
+.typeSmallCategory {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+.typeSmallCategory div {
+	padding-top : 18px;
+	margin-right : 10px;
+	margin-left : 10px;
+}

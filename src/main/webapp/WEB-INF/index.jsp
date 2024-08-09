@@ -78,6 +78,7 @@ pageEncoding="UTF-8"%>
         </div>
         
       <form action="/location" method="get">위치기능<input type="submit"></form>
+      <form action="/location2" method="get">위치기능2<input type="submit"></form>
       <form action="/type" method="get">유형기능<input type="submit"></form>
       
 

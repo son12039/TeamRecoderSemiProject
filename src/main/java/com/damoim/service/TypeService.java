@@ -19,7 +19,7 @@ public class TypeService {
 		return typemapper.allType();
 	}
 	
-	public List<TypeCategory> allTypesmall(String typeSName){
-		return typemapper.allSmallType(typeSName);
+	public List<TypeCategory> TypeCategoryLarge(String type){
+		return typemapper.TypeCategoryLarge(type);
 	}
 }

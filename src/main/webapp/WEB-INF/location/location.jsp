@@ -12,49 +12,38 @@
 </head>
 <body>
     <div class="locationTable">
-      <div class="location">
-		<c:forEach items="${allLocation}" var="Location">
-			<div class="locationCategory">${Location.locLaName}</div>
-		</c:forEach>
-      </div>
-      <div class="locationTableChild">
-	       <div class="locationSamllCategory"></div>
-	  </div>
+	      <div class="location">
+			<c:forEach items="${allLocation}" var="Location">
+			<div class="loctionbox">
+				<div class="locationCategory">${Location.locLaName}</div>
+			</div>
+			</c:forEach>
+	      </div>
     </div>
+    <div class="locationTableChild">
+    	<div class="locationSamllCategory"></div>
+ 	</div>
     
     
 <script>
 $(document).ready(function() {
-    $(".locationCategory").click(function() {
-        let locationName = $(this).text();
+    $(".loctionbox").click(function() {
+        let locationName = $(this).find(".locationCategory").text();
         $.ajax({	
         	type:"get",
         	url:"/locationCategory",
         	data: "location=" + locationName,
-        	
         	success : function(result){
-        		console.log(result);
-        		$(".locationSamllCategory").text(result);
+        		$(".locationSamllCategory").empty();
+        		result.forEach(function(item) {	
+        		    $(".locationSamllCategory").append("<div>" + item + "</div>");
+        		});
         	}
         })
     });
 });
 </script>
 
-<!-- 
-<c:forEach items="${LocationSmallList}" var="Location">
-    <div>
-        <p>Location Name: ${Location.locSName}</p>
-    </div>
-</c:forEach>
-
-
-<c:forEach items="${LocationSmallList}" var="Location">
-    <div>
-        <p>Location Name: ${Location.locSName}</p>
-    </div>
-</c:forEach>
- -->
  
 </body>
 </html>

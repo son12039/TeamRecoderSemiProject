@@ -10,7 +10,7 @@
 		group by type_la_name;
 	</select>
 
-	<select id="allSmallType" parameterType="String" resultMap="Type">
+	<select id="TypeCategoryLarge" parameterType="String" resultMap="Type">
 		SELECT type_s_name FROM type_category
 		WHERE type_la_name = #{typeSName};   
 	</select>

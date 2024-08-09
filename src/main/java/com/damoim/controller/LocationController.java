@@ -23,6 +23,8 @@ public class LocationController {
 	@Autowired
 	private LocationService service;
 	
+	
+	// 전체 테이블 보이는 기능
 	// 화면에 보이게 만들기	 
 	 //화면 대분류 코드 추가
 	 @GetMapping("location")
@@ -30,19 +32,26 @@ public class LocationController {
 		model.addAttribute("allLocation",service.allLocation());
 		return "location/location";
 	 }
-	
-	 
 	 // Ajax
 	 @ResponseBody
 	 @GetMapping("/locationCategory")
 	 public List<String> locationSmall(String location,Model model) {
-	     List<String> aaa= new ArrayList<String>();
-	     List<LocationCategory> aaaa = service.LocationCategoryLarge(location);
-	     for( LocationCategory a : aaaa) {
-	    	 aaa.add(a.getLocSName());
+	     List<String> list= new ArrayList<String>();
+	     List<LocationCategory> locationLarge = service.LocationCategoryLarge(location);
+	     for( LocationCategory Large : locationLarge) {
+	    	 list.add(Large.getLocSName());
 	     }
-	     return aaa;
+	     return list;
 	 }
+
 	 
-	
+	 
+	 
+
+	@GetMapping("/location2")
+	public String location2(Model model) {
+		model.addAttribute("allLocation",service.allLocation());
+		return "location/location2";
+	}
+	 
 }

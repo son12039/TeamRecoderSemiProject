@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,60 +30,34 @@ public class MemberController {
 	private MembershipService infoService;
 	
 	
-	 int count =0;	
-	@PostMapping("/login")
-	public String login(MemberInfoDTO info,HttpServletRequest request) {
-		boolean check  = true;
-		HttpSession session = request.getSession();
+	
+ // 일단 확정 08 09 
+// 로그인 , 해당 회원 정보 , 가입 클럽 코드 및 등급을 세션에 
+		@ResponseBody
+		@PostMapping("/login")
+		public boolean login(Member member, HttpServletRequest request, Model model) {
+			boolean check = true;
+			HttpSession session = request.getSession();
+			// 로그인 성공 !
+			if (service.login(member) != null) {
 				
-		Member member = new Member();
-		
-		member.setId(info.getId());		
-		
-		member.setPwd(info.getPwd());
-		
-		
-//		System.out.println(service.login(member));
-		
-//		System.out.println( infoService.grade(member));
+				session.setAttribute("mem", service.login(member)); // 로그인 정보 세션에
+				// 내가 가입한 클럽 정보 체크용
+				ArrayList<MemberListDTO> membershipList = service.loginMemberMembership(member);
+
+				// 위정보 세션추가
+				session.setAttribute("membershipList", membershipList);
+
+				return true;
+
+				// 로그인 실패!
+			} 
+				return false;			
+
+		}
 	
-		// 로그인 성공 !
-if(service.login(member) != null) {
-		session.setAttribute("info", infoService.grade(member));
-		
-		session.setAttribute("mem", service.login(member));
-        ArrayList<MemberListDTO> membershipList = service.loginMemberMembership(member);
-
-   
-        for (MemberListDTO i : membershipList) {
-            System.out.println(i);
-        }
-              
-        count =0;
-        session.setAttribute("membershipList", membershipList);
-        
-        session.setAttribute("loginCheck", check);
-    
-        
-        return "redirect:/";
-        
-   // 로그인 실패!     
-   } else {
-		/*
-		 * if(count < 5) count++; check =false; session.setAttribute("loginCheck",
-		 * check); session.setAttribute("count", count);
-		 */
-	  check= false; 
-	session.setAttribute("result", check);
-	
-	return "login/login";
-}
-
-
-
-
-	}
-	
+	// 삭제예정
+// 회원가입 관련 아이디 중복 체크용 
 	@PostMapping("/idCheck")
 	public String idCheck(Member member,Model model) {
 		boolean idResult = false;
@@ -96,6 +71,10 @@ if(service.login(member) != null) {
 		return "signUp/signUp";
 		
 	}
+	
+	
+	// 삭제예정
+	// 회원가입 관련 닉네임 중복 체크용 
 	@PostMapping("/nicknameCheck")
 	public String nicknameCheck(Member member,Model model) {
 		boolean nicknameResult = false;
@@ -109,6 +88,7 @@ if(service.login(member) != null) {
 		return "signUp/signUp";
 	}
 
+	
 	@PostMapping("/signUp")
 	public String signUp(Member member) {
 		

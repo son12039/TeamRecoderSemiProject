@@ -30,83 +30,47 @@ public class MemberController {
 	private MembershipService infoService;
 	
 	@PostMapping("/login") // 로그인 메서드
-	public String login(MemberInfoDTO info,HttpServletRequest request) {
-		boolean check  = true;
+	public String login(Member member, HttpServletRequest request) {
+
 		HttpSession session = request.getSession();
-				
-		Member member = new Member();
-		
-		member.setId(info.getId());		
-		
-		member.setPwd(info.getPwd());
-		
 
-	
 		// 로그인 성공 !
-	if(service.login(member) != null) {
-			session.setAttribute("info", infoService.grade(member));
-			
+		if (service.login(member) != null) {
+
 			session.setAttribute("mem", service.login(member));
-	        ArrayList<MemberListDTO> membershipList = service.loginMemberMembership(member);
-	
-	   
-	        for (MemberListDTO i : membershipList) {
-	            System.out.println(i);
-        }
-              
-        count =0;
-        session.setAttribute("membershipList", membershipList);
-        
-        session.setAttribute("loginCheck", check);
-    
-        
-        return "redirect:/";
-        
-   // 로그인 실패!     
-   } else {
-		/*
-		 * if(count < 5) count++; check =false; session.setAttribute("loginCheck",
-		 * check); session.setAttribute("count", count);
-		 */
-	  check= false; 
-	session.setAttribute("result", check);
-	
-	return "login/login";
-}
+			ArrayList<MemberListDTO> membershipList = service.loginMemberMembership(member);
+
+			session.setAttribute("membershipList", membershipList);
 
 
+			return "redirect:/";
 
+			// 로그인 실패!
+		} 
+			return "login/login";
 
 	}
+	
+	// 회원가입 관련 시작!!
 	@ResponseBody
 	@PostMapping("/idCheck") //회원가입시 id 체크
 	public boolean idCheck(Member member) {
 		
 		Member mem = service.idCheck(member);
-		System.out.println("ID 체크 도착 : " + mem);
 		return mem == null;
-		
 		
 	}
 	@ResponseBody
 	@PostMapping("/nicknameCheck") // 회원가입시 닉네임 중복 체크 
 	public boolean nicknameCheck(Member member) {
 		Member mem = service.nicknameCheck(member);
-		System.out.println("닉네임 체크 도착 : " + mem);
 		return mem == null;
 			
-		
-		
 	}
 
 	@PostMapping("/signUp") // 회원가입 메서드
 	public String signUp(Member member) {
-		
-		System.out.println(member);
-		
-		service.signUp(member);
-		
-		
+		service.signUp(member);	
 		return "redirect:/";
 		
 	}

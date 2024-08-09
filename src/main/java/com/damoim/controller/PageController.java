@@ -22,15 +22,19 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class PageController {
 	
+
 	@Autowired
 	private MembershipService service;
 
-	
+	 /* 
+	  * 
+	  * */
 	@GetMapping("/")
 	public String index(Model model ) {
 		
 		List<Integer> countList = new ArrayList();
 		model.addAttribute("list", service.allMembership());
+		
 		for(int i = 0; i < service.allMembership().size(); i++) {
 		int j = service.allMembership().get(i).getMembership().getMembershipCode();
 		countList.add(service.membershipUserCount(j));
@@ -38,6 +42,7 @@ public class PageController {
 		}
 		
 		model.addAttribute("countList", countList);
+		
 		return "index";
 	}
 	 
@@ -84,10 +89,19 @@ public class PageController {
 		return "mypage/myMembershipPage";
 	}
 	
-	
 
 
- 
+
+  // 로그인 페이지로 이동 
+	 @GetMapping("/loginPage")
+	 public String loginPage(HttpServletRequest request ) {
+		
+
+		
+		
+		 
+	 	return "login/login";
+	 }
 	 
 	
 		

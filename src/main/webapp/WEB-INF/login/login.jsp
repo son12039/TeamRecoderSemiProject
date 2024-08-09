@@ -19,6 +19,7 @@ pageEncoding="UTF-8"%>
        
       </head>
       <body>
+     
         <div class="header">
           <div class="header_left">
           <a href="/"> <div class="LOGO">DAMOIM</div></a> 
@@ -30,14 +31,15 @@ pageEncoding="UTF-8"%>
           <c:if test="${empty mem}">
               <div class="header_right_menu">
                 <a href="/signUp">회원가입</a>
-                <a href="/loginPage">로그인</a>
+                <a href="/loginPage">로그인</a> 
               </div>
             
               </c:if>
               <c:if test="${not empty mem}">
               <div class="header_right_menu">
-                <a href="/mypage">마이페이지</a> 
-               <a href=""></a>
+                <a href="/mypage">마이페이지</a>
+                
+               
               <a href="/myMembership?id=${mem.id}">나의 모임</a>  
             
                 <a href="/logout">로그아웃</a>
@@ -46,11 +48,50 @@ pageEncoding="UTF-8"%>
             </div>
           </div>
         </div>
-     
+        <c:if test="${empty mem}">
+        <div class="container">
+          <div class="login-box">
+            <h1>로그인</h1>
+            <form action="/login" method="post" >
+              <div class="textbox">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="아이디" name="id" required  id="id" />
+              </div>
+              <div class="textbox">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="비밀번호" name="pwd" id="pwd" />
+                <c:if test="${result == false}">
+                <p>아이디 또는 비밀번호가 일치하지 않습니다 </p>
+                </c:if>
+            
+               
+                 
+             
+              </div>
+            <input type="submit" class="btn" value="로그인" />
+            </form>
+            <div class="searchBox">
+              <div>
+                <a class="search" href="https://www.google.com/">아이디 / 비밀번호 찾기</a>
+              </div>
+              
+              <div>
+                <a class="search"  href="/signUp">회원가입</a>
+              </div>
+            </div>
+          </div>
+          </c:if>
+          <c:if test="${not empty mem }">
+          <div class="container">
+          <div class="login-box">
+            <h1>${mem.name}님 환영합니다~</h1>
+            <p>${loginCheck}</p>
+
+
               
             </div>
           </div>      
-          
+          </c:if>
         </div>
         
         

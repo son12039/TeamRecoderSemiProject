@@ -9,31 +9,40 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/signUp.css"/>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+    	.result{
+    		align-self: center;
+    		
+    	}
+    </style>
   </head>
   <body>
   <main>
-    <form id="signUpForm" action="/signUp" method="post">
+    <form id="signUpForm" action="/signUp" method="post" onsubmit="return validate()">
       <div class="container">
         <!-- 페이지 1 -->
         <div id="page1" class="page visible">
           <h2>*회원가입*</h2>
           <div class="formBox">
             <label for="id">아이디</label>
-            <div id="idResult" ></div>
+           
     
             <input type="text" id="id" name="id" required placeholder="아이디를 입력하세요" autofocus />
             
              
           </div>
+           <div class="result" id="idResult" ></div>
           
           <div class="formBox">
             <label for="pwd">비밀번호</label>
             <input type="password" id="pwd" name="pwd"  placeholder="비밀번호를 입력하세요" />
           </div>
+          <div class="result" id="pwdResult" ></div>
           <div class="formBox">
             <label for="pwdc">비밀번호 확인</label>
             <input type="password" id="pwdc"   placeholder="비밀번호를 입력하세요" />
           </div>
+          <div class="result" id="pwdcResult" ></div>
           <div class="formBox">
             <label for="addr">주소</label>
             <input type="text" id="addr" name="addr" placeholder="주소를 입력하세요" />
@@ -52,8 +61,10 @@
           </div>
           <div class="formBox">
             <label for="age">나이</label>
-            <input type="text" id="age" name="age" placeholder="나이를 입력하세요" />
+        <input type="text" id="age" name="age"  placeholder="나이를 입력하세요"  >
+   
           </div>
+           <div class="result" id="ageResult" ></div>
           <div class="formBox">
             <label for="gender">성별</label>
             <label for="genderM">남성</label><input type="radio" id="genderM" name="gender" value="M" />
@@ -68,11 +79,10 @@
         <div id="page2" class="page hidden">
           <h2>*회원가입*</h2>
           <div class="formBox">
-            <label for="nickname">닉네임</label> 
-              	<div id="nicknameResult" ></div>   
-            <input type="text" id="nickname" name="nickname"  placeholder="닉네임을 입력하세요" required />
-          
+            <label for="nickname">닉네임</label>     	   
+            <input type="text" id="nickname" name="nickname"  placeholder="닉네임을 입력하세요"  />
           </div>
+          <div class="result" id="nicknameResult"></div>
           <div class="formBox">
             <label for="memberImg">프로필 사진</label>
             <input

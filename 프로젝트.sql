@@ -1,17 +1,8 @@
 -- drop schema damoim;
 -- create schema damoim;
 
-SELECT * 
-FROM member
-JOIN membership_user_list USING (id)
-JOIN membership USING(membership_code);
+INSERT INTO member(id,pwd,addr,phone,email,name,age,gender) VALUES ('asd','123','경기도','010-1111-2222','sdm@gmail.com','감자',22 ,'M');
 
-SELECT *
-FROM member
-WHERE id = 'asd123';
-UPDATE member
-set id = "" 
-set pwd, addr, phone, email, name, age, gender, status, member_manner, nickname, member_img, member_hobby, member_info, member_location, member_type
 -- _은 자바 타입으로 매핑 해줘야 한다 
 
 CREATE TABLE member ( -- 회원가입

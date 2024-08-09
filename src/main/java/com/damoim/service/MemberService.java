@@ -58,9 +58,9 @@ public class MemberService {
 		mapper.update(member);
 	}
 	
-	public Member memberInfo(Member member) {
-		return mapper.memberInfo();
-	}
+//	public Member memberInfo(Member member) {
+//		return mapper.memberInfo();
+//	}
 	
 	
 	

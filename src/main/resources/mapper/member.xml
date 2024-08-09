@@ -25,16 +25,14 @@
 		FROM member
 		WHERE id = #{id} AND pwd = #{pwd}
 	</select>
-
-
-
+	
 	<select id="loginMemberMembership" parameterType="Member"
 		resultMap="memberListmap">
 		SELECT *
 		FROM membership_user_list
 		WHERE id = #{id}
 	</select>
-
+	
 	<select id="idCheck" parameterType="Member" resultType="Member">
 		SELECT *
 		FROM member
@@ -46,7 +44,7 @@
 		SELECT * FROM member
 		WHERE nickname = #{nickname}
 	</select>
-	
+
 	<insert id="signUp" parameterType="Member">
 		INSERT INTO member(id, pwd,
 		addr, phone, email, name, age, gender, nickname, member_img,
@@ -56,25 +54,22 @@
 		#{nickname},#{memberImg},#{memberHobby},#{memberInfo},#{memberLocation},#{memberType}
 		)
 	</insert>
-	<!-- 검색 미구현
-	<select id="search" parameterType="SearchDTO" resultType="Member">
-		SELECT * FROM member
-		JOIN membership_user_list USING (id)
-		JOIN membership USING(membership_code)
-	<choose>
-	<when test="select == 'nickname'">
-		WHERE nickname LIKE CONCAT('%', #{keyword},'%')
-	</when>
-	<when test="select == 'age'">
-		WHERE age LIKE CONCAT('%', #{keyword},'%')
-	</when>
-	</choose>
-	</select>
-	 검색 미구현 -->
 	<select id ="memberInfo" parameterType="Member" resultType="Member">
 		SELCET * 
 		FROM member
 		WHERE id = #{id}
 	</select>
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper> 

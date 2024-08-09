@@ -54,7 +54,7 @@ public class PageController {
 	@GetMapping("/update")
 	public String mypage() {
 		
-		return "mypage/mypage";
+		return "mypage/update";
 	}
 	@GetMapping("/myMembershipPage")
 	public String myMembershipPage(Model model, HttpServletRequest request) {

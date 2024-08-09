@@ -37,9 +37,8 @@ public class MemberController {
 		
 		System.out.println(service.login(member));
 		
-		System.out.println(infoService.grade(member));
-		
-		session.setAttribute("info", infoService.grade(member));
+//		System.out.println(infoService.grade(member));
+//		session.setAttribute("info", infoService.grade(member));
 		
 		session.setAttribute("mem", service.login(member));
         ArrayList<MemberListDTO> membershipList = service.loginMemberMembership(member);
@@ -104,7 +103,8 @@ public class MemberController {
 		return "/mypage/update";
 	}
 	
-
+	
+	@ResponseBody
 	@PostMapping("/update") 
 	public String update(Member member, HttpServletRequest request) {
 
@@ -131,8 +131,8 @@ public class MemberController {
 			session.setAttribute("mem", member);
 			return "/mypage/update_ok";
 		}
-		
-		
+
+
 	}
 	
 	@GetMapping("/myMembership") // 내가 가입한 클럽확인

@@ -47,46 +47,11 @@ pageEncoding="UTF-8"%>
             </div>
           </div>
         </div>
-        <c:if test="${empty mem}">
-        <div class="container">
-          <div class="login-box">
-            <h1>로그인</h1>
-            <form action="/login" method="post" >
-              <div class="textbox">
-                <i class="fas fa-user"></i>
-                <input type="text" placeholder="아이디" name="id" required  id="id" />
-              </div>
-              <div class="textbox">
-                <i class="fas fa-lock"></i>
-                <input type="password" placeholder="비밀번호" name="pwd" id="pwd" />
-                
-              
-             
-              </div>
-            <input type="submit" class="btn" value="로그인" />
-            </form>
-            <div class="searchBox">
-              <div>
-                <a class="search" href="https://www.google.com/">아이디 / 비밀번호 찾기</a>
-              </div>
-              
-              <div>
-                <a class="search"  href="/signUp">회원가입</a>
-              </div>
-            </div>
-          </div>
-          </c:if>
-          <c:if test="${not empty mem }">
-          <div class="container">
-          <div class="login-box">
-            <h1>${mem.name}님 환영합니다~</h1>
-            <p>${loginCheck}</p>
-
-
+     
               
             </div>
           </div>      
-          </c:if>
+          
         </div>
         
         

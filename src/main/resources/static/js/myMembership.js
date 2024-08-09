@@ -8,10 +8,6 @@ $(document).ready(function() {
         $(".membership-card").hide(); // 모든 카드 숨기기
         $("#manage-club").show(); // 내가 관리중인 클럽 카드만 보이기
     });
-    $("#belong-club-button").click(function() {
-        $(".membership-card").hide(); // 모든 카드 숨기기
-        $("#belong-club").show(); // 가입 중인 클럽 카드만 보이기
-    });
     $("#wait-club-button").click(function() {
         $(".membership-card").hide(); // 모든 카드 숨기기
         $("#wait-club").show(); // 가입 대기중인 클럽 카드만 보이기

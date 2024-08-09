@@ -66,31 +66,17 @@
         </c:choose>
    
    <div class="membership-type">
-  <button id="all-club-button">전체 목록 </button>  
+   <button id="all-club-button">가입 중인 모든 클럽</button> 
   <button id="manage-club-button">내가 관리중인 클럽</button>  
-  <button id="belong-club-button">가입 중인 클럽</button>  
   <button id="wait-club-button">가입 대기중인 클럽</button>  
   </div>
-  <div class="membership-card" id= "all-club" style="display: block;" >
-  <h1>전체 보기</h1>
-   <c:forEach items="${membership}" var="mem">
-    <a href="/${mem.membership.membershipCode}club">
-    <div class="membership-each"   >
-     <div><img  class="membership-img" src="${mem.membership.membershipImg}"></div>
-     <div class="membership-String">
-     <div><p>${mem.membership.membershipName} </p></div>
-     <div><p>${mem.membership.membershipInfo}</p></div>
-     </div>
-    </div>
- 	 </a>
-   </c:forEach>
-    </div>
+  
   <div class="membership-card" id = "wait-club">
   <h1>가입 대기중인 클럽 보기</h1>
    <c:forEach items="${membership}" var="mem">
     
     <c:if test="${mem.listGrade == 'guest'}">
-    <a href="/${mem.membership.membershipCode}club">
+    <a href="/${mem.membership.membershipCode}">
   <div class="membership-each">
      <div><img  class="membership-img" src="${mem.membership.membershipImg}"></div>
      <div class="membership-String">
@@ -122,7 +108,7 @@
   
    </c:forEach>
   </div>
-  <div class="membership-card" id = "belong-club">
+  <div class="membership-card" id = "all-club" style="display: block;">
   <h1>가입 된 클럽 보기</h1>
    <c:forEach items="${membership}" var="mem">
     

@@ -11,21 +11,24 @@ function showPage(pageId) { // 회원가입 페이지 이동
     }
   });
 }
-const idRegExp = /^[a-zA-Z0-9]{10,20}$/;
-const pwdRegExp = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{10,20}$/;
+const idRegExp = /^[a-zA-z][a-zA-Z0-9]{7,13}$/;
+const pwdRegExp = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,15}$/;
 
-let chk1 = false;
-let chk2 = false;
+let idSubmit = false;
+let pwdSubmit = false;
+let pwdcSubmit = false;
+let nicknameSubmit = false;
+let ageSubmit = false;
 
-$('#id').on('keyup', function() { // 아이디 체크
+id.addEventListener('input', function() { // 아이디 체크
   const idValue = $(this).val().trim();
   
   if (idValue === '') {
     $('#idResult').text("필수 입력사항입니다").css('color', 'red');
-    chk1 = false;
+    idSubmit = false;
   } else if (!idRegExp.test(idValue)) {
-    $('#idResult').text("영어,숫자로만 10~20자를 입력해주십시오").css('color', 'red');
-    chk1 = false;
+    $('#idResult').text("첫글자는 영어로, 영어 또는 숫자로만 8~14글자로 구성할수 있습니다.").css('color', 'red');
+    idSubmit = false;
   } else {
     $.ajax({
       type: 'POST',
@@ -33,25 +36,50 @@ $('#id').on('keyup', function() { // 아이디 체크
       data: { id: idValue },
       success: function(result) {
         if (result) { 
-			console.log(result);
           $('#idResult').text("사용 가능한 ID 입니다").css('color', 'green');
-          chk1 = true;
+          idSubmit = true;
         } else {
-			console.log(result);
           $('#idResult').text("중복 ID 입니다").css('color', 'red');
-          chk1 = false;
+          idSubmit = false;
         }
       }
     });
   }
 });
 
-$('#nickname').on('keyup', function() { // 닉네임 체크
+pwd.addEventListener('input', function() { // 아이디 체크
+  const pwdValue = $(this).val().trim();
+  
+  if (pwdValue === '') {
+    $('#pwdResult').text("필수 입력사항입니다").css('color', 'red');
+    pwdSubmit = false;
+  } else if (!pwdRegExp.test(pwdValue)) {
+    $('#pwdResult').text("특수문자,대문자,소문자,숫자가 한개이상 무조건 포함되어야 합니다.(8~15자)").css('color', 'red');
+    pwdSubmit = false;
+  } else{
+	pwdSubmit = true;
+	$('#pwdResult').text("사용 가능한 비밀번호입니다.").css('color', 'green');
+  }
+ });
+pwdc.addEventListener('input', function() { // 아이디 체크
+    const pwdcValue = $(this).val().trim();
+    
+    if (pwdcValue === $("#pwd").val()) {
+		$('#pwdcResult').text("비밀번호가 일치합니다").css('color', 'green');
+		pwdcSubmit = true;
+    } else {
+	  
+	  $('#pwdcResult').text("비밀번호가 일치하지 않습니다.").css('color', 'red');
+	  pwdcSubmit = false;
+      
+    } 
+ });
+nickname.addEventListener('input', function() { // 닉네임 체크
   const nicknameValue = $(this).val().trim();
   
   if (nicknameValue === '') {
     $('#nicknameResult').text("필수 입력사항입니다").css('color', 'red');
-    chk2 = false;
+    nicknameSubmit = false;
   } else {
     $.ajax({
       type: 'POST',
@@ -61,56 +89,44 @@ $('#nickname').on('keyup', function() { // 닉네임 체크
         if (result) { // 서버 응답을 'true' 또는 'false'로 가정
 			console.log(result);
           $('#nicknameResult').text("사용 가능한 닉네임 입니다").css('color', 'green');
-          chk2 = true;
+          nicknameSubmit = true;
         } else {
 			console.log(result);
           $('#nicknameResult').text("중복 닉네임 입니다").css('color', 'red');
-          chk2 = false;
+          nicknameSubmit = false;
         }
       }
     });
   }
 });
 
-$('#age').on('keyup', function() {
+age.addEventListener('input', function() { // 나이체크
   const ageValue = $(this).val().trim();
   
   if (ageValue === '' || isNaN(Number(ageValue)) || Number(ageValue) <= 0) {
-    $(this).val('0');
-    
-  } 
-});
-
-$('#signUpForm').on('submit', function(e) {
-  let isValid = true;
-
-  if (!chk1) {
-    alert("아이디를 확인해 주세요.");
-    isValid = false;
-  }
-
-  if (!chk2) {
-    alert("닉네임을 확인해 주세요.");
-    isValid = false;
-  }
-
-  if (!pwdRegExp.test($('#pwd').val())) {
-    alert("비밀번호는 10~20자, 영어, 숫자, 특수문자를 포함해야 합니다.");
-    isValid = false;
-  }
-
-  if ($('#pwd').val() !== $('#pwdc').val()) {
-    alert("비밀번호가 일치하지 않습니다.");
-    isValid = false;
-  }
-
-  const ageValue = $('#age').val().trim();
-  if (ageValue === '' || isNaN(Number(ageValue)) || Number(ageValue) <= 0) {
-    alert("나이는 숫자만 입력할 수 있습니다.");
-    isValid = false;
-  }
-
-  if (!isValid) {
-    e.preventDefault(); // 폼 제출 방지
+	ageSubmit = false;
+	$('#ageResult').text("올바른 나이를 입력해주십시오.").css('color', 'green');
+  } else{
+	$('#ageResult').text("");
+	ageSubmit = true;
   }
 });
+
+
+function validate() {
+	if(!idSubmit)id.focus();
+	
+	else if(!pwdSubmit)pwd.focus();
+	
+	else if(!pwdcSubmit)pwdc.focus();
+	
+	else if(!ageSubmit)age.focus();
+	
+	else if(!nicknameSubmit)nickname.focus();
+	
+	if(!(idSubmit && pwdSubmit && pwdcSubmit && ageSubmit && nicknameSubmit)){
+		alert("!! 다시 확인해주십시오!!");
+	}
+	
+	return idSubmit && pwdSubmit && pwdcSubmit && ageSubmit && nicknameSubmit;
+}

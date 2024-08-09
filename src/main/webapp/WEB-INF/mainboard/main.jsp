@@ -33,7 +33,7 @@
     </form>
     </c:when>
     <c:when test="${checkMember != null}">
-    <h2>이미 가입 신청한 클럽이거나 가입한 클럽입니다.</h2>
+    <a href="/${main.membership.membershipCode}club">내 클럽 페이지로 이동하기</a>
     </c:when>
     <c:when test="${membershipUserCount} >= ${main.membership.membershipMax}">
     <h2>최대 인원에 도달한 클럽입니다 신청할수 없습니다.</h2>

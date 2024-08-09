@@ -50,9 +50,7 @@ public class MemberController {
 	        ArrayList<MemberListDTO> membershipList = service.loginMemberMembership(member);
 	
 	   
-	        for (MemberListDTO i : membershipList) {
-	            System.out.println(i);
-        }
+	     
               
         count =0;
         session.setAttribute("membershipList", membershipList);

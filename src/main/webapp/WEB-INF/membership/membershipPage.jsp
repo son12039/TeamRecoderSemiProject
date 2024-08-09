@@ -12,14 +12,12 @@
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/reset.css"
         />
-          <link
-          rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/membershipPage.css"
-        />
+          
          <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 <main>
+	<a href="chatserver">채팅서버가기</a>
     <h2>${main.membership.membershipName }</h2>
     <img id="mainImg" src="${main.membership.membershipImg }" >
     <h3>${main.membership.membershipInfo }</h3>

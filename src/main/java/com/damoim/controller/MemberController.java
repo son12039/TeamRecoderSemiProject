@@ -1,7 +1,5 @@
 package com.damoim.controller;
-
 import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -11,16 +9,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.service.MemberService;
 import com.damoim.service.MembershipService;
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-
 @Controller
 public class MemberController {
 	int count = 0;
@@ -32,8 +27,7 @@ public class MemberController {
 	
 	
 	
-
-	// 로그인 , 해당 회원 정보 , 가입 클럽 코드 및 등급을 세션에 
+	// 로그인 , 해당 회원 정보 , 가입 클럽 코드 및 등급을 세션에
 		@ResponseBody
 		@PostMapping("/login")
 		public boolean login(Member member, HttpServletRequest request, Model model) {
@@ -44,21 +38,18 @@ public class MemberController {
 				session.setAttribute("mem", service.login(member)); // 로그인 정보 세션에
 				// 내가 가입한 클럽 정보 체크용
 		
-
 				// 해당 id를 가진 맴버의 맴버쉽 의 모든정보 + 맴버, 등급 등등
 				System.out.println(infoService.grade(member));
-				session.setAttribute("membership", infoService.grade(member)); 
-
+				session.setAttribute("membership", infoService.grade(member));
 				return true;
 				// 로그인 실패!
-			} 
+			}
 				return false;			
-
 		}
 	
 	// *** 회원가입 관련
 		
-	// 회원가입 관련 아이디 중복 체크용 
+	// 회원가입 관련 아이디 중복 체크용
 	@ResponseBody
 	@PostMapping("/idCheck")
 	public boolean idCheck(Member member) {
@@ -67,20 +58,18 @@ public class MemberController {
 		
 	}
 	@ResponseBody
-	@PostMapping("/nicknameCheck") // 회원가입시 닉네임 중복 체크 
+	@PostMapping("/nicknameCheck") // 회원가입시 닉네임 중복 체크
 	public boolean nicknameCheck(Member member) {
 		Member mem = service.nicknameCheck(member);
 		return mem == null;
 			
 	}
-
 	@PostMapping("/signUp") // 회원가입 메서드
 	public String signUp(Member member) {
 		service.signUp(member);	
 		return "redirect:/";
 		
 	}
-
 	@GetMapping("/logout") // 로그아웃 메서드
     public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -102,6 +91,3 @@ public class MemberController {
 		
 	
 	}
-	
-
-

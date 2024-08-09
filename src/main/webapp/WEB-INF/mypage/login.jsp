@@ -19,11 +19,6 @@ pageEncoding="UTF-8"%>
       <body>
         <div class="header">
           <div class="header_left">
-            <div class="LOGO">LOGO</div>
-            <div class="menu">menu1</div>
-            <div class="menu">menu2</div>
-            <div class="menu">menu3</div>
-            <div class="menu">menu4</div>
             <div class="header_right">
               <div class="header_right_menu"><a href="/register">회원가입</a>
               </div>

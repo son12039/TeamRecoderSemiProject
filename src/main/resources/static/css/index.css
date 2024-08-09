@@ -25,10 +25,20 @@
   padding: 10px;
   font-weight: bold;
 }
+.header_right_menu a {
+  padding-right: 30px;
+}
 .LOGO {
   padding: 20px;
   font-size: 3rem;
   font-weight: bold;
+  border: 4px solid #00796b; /* 청록색 테두리 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.LOGO:hover {
+  transform: scale(1.1); /* 마우스 오버 시 확대 효과 */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); /* 확대 시 그림자 효과 증가 */
 }
 .menu {
   align-items: center;
@@ -143,19 +153,20 @@
   }
 }
 .membership-list {
-  width: 1000px;
+  width: 80%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
   margin: auto;
-  border-radius: 15px;
+  padding-top: 90px;
 }
 .membership-card {
   display: flex;
-  width: 49%;
+  width: 50%;
   background-color: white;
-  border-radius: 15px;
+  border-radius: 20px;
   margin: 5px;
 }
 img {
@@ -165,7 +176,7 @@ img {
   margin: 20px;
 }
 body {
-  background-color: beige;
+  background-color: #e6e1e1;
 }
 .membership-name {
   font-weight: bolder;
@@ -182,12 +193,11 @@ body {
   font-size: 20px;
 }
 .membership-info h2 {
-  margin-top: 8px;
-  color: #999;
+  margin-top: 15px;
+  width: 320px;
 }
 .membership-info h3 {
   margin-top: 8px;
-  color: #999;
 }
 .user-img {
   border-radius: 50%;

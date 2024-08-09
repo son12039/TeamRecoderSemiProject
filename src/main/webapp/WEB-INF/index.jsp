@@ -18,7 +18,6 @@ pageEncoding="UTF-8"%>
        
       </head>
       <body>
-     
         <div class="header">
           <div class="header_left">
           <a href="/"> <div class="LOGO">DAMOIM</div></a> 
@@ -36,7 +35,7 @@ pageEncoding="UTF-8"%>
               <c:if test="${not empty mem}">
               <div class="header_right_menu">
                 <a href="/mypage">마이페이지</a> 
-               
+               <a href=""></a>
               <a href="/myMembership?id=${mem.id}">나의 모임</a>  
             
                 <a href="/logout">로그아웃</a>

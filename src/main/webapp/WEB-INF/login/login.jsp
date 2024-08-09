@@ -31,13 +31,14 @@ pageEncoding="UTF-8"%>
           <c:if test="${empty mem}">
               <div class="header_right_menu">
                 <a href="/signUp">회원가입</a>
-                <a href="/loginPage">로그인</a>
+                <a href="/loginPage">로그인</a> 
               </div>
             
               </c:if>
               <c:if test="${not empty mem}">
               <div class="header_right_menu">
-                <a href="/update">마이페이지</a> 
+                <a href="/mypage">마이페이지</a>
+                
                
               <a href="/myMembership?id=${mem.id}">나의 모임</a>  
             
@@ -51,14 +52,21 @@ pageEncoding="UTF-8"%>
         <div class="container">
           <div class="login-box">
             <h1>로그인</h1>
-            <form action="/login" method="post">
+            <form action="/login" method="post" >
               <div class="textbox">
                 <i class="fas fa-user"></i>
-                <input type="text" placeholder="아이디" name="id" required />
+                <input type="text" placeholder="아이디" name="id" required  id="id" />
               </div>
               <div class="textbox">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="비밀번호" name="pwd" />
+                <input type="password" placeholder="비밀번호" name="pwd" id="pwd" />
+                <c:if test="${result == false}">
+                <p>아이디 또는 비밀번호가 일치하지 않습니다 </p>
+                </c:if>
+            
+               
+                 
+             
               </div>
             <input type="submit" class="btn" value="로그인" />
             </form>
@@ -66,10 +74,9 @@ pageEncoding="UTF-8"%>
               <div>
                 <a class="search" href="https://www.google.com/">아이디 / 비밀번호 찾기</a>
               </div>
+              
               <div>
                 <a class="search"  href="/signUp">회원가입</a>
-
-             
               </div>
             </div>
           </div>
@@ -78,12 +85,13 @@ pageEncoding="UTF-8"%>
           <div class="container">
           <div class="login-box">
             <h1>${mem.name}님 환영합니다~</h1>
+            <p>${loginCheck}</p>
 
 
               
             </div>
           </div>      
-          
+          </c:if>
         </div>
         
         
@@ -94,7 +102,6 @@ pageEncoding="UTF-8"%>
        <div class="membership-card">
        <div class="membership-img">
        <a href="/${id.membership.membershipCode}">
-       
        <img  src="${id.membership.membershipImg}">    
        </a>
        </div>  
@@ -104,9 +111,10 @@ pageEncoding="UTF-8"%>
        <h2>호스트 : ${id.member.nickname}</h2>
        <input type="hidden" name="code" value="${id.membership.membershipCode}">
        <h3> 인원 현황 ${countList.get(status.index)}/${id.membership.membershipMax}</h3>
-      	
-		
+      
+
         <c:choose>
+        
         <c:when test="${id.member.memberImg == ''}">
         <img class="user-img" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
         </c:when>
@@ -114,11 +122,15 @@ pageEncoding="UTF-8"%>
        <img class="user-img" src="${id.member.memberImg}"> 
        </c:otherwise>
        </c:choose>
+          
+     
        </div>
        </div>
       
        </c:forEach>
         </div>
+      
+        
          
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         <script src="login.js"></script>

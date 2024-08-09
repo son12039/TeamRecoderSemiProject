@@ -131,7 +131,7 @@
 		JOIN membership USING
 		(membership_code)
 		JOIN member USING (id)
-		WHERE id=#{id}
+		WHERE id = #{id}
 	</select>
 
 	<update id="agreeMemeber" parameterType="MemberListDTO">

@@ -22,9 +22,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class MemberController {
 	int count = 0;
-	@Autowired
-	private MemberService service;
-	
+
 	@Autowired
 	private MemberService service;
 	private MembershipService infoService;
@@ -45,14 +43,20 @@ public class MemberController {
 	
 		// 로그인 성공 !
 	if(service.login(member) != null) {
-			session.setAttribute("info", infoService.grade(member));
+		
+		// service에는 listGrade 정보 없음
+//		System.out.println(service.login(member));
+		// infoService는 listGrade 정보 담음
+//		System.out.println(infoService.grade(member));
 			
 			session.setAttribute("mem", service.login(member));
+//			session.setAttribute("info", infoService.grade(member));
+			
 	        ArrayList<MemberListDTO> membershipList = service.loginMemberMembership(member);
 	
 	   
 	        for (MemberListDTO i : membershipList) {
-	            System.out.println(i);
+	            System.out.println("리스트 그레이드 : " + i);
         }
               
         count =0;

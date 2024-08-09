@@ -32,36 +32,36 @@ public class MemberController {
 	
 	
 	
- // 일단 확정 08 09 
-// 로그인 , 해당 회원 정보 , 가입 클럽 코드 및 등급을 세션에 
+
+	// 로그인 , 해당 회원 정보 , 가입 클럽 코드 및 등급을 세션에 
 		@ResponseBody
 		@PostMapping("/login")
 		public boolean login(Member member, HttpServletRequest request, Model model) {
-			boolean check = true;
 			HttpSession session = request.getSession();
 			// 로그인 성공 !
 			if (service.login(member) != null) {
 				
 				session.setAttribute("mem", service.login(member)); // 로그인 정보 세션에
 				// 내가 가입한 클럽 정보 체크용
-				ArrayList<MemberListDTO> membershipList = service.loginMemberMembership(member);
+		
 
-				// 위정보 세션추가
-				session.setAttribute("membershipList", membershipList);
+				// 해당 id를 가진 맴버의 맴버쉽 의 모든정보 + 맴버, 등급 등등
+				System.out.println(infoService.grade(member));
+				session.setAttribute("membership", infoService.grade(member)); 
 
 				return true;
-
 				// 로그인 실패!
 			} 
 				return false;			
 
 		}
 	
-	// 삭제예정
-// 회원가입 관련 아이디 중복 체크용 
+	// *** 회원가입 관련
+		
+	// 회원가입 관련 아이디 중복 체크용 
+	@ResponseBody
 	@PostMapping("/idCheck")
-	public String idCheck(Member member,Model model) {
-		boolean idResult = false;
+	public boolean idCheck(Member member) {
 		Member mem = service.idCheck(member);
 		return mem == null;
 		
@@ -88,49 +88,8 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	
-	@PostMapping("/pwdCheck") // 아마 비밀번호 체크용 미리?
-	public String pwdCheck(Member member, HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		session.setAttribute("check", service.pwdCheck(member));
-		
-		
-		return "/mypage/mypage";
-	}
-	
-	@GetMapping("/pwdCheck") // ????
-	public String page() {
-		
-		return  "/mypage/mypage";
-	}
-
-	@PostMapping("/update") // 수?정
-	public String update(Member member, HttpServletRequest request) {
-		
-       HttpSession session = request.getSession();
-		 
-		Member member2 = (Member) session.getAttribute("mem"); // 2차 인증시 생성된 세션 
-		
-
-		 if(member.getId() == null )  member.setId(member2.getId());	
-		 
-		 
-		 service.update(member);
-	  System.out.println(member);
-	  
-	  session.setAttribute("mem",member);
-		
-		return "redirect:/pwdCheck";
-	}
-	
 	@GetMapping("/myMembership") // 내가 가입한 클럽확인
-	public String myMembership(MemberInfoDTO info, Model model) {
-		Member member = new Member();
-		System.out.println("이전" + member);
-		member.setId(info.getId());
-		System.out.println(info.getId());
-		System.out.println("이후" + member);
+	public String myMembership(Member member, Model model) {
 		
 		// 내 등급별 클럽
 		model.addAttribute("membership", infoService.grade(member));

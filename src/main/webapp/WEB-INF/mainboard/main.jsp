@@ -16,29 +16,37 @@
 </head>
 <body>
 <div id="container">
-    <h1>우리 클럽을 소개합니다!!!</h1>
-    <h2>${main.membership.membershipName }</h2>
-    <img id="mainImg" src="${main.membership.membershipImg }" >
-    <h3>${main.membership.membershipInfo }</h3>
-    <p>인원 현황 :  ${membershipUserCount}/${main.membership.membershipMax}</p>
-    <h4>호스트 : ${main.member.nickname}</h4>
-    <p>가입조건 : 사지멀쩡한 남녀노소 누구나!!</p>
-    <c:choose>
-   <c:when test="${checkMember == null && mem != null}"> 
-    <form action="/membershipApply" method="post">
-    <input type="submit" value="가입 신청하기">
-    <input type="hidden" name="membershipCode" value="${main.membership.membershipCode}">
-    <input type="hidden" name="id" value="${mem.id}">
-    <input type="hidden" name="listGrade" value="guest">
-    </form>
-    </c:when>
-    <c:when test="${checkMember != null}">
-    <a href="/${main.membership.membershipCode}club">내 클럽 페이지로 이동하기</a>
-    </c:when>
-    <c:when test="${membershipUserCount} >= ${main.membership.membershipMax}">
-    <h2>최대 인원에 도달한 클럽입니다 신청할수 없습니다.</h2>
-    </c:when>
-    </c:choose>
-</div>
+		<h1>우리 클럽을 소개합니다!!!</h1>
+		<h2>${main.membership.membershipName }</h2>
+		<img id="mainImg" src="${main.membership.membershipImg }">
+		<h3>${main.membership.membershipInfo }</h3>
+		<p>인원 현황 : ${membershipUserCount}/${main.membership.membershipMax}</p>
+		<h4>호스트 : ${main.member.nickname}</h4>
+		<p>가입조건 : 사지멀쩡한 남녀노소 누구나!!</p>
+
+		<c:choose>
+			<c:when test="${checkMember == null && mem != null}">
+				<form action="/membershipApply" method="post">
+					<input type="submit" value="가입 신청하기"> <input type="hidden"
+						name="membershipCode" value="${main.membership.membershipCode}">
+					<input type="hidden" name="id" value="${mem.id}"> <input
+						type="hidden" name="listGrade" value="guest">
+				</form>
+
+			</c:when>
+			<c:when test="${checkMember.listGrade == 'guest'}">
+				<p>가입 대기중인 클럽입니다</p>
+			</c:when>
+
+			<c:when
+				test="${(checkMember != null) && (checkMember.listGrade != 'guest')}">
+				<a href="/${main.membership.membershipCode}club">내 클럽 페이지로 이동하기</a>
+			</c:when>
+			<c:when
+				test="${membershipUserCount >= main.membership.membershipMax}">
+				<h2>최대 인원에 도달한 클럽입니다 신청할수 없습니다.</h2>
+			</c:when>
+		</c:choose>
+	</div>
 </body>
 </html>

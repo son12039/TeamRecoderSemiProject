@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.damoim.model.dto.MemberInfoDTO;
@@ -28,18 +30,31 @@ public class MemberController {
 	private MembershipService infoService;
 
 	
-	@PostMapping("/login") // 로그인 메서드
-	public String login(MemberInfoDTO info,HttpServletRequest request) {
-		boolean check  = true;
-		HttpSession session = request.getSession();
+	
+	
+
+	// 로그인 , 해당 회원 정보 , 가입 클럽 코드 및 등급을 세션에 
+		@ResponseBody
+		@PostMapping("/login")
+		public boolean login(Member member, HttpServletRequest request, Model model) {
+			HttpSession session = request.getSession();
+			// 로그인 성공 !
+			if (service.login(member) != null) {
 				
-		Member member = new Member();
-		
-		member.setId(info.getId());		
-		
-		member.setPwd(info.getPwd());
+				session.setAttribute("mem", service.login(member)); // 로그인 정보 세션에
+				// 내가 가입한 클럽 정보 체크용
 		
 
+				// 해당 id를 가진 맴버의 맴버쉽 의 모든정보 + 맴버, 등급 등등
+				System.out.println(infoService.grade(member));
+				session.setAttribute("membership", infoService.grade(member)); 
+
+				return true;
+				// 로그인 실패!
+			} 
+				return false;			
+
+		}
 	
 		// 로그인 성공 !
 	if(service.login(member) != null) {
@@ -85,24 +100,18 @@ public class MemberController {
 	}
 	
 	@ResponseBody
-	@PostMapping("/idCheck") //회원가입시 id 체크
+	@PostMapping("/idCheck")
 	public boolean idCheck(Member member) {
-		
 		Member mem = service.idCheck(member);
-		System.out.println("ID 체크 도착 : " + mem);
 		return mem == null;
-		
 		
 	}
 	@ResponseBody
 	@PostMapping("/nicknameCheck") // 회원가입시 닉네임 중복 체크 
 	public boolean nicknameCheck(Member member) {
 		Member mem = service.nicknameCheck(member);
-		System.out.println("닉네임 체크 도착 : " + mem);
 		return mem == null;
 			
-		
-		
 	}
 
 	@PostMapping("/signUp") // 회원가입 메서드
@@ -166,12 +175,7 @@ public class MemberController {
 	}
 	
 	@GetMapping("/myMembership") // 내가 가입한 클럽확인
-	public String myMembership(MemberInfoDTO info, Model model) {
-		Member member = new Member();
-		System.out.println("이전" + member);
-		member.setId(info.getId());
-		System.out.println(info.getId());
-		System.out.println("이후" + member);
+	public String myMembership(Member member, Model model) {
 		
 		// 내 등급별 클럽
 		model.addAttribute("membership", infoService.grade(member));

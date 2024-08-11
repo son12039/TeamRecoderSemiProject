@@ -31,21 +31,18 @@ public class PageController {
 	@GetMapping("/")
 	public String index(Model model) {
 		
-		List<Integer> countList = new ArrayList();
-		model.addAttribute("list", service.allMembership());
-		
+		List<Integer> countList = new ArrayList(); // count 계산용 인덱스 번호담는 배열
+		model.addAttribute("list", service.allMembership()); // 현재 존재하는 모든 맴버쉽 정보가있는 배열		
 		for(int i = 0; i < service.allMembership().size(); i++) {
 		int j = service.allMembership().get(i).getMembership().getMembershipCode();
-		countList.add(service.membershipUserCount(j));
-		
-		}
-		
-		model.addAttribute("countList", countList);
+		countList.add(service.membershipUserCount(j)); // 각각 클럽의 인원수 (신청자는 제외)
+		}	
+		model.addAttribute("countList", countList); // 카운트 정보 출력용
 		
 		return "index";
 	}
 	 
-
+	// 회원가입 페이지 이동
 	@GetMapping("/signUp")
 	public String signUp() {
 		return "signUp/signUp";
@@ -53,54 +50,20 @@ public class PageController {
 	
 	// 회원정보 수정 페이지
 	@GetMapping("/update")
+	
+	// 마이페이지 이동
+	@GetMapping("/mypage")
 	public String mypage() {
 		
 		return "mypage/update";
 	}
-	@GetMapping("/myMembershipPage")
-	public String myMembershipPage(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		ArrayList<MemberListDTO> membershipList =(ArrayList<MemberListDTO>) session.getAttribute("membershipList");
-		List<Integer> guestList = new ArrayList();
-		List<Integer> regularList = new ArrayList();
-		List<Integer> adminList = new ArrayList();
-		List<Integer> hostList = new ArrayList();
-		
-		for(MemberListDTO code : membershipList) {
-			
-			if(code.getListGrade().equals("guest")) {
-				guestList.add(code.getMembershipCode());	
-			}else if(code.getListGrade().equals("regular")) {
-				regularList.add(code.getMembershipCode());
-			}else if(code.getListGrade().equals("admin")) {
-				adminList.add(code.getMembershipCode());
-			}else if(code.getListGrade().equals("host")) {
-				hostList.add(code.getMembershipCode());
-			}
-		}
-		System.out.println("가입 승인대기중인 클럽 :" + guestList);
-		System.out.println("정회원 :" + regularList);
-		System.out.println("관리자 :" + adminList);
-		System.out.println("호스트 :" + hostList);
-			if(guestList.get(0) != null) {
-				
-			}
-		
-		return "mypage/myMembershipPage";
-	}
-	
-
+	// 내가 가입한 맴버쉽 페이지 이동
 
 
   // 로그인 페이지로 이동 
 	 @GetMapping("/loginPage")
-	 public String loginPage(HttpServletRequest request ) {
-		
-
-		
-		
-		 
-	 	return "login/login";
+	 public String loginPage() {
+	 	return "login/loginPage";
 	 }
 	 
 	

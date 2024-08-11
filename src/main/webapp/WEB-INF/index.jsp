@@ -80,7 +80,7 @@ pageEncoding="UTF-8"%>
       <form action="/location" method="get">위치기능<input type="submit"></form>
       <form action="/location2" method="get">위치기능2<input type="submit"></form>
       <form action="/type" method="get">유형기능<input type="submit"></form>
-      
+      <form action="/LocationType" method="get">통합버전<input type="submit"></form>
 
         <div class="membership-list">
         

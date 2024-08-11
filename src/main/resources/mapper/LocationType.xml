@@ -1,0 +1,38 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.LocationTypeMapper">
+	<resultMap id="Location" type="LocationCategory">
+		<id column="loc_code" property="locCode"/>
+		<result column="loc_la_name" property="locLaName"/>
+		<result column="loc_s_name" property="locSName"/>
+	</resultMap>
+	<resultMap id="Type" type="TypeCategory">
+		<id column="type_code" property="typeCode"/>
+		<result column="type_la_name" property="typeLaName"/>
+		<result column="type_s_name" property="typeSName"/>
+	</resultMap>
+	
+	<!-- 위치 -->
+	<select id="allLocationLarge" resultMap="Location">
+		SELECT loc_la_name FROM location_category
+		group by loc_la_name;
+	</select>
+	
+	<select id="allLocation" resultMap="Location">
+		SELECT * FROM location_category;
+	</select>
+	
+
+	
+	
+	
+	<!-- 타입 -->
+	<select id="allType" resultMap="Type">
+		SELECT type_la_name FROM type_category
+		group by type_la_name;
+	</select>
+	
+	<select id="TypeCategoryLarge" parameterType="String" resultMap="Type">
+		SELECT type_s_name FROM type_category
+		WHERE type_la_name = #{typeSName};   
+	</select>
+</mapper>

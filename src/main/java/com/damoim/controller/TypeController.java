@@ -27,14 +27,14 @@ public class TypeController {
 		return "location/type";
 	}
 	// Ajax
-	@ResponseBody
-	@GetMapping("/locationtype")
-	public List<String> locationSmall(String type,Model model) {
-	     List<String> list= new ArrayList<String>();
-	     List<TypeCategory> TypeLarge = service.TypeCategoryLarge(type);
-	     for( TypeCategory Large : TypeLarge) {
-	    	 list.add(Large.getTypeSName());
-	     }
-	     return list;
-	 }
+//	@ResponseBody
+//	@GetMapping("/locationtype")
+//	public List<String> locationSmall(String type,Model model) {
+//	     List<String> list= new ArrayList<String>();
+//	     List<TypeCategory> TypeLarge = service.TypeCategoryLarge(type);
+//	     for( TypeCategory Large : TypeLarge) {
+//	    	 list.add(Large.getTypeSName());
+//	     }
+//	     return list;
+//	 }
 }

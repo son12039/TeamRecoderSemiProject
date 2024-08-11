@@ -17,7 +17,6 @@ import com.damoim.service.MembershipService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-
 @Controller
 public class PageController {
 	
@@ -25,9 +24,6 @@ public class PageController {
 	@Autowired
 	private MembershipService service;
 
-	 /* 
-	  * 
-	  * */
 	@GetMapping("/")
 	public String index(Model model) {
 		
@@ -50,15 +46,18 @@ public class PageController {
 	
 	// 회원정보 수정 페이지
 	@GetMapping("/update")
+	public String update() {
+		
+		return "mypage/update";
+	}
 	
 	// 마이페이지 이동
 	@GetMapping("/mypage")
 	public String mypage() {
 		
-		return "mypage/update";
+		return "mypage/mypage";
 	}
 	// 내가 가입한 맴버쉽 페이지 이동
-
 
   // 로그인 페이지로 이동 
 	 @GetMapping("/loginPage")
@@ -66,7 +65,5 @@ public class PageController {
 	 	return "login/loginPage";
 	 }
 	 
-	
-		
-	 
+
 }

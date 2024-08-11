@@ -28,7 +28,42 @@
             </li>
         </ul>
     </main>
-	 
+	 			 <div id="ch1" class="character"></div>
+  				 <div id="ch2" class="character"></div>
+   				 <div id="ch3" class="character"></div>
+   				 <div id="ch4" class="character"></div>
+  				 <div id="ch5" class="character"></div>
+   				 <div id="ch6" class="character"></div>
+   				 <div id="ch7" class="character"></div>
+  				 <div id="ch8" class="character"></div>
+   				 <div id="ch9" class="character"></div>
+   				 <div id="ch10" class="character"></div>
+  				 <div id="ch11" class="character"></div>
+   				 <div id="ch12" class="character"></div>
+   				 <div id="ch13" class="character"></div>
+  				 <div id="ch14" class="character"></div>
+   				 <div id="ch15" class="character"></div>
+   				 <div id="ch16" class="character"></div>
+  				 <div id="ch17" class="character"></div>
+   				 <div id="ch18" class="character"></div>
+   				 <div id="ch1" class="character"></div>
+  				 <div id="ch2" class="character"></div>
+   				 <div id="ch3" class="character"></div>
+   				 <div id="ch4" class="character"></div>
+  				 <div id="ch5" class="character"></div>
+   				 <div id="ch6" class="character"></div>
+   				 <div id="ch7" class="character"></div>
+  				 <div id="ch8" class="character"></div>
+   				 <div id="ch9" class="character"></div>
+   				 <div id="ch10" class="character"></div>
+  				 <div id="ch11" class="character"></div>
+   				 <div id="ch12" class="character"></div>
+   				 <div id="ch13" class="character"></div>
+  				 <div id="ch14" class="character"></div>
+   				 <div id="ch15" class="character"></div>
+   				 <div id="ch16" class="character"></div>
+  				 <div id="ch17" class="character"></div>
+   				 <div id="ch18" class="character"></div>
 	<!-- 채팅방 입장 -->
     <div class="chat">
    		<div>
@@ -40,7 +75,7 @@
 		            <li>
 		            </li>
 		        </ul>
-
+				 
 		        <div class="chat_input">
 		            <div class="chat_input_area">
 		                <textarea></textarea>

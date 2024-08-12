@@ -10,17 +10,16 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100%;
 }
 
 .container {
+  height: 100vh;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 600px;
-  padding: 40px;
+  min-width: 530px;
+  padding: 40px 80px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -30,48 +29,99 @@ main {
 .page {
   display: none;
   flex-direction: column;
-  width: 100%;
 }
 
 .page.visible {
   display: flex;
+  width: 100%;
+  max-width: 900px;
 }
 
 .page h2 {
   margin: 0 0 30px;
   font-size: 30px;
   color: #000;
-  text-align: center;
+  text-align: left;
 }
-
 
 .formBox {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
-
 .formBox label {
+  align-self: flex-start;
+  text-align: left;
   font-weight: bold;
-  margin-right: 50px;
-  margin-left : 50px;
+  font-size: 0.8rem;
   color: #333;
 }
 
+.result {
+  align-self: center;
+  font-size: 0.6rem;
+  margin-left: 2px;
+}
 
 .formBox input {
-  padding-right: 15px;
-  padding-left: 15px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 10px 15px;
+  width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
 }
 
 
+
+
+#checkBox {
+  align-self: flex-start;
+  display: flex;
+  justify-content: space-between; 
+  flex-direction: row; 
+  width: 100%;
+}
+
+
+.genderBox {
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  margin-right: 10px; 
+}
+
+/* 성별 선택 박스의 라벨 */
+.genderBox label {
+  margin-right: 5px; 
+  font-size: 0.8rem;
+  width: 80px;
+}
+
+
+
+
+
+#ageResult {
+  display: flex;
+  flex-direction: column;
+}
+
+#addrDetail-box {
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#addr-btn {
+  align-self: start;
+  padding: 5px;
+  width: 100px;
+  margin-top: 5px;
+}
 
 /* 네비게이션 버튼 */
 .pageButtons {
@@ -80,8 +130,9 @@ main {
   margin-top: 30px;
 }
 
-.pageButtons button,#singUp {
-  background-color: #e0e0e0;
+.pageButtons button,
+#singUp {
+  background-color: #e0e0e0; /* 기본 회색 */
   color: #333;
   border: none;
   padding: 12px 20px;
@@ -91,13 +142,17 @@ main {
   transition: background-color 0.3s ease;
 }
 
-.pageButtons button:hover {
+.pageButtons button:hover,
+#singUp:hover {
   background-color: #d5d5d5;
 }
-#genderM, #genderF{
-	width: 20px;
-	height: 20px;
+
+/* 활성화 상태 버튼 색상 */
+.button-enabled {
+  background-color: #4caf50; /* 밝은 초록색 */
+  color: #ffffff;
 }
 
-
-
+.button-enabled:hover {
+  background-color: #45a049; /* 더 어두운 초록색 */
+}

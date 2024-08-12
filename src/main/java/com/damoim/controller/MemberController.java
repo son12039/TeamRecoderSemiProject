@@ -81,7 +81,6 @@ public class MemberController {
 	public boolean idCheck(Member member) {
 		
 		Member mem = service.idCheck(member);
-		System.out.println("ID 체크 도착 : " + mem);
 		return mem == null;
 		
 		
@@ -90,7 +89,6 @@ public class MemberController {
 	@PostMapping("/nicknameCheck") // 회원가입시 닉네임 중복 체크 
 	public boolean nicknameCheck(Member member) {
 		Member mem = service.nicknameCheck(member);
-		System.out.println("닉네임 체크 도착 : " + mem);
 		return mem == null;
 			
 		
@@ -100,7 +98,6 @@ public class MemberController {
 	@PostMapping("/signUp") // 회원가입 메서드
 	public String signUp(Member member) {
 		
-		System.out.println(member);
 		
 		service.signUp(member);
 		
@@ -145,7 +142,6 @@ public class MemberController {
 		 
 		 
 		 service.update(member);
-	  System.out.println(member);
 	  
 	  session.setAttribute("mem",member);
 		
@@ -155,10 +151,7 @@ public class MemberController {
 	@GetMapping("/myMembership") // 내가 가입한 클럽확인
 	public String myMembership(MemberInfoDTO info, Model model) {
 		Member member = new Member();
-		System.out.println("이전" + member);
 		member.setId(info.getId());
-		System.out.println(info.getId());
-		System.out.println("이후" + member);
 		
 		// 내 등급별 클럽
 		model.addAttribute("membership", infoService.grade(member));

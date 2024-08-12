@@ -4,6 +4,7 @@ import com.damoim.model.dto.ChattingRoomDAO;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MessageDAO;
 import com.damoim.model.vo.BasicRoomListVo;
+import com.damoim.model.vo.Member;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,11 +31,15 @@ public class ChattingController {
 
 	// 채팅방 목록
 	public static LinkedList<ChattingRoomDAO> chattingRoomList = new LinkedList<>();
-
+	
+	public Connection con() throws Exception {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		return  DriverManager.getConnection("jdbc:mysql://192.168.10.51:3306/damoim", "root", "qwer1234");
+	}
+	
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	public void basic() throws Exception {
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.10.51:3306/damoim", "root", "qwer1234");
+		Connection conn = con();
 		String query = "SELECT membership_code, membership_name FROM membership";
 		PreparedStatement ps = conn.prepareStatement(query);
 		ResultSet rs = ps.executeQuery();
@@ -171,24 +176,33 @@ public class ChattingController {
 	// 메인화면
 	
 	@GetMapping("/chatserver")
-	public String main(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		List<MemberListDTO> a = (List<MemberListDTO>) session.getAttribute("membershipList");
-		for(MemberListDTO aa : a)
-		System.out.println(aa);
-		
-		return "chatting/chatting"; // "main"은 "WEB-INF/jsp/main.jsp"를 가리킴
+	public String main(HttpServletRequest request) {		
+		return "chatting/chatting"; // jsp이동
 	}
 	@GetMapping("/getMemberInfo")
-	public List<MemberListDTO> main12(HttpServletRequest request) {
+	public ResponseEntity<ArrayList<Integer>> idreturn(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession();
-		List<MemberListDTO> a = (List<MemberListDTO>) session.getAttribute("membershipList");
-		return a;
+		Member a = (Member) session.getAttribute("mem");
+		Connection conn = con();
+		String query = "select membership_code from membership join membership_user_list using (membership_code) where id =?";
+		PreparedStatement ps = conn.prepareStatement(query);
+		ps.setString(1, a.getId());
+		ResultSet rs = ps.executeQuery();
+		ArrayList<Integer> list = new ArrayList<>();
+		while(rs.next()) {
+			list.add(rs.getInt("membership_code"));
+			System.out.println(rs.getInt("membership_code"));
+		}
+		close(rs, ps, conn);
+		return new ResponseEntity<ArrayList<Integer>>(list, HttpStatus.OK);
 	}
 	// 채팅방 목록
 	@GetMapping("/chattingRoomList")
 	public ResponseEntity<?> chattingRoomList() throws Exception {
 		if(chattingRoomList.size()<3)basic();
+		for(ChattingRoomDAO a : chattingRoomList) {
+			System.out.println(a);
+		}
 		return new ResponseEntity<LinkedList<ChattingRoomDAO>>(chattingRoomList, HttpStatus.OK);
 	}
 	// (url: "/chattingRoomList")로 호출되어 채팅리스트를 리턴한다

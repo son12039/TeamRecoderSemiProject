@@ -35,7 +35,6 @@ public class MembershipController {
 	 @GetMapping("/{membershipCode}") // 클럽 홍보 페이지 각각 맞춰 갈수있는거
 		public String main(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO member, Model model,HttpServletRequest request) {
 		 
-		 System.out.println(service.main(membershipCode).getListCode());
 		 	// 홍보페이지에 membership 관련 정보 + 호스트 정보
 			model.addAttribute("main",service.main(membershipCode));
 			// 현재 가입된 인원수
@@ -45,9 +44,7 @@ public class MembershipController {
 			Member mem = (Member) session.getAttribute("mem");
 			
 			if(mem != null) {
-				System.out.println("시작" + member);
 				member.setId(mem.getId());
-				System.out.println("삽입후" +member);
 			// 해당클럽 가입된 사람인가 아닌가 확인
 			model.addAttribute("checkMember" , service.checkMember(member));
 				
@@ -67,16 +64,13 @@ public class MembershipController {
 			HttpSession session = request.getSession();
 			Member mem = (Member) session.getAttribute("mem");
 			if(mem != null) {
-				System.out.println("시작" + member);
 				member.setId(mem.getId());
-				System.out.println("삽입후" +member);
 			// 해당클럽 가입여부 확인
 			model.addAttribute("checkMember" , service.checkMember(member));
 				
 			}
 			
 			List<MembershipUserList> list = service.MembershipAllInfo(membershipCode);
-			System.out.println(list.get(0));
 			// 해당클럽 모든 유저 정보 불러오기
 			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
 			return "membership/membershipPage";
@@ -86,7 +80,6 @@ public class MembershipController {
 	 public void agreeMemeber(MemberListDTO member) {
 		 // 일단은 호스트일때만 클럽 회원 승인기능
 		 service.agreeMemeber(member);
-		System.out.println("승인");
 		
 		 
 	 }

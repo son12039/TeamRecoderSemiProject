@@ -11,12 +11,12 @@
 </head>
 <body>
 	<form action="">
-		<input type="button" value="정보확인" id="member123">
+		<a href="/">메인화면가기</a>
 	</form>
 	<!-- 채팅방 목록 -->
 	<main>
         <h1>채팅방</h1>
-        <button class="new_chat">새 채팅방 만들기</button>
+        <button class="new_chat">새 채팅방 만들기(미완)</button>
         <nav>
         	<span>방 제목</span>
         	<span>인원</span>

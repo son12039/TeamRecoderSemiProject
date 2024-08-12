@@ -76,15 +76,15 @@ public class MembershipController {
 		 service.agreeMemeber(member);
 		System.out.println("승인");
 		
-		 
+		
 	 }
-
-
+	 
+	 
 	@GetMapping("/makeMembership") // 클럽 생성페이지로 이동
 	public String makeMembership() {
 		return "/mypage/makeMembership";
 	}
-
+	
 	@PostMapping("/makeMembership") // 클럽 생성
 	public String makeMembership(MembershipDTO dto) {
 		Membership membership = Membership.builder()

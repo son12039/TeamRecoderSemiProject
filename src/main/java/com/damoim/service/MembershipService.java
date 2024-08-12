@@ -2,6 +2,7 @@ package com.damoim.service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,7 @@ import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipUserList;
+
 
 import mapper.MembershipMapper;
 
@@ -27,6 +29,7 @@ public class MembershipService {
 		return mapper.MembershipAllInfo(membershipCode);
 		
 	}
+
 	
    public MembershipUserList main(Integer membershipCode){
 		
@@ -61,6 +64,7 @@ public class MembershipService {
 	public List<MembershipUserList> grade(Member member){
 		return mapper.grade(member);
 	}
+	
 	public void agreeMemeber(MemberListDTO member) {
 		mapper.agreeMemeber(member);
 		

@@ -1,5 +1,3 @@
-
-
 function showPage(pageId) { // 회원가입 페이지 이동
   document.querySelectorAll(".page").forEach((page) => {
     if (page.id === pageId) {

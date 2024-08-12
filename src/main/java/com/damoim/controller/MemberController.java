@@ -79,7 +79,7 @@ public class MemberController {
 		
 		Member mem = member;
 		String addr = mem.getAddr();
-		addr += "#" + addrDetail;
+		addr += "#"+ addrDetail;
 		System.out.println(addr);
 		mem.setAddr(addr);
 		service.signUp(member);	

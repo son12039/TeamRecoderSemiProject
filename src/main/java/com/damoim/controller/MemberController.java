@@ -98,47 +98,41 @@ public class MemberController {
 		// 현재 저장된 주소
 		beforeAddr = member.getAddr();
 		System.out.println("현재 저장된 주소 : " + beforeAddr);
-		service.update(member);
+		
 		// addrDetail이 빈칸일경우는 사용자가 입력시 addr만 입력되게
 		
-		String[] addr = beforeAddr.split("#");
+		String addr = beforeAddr;
+		System.out.println("beforeAddr : " + addr);
 //		for(String a : addr) {
 //			System.out.println("addr값" + a);
 //		}
 		
-		if(addrDetail != "") {
-			service.addrUpdate(member);
+		if(addrDetail == "") {
+			service.addrUpdate(addr);
 			
-		// addrDetail 까지 같이 입력할경우 #구분자 붇여서 업데이트
+			System.out.println("업데이트 : " + member);
+			
+		// addrDetail 까지 같이 입력할경우 #구분자 붙여서 업데이트
 		} else  {
-			addr += "#" + addrDetail(member);
+			addr += "#" + addrDetail;
+			service.addrUpdate(addr);
+			System.out.println("#붙이고 업데이트 : "+ member);
 			
 		}
+	    service.update(member);
 
+		session.setAttribute("mem", member);
+	
+		// #을 기준으로 앞쪽 addr이랑 뒤쪽 addr를 나누고
 
-////		 #을 기준으로 앞쪽 addr이랑 뒤쪽 addr를 나누고
-		
-		// 만약에 앞뒤 따로 비교하는데 앞 addr이 변경된 값이 x고 뒤만 
-		
-		
+		// 만약에 앞뒤 따로 비교하는데 앞 addr이 변경된 값이 x고 뒤만
+
 		// 변경되면 기존에 member에 앞 addr + 새로받은 addrD를 추가해서 셋하고
-//		if (addrDetail != "") {
-//			vo.setAddr(member.getAddr());
-//			vo.setAddr(addrDetail);
-//			service.update(vo);
-//			addr += '#' + (vo.getAddr());
-//			
-//		}
-
 		
 		return "redirect:/";
 	}
-	
-	
-	
-	
-	
-	}
+
+}
 	
 
 

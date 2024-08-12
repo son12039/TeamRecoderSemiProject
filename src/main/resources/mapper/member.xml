@@ -20,7 +20,7 @@
 	WHERE id = #{id}
 	</update>
 	
-	<update id="addrUpdate" parameterType="Member">
+	<update id="addrUpdate" parameterType="String">
     UPDATE member
     SET addr = #{addr}
     WHERE id = #{id};

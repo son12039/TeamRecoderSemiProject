@@ -10,6 +10,9 @@ const phoneCheck = document.querySelector("#phoneCheck");
 // 주소
 const addr = document.querySelector("#addr");
 const addrCheck = document.querySelector("#addrCheck");
+// 상세 주소
+const addrDetail = document.querySelector("#addrDetail");
+const addrDetailCheck = document.querySelector("#addrDetailCheck");
 // 이메일
 const email = document.querySelector("#email");
 const emailCheck = document.querySelector("#emailCheck");
@@ -21,6 +24,7 @@ let pwdReg = false;
 let nameReg = false;
 let phoneReg = false;
 let addrReg = false;
+let addrDetailReg = false;
 let emailReg = false;
 let ageReg = false;
 
@@ -92,7 +96,7 @@ phone.addEventListener("input", function () {
 064-123-4567: 제주 지역번호
 */
 
-// 주소는 입력창 새로 만들어야함
+
 // 주소 체크
 addr.addEventListener("input", function () {
   const regExp = /^[가-힣 ]*$/;
@@ -105,6 +109,21 @@ addr.addEventListener("input", function () {
     addrCheck.style.color = "red";
     addrCheck.innerHTML = "형식에 맞춰서 입력하세요";
 	addrReg = false;
+  }
+});
+
+// 상세주소 체크
+addrDetailReg.addEventListener("input", function () {
+  const regExp = /^[가-힣 ]*$/;
+
+  if (regExp.test(addrDetail.value)) {
+    addrDetailCheck.style.color = "green";
+    addrDetailCheck.innerHTML = "OK";
+	addrReg = true;
+  } else {
+    addrDetailCheck.style.color = "red";
+    addrDetailCheck.innerHTML = "형식에 맞춰서 입력하세요";
+	addrDetailReg = false;
   }
 });
 
@@ -146,7 +165,7 @@ form.addEventListener("submit",function (e) {
 		return true;
 	} else {
 		e.preventDefault();
-		alert("!");
+		alert("정규표현식 오류");
 	}
 });
 

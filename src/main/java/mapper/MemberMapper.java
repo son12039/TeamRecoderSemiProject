@@ -29,7 +29,7 @@ public interface MemberMapper {
 	
 	
 	void update(Member member);
-	void addrUpdate(Member member);
+	void addrUpdate(String addr);
 	
 	
 }

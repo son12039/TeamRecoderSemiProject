@@ -96,27 +96,28 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("mem");
 		// 현재 저장된 주소
-		String addr = "";
-		String con = "#";
-//		String beforeAddr = vo.getAddr();
-//		System.out.println("현재 저장된 주소 : " + beforeAddr);
+		beforeAddr = member.getAddr();
+		System.out.println("현재 저장된 주소 : " + beforeAddr);
+		service.update(member);
+		// addrDetail이 빈칸일경우는 사용자가 입력시 addr만 입력되게
+		
+		String[] addr = beforeAddr.split("#");
+//		for(String a : addr) {
+//			System.out.println("addr값" + a);
+//		}
+		
 		if(addrDetail != "") {
-			Member memberAddr = new Member();
-//			memberAddr += beforeAddr();
-
+			service.addrUpdate(member);
 			
+		// addrDetail 까지 같이 입력할경우 #구분자 붇여서 업데이트
+		} else  {
+			addr += "#" + addrDetail(member);
 			
 		}
 
 
 ////		 #을 기준으로 앞쪽 addr이랑 뒤쪽 addr를 나누고
-		String[] addr = beforeAddr.split("#");
-		for(String a : addr) {
-			System.out.println("addr값" + a);
-		}
-
 		
-
 		// 만약에 앞뒤 따로 비교하는데 앞 addr이 변경된 값이 x고 뒤만 
 		
 		
@@ -128,8 +129,7 @@ public class MemberController {
 //			addr += '#' + (vo.getAddr());
 //			
 //		}
-		
-//		System.out.println(vo.getAddr() + vo.getId() + vo.getPwd());
+
 		
 		return "redirect:/";
 	}

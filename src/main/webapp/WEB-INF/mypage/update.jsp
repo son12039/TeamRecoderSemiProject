@@ -40,7 +40,7 @@
           <p>${mem.addr}</p>
           <label>변경할 주소</label>
           <!-- addr + addrDetail -->
-			<input type="text" name = addr  id="sample2_address" placeholder="주소"><br> 
+			<input type="text" name = addr  id="addr" placeholder="주소"><br> 
 			 <input type="button" id="addr-btn" onclick="sample5_execDaumPostcode()" value="주소 검색">
 			<input type="text" name="addrDetail" id="addrDetail"  placeholder="상세주소를 입력해주세요">
 		</div>

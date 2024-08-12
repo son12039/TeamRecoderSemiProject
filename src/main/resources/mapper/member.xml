@@ -16,11 +16,11 @@
 	<update id="update" parameterType="Member" >
 	UPDATE member
 	SET pwd = #{pwd} , name = #{name}, phone = #{phone},
-	email = #{email}, addr = #{addr}, age = #{age}
+	email = #{email} , age = #{age}
 	WHERE id = #{id}
 	</update>
 	
-	<update id="addrUpdate" parameterType="String">
+	<update id="addrUpdate" parameterType="Member">
     UPDATE member
     SET addr = #{addr}
     WHERE id = #{id};

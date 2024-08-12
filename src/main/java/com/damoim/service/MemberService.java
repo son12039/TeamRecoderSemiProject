@@ -59,9 +59,9 @@ public class MemberService {
 		mapper.update(member);
 	}
 	
-	public void addrUpdate(String string) {
+	public void addrUpdate(Member member) {
 		
-		mapper.addrUpdate(string);
+		mapper.addrUpdate(member);
 	}
 	
 	

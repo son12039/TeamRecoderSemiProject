@@ -44,8 +44,10 @@
 </div>	
 
 <!-- 이 부분은 나중에 조인해서 가져오면 됨 -->
-<div class="ClubTableBody">
+<div>
+	<div class="ClubTableBody">
 	<c:forEach items="${allLocation}" var="location">
+		<c:if test=""></c:if>
 		<div class="ClubTable">
 			<div>${location.locLaName}</div>
 			<div>${location.locSName}</div>
@@ -53,6 +55,7 @@
 			<div>여기는 큰 작은타입</div>
 		</div>
 	</c:forEach>
+</div>
 </div>
 <script>
 	$(function(){
@@ -78,7 +81,31 @@
 		        	}
 		        })
 		    });
-		    
+		    $(".allLocationBox").click(function(){
+		    	const locationDistinction = $(this).find(".allLocation").text();;
+					$.ajax({
+						type:"get",
+						url:"locationClub",
+						data:"locationDistinction=" + locationDistinction,
+						
+						success:function(result){
+							var clubTableBody = $(".ClubTableBody");
+			                clubTableBody.empty(); // 기존 내용을 지웁니다.
+							
+			                $.each(result, function(index, allLocation) {
+			                    var clubTableHtml = `
+			                        <div class="ClubTable">
+			                            <div>${allLocation.locLaName}</div>
+			                            <div>${allLocation.locSName}</div>
+			                            <div>여기는 큰 타입</div>
+			                            <div>여기는 큰 작은타입</div>
+			                        </div>
+			                    `;
+			                    clubTableBody.append(clubTableHtml);
+			                });
+						}
+					})
+		    })
 		    /* 눌렀을때 이벤트
 		    $(".allLocation").click(function() {
 		        var locationName = $(this).data("location");

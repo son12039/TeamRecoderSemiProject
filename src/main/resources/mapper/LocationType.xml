@@ -11,6 +11,62 @@
 		<result column="type_s_name" property="typeSName"/>
 	</resultMap>
 	
+	
+	<!-- 5개 조인하기 -->
+	<resultMap id="MembershipMap" type="Membership">
+		<id column="membership_code" property="membershipCode"/> <!-- 프라이머리키 -->
+		<result column="membership_name" property="membershipName"/>
+		<result column="membership_img" property="membershipImg"/>
+		<result column="membership_info" property="membershipInfo"/>
+		<result column="membership_date" property="membershipDate"/>
+		<result column="membership_grade" property="membershipGrade"/>
+		<result column="membership_max" property="membershipMax"/>
+		<association property="membershipLocation" javaType="MembershipLocation">
+			<id column="mem_loc_code" property="memLocCode"/> <!-- 프라이머리키 -->
+			<result column="loc_code" property="locSmallCode"/>
+			<result column="membership_code" property="membershipCode"/>
+			<association property="locationCategory" javaType="LocationCategory">
+				<id column="loc_code" property="locCode"/> <!-- 프라이머리키 -->
+				<result column="loc_la_name" property="locLaName"/>
+				<result column="loc_s_name" property="locSName"/>
+			</association>
+		</association>
+		<association property="membershipType" javaType="MembershipType">
+			<id column="mem_type_code" property="memTypeCode"/> <!-- 프라이머리키 -->
+			<result column="type_code" property="typeSmallCode"/>
+			<result column="membership_code" property="membershipCode"/>
+			<association property="typeCategory" javaType="TypeCategory">
+				<id column="type_code" property="typeCode"/> <!-- 프라이머리키 -->
+				<result column="type_la_name" property="typeLaName"/>
+				<result column="type_s_name" property="typeSName"/>
+			</association>
+		</association>
+	</resultMap>
+	
+	
+	
+	<select id="AllMembership" resultMap="MembershipMap">
+		SELECT * FROM membership
+		join membership_location USING(membership_code)
+		join location_category USING(loc_code)
+		join membership_type USING(membership_code)
+		join type_category USING(type_code); 
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<!-- 위치 -->
 	<select id="allLocationLarge" resultMap="Location">
 		SELECT loc_la_name FROM location_category
@@ -21,7 +77,10 @@
 		SELECT * FROM location_category;
 	</select>
 	
-
+	<select id="locationDistinction" parameterType="String" resultMap="Location">
+		select loc_s_name from location_category
+		WHERE loc_la_name = #{locLaName};
+	</select>
 	
 	
 	

@@ -15,6 +15,8 @@ public class Membership {
     private Date membershipDate; // 클럽생성날짜
     private double membershipGrade; // 클럽 별점
     private int membershipMax; // 클럽최대인원
+    private MembershipLocation membershipLocation;
+    private MembershipType membershipType;
 }
 
 

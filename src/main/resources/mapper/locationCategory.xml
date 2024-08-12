@@ -19,6 +19,8 @@
 	</select>
 	
 	
+	
+	
 	<!-- 이거는 전체 보여주는거 -->
 	<!--  옛 유산들
 	<select id="allLocationLarge" resultMap="LocationCategory">

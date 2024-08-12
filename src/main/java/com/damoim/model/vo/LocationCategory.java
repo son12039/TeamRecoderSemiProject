@@ -9,7 +9,6 @@ public class LocationCategory {
     private int locCode;
     private String locLaName;
     private String locSName; 
-   
 }
 
 

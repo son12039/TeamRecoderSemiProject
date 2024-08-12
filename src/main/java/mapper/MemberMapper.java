@@ -5,6 +5,7 @@ import java.util.List;
 
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.damoim.model.dto.SearchDTO;
 
@@ -27,4 +28,9 @@ public interface MemberMapper {
 	void update(Member member);
 	Member memberInfo(Member member);
 	String grade(Member member);
+	// id 이메일 맞나 체크
+	Member memberEmailIdcheck(Member member);
+	// 업데이트
+	void updatePassword(Member member);
+	
 }

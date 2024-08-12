@@ -60,6 +60,22 @@
 		WHERE id = #{id}
 	</select>
 	
+	<!--  이메일 아이디 확인 -->
+    <select id="memberEmailIdcheck" parameterType="Member" resultType="Member">
+        FROM member
+        WHERE id = #{id}
+        AND email = #{email}
+    </select>
+
+    <!-- 비밀번호 업데이트 -->
+    <update id="updatePassword" parameterType="Member">
+        UPDATE member
+        SET pwd = #{pwd}
+        WHERE id = #{id}
+    </update>
+
+</mapper>
+	
 
 	
 	
@@ -70,6 +86,4 @@
 	
 	
 	
-	
-	
-</mapper> 
+

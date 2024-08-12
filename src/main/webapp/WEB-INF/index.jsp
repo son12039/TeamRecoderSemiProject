@@ -78,41 +78,7 @@ pageEncoding="UTF-8"%>
 
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="login.js"></script>
-	<!--    <script >
-        
-        
-         $(".btn").click(()=>{
-        	
-        	   const id = $("#id").val();          // 아이디 입력값 가져오기
-        	    const pwd = $("#pwd").val();        // 비밀번호 입력값 가져오기
-        	
-        	$.ajax({
-        		// 요청 
-        		type : "post",
-        		url : "/loginCheck",
-        		   data: {
-        	            id: id,
-        	            pwd: pwd
-        	        },
-       		// 응답 
-       		    success : function(result){
-       		    	
-       		    	if(result){
-       		    		alert("성공")
-       		    	}else{
-       		    		alert("실패")
-       		    		$(".loginCheck").text("아이디 또는 비밀번호가 틀렸습니다")
-       		    	}
-       		    
-       		    }
-        	});
-        	
-        	
-        });
-    
-        
-        
-        </script> -->
+
 </body>
 </html>
 

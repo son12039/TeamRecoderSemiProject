@@ -63,14 +63,18 @@ public class MemberController {
 			
 	}
 	@PostMapping("/signUp") // 회원가입 메서드
-	public String signUp(Member member ,String addrDetail) {
+	public String signUp(Member member ,String addrDetail ) {
 		
+
 		Member mem = member;
 		String addr = mem.getAddr();
+		System.out.println("일반주소 : " + addr);
+		System.out.println("상세 주소 : " + addrDetail);
 		addr += "#"+ addrDetail;
-		System.out.println(addr);
+		System.out.println("합친 주소 #이 구분자 : " + addr);
 		mem.setAddr(addr);
 		service.signUp(member);	
+		System.out.println(member);
 		return "redirect:/";
 		
 	}

@@ -52,7 +52,8 @@
 						
 <input type="text" id="sample5_address" name="addr" placeholder="주소">
 <div id="addrDetail-box">
-<input type="button" id="addr-btn" onclick="sample5_execDaumPostcode()" value="주소 검색"><input type="text" id="addrDetail" name="addrDetail" placeholder="상세주소를 입력해주세요"></div>
+<input type="button" id="addr-btn" onclick="sample5_execDaumPostcode()" value="주소 검색">
+<input type="text" id="addrDetail" name="addrDetail" placeholder="상세주소를 입력해주세요"></div>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -49,7 +50,7 @@ public class ChattingController {
 			ChattingRoomDAO chattingRoom = null;
 			String roomNumber = UUID.randomUUID().toString();
 			chattingRoom = ChattingRoomDAO.builder().roomNumber(rs.getString("membership_code"))
-				.users(new LinkedList<>()).roomName(rs.getString("membership_name")+"(클럽채팅)").build();
+				.users(new LinkedList<>()).roomName(rs.getString("membership_name")).build();
 			chattingRoomList.add(chattingRoom);
 		}
 		close(rs, ps, conn);
@@ -151,9 +152,6 @@ public class ChattingController {
 	// 방 입장하기
 	public boolean enterChattingRoom(ChattingRoomDAO chattingRoom, String nickname) {
 
-		if (isNicknameTaken(chattingRoom.getRoomNumber(), nickname)) {
-			return false; // 닉네임 중복
-		}
 
 		createNickname(nickname);
 
@@ -176,7 +174,8 @@ public class ChattingController {
 	// 메인화면
 	
 	@GetMapping("/chatserver")
-	public String main(HttpServletRequest request) {		
+	public String main(HttpServletRequest request, String membershipName, Model model) {		
+		model.addAttribute("membershipName", membershipName);
 		return "chatting/chatting"; // jsp이동
 	}
 	@GetMapping("/getMemberInfo")
@@ -204,6 +203,12 @@ public class ChattingController {
 			System.out.println(a);
 		}
 		return new ResponseEntity<LinkedList<ChattingRoomDAO>>(chattingRoomList, HttpStatus.OK);
+	}
+	@GetMapping("/nick1")
+	public ResponseEntity<?> nick1(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+		Member nick = (Member) session.getAttribute("mem");
+		return new ResponseEntity<String>( nick.getNickname(), HttpStatus.OK);
 	}
 	// (url: "/chattingRoomList")로 호출되어 채팅리스트를 리턴한다
 

@@ -17,8 +17,11 @@
 </head>
 <body>
 <main>
-	<a href="chatserver">채팅서버가기</a>
-    <h2>${main.membership.membershipName }</h2>
+	<form id="chatserver">
+		<input type="button" value="채팅서버가기">
+	 </form>
+	<a href="chatserver?membershipName=${main.membership.membershipName}">채팅서버가기</a>
+    <h2>${main.membership.membershipName}</h2>
     <img id="mainImg" src="${main.membership.membershipImg }" >
     <h3>${main.membership.membershipInfo }</h3>
     <p>인원 현황 :  ${membershipUserCount}/${main.membership.membershipMax}</p>

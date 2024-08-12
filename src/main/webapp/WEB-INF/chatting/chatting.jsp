@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +14,7 @@
 	<form action="">
 		<a href="/">메인화면가기</a>
 	</form>
+	
 	<!-- 채팅방 목록 -->
 	<main>
         <h1>채팅방</h1>
@@ -102,8 +104,10 @@
 	        </div>
    		</div>
     </div>
-    <!-- 테스트 입장 -->
     
+    
+    
+    <!-- 테스트 입장 -->
 	
     <!-- sock js -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.2/sockjs.min.js"></script>

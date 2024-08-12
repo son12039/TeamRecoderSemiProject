@@ -27,8 +27,6 @@ public class ChattingRoomController {
 
 		if (chattingRoom == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		} else if (main.isNicknameTaken(roomNumber, nickname)) {
-			return new ResponseEntity<>(HttpStatus.CONFLICT); // 닉네임 중복
 		} else {
 			main.enterChattingRoom(chattingRoom, nickname);
 			return new ResponseEntity<>(chattingRoom, HttpStatus.OK);

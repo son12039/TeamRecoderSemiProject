@@ -1,12 +1,14 @@
 $(document).ready(function() {
 
+	const urlParams = new URL(location.href).searchParams;
+	const membershipName = urlParams.get('membershipName');
+	
 
 	// 채팅방 목록 불러오기
 	const chattingRoomList = function() {
 
-		$.when(
+		
 			$.ajax({ url: "/chattingRoomList", type: "GET", })
-		)
 			.then(function(roomList) {
 				listHtml(roomList);
 			})
@@ -27,13 +29,13 @@ $(document).ready(function() {
 	        success: function(data) {
 	            id = data.map(String); // id 배열의 모든 값을 문자열로 변환
 	            for (let i = roomList.length - 1; i >= 0; i--) {
-	                // roomNumber를 문자열로 변환하여 비교
-	                if (id.includes(String(roomList[i].roomNumber))) {
+	                if (roomList[i].roomName === membershipName) {
 	                    listHtml += `
 	                    <li data-room_number=${roomList[i].roomNumber}>
 	                        <span class="chat_title">${roomList[i].roomName}</span>
 	                        <span class="chat_count">${roomList[i].users.length}명</span>
 	                    </li>`;
+						break;
 	                }
 	            }
 	            
@@ -230,20 +232,15 @@ $(document).ready(function() {
 		}
 	});
 
-	// 채팅방 입장 시 닉네임 입력받음
 	const enterChattingRoom = function(roomNumber) {
-		swal({
-			text: "사용하실 닉네임을 입력해주세요",
-			content: "input",
-			buttons: ["취소", "확인"],
-			closeOnClickOutside: false
-		})
-			.then(function(nickname) {
-				if (nickname) {
-					const data = {
-						roomNumber: roomNumber,
-						nickname: nickname
-					};
+		let id = "";
+		$.ajax({ url: "/nick1", type: "GET",})
+		.then(function(nickname) {
+						if (nickname) {
+							const data = {
+								roomNumber: roomNumber,
+								nickname: nickname
+							};
 
 					$.ajax({
 						url: "/chattingRoom-enter",
@@ -257,14 +254,6 @@ $(document).ready(function() {
 							stomp.send(
 								"/socket/notification/" + roomNumber, {},
 								JSON.stringify(room));
-						},
-						error: function(xhr) {
-							if (xhr.status === 409) {
-								swal("닉네임 중복", "이미 사용 중인 닉네임입니다. 다른 닉네임을 입력해주세요.", "error")
-									.then(() => enterChattingRoom(roomNumber)); // 재시도
-							} else {
-								errorMSG(xhr);
-							}
 						}
 					});
 				}
@@ -317,6 +306,7 @@ $(document).ready(function() {
 
 	$(document).on("dblclick", "main li", function() {
 		const roomNumber = $(this).data("room_number");
+		console.log("클릭!");
 		enterChattingRoom(roomNumber);
 	});
 

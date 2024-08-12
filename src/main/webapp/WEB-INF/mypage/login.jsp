@@ -15,7 +15,9 @@ pageEncoding="UTF-8"%>
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/reset.css"
         />
+
       </head>
+      
       <body>
         <div class="header">
           <div class="header_left">

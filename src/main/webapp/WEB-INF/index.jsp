@@ -15,9 +15,11 @@ pageEncoding="UTF-8"%>
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/index.css"
         />
+        
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
        
       </head>
+      
 <body>
 	<div class="header">
 		<div class="header_left">
@@ -47,19 +49,28 @@ pageEncoding="UTF-8"%>
 
 			<div class="membership-card">
 				<div class="membership-img">
+				<!-- 클럽 이미지 -->
 					<a href="/${id.membership.membershipCode}"> <img
-						src="${id.membership.membershipImg}">
-					</a>
+						src="${id.membership.membershipImg}"></a>
 				</div>
 				<div class="membership-info">
+				<!-- 농사짓기 -->
 					<h1 class="membership-name">${id.membership.membershipName}</h1>
+					<!-- 농사짓는 사람들의 모임입니다 -->
 					<h2>${id.membership.membershipInfo}</h2>
 					<h2>호스트 : ${id.member.nickname}</h2>
 					<input type="hidden" name="code"
 						value="${id.membership.membershipCode}">
 					<h3>멤버수 : 
-						${countList.get(status.index)}/${id.membership.membershipMax}</h3>
-
+					
+						${countList.get(status.index)}/
+						${id.membership.membershipMax}
+						<a href="/kakaoMap">
+						<i class="fa-solid fa-location-dot">모임위치</i>
+						</a>
+						</h3>
+						
+					
 
 					<c:choose>
 						<c:when test="${id.member.memberImg == ''}">
@@ -78,41 +89,7 @@ pageEncoding="UTF-8"%>
 
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="login.js"></script>
-	<!--    <script >
-        
-        
-         $(".btn").click(()=>{
-        	
-        	   const id = $("#id").val();          // 아이디 입력값 가져오기
-        	    const pwd = $("#pwd").val();        // 비밀번호 입력값 가져오기
-        	
-        	$.ajax({
-        		// 요청 
-        		type : "post",
-        		url : "/loginCheck",
-        		   data: {
-        	            id: id,
-        	            pwd: pwd
-        	        },
-       		// 응답 
-       		    success : function(result){
-       		    	
-       		    	if(result){
-       		    		alert("성공")
-       		    	}else{
-       		    		alert("실패")
-       		    		$(".loginCheck").text("아이디 또는 비밀번호가 틀렸습니다")
-       		    	}
-       		    
-       		    }
-        	});
-        	
-        	
-        });
-    
-        
-        
-        </script> -->
+
 </body>
 </html>
 

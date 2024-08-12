@@ -55,36 +55,17 @@ public class MemberService {
     
 	public void update(Member member) {
 		
+		
 		mapper.update(member);
 	}
 	
-//	public Member memberInfo(Member member) {
-//		return mapper.memberInfo();
-//	}
+	public void addrUpdate(String string) {
+		
+		mapper.addrUpdate(string);
+	}
 	
 	
 	
-	
-	
-	
-	
-	
-//	public ArrayList<Member> search(SearchDTO dto) {
-//		return mapper.search(dto);
-//	}
-	
-//	public ArrayList<Member> allMember() {
-//		return mapper.allMember();
-//	}
-//    <!-- 검색 시도중!!!!! -->
-//    <!--   <form action="/search">
-//   <c:forEach items="${mem != null ? mem : search} var="member">
-//      <input type="text" name = keyword >
-//      <button type="submit" value="닉네임검색">닉네임 검색</button>
-//      <h1>닉네임 : ${member.nickname}</h1>
-//      <h1>나이 : ${member.age}</h1>
-//      	</c:forEach>
-//      </form> -->
-//  	<!-- 검색 시도중!!!!! -->
+
 	
 }

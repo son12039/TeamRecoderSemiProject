@@ -27,7 +27,7 @@ public class PageController {
 	@GetMapping("/")
 	public String index(Model model) {
 		
-		List<Integer> countList = new ArrayList(); // count 계산용 인덱스 번호담는 배열
+		List<Integer> countList = new ArrayList<>(); // count 계산용 인덱스 번호담는 배열
 		model.addAttribute("list", service.allMembership()); // 현재 존재하는 모든 맴버쉽 정보가있는 배열		
 		for(int i = 0; i < service.allMembership().size(); i++) {
 		int j = service.allMembership().get(i).getMembership().getMembershipCode();
@@ -47,23 +47,38 @@ public class PageController {
 	// 회원정보 수정 페이지
 	@GetMapping("/update")
 	public String update() {
-		
 		return "mypage/update";
 	}
 	
 	// 마이페이지 이동
 	@GetMapping("/mypage")
 	public String mypage() {
-		
 		return "mypage/mypage";
 	}
 	// 내가 가입한 맴버쉽 페이지 이동
-
+	
+	
   // 로그인 페이지로 이동 
 	 @GetMapping("/loginPage")
 	 public String loginPage() {
 	 	return "login/loginPage";
 	 }
 	 
+  // 카카오맵 이동
+	 @GetMapping("/kakaoMap")
+	 public String kakaoMap() {
+		 
+		 return "kakaoMap";
+	 }
+	 
 
 }
+
+
+
+
+
+
+
+
+

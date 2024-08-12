@@ -70,12 +70,12 @@ public class MembershipController {
 			return "membership/membershipPage";
 		}
 	 
+	 
 	 @PostMapping("/agreeMember") // 클럽 회원가입 승인
 	 public void agreeMemeber(MemberListDTO member) {
 		 // 일단은 호스트일때만 클럽 회원 승인기능
 		 service.agreeMemeber(member);
 		System.out.println("승인");
-		
 		
 	 }
 	 
@@ -83,6 +83,7 @@ public class MembershipController {
 	@GetMapping("/makeMembership") // 클럽 생성페이지로 이동
 	public String makeMembership() {
 		return "/mypage/makeMembership";
+		
 	}
 	
 	@PostMapping("/makeMembership") // 클럽 생성

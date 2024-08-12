@@ -24,7 +24,12 @@ public interface MemberMapper {
 	Member idCheck(Member member);
 	Member nicknameCheck(Member member);
 	Member pwdCheck(Member member);	
-	void update(Member member);
 	Member memberInfo(Member member);
 	String grade(Member member);
+	
+	
+	void update(Member member);
+	void addrUpdate(String string);
+	
+	
 }

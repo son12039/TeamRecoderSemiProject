@@ -15,34 +15,36 @@
       <h1>회원 정보 수정</h1>
       <form action="/update" method="post" id="form">
         <div class="form-group">
-          <label>비밀번호</label>
-          <p>현재 비밀번호 / ${mem.pwd}</p>
+          <label>현재 비밀번호</label>
+          <p>${mem.pwd}</p>
           <label>변경할 비밀번호</label>
           <span id="pwdCheck"></span>
           <input type="password" id="pwd" name="pwd" placeholder="pwd" />
         </div>
         <div class="form-group">
-          <label >이름</label>
-          <p>현재 이름 / ${mem.name}</p>
+          <label >현재 이름</label>
+          <p>${mem.name}</p>
           <label>변경할 이름</label>
           <span id="nameCheck"></span>
           <input type="text" id="name" name="name" placeholder="name"  />
         </div>
         <div class="form-group">
-          <label >연락처</label>
-          <p>현재 연락처 / ${mem.phone}</p>
+          <label >현재 연락처</label>
+          <p>연락처 / ${mem.phone}</p>
           <label>변경할 연락처</label>
           <span id="phoneCheck"></span>
           <input type="tel" id="phone" name="phone" placeholder="phone" />
         </div>
         <div class="form-group">
-          <label >주소</label>
-          <p>현재 주소 / ${mem.addr}</p>
+          <label>현재 주소</label>
+          <p>${mem.addr}</p>
           <label>변경할 주소</label>
-          <span id="addrCheck"></span>
-          <input type="text" id="addr" name="addr" placeholder="addr"  />
-        </div>
-        <div class="form-group">
+          <!-- addr + addrDetail -->
+			<input type="text" name = addr  id="sample2_address" placeholder="주소"><br> 
+			 <input type="button" id="addr-btn" onclick="sample5_execDaumPostcode()" value="주소 검색">
+			<input type="text" name="addrDetail" id="addrDetail"  placeholder="상세주소를 입력해주세요">
+		</div>
+		<div class="form-group">
           <label>Email</label>
           <p>현재 이메일 / ${mem.email}</p>
           <label>변경할 이메일</label>
@@ -60,5 +62,6 @@
       </form>
     </div>
     <script src="${pageContext.request.contextPath}/js/update.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   </body>
 </html>

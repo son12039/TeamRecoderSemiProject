@@ -14,11 +14,19 @@
 	</select>
  	
 	<update id="update" parameterType="Member" >
-		UPDATE member
-		SET pwd = #{pwd} , name = #{name}, phone = #{phone},
-		addr = #{addr}, email = #{email}, age = #{age}
-		WHERE id = #{id}
+	UPDATE member
+	SET pwd = #{pwd} , name = #{name}, phone = #{phone},
+	email = #{email}, addr = #{addr}, age = #{age}
+	WHERE id = #{id}
 	</update>
+	
+	<update id="addrUpdate" parameterType="String">
+    UPDATE member
+    SET addr = #{addr}
+    WHERE id = #{id};
+	</update>
+	
+	
 	
 	<select id="login" parameterType="Member" resultType="Member">
 		SELECT *
@@ -59,17 +67,5 @@
 		FROM member
 		WHERE id = #{id}
 	</select>
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 </mapper> 

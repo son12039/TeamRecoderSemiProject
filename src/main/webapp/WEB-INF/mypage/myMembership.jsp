@@ -51,27 +51,27 @@
     <!-- Display the form to create a club only if no 'host' is present -->
 
 
- 
-	    <c:choose>
-        <c:when test="${!hasHost}">
-            <form action="/makeMembership">            
-                <input type="hidden" name="id" value="${mem.id}">
-                <button type="submit" value="클럽생성">클럽 만들기</button>
-            </form>
-        </c:when>
-        <c:otherwise>
 
-            <p>클럽 생성 기능이 활성화되지 않았습니다. 이미 보유중인 크럽이 있습니다.</p>
-        </c:otherwise>
-        </c:choose>
-   
-   <div class="membership-type">
-   <button id="all-club-button">가입 중인 모든 클럽</button> 
-  <button id="manage-club-button">내가 관리중인 클럽</button>  
-  <button id="wait-club-button">가입 대기중인 클럽</button>  
-  </div>
-  
-  <div class="membership-card" id = "wait-club">
+
+
+	<div class="membership-type">
+		<c:choose>
+			<c:when test="${!hasHost}">
+				<form action="/makeMembership">
+					<input type="hidden" name="id" value="${mem.id}">
+					<button type="submit" value="클럽생성" id="make-club">클럽 만들기</button>
+				</form>
+			</c:when>
+			<c:otherwise>
+				<p>클럽 생성 기능이 활성화되지 않았습니다. 이미 보유중인 크럽이 있습니다.</p>
+			</c:otherwise>
+		</c:choose>
+		<button id="all-club-button">가입 중인 모든 클럽</button>
+		<button id="manage-club-button">내가 관리중인 클럽</button>
+		<button id="wait-club-button">가입 대기중인 클럽</button>
+	</div>
+
+	<div class="membership-card" id = "wait-club">
   <h1>가입 대기중인 클럽 보기</h1>
    <c:forEach items="${membership}" var="mem">
     

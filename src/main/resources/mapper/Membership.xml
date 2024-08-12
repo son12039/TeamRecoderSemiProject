@@ -2,11 +2,11 @@
 <mapper namespace="mapper.MembershipMapper">
 
 	<resultMap type="MemberListDTO" id="memberListmap">
-		<result column="id" property="id"/>
-		<result column="list_grade" property="listGrade"/>
-		<result column="membership_code" property="membershipCode"/>
-		
+		<result column="id" property="id" />
+		<result column="list_grade" property="listGrade" />
+		<result column="membership_code" property="membershipCode" />
 	</resultMap>
+	
 	<resultMap type="Membership" id="membershipMap">
 		<id property="membershipCode" column="membership_code" />
 		<result property="membershipName" column="membership_name" />
@@ -17,26 +17,26 @@
 		<result property="membershipMax" column="membership_max" />
 	</resultMap>
 
-<resultMap type="MembershipUserList" id="membershipmap">
-	<id column="list_code" property="listCode" />
-	<result column="list_grade" property="listGrade" />
-	<association property="member" javaType="Member">
-		<id column="id" property="id" />
-		<result column="name" property="name" />
-		<result column="nickname" property="nickname" />
-		<result column="member_img" property="memberImg" />
-	</association>
-	
-	<association property="membership" javaType="Membership">
-		<id column="membership_code" property="membershipCode" />
-		<result column="Membership_name" property="membershipName" />
-		<result column="Membership_img" property="membershipImg" />
-		<result column="Membership_info" property="membershipInfo" />
-		<result column="Mebership_date" property="membershipDate" />
-		<result column="Membership_grade" property="membershipGrade" />
-		<result column="Membership_max" property="membershipMax" />
-	</association>
-</resultMap>
+	<resultMap type="MembershipUserList" id="membershipmap">
+		<id column="list_code" property="listCode" />
+		<result column="list_grade" property="listGrade" />
+		<association property="member" javaType="Member">
+			<id column="id" property="id" />
+			<result column="name" property="name" />
+			<result column="nickname" property="nickname" />
+			<result column="member_img" property="memberImg" />
+		</association>
+
+		<association property="membership" javaType="Membership">
+			<id column="membership_code" property="membershipCode" />
+			<result column="Membership_name" property="membershipName" />
+			<result column="Membership_img" property="membershipImg" />
+			<result column="Membership_info" property="membershipInfo" />
+			<result column="Mebership_date" property="membershipDate" />
+			<result column="Membership_grade" property="membershipGrade" />
+			<result column="Membership_max" property="membershipMax" />
+		</association>
+	</resultMap>
 	
 	<select id="allMembership" resultMap="membershipmap">
 		SELECT *
@@ -71,6 +71,7 @@
 		FROM membership_user_list
 		WHERE id = #{id} AND membership_code = #{membershipCode};
 	</select>
+	
 	<select id="myMembership" parameterType="Integer"
 		resultMap="membershipMap">
 		SELECT *
@@ -122,9 +123,7 @@
 		VALUES
 		(#{listGrade},#{id},#{membershipCode});
 	</insert>
-
-
-
+	
 	<select id="grade" parameterType="Member" resultMap="membershipmap">
 		SELECT *
 		FROM membership_user_list

@@ -17,6 +17,45 @@ public class LocationTypeService {
 	@Autowired
 	private LocationTypeMapper Mapper;
 	
+	//새로 만든 테이블
+	
+	// 대분류 위치 보여주기
+	public List<Membership> AllMembershipLocationLaname(){
+		return Mapper.AllMembershipLocationLaname();
+	}
+	// 소뷴류 위치 보여주기
+	public List<Membership> AllMembershipLocationSname(String locLaName){
+		return Mapper.AllMembershipLocationSname(locLaName);
+	}
+	// 대분류 타입 가져오기
+	public List<Membership> AllMembershipTypeLaname(){
+		return Mapper.AllMembershipTypeLaname();
+	}
+	
+	public List<Membership> AllMembershipTypeSname(String typeLaName){
+		return Mapper.AllMembershipTypeSname(typeLaName);
+	}
+	
+	
+	
+	//맴버쉽 모든거 보여주기
+	public List<Membership> AllMembership(){
+		return Mapper.AllMembership();
+	}
+	
+	
+	
+	
+	
+	
+	
+		
+		
+		
+		
+		
+		
+	// 기존 자료형 참고
 	//위치
 	//대분류 보야주기
 	public List<LocationCategory> allLocationLarge(){
@@ -41,12 +80,6 @@ public class LocationTypeService {
 	}
 	
 	
-	
-	
-	//맴버쉽 모든거 보여주기
-	public List<Membership> AllMembership(){
-		System.out.println(Mapper.AllMembership());
-		return Mapper.AllMembership();
-	}
+
 	
 }

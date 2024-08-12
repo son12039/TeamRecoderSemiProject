@@ -11,132 +11,99 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-	<div class="locationTypeBody">
-	<!-- 위치 버튼 -->
-      <button class="Locationbutton">지역</button>
-		<div class="locationType">
-			<div class="LocationTypeBox">
-			<!-- 위치 리스트 -->
-			<c:forEach items="${allLocationLarge}" var="location">
-				<div class="allLocationBox">
-					<div class="allLocation">${location.locLaName}</div>
-				</div>
-			</c:forEach>
-			</div>
-		</div>
-		
-		
-		
-	<div class="locationTable">
-      <div class="type">  
-		<!-- 타입 리스트 -->
-		<c:forEach items="${allType}" var="type">
-		<div class="typebox">
-			<div class="typeCategory">${type.typeLaName}</div>
-		</div>
-		</c:forEach>
-      </div>
-    </div>
-    
-   <div class="typeTableChild">
-    	<div class="typeSmallCategory"></div>
- 	</div>
-</div>	
+<!-- 대분류 위치 -->
+<select id="locationLaNameSelect">
+	<option value="">----------------</option>
+	<c:forEach items="${allMemberLaList}" var="Location">
+	    <option name="${Location.locLaName}">${Location.locLaName}</option>
+	</c:forEach>
+</select>
 
-<!-- 이 부분은 나중에 조인해서 가져오면 됨 -->
-<div>
-	<div class="ClubTableBody">
-	<c:forEach items="${allLocation}" var="location">
-		<c:if test=""></c:if>
-		<div class="ClubTable">
-			<div>${location.locLaName}</div>
-			<div>${location.locSName}</div>
-			<div>여기는 큰 타입</div>
-			<div>여기는 큰 작은타입</div>
-		</div>
+<!-- 소분류 위치 (aJax로 만들어짐) -->
+<select id="locationSNameSelect">
+	<option value="">----------------</option>
+	<option name=""></option>
+	</div>
+</select>	
+	
+	
+<!-- 대분류 타입 -->
+<select id="typeLanameSelect">
+	<option value="">----------------</option>
+	<c:forEach items="${allMemberLaType}" var="Type">
+	    <option name="${Type.typeLaName}">${Type.typeLaName}</option>
+	</c:forEach>
+</select>
+	
+<!-- 소분류 타입 (aJax로 만들어짐) -->
+<select id="typeSNameSelect">
+	<option value="">----------------</option>
+	<option name=""></option>
+	</div>
+</select>	
+	
+	
+	
+	
+	
+	
+	
+<!-- 더미데이터 -->
+<!-- 조건 가쟈와서 하나씩 쪼개기? -->
+<div class="allMemberBoxBody">
+	<c:forEach items="${allMember}" var="allMember">
+		<div class="allMemberBox">
+			<div>큰 지역 : ${allMember.getMembershipLocation().getLocationCategory().getLocLaName()}</div>
+			<div>작은 지역 : ${allMember.getMembershipLocation().getLocationCategory().getLocSName()}</div>
+			<div>큰 타입 : ${allMember.getMembershipType().getTypeCategory().getTypeLaName()}</div>
+			<div>작은 타입 : ${allMember.getMembershipType().getTypeCategory().getTypeSName()}</div>
+		</div>		
 	</c:forEach>
 </div>
-</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 <script>
-	$(function(){
-		$(document).ready(function() {
-			// 지역 버튼
-		    $(".Locationbutton").click(function() {
-		        $(".allLocationBox").toggle(); 
-		    });
-		    
-		    // 중앙 박스
-		    $(".typebox").click(function() {
-		        let typeName = $(this).find(".typeCategory").text();
-		        console.log(typeName)
-		        $.ajax({	
-		        	type:"get",
-		        	url:"/locationtype",
-		        	data: "type=" + typeName,
-		        	success : function(result){
-		        		$(".typeSmallCategory").empty();
-		        		result.forEach(function(item) {	
-		        		    $(".typeSmallCategory").append("<div>" + item + "</div>");
-		        		});
-		        	}
-		        })
-		    });
-		    $(".allLocationBox").click(function(){
-		    	const locationDistinction = $(this).find(".allLocation").text();;
-					$.ajax({
-						type:"get",
-						url:"locationClub",
-						data:"locationDistinction=" + locationDistinction,
-						
-						success:function(result){
-							var clubTableBody = $(".ClubTableBody");
-			                clubTableBody.empty(); // 기존 내용을 지웁니다.
-							
-			                $.each(result, function(index, allLocation) {
-			                    var clubTableHtml = `
-			                        <div class="ClubTable">
-			                            <div>${allLocation.locLaName}</div>
-			                            <div>${allLocation.locSName}</div>
-			                            <div>여기는 큰 타입</div>
-			                            <div>여기는 큰 작은타입</div>
-			                        </div>
-			                    `;
-			                    clubTableBody.append(clubTableHtml);
-			                });
-						}
-					})
-		    })
-		    /* 눌렀을때 이벤트
-		    $(".allLocation").click(function() {
-		        var locationName = $(this).data("location");
-
-		        $.ajax({
-		            url: "/location/" + locationName,
-		            method: "GET",
-		            success: function(data) {
-		                var clubTableBody = $(".ClubTableBody");
-		                clubTableBody.empty(); // 기존 내용을 지웁니다.
-
-		                $.each(data, function(index, location) {
-		                    var clubTableHtml = `
-		                        <div class="ClubTable">
-		                            <div>${location.locLaName}</div>
-		                            <div>${location.locSName}</div>
-		                            <div>여기는 큰 타입</div>
-		                            <div>여기는 큰 작은타입</div>
-		                        </div>
-		                    `;
-		                    clubTableBody.append(clubTableHtml);
-		                });
-		            },
-		        });
-		    });
-		    
-		    */
-		    
-		    
-		});
-	});
+	/* 소분류 Ajax로 가져오기*/
+    $(function() {
+        $("#locationLaNameSelect").change(function() {
+            const locationLaName = $(this).val();
+            $.ajax({
+            	type:"get",
+            	url:"locationSList",
+            	data:"locationLaName=" + locationLaName,
+            	
+            	success : function(result){
+            		const select = $("#locationSNameSelect");
+            		select.find("option:not(:first)").remove();                    
+            		$.each(result, function(index, item) {
+                        select.append($('<option></option>').attr('value', item).text(item));
+                    });
+            	}
+            })
+        });
+        
+        $("#typeLanameSelect").change(function() {
+            const typeLaName = $(this).val();
+            $.ajax({
+            	type:"get",
+            	url:"typeSList",
+            	data:"typeLaName=" + typeLaName,
+            	
+            	success : function(result){
+            		console.log(result)
+            	}
+            })
+        });      
+    });
 </script>
 </body>
 </html>

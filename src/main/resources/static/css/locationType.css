@@ -1,136 +1,16 @@
-/*몸통*/
-.locationTypeBody{
-	
-}
-
-/*위치 css*/
-/**/
-.locationType{
-	display:flex;	
-}
-.tpye-box1{
-	background-color :orange;
-	width:500px;
-	height:500px;
-}
-.allLocationBox {
-    display:none;
-    width: 55px;
-    height: 55px;
-    background-color: lightblue;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-}
-.Locationbutton {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-.locationType{
-	
-}
-/* 참고용
-.locationType {
-    position: relative;  버튼을 기준으로 박스를 배치하기 위해 부모 요소를 relative로 설정 
-    display: inline-block;
-}
-
-.Locationbutton {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.allLocationBox {
-    width: 55px;
-    height: 55px;
-    background-color: lightblue;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.LocationTypeBox {
-    display: none;  초기에는 보이지 않게 설정 
-    position: absolute;
-    top: 100%; 박스를 버튼 바로 아래에 위치시킴 
-    left: 0;  위치를 부모 요소(버튼) 왼쪽에 맞춤 
-    width: 240px; 박스의 너비 설정 
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    z-index: 1000;
-    padding: 10px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);  4개의 열로 구성 
-    grid-gap: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  약간의 그림자 효과 
-}
-
- 애니메이션 효과 추가 (선택 사항) 
-.LocationTypeBox.show {
-    display: grid;
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-*/
-
-/*분류 css*/
-
-.type {	
-  background-color: orange;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-}
-
-.typebox{
-	display: flex;
-	background-color: red;
-	padding : 30px;
-}
-.typeTableChild { /*.locationTableChild*/
-  background-color: aqua;
-  height : 50px
-}
-
-.typeSmallCategory {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-}
-.typeSmallCategory div {
-	padding-top : 18px;
-	margin-right : 10px;
-	margin-left : 10px;
-}
-
-
-/*임시 클럽 테이블*/
-
-.ClubTableBody {
-    width: 1500px; 
+.allMemberBoxBody{
+	width: 1500px; 
     background-color: pink;
     margin: auto;
     display: flex;
     flex-wrap: wrap; 
     justify-content: center; 
 }
-
-.ClubTable {
-    background-color: orange;
-    width: 200px;
-    height: 300px;
-    padding: 30px;
+.allMemberBox{
+	background-color: orange;
+	width: 200px;
+	height: 200px; 
+	padding: 30px;
     margin: 10px;
     box-sizing: border-box;
 }

@@ -1,17 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.LocationTypeMapper">
-	<resultMap id="Location" type="LocationCategory">
-		<id column="loc_code" property="locCode"/>
-		<result column="loc_la_name" property="locLaName"/>
-		<result column="loc_s_name" property="locSName"/>
-	</resultMap>
-	<resultMap id="Type" type="TypeCategory">
-		<id column="type_code" property="typeCode"/>
-		<result column="type_la_name" property="typeLaName"/>
-		<result column="type_s_name" property="typeSName"/>
-	</resultMap>
-	
-	
+
 	<!-- 5개 조인하기 -->
 	<resultMap id="MembershipMap" type="Membership">
 		<id column="membership_code" property="membershipCode"/> <!-- 프라이머리키 -->
@@ -43,8 +32,27 @@
 		</association>
 	</resultMap>
 	
+	<!-- 대분류 위치 -->
+	<select id="AllMembershipLocationLaname" resultMap="MembershipMap">
+		SELECT loc_la_name FROM membership
+		join membership_location USING(membership_code)
+		join location_category USING(loc_code)
+		join membership_type USING(membership_code)
+		join type_category USING(type_code)
+		group by loc_la_name; 
+	</select>
 	
-	
+	<!-- 소분류 위치 -->
+	<select id="AllMembershipLocationSname" parameterType="String" resultMap="MembershipMap">
+		SELECT loc_s_name FROM membership
+		join membership_location USING(membership_code)
+		join location_category USING(loc_code)
+		join membership_type USING(membership_code)
+		join type_category USING(type_code)
+		where loc_la_name = #{locLaName};
+	</select>
+
+	<!-- 모든 위치 및 타입 가져오기 -->
 	<select id="AllMembership" resultMap="MembershipMap">
 		SELECT * FROM membership
 		join membership_location USING(membership_code)
@@ -53,45 +61,26 @@
 		join type_category USING(type_code); 
 	</select>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<!-- 위치 -->
-	<select id="allLocationLarge" resultMap="Location">
-		SELECT loc_la_name FROM location_category
-		group by loc_la_name;
-	</select>
-	
-	<select id="allLocation" resultMap="Location">
-		SELECT * FROM location_category;
-	</select>
-	
-	<select id="locationDistinction" parameterType="String" resultMap="Location">
-		select loc_s_name from location_category
-		WHERE loc_la_name = #{locLaName};
-	</select>
-	
-	
-	
-	<!-- 타입 -->
-	<select id="allType" resultMap="Type">
-		SELECT type_la_name FROM type_category
+	<!-- 대분류 타입 가져오기 -->
+	<select id="AllMembershipTypeLaname" resultMap="MembershipMap">
+		SELECT type_la_name FROM membership
+		join membership_location USING(membership_code)
+		join location_category USING(loc_code)
+		join membership_type USING(membership_code)
+		join type_category USING(type_code)
 		group by type_la_name;
 	</select>
 	
-	<select id="TypeCategoryLarge" parameterType="String" resultMap="Type">
-		SELECT type_s_name FROM type_category
-		WHERE type_la_name = #{typeSName};   
+	<!-- 소분류 타입 가져오기 -->
+	<select id="AllMembershipTypeSname" parameterType="String" resultMap="MembershipMap">
+		SELECT type_s_name FROM membership
+		join membership_location USING(membership_code)
+		join location_category USING(loc_code)
+		join membership_type USING(membership_code)
+		join type_category USING(type_code)
+		where type_la_name = #{typeLaName}
+		group by type_s_name;
 	</select>
+	
+
 </mapper>

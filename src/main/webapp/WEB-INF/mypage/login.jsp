@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <!DOCTYPE html>
     <html lang="en">
       <head>
@@ -18,18 +19,11 @@ pageEncoding="UTF-8"%>
       <body>
         <div class="header">
           <div class="header_left">
-            <div class="LOGO">LOGO</div>
-            <div class="menu">menu1</div>
-            <div class="menu">menu2</div>
-            <div class="menu">menu3</div>
-            <div class="menu">menu4</div>
             <div class="header_right">
-              <div class="header_right_menu">
-                <a href="/signUp">회원가입</a>
+              <div class="header_right_menu"><a href="/register">회원가입</a>
               </div>
               <div class="header_right_menu"><a href="/login">로그인</a></div>
-              <div class="header_right_menu">
-                <a href="/mypage">마이페이지</a>
+              <div class="header_right_menu"><a href="/mypage">마이페이지</a>
               </div>
             </div>
           </div>
@@ -44,7 +38,7 @@ pageEncoding="UTF-8"%>
               </div>
               <div class="textbox">
                 <i class="fas fa-lock"></i>
-                <input type="password" placeholder="비밀번호" name="password" />
+                <input type="password" placeholder="비밀번호" name="pwd" />
               </div>
               <input type="submit" class="btn" value="로그인" />
             </form>

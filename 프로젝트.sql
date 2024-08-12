@@ -1,6 +1,10 @@
 -- drop schema damoim;
 -- create schema damoim;
 
+INSERT INTO member(id,pwd,addr,phone,email,name,age,gender) VALUES ('asd','123','경기도','010-1111-2222','sdm@gmail.com','감자',22 ,'M');
+
+-- _은 자바 타입으로 매핑 해줘야 한다 
+
 CREATE TABLE member ( -- 회원가입
     id VARCHAR(50) PRIMARY KEY, -- 아이디
     pwd VARCHAR(255) NOT NULL, -- 비밀번호
@@ -92,6 +96,7 @@ CREATE TABLE membership_meetings ( -- 클럽모임게시판
     meet_info TEXT, -- 모임관련 정보
     meet_creat_date DATE default(current_date)
 );
+
 CREATE TABLE meetings_agree (-- 클럽 모임게시판 - 클럽 회원 리스트 참여여부 테이블 
 	meet_agree_code INT PRIMARY KEY auto_increment,
     meet_agree_yn BOOLEAN DEFAULT(false),

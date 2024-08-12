@@ -2,11 +2,14 @@ package com.damoim.model.vo;
 
 import java.sql.Date;
 
+import com.damoim.model.dto.MembershipDTO;
+
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @AllArgsConstructor @NoArgsConstructor
+@Data @AllArgsConstructor @NoArgsConstructor @Builder
 public class Membership {
     private int membershipCode; // 클럽코드
     private String membershipName; // 클럽이름

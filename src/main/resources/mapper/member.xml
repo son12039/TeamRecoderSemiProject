@@ -12,11 +12,12 @@
 		FROM member
 		WHERE id=#{id} AND pwd=#{pwd}
 	</select>
-
-	<update id="update" parameterType="Member">
+ 	
+	<update id="update" parameterType="Member" >
 		UPDATE member
-		SET pwd=#{pwd}
-		WHERE id=#{id}
+		SET pwd = #{pwd} , name = #{name}, phone = #{phone},
+		addr = #{addr}, email = #{email}, age = #{age}
+		WHERE id = #{id}
 	</update>
 	
 	<select id="login" parameterType="Member" resultType="Member">
@@ -24,16 +25,14 @@
 		FROM member
 		WHERE id = #{id} AND pwd = #{pwd}
 	</select>
-
-
-
+	
 	<select id="loginMemberMembership" parameterType="Member"
 		resultMap="memberListmap">
 		SELECT *
 		FROM membership_user_list
 		WHERE id = #{id}
 	</select>
-
+	
 	<select id="idCheck" parameterType="Member" resultType="Member">
 		SELECT *
 		FROM member
@@ -45,7 +44,7 @@
 		SELECT * FROM member
 		WHERE nickname = #{nickname}
 	</select>
-	
+
 	<insert id="signUp" parameterType="Member">
 		INSERT INTO member(id, pwd,
 		addr, phone, email, name, age, gender, nickname, member_img,
@@ -55,7 +54,22 @@
 		#{nickname},#{memberImg},#{memberHobby},#{memberInfo},#{memberLocation},#{memberType}
 		)
 	</insert>
+	<select id ="memberInfo" parameterType="Member" resultType="Member">
+		SELCET * 
+		FROM member
+		WHERE id = #{id}
+	</select>
 	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper> 

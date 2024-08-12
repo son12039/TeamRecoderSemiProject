@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,18 +30,31 @@ public class MemberController {
 	@Autowired
 	private MembershipService infoService;
 	
-	@PostMapping("/login") // 로그인 메서드
-	public String login(MemberInfoDTO info,HttpServletRequest request) {
-		boolean check  = true;
-		HttpSession session = request.getSession();
+	
+	
+
+	// 로그인 , 해당 회원 정보 , 가입 클럽 코드 및 등급을 세션에 
+		@ResponseBody
+		@PostMapping("/login")
+		public boolean login(Member member, HttpServletRequest request, Model model) {
+			HttpSession session = request.getSession();
+			// 로그인 성공 !
+			if (service.login(member) != null) {
 				
-		Member member = new Member();
-		
-		member.setId(info.getId());		
-		
-		member.setPwd(info.getPwd());
+				session.setAttribute("mem", service.login(member)); // 로그인 정보 세션에
+				// 내가 가입한 클럽 정보 체크용
 		
 
+				// 해당 id를 가진 맴버의 맴버쉽 의 모든정보 + 맴버, 등급 등등
+				System.out.println(infoService.grade(member));
+				session.setAttribute("membership", infoService.grade(member)); 
+
+				return true;
+				// 로그인 실패!
+			} 
+				return false;			
+
+		}
 	
 		// 로그인 성공 !
 	if(service.login(member) != null) {
@@ -77,12 +91,10 @@ public class MemberController {
 
 	}
 	@ResponseBody
-	@PostMapping("/idCheck") //회원가입시 id 체크
+	@PostMapping("/idCheck")
 	public boolean idCheck(Member member) {
-		
 		Member mem = service.idCheck(member);
 		return mem == null;
-		
 		
 	}
 	@ResponseBody
@@ -91,8 +103,6 @@ public class MemberController {
 		Member mem = service.nicknameCheck(member);
 		return mem == null;
 			
-		
-		
 	}
 
 	@PostMapping("/signUp") // 회원가입 메서드
@@ -102,6 +112,12 @@ public class MemberController {
 		service.signUp(member);
 		
 		
+		Member mem = member;
+		String addr = mem.getAddr();
+		addr += "#"+ addrDetail;
+		System.out.println(addr);
+		mem.setAddr(addr);
+		service.signUp(member);	
 		return "redirect:/";
 		
 	}

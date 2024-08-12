@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @AllArgsConstructor @NoArgsConstructor @Builder
+@Data @AllArgsConstructor @NoArgsConstructor 
 public class Member {
     private String id; // 아이디
     private String pwd; // 비밀번호
@@ -23,4 +23,5 @@ public class Member {
     private String memberInfo; // 유저 간단한 자기소개
     private String memberLocation; // 유저선호지역
     private String memberType; // 유저 선호만남유형
+    
 }

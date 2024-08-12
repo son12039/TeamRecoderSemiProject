@@ -1,5 +1,7 @@
 package mapper;
 
+import java.util.ArrayList;
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -13,21 +15,28 @@ import com.damoim.model.vo.MembershipUserList;
 @Mapper
 public interface MembershipMapper {
 	
-	List<MembershipUserList> allMembership();
+	
 	MembershipUserList main(int membershipCode);
 	int membershipUserCount(int membershipCode);
-	
+	List<MembershipUserList>allMembership();
+	MemberListDTO checkMember(MemberListDTO member);
+	void makeMembership(Membership membership);
+	void host(MemberListDTO list);
+	ArrayList<Member> allMember();
 	List<MembershipUserList> MembershipAllInfo(int membershipCode);
-
 	void membershipApply(MemberListDTO member);
 	
-	void makeMembership(Membership membership);
-	
-	void host(MemberListDTO list);
-	
-	MemberListDTO checkMember(MemberListDTO member);
-
 	List<MembershipUserList> grade(Member member);
-	
+
 	void agreeMemeber(MemberListDTO member);
 }
+
+
+
+
+
+
+
+
+
+

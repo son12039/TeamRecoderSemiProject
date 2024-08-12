@@ -4,7 +4,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -51,7 +51,6 @@
     	</div>
     </c:forEach>
     </main>
-    <script src="${pageContext.request.contextPath}/js/membershipPage.js">
-    </script>
+    <script src="${pageContext.request.contextPath}/js/membershipPage.js"></script>
 </body>
 </html>

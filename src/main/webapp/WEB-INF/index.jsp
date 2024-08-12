@@ -72,28 +72,45 @@ pageEncoding="UTF-8"%>
        <h3> 인원 현황 ${countList.get(status.index)}/${id.membership.membershipMax}</h3>
       
 
-        <c:choose>
-        
-        <c:when test="${id.member.memberImg == ''}">
-        <img class="user-img" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
-        </c:when>
-        <c:otherwise>
-       <img class="user-img" src="${id.member.memberImg}"> 
-       </c:otherwise>
-       </c:choose>
-          
-     
-       </div>
-       </div>
-      
-       </c:forEach>
-        </div>
-      
-        
-         
-        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-        <script src="login.js"></script>
-     <!--    <script >
+
+	<div class="membership-list">
+
+		<c:forEach items="${list}" var="id" varStatus="status">
+
+			<div class="membership-card">
+				<div class="membership-img">
+					<a href="/${id.membership.membershipCode}"> <img
+						src="${id.membership.membershipImg}">
+					</a>
+				</div>
+				<div class="membership-info">
+					<h1 class="membership-name">${id.membership.membershipName}</h1>
+					<h2>${id.membership.membershipInfo}</h2>
+					<h2>호스트 : ${id.member.nickname}</h2>
+					<input type="hidden" name="code"
+						value="${id.membership.membershipCode}">
+					<h3>멤버수 : 
+						${countList.get(status.index)}/${id.membership.membershipMax}</h3>
+
+
+					<c:choose>
+						<c:when test="${id.member.memberImg == ''}">
+							<img class="user-img"
+								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+						</c:when>
+						<c:otherwise>
+							<img class="user-img" src="${id.member.memberImg}">
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</div>
+
+		</c:forEach>
+	</div>
+
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<script src="login.js"></script>
+	<!--    <script >
         
         
          $(".btn").click(()=>{
@@ -127,7 +144,7 @@ pageEncoding="UTF-8"%>
     
         
         
-        </script> --> 
-      </body>
-    </html>
+        </script> -->
+</body>
+</html>
 

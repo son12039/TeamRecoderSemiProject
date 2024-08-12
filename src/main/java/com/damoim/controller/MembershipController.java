@@ -1,4 +1,5 @@
 package com.damoim.controller;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipUserList;
+import com.damoim.model.vo.TypeCategory;
 import com.damoim.service.MembershipService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -67,7 +69,13 @@ public class MembershipController {
 		
 	 }
 	@GetMapping("/makeMembership") // 클럽 생성페이지로 이동
-	public String makeMembership() {
+	public String makeMembership(Model model) {
+		
+		service.membershipType();
+		System.out.println(service.membershipType());
+		model.addAttribute("typeList", service.membershipType());
+		model.addAttribute("typeList1",service.membershipType1());
+		
 		return "/mypage/makeMembership";
 	}
 	@PostMapping("/makeMembership") // 클럽 생성
@@ -92,5 +100,23 @@ public class MembershipController {
 		// 클럽 가입 신청
 		service.membershipApply(member);
 		return "redirect:/";
+	}
+	
+	@ResponseBody
+	@GetMapping("/type")
+	public String typeCheck(@RequestParam String value) {
+		TypeCategory type = new TypeCategory();
+		type.setTypeLargeName(value);
+		
+		System.out.println(type);
+		
+	//	for(int i=0; i<service.typeCheck(value).size(); i++) {
+	//		System.out.println(service.typeCheck(value).get(i));
+	//	}
+	//	
+		System.out.println(service.typeCheck(value));
+		
+		System.out.println("전달");
+		return null;
 	}
 }

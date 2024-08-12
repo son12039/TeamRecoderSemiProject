@@ -132,6 +132,43 @@ VALUES (#{listGrade},#{id},#{membershipCode});
    		SET list_grade = #{listGrade}
 		WHERE id = #{id} AND membership_code = #{membershipCode}
 	</update>
-
+	
+	<resultMap type="TypeCategory" id="typeMap">
+	<id column="type_code" property="typeSmallCode"/>
+	<result column="type_la_name" property="typeLargeName"/>
+	<result column ="type_s_name" property="typeSmallName"/>
+	
+	</resultMap>
+	
+	
+	<select id="membershipType" resultMap="typeMap">
+	SELECT type_la_name
+	FROM type_category
+	GROUP BY type_la_name
+	</select>
+	
+	
+	<select id="membershipType1" resultMap="typeMap">
+	SELECT *
+	FROM type_category
+	
+	</select>
+	
+	<resultMap type="MembershipType" id="typeMembership">
+	<id column ="mem_type_code" property="memTypeCode"/>
+      <association property="membership" javaType="Membership" resultMap="membershipMap"/>
+      <association property="type_category" javaType="TypeCategory" resultMap="typeMap"/>
+	</resultMap>
+	
+	<select id="typeCheck" parameterType="String"   resultMap="typeMembership">
+	SELECT *
+	FROM membership_type
+	JOIN membership USING (membership_code)
+	JOIN type_category USING(type_code)
+	WHERE type_la_name =#{typeLargeName}
+	</select>
+	
+	
+	
 
  </mapper>

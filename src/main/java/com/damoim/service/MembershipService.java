@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
+import com.damoim.model.vo.MembershipType;
 import com.damoim.model.vo.MembershipUserList;
+import com.damoim.model.vo.TypeCategory;
 
 import mapper.MembershipMapper;
 
@@ -65,5 +67,16 @@ public class MembershipService {
 		mapper.agreeMemeber(member);
 		
 	}
-
+	
+	public List<TypeCategory> membershipType() {
+		return mapper.membershipType();
+	}
+	
+	public List<TypeCategory> membershipType1() {
+		return mapper.membershipType1();
+	}
+      
+	public List<MembershipType> typeCheck(String value){
+		return mapper.typeCheck(value);
+	}
 }

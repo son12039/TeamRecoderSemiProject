@@ -54,7 +54,9 @@ pageEncoding="UTF-8"%>
           
         </div>
         
-        
+        <div>
+        <button id="selected" name="액티비티">액티비티</button>        
+        </div>
         <div class="membership-list">
         
        <c:forEach  items="${list}" var="id" varStatus="status" >
@@ -93,7 +95,24 @@ pageEncoding="UTF-8"%>
         
          
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
+        <script>
+        $("#selected").click(()=>{
+        	$.ajax({
+        		type:'get',
+        		url:'/type',
+        		data :{
+        		
+        			value:$("#selected").text()
+        			
+        		},
+        		success: function(data){
+        		          	alert("??");
+        		}
+        		
+        })
+        })
+          
+        </script>
       </body>
     </html>
 

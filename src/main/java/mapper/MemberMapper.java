@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
+import com.damoim.model.vo.Membership;
 
 
 
@@ -27,4 +28,5 @@ public interface MemberMapper {
 	void update(Member member);
 	Member memberInfo(Member member);
 	String grade(Member member);
+	void createclub(Membership membership);
 }

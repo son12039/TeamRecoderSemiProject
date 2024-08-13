@@ -27,7 +27,7 @@ public interface MemberMapper {
 	Member memberInfo(Member member);
 	String grade(Member member);
 	
-	
+	Member updateCheck(Member member);
 	void update(Member member);
 	void addrUpdate(Member member);
 	

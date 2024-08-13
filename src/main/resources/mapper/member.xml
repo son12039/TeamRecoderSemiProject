@@ -13,19 +13,27 @@
 		WHERE id=#{id} AND pwd=#{pwd}
 	</select>
  	
+ 	<!-- 내 정보 업데이트 -->
+ 	<!-- 비밀번호 확인 -->
+ 	<select id="updateCheck" parameterType="Member" resultType="Member">
+ 		SELECT *
+ 		FROM member
+ 		WHERE pwd = #{pwd}
+ 	</select>
+ 	<!-- 회원정보 업데이트 -->
 	<update id="update" parameterType="Member">
 	UPDATE member
-	SET pwd = #{pwd} , name = #{name}, phone = #{phone},
-		email = #{email} , age = #{age} , addr = #{addr}
+		SET pwd = #{pwd} , addr = #{addr}, name = #{name}, 
+		phone = #{phone}, email = #{email} , age = #{age} 
 	WHERE id = #{id}
 	</update>
-	
+	<!-- 상세주소 업데이트 -->
 	<update id="addrUpdate" parameterType="Member">
     UPDATE member
-    SET addr = #{addr}
-    WHERE id = #{id};
+    	SET addr = #{addr}
+    WHERE id = #{id}
 	</update>
-	
+	<!-- 내 정보 업데이트 -->
 	
 	
 	<select id="login" parameterType="Member" resultType="Member">

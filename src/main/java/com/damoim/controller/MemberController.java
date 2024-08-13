@@ -94,43 +94,54 @@ public class MemberController {
 		return "/mypage/myMembership";
 	}
 	
+	// 비밀번호 확인후 update 페이지 이동
+	@PostMapping("/updateCheck")
+	public String updateCheck(Member vo, HttpServletRequest request, String pwdCheck) {
+		HttpSession session = request.getSession();
+		Member member = (Member) session.getAttribute("mem");
+		
+		vo.setPwd(member.getPwd()); // vo에 멤버 비밀번호 set
+		service.updateCheck(member); // service 에서 pwd = #{pwd}
+		
+		if(vo.getPwd().equals(pwdCheck)) {
+		System.out.println(member.getPwd());
+			return "/mypage/update";
+		} 
+
+		return "redirect:/updateCheck";
+	}
+	
 	@PostMapping("/update")
 	public String update(Member vo, HttpServletRequest request, String beforeAddr, String addrDetail) {
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("mem");
-		// addrDetail이 빈칸일경우는 사용자가 입력시 addr만 입력되게
 		
-		if (vo.getId() == null) {
-			if (addrDetail == null || addrDetail == "") {
-				service.addrUpdate(vo);
-				vo.setAddr(vo.getAddr());
-				
-			} else {
-				service.addrUpdate(vo);
-				vo.setAddr(vo.getAddr() + "#" + addrDetail);
-				// addrDetail 까지 같이 입력할경우 #구분자 붙여서 업데이트
-			}
+		if (member == null) {
+			return "redirect:/login";
 		}
 		
-		vo.setPwd(vo.getPwd());
-		vo.setName(vo.getName());
-		vo.setPhone(vo.getPhone());
-		vo.setEmail(vo.getEmail());
-		vo.setAge(vo.getAge());
+		vo.setId(member.getId());
+		String addr = member.getAddr();
+
+		if (addrDetail == "") {
+			vo.setAddr(addr);
+		} else {
+			vo.setAddr(addr + "#" + addrDetail);
+		}
+
+		session.setAttribute("mem", vo);
+		service.addrUpdate(vo);
 		service.update(vo);
 		
-		session.setAttribute("mem", vo);
-		System.out.println(vo);
-		// #을 기준으로 앞쪽 addr이랑 뒤쪽 addr를 나누고
-		
-		// 만약에 앞뒤 따로 비교하는데 앞 addr이 변경된 값이 x고 뒤만
-		
-		// 변경되면 기존에 member에 앞 addr + 새로받은 addrD를 추가해서 셋하고
-		
-		return "redirect:/";
+		return "/mypage/update";
 	}
 	
+	// 해야할것!
+	// 1. 비밀번호 재확인 해야 update 페이지로 이동
+	// 2. # 구분자로 합쳐진 주소 값을 다시 나눠서 
+	// 		addr 과 addrDetail에 따로 입력
 	
+
 	
 	
 	

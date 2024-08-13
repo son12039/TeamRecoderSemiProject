@@ -13,8 +13,7 @@ pageEncoding="UTF-8"%>
         />
           <link
           rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/index.css"
-        />
+          href="${pageContext.request.contextPath}/css/index.css"/>
         
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
        
@@ -34,8 +33,9 @@ pageEncoding="UTF-8"%>
 				</c:if>
 				<c:if test="${not empty mem}">
 					<div class="header_right_menu">
-						<a href="/update">마이페이지</a> <a href="/myMembership?id=${mem.id}">나의
-							모임</a> <a href="/logout">로그아웃</a>
+						<a href="/updateCheck">내 정보</a> 
+						<a href="/myMembership?id=${mem.id}">
+						나의 모임</a> <a href="/logout">로그아웃</a>
 					</div>
 				</c:if>
 			</div>

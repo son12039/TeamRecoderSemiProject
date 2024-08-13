@@ -44,7 +44,13 @@ public class PageController {
 		return "signUp/signUp";
 	}
 	
-	// 회원정보 수정 페이지
+	// 내 정보 열람 비밀번호 체크
+	@GetMapping("/updateCheck")
+	public String updateCheck() {
+		return "mypage/updateCheck";
+	}
+	
+	// 회원정보 수정
 	@GetMapping("/update")
 	public String update() {
 		return "mypage/update";

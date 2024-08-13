@@ -52,18 +52,22 @@ public class MemberService {
 		
 		return mapper.pwdCheck(member);
 	}
-    
-	@Transactional
+	
+	
+	// 업데이트 관련 서비스 =====================
+	public Member updateCheck(Member member) {
+		return mapper.updateCheck(member);
+	}
 	public void update(Member member) {
-
 		 mapper.update(member);
 	}
-	
-	@Transactional
 	public void addrUpdate(Member member) {
-		
 		 mapper.addrUpdate(member);
 	}
+	// ======================================
+	
+	
+	
 	
 	/*
 	// 카카오 로그인

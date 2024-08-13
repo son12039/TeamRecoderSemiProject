@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
+import com.damoim.model.vo.Membership;
 
 
 
@@ -33,4 +34,5 @@ public interface MemberMapper {
 	// 업데이트
 	void updatePassword(Member member);
 	
+	void createclub(Membership membership);
 }

@@ -6,16 +6,19 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>클럽 회원 페이지</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/membershipPage.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link
+          rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/reset.css"
+        />
+          
+         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
     <main>
         <h1>${main.membership.membershipName}</h1>
+        <a href="chatserver?membershipName=${main.membership.membershipName}">채팅서버가기</a>
         <img id="mainImg" src="${main.membership.membershipImg}" alt="클럽 이미지">
         <h2>${main.membership.membershipInfo}</h2>
         <p>인원 현황 : ${membershipUserCount}/${main.membership.membershipMax}</p>
@@ -55,6 +58,7 @@
             </div>
         </c:forEach>
         <a href="/" id="toIndex">메인페이지로 가기</a>
+
     </main>
     <script src="${pageContext.request.contextPath}/js/membershipPage.js"></script>
 </body>

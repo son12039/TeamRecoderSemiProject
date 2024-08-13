@@ -5,12 +5,15 @@ import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MessageDAO;
 import com.damoim.model.vo.BasicRoomListVo;
 import com.damoim.model.vo.Member;
+import com.damoim.service.MemberService;
+import com.damoim.service.MembershipService;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -30,6 +33,10 @@ import java.util.*;
 @Controller
 public class ChattingController {
 
+	@Autowired
+	private MembershipService service;
+	
+	
 	// 채팅방 목록
 	public static LinkedList<ChattingRoomDAO> chattingRoomList = new LinkedList<>();
 	
@@ -41,15 +48,20 @@ public class ChattingController {
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	public void basic() throws Exception {
 		Connection conn = con();
+		List<BasicRoomListVo> list = service.roomlist();
+		int i =1;
+		for(BasicRoomListVo a : list) {
+			System.out.println(a + "테스트" +i++);
+		}
+		 
 		String query = "SELECT membership_code, membership_name FROM membership";
 		PreparedStatement ps = conn.prepareStatement(query);
 		ResultSet rs = ps.executeQuery();
-		List<BasicRoomListVo> list = new ArrayList();
+//		List<BasicRoomListVo> list = new ArrayList();
 		 
 		while(rs.next()) {
 			ChattingRoomDAO chattingRoom = null;
-			String roomNumber = UUID.randomUUID().toString();
-			chattingRoom = ChattingRoomDAO.builder().roomNumber(rs.getString("membership_code"))
+			chattingRoom = ChattingRoomDAO.builder().roomNumber(rs.getInt("membership_code"))
 				.users(new LinkedList<>()).roomName(rs.getString("membership_name")).build();
 			chattingRoomList.add(chattingRoom);
 		}
@@ -70,16 +82,16 @@ public class ChattingController {
 	
 	// 방 번호로 방 찾기
 	public ChattingRoomDAO findRoom(String roomNumber) {
-		ChattingRoomDAO room = ChattingRoomDAO.builder().roomNumber(roomNumber).build();
+		ChattingRoomDAO room = ChattingRoomDAO.builder().roomNumber(Integer.parseInt(roomNumber)).build();
 		int index = chattingRoomList.indexOf(room);
 		return chattingRoomList.contains(room) ? chattingRoomList.get(index) : null;
 	}
 
 	// 쿠키에 추가
-	public void addCookie(String cookieName, String cookieValue) {
+	public void addCookie(String cookieName, int i) {
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
 		HttpServletResponse response = attr.getResponse();
-		Cookie cookie = new Cookie(cookieName, cookieValue);
+		Cookie cookie = new Cookie(cookieName, String.valueOf(i));
 		int maxage = 60 * 60 * 24 * 7;
 		cookie.setMaxAge(maxage);
 		response.addCookie(cookie);
@@ -137,17 +149,9 @@ public class ChattingController {
 
 	// 닉네임 생성
 	public void createNickname(String nickname) { // 방입장할때 닉넴 생성 후 쿠키에 저장
-		addCookie("nickname", nickname);
+		addCookie("nickname", Integer.parseInt(nickname));
 	}
 
-	// 닉네임 중복확인 메서드
-	public boolean isNicknameTaken(String roomNumber, String nickname) {
-		ChattingRoomDAO room = findRoom(roomNumber);
-		if (room == null)
-			return false;
-
-		return room.getUsers().contains(nickname);
-	}
 
 	// 방 입장하기
 	public boolean enterChattingRoom(ChattingRoomDAO chattingRoom, String nickname) {
@@ -182,17 +186,7 @@ public class ChattingController {
 	public ResponseEntity<ArrayList<Integer>> idreturn(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession();
 		Member a = (Member) session.getAttribute("mem");
-		Connection conn = con();
-		String query = "select membership_code from membership join membership_user_list using (membership_code) where id =?";
-		PreparedStatement ps = conn.prepareStatement(query);
-		ps.setString(1, a.getId());
-		ResultSet rs = ps.executeQuery();
-		ArrayList<Integer> list = new ArrayList<>();
-		while(rs.next()) {
-			list.add(rs.getInt("membership_code"));
-			System.out.println(rs.getInt("membership_code"));
-		}
-		close(rs, ps, conn);
+		ArrayList<Integer> list = (ArrayList<Integer>) service.membershipCodeList(a.getId());
 		return new ResponseEntity<ArrayList<Integer>>(list, HttpStatus.OK);
 	}
 	// 채팅방 목록
@@ -205,7 +199,6 @@ public class ChattingController {
 	public ResponseEntity<?> nick1(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession();
 		Member nick = (Member) session.getAttribute("mem");
-		System.out.println("보낼값 : " + nick.getNickname());
 		return new ResponseEntity<String>( nick.getNickname(), HttpStatus.OK);
 	}
 	// (url: "/chattingRoomList")로 호출되어 채팅리스트를 리턴한다
@@ -218,7 +211,7 @@ public class ChattingController {
 		 
 		ChattingRoomDAO chattingRoom = null;
 		String roomNumber = UUID.randomUUID().toString();
-		chattingRoom = ChattingRoomDAO.builder().roomNumber(roomNumber).users(new LinkedList<>()).roomName(roomName)
+		chattingRoom = ChattingRoomDAO.builder().roomNumber(Integer.parseInt(roomNumber)).users(new LinkedList<>()).roomName(roomName)
 				.build();
 
 		chattingRoomList.add(chattingRoom);

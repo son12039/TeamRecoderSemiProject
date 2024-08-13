@@ -9,7 +9,7 @@ import java.util.Objects;
 @Data
 @Builder
 public class ChattingRoomDAO {
-    private String roomNumber; // 방 번호
+    private int roomNumber; // 방 번호
     private String roomName; // 방 이름
     private LinkedList<String> users; // 유저목록
 

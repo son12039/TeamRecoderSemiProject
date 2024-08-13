@@ -3,6 +3,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.vo.BasicRoomListVo;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipUserList;
@@ -56,6 +57,13 @@ public class MembershipService {
 		
 	}
 	
+	public List<Integer> membershipCodeList(String id) {
+		return mapper.membershipCodeList(id);
+		
+	}
 	
 	
+	public List<BasicRoomListVo> roomlist() {
+		return mapper.roomlist();
+	}
 }

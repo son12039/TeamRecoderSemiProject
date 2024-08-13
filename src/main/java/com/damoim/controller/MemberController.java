@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.vo.Member;
+import com.damoim.service.EmailService;
 import com.damoim.service.MemberService;
 import com.damoim.service.MembershipService;
 
@@ -30,6 +31,8 @@ public class MemberController {
 	@Autowired
 	private MembershipService infoService;
 	
+    @Autowired
+    private EmailService emailService;
 	
 	
 
@@ -107,11 +110,35 @@ public class MemberController {
 		return "/mypage/myMembership";
 	}
 	
-	
+
+
+
+   @PostMapping("/sendEmail")
+   public String sendEmail(@RequestParam("id") String id, @RequestParam("email") String email, Model model) {
+    	    Member member = new Member();
+    	    member.setId(id);
+    	    member.setEmail(email);
+    	    System.out.println("DB에 보낼 정보 : " + member);
+    	    Member mem = emailService.memberEmailIdcheck(member);
+    	    System.out.println("DB의 정보 : " + mem);
+        try {
+        	System.out.println("서비스 진입전 member 정보 : " + mem);
+            emailService.processPasswordReset(mem);
+            System.out.println("서비스 진입성공");
+            model.addAttribute("message", "임시 비밀번호가 이메일로 전송되었습니다.");
+            System.out.println("비밀번호 변경 완료");
+        } catch (Exception e) {
+            model.addAttribute("message", "비밀번호 재설정에 실패했습니다.");
+            System.out.println("비밀번호 변경 실패");
+        }
+
+        return "redirect:/"; // 인덱스 페이지로 리다이렉트
+    }
+}
 	
 		
 	
-	}
+	
 	
 
 

@@ -1,139 +1,96 @@
 package com.damoim.service;
 
-import java.security.SecureRandom;
-import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import com.damoim.model.vo.Member;
+import mapper.MemberMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
+
+@Service
 public class EmailService {
 
-    // 난수 생성에 사용할 문자 집합 정의
-    private static final String UPPER_CASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static final String LOWER_CASE = "abcdefghijklmnopqrstuvwxyz";
-    private static final String DIGITS = "0123456789";
-    private static final String SPECIAL_CHARACTERS = "!@#$%^&*()-_+=<>?";
+    @Autowired
+    private MemberMapper memberMapper;
 
-    // 모든 문자 집합을 하나로 결합
-    private static final String ALL_CHARACTERS = UPPER_CASE + LOWER_CASE + DIGITS + SPECIAL_CHARACTERS;
+    @Autowired
+    private JavaMailSender mailSender;
+    @Autowired
+    public EmailService(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
-    // 난수 생성기
-    private static final SecureRandom RANDOM = new SecureRandom();
+    // 비밀번호 생성에 사용할 문자 집합과 길이
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+    private static final int PASSWORD_LENGTH = 12;
 
-    public static void main(String[] args) {
-        String recipientEmail = "recipient@example.com"; // 수신자 이메일 주소
-        String senderEmail = "your-email@example.com"; // 발신자 이메일 주소
-        String senderPassword = "your-email-password"; // 발신자 이메일 비밀번호
-        String host = "smtp.example.com"; // SMTP 서버 주소
-        int port = 587; // SMTP 서버 포트 번호 (예: 587, 465)
+    // 임시 비밀번호 생성 메서드
+    private String generateTemporaryPassword() {
+        SecureRandom random = new SecureRandom();
+        StringBuilder password = new StringBuilder(PASSWORD_LENGTH);
+
+        for (int i = 0; i < PASSWORD_LENGTH; i++) {
+            int index = random.nextInt(CHARACTERS.length());
+            password.append(CHARACTERS.charAt(index));
+        }
+
+        return password.toString();
+    }
+
+    // 비밀번호를 데이터베이스에 업데이트
+    public void updatePassword(Member member) {
+    	System.out.println("임시 비밀번호로 변경시작");
+        memberMapper.updatePassword(member);
+        System.out.println("임시 비밀번호로 변경끝");
+    }
+
+
+
+    // 이메일로 임시 비밀번호 전송
+    public void sendTemporaryPasswordEmail(String email, String tempPassword) {
+        String subject = "Dimoim 사이트 임시 비밀번호 안내";
+        String body = "당신의 임시 비밀번호는: " + tempPassword;
+        System.out.println("메일 전송 로직 도착");
+        System.out.println("임시 비밀번호 생성완료! " + tempPassword);
+        System.out.println("보낼 주소 : " + email);
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email); // 수신자
+        message.setSubject(subject); // 제목
+        message.setText(body); // 이메일 내용
+        message.setFrom("dol9991@naver.com"); // 발신자 이메일 주소 설정
 
         try {
-            // 임시 비밀번호 생성
-            String tempPassword = generatePassword(12);
-
-            // 이메일 내용 설정
-            String subject = "임시 비밀번호 발송";
-            String body = "안녕하세요,\n\n임시 비밀번호는 다음과 같습니다:\n" + tempPassword + "\n\n감사합니다.";
-
-            // 이메일 전송
-            sendEmail(senderEmail, senderPassword, recipientEmail, subject, body, host, port);
-
-            System.out.println("임시 비밀번호가 이메일로 전송되었습니다.");
+            mailSender.send(message);
+            System.out.println("임시 비밀번호 이메일이 성공적으로 발송되었습니다!");
         } catch (Exception e) {
-            e.printStackTrace();
+            // 예외 메시지를 로그로 남기거나 적절한 처리
+            System.err.println("이메일 전송 오류: " + e.getMessage());
         }
+        
     }
+    public Member memberEmailIdcheck(Member member) {
+    	return memberMapper.memberEmailIdcheck(member);
+    } 
 
-    /**
-     * 주어진 길이의 랜덤 비밀번호를 생성합니다.
-     * 
-     * @param length 비밀번호의 길이
-     * @return 생성된 비밀번호
-     */
-    public static String generatePassword(int length) {
-        if (length < 12) {
-            throw new IllegalArgumentException("Password length must be at least 12 characters.");
+    // 임시 비밀번호를 생성하고 이메일로 전송 및 데이터베이스 업데이트
+
+    public void processPasswordReset(Member member) {
+    
+        System.out.println("이메일 메서드로 보내는 서비스 도착");
+ 
+        
+        System.out.println("회원 조회 결과 : " + member);
+        if (member != null) { // 이메일 아이디 체크
+            String tempPassword = generateTemporaryPassword();
+            member.setPwd(tempPassword);
+            updatePassword(member);
+            sendTemporaryPasswordEmail(member.getEmail(), tempPassword);
+        } else {
+            // 사용자 정보가 존재하지 않는 경우 처리 로직 추가
+            System.out.println("사용자 없음!");
         }
-
-        StringBuilder password = new StringBuilder(length);
-
-        // 각 문자 집합에서 하나씩 문자 선택
-        password.append(randomCharacter(UPPER_CASE));
-        password.append(randomCharacter(LOWER_CASE));
-        password.append(randomCharacter(DIGITS));
-        password.append(randomCharacter(SPECIAL_CHARACTERS));
-
-        // 나머지 문자 랜덤으로 추가
-        for (int i = 4; i < length; i++) {
-            password.append(randomCharacter(ALL_CHARACTERS));
-        }
-
-        // 비밀번호의 순서를 무작위로 섞기
-        return shuffleString(password.toString());
-    }
-
-    /**
-     * 주어진 문자 집합에서 랜덤한 문자 하나를 선택합니다.
-     * 
-     * @param characterSet 문자 집합
-     * @return 선택된 문자
-     */
-    private static char randomCharacter(String characterSet) {
-        int index = RANDOM.nextInt(characterSet.length());
-        return characterSet.charAt(index);
-    }
-
-    /**
-     * 문자열의 문자를 무작위로 섞습니다.
-     * 
-     * @param input 입력 문자열
-     * @return 섞인 문자열
-     */
-    private static String shuffleString(String input) {
-        char[] array = input.toCharArray();
-        for (int i = array.length - 1; i > 0; i--) {
-            int index = RANDOM.nextInt(i + 1);
-            char temp = array[index];
-            array[index] = array[i];
-            array[i] = temp;
-        }
-        return new String(array);
-    }
-
-    /**
-     * 이메일을 전송합니다.
-     * 
-     * @param from 발신자 이메일 주소
-     * @param password 발신자 이메일 비밀번호
-     * @param to 수신자 이메일 주소
-     * @param subject 이메일 제목
-     * @param body 이메일 내용
-     * @param host SMTP 서버 주소
-     * @param port SMTP 서버 포트 번호
-     */
-    private static void sendEmail(String from, String password, String to, String subject, String body, String host, int port) throws MessagingException {
-        Properties properties = new Properties();
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", port);
-
-        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(from, password);
-            }
-        });
-
-        Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress(from));
-        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-        message.setSubject(subject);
-        message.setText(body);
-
-        Transport.send(message);
     }
 }

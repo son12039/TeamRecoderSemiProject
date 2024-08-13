@@ -34,6 +34,7 @@
                 </c:if>
                
 </form>
+<a href="/findMember">아이디/비밀번호 찾기</a>
 </div>
 
 

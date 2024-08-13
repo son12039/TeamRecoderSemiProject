@@ -53,19 +53,27 @@ public class MemberService {
 		return mapper.pwdCheck(member);
 	}
     
+	@Transactional
 	public void update(Member member) {
-		
-		
-		mapper.update(member);
-	}
-	
-	public void addrUpdate(String addr) {
-		
-		mapper.addrUpdate(addr);
-	}
-	
-	
-	
 
+		 mapper.update(member);
+	}
+	
+	@Transactional
+	public void addrUpdate(Member member) {
+		
+		 mapper.addrUpdate(member);
+	}
+	
+	/*
+	// 카카오 로그인
+	public User loginWithKakao(User user) {
+		User savedUser = userMapper.getUserByEmail(user.getEmail());
+		if(savedUser == null) {
+			userMapper.addUser(user);
+		}
+		return savedUser;
+	}
+	*/
 	
 }

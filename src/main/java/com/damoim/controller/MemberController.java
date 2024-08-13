@@ -1,5 +1,7 @@
 package com.damoim.controller;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,6 +62,7 @@ public class MemberController {
 		return mem == null;
 		
 	}
+	
 	@ResponseBody
 	@PostMapping("/nicknameCheck") // 회원가입시 닉네임 중복 체크 
 	public boolean nicknameCheck(Member member) {
@@ -92,45 +95,73 @@ public class MemberController {
 	}
 	
 	@PostMapping("/update")
-	public String update(Member vo, Model model, HttpServletRequest request, String beforeAddr, String addrDetail) {
+	public String update(Member vo, HttpServletRequest request, String beforeAddr, String addrDetail) {
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("mem");
-		// 현재 저장된 주소
-		beforeAddr = member.getAddr();
-		System.out.println("현재 저장된 주소 : " + beforeAddr);
-		
 		// addrDetail이 빈칸일경우는 사용자가 입력시 addr만 입력되게
 		
-		String addr = beforeAddr;
-		System.out.println("beforeAddr : " + addr);
-//		for(String a : addr) {
-//			System.out.println("addr값" + a);
-//		}
-		
-		if(addrDetail == "") {
-			service.addrUpdate(addr);
-			
-			System.out.println("업데이트 : " + member);
-			
-		// addrDetail 까지 같이 입력할경우 #구분자 붙여서 업데이트
-		} else  {
-			addr += "#" + addrDetail;
-			service.addrUpdate(addr);
-			System.out.println("#붙이고 업데이트 : "+ member);
-			
+		if (vo.getId() == null) {
+			if (addrDetail == null || addrDetail == "") {
+				service.addrUpdate(vo);
+				vo.setAddr(vo.getAddr());
+				
+			} else {
+				service.addrUpdate(vo);
+				vo.setAddr(vo.getAddr() + "#" + addrDetail);
+				// addrDetail 까지 같이 입력할경우 #구분자 붙여서 업데이트
+			}
 		}
-	    service.update(member);
-
-		session.setAttribute("mem", member);
-	
+		
+		vo.setPwd(vo.getPwd());
+		vo.setName(vo.getName());
+		vo.setPhone(vo.getPhone());
+		vo.setEmail(vo.getEmail());
+		vo.setAge(vo.getAge());
+		service.update(vo);
+		
+		session.setAttribute("mem", vo);
+		System.out.println(vo);
 		// #을 기준으로 앞쪽 addr이랑 뒤쪽 addr를 나누고
-
+		
 		// 만약에 앞뒤 따로 비교하는데 앞 addr이 변경된 값이 x고 뒤만
-
+		
 		// 변경되면 기존에 member에 앞 addr + 새로받은 addrD를 추가해서 셋하고
 		
 		return "redirect:/";
 	}
+	
+	
+	
+	
+	
+	
+	/*
+	// kakao로그인 요청을 처리한다.
+	@PostMapping("/kakao-login")
+	public String loginWithKakao(KakaoLoginForm form){
+		log.info("카카오 로그인 인증정보:"+ form);
+		
+		User user = User.builder()
+					.email(form.getEmail())
+					.name(form.getName())
+					.img(form.getImg())
+					.loginType(KAKAO_LOGIN_TYPE)
+					.build();
+		
+		User savedUser = userService.loginWithKakao(user);
+		
+		// 저장된 회원정보가 없으면 전달받은 회원정보를 세션에 저장, 있으면 기존 정보 저장.
+		if(savedUser != null) {
+			SessionUtils.addAttribute("LOGIN_USER", savedUser);
+		}else {
+			SessionUtils.addAttribute("LOGIN_USER", user);
+		}
+		
+		return "redirect:/";
+	}
+	*/
+	
+	
 
 }
 	

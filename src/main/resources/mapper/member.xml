@@ -13,14 +13,14 @@
 		WHERE id=#{id} AND pwd=#{pwd}
 	</select>
  	
-	<update id="update" parameterType="Member" >
+	<update id="update" parameterType="Member">
 	UPDATE member
 	SET pwd = #{pwd} , name = #{name}, phone = #{phone},
-	email = #{email} , age = #{age}
+		email = #{email} , age = #{age} , addr = #{addr}
 	WHERE id = #{id}
 	</update>
 	
-	<update id="addrUpdate" parameterType="String">
+	<update id="addrUpdate" parameterType="Member">
     UPDATE member
     SET addr = #{addr}
     WHERE id = #{id};

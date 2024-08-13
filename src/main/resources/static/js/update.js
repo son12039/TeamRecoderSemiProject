@@ -7,12 +7,6 @@ const nameCheck = document.querySelector("#nameCheck");
 // 연락처
 const phone = document.querySelector("#phone");
 const phoneCheck = document.querySelector("#phoneCheck");
-// 주소
-const addr = document.querySelector("#addr");
-const addrCheck = document.querySelector("#addrCheck");
-// 상세 주소
-const addrDetail = document.querySelector("#addrDetail");
-const addrDetailCheck = document.querySelector("#addrDetailCheck");
 // 이메일
 const email = document.querySelector("#email");
 const emailCheck = document.querySelector("#emailCheck");
@@ -23,8 +17,6 @@ const ageCheck = document.querySelector("#ageCheck");
 let pwdReg = false;
 let nameReg = false;
 let phoneReg = false;
-let addrReg = false;
-let addrDetailReg = false;
 let emailReg = false;
 let ageReg = false;
 
@@ -104,26 +96,26 @@ addr.addEventListener("input", function () {
   if (regExp.test(addr.value)) {
     addrCheck.style.color = "green";
     addrCheck.innerHTML = "OK";
-	addrReg = true;
+	
   } else {
     addrCheck.style.color = "red";
     addrCheck.innerHTML = "형식에 맞춰서 입력하세요";
-	addrReg = false;
+	
   }
 });
 
 // 상세주소 체크
-addrDetailReg.addEventListener("input", function () {
+addrDetail.addEventListener("input", function () {
   const regExp = /^[가-힣 ]*$/;
 
   if (regExp.test(addrDetail.value)) {
     addrDetailCheck.style.color = "green";
     addrDetailCheck.innerHTML = "OK";
-	addrReg = true;
+	
   } else {
     addrDetailCheck.style.color = "red";
     addrDetailCheck.innerHTML = "형식에 맞춰서 입력하세요";
-	addrDetailReg = false;
+	
   }
 });
 
@@ -170,7 +162,7 @@ form.addEventListener("submit",function (e) {
 });
 
 
-
+/*
 function sample5_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -180,6 +172,6 @@ function sample5_execDaumPostcode() {
         }
     }).open();
 }
-
+*/
 
 

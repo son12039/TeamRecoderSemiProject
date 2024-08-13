@@ -2,13 +2,13 @@ $(document).ready(function() {
 
 	const urlParams = new URL(location.href).searchParams;
 	const membershipName = urlParams.get('membershipName');
-	
+
 
 	// 채팅방 목록 불러오기
 	const chattingRoomList = function() {
 
-		
-			$.ajax({ url: "/chattingRoomList", type: "GET", })
+
+		$.ajax({ url: "/chattingRoomList", type: "GET", })
 			.then(function(roomList) {
 				listHtml(roomList);
 			})
@@ -19,29 +19,29 @@ $(document).ready(function() {
 
 	// 방 목록 그리기
 	const listHtml = function(roomList) {
-	    let listHtml = "";
-	    let id = [];
-	    
-	    // 회원 정보를 가져오는 AJAX 호출
-	    $.ajax({
-	        url: "/getMemberInfo",
-	        type: "GET",
-	        success: function(data) {
-	            id = data.map(String); // id 배열의 모든 값을 문자열로 변환
-	            for (let i = roomList.length - 1; i >= 0; i--) {
-	                if (roomList[i].roomName === membershipName) {
-	                    listHtml += `
+		let listHtml = "";
+		let id = [];
+
+		// 회원 정보를 가져오는 AJAX 호출
+		$.ajax({
+			url: "/getMemberInfo",
+			type: "GET",
+			success: function(data) {
+				id = data.map(String); // id 배열의 모든 값을 문자열로 변환
+				for (let i = roomList.length - 1; i >= 0; i--) {
+					if (roomList[i].roomName === membershipName) {
+						listHtml += `
 	                    <li data-room_number=${roomList[i].roomNumber}>
 	                        <span class="chat_title">${roomList[i].roomName}</span>
 	                        <span class="chat_count">${roomList[i].users.length}명</span>
 	                    </li>`;
 						break;
-	                }
-	            }
-	            
-	            $("main ul").html(listHtml); 
-	        }
-	    });
+					}
+				}
+
+				$("main ul").html(listHtml);
+			}
+		});
 	};
 
 	const socket = new SockJS('/websocket');
@@ -234,29 +234,27 @@ $(document).ready(function() {
 
 	const enterChattingRoom = function(roomNumber) {
 		let id = "";
-		$.ajax({ url: "/nick1", type: "GET",})
-		.then(function(nickname) {
-						if (nickname) {
-							const data = {
-								roomNumber: roomNumber,
-								nickname: nickname
-							};
+		$.ajax({ url: "/nick1", type: "GET", })
+			.then(function(nickname) {
 
-					$.ajax({
-						url: "/chattingRoom-enter",
-						type: "GET",
-						data: data,
-						success: function(room) { // 성공 시 호출됨
-							initRoom(room, nickname);
+				const data = {
+					roomNumber: roomNumber,
+					nickname: nickname
+				};
+				$.ajax({
+					url: "/chattingRoom-enter",
+					type: "GET",
+					data: data,
+					success: function(room) { // 성공 시 호출됨
+						initRoom(room, nickname);
 
-							// 채팅방 참가 메세지
-							room.message = nickname + "님이 참가하셨습니다";
-							stomp.send(
-								"/socket/notification/" + roomNumber, {},
-								JSON.stringify(room));
-						}
-					});
-				}
+						// 채팅방 참가 메세지
+						room.message = nickname + "님이 참가하셨습니다";
+						stomp.send(
+							"/socket/notification/" + roomNumber, {},
+							JSON.stringify(room));
+					}
+				});
 			});
 	};
 

@@ -199,15 +199,13 @@ public class ChattingController {
 	@GetMapping("/chattingRoomList")
 	public ResponseEntity<?> chattingRoomList() throws Exception {
 		if(chattingRoomList.size()<3)basic();
-		for(ChattingRoomDAO a : chattingRoomList) {
-			System.out.println(a);
-		}
 		return new ResponseEntity<LinkedList<ChattingRoomDAO>>(chattingRoomList, HttpStatus.OK);
 	}
 	@GetMapping("/nick1")
 	public ResponseEntity<?> nick1(HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession();
 		Member nick = (Member) session.getAttribute("mem");
+		System.out.println("보낼값 : " + nick.getNickname());
 		return new ResponseEntity<String>( nick.getNickname(), HttpStatus.OK);
 	}
 	// (url: "/chattingRoomList")로 호출되어 채팅리스트를 리턴한다

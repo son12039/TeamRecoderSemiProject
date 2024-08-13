@@ -157,7 +157,7 @@ VALUES (#{listGrade},#{id},#{membershipCode});
 	<resultMap type="MembershipType" id="typeMembership">
 	<id column ="mem_type_code" property="memTypeCode"/>
       <association property="membership" javaType="Membership" resultMap="membershipMap"/>
-      <association property="type_category" javaType="TypeCategory" resultMap="typeMap"/>
+      <association property="typeCategory" javaType="TypeCategory" resultMap="typeMap"/>
 	</resultMap>
 	
 	<select id="typeCheck" parameterType="String"   resultMap="typeMembership">
@@ -165,9 +165,28 @@ VALUES (#{listGrade},#{id},#{membershipCode});
 	FROM membership_type
 	JOIN membership USING (membership_code)
 	JOIN type_category USING(type_code)
-	WHERE type_la_name =#{typeLargeName}
+	 <where>
+    <if test="typeLargeName != 'all'">
+      AND type_la_name = #{typeLargeName}
+    </if>
+  </where>
 	</select>
 	
+	<select id="typeCount" parameterType="Integer"   resultType="Integer">
+    SELECT count(*)
+    FROM membership_user_list 
+    WHERE membership_code = #{code} AND list_grade != 'guest'
+	</select>
+	
+	<select id="typeHost"  parameterType="Integer" resultMap="membershipmap">
+	SELECT *
+	FROM membership_user_list
+	JOIN membership USING (membership_code)
+	JOIN member USING (id)
+	WHERE list_grade = "host" AND membership_code = #{code};
+	</select>
+    
+    
 	
 	
 

@@ -40,4 +40,9 @@ public interface MembershipMapper {
 	List<TypeCategory> membershipType1();
 	
 	 List<MembershipType> typeCheck(String value);
+	 
+	 int typeCount(int code);
+	 
+	 MembershipUserList typeHost (int code);
+	 
 }

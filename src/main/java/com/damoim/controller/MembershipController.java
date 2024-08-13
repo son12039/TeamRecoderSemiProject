@@ -7,11 +7,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MembershipDTO;
+import com.damoim.model.dto.MembershipTypeDTO;
 import com.damoim.service.MembershipService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
+import com.damoim.model.vo.MembershipType;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.TypeCategory;
 import com.damoim.service.MembershipService;
@@ -104,19 +106,37 @@ public class MembershipController {
 	
 	@ResponseBody
 	@GetMapping("/type")
-	public String typeCheck(@RequestParam String value) {
-		TypeCategory type = new TypeCategory();
-		type.setTypeLargeName(value);
+	public List<MembershipTypeDTO> typeCheck(@RequestParam String value) {
+
+	   System.out.println(value);
 		
-		System.out.println(type);
+		List<MembershipTypeDTO> dtoList = new ArrayList();
 		
-	//	for(int i=0; i<service.typeCheck(value).size(); i++) {
-	//		System.out.println(service.typeCheck(value).get(i));
-	//	}
-	//	
+		
+		service.typeCheck(value);
 		System.out.println(service.typeCheck(value));
+		// 출력된 결과를 DTO에 추가함 
+		// 각 멤버쉽 코드를 추출해 반복문으로 카운트를 돌린후 DTO에 추가함 
+		// 각 DTO들을 DTO 리스트에 넣어서 리턴 
+		for(int i=0; i<service.typeCheck(value).size(); i++) {
+			MembershipTypeDTO dto = new MembershipTypeDTO();
+		 int asd =	service.typeCheck(value).get(i).getMembership().getMembershipCode();
+	            dto.setMembership(service.typeCheck(value).get(i).getMembership());
+	            dto.setCount(service.typeCount(asd));
+	            dto.setMember(service.typeHost(asd).getMember());
+	            dtoList.add(dto);
+	            System.out.println("typeHost : "+ service.typeHost(asd).getMember().getName());
+	            
+		}
 		
-		System.out.println("전달");
-		return null;
+		
+		System.out.println(dtoList);
+	//	System.out.println(service.typeCheck(value).get(0).getMembership().getMembershipCode());
+		
+		return dtoList;
 	}
+	
+	
+	
+
 }

@@ -79,4 +79,12 @@ public class MembershipService {
 	public List<MembershipType> typeCheck(String value){
 		return mapper.typeCheck(value);
 	}
+	
+	public int typeCount(int code) {
+		return mapper.typeCount(code);
+	}
+	
+	public MembershipUserList typeHost(int code){
+		return mapper.typeHost(code);
+	}
 }

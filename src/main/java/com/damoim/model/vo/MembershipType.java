@@ -15,5 +15,7 @@ public class MembershipType {
     
     private TypeCategory typeCategory; // 관계성 
     private Membership membership; // 관계성 
+    
+   
 }
 

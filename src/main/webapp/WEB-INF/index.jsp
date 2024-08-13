@@ -55,11 +55,17 @@ pageEncoding="UTF-8"%>
         </div>
         
         <div>
-        <button id="selected" name="액티비티">액티비티</button>        
+         <button class="select" name="all">전체</button>   
+        <button class="select" name="액티비티">액티비티</button>    
+        <button class="select" name="푸드,드링크">푸드,드링크</button>  
+        <button class="select" name="취미">취미</button>  
+        <button class="select" name="문화예술">문화예술</button>
+        <button class="select" name="스터디">스터디</button>        
         </div>
+      
         <div class="membership-list">
         
-       <c:forEach  items="${list}" var="id" varStatus="status" >
+       <c:forEach   items="${list}"  var="id" varStatus="status" >
       
        <div class="membership-card">
        <div class="membership-img">
@@ -96,23 +102,55 @@ pageEncoding="UTF-8"%>
          
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         <script>
-        $("#selected").click(()=>{
-        	$.ajax({
-        		type:'get',
-        		url:'/type',
-        		data :{
-        		
-        			value:$("#selected").text()
-        			
-        		},
-        		success: function(data){
-        		          	alert("??");
-        		}
-        		
-        })
-        })
-          
-        </script>
+        $(document).ready(function() {
+            // Function to load the membership list
+            function loadMemberships(type) {
+                $.ajax({
+                    type: 'GET',
+                    url: '/type',
+                    data: { value: type },
+                    success: function(typeList) {
+                        let html = "";
+                        
+                        $.each(typeList, function(index, item) {
+                        	
+                        	 console.log(item.member.memberImg == '');
+                        	
+                            html += '<div class="membership-card">';
+                            html += '<div class="membership-img">';
+                            html += '<a href="/' + item.membership.membershipCode + '">';
+                            html += '<img src="' + item.membership.membershipImg + '">';
+                            html += '</a>';
+                            html += '</div>';
+                            html += '<div class="membership-info">';
+                            html += '<h1 class="membership-name">' + item.membership.membershipName + '</h1>';
+                            html += '<h2>' + item.membership.membershipInfo + '</h2>';
+                            html += '<h2>호스트 : ' + item.member.nickname + '</h2>';
+                            html += '<input type="hidden" name="code" value="' + item.membership.membershipCode + '">';
+                            html += '<h3>인원 현황 ' + item.count + '/' + item.membership.membershipMax + '</h3>';
+                            if(item.member.memberImg == ''){
+                            html += '<img class="user-img" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg" alt="Default User Image">';
+                            }
+                            else {html += '<img class="user-img" src="' + item.member.memberImg + '" alt="User Image">'}
+                            html += '</div>';
+                            html += '</div>';
+                        });
+                       
+                        $('.membership-list').html(html);
+                    }
+                });
+            }
+
+            // Load all memberships by default
+            loadMemberships('all');
+
+            // Set up click event for buttons
+            $(".select").click(function(e) {
+                const type = $(e.currentTarget).attr("name");
+                loadMemberships(type);
+            });
+        });
+    </script>
       </body>
     </html>
 

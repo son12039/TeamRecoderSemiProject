@@ -2,6 +2,7 @@ package mapper;
 
 import java.util.List;
 
+import com.damoim.model.dto.LocationTypeDTO;
 import com.damoim.model.vo.LocationCategory;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.TypeCategory;
@@ -16,6 +17,16 @@ public interface LocationTypeMapper {
 	List<Membership> AllMembershipTypeLaname();
 	// 맴버쉽 조인된 type type_s_name 보여주기	
 	List<Membership> AllMembershipTypeSname(String typeLaName);
+	
+	
+	//분류하기
+	List<Membership> classification(LocationTypeDTO dto);
+	
+	
+	
+	
+	
+	
 	
 	
 	

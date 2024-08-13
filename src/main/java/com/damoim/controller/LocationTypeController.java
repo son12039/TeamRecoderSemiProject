@@ -1,14 +1,19 @@
 package com.damoim.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.damoim.model.dto.LocationTypeDTO;
 import com.damoim.model.vo.LocationCategory;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.TypeCategory;
@@ -22,7 +27,7 @@ public class LocationTypeController {
 	
 	
 	//새로 시작
-
+	//대분류 리스트 보여주기
 	@GetMapping("LocationType")
 	public String LocationTpye(Model model) {		
 		model.addAttribute("allMember",service.AllMembership());
@@ -43,36 +48,92 @@ public class LocationTypeController {
 		}
 		model.addAttribute("allMemberLaType",laTypeList);
 		
-		
-		
+
 		return "location/LocationType";
 	}
 	
 	
 	// Ajax 
+	// 소분류 뽑아내서 옵션에 집어넣기
 	@ResponseBody
 	@GetMapping("locationSList")
-	public List<String> LocationSList(String locationLaName){
+	public ResponseEntity<Map<String, Object>> LocationSList(LocationTypeDTO dto){
+
 		// 소분류 위치값 ex)서울 -> 강남,왕십리, ..
+		//상단 위치 리스트 보여주기
 		List<String> sLocation = new ArrayList();
-		List<Membership> sLocationMember = service.AllMembershipLocationSname(locationLaName);
+		List<Membership> sLocationMember = service.AllMembershipLocationSname(dto.getLocLaName());
 		for(Membership m : sLocationMember) {
 			sLocation.add(m.getMembershipLocation().getLocationCategory().getLocSName());
 		}
-		return sLocation;
+		
+		List<LocationTypeDTO> LaLocation = new ArrayList();
+		List<Membership> LaLocationMember = service.classification(dto);
+		System.out.println(LaLocationMember);
+		for(Membership m : LaLocationMember) {
+			LocationTypeDTO typeDTO = LocationTypeDTO.builder()
+					.locLaName(m.getMembershipLocation().getLocationCategory().getLocLaName())
+					.locSName(m.getMembershipLocation().getLocationCategory().getLocSName())
+					.typeLaName(m.getMembershipType().getTypeCategory().getTypeLaName())
+					.typeSName(m.getMembershipType().getTypeCategory().getTypeSName())
+					.build();
+			LaLocation.add(typeDTO);
+		}
+		System.out.println(LaLocation);
+		
+		
+		Map<String, Object> response = new HashMap<>();
+		response.put("sLocation", sLocation);
+		response.put("LaLocation", LaLocation);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
-	
+
+	// 대분류 뽑아내서 옵션에 집어넣기
 	@ResponseBody
 	@GetMapping("typeSList")
-	public List<String> TypeSList(String typeLaName) {
-		System.out.println(service.AllMembershipTypeSname(typeLaName));
-		return null;
+	public List<String> TypeSList(LocationTypeDTO dto) {
+		//상단 위치 보여주기
+		List<String> sType = new ArrayList();
+		List<Membership> sTypeMember = service.AllMembershipTypeSname(dto.getTypeLaName()); 
+		for(Membership m : sTypeMember) {
+			sType.add(m.getMembershipType().getTypeCategory().getTypeSName());
+		}
+		
+		List<String> LaLocation = new ArrayList();
+		List<Membership> LaLocationMember = service.classification(dto);
+		System.out.println(LaLocationMember);
+		for(Membership m : LaLocationMember) {
+			LaLocation.add(m.getMembershipLocation().getLocationCategory().getLocLaName());
+			LaLocation.add(m.getMembershipType().getTypeCategory().getTypeLaName());
+		}
+		System.out.println(LaLocation);
+		return sType;
+		//return null;
 	}
 	
 	
+	// 이제 클릭시 분류 해놓기
+	@ResponseBody
+	@GetMapping("classificationLaLocation")
+	public void classificationLa(String locationLaName) {
+		
+	}
 	
 	
-	
+//	@ResponseBody
+//	@GetMapping("classificationSLocation")
+//	public void classificationS(String typeLaName) {
+//		dto.setTypeLaName(typeLaName);
+//		service.classification(dto);
+//		System.out.println(dto);
+//		List<String> LaLocation = new ArrayList();
+//		List<Membership> LaLocationMember = service.classification(dto);
+//		for(Membership m : LaLocationMember) {
+//			LaLocation.add(m.getMembershipLocation().getLocationCategory().getLocLaName());
+//			LaLocation.add(m.getMembershipType().getTypeCategory().getTypeLaName());
+//		}
+//		System.out.println(LaLocation);
+//	}
 	
 	
 	

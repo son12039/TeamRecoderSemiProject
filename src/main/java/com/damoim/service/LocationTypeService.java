@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.damoim.model.dto.LocationTypeDTO;
 import com.damoim.model.vo.LocationCategory;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.TypeCategory;
@@ -35,6 +36,15 @@ public class LocationTypeService {
 	public List<Membership> AllMembershipTypeSname(String typeLaName){
 		return Mapper.AllMembershipTypeSname(typeLaName);
 	}
+	
+	
+	public List<Membership> classification(LocationTypeDTO dto){
+		return Mapper.classification(dto);
+	}
+	
+	
+	
+	
 	
 	
 	

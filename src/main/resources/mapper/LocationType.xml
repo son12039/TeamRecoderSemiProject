@@ -83,4 +83,46 @@
 	</select>
 	
 
+	<select id="classification" parameterType="LocationTypeDTO" resultMap="MembershipMap">
+		SELECT loc_la_name,loc_s_name,type_la_name,type_s_Name FROM membership
+		join membership_location USING(membership_code)
+		join location_category USING(loc_code)
+		join membership_type USING(membership_code)
+		join type_category USING(type_code)
+		<where>
+			<if test="locLaName != ''">
+				AND loc_la_name = #{locLaName}
+			</if>
+			<if test="locSName != ''">
+				AND loc_s_name = #{locSName}
+			</if>
+			<if test="typeLaName != ''">
+				AND type_la_name = #{typeLaName}
+			</if>
+			<if test="typeSName != ''">
+				AND type_s_name = #{typeSName}
+			</if>
+		</where>
+	</select>
+
+<!-- 
+<choose>
+	<when test="locLaName != null">
+		loc_la_name = #{locLaName}
+	</when>
+	<when test="locSName != null">
+		loc_s_name = #{locSName}
+	</when>
+	<when test="typeLaName != null">
+		type_la_name = #{type_la_name}
+	</when>
+	<when test="typeSName != null">
+		type_s_Name = #{typeSName}
+	</when>
+</choose>
+
+ -->
+
+
+		
 </mapper>

@@ -6,87 +6,143 @@ $(function() {
 		locSName: null,
 		typeLaName: null,
 		typeSName: null,
-	}
-
+	}	
+	
+	/* 나중에 배열로 만들어서 값을 2개 이상 받았을때 만들기
+	let search = {
+	    locLaName: [], 
+	    locSName: [],
+	    typeLaName: [],
+	    typeSName: [],
+	};
+	그러면 각 제이쿼리에 한번 싹 비어주면서 받을값을 저장
+	*/
 	$("#locationLaNameSelect").change(function() {
 		search.locLaName = $(this).val();
 		let list = "";
 		$.ajax({
 			type: "get",
-			url: "locationSList",
+			url: "locationLaList",
 			data: search,
-
+			
 			success: function(result) {
+				
 				const select = $("#locationSNameSelect");
 				select.find("option:not(:first)").remove();
 				// 상단바 위치 보여주기
-				$.each(result.sLocation, function(index, item) {
+				let filter = [...new Set(result.sLocation)] //[...new Set(result.sLocation)] 종복된값 필터링 개꿀
+				$.each(filter, function(index, item) {
 					select.append($('<option></option>').attr('value', item).text(item));
 				});
+					
+				// 테이블 분류
 				$(".allMemberBoxBody").empty();
 				$.each(result.LaLocation, function(index, item) { 
-					console.log(item)
+					list += `<div class="allMemberBox">
+									<div>큰 지역 :
+										${item.locLaName}</div>
+									<div>작은 지역 :
+										${item.locSName}</div>
+									<div>큰 타입 :
+										${item.typeLaName}</div>
+									<div>작은 타입 :
+										${item.typeSName}</div>
+								</div>`;
 				});
+				$(".allMemberBoxBody").html(list)
 			}
 		})
 	});
-
+	$("#locationSNameSelect").change(function() {
+		search.locSName = $(this).val();
+		let list = "";
+		$.ajax({
+			type:"get",
+			url:"locationSList",
+			data:search,
+			
+			success:function(result){
+				$(".allMemberBoxBody").empty();
+				$.each(result, function(index, item) { 
+					list += `<div class="allMemberBox">
+									<div>큰 지역 :
+										${item.locLaName}</div>
+									<div>작은 지역 :
+										${item.locSName}</div>
+									<div>큰 타입 :
+										${item.typeLaName}</div>
+									<div>작은 타입 :
+										${item.typeSName}</div>
+								</div>`;
+				});
+				$(".allMemberBoxBody").html(list)
+			}
+		})
+	});
+	
+	
+	
 	$("#typeLanameSelect").change(function() {
 		search.typeLaName = $(this).val();
+		let list = "";
 		$.ajax({
 			type: "get",
-			url: "typeSList",
+			url: "typeLaList",
 			data: search,
 
 			success: function(result) {
 				const select = $("#typeSNameSelect");
 				select.find("option:not(:first)").remove();
-				$.each(result, function(index, item) {
+				$.each(result.sType, function(index, item) {
 					select.append($('<option></option>').attr('value', item).text(item));
 				});
+				
+				//테이블 분류
+				$(".allMemberBoxBody").empty();
+				$.each(result.LaType, function(index, item) { 
+					list += `<div class="allMemberBox">
+									<div>큰 지역 :
+										${item.locLaName}</div>
+									<div>작은 지역 :
+										${item.locSName}</div>
+									<div>큰 타입 :
+										${item.typeLaName}</div>
+									<div>작은 타입 :
+										${item.typeSName}</div>
+								</div>`;
+				});			
+				$(".allMemberBoxBody").html(list)
 			}
 		})
 	});
 	
-	
-	
 	$("#typeSNameSelect").change(function() {
 		search.typeSName = $(this).val();
+		let list ="";
+		$.ajax({
+			type:"get",
+			url:"typeSList",
+			data:search,
+			
+			success : function(result){
+				$(".allMemberBoxBody").empty();
+				$.each(result, function(index, item){
+					list += `<div class="allMemberBox">
+									<div>큰 지역 :
+										${item.locLaName}</div>
+									<div>작은 지역 :
+										${item.locSName}</div>
+									<div>큰 타입 :
+										${item.typeLaName}</div>
+									<div>작은 타입 :
+										${item.typeSName}</div>
+								</div>`;
+				});			
+				$(".allMemberBoxBody").html(list)
+			}
+		})
 
 	});
-	
-	
-	
-	
-	//$("#typeLanameSelect").change(function() {
-		//const typeLaName = $(this).val();
-		//$.ajax({
-			//type: "get",
-			//url: "classificationSLocation",
-			//data: "typeLaName=" + typeLaName,
-
-
-//		})
-		
-		//$.ajax({
-			//		type: "get",
-			//		url: "locationSList",
-			//		data: search,
-
-			//		success: function(result) {
-			//			console.log(result);
-			//			const select = $("#locationSNameSelect");
-			//			select.find("option:not(:first)").remove();
-				//		$.each(result.sLocation, function(index, item) {
-					//		select.append($('<option></option>').attr('value', item).text(item));
-					//	});
-					//	$.each(result.LaLocation, function(index, item) {
-					//		console.log(item);
-					//	})
-				//	}
-				//})
-	//});
-
 
 });
 

@@ -37,9 +37,9 @@ public class LocationTypeService {
 		return Mapper.AllMembershipTypeSname(typeLaName);
 	}
 	
-	
+	// 조건에 따라 리스트 보여주기 (DB 왔다갔다하면서 비교하기)
 	public List<Membership> classification(LocationTypeDTO dto){
-		return Mapper.classification(dto);
+		return Mapper.classification(dto);	
 	}
 	
 	

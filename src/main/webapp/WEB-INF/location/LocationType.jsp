@@ -47,8 +47,6 @@
 
 <!-- 더미데이터 -->
 <!-- 조건 가쟈와서 하나씩 쪼개기? -->
-
-
 <div class="allMemberBoxhead">
 	<div class="allMemberBoxBody">
 		<c:forEach items="${allMember}" var="allMember">

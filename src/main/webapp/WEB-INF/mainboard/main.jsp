@@ -29,7 +29,7 @@
 			</c:when>
 			<c:when
 				test="${(checkMember != null) && (checkMember.listGrade != 'guest')}">
-				<a href="/${main.membership.membershipCode}club">☞ 내 클럽 페이지로 이동하기</a>
+				<a href="/club/${main.membership.membershipCode}">☞ 내 클럽 페이지로 이동하기</a>
 			</c:when>
     <c:when test="${membershipUserCount >= main.membership.membershipMax}">
     <h2>최대 인원에 도달한 클럽입니다 신청할수 없습니다.</h2>

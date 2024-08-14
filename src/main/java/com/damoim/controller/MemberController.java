@@ -32,6 +32,7 @@ public class MemberController {
 		@ResponseBody
 		@PostMapping("/login")
 		public boolean login(Member member, HttpServletRequest request, Model model) {
+			System.out.println("????");
 			HttpSession session = request.getSession();
 			// 로그인 성공 !
 			if (service.login(member) != null) {
@@ -83,8 +84,9 @@ public class MemberController {
 	}
 	@GetMapping("/logout") // 로그아웃 메서드
     public String logout(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		session.invalidate();
+		System.out.println("logout!!!!");
+		//HttpSession session = request.getSession();
+		//session.invalidate();
 		return "redirect:/";
 	}
 	
@@ -100,7 +102,7 @@ public class MemberController {
 		// 내 등급별 클럽
 		model.addAttribute("membership", infoService.grade(member));
 		
-		return "/mypage/myMembership";
+		return "mypage/myMembership";
 	}
 	
 

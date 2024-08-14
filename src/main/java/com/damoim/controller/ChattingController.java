@@ -40,43 +40,17 @@ public class ChattingController {
 	// 채팅방 목록
 	public static LinkedList<ChattingRoomDAO> chattingRoomList = new LinkedList<>();
 	
-	public Connection con() throws Exception {
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		return  DriverManager.getConnection("jdbc:mysql://192.168.10.51:3306/damoim", "root", "qwer1234");
-	}
 	
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	public void basic() throws Exception {
-		Connection conn = con();
-		List<BasicRoomListVo> list = service.roomlist();
-		int i =1;
-		for(BasicRoomListVo a : list) {
-			System.out.println(a + "테스트" +i++);
-		}
-		 
-		String query = "SELECT membership_code, membership_name FROM membership";
-		PreparedStatement ps = conn.prepareStatement(query);
-		ResultSet rs = ps.executeQuery();
-//		List<BasicRoomListVo> list = new ArrayList();
-		 
-		while(rs.next()) {
-			ChattingRoomDAO chattingRoom = null;
-			chattingRoom = ChattingRoomDAO.builder().roomNumber(rs.getInt("membership_code"))
-				.users(new LinkedList<>()).roomName(rs.getString("membership_name")).build();
-			chattingRoomList.add(chattingRoom);
-		}
-		close(rs, ps, conn);
-		
+			List<BasicRoomListVo> list = service.roomlist();
+			for(BasicRoomListVo vo : list) {
+				ChattingRoomDAO chattingRoom = null;
+				chattingRoom = ChattingRoomDAO.builder().roomNumber(vo.getMembershipCode()).users(new LinkedList<>()).roomName(vo.getMembershipName()).build();
+				chattingRoomList.add(chattingRoom);
+			}		 
 	}
-	public void close(PreparedStatement ps, Connection conn) throws SQLException {
-		ps.close();
-		conn.close();
-	}
-	
-	public void close(ResultSet rs, PreparedStatement ps, Connection conn) throws SQLException {
-		rs.close();
-		close(ps, conn);
-	}
+
 	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	// 유틸 메서드
 	

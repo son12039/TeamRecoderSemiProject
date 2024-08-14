@@ -29,9 +29,7 @@
   </div>
 	<div id="result"></div>
   <button type="submit" class="btn btn-dark">로그인</button>
-               <c:if test="${result == false}">
-                <p>아이디 또는 비밀번호가 일치하지 않습니다 </p>
-                </c:if>
+              
 </form>
 <a href="/findMember">아이디/비밀번호 찾기</a>
 </div>

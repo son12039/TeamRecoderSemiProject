@@ -30,16 +30,14 @@ public interface MemberMapper {
 	Member memberInfo(Member member);
 	String grade(Member member);
 	
-	Member updateCheck(Member member);
+	// 업데이트
+	Member updateCheck(Member vo, Member mem);
 	void update(Member member);
 	void addrUpdate(Member member);
 	
-	
-	void update(Member member);
-	Member memberInfo(Member member);
-	String grade(Member member);
 	// id 이메일 맞나 체크
 	Member memberEmailIdcheck(Member member);
+	
 	// 업데이트
 	void updatePassword(Member member);
 	

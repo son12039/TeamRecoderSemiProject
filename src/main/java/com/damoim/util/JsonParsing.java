@@ -28,6 +28,7 @@ public class JsonParsing {
 			while ((line = br.readLine()) != null) {
 				responseBuffer.append(line);
 			}
+			
 			br.close();
 			urlConnection.disconnect();
 			

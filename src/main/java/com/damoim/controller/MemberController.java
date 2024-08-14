@@ -1,5 +1,7 @@
 package com.damoim.controller;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class MemberController {
 	int count = 0;
+	
 	@Autowired
 	private MemberService service;
 	
@@ -32,7 +35,6 @@ public class MemberController {
 		@ResponseBody
 		@PostMapping("/login")
 		public boolean login(Member member, HttpServletRequest request, Model model) {
-			System.out.println("????");
 			HttpSession session = request.getSession();
 			// 로그인 성공 !
 			if (service.login(member) != null) {
@@ -49,7 +51,7 @@ public class MemberController {
 			}
 				return false;			
 		}
-	
+		
 	// *** 회원가입 관련
 		
 	// 회원가입 관련 아이디 중복 체크용
@@ -109,53 +111,47 @@ public class MemberController {
 	
 	// 비밀번호 확인후 update 페이지 이동
 	@PostMapping("/updateCheck")
-	public String updateCheck(Member vo, HttpServletRequest request, String pwdCheck) {
+	public String updateCheck(HttpServletRequest request, String pwdCheck) {
 		HttpSession session = request.getSession();
-		Member member = (Member) session.getAttribute("mem");
-		vo.setId(member.getId());
-		vo.setPwd(member.getPwd()); 
-		service.updateCheck(member); 
-		
-		if (vo.getPwd().equals(pwdCheck)) {
-			System.out.println();
-			return "/mypage/update";
+		Member mem = (Member) session.getAttribute("mem");
+		System.out.println("pwdCheck : " + pwdCheck);
+
+		System.out.println("암호화된 비밀번호 : " + mem.getPwd());
+		boolean check = service.updateCheck(mem, pwdCheck);
+		System.out.println("체크 확인" + check);
+		if (check) {
+			System.out.println("비밀번호 확인 완료!!!");
+			return "mypage/update";
 		} else {
+			System.out.println("비밀번호 오류!!!!");
 			return "redirect:/updateCheck";
 		}
+		
 	}
 
 	@PostMapping("/update")
 	public String update(Member vo, Model model, HttpServletRequest request, String addrDetail) {
 		HttpSession session = request.getSession();
-		Member member = (Member) session.getAttribute("mem");
-		vo.setId(member.getId());
-		vo.setAddr(member.getAddr());
-		String addr = member.getAddr();
-		String addr1[] = addr.split("#");
-		String addr2 = Arrays.toString(addr1);
-		System.out.println(addr2);
-		// #구분자로 주소, 상세주소로 쪼개짐
+		Member mem = (Member) session.getAttribute("mem");
+		System.out.println("=================================================================");
+		vo.setId(mem.getId());
+		System.out.println(mem.getId()); 
 		
-		model.addAttribute("splitAddr", addr2);
+		System.out.println(mem.getAddr()); 
+		String addr = vo.getAddr();
+;
+		addr += "#" +addrDetail;
+		System.out.println("addr체크 : " + addr);
+
+		vo.setAddr(addr);
 		
-//		for (String a : beforeAddr) {
-//			System.out.println("#구분자 기준으로 나누어진 주소 : " + a);
-//			String addr1 = a;
-//			String addr2 = a;
-//			System.out.println(addr1 + addr2);
-//		}
-			
-//		System.out.println("현재 가지고있는 주소 : " + beforeAddr);
 		
-		if (addrDetail == "") {
-			vo.setAddr(member.getAddr());
-		} else {
-			vo.setAddr(member.getAddr() + "#" + addrDetail);
-		}
-		
+
 		session.setAttribute("mem", vo);
 		service.addrUpdate(vo);
+		System.out.println("service로 보내기 전 입력한 member 정보 확인 : " + vo);
 		service.update(vo);
+		System.out.println("업데이트 후 vo : " + vo);
 		
 		return "/mypage/update";
 	}
@@ -226,7 +222,7 @@ public class MemberController {
 	
 	
 
-}
+
 	
 
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -32,11 +33,10 @@
 			<div class="form-group">
 				<label>변경할 주소</label>
 				<div id="addrDetail-box">
-					<c:forEach items="${splitAddr}" var="addr">
-					<input type="text" id="sample5_address" name="addr" value="${addr}" placeholder="주소" required > 
+					
+					<input type="text" id="sample5_address" name="addr" value="${mem.addr}" placeholder="주소" required > 
 					<input type="button" id="addr-btn" onclick="sample5_execDaumPostcode()" value="주소 검색"> 
 					<input type="text" id="addrDetail" name="addrDetail" value = "${mem.addr}" placeholder="상세주소를 입력해주세요" >
-					</c:forEach>
 				</div>
 			</div>
 			<div class="form-group">
@@ -56,3 +56,29 @@
 	<script src="${pageContext.request.contextPath}/js/update.js"></script>
 </body>
 </html>
+<!-- 
+<%-- 주소를 분리하는 예제 --%>
+<c:set var="addressParts" value="${fn:split(member.addr, '#')}" />
+<c:choose>
+    <c:when test="${fn:length(addressParts) == 2}">
+        <p>일반 주소: ${addressParts[0]}</p>
+        <p>상세 주소: ${addressParts[1]}</p>
+    </c:when>
+    <c:otherwise>
+        <p>주소: ${member.addr}</p>
+    </c:otherwise>
+</c:choose>
+
+ -->
+
+
+
+
+
+
+
+
+
+
+
+

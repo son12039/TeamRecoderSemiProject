@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%>
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Damoim 페이지</title>
+        <title>Damoim 페이지!!</title>
         <link
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/reset.css"
@@ -86,10 +86,10 @@ pageEncoding="UTF-8"%>
 
 		</c:forEach>
 	</div>
-
+	<a href="/dummyUpdate">!!!!!!!!!!!주의!!!!!!!!!!!! 기존 유저들 비밀번호 암호화하는거임 건드리지 말것</a>
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="login.js"></script>
-
+	
 </body>
 </html>
 

@@ -44,13 +44,13 @@ h4 {
   margin-bottom: 20px;
 }
 
-#mainImg  {
-	border-radius: 8px;
-	margin-bottom: 20px;
-	border: 3px solid #00796b;
-	border-radius: 15px;
-	width: 200px;
-	height: 200px;
+#mainImg {
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 3px solid #00796b;
+  border-radius: 15px;
+  width: 200px;
+  height: 200px;
 }
 #hostImg {
   width: 50px;

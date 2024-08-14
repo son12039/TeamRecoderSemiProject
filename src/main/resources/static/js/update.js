@@ -11,6 +11,7 @@ const phoneCheck = document.querySelector("#phoneCheck");
 const addr = document.querySelector("#addr");
 // 상세주소
 const addrDetail = document.querySelector("#addrDetail");
+const addrCheck = document.querySelector("#addrCheck");
 // 이메일
 const email = document.querySelector("#email");
 const emailCheck = document.querySelector("#emailCheck");
@@ -27,19 +28,18 @@ let emailReg = false;
 let ageReg = false;
 let allCheck = false;
 
-
 // 비밀번호 체크
 pwd.addEventListener("input", function () {
   const regExp = /^[!-~]{7,14}$/;
-  
+
   if (regExp.test(pwd.value)) {
     pwdCheck.style.color = "green";
     pwdCheck.innerHTML = "OK";
-	pwdReg = true;
+    pwdReg = true;
   } else {
     pwdCheck.style.color = "red";
     pwdCheck.innerHTML = "특수문자포함 7글자 이상 14글자 미만";
-	pwdReg = false;
+    pwdReg = false;
   }
 });
 
@@ -50,11 +50,11 @@ name.addEventListener("input", function () {
   if (regExp.test(name.value)) {
     nameCheck.style.color = "green";
     nameCheck.innerHTML = "OK";
-	nameReg = true;
+    nameReg = true;
   } else {
     nameCheck.style.color = "red";
     nameCheck.innerHTML = "한글 이름만 가능합니다";
-	nameReg = false;
+    nameReg = false;
   }
 });
 
@@ -64,11 +64,11 @@ phone.addEventListener("input", function () {
   if (regExp.test(phone.value)) {
     phoneCheck.style.color = "green";
     phoneCheck.innerHTML = "OK";
-	phoneReg = true;
+    phoneReg = true;
   } else {
     phoneCheck.style.color = "red";
     phoneCheck.innerHTML = " - 을 포함시켜서 입력하세요";
-	phoneReg = false;
+    phoneReg = false;
   }
 });
 
@@ -77,9 +77,9 @@ addr.addEventListener("input", function () {
   const regExp = /^[가-힣 ]*$/;
 
   if (regExp.test(addr.value)) {
-	addrReg = true;
+    addrReg = true;
   } else {
-	addrReg = false;
+    addrReg = false;
   }
 });
 
@@ -88,12 +88,11 @@ addrDetail.addEventListener("input", function () {
   const regExp = /^[가-힣 ]*$/;
 
   if (regExp.test(addrDetail.value)) {
-	addrDetailReg = true;
+    addrDetailReg = true;
   } else {
-	addrDetailReg = false;
+    addrDetailReg = false;
   }
 });
-
 
 // 이메일 체크
 email.addEventListener("input", function () {
@@ -102,11 +101,11 @@ email.addEventListener("input", function () {
   if (regExp.test(email.value)) {
     emailCheck.style.color = "green";
     emailCheck.innerHTML = "OK";
-	emailReg = true;
+    emailReg = true;
   } else {
     emailCheck.style.color = "red";
     emailCheck.innerHTML = "이메일 형식으로 입력하세요";
-	emailReg = false;
+    emailReg = false;
   }
 });
 
@@ -117,47 +116,55 @@ age.addEventListener("input", function () {
   if (regExp.test(age.value)) {
     ageCheck.style.color = "green";
     ageCheck.innerHTML = "OK";
-	ageReg = true;
+    ageReg = true;
   } else {
     ageCheck.style.color = "red";
     ageCheck.innerHTML = "숫자만 입력 가능합니다";
-	ageReg = false;
+    ageReg = false;
   }
 });
 
-
 // 정규표현식 다 맞으면 form 제출
-const form = document.querySelector("#form")
-form.addEventListener("submit", function(e) {
-	// 필드가 비어 있는지 확인
-	if (!pwd.value || !name.value || !phone.value ||
-		!addr.value || !addrDetail.value ||
-		!email.value || !age.value) {
-		alert("모든 필드를 입력해주세요.");
-		e.preventDefault();
-		return;
-	}
-	// 모든 정규표현식이 유효한지 확인
-	if (pwdReg && nameReg && phoneReg &&
-		addrReg && addrDetailReg &&
-		emailReg && ageReg) {
-		return true;
-	} else {
-		e.preventDefault();
-		return;
-	}
+const form = document.querySelector("#form");
+form.addEventListener("submit", function (e) {
+  // 필드가 비어 있는지 확인
+  if (
+    !pwd.value ||
+    !name.value ||
+    !phone.value ||
+    !addr.value ||
+    !addrDetail.value ||
+    !email.value ||
+    !age.value
+  ) {
+    alert("모든 필드를 입력해주세요.");
+    e.preventDefault();
+    return;
+  }
+  // 모든 정규표현식이 유효한지 확인
+  if (
+    pwdReg &&
+    nameReg &&
+    phoneReg &&
+    addrReg &&
+    addrDetailReg &&
+    emailReg &&
+    ageReg
+  ) {
+    return true;
+  } else {
+    e.preventDefault();
+    return;
+  }
 });
 
 // 주소 검색
 function sample5_execDaumPostcode() {
-    new daum.Postcode({
-        oncomplete: function(data) {
-            var addr = data.address; // 최종 주소 변수
-            // 주소 정보를 해당 필드에 넣는다.
-            document.getElementById("sample5_address").value = addr;
-        }
-    }).open();
+  new daum.Postcode({
+    oncomplete: function (data) {
+      var addr = data.address; // 최종 주소 변수
+      // 주소 정보를 해당 필드에 넣는다.
+      document.getElementById("sample5_address").value = addr;
+    },
+  }).open();
 }
-
-
-

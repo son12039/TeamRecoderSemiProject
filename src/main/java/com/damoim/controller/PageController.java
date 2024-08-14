@@ -69,6 +69,10 @@ public class PageController {
 	 public String loginPage() {
 	 	return "login/loginPage";
 	 }
+	 @GetMapping("/findMember")
+	 public String findMember() {
+	 	return "login/findMember";
+	 }
 	 
   // 카카오맵 이동
 	 @GetMapping("/kakaoMap")

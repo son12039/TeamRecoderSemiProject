@@ -33,6 +33,5 @@ public interface MemberMapper {
 	Member memberEmailIdcheck(Member member);
 	// 업데이트
 	void updatePassword(Member member);
-	
-	void createclub(Membership membership);
+
 }

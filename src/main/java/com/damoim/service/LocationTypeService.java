@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.damoim.model.dto.LocationTypeDTO;
+import com.damoim.model.dto.MemberLocTypeDTO;
+import com.damoim.model.dto.SearchDTO;
 import com.damoim.model.vo.LocationCategory;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.TypeCategory;
@@ -17,6 +19,47 @@ public class LocationTypeService {
 
 	@Autowired
 	private LocationTypeMapper Mapper;
+	
+	// 0814 - 전체 멤버십 리스트
+	public List<MemberLocTypeDTO> memberLocTypeList(SearchDTO dto) {
+		return Mapper.memberLocTypeList(dto);
+	}
+	
+	public List<LocationCategory> locationList(int code) {
+		return Mapper.locationList(code);
+	}
+	
+	public List<TypeCategory> typeList(int code){
+		return Mapper.typeList(code);
+	}
+	
+	public List<String> locLaNameList() {
+		return Mapper.locLaNameList();
+	}
+	
+	public List<Integer> searchLocLaNameList(String location) {
+		return Mapper.searchLocLaNameList(location);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//새로 만든 테이블
 	
@@ -44,52 +87,11 @@ public class LocationTypeService {
 	
 	
 	
-	
-	
-	
-	
 	//맴버쉽 모든거 보여주기
 	public List<Membership> AllMembership(){
 		return Mapper.AllMembership();
 	}
 	
 	
-	
-	
-	
-	
-	
-		
-		
-		
-		
-		
-		
-	// 기존 자료형 참고
-	//위치
-	//대분류 보야주기
-	public List<LocationCategory> allLocationLarge(){
-		return Mapper.allLocationLarge();
-	}
-	//all 클럽 위치 더미
-	public List<LocationCategory> allLocation(){
-		return Mapper.allLocation();
-	}
-	//소분류 찾아주기
-	public List<LocationCategory> locationDistinction(String locationDistinction){
-		return Mapper.locationDistinction(locationDistinction);
-	}
-	
-	
-	//타입
-	public List<TypeCategory> allType(){
-		return Mapper.allType();
-	}
-	public List<TypeCategory> TypeCategoryLarge(String type){
-		return Mapper.TypeCategoryLarge(type);
-	}
-	
-	
-
 	
 }

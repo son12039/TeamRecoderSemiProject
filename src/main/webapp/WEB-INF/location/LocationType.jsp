@@ -12,62 +12,32 @@
 	href="${pageContext.request.contextPath}/css/locationType.css" />
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
-<!-- 대분류 위치 -->
-<select id="locationLaNameSelect">
-	<option value="">----------------</option>
-	<c:forEach items="${allMemberLaList}" var="Location">
-		<option name="${Location.locLaName}">${Location.locLaName}</option>
-	</c:forEach>
-</select>
-
-<!-- 소분류 위치 (aJax로 만들어짐) -->
-<select id="locationSNameSelect">
-	<option value="">----------------</option>
-	<option name=""></option>
-	</div>
-</select>
-
-
-<!-- 대분류 타입 -->
-<select id="typeLanameSelect">
-	<option value="">----------------</option>
-	<c:forEach items="${allMemberLaType}" var="Type">
-		<option name="${Type.typeLaName}">${Type.typeLaName}</option>
-	</c:forEach>
-</select>
-
-<!-- 소분류 타입 (aJax로 만들어짐) -->
-<select id="typeSNameSelect">
-	<option value="">----------------</option>
-	<option name=""></option>
-	</div>
-</select>
-
-
-
-<!-- 더미데이터 -->
-<!-- 조건 가쟈와서 하나씩 쪼개기? -->
-<div class="allMemberBoxhead">
-	<div class="allMemberBoxBody">
-		<c:forEach items="${allMember}" var="allMember">
-			<div class="allMemberBox">
-				<div>큰 지역 :
-					${allMember.getMembershipLocation().getLocationCategory().getLocLaName()}</div>
-				<div>작은 지역 :
-					${allMember.getMembershipLocation().getLocationCategory().getLocSName()}</div>
-				<div>큰 타입 :
-					${allMember.getMembershipType().getTypeCategory().getTypeLaName()}</div>
-				<div>작은 타입 :
-					${allMember.getMembershipType().getTypeCategory().getTypeSName()}</div>
-			</div>
+<body>
+	<select id="locationLaNameSelect">
+		<option>전체보기</option>
+		<c:forEach items="${locLaNameList}" var="locLaName">
+			<option>${locLaName}</option>
 		</c:forEach>
-	</div>
-</div>
-
-
-
-
-
-<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
+	</select>
+	
+	<c:forEach items="${list}" var="info">
+		${info.membershipCode}<br>
+		${info.membershipName}<br>
+		${info.membershipImg}<br>
+		${info.membershipInfo}<br>
+		${info.membershipDate}<br>
+		${info.membershipGrade}<br>
+		${info.membershipMax}<br>
+		<c:forEach items="${info.locations}" var="location">
+			# ${location.locLaName} ${location.locSName} 
+		</c:forEach>
+	<br>
+		<c:forEach items="${info.types}" var="type">
+		 	# ${type.typeLaName} ${type.typeSName}
+		</c:forEach>
+		------------------<br>
+	</c:forEach>
+	
+	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
 </body>
 </html>

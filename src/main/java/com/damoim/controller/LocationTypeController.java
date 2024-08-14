@@ -14,10 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.damoim.model.dto.LocationTypeDTO;
+import com.damoim.model.dto.MemberLocTypeDTO;
+import com.damoim.model.dto.SearchDTO;
 import com.damoim.model.vo.LocationCategory;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.TypeCategory;
 import com.damoim.service.LocationTypeService;
+
+// 승훈 - 0814 수정
 
 @Controller
 public class LocationTypeController {
@@ -27,14 +31,6 @@ public class LocationTypeController {
 	
 	/*
 	 * 완성했다 생각했지만 반대로 문제가 하나씩 보이기 시작함
-	 * 
-	 * 1. 대분류 애들은 바로 취소할수있어서 상관없지만
-	 * 	  그렇게되면 소분류 애들은 데이터가 남아져있어서 클럽테이블에 영향이 감 // 심각함 ***
-	 * 		ㄴ 이놈이 제일 악질임
-	 * 			ㄴ 아까 컨트롤에서 해봤지만 아닌거같음 js파일에서 해야할거같음	
-	 * 				ㄴ 이거소 조건문 달면 해결 될거같으면서도 힘들거같음
-	 * 					ㄴ 아니면 ---- 이 부분을 전체보기로 만들고 DB에 조건을 다시 거는거임
-	 * 						ㄴ 소분류 애들도 처음엔 ----- 이렇게 보이다가 값이 들어오면 그때 전체보기,강남,이태리,용산... 이렇게 나오면 좋을거같음
 	 * 
 	 * 2. 아무것도 클릭 안하게 되면 이상하게 더 중복된? 아니면 더 생성된? 애들이 나와서 더 길어짐
 	 * 		ㄴ 이거는 방식을 화면에서 하는게 아니라 제이쿼리에서 뿌려주면 뭔가 해결될거같음
@@ -57,24 +53,50 @@ public class LocationTypeController {
 	//새로 시작
 	//대분류 리스트 보여주기
 	@GetMapping("LocationType")
-	public String LocationTpye(Model model) {		
-		model.addAttribute("allMember",service.AllMembership());
+	public String LocationTpye(Model model, String laName) {	
+		
+		SearchDTO search = new SearchDTO();
+		
+		if(laName!=null) {
+			List<Integer> searchLocLaNameList = service.searchLocLaNameList(laName);
+			search.setLocations(searchLocLaNameList);
+		}
+		
+		List<MemberLocTypeDTO> list = service.memberLocTypeList(search);
+		
+		for(MemberLocTypeDTO dto : list) {
+			List<LocationCategory> locations = service.locationList(dto.getMembershipCode());
+			List<TypeCategory> types = service.typeList(dto.getMembershipCode());
+			dto.setLocations(locations);
+			dto.setTypes(types);
+		}
+		
+		//System.out.println(list);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("locLaNameList", service.locLaNameList());
+		
+		
+		
+		//model.addAttribute("allMember",service.AllMembership());
+		//System.out.println("size : " + service.AllMembership().size());
 		
 		// 대분류 위치값 ex)서울,부산,경기 ...
-		List<LocationCategory> laLocation = new ArrayList();
-		List<Membership> laLocationMember = service.AllMembershipLocationLaname();
-		for(Membership m : laLocationMember) {
-			laLocation.add(m.getMembershipLocation().getLocationCategory());
-		}
-		model.addAttribute("allMemberLaList",laLocation);
+		//List<LocationCategory> laLocation = new ArrayList();
+		//List<Membership> laLocationMember = service.AllMembershipLocationLaname();
+		//for(Membership m : laLocationMember) {
+			
+			//laLocation.add(m.getMembershipLocation().getLocationCategory());
+		//}
+	//	model.addAttribute("allMemberLaList",laLocation);
 		
 		// 대분류 타입값 ex)액티비티,취미 ...
-		List<TypeCategory> laTypeList = new ArrayList();
-		List<Membership> laTypeMember = service.AllMembershipTypeLaname();
-		for(Membership m : laTypeMember) {
-			laTypeList.add(m.getMembershipType().getTypeCategory());
-		}
-		model.addAttribute("allMemberLaType",laTypeList);
+		//List<TypeCategory> laTypeList = new ArrayList();
+	//	List<Membership> laTypeMember = service.AllMembershipTypeLaname();
+	//	for(Membership m : laTypeMember) {
+			//laTypeList.add(m.getMembershipType().getTypeCategory());
+	//	}
+	//	model.addAttribute("allMemberLaType",laTypeList);
 		
 
 		return "location/LocationType";
@@ -86,13 +108,17 @@ public class LocationTypeController {
 	@ResponseBody
 	@GetMapping("locationLaList")
 	public ResponseEntity<Map<String, Object>> locationLaList(LocationTypeDTO dto){
-		System.out.println(dto);
+		 
+		if(dto.getLocLaName().equals("")) {
+			dto.setLocSName("");
+		}
+		System.out.println(dto+" 대");
 		// 소분류 위치값 ex)서울 -> 강남,왕십리, ..
 		//상단 위치 리스트 보여주기
 		List<String> sLocation = new ArrayList();
 		List<Membership> sLocationMember = service.AllMembershipLocationSname(dto.getLocLaName());
 		for(Membership m : sLocationMember) {
-			sLocation.add(m.getMembershipLocation().getLocationCategory().getLocSName());
+			//sLocation.add(m.getMembershipLocation().getLocationCategory().getLocSName());
 		}
 		
 		//분류 타입 나누기
@@ -100,13 +126,13 @@ public class LocationTypeController {
 		List<LocationTypeDTO> LaLocation = new ArrayList();
 		List<Membership> LaLocationMember = service.classification(dto);
 		for(Membership m : LaLocationMember) {
-			LocationTypeDTO LocationLaDTO = LocationTypeDTO.builder()
-					.locLaName(m.getMembershipLocation().getLocationCategory().getLocLaName())
-					.locSName(m.getMembershipLocation().getLocationCategory().getLocSName())
-					.typeLaName(m.getMembershipType().getTypeCategory().getTypeLaName())
-					.typeSName(m.getMembershipType().getTypeCategory().getTypeSName())
-					.build();
-			LaLocation.add(LocationLaDTO);
+			//LocationTypeDTO LocationLaDTO = LocationTypeDTO.builder()
+				//	.locLaName(m.getMembershipLocation().getLocationCategory().getLocLaName())
+					//.locSName(m.getMembershipLocation().getLocationCategory().getLocSName())
+				//	.typeLaName(m.getMembershipType().getTypeCategory().getTypeLaName())
+				//	.typeSName(m.getMembershipType().getTypeCategory().getTypeSName())
+				//	.build();
+			//LaLocation.add(LocationLaDTO);
 		}
 //		System.out.println(LaLocation); [LocationTypeDTO(locLaName=서울, locSName=강동구, typeLaName=스터디, typeSName=코딩)..
 
@@ -120,20 +146,29 @@ public class LocationTypeController {
 	@ResponseBody
 	@GetMapping("locationSList")
 	public List<LocationTypeDTO> locationSList(LocationTypeDTO dto) {
-		System.out.println(dto);
+		System.out.println(dto+" 소");
 		List<LocationTypeDTO> sLocation = new ArrayList();
 		List<Membership> sLocationMember = service.classification(dto);
 		for(Membership m : sLocationMember) {
-			LocationTypeDTO LocationSDTO = LocationTypeDTO.builder()
-					.locLaName(m.getMembershipLocation().getLocationCategory().getLocLaName())
-					.locSName(m.getMembershipLocation().getLocationCategory().getLocSName())
-					.typeLaName(m.getMembershipType().getTypeCategory().getTypeLaName())
-					.typeSName(m.getMembershipType().getTypeCategory().getTypeSName())
-					.build();
-			sLocation.add(LocationSDTO);
+			//LocationTypeDTO LocationSDTO = LocationTypeDTO.builder()
+			//		.locLaName(m.getMembershipLocation().getLocationCategory().getLocLaName())
+			//		.locSName(m.getMembershipLocation().getLocationCategory().getLocSName())
+				//	.typeLaName(m.getMembershipType().getTypeCategory().getTypeLaName())
+				//	.typeSName(m.getMembershipType().getTypeCategory().getTypeSName())
+			//		.build();
+			//sLocation.add(LocationSDTO);
 		}
 		return sLocation;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -141,12 +176,16 @@ public class LocationTypeController {
 	@ResponseBody
 	@GetMapping("typeLaList")
 	public ResponseEntity<Map<String,Object>> typeLaList(LocationTypeDTO dto) {
+		if(dto.getTypeLaName().equals("")) {
+			dto.setTypeSName("");
+		}
+		System.out.println(dto);
 		System.out.println(dto);
 		//상단 위치 보여주기
 		List<String> sType = new ArrayList();
 		List<Membership> sTypeMember = service.AllMembershipTypeSname(dto.getTypeLaName()); 
 		for(Membership m : sTypeMember) {
-			sType.add(m.getMembershipType().getTypeCategory().getTypeSName());
+			//sType.add(m.getMembershipType().getTypeCategory().getTypeSName());
 		}
 		
 		//분류 타입 나누기
@@ -154,10 +193,10 @@ public class LocationTypeController {
 		List<Membership> LaTypeMember = service.classification(dto);
 		for(Membership m : LaTypeMember) {
 			LocationTypeDTO typeLaDTO = LocationTypeDTO.builder()
-					.locLaName(m.getMembershipLocation().getLocationCategory().getLocLaName())
-					.locSName(m.getMembershipLocation().getLocationCategory().getLocSName())
-					.typeLaName(m.getMembershipType().getTypeCategory().getTypeLaName())
-					.typeSName(m.getMembershipType().getTypeCategory().getTypeSName())
+				//	.locLaName(m.getMembershipLocation().getLocationCategory().getLocLaName())
+				//	.locSName(m.getMembershipLocation().getLocationCategory().getLocSName())
+				//	.typeLaName(m.getMembershipType().getTypeCategory().getTypeLaName())
+				//	.typeSName(m.getMembershipType().getTypeCategory().getTypeSName())
 					.build();
 			LaType.add(typeLaDTO);
 		}
@@ -166,6 +205,7 @@ public class LocationTypeController {
 		response.put("LaType", LaType);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+	
 	@ResponseBody
 	@GetMapping("typeSList")
 	public List<LocationTypeDTO> typeSList(LocationTypeDTO dto) {
@@ -173,13 +213,13 @@ public class LocationTypeController {
 		List<LocationTypeDTO> sType = new ArrayList();
 		List<Membership> sTypeMember = service.classification(dto);
 		for(Membership m : sTypeMember) {
-			LocationTypeDTO sTypeDTO = LocationTypeDTO.builder()
-					.locLaName(m.getMembershipLocation().getLocationCategory().getLocLaName())
-					.locSName(m.getMembershipLocation().getLocationCategory().getLocSName())
-					.typeLaName(m.getMembershipType().getTypeCategory().getTypeLaName())
-					.typeSName(m.getMembershipType().getTypeCategory().getTypeSName())
-					.build();
-			sType.add(sTypeDTO);
+			//LocationTypeDTO sTypeDTO = LocationTypeDTO.builder()
+					//.locLaName(m.getMembershipLocation().getLocationCategory().getLocLaName())
+					//.locSName(m.getMembershipLocation().getLocationCategory().getLocSName())
+				//	.typeLaName(m.getMembershipType().getTypeCategory().getTypeLaName())
+					//.typeSName(m.getMembershipType().getTypeCategory().getTypeSName())
+				//	.build();
+			//sType.add(sTypeDTO);
 		}
 		return sType;
 	}

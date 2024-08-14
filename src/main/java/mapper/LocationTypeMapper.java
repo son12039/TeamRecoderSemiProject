@@ -3,11 +3,25 @@ package mapper;
 import java.util.List;
 
 import com.damoim.model.dto.LocationTypeDTO;
+import com.damoim.model.dto.MemberLocTypeDTO;
+import com.damoim.model.dto.SearchDTO;
 import com.damoim.model.vo.LocationCategory;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.TypeCategory;
 
 public interface LocationTypeMapper {
+	
+	// 08_14
+	List<MemberLocTypeDTO> memberLocTypeList(SearchDTO dto);
+	List<LocationCategory> locationList(int code);
+	List<TypeCategory> typeList(int code);
+	
+	List<String> locLaNameList();
+	List<Integer> searchLocLaNameList(String location);
+	
+	
+	
+	
 	
 	// 맴버쉽 조인된 location loc_la_name 보여주기
 	List<Membership> AllMembershipLocationLaname();
@@ -21,7 +35,6 @@ public interface LocationTypeMapper {
 	
 	//분류하기
 	List<Membership> classification(LocationTypeDTO dto);
-	
 	
 	
 	

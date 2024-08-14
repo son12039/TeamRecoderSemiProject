@@ -1,156 +1,41 @@
-/* 소분류 Ajax로 가져오기*/
-$(function() {
+const url = new URL(location.href);
+const urlParams = url.searchParams;
+const laName = urlParams.get('laName');
 
-	let search = {
-		locLaName: null,
-		locSName: null,
-		typeLaName: null,
-		typeSName: null,
-	}	
+const laNameList = $("#locationLaNameSelect").children();
+for(let i = 0; i < laNameList.length; i++) {
+	if(laNameList[i].innerHTML === laName) {
+		laNameList[i].setAttribute("selected", true);
+	}
+}
+
+console.log(laName);
+
+$("#locationLaNameSelect").change(function() {
+	const laName = $(this).val();
 	
-	/* 나중에 배열로 만들어서 값을 2개 이상 받았을때 만들기
-	let search = {
-	    locLaName: [], 
-	    locSName: [],
-	    typeLaName: [],
-	    typeSName: [],
-	};
-	그러면 각 제이쿼리에 한번 싹 비어주면서 받을값을 저장
-	*/
-	$("#locationLaNameSelect").change(function() {
-		search.locLaName = $(this).val();
-		let list = "";
-		$.ajax({
-			type: "get",
-			url: "locationLaList",
-			data: search,
+	if(laName!=='전체보기') {
+		//console.log(location);
+		location.href = "/LocationType?laName=" + laName;
+	} else {
+		location.href = "/LocationType";
+	}
+	//const location = $(this);
+	//$.ajax({
+		//type: "get",
+	///	url: "LocationType",
+	//	data: {
+	//		location : location.val()
+	//	},
+	//	success: function(data) {
+			//for(let i = 0; i < location.children().length; i++) {
+			//	if(location.children()[i].innerHTML === location.val()) {
+			//		console.log(location.children()[i]);
+			//		location.children()[i].setAttribute("selected", true);
+			//	}
+			//}
+	//		$('body').html(data);
 			
-			success: function(result) {
-				
-				const select = $("#locationSNameSelect");
-				select.find("option:not(:first)").remove();
-				// 상단바 위치 보여주기
-				let filter = [...new Set(result.sLocation)] //[...new Set(result.sLocation)] 종복된값 필터링 개꿀
-				$.each(filter, function(index, item) {
-					select.append($('<option></option>').attr('value', item).text(item));
-				});
-					
-				// 테이블 분류
-				$(".allMemberBoxBody").empty();
-				$.each(result.LaLocation, function(index, item) { 
-					list += `<div class="allMemberBox">
-									<div>큰 지역 :
-										${item.locLaName}</div>
-									<div>작은 지역 :
-										${item.locSName}</div>
-									<div>큰 타입 :
-										${item.typeLaName}</div>
-									<div>작은 타입 :
-										${item.typeSName}</div>
-								</div>`;
-				});
-				$(".allMemberBoxBody").html(list)
-			}
-		})
-	});
-	$("#locationSNameSelect").change(function() {
-		search.locSName = $(this).val();
-		let list = "";
-		$.ajax({
-			type:"get",
-			url:"locationSList",
-			data:search,
-			
-			success:function(result){
-				$(".allMemberBoxBody").empty();
-				$.each(result, function(index, item) { 
-					list += `<div class="allMemberBox">
-									<div>큰 지역 :
-										${item.locLaName}</div>
-									<div>작은 지역 :
-										${item.locSName}</div>
-									<div>큰 타입 :
-										${item.typeLaName}</div>
-									<div>작은 타입 :
-										${item.typeSName}</div>
-								</div>`;
-				});
-				$(".allMemberBoxBody").html(list)
-			}
-		})
-	});
-	
-	
-	
-	$("#typeLanameSelect").change(function() {
-		search.typeLaName = $(this).val();
-		let list = "";
-		$.ajax({
-			type: "get",
-			url: "typeLaList",
-			data: search,
-
-			success: function(result) {
-				const select = $("#typeSNameSelect");
-				select.find("option:not(:first)").remove();
-				$.each(result.sType, function(index, item) {
-					select.append($('<option></option>').attr('value', item).text(item));
-				});
-				
-				//테이블 분류
-				$(".allMemberBoxBody").empty();
-				$.each(result.LaType, function(index, item) { 
-					list += `<div class="allMemberBox">
-									<div>큰 지역 :
-										${item.locLaName}</div>
-									<div>작은 지역 :
-										${item.locSName}</div>
-									<div>큰 타입 :
-										${item.typeLaName}</div>
-									<div>작은 타입 :
-										${item.typeSName}</div>
-								</div>`;
-				});			
-				$(".allMemberBoxBody").html(list)
-			}
-		})
-	});
-	
-	$("#typeSNameSelect").change(function() {
-		search.typeSName = $(this).val();
-		let list ="";
-		$.ajax({
-			type:"get",
-			url:"typeSList",
-			data:search,
-			
-			success : function(result){
-				$(".allMemberBoxBody").empty();
-				$.each(result, function(index, item){
-					list += `<div class="allMemberBox">
-									<div>큰 지역 :
-										${item.locLaName}</div>
-									<div>작은 지역 :
-										${item.locSName}</div>
-									<div>큰 타입 :
-										${item.typeLaName}</div>
-									<div>작은 타입 :
-										${item.typeSName}</div>
-								</div>`;
-				});			
-				$(".allMemberBoxBody").html(list)
-			}
-		})
-
-	});
-
+		//}
+//})
 });
-
-
-
-
-
-
-
-
-

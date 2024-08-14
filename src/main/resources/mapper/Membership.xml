@@ -140,6 +140,8 @@
 		WHERE id = #{id} AND membership_code =
 		#{membershipCode}
 	</update>
+	
+	
 
 
  </mapper>

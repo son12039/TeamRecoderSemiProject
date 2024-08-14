@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipUserList;
@@ -29,6 +30,10 @@ public interface MembershipMapper {
 	List<MembershipUserList> grade(Member member);
 
 	void agreeMemeber(MemberListDTO member);
+
+	
+	
+
 }
 
 

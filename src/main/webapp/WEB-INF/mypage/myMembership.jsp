@@ -95,7 +95,7 @@
    <c:forEach items="${membership}" var="mem">
     
     <c:if test="${mem.listGrade == 'host' || mem.listGrade == 'admin'}">
-    <a href="/${mem.membership.membershipCode}club">
+    <a href="/club/${mem.membership.membershipCode}">
    <div class="membership-each">
      <div><img  class="membership-img" src="${mem.membership.membershipImg}"></div>
      <div class="membership-String">
@@ -113,7 +113,7 @@
    <c:forEach items="${membership}" var="mem">
     
     <c:if test="${mem.listGrade == 'regular'|| mem.listGrade == 'host' || mem.listGrade == 'admin'}">
-   <a href="/${mem.membership.membershipCode}club">
+   <a href="/club/${mem.membership.membershipCode}">
    <div class="membership-each">
      <div><img  class="membership-img" src="${mem.membership.membershipImg}"></div>
      <div class="membership-String">

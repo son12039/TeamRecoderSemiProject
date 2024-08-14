@@ -18,6 +18,12 @@ public class SecurityConfig {
 					authorize
 						.anyRequest().permitAll()
 						)		
+				.formLogin(login -> login
+						.loginPage("/loginPage")
+						.permitAll())
+				.logout(logout -> logout
+						.logoutSuccessUrl("/")
+						.permitAll())
 				.build();
 	}
 

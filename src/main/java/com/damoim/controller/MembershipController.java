@@ -66,13 +66,13 @@ public class MembershipController {
 			// 가입한 클럽 인지 확인을 위한 아이디 정보 가져오기
 			memberListDTO.setId(mem.getId());
 			// 해당클럽 안에서의 등급 가져오기
-			System.out.println("checkMember : " +service.checkMember(memberListDTO));
+			System.out.println("checkMember : " + service.checkMember(memberListDTO));
 			model.addAttribute("checkMember", service.checkMember(memberListDTO));
 		}
 		return "mainboard/main";
 	}
 	
-	 @GetMapping("/{membershipCode}club") // 클럽 페이지 이동
+	 @GetMapping("/club/{membershipCode}") // 클럽 페이지 이동
 		public String membershipPage(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO memberListDTO, Model model,HttpServletRequest request) {
 		 	// 클럽 페이지에 membership 관련 정보 + 호스트 정보
 		 	model.addAttribute("main",service.main(membershipCode));

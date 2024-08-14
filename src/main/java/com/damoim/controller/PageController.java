@@ -64,6 +64,10 @@ public class PageController {
 	 public String loginPage() {
 	 	return "login/loginPage";
 	 }
+	 @GetMapping("/findMember")
+	 public String findMember() {
+	 	return "login/findMember";
+	 }
 	 
 
 }

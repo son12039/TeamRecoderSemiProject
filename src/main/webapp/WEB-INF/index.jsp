@@ -28,6 +28,7 @@ pageEncoding="UTF-8"%>
 				<c:if test="${empty mem}">
 					<div class="header_right_menu">
 						<a href="/signUp">회원가입</a> <a href="/loginPage">로그인</a>
+						
 					</div>
 				</c:if>
 				<c:if test="${not empty mem}">
@@ -75,7 +76,7 @@ pageEncoding="UTF-8"%>
 
 		</c:forEach>
 	</div>
-
+	<a href="/dummyUpdate">!!!!!!!!!!!주의!!!!!!!!!!!! 기존 유저들 비밀번호 암호화하는거임 건드리지 말것</a>
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="login.js"></script>
 	

@@ -1,6 +1,7 @@
 package com.damoim.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.BasicRoomListVo;
@@ -13,6 +14,8 @@ public class MembershipService {
 	
 	@Autowired
 	private MembershipMapper mapper;
+	
+	
 	
 	public List<MembershipUserList> allMembership(){
 		

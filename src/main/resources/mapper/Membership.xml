@@ -160,7 +160,7 @@
 	</select>
 
 	<select id="roomlist" resultMap="roomListmap">
-		SELECT membership_name FROM
+		SELECT membership_name,membership_code FROM
 		membership
 	</select>
 

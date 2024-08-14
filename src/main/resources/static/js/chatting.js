@@ -1,8 +1,7 @@
 $(document).ready(function() {
 
 	const urlParams = new URL(location.href).searchParams;
-	const membershipName = urlParams.get('membershipName');
-
+	const membershipCode = urlParams.get('membershipCode') * 1;
 
 	// 채팅방 목록 불러오기
 	const chattingRoomList = function() {
@@ -20,24 +19,22 @@ $(document).ready(function() {
 	// 방 목록 그리기
 	const listHtml = function(roomList) {
 		let listHtml = "";
-		let id = [];
 
 		// 회원 정보를 가져오는 AJAX 호출
 		$.ajax({
 			url: "/getMemberInfo",
 			type: "GET",
 			success: function(data) {
-				id = data.map(String); // id 배열의 모든 값을 문자열로 변환
-				for (let i = roomList.length - 1; i >= 0; i--) {
-					if (roomList[i].roomName === membershipName) {
+				for (let i = 0; i < roomList.length; i++) {
+					if (`${roomList[i].roomNumber}` == membershipCode) {
 						listHtml += `
-	                    <li data-room_number=${roomList[i].roomNumber}>
-	                        <span class="chat_title">${roomList[i].roomName}</span>
-	                        <span class="chat_count">${roomList[i].users.length}명</span>
-	                    </li>`;
-						break;
+			   <li data-room_number=${roomList[i].roomNumber}>
+					<span class="chat_title">${roomList[i].roomName}</span>
+					<span class="chat_count">${roomList[i].users.length}명</span>
+			  </li>`; break;
 					}
 				}
+				let i = membershipCode
 
 				$("main ul").html(listHtml);
 			}

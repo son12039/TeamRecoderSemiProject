@@ -14,7 +14,7 @@ public class MembershipService {
 	@Autowired
 	private MembershipMapper mapper;
 	
-	private BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
+	
 	
 	public List<MembershipUserList> allMembership(){
 		

@@ -88,6 +88,12 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("/dummyUpdate")
+	public String dummyUpdate() {
+		service.dummyUpdate();
+		return "redirect:/";
+	}
+	
 	@GetMapping("/myMembership") // 내가 가입한 클럽확인
 	public String myMembership(Member member, Model model) {
 		

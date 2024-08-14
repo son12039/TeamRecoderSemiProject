@@ -5,6 +5,7 @@ import mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -17,6 +18,8 @@ public class EmailService {
 
     @Autowired
     private JavaMailSender mailSender;
+    
+    private BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
     @Autowired
     public EmailService(JavaMailSender mailSender) {
         this.mailSender = mailSender;
@@ -41,7 +44,9 @@ public class EmailService {
 
     // 비밀번호를 데이터베이스에 업데이트
     public void updatePassword(Member member) {
-    	System.out.println("임시 비밀번호로 변경시작");
+    	System.out.println("임시 비밀번호로 변경시작" + member.getPwd());
+    	member.setPwd(bcpe.encode(member.getPwd()));
+    	System.out.println("임시 비밀번호 암호화 : " + member.getPwd());
         memberMapper.updatePassword(member);
         System.out.println("임시 비밀번호로 변경끝");
     }

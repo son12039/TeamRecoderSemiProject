@@ -32,9 +32,11 @@
 			<div class="form-group">
 				<label>변경할 주소</label>
 				<div id="addrDetail-box">
-					<input type="text" id="sample5_address" name="addr" value="${mem.addr}" placeholder="주소" required > 
+					<c:forEach items="${splitAddr}" var="addr">
+					<input type="text" id="sample5_address" name="addr" value="${addr}" placeholder="주소" required > 
 					<input type="button" id="addr-btn" onclick="sample5_execDaumPostcode()" value="주소 검색"> 
 					<input type="text" id="addrDetail" name="addrDetail" value = "${mem.addr}" placeholder="상세주소를 입력해주세요" >
+					</c:forEach>
 				</div>
 			</div>
 			<div class="form-group">

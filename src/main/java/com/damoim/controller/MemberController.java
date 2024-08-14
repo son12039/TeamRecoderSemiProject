@@ -1,5 +1,6 @@
 package com.damoim.controller;
 
+import java.util.Arrays;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,36 +100,47 @@ public class MemberController {
 	public String updateCheck(Member vo, HttpServletRequest request, String pwdCheck) {
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("mem");
+		vo.setId(member.getId());
+		vo.setPwd(member.getPwd()); 
+		service.updateCheck(member); 
 		
-		vo.setPwd(member.getPwd()); // vo에 멤버 비밀번호 set
-		service.updateCheck(member); // service 에서 pwd = #{pwd}
-		
-		if(vo.getPwd().equals(pwdCheck)) {
-		System.out.println(member.getPwd());
+		if (vo.getPwd().equals(pwdCheck)) {
+			System.out.println();
 			return "/mypage/update";
-		} 
-
-		return "redirect:/updateCheck";
+		} else {
+			return "redirect:/updateCheck";
+		}
 	}
-	
+
 	@PostMapping("/update")
-	public String update(Member vo, HttpServletRequest request, String beforeAddr, String addrDetail) {
+	public String update(Member vo, Model model, HttpServletRequest request, String addrDetail) {
 		HttpSession session = request.getSession();
 		Member member = (Member) session.getAttribute("mem");
-		
-		if (member == null) {
-			return "redirect:/login";
-		}
-		
 		vo.setId(member.getId());
+		vo.setAddr(member.getAddr());
 		String addr = member.getAddr();
-
+		String addr1[] = addr.split("#");
+		String addr2 = Arrays.toString(addr1);
+		System.out.println(addr2);
+		// #구분자로 주소, 상세주소로 쪼개짐
+		
+		model.addAttribute("splitAddr", addr2);
+		
+//		for (String a : beforeAddr) {
+//			System.out.println("#구분자 기준으로 나누어진 주소 : " + a);
+//			String addr1 = a;
+//			String addr2 = a;
+//			System.out.println(addr1 + addr2);
+//		}
+			
+//		System.out.println("현재 가지고있는 주소 : " + beforeAddr);
+		
 		if (addrDetail == "") {
-			vo.setAddr(addr);
+			vo.setAddr(member.getAddr());
 		} else {
-			vo.setAddr(addr + "#" + addrDetail);
+			vo.setAddr(member.getAddr() + "#" + addrDetail);
 		}
-
+		
 		session.setAttribute("mem", vo);
 		service.addrUpdate(vo);
 		service.update(vo);
@@ -137,8 +149,7 @@ public class MemberController {
 	}
 	
 	// 해야할것!
-	// 1. 비밀번호 재확인 해야 update 페이지로 이동
-	// 2. # 구분자로 합쳐진 주소 값을 다시 나눠서 
+	// 1. # 구분자로 합쳐진 주소 값을 다시 나눠서 
 	// 		addr 과 addrDetail에 따로 입력
 	
 

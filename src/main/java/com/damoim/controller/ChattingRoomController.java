@@ -16,6 +16,10 @@ import com.damoim.model.dto.ChattingRoomDAO;
 @Controller
 public class ChattingRoomController {
 
+	/*
+	 * 정배
+	 * 하나도몰라서 못적어 두겟어요...
+	 * */
 	@Autowired
 	private ChattingController main;
 

@@ -23,21 +23,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class MembershipController {
 	// 클럽 생성 관련 컨트롤
 	@Autowired
-	private MembershipService membershipservice;
-//	 @GetMapping("/")
-// 	public String index(Model model) {
-//		model.addAttribute("allClub",membershipservice.allClub());
-//		 return "index";
-// 		
-// 	
-// 	}
-	
+	private MembershipService service;
+	/*
+	 * 
+	 * */
 	@GetMapping("/createclub")
 	public String createclub(){
 		return "mypage/createclub";
 		
 	}
-	
+	/*
+	 * 
+	 * */
 	@PostMapping("/createclub")
 	public String createclub(Membership membership) {
 		System.out.println(membership);
@@ -48,9 +45,12 @@ public class MembershipController {
 	
 	
 	
-	@Autowired
-	private MembershipService service;
-	
+
+	/*
+	 * 성일
+	 * 
+	 * 
+	 * */
 	@GetMapping("/{membershipCode}") // 클럽 홍보 페이지 각각 맞춰 갈수있는거
 	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model,
 			HttpServletRequest request) {
@@ -71,7 +71,10 @@ public class MembershipController {
 		}
 		return "mainboard/main";
 	}
-	
+	/*
+	  * 성철
+	  * 해당 클럽에 가입된 회원이 그클럽에 정보와 클럽 가입 현황 볼수있는 페이지 이동
+	  * */
 	 @GetMapping("/club/{membershipCode}") // 클럽 페이지 이동
 		public String membershipPage(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO memberListDTO, Model model,HttpServletRequest request) {
 		 	// 클럽 페이지에 membership 관련 정보 + 호스트 정보
@@ -84,22 +87,31 @@ public class MembershipController {
 			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
 			return "membership/membershipPage";
 		}
-	
+	 /*
+	  * 성철
+	  * 일단 클럽 호스트가 가입 승인대기인원 -> 일반 회원으로 바꾸는기능 
+	  * */
+	 @ResponseBody
 	 @PostMapping("/agreeMember") // 클럽 회원가입 승인
 	 public void agreeMemeber(MemberListDTO member) {
 		 // 일단은 호스트일때만 클럽 회원 승인기능
+		 System.out.println("맴버 잘왔나? : " + member);
 		 service.agreeMemeber(member);
 		System.out.println("승인");
 		
 		
 	 }
 	
-	
+	/*
+	 * 
+	 * */
 	@GetMapping("/makeMembership") // 클럽 생성페이지로 이동
 	public String makeMembership() {
-		return "/mypage/makeMembership";
+		return "mypage/makeMembership";
 	}
-	
+	/*
+	 * 
+	 * */
 	@PostMapping("/makeMembership") // 클럽 생성
 	public String makeMembership(MembershipDTO dto) {
 		Membership membership = Membership.builder()
@@ -117,6 +129,10 @@ public class MembershipController {
 		service.host(list);
 		return "redirect:/";
 	}
+	 /*
+	  * 성철
+	  * 세션에 맴버가 해당 클럽에 가입 X 상황일시 신청가능한 메서드
+	  * */
 	@PostMapping("/membershipApply") // 클럽 회원가입 신청
 	public String membershipApply(MemberListDTO member) {
 		// 클럽 가입 신청

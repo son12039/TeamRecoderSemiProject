@@ -28,43 +28,28 @@ public class LocationTypeController {
 	
 	@Autowired
 	private LocationTypeService service;
+
 	
-	/*
-	 * 완성했다 생각했지만 반대로 문제가 하나씩 보이기 시작함
-	 * 
-	 * 2. 아무것도 클릭 안하게 되면 이상하게 더 중복된? 아니면 더 생성된? 애들이 나와서 더 길어짐
-	 * 		ㄴ 이거는 방식을 화면에서 하는게 아니라 제이쿼리에서 뿌려주면 뭔가 해결될거같음
-	 * 			ㄴ 그냥 통으로 잡아서 조건문 걸면 끝날거같음
-	 * 
-	 * 3. 만약에 아무것도 정보 검색이 안된다면 그대로 없어짐
-	 * 		ㄴ 상관은 없지만 정보검색이 없다면 화면 중아에서 "검색결과 없음" 뜨게 만들면 좋을거같음 // 심각함 **
-	 * 			ㄴ 이것도 2번 조건 걸때 같이 하면 해결 될거같음
-	 * 
-	 * 4. 나중에 옵션이 아니라 div로 만들고 click이벤트로 넣을때 배열로 받으면서
-	 * 	  [서울, 부산] 이렇게 출력이 되면 DB에서 조건 걸면 될거같음 
-	 * 		ㄴ 이것도 쉬울거같음 
-	 * 			ㄴ 문제는 div로 리스트 형식 만들고 css 꾸미가 빡셀거같음 :(
-	 * 
-	 * 
-	 * */
-	
-	
-	
+	// 08_14
 	//새로 시작
 	//대분류 리스트 보여주기
 	@GetMapping("LocationType")
-	public String LocationTpye(Model model, String laName) {	
-		
+	public String LocationTpye(Model model, String laName,String typeName) {	
+		/* 위치 영역 */
 		SearchDTO search = new SearchDTO();
-		
+		System.out.println(laName);
+		//<!-- 3. 로케이션 및 타입 리스트 뿌리기 -->
 		if(laName!=null) {
+			// 파라미터 값을 넣어서 지역에 관련된 code 뽑기
 			List<Integer> searchLocLaNameList = service.searchLocLaNameList(laName);
+			// 뽑아온 code 숫자들을 DTO list에 넣기
 			search.setLocations(searchLocLaNameList);
 		}
-		
+		// 뽑아온 숫자를 보내서 code에 관련된 member code 뽑아서 저장
 		List<MemberLocTypeDTO> list = service.memberLocTypeList(search);
 		
 		for(MemberLocTypeDTO dto : list) {
+			//그리고 dto에 만든 리스트에 또 넣기
 			List<LocationCategory> locations = service.locationList(dto.getMembershipCode());
 			List<TypeCategory> types = service.typeList(dto.getMembershipCode());
 			dto.setLocations(locations);
@@ -73,10 +58,11 @@ public class LocationTypeController {
 		
 		//System.out.println(list);
 		
-		model.addAttribute("list", list);
+		// <!-- 1.화면 옵션에 도시 이름 전체 리스트 보여주기 -->
+		model.addAttribute("list",list);
 		model.addAttribute("locLaNameList", service.locLaNameList());
-		
-		
+//		model.addAttribute("locSNameList",service.locSNameList(laName));
+		System.out.println(service.locSNameList(laName));
 		
 		//model.addAttribute("allMember",service.AllMembership());
 		//System.out.println("size : " + service.AllMembership().size());
@@ -97,10 +83,18 @@ public class LocationTypeController {
 			//laTypeList.add(m.getMembershipType().getTypeCategory());
 	//	}
 	//	model.addAttribute("allMemberLaType",laTypeList);
+		/* 타입 영역 */
+		model.addAttribute("typeLaNameList", service.typeLaNameList());
+		
+		
 		
 
 		return "location/LocationType";
 	}
+
+	
+	
+	
 	
 	
 	// Ajax 

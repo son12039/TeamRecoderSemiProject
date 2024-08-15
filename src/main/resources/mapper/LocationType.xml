@@ -1,6 +1,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.LocationTypeMapper">
 
+
+	<!-- 08_14 -->
 	<resultMap type="MemberLocTypeDTO" id="membershipMap">
 		<id property="membershipCode" column="membership_code" />
 		<result property="membershipName" column="membership_name" />
@@ -24,8 +26,34 @@
 		<result column="type_s_name" property="typeSName"/>
 	</resultMap>
 	
+	<!-- 위치 부분 -->
+	<!--  지역 상위 카테고리  -->
+	<!-- 1.화면 옵션에 도시 이름 전체 리스트 보여주기 -->
+	<select id="locLaNameList" resultType="String">
+		SELECT DISTINCT loc_la_name 
+		FROM location_category
+	</select>
 	
+	<!-- 지역 하위 카테고리 뽑기 -->
+	<select id="locSNameList" parameterType="String" resultType="String">
+		SELECT loc_s_name
+		FROM location_category
+		WHERE loc_la_name = ${String};
+	</select>
+	
+	<!-- 지역 상위 선택에 따른 멤버십 코드 뽑기 -->
+	<!-- 3. jsp에서 받아온 파라미터 ex>부산 -->
+	<select id="searchLocLaNameList" parameterType="String" resultType="Integer">
+		select DISTINCT membership_code
+		from membership_location
+		WHERE loc_code IN (SELECT loc_code <!-- 괄호안이 code 숫자 -->
+		FROM location_category
+		WHERE loc_la_name = #{location})
+		
+	</select>
+		
 	<!--  전체 리스트 -->
+	<!-- 위에서 뽑아온 code 숫자를 받아서 관련된 membership 전체 뽑아오기 -->
 	<select id="memberLocTypeList" resultMap="membershipMap" parameterType="SearchDTO">
 		SELECT * FROM membership
 		<where>
@@ -37,8 +65,7 @@
 			</if>
 		</where>
 	</select>
-	
-	
+
 	<!-- 멤버십 위치 가져오기 -->
 	<select id="locationList" parameterType="Integer" resultMap="locationMap">
 		SELECT * 
@@ -55,20 +82,37 @@
 		WHERE membership_code = #{code};
 	</select>
 	
-	<!--  지역 상위 카테고리  -->
-	<select id="locLaNameList" resultType="String">
-		SELECT DISTINCT loc_la_name 
-		FROM location_category
-	</select>
-	
-	<!-- 지역 상위 선택에 따른 멤버십 코드 뽑기 -->
-	<select id="searchLocLaNameList" parameterType="String" resultType="Integer">
-		select DISTINCT membership_code
-		from membership_location
-		WHERE loc_code IN (SELECT loc_code
-		FROM location_category
-		WHERE loc_la_name = #{location})
-	</select>
+ 	<!-- 타입부분 -->
+		
+	<select id="typeLaNameList" resultType="String">
+		select distinct type_la_name
+		from type_category;
+	</select> 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 </mapper>

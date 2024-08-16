@@ -11,6 +11,11 @@ import com.damoim.model.dto.MessageDAO;
 
 @Controller
 public class ChattingMessageController {
+	
+	/*
+	 * 정배
+	 * 하나도몰라서 못적어 두겟어요...
+	 * */
 
 	// 여기서 메세지가 오면 방목록 업데이트
 	@MessageMapping("/socket/roomList")

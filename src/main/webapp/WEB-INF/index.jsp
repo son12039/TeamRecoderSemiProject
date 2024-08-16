@@ -49,7 +49,7 @@ pageEncoding="UTF-8"%>
 			<div class="membership-card">
 				<div class="membership-img">
 					<a href="/${id.membership.membershipCode}"> <img
-						src="${id.membership.membershipImg}">
+						src="http://192.168.10.51:8081/membership/${id.membership.membershipCode}/${id.membership.membershipImg}">
 					</a>
 				</div>
 				<div class="membership-info">
@@ -68,7 +68,7 @@ pageEncoding="UTF-8"%>
 								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
 						</c:when>
 						<c:otherwise>
-							<img class="user-img" src="${id.member.memberImg}">
+							<img class="user-img" src="http://192.168.10.51:8081/member/${id.member.id}/${id.member.memberImg}">
 						</c:otherwise>
 					</c:choose>
 				</div>

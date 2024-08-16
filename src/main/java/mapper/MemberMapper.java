@@ -29,11 +29,9 @@ public interface MemberMapper {
 	void update(Member member);
 	Member memberInfo(Member member);
 	String grade(Member member);
-	// id 이메일 맞나 체크
 	Member memberEmailIdcheck(Member member);
-	// 업데이트
 	void updatePassword(Member member);
-	
+	// 아래 2개 더미 비밀번호 암호화용도
 	ArrayList<Member> dummyMember();
 	void dummyUpdate(Member member);
 

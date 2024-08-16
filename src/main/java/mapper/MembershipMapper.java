@@ -27,9 +27,10 @@ public interface MembershipMapper {
 	ArrayList<Member> allMember();
 	List<MembershipUserList> MembershipAllInfo(int membershipCode);
 	void membershipApply(MemberListDTO member);
-
+	
 	List<MembershipUserList> grade(Member member);
 	void agreeMemeber(MemberListDTO member);
+	void membershipImg(Membership membership);
 }
 
 

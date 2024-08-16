@@ -7,9 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/makeMembership" method="post">
+<form action="/makeMembership" method="post" enctype="multipart/form-data">
  클럽명 : <input type="text" name="membershipName">
-  사진첨부: <input type="file" name="membershipImg">
+  사진첨부: <input type="file" name="file" accept="image/*">
    클럽소개 :<input type="text" name="membershipInfo">
     최대 인원 : <input type="text" name="membershipMax">
     <h2> ${mem.id}</h2>

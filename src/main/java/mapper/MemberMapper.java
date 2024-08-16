@@ -43,7 +43,7 @@ public interface MemberMapper {
 	
 	// 업데이트
 	void updatePassword(Member member);
-	
+	// 아래 2개 더미 비밀번호 암호화용도
 	ArrayList<Member> dummyMember();
 	void dummyUpdate(Member member);
 

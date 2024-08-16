@@ -113,9 +113,15 @@
 	<insert id="makeMembership" parameterType="Membership"
 		useGeneratedKeys="true" keyProperty="membershipCode">
 		INSERT INTO
-		membership(membership_name,membership_img,membership_info,membership_max)
-		VALUES(#{membershipName},#{membershipImg},#{membershipInfo},#{membershipMax})
+		membership(membership_name,membership_info,membership_max)
+		VALUES(#{membershipName},#{membershipInfo},#{membershipMax})
 	</insert>
+	
+	<update id="membershipImg" parameterType="Membership">
+		UPDATE membership
+		SET membership_img = #{membershipImg}
+		WHERE membership_code = #{membershipCode}
+	</update>
 
 	<insert id="host" parameterType="MemberListDTO">
 		INSERT INTO membership_user_list

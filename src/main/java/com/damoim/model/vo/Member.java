@@ -1,5 +1,7 @@
 package com.damoim.model.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,5 +25,6 @@ public class Member {
     private String memberInfo; // 유저 간단한 자기소개
     private String memberLocation; // 유저선호지역
     private String memberType; // 유저 선호만남유형
+    private MultipartFile file;
     
 }

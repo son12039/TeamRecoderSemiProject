@@ -29,7 +29,10 @@ import java.util.*;
 
 @Controller
 public class ChattingController {
-
+	/*
+	 * 정배
+	 * 하나도몰라서 못적어 두겟어요...
+	 * */
 	// 채팅방 목록
 	public static LinkedList<ChattingRoomDAO> chattingRoomList = new LinkedList<>();
 	

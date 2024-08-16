@@ -53,6 +53,8 @@ pageEncoding="UTF-8"%>
 				<!-- 클럽 이미지 -->
 					<a href="/${id.membership.membershipCode}"> <img
 						src="${id.membership.membershipImg}"></a>
+						src="http://192.168.10.51:8081/membership/${id.membership.membershipCode}/${id.membership.membershipImg}">
+					</a>
 				</div>
 				<div class="membership-info">
 				<!-- 농사짓기 -->
@@ -79,7 +81,7 @@ pageEncoding="UTF-8"%>
 								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
 						</c:when>
 						<c:otherwise>
-							<img class="user-img" src="${id.member.memberImg}">
+							<img class="user-img" src="http://192.168.10.51:8081/member/${id.member.id}/${id.member.memberImg}">
 						</c:otherwise>
 					</c:choose>
 				</div>

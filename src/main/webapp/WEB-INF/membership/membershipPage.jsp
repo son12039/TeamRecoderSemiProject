@@ -38,11 +38,11 @@
                             <li>${cMember.member.nickname} - 가입 대기중</li>
                             <li><img class="allmemberImg" src="${cMember.member.memberImg}" alt="회원 이미지"></li>
                             <c:if test="${main.member.id == mem.id && !(membershipUserCount >= main.membership.membershipMax)}">
-                                <form action="/agreeMember" method="post">
+                                <form id="agreefrm">
                                     <input type="hidden" name="id" value="${cMember.member.id}">
                                     <input type="hidden" name="listGrade" value="regular">
                                     <input type="hidden" name="membershipCode" value="${main.membership.membershipCode}">
-                                    <input type="submit" value="가입 승인하기">
+                                    <button id="agreeMember">가입 승인</button>
                                 </form>
                             </c:if>
                         </ul>

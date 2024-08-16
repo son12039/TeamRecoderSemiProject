@@ -53,6 +53,10 @@ public class MembershipService {
 		mapper.makeMembership(membership);
 	}
 	
+	public void membershipImg(Membership membership) {
+		mapper.membershipImg(membership);
+	}
+	
 	public void host(MemberListDTO list) {
 		mapper.host(list);
 	}
@@ -65,6 +69,7 @@ public class MembershipService {
 		mapper.agreeMemeber(member);
 		
 	}
+	
 	
 	
 	

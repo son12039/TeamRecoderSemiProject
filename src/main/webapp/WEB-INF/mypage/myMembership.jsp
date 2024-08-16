@@ -78,7 +78,7 @@
     <c:if test="${mem.listGrade == 'guest'}">
     <a href="/${mem.membership.membershipCode}">
   <div class="membership-each">
-     <div><img  class="membership-img" src="${mem.membership.membershipImg}"></div>
+     <div><img  class="membership-img" src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"></div>
      <div class="membership-String">
      <div><p>${mem.membership.membershipName} </p></div>
      <div><p>${mem.membership.membershipInfo}</p></div>
@@ -97,7 +97,7 @@
     <c:if test="${mem.listGrade == 'host' || mem.listGrade == 'admin'}">
     <a href="/club/${mem.membership.membershipCode}">
    <div class="membership-each">
-     <div><img  class="membership-img" src="${mem.membership.membershipImg}"></div>
+     <div><img  class="membership-img" src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"></div>
      <div class="membership-String">
      <div><p>${mem.membership.membershipName} </p></div>
      <div><p>${mem.membership.membershipInfo}</p></div>
@@ -115,7 +115,7 @@
     <c:if test="${mem.listGrade == 'regular'|| mem.listGrade == 'host' || mem.listGrade == 'admin'}">
    <a href="/club/${mem.membership.membershipCode}">
    <div class="membership-each">
-     <div><img  class="membership-img" src="${mem.membership.membershipImg}"></div>
+     <div><img  class="membership-img" src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"></div>
      <div class="membership-String">
      <div><p>${mem.membership.membershipName} </p></div>
      <div><p>${mem.membership.membershipInfo}</p></div>

@@ -58,26 +58,29 @@ public class PageController {
 		return "mypage/updateCheck";
 	}
 	
-	// 회원정보 수정
+	 
+	 
+	// (동문)
+    // 마이페이지(일단은 수정기능있는 페이지 이동)
+	@GetMapping("/mypage")
+	public String mypage() {
+		return "mypage/mypage";
+	}
+
+	// 중요 회원정보 수정
 	@GetMapping("/updateMemberInfo")
 	public String updateMemberInfo() {
 		return "mypage/updateMemberInfo";
 	}
 	
+	// 멤버쉽 정보 수정
 	@GetMapping("/updateMembership")
 	public String updateMembership() {
 		
 		return "membership/updateMembership";
 	}
 	
-	/*
-	 * 동문
-	 * 마이페이지(일단은 수정기능있는 페이지 이동)
-	 * */
-	@GetMapping("/mypage")
-	public String mypage() {
-		return "mypage/mypage";
-	}
+
 	// 내가 가입한 맴버쉽 페이지 이동
 
 	/*

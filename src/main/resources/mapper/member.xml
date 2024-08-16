@@ -44,7 +44,7 @@
 		WHERE id=#{id} AND pwd=#{pwd}
 	</select>
  	
- 	<!-- 내 정보 업데이트 -->
+ 	<!-- / 내 정보 업데이트 (동문) ========================================= -->
  	<!-- 비밀번호 확인 -->
  	<select id="updateCheck" parameterType="Member" resultType="Member">
  		SELECT *
@@ -64,6 +64,7 @@
     	SET addr = #{addr}
     WHERE id = #{id}
 	</update>
+	<!-- 내 정보 업데이트 / ============================================ -->
 
 	<select id="login" parameterType="String" resultMap="MemberResultMap">
 		SELECT *

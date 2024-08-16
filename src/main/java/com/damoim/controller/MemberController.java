@@ -141,7 +141,7 @@ public class MemberController {
 		return "mypage/myMembership";
 	}
 
-	// 비밀번호 확인후 update 페이지 이동
+	// (동문) 비밀번호 확인후 update 페이지 이동
 	@PostMapping("/updateCheck")
 	public String updateCheck(HttpServletRequest request, String pwdCheck) {
 		HttpSession session = request.getSession();
@@ -164,8 +164,11 @@ public class MemberController {
 	 * 성철 로그인 X 한 상태에서 유저에게 ID랑 이메일 정보를 받아서 일치할시에 그 유저가 가입할때 넣은 이메일주소에 임시 비밀번호 발송 ->
 	 * 암호화 -> DB변경 (이메일서비스)
 	 * 
+	 * 
+	 * (동문)
 	 */
 
+	 
 	@PostMapping("/updateMemberInfo")
 	public String updateMemberInfo(Member vo, Model model, HttpServletRequest request, String addrDetail) {
 		HttpSession session = request.getSession();

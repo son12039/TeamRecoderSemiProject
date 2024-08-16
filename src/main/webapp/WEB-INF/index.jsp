@@ -33,7 +33,7 @@ pageEncoding="UTF-8"%>
 				</c:if>
 				<c:if test="${not empty mem}">
 					<div class="header_right_menu">
-						<a href="/updateCheck">내 정보</a> 
+						<a href="/mypage">내 정보</a> 
 						<a href="/updateMembership">클럽 업데이트</a>
 						<a href="/myMembership?id=${mem.id}">
 						나의 모임</a> <a href="/logout">로그아웃</a>
@@ -52,9 +52,10 @@ pageEncoding="UTF-8"%>
 				<div class="membership-img">
 				<!-- 클럽 이미지 -->
 					<a href="/${id.membership.membershipCode}"> <img
-						src="${id.membership.membershipImg}"></a>
 						src="http://192.168.10.51:8081/membership/${id.membership.membershipCode}/${id.membership.membershipImg}">
 					</a>
+					
+					
 				</div>
 				<div class="membership-info">
 				<!-- 농사짓기 -->

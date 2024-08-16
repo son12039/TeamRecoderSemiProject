@@ -75,7 +75,7 @@
     WHERE nickname = #{nickname}
     AND id != #{id}
 	</select>
-	<!-- 닉네임 수정
+	 닉네임 수정
 	<update id="nicknameUpdate" parameterType="Member">
 	UPDATE member
 		SET nickname =#{nickname}

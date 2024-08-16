@@ -140,7 +140,7 @@
 		JOIN member USING (id)
 		WHERE id = #{id}
 	</select>
-
+	
 	<update id="agreeMemeber" parameterType="MemberListDTO">
 		UPDATE membership_user_list
 		SET list_grade = #{listGrade}

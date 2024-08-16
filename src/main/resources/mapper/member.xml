@@ -55,7 +55,7 @@
 		WHERE id = #{id}
 	</update>
 	
-	<select id="login" parameterType="String" resultMap="MemberResultMap">
+	<select id="login" parameterType="String" resultType="Member">
 		SELECT *
 		FROM member
 		WHERE id = #{id}

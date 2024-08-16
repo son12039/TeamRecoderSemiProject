@@ -15,23 +15,21 @@
 <body>
 <div class="container">
   <h1>로그인</h1>    <!--  제출전 한번 더 검증하기 위함  -->
-  <form action="/login" method="post" onsubmit="return validate()">
+  <form action="/login" method="post" >
   
   <div class="mb-3">
     <label for="id" class="form-label">아이디</label>
-    <input type="text" class="form-control" id="id" name="id" >
+    <input type="text" class="form-control" id="id" name="username" >
     <div id="idCheck" class="form-text"></div>
   </div>
   <div class="mb-3">
     <label for="password" class="form-label">비밀번호</label>
-    <input type="password" class="form-control" id="pwd" name="pwd">
+    <input type="password" class="form-control" id="pwd" name="password">
     <div id="pwdCheck" class="form-text"></div>
   </div>
 	<div id="result"></div>
   <button type="submit" class="btn btn-dark">로그인</button>
-               <c:if test="${result == false}">
-                <p>아이디 또는 비밀번호가 일치하지 않습니다 </p>
-                </c:if>
+               
                
 </form>
 <a href="/findMember">아이디/비밀번호 찾기</a>
@@ -40,6 +38,6 @@
 
 
 
-<script src="${pageContext.request.contextPath}/js/login.js"></script>
+  <%-- <script src="${pageContext.request.contextPath}/js/login.js"></script> --%>
 </body>
 </html>

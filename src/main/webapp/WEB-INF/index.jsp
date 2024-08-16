@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
     <!DOCTYPE html>
     <html lang="en">
       <head>
@@ -28,6 +30,13 @@ pageEncoding="UTF-8"%>
             <div class="menu">menu3</div>
             <div class="menu">menu4</div>
             <div class="header_right">
+               <sec:authorize access="!isAuthenticated()">
+               <a href="/loginPage">로그인</a>
+               </sec:authorize>
+               <sec:authorize access="isAuthenticated()">
+              <a href="/logout">로그아웃</a>
+              <a>${member}</a>
+               </sec:authorize>
           <c:if test="${empty mem}">
               <div class="header_right_menu">
                 <a href="/signUp">회원가입</a>
@@ -142,7 +151,7 @@ pageEncoding="UTF-8"%>
             }
 
             // Load all memberships by default
-            loadMemberships('all');
+          //  loadMemberships('all');
 
             // Set up click event for buttons
             $(".select").click(function(e) {

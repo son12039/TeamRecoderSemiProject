@@ -31,24 +31,22 @@ public class MemberController {
      * 성일
      * 
      * */
-		@ResponseBody
-		@PostMapping("/login")
-		public boolean login(Member member, HttpServletRequest request, Model model) {
-			HttpSession session = request.getSession();
-			// 로그인 성공 !
-			if (service.login(member) != null) {
-				
-				session.setAttribute("mem", service.login(member)); // 로그인 정보 세션에
-				// 내가 가입한 클럽 정보 체크용
-		
-				// 해당 id를 가진 맴버의 맴버쉽 의 모든정보 + 맴버, 등급 등등
-				System.out.println(infoService.grade(member));
-				session.setAttribute("membership", infoService.grade(member));
-				return true;
-				// 로그인 실패!
-			}
-				return false;			
-		}
+	/*
+	 * @ResponseBody
+	 * 
+	 * @PostMapping("/login") public boolean login(Member member, HttpServletRequest
+	 * request, Model model) { HttpSession session = request.getSession(); // 로그인 성공
+	 * ! if (service.login(member) != null) {
+	 * 
+	 * session.setAttribute("mem", service.login(member)); // 로그인 정보 세션에 // 내가 가입한
+	 * 클럽 정보 체크용
+	 * 
+	 * // 해당 id를 가진 맴버의 맴버쉽 의 모든정보 + 맴버, 등급 등등
+	 * System.out.println(infoService.grade(member));
+	 * 
+	 * session.setAttribute("membership", infoService.grade(member)); return true;
+	 * // 로그인 실패! } return false; }
+	 */
 	
 	// *** 회원가입 관련
 

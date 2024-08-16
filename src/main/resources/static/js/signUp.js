@@ -45,7 +45,7 @@ id.addEventListener('input', function() { // 아이디 체크
   }
 });
 
-pwd.addEventListener('input', function() { // 아이디 체크
+pwd.addEventListener('input', function() { // 비밀번호 체크
   const pwdValue = $(this).val().trim();
   
   if (pwdValue === '') {
@@ -59,7 +59,7 @@ pwd.addEventListener('input', function() { // 아이디 체크
 	$('#pwdResult').text(" 사용 가능한 비밀번호입니다.").css('color', 'green');
   }
  });
-pwdc.addEventListener('input', function() { // 아이디 체크
+pwdc.addEventListener('input', function() { // 비밀번호확인 체크
     const pwdcValue = $(this).val().trim();
     
     if (pwdcValue === $("#pwd").val()) {

@@ -64,6 +64,23 @@
     	SET addr = #{addr}
     WHERE id = #{id}
 	</update>
+	<!-- 닉네임 중복 검사 -->
+	<!-- id가 같지 않은 멤버중에
+		nickname이
+	 -->
+	 <!--  
+	<select id="nicknameCheck" parameterType="Member" resultType="boolean">
+    SELECT COUNT(*) > 0
+    FROM member
+    WHERE nickname = #{nickname}
+    AND id != #{id}
+	</select>
+	<!-- 닉네임 수정
+	<update id="nicknameUpdate" parameterType="Member">
+	UPDATE member
+		SET nickname =#{nickname}
+	WHERE id = #{id}
+	</update> -->
 	<!-- 내 정보 업데이트 / ============================================ -->
 
 	<select id="login" parameterType="String" resultMap="MemberResultMap">
@@ -116,13 +133,6 @@
         AND email = #{email}
     </select>
 	
-    <!-- 비밀번호 업데이트 
-    <update id="updatePassword" parameterType="Member">
-        UPDATE member
-        SET pwd = #{pwd}
-        WHERE id = #{id}
-    </update>
-	-->
 </mapper>
 	
 

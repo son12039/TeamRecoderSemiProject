@@ -19,6 +19,10 @@ const emailCheck = document.querySelector("#emailCheck");
 const age = document.querySelector("#age");
 const ageCheck = document.querySelector("#ageCheck");
 // 정규표현식 체크
+const pwdRegExp = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,15}$/;
+const pwdConformCheck = document.querySelector("#pwdConformCheck");
+const pwdConform = document.querySelector("#pwdConform");
+
 let pwdReg = false;
 let nameReg = false;
 let phoneReg = false;
@@ -27,6 +31,8 @@ let addrDetailReg = false;
 let emailReg = false;
 let ageReg = false;
 let allCheck = false;
+let pwdSubmit = false;
+let pwdcSubmit = false;
 
 // 비밀번호 체크
 pwd.addEventListener("input", function () {
@@ -40,6 +46,39 @@ pwd.addEventListener("input", function () {
     pwdCheck.style.color = "red";
     pwdCheck.innerHTML = "특수문자포함 7글자 이상 14글자 미만";
     pwdReg = false;
+  }
+});
+
+pwd.addEventListener('input', function() {
+  const pwdValue = pwd.value.trim();
+  
+  if (pwdValue === '') {
+    pwdCheck.textContent = "필수 입력사항입니다";
+    pwdCheck.style.color = "red";
+    pwdSubmit = false;
+  } else if (!pwdRegExp.test(pwdValue)) {
+    pwdCheck.textContent = "특수문자, 대문자, 소문자, 숫자가 하나 이상 포함되어야 하며, 8~15자여야 합니다.";
+    pwdCheck.style.color = "red";
+    pwdSubmit = false;
+  } else {
+    pwdSubmit = true;
+    pwdCheck.textContent = "사용 가능한 비밀번호입니다.";
+    pwdCheck.style.color = "green";
+  }
+});
+
+pwdConformCheck.addEventListener('input', function() {
+  const pwdValue = pwd.value.trim();
+  const pwdcValue = pwdConformCheck.value.trim();
+  
+  if (pwdcValue === pwdValue) {
+    pwdConform.textContent = "비밀번호가 일치합니다";
+    pwdConform.style.color = "green";
+    pwdcSubmit = true;
+  } else {
+    pwdConform.textContent = "비밀번호가 일치하지 않습니다.";
+    pwdConform.style.color = "red";
+    pwdcSubmit = false;
   }
 });
 
@@ -168,3 +207,7 @@ function sample5_execDaumPostcode() {
     },
   }).open();
 }
+
+
+
+

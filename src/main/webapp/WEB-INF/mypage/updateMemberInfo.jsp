@@ -16,6 +16,8 @@
 		<h1>회원 정보 수정</h1>
 		<form action="/updateMemberInfo" method="post" id="form">
 			<div class="form-group">
+				<label>닉네임</label>
+				<input type="text" id = "nickname" placeholder="nickname" value="${mem.nickname}"/>
 				<label>프로필 사진 변경</label> 
 				<img src=""/>
 			</div>
@@ -23,6 +25,9 @@
 				<label>비밀번호 변경</label> 
 				<span id="pwdCheck"></span> 
 				<input type="password" id="pwd" name="pwd" placeholder="pwd" required >
+				<label>비밀번호 확인</label>
+				<span id="pwdConform"></span> 
+				<input type="password" id="pwdConformCheck"  placeholder="pwd" required >
 			</div>
 			<div class="form-group">
 				<label>이름 변경</label> <span id="nameCheck"></span> 

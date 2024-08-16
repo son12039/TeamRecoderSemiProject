@@ -18,7 +18,7 @@
         <!-- 멤버쉽 수정 -->
        	<a href="updateMembership">정보 수정하기</a>
         
-        <a href="chatserver?membershipName=${main.membership.membershipCode}">채팅서버가기</a>
+        <a href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a>
         <img id="mainImg" src="${main.membership.membershipImg}" alt="클럽 이미지">
         <h2>${main.membership.membershipInfo}</h2>
         <p>인원 현황 : ${membershipUserCount}/${main.membership.membershipMax}</p>

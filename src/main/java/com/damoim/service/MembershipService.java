@@ -24,6 +24,8 @@ public class MembershipService {
 		
 		return mapper.allMembership();
 	}
+	
+	
 	public List<MembershipUserList> MembershipAllInfo(int membershipCode){
 		
 		return mapper.MembershipAllInfo(membershipCode);

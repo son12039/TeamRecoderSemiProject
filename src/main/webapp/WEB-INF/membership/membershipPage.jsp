@@ -1,7 +1,6 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -16,6 +15,9 @@
 <body>
     <main>
         <h1>${main.membership.membershipName}</h1>
+        <!-- 멤버쉽 수정 -->
+       	<a href="updateMembership">정보 수정하기</a>
+        <!-- 멤버쉽 수정 -->
         <a href="chatserver?membershipName=${main.membership.membershipName}">채팅서버가기</a>
         <img id="mainImg" src="${main.membership.membershipImg}" alt="클럽 이미지">
         <h2>${main.membership.membershipInfo}</h2>
@@ -26,7 +28,7 @@
         <c:if test="${mem.id == main.member.id && membershipUserCount >= main.membership.membershipMax}">
                         	<div>최대 인원에 도달하였습니다. 최대인원을 다시 설정후 확인해줏비시오</div>
                         </c:if>
-
+		
         <c:forEach items="${allMember}" var="cMember">
             <div class="memberTable">
             

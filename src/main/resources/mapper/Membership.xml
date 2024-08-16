@@ -17,15 +17,15 @@
 		<result property="membershipMax" column="membership_max" />
 	</resultMap>
 
-<resultMap type="MembershipUserList" id="membershipmap">
-	<id column="list_code" property="listCode" />
-	<result column="list_grade" property="listGrade" />
-	<association property="member" javaType="Member">
-		<id column="id" property="id" />
-		<result column="name" property="name" />
-		<result column="nickname" property="nickname" />
-		<result column="member_img" property="memberImg" />
-	</association>
+	<resultMap type="MembershipUserList" id="membershipmap">
+		<id column="list_code" property="listCode" />
+		<result column="list_grade" property="listGrade" />
+		<association property="member" javaType="Member">
+			<id column="id" property="id" />
+			<result column="name" property="name" />
+			<result column="nickname" property="nickname" />
+			<result column="member_img" property="memberImg" />
+		</association>
 	
 	<association property="membership" javaType="Membership">
 		<id column="membership_code" property="membershipCode" />
@@ -71,6 +71,7 @@
 		FROM membership_user_list
 		WHERE id = #{id} AND membership_code = #{membershipCode};
 	</select>
+	
 	<select id="myMembership" parameterType="Integer"
 		resultMap="membershipMap">
 		SELECT *
@@ -78,7 +79,7 @@
 		WHERE membership_code = #{membershipCode}
 	</select>
 
-
+	
 	<select id="main" parameterType="Integer"
 		resultMap="membershipmap">
 		SELECT *
@@ -89,7 +90,7 @@
 		WHERE membership_code =
 		"${memebershipCode}" AND list_grade = "host";
 	</select>
-
+	
 	<select id="membershipUserCount" parameterType="Integer"
 		resultType="Integer">
 		SELECT count(membership_code) as count
@@ -108,7 +109,7 @@
 		WHERE membership_code= #{i}
 		GROUP BY membership_code;
 	</select>
-
+	
 	<insert id="makeMembership" parameterType="Membership"
 		useGeneratedKeys="true" keyProperty="membershipCode">
 		INSERT INTO
@@ -122,9 +123,9 @@
 		VALUES
 		(#{listGrade},#{id},#{membershipCode});
 	</insert>
-
-
-
+	
+	
+	
 	<select id="grade" parameterType="Member" resultMap="membershipmap">
 		SELECT *
 		FROM membership_user_list
@@ -140,7 +141,18 @@
 		WHERE id = #{id} AND membership_code =
 		#{membershipCode}
 	</update>
-
+	
+	<!-- 멤버쉽 업데이트 -->
+	<update id="updateMembership" parameterType="Member" >
+		UPDATE membership
+			SET membership_name = #{membershipName} , 
+				membership_info = #{membershipInfo},
+				membership_max = #{membershipMax}
+			WHERE id = #{id} AND membership_code =
+		#{membershipCode}
+		
+	</update>
+	
 
  </mapper>
  

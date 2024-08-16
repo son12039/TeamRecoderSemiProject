@@ -80,18 +80,21 @@ public class MemberService {
 			System.out.println("서비스에서 true 리턴!!!");
 			return true;
 		} else {
-			System.out.println("서비스에서 false 리턴!@!");
+			System.out.println("서비스에서 false 리턴!!!");
 			return false;
 		}
 	}
 	
-	public void update(Member member) {
+	public void updateMemberInfo(Member member) {
+//		비밀번호 재설정시 다시 암호화
 		member.setPwd(bcpe.encode(member.getPwd()));
-		 mapper.update(member);
+		mapper.updateMemberInfo(member);
 	}
 	public void addrUpdate(Member member) {
 		 mapper.addrUpdate(member);
 	}
+	
+	
 	// ======================================
 	
 	

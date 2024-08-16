@@ -39,6 +39,7 @@
   </c:forEach>
   
    --%>
+   
      <c:set var="hasHost" value="${false}" />
 
     <!-- Iterate through memberships to check for 'host' -->

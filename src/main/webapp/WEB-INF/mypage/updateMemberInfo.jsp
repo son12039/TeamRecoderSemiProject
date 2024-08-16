@@ -9,15 +9,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>회원 정보 수정</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/update.css" />
+	href="${pageContext.request.contextPath}/css/updateMemberInfo.css" />
 </head>
 <body>
 	<div class="container">
 		<h1>회원 정보 수정</h1>
-		<form action="/update" method="post" id="form">
+		<form action="/updateMemberInfo" method="post" id="form">
+			<div class="form-group">
+				<label>프로필 사진 변경</label> 
+				<img src=""/>
+			</div>
 			<div class="form-group">
 				<label>비밀번호 변경</label> 
-				<p>${mem.pwd}</p>
 				<span id="pwdCheck"></span> 
 				<input type="password" id="pwd" name="pwd" placeholder="pwd" required >
 			</div>
@@ -33,10 +36,14 @@
 			<div class="form-group">
 				<label>변경할 주소</label>
 				<div id="addrDetail-box">
-					
-					<input type="text" id="sample5_address" name="addr" value="${mem.addr}" placeholder="주소" required > 
+					<c:set var="addressParts" value="${fn:split(mem.addr, '#')}" />
+					<c:choose>
+					 <c:when test="${fn:length(addressParts) == 2}">
+					<input type="text" id="sample5_address" name="addr" value="${addressParts[0]}" placeholder="주소" required > 
 					<input type="button" id="addr-btn" onclick="sample5_execDaumPostcode()" value="주소 검색"> 
-					<input type="text" id="addrDetail" name="addrDetail" value = "${mem.addr}" placeholder="상세주소를 입력해주세요" >
+					<input type="text" id="addrDetail" name="addrDetail" value = "${addressParts[1]}" placeholder="상세주소를 입력해주세요" >
+					</c:when>
+    				</c:choose>
 				</div>
 			</div>
 			<div class="form-group">
@@ -53,23 +60,10 @@
 	</div>
 
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="${pageContext.request.contextPath}/js/update.js"></script>
+	<script src="${pageContext.request.contextPath}/js/updateMemberInfo.js"></script>
 </body>
 </html>
-<!-- 
-<%-- 주소를 분리하는 예제 --%>
-<c:set var="addressParts" value="${fn:split(member.addr, '#')}" />
-<c:choose>
-    <c:when test="${fn:length(addressParts) == 2}">
-        <p>일반 주소: ${addressParts[0]}</p>
-        <p>상세 주소: ${addressParts[1]}</p>
-    </c:when>
-    <c:otherwise>
-        <p>주소: ${member.addr}</p>
-    </c:otherwise>
-</c:choose>
 
- -->
 
 
 

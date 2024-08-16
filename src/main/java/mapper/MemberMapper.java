@@ -32,8 +32,11 @@ public interface MemberMapper {
 	
 	// 업데이트
 	Member updateCheck(Member vo, Member mem);
-	void update(Member member);
+	void updateMemberInfo(Member member);
 	void addrUpdate(Member member);
+	
+	
+	
 	
 	// id 이메일 맞나 체크
 	Member memberEmailIdcheck(Member member);

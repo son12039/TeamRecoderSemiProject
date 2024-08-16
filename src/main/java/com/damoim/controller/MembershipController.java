@@ -32,6 +32,9 @@ public class MembershipController {
 // 	
 // 	}
 	
+	
+	
+	
 	@GetMapping("/createclub")
 	public String createclub(){
 		return "mypage/createclub";
@@ -107,21 +110,35 @@ public class MembershipController {
 				.membershipName(dto.getMembershipName())
 				.membershipInfo(dto.getMembershipInfo())
 				.membershipMax(Integer.parseInt(dto.getMembershipMax())
-						).build();
+				).build();
 		// 클럽생성?
 		service.makeMembership(membership);
 		MemberListDTO list = new MemberListDTO();
-				list.setId(dto.getId());
-				list.setListGrade(dto.getListGrade());
-				list.setMembershipCode(membership.getMembershipCode());
+		list.setId(dto.getId());
+		list.setListGrade(dto.getListGrade());
+		list.setMembershipCode(membership.getMembershipCode());
 		// 호스트로 보유중인 클럽 유무 확인
 		service.host(list);
 		return "redirect:/";
 	}
+
 	@PostMapping("/membershipApply") // 클럽 회원가입 신청
 	public String membershipApply(MemberListDTO member) {
 		// 클럽 가입 신청
 		service.membershipApply(member);
 		return "redirect:/";
 	}
-	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

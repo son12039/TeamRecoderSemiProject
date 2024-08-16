@@ -28,7 +28,8 @@ public class PageController {
 	public String index(Model model) {
 		
 		List<Integer> countList = new ArrayList<>(); // count 계산용 인덱스 번호담는 배열
-		model.addAttribute("list", service.allMembership()); // 현재 존재하는 모든 맴버쉽 정보가있는 배열		
+		model.addAttribute("list", service.allMembership()); // 현재 존재하는 모든 맴버쉽 정보가있는 배열
+
 		for(int i = 0; i < service.allMembership().size(); i++) {
 		int j = service.allMembership().get(i).getMembership().getMembershipCode();
 		countList.add(service.membershipUserCount(j)); // 각각 클럽의 인원수 (신청자는 제외)
@@ -43,7 +44,7 @@ public class PageController {
 	public String signUp() {
 		return "signUp/signUp";
 	}
-	
+
 	// 내 정보 열람 비밀번호 체크
 	@GetMapping("/updateCheck")
 	public String updateCheck() {
@@ -51,9 +52,15 @@ public class PageController {
 	}
 	
 	// 회원정보 수정
-	@GetMapping("/update")
-	public String update() {
-		return "mypage/update";
+	@GetMapping("/updateMemberInfo")
+	public String updateMemberInfo() {
+		return "mypage/updateMemberInfo";
+	}
+	
+	@GetMapping("/updateMembership")
+	public String updateMembership() {
+		
+		return "membership/updateMembership";
 	}
 	
 	// 마이페이지 이동
@@ -61,7 +68,16 @@ public class PageController {
 	public String mypage() {
 		return "mypage/mypage";
 	}
-	// 내가 가입한 맴버쉽 페이지 이동
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
   // 로그인 페이지로 이동 

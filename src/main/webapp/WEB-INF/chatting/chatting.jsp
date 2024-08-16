@@ -117,8 +117,5 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="/js/chatting.js"></script>
-    
-    
-    
 </body>
 </html>

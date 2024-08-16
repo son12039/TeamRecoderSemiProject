@@ -45,7 +45,9 @@ public class ChattingController {
                 .roomName(vo.getMembershipName())
                 .build();
             chattingRoomList.add(chattingRoom);
+            System.out.println(vo);
         }
+        System.out.println(list.size());
     }
 
     // 방 번호로 방 찾기

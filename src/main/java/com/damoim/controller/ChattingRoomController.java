@@ -57,9 +57,9 @@ public class ChattingRoomController {
 		main.deleteCookie();
 
 		// 유저가 한명도 없다면 방 삭제
-//			if (users.size() == 0) {
-//				main.chattingRoomList.remove(chattingRoom);
-//			}
+			if (users.size() == 0) {
+			main.chattingRoomList.remove(chattingRoom);
+			}
 
 		return new ResponseEntity<>(chattingRoom, HttpStatus.OK);
 	}

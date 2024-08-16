@@ -32,6 +32,9 @@ pageEncoding="UTF-8"%>
 					</div>
 				</c:if>
 				<c:if test="${not empty mem}">
+				<div> ${mem.nickname}
+				<img class="user-img" src="http://192.168.10.51:8081/member/${mem.id}/${mem.memberImg}">
+				</div>
 					<div class="header_right_menu">
 						<a href="/mypage">내 정보</a> 
 						<a href="/updateMembership">클럽 업데이트</a>

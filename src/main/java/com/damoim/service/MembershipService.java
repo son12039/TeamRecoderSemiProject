@@ -1,10 +1,8 @@
 package com.damoim.service;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
@@ -13,12 +11,13 @@ import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.TypeCategory;
 
 import mapper.MembershipMapper;
-
 @Service
 public class MembershipService {
 	
 	@Autowired
 	private MembershipMapper mapper;
+	
+	
 	
 	public List<MembershipUserList> allMembership(){
 		
@@ -37,22 +36,16 @@ public class MembershipService {
    public int membershipUserCount(int count){
 		return mapper.membershipUserCount(count);
  	}
-   
-   
-   
    public void membershipApply(MemberListDTO member) {
 	   mapper.membershipApply(member);
-	   
+	  
    }
-   
    public MemberListDTO checkMember(MemberListDTO member) {
 	   return mapper.checkMember(member);
-	   
+	  
    }
 	
-
 	public void makeMembership(Membership membership) {
-
 		mapper.makeMembership(membership);
 	}
 	
@@ -63,6 +56,7 @@ public class MembershipService {
 	public List<MembershipUserList> grade(Member member){
 		return mapper.grade(member);
 	}
+	
 	public void agreeMemeber(MemberListDTO member) {
 		mapper.agreeMemeber(member);
 		

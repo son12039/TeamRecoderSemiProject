@@ -1,9 +1,11 @@
 package com.damoim.controller;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import com.damoim.model.vo.Membership;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MembershipDTO;
@@ -12,22 +14,44 @@ import com.damoim.service.MembershipService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import com.damoim.model.vo.Member;
-import com.damoim.model.vo.Membership;
-import com.damoim.model.vo.MembershipType;
 import com.damoim.model.vo.MembershipUserList;
-import com.damoim.model.vo.TypeCategory;
-import com.damoim.service.MembershipService;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 public class MembershipController {
+	// 클럽 생성 관련 컨트롤
 	@Autowired
 	private MembershipService service;
+	/*
+	 * 
+	 * */
+	@GetMapping("/createclub")
+	public String createclub(){
+		return "mypage/createclub";
+		
+	}
+	/*
+	 * 
+	 * */
+	@PostMapping("/createclub")
+	public String createclub(Membership membership) {
+		System.out.println(membership);
+		membership.setMembershipInfo(null);
+     return "redirect:/"; // 클럽 생성 후 인덱스 페이지로 리다이렉션
+}	
 	
+	
+	
+	
+
+	/*
+	 * 성일
+	 * 
+	 * 
+	 * */
 	@GetMapping("/{membershipCode}") // 클럽 홍보 페이지 각각 맞춰 갈수있는거
 	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model,
 			HttpServletRequest request) {
@@ -43,13 +67,16 @@ public class MembershipController {
 			// 가입한 클럽 인지 확인을 위한 아이디 정보 가져오기
 			memberListDTO.setId(mem.getId());
 			// 해당클럽 안에서의 등급 가져오기
-			System.out.println("checkMember : " +service.checkMember(memberListDTO));
+			System.out.println("checkMember : " + service.checkMember(memberListDTO));
 			model.addAttribute("checkMember", service.checkMember(memberListDTO));
 		}
 		return "mainboard/main";
 	}
-	
-	 @GetMapping("/{membershipCode}club") // 클럽 페이지 이동
+	/*
+	  * 성철
+	  * 해당 클럽에 가입된 회원이 그클럽에 정보와 클럽 가입 현황 볼수있는 페이지 이동
+	  * */
+	 @GetMapping("/club/{membershipCode}") // 클럽 페이지 이동
 		public String membershipPage(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO memberListDTO, Model model,HttpServletRequest request) {
 		 	// 클럽 페이지에 membership 관련 정보 + 호스트 정보
 		 	model.addAttribute("main",service.main(membershipCode));
@@ -61,25 +88,31 @@ public class MembershipController {
 			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
 			return "membership/membershipPage";
 		}
-	
+	 /*
+	  * 성철
+	  * 일단 클럽 호스트가 가입 승인대기인원 -> 일반 회원으로 바꾸는기능 
+	  * */
+	 @ResponseBody
 	 @PostMapping("/agreeMember") // 클럽 회원가입 승인
 	 public void agreeMemeber(MemberListDTO member) {
 		 // 일단은 호스트일때만 클럽 회원 승인기능
+		 System.out.println("맴버 잘왔나? : " + member);
 		 service.agreeMemeber(member);
 		System.out.println("승인");
 		
 		
 	 }
+	
+	/*
+	 * 
+	 * */
 	@GetMapping("/makeMembership") // 클럽 생성페이지로 이동
-	public String makeMembership(Model model) {
-		
-		service.membershipType();
-		System.out.println(service.membershipType());
-		model.addAttribute("typeList", service.membershipType());
-		model.addAttribute("typeList1",service.membershipType1());
-		
-		return "/mypage/makeMembership";
+	public String makeMembership() {
+		return "mypage/makeMembership";
 	}
+	/*
+	 * 
+	 * */
 	@PostMapping("/makeMembership") // 클럽 생성
 	public String makeMembership(MembershipDTO dto) {
 		Membership membership = Membership.builder()
@@ -97,6 +130,10 @@ public class MembershipController {
 		service.host(list);
 		return "redirect:/";
 	}
+	 /*
+	  * 성철
+	  * 세션에 맴버가 해당 클럽에 가입 X 상황일시 신청가능한 메서드
+	  * */
 	@PostMapping("/membershipApply") // 클럽 회원가입 신청
 	public String membershipApply(MemberListDTO member) {
 		// 클럽 가입 신청

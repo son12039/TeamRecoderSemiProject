@@ -1,13 +1,8 @@
 package com.damoim.model.dto;
 
-import com.damoim.model.vo.Member;
-import com.damoim.model.vo.MembershipUserList;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class MemberListDTO {
 	

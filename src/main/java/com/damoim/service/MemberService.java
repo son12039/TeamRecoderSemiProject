@@ -1,6 +1,7 @@
 package com.damoim.service;
 
 import org.springframework.stereotype.Service;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import com.damoim.model.dto.MemberListDTO;
@@ -10,9 +11,10 @@ import com.damoim.model.vo.Member;
 import mapper.MemberMapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 //xml -> Mapper -> service -> controller
 
@@ -22,19 +24,30 @@ public class MemberService {
 	@Autowired
 	private MemberMapper mapper;
 	
-	public Member login(Member member) {
+	private BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
+	
+	
+	public Member login(Member vo) {
 		
-		return mapper.login(member);
+		Member mem = mapper.login(vo.getId());
+		System.out.println("로그인할때 확인" + mem);
+		
+		if(mem != null && bcpe.matches(vo.getPwd(), mem.getPwd())) {
+			System.out.println("세션에 mem 리턴?" + mem);
+		return mem;
+		}
+		return null;
 	}
 	public ArrayList<MemberListDTO> loginMemberMembership(Member member){
 		return mapper.loginMemberMembership(member);
 		
 	}
 	
-	 
-	
 	@Transactional
 	public void signUp(Member member) {
+		// 비밀번호 암호화
+		member.setPwd(bcpe.encode(member.getPwd()));
+		
 			mapper.signUp(member);
 		
 	}
@@ -43,12 +56,11 @@ public class MemberService {
 		return mapper.idCheck(member);
 		
 	}
+	
 	public Member nicknameCheck(Member member) {
 		return mapper.nicknameCheck(member);
 		
 	}
-
-
 
 	public Member pwdCheck(Member member) {
 		
@@ -58,5 +70,19 @@ public class MemberService {
 	public void update(Member member) {
 		
 		mapper.update(member);
+	}
+	
+	public ArrayList<Member> dummyMember(){
+		return mapper.dummyMember();
+		
+	}
+	public void dummyUpdate() {
+		ArrayList<Member> list = dummyMember();
+		System.out.println(list);
+		for(Member m : list) {
+			m.setPwd(bcpe.encode(m.getPwd()));
+		mapper.dummyUpdate(m);
+		
+		}
 	}
 }

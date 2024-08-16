@@ -1,5 +1,8 @@
 -- drop schema damoim;
 -- create schema damoim;
+-- INSERT INTO member(id,pwd,addr,phone,email,name,age,gender) VALUES ('asd','123','경기도','010-1111-2222','sdm@gmail.com','감자',22 ,'M');
+
+-- _은 자바 타입으로 매핑 해줘야 한다 
 
 CREATE TABLE member ( -- 회원가입
     id VARCHAR(50) PRIMARY KEY, -- 아이디
@@ -92,6 +95,7 @@ CREATE TABLE membership_meetings ( -- 클럽모임게시판
     meet_info TEXT, -- 모임관련 정보
     meet_creat_date DATE default(current_date)
 );
+
 CREATE TABLE meetings_agree (-- 클럽 모임게시판 - 클럽 회원 리스트 참여여부 테이블 
 	meet_agree_code INT PRIMARY KEY auto_increment,
     meet_agree_yn BOOLEAN DEFAULT(false),
@@ -171,6 +175,88 @@ ALTER TABLE image ADD  FOREIGN KEY (membership_code) REFERENCES membership(membe
 ALTER TABLE membership_meetings ADD list_code INT;
 
 ALTER TABLE membership_meetings ADD  FOREIGN KEY (list_code) REFERENCES membership_user_list(list_code);
+-- 지피티 구문
+-- membership_type 테이블의 외래 키 제약 조건 추가 (type_code 참조)
+ALTER TABLE membership_type
+ADD FOREIGN KEY (type_code) REFERENCES type_category(type_code);
 
+-- membership_type 테이블의 외래 키 제약 조건 추가 (membership_code 참조)
+ALTER TABLE membership_type
+ADD FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
 
+-- membership_location 테이블의 외래 키 제약 조건 추가 (loc_code 참조)
+ALTER TABLE membership_location
+ADD FOREIGN KEY (loc_code) REFERENCES location_category(loc_code);
+
+-- membership_location 테이블의 외래 키 제약 조건 추가 (membership_code 참조)
+ALTER TABLE membership_location
+ADD FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
+
+-- membership_user_list 테이블의 외래 키 제약 조건 추가 (id 참조)
+ALTER TABLE membership_user_list
+ADD FOREIGN KEY (id) REFERENCES member(id);
+
+-- membership_user_list 테이블의 외래 키 제약 조건 추가 (membership_code 참조)
+ALTER TABLE membership_user_list
+ADD FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
+
+-- channel 테이블의 외래 키 제약 조건 추가 (id 참조)
+ALTER TABLE channel
+ADD FOREIGN KEY (id) REFERENCES member(id);
+
+-- channel 테이블의 외래 키 제약 조건 추가 (membership_code 참조)
+ALTER TABLE channel
+ADD FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
+
+-- membership_meetings 테이블의 외래 키 제약 조건 추가 (membership_code 참조)
+ALTER TABLE membership_meetings
+ADD FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
+
+-- membership_meetings 테이블의 외래 키 제약 조건 추가 (meet_agree_code 참조)
+ALTER TABLE membership_meetings
+ADD FOREIGN KEY (meet_agree_code) REFERENCES meetings_agree(meet_agree_code);
+
+-- meetings_agree 테이블의 외래 키 제약 조건 추가 (list_code 참조)
+ALTER TABLE meetings_agree
+ADD FOREIGN KEY (list_code) REFERENCES membership_user_list(list_code);
+
+-- meetings_comment 테이블의 외래 키 제약 조건 추가 (id 참조)
+ALTER TABLE meetings_comment
+ADD FOREIGN KEY (id) REFERENCES member(id);
+
+-- meetings_comment 테이블의 외래 키 제약 조건 추가 (meet_code 참조)
+ALTER TABLE meetings_comment
+ADD FOREIGN KEY (meet_code) REFERENCES membership_meetings(meet_code);
+
+-- meetings_comment 테이블의 외래 키 제약 조건 추가 (meet_parents_comment_code 참조)
+ALTER TABLE meetings_comment
+ADD FOREIGN KEY (meet_parents_comment_code) REFERENCES meetings_comment(meet_comment_code);
+
+-- main_comment 테이블의 외래 키 제약 조건 추가 (id 참조)
+ALTER TABLE main_comment
+ADD FOREIGN KEY (id) REFERENCES member(id);
+
+-- main_comment 테이블의 외래 키 제약 조건 추가 (membership_code 참조)
+ALTER TABLE main_comment
+ADD FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
+
+-- main_comment 테이블의 외래 키 제약 조건 추가 (main_parents_comment_code 참조)
+ALTER TABLE main_comment
+ADD FOREIGN KEY (main_parents_comment_code) REFERENCES main_comment(main_comment_code);
+
+-- image 테이블의 외래 키 제약 조건 추가 (meet_code 참조)
+ALTER TABLE image
+ADD FOREIGN KEY (meet_code) REFERENCES membership_meetings(meet_code);
+
+-- image 테이블의 외래 키 제약 조건 추가 (membership_code 참조)
+ALTER TABLE image
+ADD FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
+
+-- membership_meetings 테이블에 list_code 컬럼 추가
+ALTER TABLE membership_meetings
+ADD list_code INT;
+
+-- membership_meetings 테이블의 외래 키 제약 조건 추가 (list_code 참조)
+ALTER TABLE membership_meetings
+ADD FOREIGN KEY (list_code) REFERENCES membership_user_list(list_code);
 

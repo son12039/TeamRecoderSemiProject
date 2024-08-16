@@ -2,16 +2,16 @@ package com.damoim.controller;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
+
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.service.MembershipService;
-import com.mysql.cj.Session;
-import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
-import jakarta.security.auth.message.callback.PrivateKeyCallback.Request;
+
+
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 @Controller
@@ -19,11 +19,13 @@ public class PageController {
 	
 	@Autowired
 	private MembershipService service;
-	 /*
-	  *
-	  * */
+
+	/*
+	 * 성일
+	 * 인덱스에 현재 호스트가 존재하는 모든 클럽들 모두 출력
+	 * */
 	@GetMapping("/")
-	public String index(Model model ) {
+	public String index(Model model) {
 		
 		List<Integer> countList = new ArrayList(); // count 계산용 인덱스 번호담는 배열
 		model.addAttribute("list", service.allMembership()); // 현재 존재하는 모든 맴버쉽 정보가있는 배열		
@@ -35,27 +37,53 @@ public class PageController {
 		
 		return "index";
 	}
-	
-	// 회원가입 페이지 이동
+	/*
+	 * 성철
+	 * 회원가입 페이지 이동 
+	 * (나중에 추가 가능하면 휴대전화 api랑 나이 생년월일 선택으로 자동계산 반환, 승인버튼 버튼색 조건되야 변경기능)
+	 * */
 	@GetMapping("/signUp")
 	public String signUp() {
 		return "signUp/signUp";
 	}
+	/*
+	 * 동문
+	 * 회원정보 수정 페이지
+	 * */
+	@GetMapping("/update")
+	public String update() {
+		
+		return "mypage/update";
+	}
 	
-	// 마이페이지 이동
+	/*
+	 * 동문
+	 * 마이페이지(일단은 수정기능있는 페이지 이동)
+	 * */
 	@GetMapping("/mypage")
 	public String mypage() {
 		
 		return "mypage/mypage";
 	}
 	// 내가 가입한 맴버쉽 페이지 이동
-  // 로그인 페이지로 이동
+
+	/*
+	 * 성일
+	 * 로그인 페이지
+	 * */
 	 @GetMapping("/loginPage")
 	 public String loginPage() {
 	 	return "login/loginPage";
 	 }
-	
-	
-		
-	
+	 /* 성철
+	  * 아이디 , 비밀번호 찾기 기능
+	  * 아이디 찾기 미구현
+	  * 비밀번호는 이메일로 임시비밀번호 발송
+	  * */
+	 @GetMapping("/findMember")
+	 public String findMember() {
+	 	return "login/findMember";
+	 }
+	 
+
 }

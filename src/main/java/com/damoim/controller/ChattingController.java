@@ -32,25 +32,23 @@ public class ChattingController {
     @Autowired
     private MembershipService service;
 
-    // 채팅방 목록
+    // 채팅방 목록 모든 채팅관련 메서드와 접근할 수 있음
     public static LinkedList<ChattingRoomDAO> chattingRoomList = new LinkedList<>();
 
-    // 채팅방 목록 초기화
+    // 모든 클럽정보를 가져와서 클럽마다 채팅서버1개씩 생성, 서버를 처음 열 때만 작동함
     public void basic() throws Exception {
-        List<BasicRoomListVo> list = service.roomlist();
+        List<BasicRoomListVo> list = service.roomlist();  
         for (BasicRoomListVo vo : list) {
             ChattingRoomDAO chattingRoom = ChattingRoomDAO.builder()
-                .roomNumber(String.valueOf(vo.getMembershipCode())) // 방 번호를 문자열로 변환
+                .roomNumber(String.valueOf(vo.getMembershipCode()))
                 .users(new LinkedList<>())
                 .roomName(vo.getMembershipName())
                 .build();
             chattingRoomList.add(chattingRoom);
-            System.out.println(vo);
         }
-        System.out.println(list.size());
     }
 
-    // 방 번호로 방 찾기
+    // 채팅방입장 할 때 어떤 방으로 들어갈 지 찾아주는 기능
     public ChattingRoomDAO findRoom(String roomNumber) {
         ChattingRoomDAO room = ChattingRoomDAO.builder().roomNumber(roomNumber).build();
         int index = chattingRoomList.indexOf(room);
@@ -58,7 +56,7 @@ public class ChattingController {
     }
 
 
-    // 쿠키에 추가
+    // 쿠키에 추가 
     public void addCookie(String cookieName, String value) {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpServletResponse response = attr.getResponse();
@@ -112,14 +110,8 @@ public class ChattingController {
         return null;
     }
 
-    // 닉네임 생성
-    public void createNickname(String nickname) {
-        addCookie("nickname", nickname);
-    }
-
     // 방 입장하기
     public boolean enterChattingRoom(ChattingRoomDAO chattingRoom, String nickname) {
-        createNickname(nickname);
 
         if (chattingRoom == null) {
             deleteCookie();
@@ -127,7 +119,7 @@ public class ChattingController {
         } else {
             LinkedList<String> users = chattingRoom.getUsers();
             users.add(nickname);
-
+            addCookie("nickname", nickname);
             addCookie("roomNumber", chattingRoom.getRoomNumber());
             return true;
         }
@@ -150,8 +142,12 @@ public class ChattingController {
     public ResponseEntity<ArrayList<Integer>> idreturn(HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession();
         Member a = (Member) session.getAttribute("mem");
-        ArrayList<Integer> list = (ArrayList<Integer>) service.membershipCodeList(a.getId());
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        if(a!=null) {
+        	  ArrayList<Integer> list = (ArrayList<Integer>) service.membershipCodeList(a.getId());
+              return new ResponseEntity<>(list, HttpStatus.OK);
+        }
+		return null;
+
     }
 
     // 채팅방 목록

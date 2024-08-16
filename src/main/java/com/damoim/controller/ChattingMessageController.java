@@ -14,24 +14,23 @@ public class ChattingMessageController {
 	
 	/*
 	 * 정배
-	 * 하나도몰라서 못적어 두겟어요...
 	 * */
 
-	// 여기서 메세지가 오면 방목록 업데이트
+	//  방목록 업데이트
 	@MessageMapping("/socket/roomList")
 	@SendTo("/topic/roomList")
 	public String roomList() {
 		return "";
 	}
 
-	// 채팅방에서 메세지 보내기
+	// 클럽코드가 roomNumber인 클럽채팅방에서 메세지를 보내면 그 클럽코드이름으로된 메세지가 오고, 그 메세지를 딸려온 클럽코드이름의 채팅방에 있는 다른 사용자에게 뿌리는 기능
 	@MessageMapping("/socket/sendMessage/{roomNumber}")
 	@SendTo("/topic/message/{roomNumber}")
 	public MessageDAO sendMessage(@DestinationVariable String roomNumber, MessageDAO message) {
 		return message;
 	}
 
-	// 채팅방에 입장 퇴장 메세지 보내기
+	// 위와 같이 출입시 요청되는 메세지를 클럽코드에 따라 같은 방 사용자들에게 출입키워드를 뿌리는 기능
 	@MessageMapping("/socket/notification/{roomNumber}")
 	@SendTo("/topic/notification/{roomNumber}")
 	public Map<String, Object> notification(@DestinationVariable String roomNumber, Map<String, Object> chattingRoom) {

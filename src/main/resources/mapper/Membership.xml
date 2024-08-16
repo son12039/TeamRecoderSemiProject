@@ -156,15 +156,20 @@
 		membership_code =
 		#{membershipCode}
 	</update>
-
+	
+	<!-- 회원의 id를 받아서, 그 회원이 가입하고 있는 클럽코드를 불러옴
 	<select id="membershipCodeList" parameterType="String"
 		resultType="Integer">
 		SELECT membership_code
 		FROM membership
 		JOIN membership_user_list USING (membership_code)
 		WHERE id = #{id}
+		
 	</select>
-
+	
+	 -->
+	 
+	<!-- 모든 채팅방리스트 불러옴 -->
 	<select id="roomlist" resultMap="roomListmap">
 		SELECT membership_name,membership_code FROM
 		membership

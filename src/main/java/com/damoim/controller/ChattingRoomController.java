@@ -18,12 +18,13 @@ public class ChattingRoomController {
 
 	/*
 	 * 정배
-	 * 하나도몰라서 못적어 두겟어요...
 	 * */
 	@Autowired
-	private ChattingController main;
+	private ChattingController main; 
 
-	// 방 들어가기
+	// 여기 매핑되는 모든 요청은 chatting.jsp에 연결되어 있는 js를 통해서 옴
+	
+	// 방 들어가기 어떤 사용자가 클럽채팅방에 들어오려고 시도하면 입장하려는 방번호로 방을 찾고, 회원닉네임을 가져와 쿠키에 저장함
 	@GetMapping("/chattingRoom-enter")
 	public ResponseEntity<?> EnterChattingRoom(String roomNumber, String nickname) {
 		// 방 번호로 방 찾기
@@ -59,11 +60,6 @@ public class ChattingRoomController {
 
 		// 쿠키에서 닉네임과 방번호 삭제
 		main.deleteCookie();
-
-		// 유저가 한명도 없다면 방 삭제
-			if (users.size() == 0) {
-			main.chattingRoomList.remove(chattingRoom);
-			}
 
 		return new ResponseEntity<>(chattingRoom, HttpStatus.OK);
 	}

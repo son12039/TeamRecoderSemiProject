@@ -6,12 +6,47 @@
 		<result column="membership_code" property="membershipCode"/>
 		
 	</resultMap>
+	
+	<resultMap id="MemberResultMap" type="Member">
+        <id property="id" column="id" />
+        <result property="pwd" column="pwd" />
+        <result property="addr" column="addr" />
+        <result property="phone" column="phone" />
+        <result property="email" column="email" />
+        <result property="name" column="name" />
+        <result property="age" column="age" />
+        <result property="gender" column="gender" />
+        <result property="status" column="status" />
+        <result property="memberManner" column="member_manner" />
+        <result property="nickname" column="nickname" />
+        <result property="memberImg" column="member_img" />
+        <result property="memberHobby" column="member_hobby" />
+        <result property="memberInfo" column="member_info" />
+        <result property="memberLocation" column="member_location" />
+        <result property="memberType" column="member_type" />
+    </resultMap>
+    
+    <!-- 더미용 쿼리 2개 -->
+    <select id="dummyMember" resultType="Member">
+		SELECT id, pwd
+		FROM member
+	</select>
+	
+ 	<update id="dummyUpdate" parameterType="Member">
+ 		UPDATE member
+ 		SET pwd = #{pwd}
+ 		WHERE id = #{id}
+ 	</update>
 
 	<select id="pwdCheck" parameterType="Member" resultType="Member">
 		SELECT *
 		FROM member
 		WHERE id=#{id} AND pwd=#{pwd}
 	</select>
+	
+
+ 	
+ 	
  	
 	<update id="update" parameterType="Member" >
 		UPDATE member
@@ -20,10 +55,10 @@
 		WHERE id = #{id}
 	</update>
 	
-	<select id="login" parameterType="Member" resultType="Member">
+	<select id="login" parameterType="String" resultMap="MemberResultMap">
 		SELECT *
 		FROM member
-		WHERE id = #{id} AND pwd = #{pwd}
+		WHERE id = #{id}
 	</select>
 	
 	<select id="loginMemberMembership" parameterType="Member"
@@ -45,7 +80,8 @@
 		WHERE nickname = #{nickname}
 	</select>
 
-	<insert id="signUp" parameterType="Member">
+	<insert id="signUp" parameterType="Member" 
+	useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO member(id, pwd,
 		addr, phone, email, name, age, gender, nickname, member_img,
 		member_hobby, member_info, member_location,member_type)
@@ -55,10 +91,27 @@
 		)
 	</insert>
 	<select id ="memberInfo" parameterType="Member" resultType="Member">
-		SELCET * 
+		SELECT * 
 		FROM member
 		WHERE id = #{id}
 	</select>
+	
+	<!--  이메일 아이디 확인 -->
+    <select id="memberEmailIdcheck" parameterType="Member" resultType="Member">
+        SELECT *
+        FROM member
+        WHERE id = #{id}
+        AND email = #{email}
+    </select>
+
+    <!-- 비밀번호 업데이트 -->
+    <update id="updatePassword" parameterType="Member">
+        UPDATE member
+        SET pwd = #{pwd}
+        WHERE id = #{id}
+    </update>
+
+</mapper>
 	
 
 	
@@ -70,6 +123,4 @@
 	
 	
 	
-	
-	
-</mapper> 
+

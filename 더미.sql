@@ -4,6 +4,9 @@ SELECT *
 FROM type_category;
 
 SELECT *
+FROM membership_location;
+
+SELECT *
 FROM location_category;
 
 SELECT *

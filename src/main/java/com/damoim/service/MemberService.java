@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 //xml -> Mapper -> service -> controller
 
@@ -23,9 +24,19 @@ public class MemberService {
 	@Autowired
 	private MemberMapper mapper;
 	
-	public Member login(Member member) {
-		return mapper.login(member);
+	private BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
+	
+	
+	public Member login(Member vo) {
 		
+		Member mem = mapper.login(vo.getId());
+		System.out.println("로그인할때 확인" + mem);
+		
+		if(mem != null && bcpe.matches(vo.getPwd(), mem.getPwd())) {
+			System.out.println("세션에 mem 리턴?" + mem);
+		return mem;
+		}
+		return null;
 	}
 	public ArrayList<MemberListDTO> loginMemberMembership(Member member){
 		return mapper.loginMemberMembership(member);
@@ -34,6 +45,9 @@ public class MemberService {
 	
 	@Transactional
 	public void signUp(Member member) {
+		// 비밀번호 암호화
+		member.setPwd(bcpe.encode(member.getPwd()));
+		
 			mapper.signUp(member);
 		
 	}
@@ -58,33 +72,17 @@ public class MemberService {
 		mapper.update(member);
 	}
 	
-//	public Member memberInfo(Member member) {
-//		return mapper.memberInfo();
-//	}
-	
-	
-	
-	
-	
-	
-	
-	
-//	public ArrayList<Member> search(SearchDTO dto) {
-//		return mapper.search(dto);
-//	}
-	
-//	public ArrayList<Member> allMember() {
-//		return mapper.allMember();
-//	}
-//    <!-- 검색 시도중!!!!! -->
-//    <!--   <form action="/search">
-//   <c:forEach items="${mem != null ? mem : search} var="member">
-//      <input type="text" name = keyword >
-//      <button type="submit" value="닉네임검색">닉네임 검색</button>
-//      <h1>닉네임 : ${member.nickname}</h1>
-//      <h1>나이 : ${member.age}</h1>
-//      	</c:forEach>
-//      </form> -->
-//  	<!-- 검색 시도중!!!!! -->
-	
+	public ArrayList<Member> dummyMember(){
+		return mapper.dummyMember();
+		
+	}
+	public void dummyUpdate() {
+		ArrayList<Member> list = dummyMember();
+		System.out.println(list);
+		for(Member m : list) {
+			m.setPwd(bcpe.encode(m.getPwd()));
+		mapper.dummyUpdate(m);
+		
+		}
+	}
 }

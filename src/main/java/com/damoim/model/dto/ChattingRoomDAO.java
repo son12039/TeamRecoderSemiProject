@@ -1,0 +1,32 @@
+package com.damoim.model.dto;
+
+import lombok.Builder;
+import lombok.Data;
+
+import java.util.LinkedList;
+import java.util.Objects;
+
+@Data
+@Builder
+public class ChattingRoomDAO {
+    private String roomNumber; // 방 번호
+    private String roomName; // 방 이름
+    private LinkedList<String> users; // 유저목록
+
+
+    // 채팅방 목록에서 방 번호로 방을 찾을 수 있게 equals와 hashCode를 오버라이딩
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        ChattingRoomDAO other = (ChattingRoomDAO) obj;
+        return Objects.equals(roomNumber, other.roomNumber);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(roomNumber);
+    }
+}

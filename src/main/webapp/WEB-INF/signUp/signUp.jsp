@@ -20,7 +20,7 @@
 <body>
 		<main>
 		<form id="signUpForm" action="/signUp" method="post"
-			onsubmit="return validate()">
+			onsubmit="return validate()" enctype="multipart/form-data">
 			<div class="container">
 				<!-- 페이지 1 -->
 				<div id="page1" class="page visible">
@@ -115,7 +115,7 @@
 					
 					<div class="formBox">
 						<label for="memberImg">프로필 사진</label> <input type="file"
-							id="memberImg" name="memberImg" placeholder="프로필 사진을 선택하시오" />
+							id="imgFile" name="imgFile" placeholder="프로필 사진을 선택하시오" accept="image/*" />
 					</div>
 					<div class="formBox">
 						<label for="memberHobby">유저 관심사</label> <input type="text"

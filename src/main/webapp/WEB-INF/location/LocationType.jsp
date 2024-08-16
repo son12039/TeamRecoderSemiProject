@@ -21,10 +21,17 @@
 			<option>${locLaName}</option>
 		</c:forEach>
 	</select>
-	
-	<select>
-		<option>전체보기</option>
-	</select>
+
+	<c:if test="${locSNameList.size()!=0}">
+	<form id="locationSNameForm">
+		<input type="checkbox" value="전체보기" id="locSNameAll"/> <label for="locSNameAll">전체보기</label>
+		<c:forEach items="${locSNameList}" var="locSName">
+			<input type="checkbox" value="${locSName}" id="${locSName}" name="locationSName"> 
+			<label for="${locSName}">${locSName}</label>
+		</c:forEach>
+		<input type="submit" value="지역 검색" id="locSNameBtn">
+	</form>
+	</c:if>
 	
 	<select id="typeLaNameSelect">
 		<option>전체보기</option>

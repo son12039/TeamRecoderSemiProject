@@ -34,32 +34,41 @@
 		FROM location_category
 	</select>
 	
-	<!-- 지역 하위 카테고리 뽑기 -->
+	<!-- 지역 하위 카테고리 뽑기 --> 
 	<select id="locSNameList" parameterType="String" resultType="String">
 		SELECT loc_s_name
 		FROM location_category
-		WHERE loc_la_name = ${String};
-	</select>
-	
+		WHERE loc_la_name = #{laName}
+	</select>	
+
+
 	<!-- 지역 상위 선택에 따른 멤버십 코드 뽑기 -->
 	<!-- 3. jsp에서 받아온 파라미터 ex>부산 -->
-	<select id="searchLocLaNameList" parameterType="String" resultType="Integer">
-		select DISTINCT membership_code
-		from membership_location
-		WHERE loc_code IN (SELECT loc_code <!-- 괄호안이 code 숫자 -->
-		FROM location_category
-		WHERE loc_la_name = #{location})
-		
+	<select id="searchList" parameterType="SearchDTO" resultType="Integer">		
+		SELECT DISTINCT membership_code
+		FROM membership_location
+		<where>
+			<if test="locationLaName!=null">
+				loc_code IN (SELECT loc_code FROM location_category WHERE loc_la_name =#{locationLaName})
+			</if>
+			<if test="locationSNameList!=null">
+				AND loc_code IN (SELECT loc_code FROM location_category WHERE loc_s_name IN 
+				<foreach collection="locationSNameList" item="loc" open="(" close=")" separator=",">
+					#{loc}
+				</foreach>
+				)
+			</if>
+		</where>
 	</select>
-		
+	
 	<!--  전체 리스트 -->
 	<!-- 위에서 뽑아온 code 숫자를 받아서 관련된 membership 전체 뽑아오기 -->
 	<select id="memberLocTypeList" resultMap="membershipMap" parameterType="SearchDTO">
 		SELECT * FROM membership
 		<where>
-			<if test="locations != null">
+			<if test="membershipCodes != null">
 				membership_code IN 
-				<foreach collection="locations" item="code" open="(" close=")" separator=",">
+				<foreach collection="membershipCodes" item="code" open="(" close=")" separator=",">
 					#{code}
 				</foreach>
 			</if>
@@ -91,24 +100,7 @@
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		
 		
 		

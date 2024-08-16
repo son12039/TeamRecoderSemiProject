@@ -33,8 +33,8 @@ public class LocationTypeService {
 	
 	
 	// 3. 파라미터 값을 받고 code 숫자 뽑아오기
-	public List<Integer> searchLocLaNameList(String location) {
-		return mapper.searchLocLaNameList(location);
+	public List<Integer> searchList(SearchDTO dto) {
+		return mapper.searchList(dto);
 	}
 	
 	
@@ -59,55 +59,7 @@ public class LocationTypeService {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//새로 만든 테이블
-	
-	// 대분류 위치 보여주기
-	public List<Membership> AllMembershipLocationLaname(){
-		return mapper.AllMembershipLocationLaname();
-	}
-	// 소뷴류 위치 보여주기
-	public List<Membership> AllMembershipLocationSname(String locLaName){
-		return mapper.AllMembershipLocationSname(locLaName);
-	}
-	// 대분류 타입 가져오기
-	public List<Membership> AllMembershipTypeLaname(){
-		return mapper.AllMembershipTypeLaname();
-	}
-	
-	public List<Membership> AllMembershipTypeSname(String typeLaName){
-		return mapper.AllMembershipTypeSname(typeLaName);
-	}
-	
-	// 조건에 따라 리스트 보여주기 (DB 왔다갔다하면서 비교하기)
-	public List<Membership> classification(LocationTypeDTO dto){
-		return mapper.classification(dto);	
-	}
-	
-	
-	
-	//맴버쉽 모든거 보여주기
-	public List<Membership> AllMembership(){
-		return mapper.AllMembership();
-	}
-	
+
 	
 	
 }

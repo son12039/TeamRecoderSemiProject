@@ -17,7 +17,10 @@ public class SearchDTO {
 	private String id;
 	private String name;
 	//0814
-	private List<Integer> locations;
+	private List<Integer> membershipCodes;
+	
+	private String locationLaName;
+	private List<String> locationSNameList;
 	
 }
 

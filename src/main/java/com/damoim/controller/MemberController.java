@@ -1,5 +1,12 @@
 package com.damoim.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -8,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.damoim.model.vo.Member;
 import com.damoim.service.EmailService;
@@ -83,17 +91,20 @@ public class MemberController {
 	  * (휴대폰 인증 관련 API? )
 	  * */
 	@PostMapping("/signUp") // 회원가입 메서드
-	public String signUp(Member member ,String addrDetail ) {
+	public String signUp(Member member ,String addrDetail , MultipartFile imgFile ) throws IOException {
 		
-
+		System.out.println("이미지 체크 : " + imgFile.getOriginalFilename());
 		Member mem = member;
 		String addr = mem.getAddr();
-		System.out.println("일반주소 : " + addr);
-		System.out.println("상세 주소 : " + addrDetail);
 		addr += "#"+ addrDetail;
-		System.out.println("합친 주소 #이 구분자 : " + addr);
 		mem.setAddr(addr);
+		// 해당 id 이름의 회원 폴더 생성
+		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\member\\"+ mem.getId()+"\\");  
+		Files.createDirectories(directoryPath);
+		String  fileUrl = FileUpload(imgFile, mem.getId());
+		member.setMemberImg(fileUrl);
 		service.signUp(member);	
+		
 		System.out.println(member);
 		return "redirect:/";
 		
@@ -160,6 +171,38 @@ public class MemberController {
 
         return "redirect:/"; // 인덱스 페이지로 리다이렉트
     }
+   
+	/* 성철
+	 * 파일 업로드 각각 mamber의 id 폴더에 저장후 URL 리턴
+	 * */
+	public String FileUpload(MultipartFile file,String id) throws IllegalStateException, IOException {
+		if(file.getOriginalFilename() == "") {
+			System.out.println("NULL 리턴");
+			return null;
+		}
+		UUID uuid = UUID.randomUUID(); // 랜덤 파일명 부여
+		String fileName = uuid.toString()+"_" + file.getOriginalFilename();
+		File copyFile = new File("\\\\192.168.10.51\\damoim\\member\\"+ id + "\\" + fileName);
+		file.transferTo(copyFile);
+		System.out.println("파일1개 추가!");
+		return fileName;
+	}
+	/* 성철
+	 * 파일 삭제 메서드 해당유저 프로필사진 변경시 사용!!
+	 * 실 사용때는 조건에 만약 보내준 링크가 null이면 변하지 않도록
+	 * */ 
+	public void FileDelete(String file, String id) throws IllegalStateException, IOException {
+		if(file == null) {
+			System.out.println("삭제할 파일이 없습니다");
+		}
+		else {
+			System.out.println("삭제될 URL : "  + file);
+		File f = new File("\\\\192.168.10.51\\damoim\\seongchul\\"+ id + "\\" + file);
+		f.delete();
+		
+		}
+	
+	}
 }
 	
 		

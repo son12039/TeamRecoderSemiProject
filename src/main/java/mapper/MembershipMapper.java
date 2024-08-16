@@ -27,8 +27,8 @@ public interface MembershipMapper {
 	void membershipApply(MemberListDTO member);
 	
 	List<MembershipUserList> grade(Member member);
-
 	void agreeMemeber(MemberListDTO member);
+	void membershipImg(Membership membership);
 }
 
 

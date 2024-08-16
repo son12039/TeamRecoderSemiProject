@@ -787,107 +787,81 @@ INSERT INTO membership_location (loc_code, membership_code) VALUES
 SELECT * FROM membership;
 
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EB%AA%A8%ED%97%98.jpg"
+SET membership_img = "%EB%AA%A8%ED%97%98.jpg"
 WHERE membership_code = 1;  -- 모험가
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EB%AC%B8%ED%99%94%EC%98%88%EC%88%A0.jpg"
+SET membership_img = "%EB%AC%B8%ED%99%94%EC%98%88%EC%88%A0.jpg"
 WHERE membership_code = 2; -- 예술 애호가
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/sports-tools.jpg"
+SET membership_img = "sports-tools.jpg"
 WHERE membership_code = 3; -- 스포츠 융합
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/healthy-food.jpg"
+SET membership_img = "healthy-food.jpg"
 WHERE membership_code = 4; -- 미식
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%ED%83%90%ED%97%98%EA%B0%80.jpg"
+SET membership_img = "%ED%83%90%ED%97%98%EA%B0%80.jpg"
 WHERE membership_code = 5; -- 여행
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%9D%8C%EC%95%85.jpg"
+SET membership_img = "%EC%9D%8C%EC%95%85.jpg"
 WHERE membership_code = 6; -- 음악
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%A2%85%EC%9D%B4%EC%B1%85_%EC%82%AC%EC%A7%84.png"
+SET membership_img = "%EC%A2%85%EC%9D%B4%EC%B1%85_%EC%82%AC%EC%A7%84.png"
 WHERE membership_code = 7; -- 책
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%9A%B4%EB%8F%99.png"
+SET membership_img = "%EC%9A%B4%EB%8F%99.png"
 WHERE membership_code = 8; -- 스포츠동맹
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%82%AC%EC%A7%84%EC%9E%91%EA%B0%80.jpg"
+SET membership_img = "%EC%82%AC%EC%A7%84%EC%9E%91%EA%B0%80.jpg"
 WHERE membership_code = 9; -- 사진작가
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EB%AC%B4%EC%9A%A9.jpg"
+SET membership_img = "%EB%AC%B4%EC%9A%A9.jpg"
 WHERE membership_code = 10; -- 춤무용
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%ED%99%98%EA%B2%BD%EC%A7%80%ED%82%B4.png"
+SET membership_img = "%ED%99%98%EA%B2%BD%EC%A7%80%ED%82%B4.png"
 WHERE membership_code = 11; -- 환경
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%97%AD%EC%82%AC.jpg"
+SET membership_img = "%EC%97%AD%EC%82%AC.jpg"
 WHERE membership_code = 12; -- 역사
 UPDATE membership
-
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%98%81%ED%99%94%EA%B0%90%EC%83%81.jpg"
+SET membership_img = "%EC%98%81%ED%99%94%EA%B0%90%EC%83%81.jpg"
 WHERE membership_code = 13; -- 영화
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%82%AC%ED%9A%8C%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC.jpg"
+SET membership_img = "%EC%82%AC%ED%9A%8C%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC.jpg"
 WHERE membership_code = 14; -- 사회적 영향
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EA%B8%B0%EC%88%A0%ED%98%81%EC%8B%A0.jpg"
+SET membership_img = "%EA%B8%B0%EC%88%A0%ED%98%81%EC%8B%A0.jpg"
 WHERE membership_code = 15; -- 기술혁신
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EB%AA%85%EC%83%81.png"
+SET membership_img = "%EB%AA%85%EC%83%81.png"
 WHERE membership_code = 16; -- 명상
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EB%8C%80%EC%A4%91%EB%AC%B8%ED%99%94.jpg"
+SET membership_img = "%EB%8C%80%EC%A4%91%EB%AC%B8%ED%99%94.jpg"
 WHERE membership_code = 17; -- 대중문화
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%A0%95%EC%9B%90.jpg"
+SET membership_img = "%EC%A0%95%EC%9B%90.jpg"
 WHERE membership_code = 18; -- 정원
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EA%B3%BC%ED%95%99%ED%83%90%EA%B5%AC.png"
+SET membership_img = "%EA%B3%BC%ED%95%99%ED%83%90%EA%B5%AC.png"
 WHERE membership_code = 19; -- 과학
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%8B%9C%EB%84%A4%EB%A7%88%ED%8C%AC.PNG"
+SET membership_img = "%EC%8B%9C%EB%84%A4%EB%A7%88%ED%8C%AC.PNG"
 WHERE membership_code = 20; -- 시네마
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%99%88.png"
+SET membership_img = "%EC%8A%A4%EB%A7%88%ED%8A%B8%ED%99%88.png"
 WHERE membership_code = 21; -- 스마트홈
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%ED%81%B4%EB%9E%98%EC%8B%9D.jpg"
+SET membership_img = "%ED%81%B4%EB%9E%98%EC%8B%9D.jpg"
 WHERE membership_code = 22; -- 클래식
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EB%B7%B0%ED%8B%B0.jpg"
+SET membership_img = "%EB%B7%B0%ED%8B%B0.jpg"
 WHERE membership_code = 23; -- 뷰티
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%B0%BD%EC%9E%91.png"
+SET membership_img = "%EC%B0%BD%EC%9E%91.png"
 WHERE membership_code = 24; -- 창작
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/%EC%8B%9D%EC%83%9D%ED%99%9C.jpg"
+SET membership_img = "%EC%8B%9D%EC%83%9D%ED%99%9C.jpg"
 WHERE membership_code = 25; -- 건강한 식생활
-
-
 UPDATE membership
-SET membership_img = "http://192.168.10.51:8081/%ED%81%B4%EB%9F%BD%EC%9D%B4%EB%AF%B8%EC%A7%80/sns.jpg"
+SET membership_img = "sns.jpg"
 WHERE membership_code = 26; -- 소셜
 

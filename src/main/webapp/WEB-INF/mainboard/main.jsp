@@ -17,7 +17,7 @@
 <body>
 <div id="container">
     <h1>${main.membership.membershipName }</h1>
-    <img id="mainImg" src="${main.membership.membershipImg }" >
+    <img id="mainImg" src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}" >
     <h2>${main.membership.membershipInfo }</h2>
     <p>인원 현황 :  ${membershipUserCount}/${main.membership.membershipMax}</p>
     <h2>호스트 : ${main.member.nickname}</h2>

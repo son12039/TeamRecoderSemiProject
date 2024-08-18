@@ -32,19 +32,31 @@
 		<input type="submit" value="지역 검색" id="locSNameBtn">
 	</form>
 	</c:if>
+	<br>
+	
 	
 	<select id="typeLaNameSelect">
 		<option>전체보기</option>
-		<c:forEach items="${typeLaNameList}" var="typeName">
-			<option>${typeName}</option>
+		<c:forEach items="${typeLaNameList}" var="typeLaName">
+			<option>${typeLaName}</option>
 		</c:forEach>
 	</select>
 	
-	<select>
-		<option>전체보기</option>
-	</select>
+	<c:if test="${typeSNameList.size()!=0}">
+	<form id="typeSNameForm">
+		<input type="checkbox" value="지역 보기" id="typeSNameAll"><label for="typeSNameAll">전체보기</label>
+		<c:forEach items="${typeSNameList}" var="typeSName">
+			<input type="checkbox" value="${typeSName}" id="${typeSName}" name="typeSName">
+			<label for="${typeSName}">${typeSName}</label>
+		</c:forEach>	
+		<input type="submit" value="타입 검색" id="typeSNameBtn">
+	</form>
+	</c:if>
+	
+	
 	<br>
 	<!-- 3. 로케이션 및 타입 리스트 뿌리기 -->
+
 	<c:forEach items="${list}" var="info">
 		${info.membershipCode}<br>
 		${info.membershipName}<br>
@@ -53,15 +65,17 @@
 		${info.membershipDate}<br>
 		${info.membershipGrade}<br>
 		${info.membershipMax}<br>
-		<c:forEach items="${info.locations}" var="location">
-			# ${location.locLaName} ${location.locSName} 
-		</c:forEach>
-	<br>
-		<c:forEach items="${info.types}" var="type">
-		 	# ${type.typeLaName} ${type.typeSName}
-		</c:forEach>
-		------------------<br>
+	<c:forEach items="${info.locations}" var="location">
+		# ${location.locLaName} ${location.locSName} 
 	</c:forEach>
+	<br>
+	<c:forEach items="${info.types}" var="type">
+	 	# ${type.typeLaName} ${type.typeSName}
+	</c:forEach>
+	------------------<br>
+	</c:forEach>
+
+
 	
 	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
 </body>

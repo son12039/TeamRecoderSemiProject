@@ -17,6 +17,15 @@ public interface LocationTypeMapper {
 	List<String> locLaNameList();
 	// 도시 소분류 뽑기
 	List<String> locSNameList(String laName);
+	
+	
+	/* 타입 영역 */
+	List<String> typeLaNameList();
+	
+	List<String> typeSNameList(String typeLaName);
+	
+	
+	
 	// 3. 파라미터 값을 받고 code 숫자 뽑아오기
 	List<Integer> searchList(SearchDTO dto);
 	
@@ -25,9 +34,8 @@ public interface LocationTypeMapper {
 	List<TypeCategory> typeList(int code);
 	
 	
-	/* 타입 영역 */
-	List<String> typeLaNameList();
-	//<select id="typeLaName" resultType="String">
+
+
 	
 	
 	

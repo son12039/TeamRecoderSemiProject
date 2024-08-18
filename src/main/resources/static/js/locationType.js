@@ -19,7 +19,6 @@ if(urlParams.has("locationLaName")) {
 		}
 	}
 }
-
 if(urlParams.has("locationSName")) {
 	const locationSName = urlParams.getAll('locationSName');
 	const list = $('#locationSNameForm input');
@@ -30,7 +29,6 @@ if(urlParams.has("locationSName")) {
 	}
 }
 
-
 $("#locationLaNameSelect").change(function() {
 	urlParams.delete("locationLaName");
 	urlParams.delete("locationSName");
@@ -40,7 +38,6 @@ $("#locationLaNameSelect").change(function() {
 	}
 	location.href = url;
 });
-
 $("#locationSNameForm").submit((e) => {
 	e.preventDefault();
 	urlParams.delete("locationSName");
@@ -77,21 +74,77 @@ $('#locationSNameForm input[name="locationSName"]').change(function() {
 
 
 
-
-console.log(urlParams.has("typeLaName")); // false or true
-console.log(urlParams.has("typeSName")); // false or true
-
-//
-
-
-const typeLaName = urlParams.get('typeLaName');
-const typeSName = urlParams.getAll('typeSName');
-
-
-console.log(typeLaName); // null or 디저트
-console.log(typeSName); // [] or [커피, 아이스티]
+/*타입 클릭시*/
+$("#typeLaNameSelect").change(function(){
+	let typeLaName = $(this).val();
+	urlParams.delete('typeLaName')
+	urlParams.delete('typeSName')
+	if(typeLaName!='전체보기'){
+		urlParams.append('typeLaName',typeLaName)	
+	}
+	location.href = url;
+})
 
 
+$("#typeSNameForm").submit((e) =>{
+	e.preventDefault();
+	urlParams.delete('typeSName')
+	const typeSName = e.target.typeSName;
+	if(typeSName.length !== undefined) {
+		for(let item of typeSName) {
+			if(item.checked) {
+				urlParams.append('typeSName', item.value);
+			}
+		}
+	}
+	location.href = url;
+})
 
+if(urlParams.has("typeLaName")){
+	let typeLaName = urlParams.get("typeLaName")
+	let list = $('#typeLaNameSelect option')
+	for(let item of list){
+		if(typeLaName === item.value){
+			item.setAttribute("selected",true)
+		}
+	}
+}
+if(urlParams.has("typeSName")){
+	const typeSName = urlParams.getAll('typeSName');	
+	const list = $('#typeSNameForm input');
+	for(let item of list){
+		if(typeSName.includes(item.value)){
+			item.setAttribute("checked",true);
+		}
+	}
+}
+
+$("#typeSNameAll").change(function(){
+	if($("#typeSNameAll").is(":checked")){
+		for(let item of $('#typeSNameForm input[name="typeSName"]')) {
+			item.checked = false;
+		}
+    }
+});
+
+$('#typeSNameForm input[name="typeSName"]').change(function() {
+	if($("#typeSNameAll").is(":checked")){
+		$("#typeSNameAll")[0].checked = false;
+	} 
+})
+/*
+$("#locSNameAll").change(function(){
+	if($("#locSNameAll").is(":checked")){
+		for(let item of $('#locationSNameForm input[name="locationSName"]')) {
+			item.checked = false;
+		}
+    }
+});
+$('#locationSNameForm input[name="locationSName"]').change(function() {
+	if($("#locSNameAll").is(":checked")){
+		$("#locSNameAll")[0].checked = false;
+	} 
+})
+*/
 
 

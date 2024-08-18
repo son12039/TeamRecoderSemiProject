@@ -1,14 +1,16 @@
 package com.damoim.model.dto;
 
+
 import java.util.List;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter @Setter @Data @AllArgsConstructor @NoArgsConstructor
+
+@Builder @Data 
+@NoArgsConstructor @AllArgsConstructor
 public class SearchDTO {
 	
 	private String keyword;
@@ -21,6 +23,7 @@ public class SearchDTO {
 	
 	private String locationLaName;
 	private List<String> locationSNameList;
-	
+	private String typeLaName;
+	private List<String> typeSNameList;
 }
 

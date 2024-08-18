@@ -30,33 +30,34 @@ public class LocationTypeService {
 	public List<String> locSNameList(String laName){
 		return mapper.locSNameList(laName);
 	}
+	/* 타입 영역 */
+	public List<String> typeLaNameList(){
+		return mapper.typeLaNameList();
+	}
+	public List<String> typeSNameList(String typeLaName){
+		return mapper.typeSNameList(typeLaName);
+	}
+	
+	
 	
 	
 	// 3. 파라미터 값을 받고 code 숫자 뽑아오기
 	public List<Integer> searchList(SearchDTO dto) {
 		return mapper.searchList(dto);
 	}
-	
-	
 	public List<MemberLocTypeDTO> memberLocTypeList(SearchDTO dto) {
 		return mapper.memberLocTypeList(dto);
 	}
-	
 	public List<LocationCategory> locationList(int code) {
 		return mapper.locationList(code);
 	}
-	
 	public List<TypeCategory> typeList(int code){
 		return mapper.typeList(code);
 	}
 	
 
 	
-	/* 타입 영역 */
-	public List<String> typeLaNameList(){
-		return mapper.typeLaNameList();
-	}
-	
+
 	
 	
 

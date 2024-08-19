@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.vo.BasicRoomListVo;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipType;
@@ -49,6 +50,10 @@ public class MembershipService {
 		mapper.makeMembership(membership);
 	}
 	
+	public void membershipImg(Membership membership) {
+		mapper.membershipImg(membership);
+	}
+	
 	public void host(MemberListDTO list) {
 		mapper.host(list);
 	}
@@ -64,6 +69,9 @@ public class MembershipService {
 	
 	public List<TypeCategory> membershipType() {
 		return mapper.membershipType();
+	public List<Integer> membershipCodeList(String id) {
+		return mapper.membershipCodeList(id);
+		
 	}
 	
 	public List<TypeCategory> membershipType1() {
@@ -80,5 +88,9 @@ public class MembershipService {
 	
 	public MembershipUserList typeHost(int code){
 		return mapper.typeHost(code);
+	}
+}
+	public List<BasicRoomListVo> roomlist() {
+		return mapper.roomlist();
 	}
 }

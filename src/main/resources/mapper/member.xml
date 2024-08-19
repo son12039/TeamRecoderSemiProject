@@ -80,7 +80,8 @@
 		WHERE nickname = #{nickname}
 	</select>
 
-	<insert id="signUp" parameterType="Member">
+	<insert id="signUp" parameterType="Member" 
+	useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO member(id, pwd,
 		addr, phone, email, name, age, gender, nickname, member_img,
 		member_hobby, member_info, member_location,member_type)

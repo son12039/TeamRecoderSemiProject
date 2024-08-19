@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,6 +31,7 @@ public class Member implements UserDetails {
     private String memberInfo; // 유저 간단한 자기소개
     private String memberLocation; // 유저선호지역
     private String memberType; // 유저 선호만남유형
+    private MultipartFile file;
     
     private List<MembershipUserList> membershipList;
 

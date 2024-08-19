@@ -1,15 +1,15 @@
 $(document).ready(function() {
-
+	console.log("입장1");
 	const urlParams = new URL(location.href).searchParams;
-	const membershipName = urlParams.get('membershipName');
-
-
+	const membershipCode = urlParams.get('membershipCode') * 1;
+	console.log(membershipCode);
 	// 채팅방 목록 불러오기
 	const chattingRoomList = function() {
-
+		console.log("방검색시작");
 
 		$.ajax({ url: "/chattingRoomList", type: "GET", })
 			.then(function(roomList) {
+				console.log(roomList);
 				listHtml(roomList);
 			})
 			.fail(function() {
@@ -20,24 +20,22 @@ $(document).ready(function() {
 	// 방 목록 그리기
 	const listHtml = function(roomList) {
 		let listHtml = "";
-		let id = [];
-
 		// 회원 정보를 가져오는 AJAX 호출
 		$.ajax({
 			url: "/getMemberInfo",
 			type: "GET",
 			success: function(data) {
-				id = data.map(String); // id 배열의 모든 값을 문자열로 변환
-				for (let i = roomList.length - 1; i >= 0; i--) {
-					if (roomList[i].roomName === membershipName) {
+				console.log("성공");
+				for (let i = 0; i < roomList.length; i++) {
+					if (`${roomList[i].roomNumber}` == membershipCode) {
 						listHtml += `
-	                    <li data-room_number=${roomList[i].roomNumber}>
-	                        <span class="chat_title">${roomList[i].roomName}</span>
-	                        <span class="chat_count">${roomList[i].users.length}명</span>
-	                    </li>`;
-						break;
-					}
+			   <li data-room_number=${roomList[i].roomNumber}>
+					<span class="chat_title">${roomList[i].roomName}</span>
+					<span class="chat_count">${roomList[i].users.length}명</span>
+			  </li>`;  
+				break;	}
 				}
+				let i = membershipCode
 
 				$("main ul").html(listHtml);
 			}
@@ -376,11 +374,11 @@ $(document).ready(function() {
 
 	const characters = document.querySelectorAll('.character');
 
-	const speed = 2; // 캐릭터 이동 속도 님보다 빠름ㅋ
-	const boundaryPadding = 50; // 캐릭터가 벽에 닿을 때 방향전환
+	const speed = 2; 
+	const boundaryPadding = 50; 
 
 	function getRandomDirection() {
-		const angle = Math.random() * 2 * Math.PI; // 0 to 360 이거 알죠?파이=180
+		const angle = Math.random() * 2 * Math.PI; 
 		return {
 			x: Math.cos(angle) * speed,
 			y: Math.sin(angle) * speed
@@ -388,7 +386,7 @@ $(document).ready(function() {
 	}
 
 	function getRandomColor() {
-		const r = Math.floor(Math.random() * 256); // 색깔 랜덤 rbg막 돌리는겨 쉬지않고
+		const r = Math.floor(Math.random() * 256); 
 		const g = Math.floor(Math.random() * 256);
 		const b = Math.floor(Math.random() * 256);
 		return `rgb(${r},${g},${b})`;

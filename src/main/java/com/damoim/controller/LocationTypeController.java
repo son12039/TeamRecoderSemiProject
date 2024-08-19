@@ -18,6 +18,7 @@ import com.damoim.model.dto.LocationTypeDTO;
 import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.dto.SearchDTO;
 import com.damoim.model.vo.LocationCategory;
+import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.TypeCategory;
 import com.damoim.service.LocationTypeService;
@@ -30,7 +31,6 @@ public class LocationTypeController {
 	@Autowired
 	private LocationTypeService service;
 
-	
 	// 08_14
 	//새로 시작
 	//대분류 리스트 보여주기
@@ -52,26 +52,28 @@ public class LocationTypeController {
 		if(typeSName!=null) {
 			search.setTypeSNameList(new ArrayList<>(Arrays.asList(typeSName.split(","))));
 		}
-		// 관련된 값을 뽑아서 list 에 넣고
+
+//		search.setNickname(service.selectMemberNickName());
 		List<Integer> membershipCodes = service.searchList(search);
-//		System.err.println("2번"+service.searchList(search));
-		search.setMembershipCodes(membershipCodes);
 		
-		// 뽑아온 숫자를 보내서 code에 관련된 member code 뽑아서 저장
-		List<MemberLocTypeDTO> list = service.memberLocTypeList(search);
-		
-		for(MemberLocTypeDTO dto : list) {
-			//그리고 dto에 만든 리스트에 또 넣기
-			List<LocationCategory> locations = service.locationList(dto.getMembershipCode());
-			List<TypeCategory> types = service.typeList(dto.getMembershipCode());
-			dto.setLocations(locations);
-			dto.setTypes(types);
+		List<MemberLocTypeDTO> list = null;
+		if(membershipCodes.size()!=0) {
+			search.setMembershipCodes(membershipCodes);
+			list = service.memberLocTypeList(search);
+			for(MemberLocTypeDTO dto : list) {
+				//그리고 dto에 만든 리스트에 또 넣기
+				List<LocationCategory> locations = service.locationList(dto.getMembershipCode());
+				List<TypeCategory> types = service.typeList(dto.getMembershipCode());
+				Member member = service.selectMemberNickName(dto.getMembershipCode());
+				dto.setLocations(locations);
+				dto.setTypes(types);
+				dto.setNickname(member.getNickname());
+				dto.setMemberImg(member.getMemberImg());
+			}
 		}
 		
-
-		
 		// <!-- 1.화면 옵션에 도시 이름 전체 리스트 보여주기 -->
-		
+
 		model.addAttribute("list",list);
 		model.addAttribute("locLaNameList", service.locLaNameList());
 		model.addAttribute("locSNameList",service.locSNameList(locationLaName));

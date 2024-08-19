@@ -6,6 +6,7 @@ import com.damoim.model.dto.LocationTypeDTO;
 import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.dto.SearchDTO;
 import com.damoim.model.vo.LocationCategory;
+import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.TypeCategory;
 
@@ -25,7 +26,6 @@ public interface LocationTypeMapper {
 	List<String> typeSNameList(String typeLaName);
 	
 	
-	
 	// 3. 파라미터 값을 받고 code 숫자 뽑아오기
 	List<Integer> searchList(SearchDTO dto);
 	
@@ -34,17 +34,8 @@ public interface LocationTypeMapper {
 	List<TypeCategory> typeList(int code);
 	
 	
+	//맴버 닉네임 뽑기
+	Member selectMemberNickName(int code);
 
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

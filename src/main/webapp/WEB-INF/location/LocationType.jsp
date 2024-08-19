@@ -56,7 +56,7 @@
 	
 	<br>
 	<!-- 3. 로케이션 및 타입 리스트 뿌리기 -->
-
+	<c:if test="${not empty list}">
 	<c:forEach items="${list}" var="info">
 		${info.membershipCode}<br>
 		${info.membershipName}<br>
@@ -65,6 +65,8 @@
 		${info.membershipDate}<br>
 		${info.membershipGrade}<br>
 		${info.membershipMax}<br>
+		${info.nickname}<br>
+		${info.memberImg}<br>
 	<c:forEach items="${info.locations}" var="location">
 		# ${location.locLaName} ${location.locSName} 
 	</c:forEach>
@@ -74,8 +76,10 @@
 	</c:forEach>
 	------------------<br>
 	</c:forEach>
-
-
+	</c:if>
+	<c:if test="${empty list}">
+		<h1>없어용</h1>
+	</c:if>
 	
 	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
 </body>

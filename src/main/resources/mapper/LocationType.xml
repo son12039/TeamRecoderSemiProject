@@ -28,17 +28,23 @@
 	
 	
 	<resultMap type="LocationCategory" id="locationMap">
-		<id column="loc_code" property="locCode"/> <!-- 프라이머리키 -->
+		<id column="loc_code" property="locCode"/> 
 		<result column="loc_la_name" property="locLaName"/>
 		<result column="loc_s_name" property="locSName"/>
 	</resultMap>
 	
 	
 	<resultMap type="TypeCategory" id="typeMap">
-		<id column="type_code" property="typeCode"/> <!-- 프라이머리키 -->
+		<id column="type_code" property="typeCode"/>
 		<result column="type_la_name" property="typeLaName"/>
 		<result column="type_s_name" property="typeSName"/>
 	</resultMap>
+	
+	<resultMap id="MemberMap" type="Member">
+        <id property="id" column="id" />
+        <result property="memberImg" column="member_img" />
+    </resultMap>
+
 	
 	<!-- 위치 부분 -->
 	<!--  지역 상위 카테고리  -->
@@ -60,8 +66,11 @@
 	<!-- 3. jsp에서 받아온 파라미터 ex>부산 -->
 	<select id="searchList" parameterType="SearchDTO" resultType="Integer">		
 		select DISTINCT membership_code from membership
-		join membership_location using(membership_code)
-		join membership_type using(membership_code)
+		join membership_location USING(membership_code)
+		join location_category USING(loc_code)
+		join membership_type USING(membership_code)
+		join type_category USING(type_code)
+		join membership_user_list using(membership_code)
 		<where>
 			<if test="locationLaName!=null">
 				AND loc_code IN (SELECT loc_code FROM location_category WHERE loc_la_name =#{locationLaName})
@@ -83,31 +92,18 @@
 				</foreach>
 				)
 			</if>
+			and list_grade = "host"
 		</where>
 	</select>
-	
-	<!-- 
-				<if test="typeSName!=null">
-				AND type_code IN (SELECT type_code FROM type_category WHERE type_S_name IN 
-				<foreach collection="typeSNameList" item="type" open="(" close=")" separator=",">
-					#{type}
-				</foreach>
-				)
-			</if>
-	
-	 -->
+
 	<!--  전체 리스트 -->
 	<!-- 위에서 뽑아온 code 숫자를 받아서 관련된 membership 전체 뽑아오기 -->
 	<select id="memberLocTypeList" resultMap="membershipMap" parameterType="SearchDTO">
 		SELECT * FROM membership
-		<where>
-			<if test="membershipCodes != null">
-				membership_code IN 
-				<foreach collection="membershipCodes" item="code" open="(" close=")" separator=",">
-					#{code}
-				</foreach>
-			</if>
-		</where>
+		WHERE membership_code IN 
+		<foreach collection="membershipCodes" item="code" open="(" close=")" separator=",">
+			#{code}
+		</foreach>
 	</select>
 
 	<!-- 멤버십 위치 가져오기 -->
@@ -126,13 +122,9 @@
 		WHERE membership_code = #{code};
 	</select>
 	
-	
-	
-	
-	
+
 	
  	<!-- 타입부분 -->
-		
 	<select id="typeLaNameList" resultType="String">
 		select distinct type_la_name
 		from type_category;
@@ -143,12 +135,13 @@
 		from type_category
 		where type_la_name = #{typeLaName};
 	</select>
-		
-
-		
-		
-		
-		
-		
+	
+	<select id="selectMemberNickName" parameterType="int" resultMap="MemberMap">
+		SELECT nickname, member_img 
+		FROM membership_user_list
+		JOIN member USING (id)
+		WHERE list_grade = 'host'
+		AND membership_code = #{code}
+	</select>
 		
 </mapper>

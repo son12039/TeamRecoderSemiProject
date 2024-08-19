@@ -9,6 +9,7 @@ import com.damoim.model.dto.LocationTypeDTO;
 import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.dto.SearchDTO;
 import com.damoim.model.vo.LocationCategory;
+import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.TypeCategory;
 
@@ -56,11 +57,9 @@ public class LocationTypeService {
 	}
 	
 
-	
-
-	
-	
-
-	
+	// 맴버닉네임 뽑아내기
+	public Member selectMemberNickName(int code) {
+		return mapper.selectMemberNickName(code);
+	}
 	
 }

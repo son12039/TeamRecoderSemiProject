@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import com.damoim.model.vo.LocationCategory;
+import com.damoim.model.vo.Member;
 import com.damoim.model.vo.MembershipLocation;
 import com.damoim.model.vo.MembershipType;
 import com.damoim.model.vo.TypeCategory;
@@ -29,6 +30,9 @@ public class MemberLocTypeDTO {
     private Date membershipDate; // 클럽생성날짜
     private double membershipGrade; // 클럽 별점
     private int membershipMax; // 클럽최대인원
+    
+    private String nickname;
+    private String memberImg;
 	
     /*join*/
     private MembershipLocation membershipLocation;

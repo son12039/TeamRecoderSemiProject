@@ -96,5 +96,9 @@ public class PageController {
 	 	return "login/findMember";
 	 }
 	 
+	 @GetMapping("/loginFail") 
+	 public String loginFail() {
+		 return "login/loginFail";
+	 }
 
 }

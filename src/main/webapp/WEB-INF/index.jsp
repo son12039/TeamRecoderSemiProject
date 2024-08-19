@@ -30,29 +30,25 @@ pageEncoding="UTF-8"%>
             <div class="menu">menu3</div>
             <div class="menu">menu4</div>
             <div class="header_right">
-               <sec:authorize access="!isAuthenticated()">
-               <a href="/loginPage">로그인</a>
-               </sec:authorize>
-               <sec:authorize access="isAuthenticated()">
-              <a href="/logout">로그아웃</a>
-              <a>${member}</a>
-               </sec:authorize>
-          <c:if test="${empty mem}">
+              
+             
+              
+          <sec:authorize access="!isAuthenticated()">
               <div class="header_right_menu">
                 <a href="/signUp">회원가입</a>
                 <a href="/loginPage">로그인</a>
               </div>
             
-              </c:if>
-              <c:if test="${not empty mem}">
+              </sec:authorize>
+              <sec:authorize access="isAuthenticated()">
               <div class="header_right_menu">
                 <a href="/mypage">마이페이지</a> 
                
-              <a href="/myMembership?id=${mem.id}">나의 모임</a>  
+              <a href="/myMembership?id=${member.id}">나의 모임</a>  
             
                 <a href="/logout">로그아웃</a>
               </div>
-              </c:if>
+              </sec:authorize>
             </div>
           </div>
         </div>
@@ -106,7 +102,7 @@ pageEncoding="UTF-8"%>
       
        </c:forEach>
         </div>
-      
+         
         
          
         <script src="https://kit.fontawesome.com/a076d05399.js"></script>

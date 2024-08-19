@@ -22,6 +22,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		
+	
 		return http
 				.csrf(csrf->csrf.disable())    // post일때 csrf를 차단시켜야 가능
 				.formLogin(login ->
@@ -29,9 +30,11 @@ public class SecurityConfig {
 					.loginPage("/loginPage")      // 로그인할 때 GET 페이지 -> 로그인 페이지
 					.loginProcessingUrl("/login") // 로그인할 때 POST 요청 -> 로그인 요청!
 					.defaultSuccessUrl("/",true) // 로그인 성공했을때
+					.failureUrl("/loginFail")
+					
 				//	.defaultSuccessUrl("/loginPage", false)
-					//.failureUrl("/loginPage")
-					//.failureHandler(new DomainFailureHandler()) // 로그인 실패했을때 에러 처리
+				//	.failureUrl("/loginPage")
+				//	.failureHandler(new DomainFailureHandler()) // 로그인 실패했을때 에러 처리
 				.permitAll()// 로그인 성공 했을때 /로 가겠다 
 						)  
 				.logout(logout->

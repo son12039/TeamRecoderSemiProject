@@ -11,11 +11,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css" />
+  <script type="text/javascript">
+     
+    </script>
 </head>
 <body>
 <div class="container">
   <h1>로그인</h1>    <!--  제출전 한번 더 검증하기 위함  -->
-  <form action="/login" method="post" >
+  <form action="/login" method="post" onsubmit="return validate()" >
   
   <div class="mb-3">
     <label for="id" class="form-label">아이디</label>
@@ -38,6 +41,6 @@
 
 
 
-  <%-- <script src="${pageContext.request.contextPath}/js/login.js"></script> --%>
+  <script src="${pageContext.request.contextPath}/js/login.js"></script> 
 </body>
 </html>

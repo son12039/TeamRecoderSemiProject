@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,23 +63,25 @@ public class MembershipController {
 	 * 
 	 * */
 	@GetMapping("/{membershipCode}") // 클럽 홍보 페이지 각각 맞춰 갈수있는거
-	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model,
-			HttpServletRequest request) {
+	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model
+			) {
 		System.out.println(service.main(membershipCode).getListCode());
 		// 홍보페이지에 membership 관련 정보 + 호스트 정보
 		model.addAttribute("main", service.main(membershipCode));
 		// 현재 가입된 인원수
-		model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));
-		HttpSession session = request.getSession();
-		// 로그인한 회원의 id 정보 가져오기 위함
-		Member mem = (Member) session.getAttribute("mem");
-		if (mem != null) { // 로그인 유무 확인 . 널포인트 에러 방지
+		model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));	
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("클럽 홍보 페이지 컨트롤러 왔을때 " + authentication.getName().equals("anonymousUser"));
+	if(	!authentication.getName().equals("anonymousUser") ) {
+		Member mem = (Member) authentication.getPrincipal();
+		
+		 // 로그인 유무 확인 . 널포인트 에러 방지
 			// 가입한 클럽 인지 확인을 위한 아이디 정보 가져오기
 			memberListDTO.setId(mem.getId());
 			// 해당클럽 안에서의 등급 가져오기
 			System.out.println("checkMember : " + service.checkMember(memberListDTO));
 			model.addAttribute("checkMember", service.checkMember(memberListDTO));
-		}
+	}
 		return "mainboard/main";
 	}
 	/*

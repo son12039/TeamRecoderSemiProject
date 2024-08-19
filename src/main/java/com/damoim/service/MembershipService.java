@@ -9,8 +9,9 @@ import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.BasicRoomListVo;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
+import com.damoim.model.vo.MembershipType;
 import com.damoim.model.vo.MembershipUserList;
-
+import com.damoim.model.vo.TypeCategory;
 
 import mapper.MembershipMapper;
 @Service
@@ -62,21 +63,22 @@ public class MembershipService {
 		mapper.host(list);
 	}
 	
-	public List<MembershipUserList> grade(Member member){
+	public List<MemberListDTO> grade(Member member){
 		return mapper.grade(member);
+	}
+	public List<MembershipUserList> listGrade(Member member){
+		return mapper.listGrade(member);
 	}
 	
 	public void agreeMemeber(MemberListDTO member) {
 		mapper.agreeMemeber(member);
 		
 	}
-	
-	public List<Integer> membershipCodeList(String id) {
-		return mapper.membershipCodeList(id);
+	public List<Integer> membershipCodeList(String id){
 		
+		return mapper.membershipCodeList(id);
 	}
-	
-	
+
 	public List<BasicRoomListVo> roomlist() {
 		return mapper.roomlist();
 	}

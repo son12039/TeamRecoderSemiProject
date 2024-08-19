@@ -22,8 +22,11 @@ import com.damoim.model.vo.Membership;
 public interface MemberMapper {
 	
 	Member login(String id);
+	
 	ArrayList<MemberListDTO> loginMemberMembership(Member member);
+	
 	void signUp(Member member);
+	
 	Member idCheck(Member member);
 	Member nicknameCheck(Member member);
 	Member pwdCheck(Member member);	

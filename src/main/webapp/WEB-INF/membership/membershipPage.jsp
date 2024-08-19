@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+     <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+				
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -25,7 +27,9 @@
         <h4>호스트 : ${main.member.nickname} 
             <img id="hostImg" src="http://192.168.10.51:8081/member/${main.member.id}/${main.member.memberImg}" alt="호스트 이미지">
         </h4>
-        <c:if test="${mem.id == main.member.id && membershipUserCount >= main.membership.membershipMax}">
+     
+				
+        <c:if test="${member.id == main.member.id && membershipUserCount >= main.membership.membershipMax}">
                         	<div>최대 인원에 도달하였습니다. 최대인원을 다시 설정후 확인해줏비시오</div>
                         </c:if>
 		
@@ -37,7 +41,7 @@
                         <ul> 
                             <li>${cMember.member.nickname} - 가입 대기중</li>
                             <li><img class="allmemberImg" src="${cMember.member.memberImg}" alt="회원 이미지"></li>
-                            <c:if test="${main.member.id == mem.id && !(membershipUserCount >= main.membership.membershipMax)}">
+                            <c:if test="${main.member.id == member.id && !(membershipUserCount >= main.membership.membershipMax)}">
                                 <form id="agreefrm">
                                     <input type="hidden" name="id" value="${cMember.member.id}">
                                     <input type="hidden" name="listGrade" value="regular">
@@ -55,6 +59,7 @@
                         </ul>
                     </c:otherwise>
                 </c:choose>
+                 
             </div>
         </c:forEach>
         <a href="/" id="toIndex">메인페이지로 가기</a>

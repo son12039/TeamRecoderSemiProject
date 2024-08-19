@@ -34,35 +34,15 @@ public class MemberController {
 
 	@Autowired
 	private MembershipService infoService; // 맴버쉽 서비스
-
-	@Autowired
-	private EmailService emailService; // 이메일 서비스
-
-	// 로그인 , 해당 회원 정보 , 가입 클럽 코드 및 등급을 세션에
-	/*
-	 * 성일
-	 * 
-	 */
-	@ResponseBody
-	@PostMapping("/login")
-	public boolean login(Member member, HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession();
-		// 로그인 성공 !
-		if (service.login(member) != null) {
-
-			session.setAttribute("mem", service.login(member)); // 로그인 정보 세션에
-			// 내가 가입한 클럽 정보 체크용
-
-			// 해당 id를 가진 맴버의 맴버쉽 의 모든정보 + 맴버, 등급 등등
-			System.out.println(infoService.grade(member));
-			session.setAttribute("membership", infoService.grade(member));
-			return true;
-			// 로그인 실패!
-		}
-		return false;
-	}
-
-	// *** 회원가입 관련
+	
+    @Autowired
+    private EmailService emailService; // 이메일 서비스
+	
+	
+    /*
+     * 성일
+     * 로그인 시큐리티 처리
+     * */
 
 	/*
 	 * 성철 회원가입 할때 아이디(프라이머리키 제약조건) 중복회원 체크
@@ -100,6 +80,9 @@ public class MemberController {
 		// 해당 id 이름의 회원 폴더 생성
 		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\member\\" + mem.getId() + "\\");
 		Files.createDirectories(directoryPath);
+		member.setMemberImg(FileUpload(imgFile, mem.getId()));
+		System.out.println("회원가입전 맴버 변수 체크 " + member);
+		service.signUp(member);	
 		
 		member.setMemberImg(FileUpload(imgFile, mem.getId()));
 		service.signUp(member);
@@ -111,15 +94,8 @@ public class MemberController {
 
 	/*
 	 * 성일
-	 * 
-	 */
-	@GetMapping("/logout") // 로그아웃 메서드
-	public String logout(HttpServletRequest request) {
-		System.out.println("logout!!!!");
-		// HttpSession session = request.getSession();
-		// session.invalidate();
-		return "redirect:/";
-	}
+	 * 로그아웃 시큐리티
+	 * */
 
 	/*
 	 * 성철 단순히 더미데이터 비밀번호 처리
@@ -137,8 +113,8 @@ public class MemberController {
 	public String myMembership(Member member, Model model) {
 
 		// 내 등급별 클럽
-		model.addAttribute("membership", infoService.grade(member));
-
+		model.addAttribute("membership", infoService.listGrade(member));
+		
 		return "mypage/myMembership";
 	}
 
@@ -248,6 +224,7 @@ public class MemberController {
 		File copyFile = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + fileName);
 		file.transferTo(copyFile);
 		System.out.println("파일1개 추가!");
+		System.out.println("파일 이름 : " + fileName);
 		return fileName;
 	}
 

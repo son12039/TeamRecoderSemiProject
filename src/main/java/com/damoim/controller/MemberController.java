@@ -80,8 +80,8 @@ public class MemberController {
 		// 해당 id 이름의 회원 폴더 생성
 		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\member\\"+ mem.getId()+"\\");  
 		Files.createDirectories(directoryPath);
-		String  fileUrl = FileUpload(imgFile, mem.getId());
-		member.setMemberImg(fileUrl);
+		member.setMemberImg(FileUpload(imgFile, mem.getId()));
+		System.out.println("회원가입전 맴버 변수 체크 " + member);
 		service.signUp(member);	
 		
 		System.out.println(member);
@@ -158,6 +158,7 @@ public class MemberController {
 		File copyFile = new File("\\\\192.168.10.51\\damoim\\member\\"+ id + "\\" + fileName);
 		file.transferTo(copyFile);
 		System.out.println("파일1개 추가!");
+		System.out.println("파일 이름 : " + fileName);
 		return fileName;
 	}
 	/* 성철

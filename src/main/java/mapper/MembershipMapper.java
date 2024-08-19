@@ -29,20 +29,9 @@ public interface MembershipMapper {
 	List<MembershipUserList> MembershipAllInfo(int membershipCode);
 	void membershipApply(MemberListDTO member);
 	
-	List<MembershipUserList> grade(Member member);
+	List<MemberListDTO> grade(Member member);
 	void agreeMemeber(MemberListDTO member);
 	
-	List<TypeCategory> membershipType();
-	
-
-	
-	List<TypeCategory> membershipType1();
-	
-	 List<MembershipType> typeCheck(String value);
-	 
-	 int typeCount(int code);
-	 
-	 MembershipUserList typeHost (int code);
 	 
 	List<Integer> membershipCodeList(String id);
 	List<BasicRoomListVo> roomlist();

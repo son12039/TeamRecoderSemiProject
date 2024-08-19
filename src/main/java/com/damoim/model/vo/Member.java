@@ -1,14 +1,22 @@
 package com.damoim.model.vo;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.damoim.model.dto.MemberListDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @AllArgsConstructor @NoArgsConstructor 
-public class Member {
+@Data @AllArgsConstructor @NoArgsConstructor @Builder
+public class Member implements UserDetails {
     private String id; // 아이디
     private String pwd; // 비밀번호
     private String addr; // 주소
@@ -26,5 +34,35 @@ public class Member {
     private String memberLocation; // 유저선호지역
     private String memberType; // 유저 선호만남유형
     private MultipartFile file;
+    
+    private List<MemberListDTO> memberListDTO;
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		
+		return Collections.emptyList();
+	}
+
+	
+	@Override
+	public String getUsername() {
+		
+		return id;
+	}
+
+
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return pwd;
+	}
+
+
+	
+
+
+
+	
+	
     
 }

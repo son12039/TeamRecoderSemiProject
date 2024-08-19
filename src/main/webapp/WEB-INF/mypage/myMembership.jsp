@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+      <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,6 +41,9 @@
   </c:forEach>
   
    --%>
+   
+   <sec:authorize access="isAuthenticated()" var="principal">
+				<sec:authentication property="principal" var="member" />
      <c:set var="hasHost" value="${false}" />
 
     <!-- Iterate through memberships to check for 'host' -->
@@ -76,7 +81,7 @@
    <c:forEach items="${membership}" var="mem">
     
     <c:if test="${mem.listGrade == 'guest'}">
-    <a href="/${mem.membership.membershipCode}">
+   
   <div class="membership-each">
      <div><img  class="membership-img" src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"></div>
      <div class="membership-String">
@@ -84,7 +89,7 @@
      <div><p>${mem.membership.membershipInfo}</p></div>
      </div>
     </div>
-    </a>
+
     </c:if>
   
    </c:forEach>
@@ -127,6 +132,7 @@
    </c:forEach>
   </div>
   
+  </sec:authorize>
   
   <script src="${pageContext.request.contextPath}/js/myMembership.js">  
     </script>

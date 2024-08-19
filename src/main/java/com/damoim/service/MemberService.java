@@ -14,30 +14,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 //xml -> Mapper -> service -> controller
 
 @Service
-public class MemberService {
+public class MemberService  implements UserDetailsService{
 	
 	@Autowired
 	private MemberMapper mapper;
 	
-	private BCryptPasswordEncoder bcpe = new BCryptPasswordEncoder();
+	@Autowired
+	private MembershipService infoService;
 	
+	@Autowired
+	private PasswordEncoder bcpe;
 	
-	public Member login(Member vo) {
-		
-		Member mem = mapper.login(vo.getId());
-		System.out.println("로그인할때 확인" + mem);
-		
-		if(mem != null && bcpe.matches(vo.getPwd(), mem.getPwd())) {
-			System.out.println("세션에 mem 리턴?" + mem);
-		return mem;
-		}
-		return null;
-	}
 	public ArrayList<MemberListDTO> loginMemberMembership(Member member){
 		return mapper.loginMemberMembership(member);
 		
@@ -84,5 +80,18 @@ public class MemberService {
 		mapper.dummyUpdate(m);
 		
 		}
+	}
+	
+	@Override  //로그인하면 일로옴  
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		System.out.println("로그인 성공!!!");
+		System.out.println("유저네임 : " + username);
+		Member member = mapper.login(username);
+	 //  member.setMembershipList(infoService.grade(mapper.login(username)));
+	   member.setMemberListDTO(infoService.grade(mapper.login(username)));
+		
+	  System.out.println(member);
+		
+		return member;
 	}
 }

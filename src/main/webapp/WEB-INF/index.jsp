@@ -33,6 +33,7 @@ pageEncoding="UTF-8"%>
               </div>
             
               </sec:authorize>
+              
 				<sec:authorize access="isAuthenticated()" var="principal">
 				<sec:authentication property="principal" var="member" />
 				

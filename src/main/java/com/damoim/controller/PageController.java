@@ -31,13 +31,7 @@ public class PageController {
 		
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	//	Member member = (Member) authentication.getPrincipal();
 		System.out.println("인증인가? : " + authentication.getPrincipal());
-	//	System.out.println("인덱스에서 ! : " + member);
-		
-		//model.addAttribute("member", authentication.getPrincipal());
-		
-		
 		List<Integer> countList = new ArrayList(); // count 계산용 인덱스 번호담는 배열
 		model.addAttribute("list", service.allMembership()); // 현재 존재하는 모든 맴버쉽 정보가있는 배열		
 		for(int i = 0; i < service.allMembership().size(); i++) {

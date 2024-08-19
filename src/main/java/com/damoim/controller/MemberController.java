@@ -36,29 +36,10 @@ public class MemberController {
     private EmailService emailService; // 이메일 서비스
 	
 	
-	// 로그인 , 해당 회원 정보 , 가입 클럽 코드 및 등급을 세션에
     /*
      * 성일
-     * 
+     * 로그인 시큐리티 처리
      * */
-	/*
-	 * @ResponseBody
-	 * 
-	 * @PostMapping("/login") public boolean login(Member member, HttpServletRequest
-	 * request, Model model) { HttpSession session = request.getSession(); // 로그인 성공
-	 * ! if (service.login(member) != null) {
-	 * 
-	 * session.setAttribute("mem", service.login(member)); // 로그인 정보 세션에 // 내가 가입한
-	 * 클럽 정보 체크용
-	 * 
-	 * // 해당 id를 가진 맴버의 맴버쉽 의 모든정보 + 맴버, 등급 등등
-	 * System.out.println(infoService.grade(member));
-	 * 
-	 * session.setAttribute("membership", infoService.grade(member)); return true;
-	 * // 로그인 실패! } return false; }
-	 */
-	
-	// *** 회원가입 관련
 
 	/*
 	  * 성철
@@ -109,15 +90,9 @@ public class MemberController {
 	}
 	/*
 	 * 성일
-	 * 
+	 * 로그아웃 시큐리티
 	 * */
-	@GetMapping("/logout") // 로그아웃 메서드
-    public String logout(HttpServletRequest request) {
-		System.out.println("logout!!!!");
-		//HttpSession session = request.getSession();
-		//session.invalidate();
-		return "redirect:/";
-	}
+
 	/*
 	  * 성철
 	  * 단순히 더미데이터 비밀번호 처리

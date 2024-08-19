@@ -110,7 +110,7 @@ public class MemberController {
 	public String myMembership(Member member, Model model) {
 		
 		// 내 등급별 클럽
-		model.addAttribute("membership", infoService.grade(member));
+		model.addAttribute("membership", infoService.listGrade(member));
 		
 		return "mypage/myMembership";
 	}

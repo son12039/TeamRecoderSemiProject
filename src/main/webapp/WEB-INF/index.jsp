@@ -83,7 +83,7 @@ pageEncoding="UTF-8"%>
 						${countList.get(status.index)}/${id.membership.membershipMax}</h3>
 						<div id="host">
 						<c:choose>
-						<c:when test="${id.member.memberImg == null}">
+						<c:when test="${id.member.memberImg != null}">
 								<img class="user-img" src="http://192.168.10.51:8081/member/${id.member.id}/${id.member.memberImg}">
 						</c:when>
 						<c:otherwise>

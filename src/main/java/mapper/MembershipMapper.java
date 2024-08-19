@@ -30,7 +30,7 @@ public interface MembershipMapper {
 	void membershipApply(MemberListDTO member);
 	
 	List<MemberListDTO> grade(Member member);
-	
+	List<MembershipUserList> listGrade(Member member);
 	
 	void agreeMemeber(MemberListDTO member);
 	

@@ -61,6 +61,9 @@ public class MembershipService {
 	public List<MemberListDTO> grade(Member member){
 		return mapper.grade(member);
 	}
+	public List<MembershipUserList> listGrade(Member member){
+		return mapper.listGrade(member);
+	}
 	
 	public void agreeMemeber(MemberListDTO member) {
 		mapper.agreeMemeber(member);

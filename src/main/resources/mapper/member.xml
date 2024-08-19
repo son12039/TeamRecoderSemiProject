@@ -75,7 +75,7 @@
 	<!-- 일단 memberInfo만 수정 -->
 	<update id="updateMember" parameterType="member">
 	UPDATE member
-		SET member_info = #{memberInfo}
+		SET member_img = #{memberImg}, member_info =#{memberInfo}
 	WHERE id= #{id}
 	</update>
 	

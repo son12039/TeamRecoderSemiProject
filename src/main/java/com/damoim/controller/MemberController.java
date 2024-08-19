@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.damoim.model.vo.Image;
 import com.damoim.model.vo.Member;
 import com.damoim.service.EmailService;
 import com.damoim.service.MemberService;
@@ -189,13 +190,14 @@ public class MemberController {
 		return true;
 	}
 	
+	
+	
+	// 썸네일 업데이트
 	@PostMapping("/updateMember")
-	public String updateMember(Member vo,HttpServletRequest request,String text) {
-		HttpSession session = request.getSession();
-		Member mem = (Member) session.getAttribute("mem");
-		vo.setId(mem.getId());
-		
-		System.out.println(vo);
+	public String updateMember(Member vo ,HttpServletRequest request) {
+		System.out.println("업데이트멤버 vo정보: " + vo);
+		System.out.println(vo.getFile().isEmpty());
+		service.updateMember(vo);
 		
 		
 		

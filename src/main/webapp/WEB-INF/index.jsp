@@ -32,7 +32,7 @@ pageEncoding="UTF-8"%>
 					</div>
 				</c:if>
 				<c:if test="${not empty mem}">
-				<div> ${mem.nickname}
+				<div> ${mem.nickname}님 환영합니다!
 				<img class="user-img" src="http://192.168.10.51:8081/member/${mem.id}/${mem.memberImg}">
 				</div>
 					<div class="header_right_menu">

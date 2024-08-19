@@ -63,7 +63,10 @@ public class PageController {
 	// (동문)
     // 마이페이지(일단은 수정기능있는 페이지 이동)
 	@GetMapping("/mypage")
-	public String mypage() {
+	public String mypage(Model model) {
+		
+		
+		
 		return "mypage/mypage";
 	}
 

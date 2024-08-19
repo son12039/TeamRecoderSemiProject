@@ -132,7 +132,6 @@ addrDetail.addEventListener("input", function() {
 // 이메일 체크
 email.addEventListener("input", function() {
 	const regExp = /^[!-~]+@[!-~]+$/;
-
 	if (regExp.test(email.value)) {
 		emailCheck.style.color = "green";
 		emailCheck.innerHTML = "OK";

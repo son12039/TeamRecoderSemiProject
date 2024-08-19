@@ -19,9 +19,9 @@
 		<a href="/updateCheck">중요정보 수정</a>
 	</nav>
 
-	<form action="updateMember" id ="updateMember">
+	<form action="updateMember" id ="updateMember" enctype="multipart/form-data">
 		<div class="info">
-		<img src=""/>
+		<img src="http://192.168.10.51:8081/${memberImg.memberImg }">
 			<div class="text">성별</div>
 			<c:choose>
 				<c:when test="${mem.gender} === 'M'">

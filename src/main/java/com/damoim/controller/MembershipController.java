@@ -162,18 +162,17 @@ public class MembershipController {
 	
 
 	
-	@PostMapping("/updateMembership")
-	public void updateMembership(HttpServletRequest request, Membership vo) {
-		HttpSession session = request.getSession();
-		Member mem = (Member) session.getAttribute("mem");
-		
-		vo.setMembershipCode(0);
-		
-		System.out.println(mem.getId());
-		
-		
-		
-	}
+//	@PostMapping("/updateMembership")
+//	public void updateMembership(HttpServletRequest request, Membership vo) {
+//		System.out.println(vo);
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//	}
 	
 	
 	

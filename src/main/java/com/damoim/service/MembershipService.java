@@ -80,4 +80,18 @@ public class MembershipService {
 	public List<BasicRoomListVo> roomlist() {
 		return mapper.roomlist();
 	}
+	
+	
+	
+	public void updateMembership(Membership membership) {
+		mapper.updateMembership(membership);
+	}
+	
+	
+	
+	
 }
+
+
+
+

@@ -30,11 +30,12 @@ public interface MemberMapper {
 	Member memberInfo(Member member);
 	String grade(Member member);
 	
-	// 업데이트
+	// 업데이트 ===============================
+	void updateMember(Member member);
 	Member updateCheck(Member vo, Member mem);
 	void updateMemberInfo(Member member);
 	void addrUpdate(Member member);
-	
+	boolean nicknameDupCheck(Member vo);
 	
 	
 	

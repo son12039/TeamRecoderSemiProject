@@ -70,12 +70,14 @@ public class MemberService {
 	}
 	
 	
-	// 업데이트 관련 서비스 =====================
+	// 업데이트 관련 서비스 =======================================
+	// 중요도 떨어지는 정보 수정 메서드
+	public void updateMember(Member member) {
+		mapper.updateMember(member);
+	}
+	
 	public boolean updateCheck(Member vo,String pwdCheck) {
-		
-//		System.out.println("암호화한 비밀번호 : " + vo.getPwd());
-//		System.out.println("입력된 비밀번호 : " + pwdCheck);
-		
+
 		if(bcpe.matches(pwdCheck,vo.getPwd())) {
 			System.out.println("서비스에서 true 리턴!!!");
 			return true;
@@ -85,17 +87,20 @@ public class MemberService {
 		}
 	}
 	
+	// 비밀번호 재설정시 암호화
 	public void updateMemberInfo(Member member) {
-//		비밀번호 재설정시 다시 암호화
 		member.setPwd(bcpe.encode(member.getPwd()));
 		mapper.updateMemberInfo(member);
 	}
+	// 주소 업데이트
 	public void addrUpdate(Member member) {
 		 mapper.addrUpdate(member);
 	}
-	
-	
-	// ======================================
+	// 닉네임 중복 체크
+	public boolean nicknameDupCheck(Member vo) {
+		return mapper.nicknameDupCheck(vo);
+	}
+	// =========================================================
 	
 	
 	

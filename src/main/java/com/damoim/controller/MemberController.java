@@ -99,8 +99,8 @@ public class MemberController {
 		// 해당 id 이름의 회원 폴더 생성
 		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\member\\" + mem.getId() + "\\");
 		Files.createDirectories(directoryPath);
-		String fileUrl = FileUpload(imgFile, mem.getId());
-		member.setMemberImg(fileUrl);
+		
+		member.setMemberImg(FileUpload(imgFile, mem.getId()));
 		service.signUp(member);
 
 		System.out.println(member);
@@ -128,7 +128,7 @@ public class MemberController {
 		service.dummyUpdate();
 		return "redirect:/";
 	}
-
+	
 	/*
 	 * 성철 내가 가입한 클럽을 가입된, 관리자or호스트, 가입대기중 클럽 조회가능한 페이지이동
 	 */
@@ -163,31 +163,53 @@ public class MemberController {
 	/*
 	 * 성철 로그인 X 한 상태에서 유저에게 ID랑 이메일 정보를 받아서 일치할시에 그 유저가 가입할때 넣은 이메일주소에 임시 비밀번호 발송 ->
 	 * 암호화 -> DB변경 (이메일서비스)
-	 * 
-	 * 
-	 * (동문)
 	 */
 
-	 
+	@ResponseBody
 	@PostMapping("/updateMemberInfo")
-	public String updateMemberInfo(Member vo, Model model, HttpServletRequest request, String addrDetail) {
+	public boolean updateMemberInfo(Member vo, Model model, HttpServletRequest request, String addrDetail, String nickname) {
 		HttpSession session = request.getSession();
 		Member mem = (Member) session.getAttribute("mem");
 		vo.setId(mem.getId());
-
+		
 		String addr = vo.getAddr();
-
 		addr += "#" + addrDetail;
-		System.out.println("addr체크 : " + addr);
-
 		vo.setAddr(addr);
-
+		vo.setNickname(nickname);
+		System.out.println("vo.getNickname : " + vo.getNickname()); // 닉네임 받아온거 확인
+		
+		// 닉네임 중복확인
+		if(service.nicknameDupCheck(vo)) {
+	        System.out.println("닉네임 중복");
+	        return false;
+		}
 		session.setAttribute("mem", vo);
 		service.addrUpdate(vo);
 		service.updateMemberInfo(vo);
-
-		return "redirect:/";
+		return true;
 	}
+	
+	@PostMapping("/updateMember")
+	public String updateMember(Member vo,HttpServletRequest request,String text) {
+		HttpSession session = request.getSession();
+		Member mem = (Member) session.getAttribute("mem");
+		vo.setId(mem.getId());
+		
+		System.out.println(vo);
+		
+		
+		
+		return "redirect:/mypage";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	@PostMapping("/sendEmail")
 	public String sendEmail(@RequestParam("id") String id, @RequestParam("email") String email, Model model) {

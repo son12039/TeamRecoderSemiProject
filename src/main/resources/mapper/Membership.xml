@@ -158,8 +158,8 @@
 		membership_code =
 		#{membershipCode}
 	</update>
-	
-	<!-- 멤버쉽 업데이트 -->
+	<!-- 멤버쉽 업데이트 ==================== -->
+
 	<update id="updateMembership" parameterType="Member" >
 		UPDATE membership
 			SET membership_name = #{membershipName} , 
@@ -167,10 +167,13 @@
 				membership_max = #{membershipMax}
 			WHERE id = #{id} AND membership_code =
 		#{membershipCode}
-		
 	</update>
 	
-
+	
+	
+	
+	
+	<!-- ================================= -->
 	<select id="membershipCodeList" parameterType="String"
 		resultType="Integer">
 		SELECT membership_code

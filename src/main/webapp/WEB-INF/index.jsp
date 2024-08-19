@@ -37,7 +37,7 @@ pageEncoding="UTF-8"%>
 				</div>
 					<div class="header_right_menu">
 						<a href="/mypage">내 정보</a> 
-						<a href="/updateMembership">클럽 업데이트</a>
+						<a href="/updateMembership">내 클럽 업데이트</a>
 						<a href="/myMembership?id=${mem.id}">
 						나의 모임</a> <a href="/logout">로그아웃</a>
 					</div>

@@ -159,6 +159,28 @@ public class MembershipController {
 		service.membershipApply(member);
 		return "redirect:/";
 	}
+	
+
+	
+	@PostMapping("/updateMembership")
+	public void updateMembership(HttpServletRequest request, Membership vo) {
+		HttpSession session = request.getSession();
+		Member mem = (Member) session.getAttribute("mem");
+		
+		vo.setMembershipCode(0);
+		
+		System.out.println(mem.getId());
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 	/* 성철
 	 * 파일 삽입 메서드 해당맴버쉽 프로필사진 !!
 	 * 

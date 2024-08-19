@@ -22,7 +22,7 @@ public class ChattingRoomController {
 	@Autowired
 	private ChattingController main; 
 
-	// 여기 매핑되는 모든 요청은 chatting.jsp에 연결되어 있는 js를 통해서 옴
+	// 여기 모든 요청은 chatting.jsp에 연결되어 있는 js를 통해서 옴
 	
 	// 방 들어가기 어떤 사용자가 클럽채팅방에 들어오려고 시도하면 입장하려는 방번호로 방을 찾고, 회원닉네임을 가져와 쿠키에 저장함
 	@GetMapping("/chattingRoom-enter")
@@ -31,9 +31,9 @@ public class ChattingRoomController {
 		ChattingRoomDAO chattingRoom = main.findRoom(roomNumber);
 
 		if (chattingRoom == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 없는 방이라고 클라한테 알려줌
 		} else {
-			main.enterChattingRoom(chattingRoom, nickname);
+			main.enterChattingRoom(chattingRoom, nickname); 
 			return new ResponseEntity<>(chattingRoom, HttpStatus.OK);
 		}
 	}
@@ -50,7 +50,7 @@ public class ChattingRoomController {
 
 		String roomNumber = map.get("roomNumber");
 		String nickname = map.get("nickname");
-
+		
 		// 방목록에서 방번호에 맞는 유저목록 가져오기
 		ChattingRoomDAO chattingRoom = main.findRoom(roomNumber);
 		List<String> users = chattingRoom.getUsers();

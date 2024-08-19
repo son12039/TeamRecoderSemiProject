@@ -30,7 +30,6 @@ public interface MembershipMapper {
 	List<MembershipUserList> grade(Member member);
 	void agreeMemeber(MemberListDTO member);
 	
-	List<Integer> membershipCodeList(String id);
 	List<BasicRoomListVo> roomlist();
 	
 	void membershipImg(Membership membership);

@@ -64,10 +64,6 @@ public class MembershipService {
 		
 	}
 	
-	public List<Integer> membershipCodeList(String id) {
-		return mapper.membershipCodeList(id);
-		
-	}
 	
 	
 	public List<BasicRoomListVo> roomlist() {

@@ -1,45 +1,29 @@
 $(document).ready(function() {
 	const urlParams = new URL(location.href).searchParams;
 	const membershipCode = urlParams.get('membershipCode') * 1;
-	console.log(membershipCode);
 	// 채팅방 목록 불러오기
 	const chattingRoomList = function() {
-		console.log("방검색시작");
 
 		$.ajax({ url: "/chattingRoomList", type: "GET", })
 			.then(function(roomList) {
-				console.log(roomList);
-				listHtml(roomList);
+				
+				let listHtml = "";
+				for (let i = 0; i < roomList.length; i++) {
+					if (membershipCode == roomList[i].roomNumber) {
+						listHtml += `
+				 <li data-room_number=${roomList[i].roomNumber}>
+					<span class="chat_title">${roomList[i].roomName}</span>
+					<span class="chat_count">${roomList[i].users.length}명</span>
+				</li>`;						 
+					 break;}
+				}
+
+				$("main ul").html(listHtml);
 			})
 			.fail(function() {
 				alert("방목록 불러오기 오류");
 			});
 	};
-
-	// 방 목록 그리기
-	const listHtml = function(roomList) {
-		let listHtml = "";
-		// 회원 정보를 가져오는 AJAX 호출
-		$.ajax({
-			url: "/getMemberInfo",
-			type: "GET",
-			success: function(data) {
-				for (let i = 0; i < roomList.length; i++) {
-					if (`${roomList[i].roomNumber}` == membershipCode) {
-						listHtml += `
-			   <li data-room_number=${roomList[i].roomNumber}>
-					<span class="chat_title">${roomList[i].roomName}</span>
-					<span class="chat_count">${roomList[i].users.length}명</span>
-			  </li>`;  
-				break;	}
-				}
-				let i = membershipCode
-
-				$("main ul").html(listHtml);
-			}
-		});
-	};
-
 	const socket = new SockJS('/websocket');
 	const stomp = Stomp.over(socket);
 	stomp.debug = null; // stomp 콘솔출력 X
@@ -61,8 +45,6 @@ $(document).ready(function() {
 		$("main").show();
 		subscribeCancle();
 
-		 
-	 
 		const subscribeId = stomp.subscribe("/topic/roomList", function() {
 			chattingRoomList();
 		});
@@ -87,15 +69,6 @@ $(document).ready(function() {
 			setRoomNumber: (set) => { roomNumber = set; },
 		};
 	})();
-
-	const errorMSG = function(result) {
-		if (result.status == 404) {
-			alert("없는 방이유");
-		} else {
-			alert("방이 터진 것 같아유");
-		}
-		location.href = "/";
-	};
 
 	// 참가자 그리기
 	const userList = function(users) {
@@ -251,8 +224,8 @@ $(document).ready(function() {
 			});
 	};
 
- 
-	$(document).on("dblclick", "main li", function() {
+
+	$(document).on("click", "main li", function() {
 		const roomNumber = $(this).data("room_number");
 		enterChattingRoom(roomNumber);
 	});
@@ -291,22 +264,20 @@ $(document).ready(function() {
 							info.setNickname("");
 						})
 						.fail(function() {
-							errorMSG();
+							alert("방이 터진 것 같아요");
 						});
 				}
 			});
 	});
-
-	 
 	// css용 오류나면 제일 먼저 치워버리기@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 	const characters = document.querySelectorAll('.character');
 
-	const speed = 2; 
-	const boundaryPadding = 50; 
+	const speed = 2;
+	const boundaryPadding = 50;
 
 	function getRandomDirection() {
-		const angle = Math.random() * 2 * Math.PI; 
+		const angle = Math.random() * 2 * Math.PI;
 		return {
 			x: Math.cos(angle) * speed,
 			y: Math.sin(angle) * speed
@@ -314,7 +285,7 @@ $(document).ready(function() {
 	}
 
 	function getRandomColor() {
-		const r = Math.floor(Math.random() * 256); 
+		const r = Math.floor(Math.random() * 256);
 		const g = Math.floor(Math.random() * 256);
 		const b = Math.floor(Math.random() * 256);
 		return `rgb(${r},${g},${b})`;
@@ -328,17 +299,16 @@ $(document).ready(function() {
 		// 화면 경계를 고려하여 방향 변경
 		if (newX < 0 || newX + rect.width > window.innerWidth) {
 			direction.x *= -1;
-			character.style.backgroundColor = getRandomColor(); // 방향 변경 시 색상 랜덤 변경
+			character.style.backgroundColor = getRandomColor();
 		}
 		if (newY < 0 || newY + rect.height > window.innerHeight) {
 			direction.y *= -1;
-			character.style.backgroundColor = getRandomColor(); // 방향 변경 시 색상 랜덤 변경
+			character.style.backgroundColor = getRandomColor();
 		}
 
 		character.style.left = `${rect.left + direction.x}px`;
 		character.style.top = `${rect.top + direction.y}px`;
 
-		// Recursive update
 		requestAnimationFrame(() => updatePosition(character, direction));
 	}
 
@@ -346,7 +316,7 @@ $(document).ready(function() {
 		const direction = getRandomDirection();
 		character.style.left = `${Math.random() * (window.innerWidth - 50)}px`;
 		character.style.top = `${Math.random() * (window.innerHeight - 50)}px`;
-		character.style.backgroundColor = getRandomColor(); // 초기 색상 랜덤 설정
+		character.style.backgroundColor = getRandomColor();
 		updatePosition(character, direction);
 	});
 	// css용 오류나면 제일 먼저 치워버리기@@@@@@@@@@@@@@@@@@@@@@@@@@

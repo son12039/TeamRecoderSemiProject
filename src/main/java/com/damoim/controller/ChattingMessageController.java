@@ -11,19 +11,17 @@ import com.damoim.model.dto.MessageDAO;
 
 @Controller
 public class ChattingMessageController {
-	
-	/*
-	 * 정배
-	 * */
+	// chatting.js에서 호출되는 메서드들
 
-	//  방목록 업데이트
+	// 채팅방 목록 업데이트용
+	// getmapping("/뭐시기") 리턴 "/"하는 얘랑 똑같음!
 	@MessageMapping("/socket/roomList")
 	@SendTo("/topic/roomList")
-	public String roomList() {
-		return "";
+	public void roomList() {
 	}
 
-	// 클럽코드가 roomNumber인 클럽채팅방에서 메세지를 보내면 그 클럽코드이름으로된 메세지가 오고, 그 메세지를 딸려온 클럽코드이름의 채팅방에 있는 다른 사용자에게 뿌리는 기능
+	// 클럽코드가 roomNumber인 클럽채팅방에서 메세지를 보내면 그 클럽코드이름으로된 메세지가 오고, 
+	// 그 메세지를 딸려온 클럽코드이름의 채팅방에 있는 다른 사용자에게 뿌리는 기능
 	@MessageMapping("/socket/sendMessage/{roomNumber}")
 	@SendTo("/topic/message/{roomNumber}")
 	public MessageDAO sendMessage(@DestinationVariable String roomNumber, MessageDAO message) {

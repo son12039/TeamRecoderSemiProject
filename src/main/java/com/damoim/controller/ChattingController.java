@@ -32,23 +32,12 @@ public class ChattingController {
     @Autowired
     private MembershipService service;
 
-    // 채팅방 목록 모든 채팅관련 메서드와 접근할 수 있음
+    // 채팅방 목록 : 모든 채팅관련 메서드와 접근할 수 있음
     public static LinkedList<ChattingRoomDAO> chattingRoomList = new LinkedList<>();
 
-    // 모든 클럽정보를 가져와서 클럽마다 채팅서버1개씩 생성, 서버를 처음 열 때만 작동함
-    public void basic() throws Exception {
-        List<BasicRoomListVo> list = service.roomlist();  
-        for (BasicRoomListVo vo : list) {
-            ChattingRoomDAO chattingRoom = ChattingRoomDAO.builder()
-                .roomNumber(String.valueOf(vo.getMembershipCode()))
-                .users(new LinkedList<>())
-                .roomName(vo.getMembershipName())
-                .build();
-            chattingRoomList.add(chattingRoom);
-        }
-    }
+    
 
-    // 채팅방입장 할 때 어떤 방으로 들어갈 지 찾아주는 기능
+    // 방 입출입 때 필요함!
     public ChattingRoomDAO findRoom(String roomNumber) {
         ChattingRoomDAO room = ChattingRoomDAO.builder().roomNumber(roomNumber).build();
         int index = chattingRoomList.indexOf(room);
@@ -135,26 +124,20 @@ public class ChattingController {
                 return "chatting/chatting";
 //        return "chatPage"; // 적절한 JSP 페이지 반환
     }
-
-
-    // 회원 정보 조회
-    @GetMapping("/getMemberInfo")
-    public ResponseEntity<ArrayList<Integer>> idreturn(HttpServletRequest request) throws Exception {
-        HttpSession session = request.getSession();
-        Member a = (Member) session.getAttribute("mem");
-        if(a!=null) {
-        	  ArrayList<Integer> list = (ArrayList<Integer>) service.membershipCodeList(a.getId());
-              return new ResponseEntity<>(list, HttpStatus.OK);
-        }
-		return null;
-
-    }
-
+    
     // 채팅방 목록
+    // 모든 클럽정보를 가져와서 클럽마다 채팅서버1개씩 생성, 서버를 처음 작동했을 때만 작동함
     @GetMapping("/chattingRoomList")
     public ResponseEntity<?> chattingRoomList() throws Exception {
-        if (chattingRoomList.size() < 3) {
-            basic();
+        if (chattingRoomList.size() < 3) { 
+            for (BasicRoomListVo vo : service.roomlist()) {
+                ChattingRoomDAO chattingRoom = ChattingRoomDAO.builder()
+                    .roomNumber(String.valueOf(vo.getMembershipCode()))
+                    .users(new LinkedList<>())
+                    .roomName(vo.getMembershipName()+" (메인 채팅방)")
+                    .build();
+                chattingRoomList.add(chattingRoom);
+            }
         }
         return new ResponseEntity<>(chattingRoomList, HttpStatus.OK);
     }
@@ -169,8 +152,10 @@ public class ChattingController {
 
     // 새 채팅방 만들기
     @PostMapping("/chattingRoom")
-    public ResponseEntity<?> chattingRoom(@RequestParam("roomName") String roomName, @RequestParam("nickname") String nickname) throws Exception {
-        // 방을 만들고 채팅방 목록에 추가
+    public ResponseEntity<?> chattingRoom(@RequestParam("roomName") String roomName,HttpServletRequest request) throws Exception {
+    	HttpSession session = request.getSession();
+    	 Member nick = (Member) session.getAttribute("mem");
+    	 System.out.println(roomName+" : "+nick.getNickname());
         String roomNumber = UUID.randomUUID().toString(); // UUID를 문자열로 사용
         ChattingRoomDAO chattingRoom = ChattingRoomDAO.builder()
             .roomNumber(roomNumber)
@@ -180,7 +165,7 @@ public class ChattingController {
 
         chattingRoomList.add(chattingRoom);
         // 방 입장하기
-        enterChattingRoom(chattingRoom, nickname);
+        enterChattingRoom(chattingRoom, nick.getNickname());
         return new ResponseEntity<>(chattingRoom, HttpStatus.OK);
     }
 }

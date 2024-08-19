@@ -194,37 +194,7 @@ public class MembershipController {
 	
 	}
 	
-	@ResponseBody
-	@GetMapping("/type")
-	public List<MembershipTypeDTO> typeCheck(@RequestParam String value) {
-
-	   System.out.println(value);
-		
-		List<MembershipTypeDTO> dtoList = new ArrayList();
-		
-		
-		service.typeCheck(value);
-		System.out.println(service.typeCheck(value));
-		// 출력된 결과를 DTO에 추가함 
-		// 각 멤버쉽 코드를 추출해 반복문으로 카운트를 돌린후 DTO에 추가함 
-		// 각 DTO들을 DTO 리스트에 넣어서 리턴 
-		for(int i=0; i<service.typeCheck(value).size(); i++) {
-			MembershipTypeDTO dto = new MembershipTypeDTO();
-		 int asd =	service.typeCheck(value).get(i).getMembership().getMembershipCode();
-	            dto.setMembership(service.typeCheck(value).get(i).getMembership());
-	            dto.setCount(service.typeCount(asd));
-	            dto.setMember(service.typeHost(asd).getMember());
-	            dtoList.add(dto);
-	            System.out.println("typeHost : "+ service.typeHost(asd).getMember().getName());
-	            
-		}
-		
-		
-		System.out.println(dtoList);
-	//	System.out.println(service.typeCheck(value).get(0).getMembership().getMembershipCode());
-		
-		return dtoList;
-	}
+	
 	
 	
 	

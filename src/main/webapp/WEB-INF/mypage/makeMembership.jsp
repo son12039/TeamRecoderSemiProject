@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%@ taglib prefix="c"
 uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -20,6 +21,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     </style>
   </head>
   <body>
+  	<sec:authorize access="isAuthenticated()" var="principal">
+				<sec:authentication property="principal" var="member" />
+				
     <form action="/makeMembership" method="post" enctype="multipart/form-data">
       클럽명 : <input type="text" name="membershipName" /> 사진첨부:
       <input type="file" name="file" accept="image/*" /> 클럽소개 :<input
@@ -27,11 +31,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
         name="membershipInfo"
       />
       최대 인원 : <input type="text" name="membershipMax" />
-      <h2>${mem.id}</h2>
-      <input type="hidden" name="id" value="${mem.id}" />
+      <h2>${member.id}</h2>
+      <input type="hidden" name="id" value="${member.id}" />
       <input type="hidden" name="listGrade" value="host" />
       <button type="submit">클럽생성</button>
     </form>
+    </sec:authorize>
+    <!-- 
     <script>
       $(document).ready(function () {
         // 주 장르에 따른 세부 장르 목록
@@ -82,6 +88,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           }
         });
       });
-    </script>
+    </script>-->
   </body>
 </html>

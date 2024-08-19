@@ -35,7 +35,7 @@ public class PageController {
 		System.out.println("인증인가? : " + authentication.getPrincipal());
 	//	System.out.println("인덱스에서 ! : " + member);
 		
-		model.addAttribute("member", authentication.getPrincipal());
+		//model.addAttribute("member", authentication.getPrincipal());
 		
 		
 		List<Integer> countList = new ArrayList(); // count 계산용 인덱스 번호담는 배열

@@ -33,7 +33,16 @@ pageEncoding="UTF-8"%>
 				</c:if>
 				<c:if test="${not empty mem}">
 				<div> ${mem.nickname}
-				<img class="user-img" src="http://192.168.10.51:8081/member/${mem.id}/${mem.memberImg}">
+				<c:choose>
+						<c:when test="${mem.memberImg == null}">
+								<img class="user-img" src="http://192.168.10.51:8081/member/${mem.id}/${mem.memberImg}">
+						</c:when>
+						<c:otherwise>
+							<img class="user-img"
+								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+						</c:otherwise>
+					</c:choose>
+				
 				</div>
 					<div class="header_right_menu">
 						<a href="/update">마이페이지</a> <a href="/myMembership?id=${mem.id}">나의
@@ -58,22 +67,24 @@ pageEncoding="UTF-8"%>
 				<div class="membership-info">
 					<h1 class="membership-name">${id.membership.membershipName}</h1>
 					<h2>${id.membership.membershipInfo}</h2>
+					<h3>멤버수 : 
+						${countList.get(status.index)}/${id.membership.membershipMax}</h3>
+						<div id="host">
+						<c:choose>
+						<c:when test="${id.member.memberImg == null}">
+								<img class="user-img" src="http://192.168.10.51:8081/member/${id.member.id}/${id.member.memberImg}">
+						</c:when>
+						<c:otherwise>
+							<img class="user-img"
+								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+						</c:otherwise>
+					</c:choose>
 					<h2>호스트 : ${id.member.nickname}</h2>
 					<input type="hidden" name="code"
 						value="${id.membership.membershipCode}">
-					<h3>멤버수 : 
-						${countList.get(status.index)}/${id.membership.membershipMax}</h3>
+					
 
-
-					<c:choose>
-						<c:when test="${id.member.memberImg == ''}">
-							<img class="user-img"
-								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
-						</c:when>
-						<c:otherwise>
-							<img class="user-img" src="http://192.168.10.51:8081/member/${id.member.id}/${id.member.memberImg}">
-						</c:otherwise>
-					</c:choose>
+					</div>
 				</div>
 			</div>
 

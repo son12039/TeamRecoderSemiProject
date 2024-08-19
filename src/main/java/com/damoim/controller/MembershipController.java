@@ -157,7 +157,7 @@ public class MembershipController {
 	public String membershipApply(MemberListDTO member) {
 		// 클럽 가입 신청
 		service.membershipApply(member);
-		return "redirect:/";
+		return "redirect:/" + member.getMembershipCode();
 	}
 	/* 성철
 	 * 파일 삽입 메서드 해당맴버쉽 프로필사진 !!

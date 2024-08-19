@@ -336,6 +336,10 @@ INSERT INTO type_category (type_la_name, type_s_name) VALUES
 ('사회적 활동', '커뮤니티 행사'),
 ('사회적 활동', '기타');
 
+INSERT INTO type_category (type_la_name, type_s_name) VALUES
+('반려동물', '반려견'),
+('반려동물', '반려묘'),
+('반려동물', '기타');
 
 
 

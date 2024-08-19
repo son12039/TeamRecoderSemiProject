@@ -139,7 +139,7 @@
 
 
 	<select id="grade" parameterType="Member"
-		resultMap="membershipmap">
+		resultMap="memberListmap">
 		SELECT *
 		FROM membership_user_list
 		JOIN membership USING

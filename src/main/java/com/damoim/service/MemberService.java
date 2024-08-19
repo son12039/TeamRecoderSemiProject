@@ -87,7 +87,8 @@ public class MemberService  implements UserDetailsService{
 		System.out.println("로그인 성공!!!");
 		System.out.println("유저네임 : " + username);
 		Member member = mapper.login(username);
-	   member.setMembershipList(infoService.grade(mapper.login(username)));
+	 //  member.setMembershipList(infoService.grade(mapper.login(username)));
+	   member.setMemberListDTO(infoService.grade(mapper.login(username)));
 		
 	  System.out.println(member);
 		

@@ -35,7 +35,7 @@ pageEncoding="UTF-8"%>
               </sec:authorize>
 				<sec:authorize access="isAuthenticated()" var="principal">
 				<sec:authentication property="principal" var="member" />
-				
+				<p>${member}</p>
 				<div> ${member.nickname}
 				<c:choose>
 						<c:when test="${member.memberImg == null}">
@@ -92,6 +92,8 @@ pageEncoding="UTF-8"%>
 	<a href="/dummyUpdate">!!!!!!!!!!!주의!!!!!!!!!!!! 기존 유저들 비밀번호 암호화하는거임 건드리지 말것</a>
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="login.js"></script>
+	
+	
 	
 </body>
 </html>

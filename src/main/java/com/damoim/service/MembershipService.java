@@ -58,7 +58,7 @@ public class MembershipService {
 		mapper.host(list);
 	}
 	
-	public List<MembershipUserList> grade(Member member){
+	public List<MemberListDTO> grade(Member member){
 		return mapper.grade(member);
 	}
 	

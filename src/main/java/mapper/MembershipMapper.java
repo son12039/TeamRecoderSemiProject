@@ -29,7 +29,9 @@ public interface MembershipMapper {
 	List<MembershipUserList> MembershipAllInfo(int membershipCode);
 	void membershipApply(MemberListDTO member);
 	
-	List<MembershipUserList> grade(Member member);
+	List<MemberListDTO> grade(Member member);
+	
+	
 	void agreeMemeber(MemberListDTO member);
 	
 	List<TypeCategory> membershipType();

@@ -9,7 +9,8 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -120,9 +121,10 @@ public class MemberController {
 
 	// (동문) 비밀번호 확인후 update 페이지 이동
 	@PostMapping("/updateCheck")
-	public String updateCheck(HttpServletRequest request, String pwdCheck) {
-		HttpSession session = request.getSession();
-		Member mem = (Member) session.getAttribute("mem");
+	public String updateCheck( String pwdCheck) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) authentication.getPrincipal();
 //		System.out.println("pwdCheck : " + pwdCheck);
 //
 //		System.out.println("암호화된 비밀번호 : " + mem.getPwd());
@@ -144,7 +146,7 @@ public class MemberController {
 
 	@ResponseBody
 	@PostMapping("/updateMemberInfo")
-	public boolean updateMemberInfo(Member vo, Model model, HttpServletRequest request, String addrDetail, String nickname) {
+	public boolean updateMemberInfo(Member vo, Model model, String addrDetail, String nickname) {
 		HttpSession session = request.getSession();
 		Member mem = (Member) session.getAttribute("mem");
 		vo.setId(mem.getId());
@@ -170,7 +172,7 @@ public class MemberController {
 	
 	// 썸네일 업데이트
 	@PostMapping("/updateMember")
-	public String updateMember(Member vo ,HttpServletRequest request) {
+	public String updateMember(Member vo ) {
 		System.out.println("업데이트멤버 vo정보: " + vo);
 		System.out.println(vo.getFile().isEmpty());
 		service.updateMember(vo);

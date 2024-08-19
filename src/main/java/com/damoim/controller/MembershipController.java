@@ -63,24 +63,24 @@ public class MembershipController {
 	 * 
 	 * */
 	@GetMapping("/{membershipCode}") // 클럽 홍보 페이지 각각 맞춰 갈수있는거
-	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		model.addAttribute("mem", authentication.getPrincipal());
-		System.out.println("호스트정보" + service.main(membershipCode).getListCode());
+	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model
+			) {
+		System.out.println(service.main(membershipCode).getListCode());
 		// 홍보페이지에 membership 관련 정보 + 호스트 정보
 		model.addAttribute("main", service.main(membershipCode));
 		// 현재 가입된 인원수
-		model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));
+		model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));	
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("클럽 홍보 페이지 컨트롤러 왔을때 " + authentication.getName().equals("anonymousUser"));
+	if(	!authentication.getName().equals("anonymousUser") ) {
+		Member mem = (Member) authentication.getPrincipal();
 		
-		System.out.println("로그인 유무 체크");
-		if(!authentication.getName().equals("anonymousUser")) {
-			System.out.println("맴버객체 생성전");
-			Member member = (Member) authentication.getPrincipal();
-			memberListDTO.setId(member.getId());
+		 // 로그인 유무 확인 . 널포인트 에러 방지
+			// 가입한 클럽 인지 확인을 위한 아이디 정보 가져오기
+			memberListDTO.setId(mem.getId());
 			// 해당클럽 안에서의 등급 가져오기
 			model.addAttribute("checkMember", service.checkMember(memberListDTO));
-		}
-		System.out.println("리턴까진 애러 X");
+	}
 		return "mainboard/main";
 	}
 	/*

@@ -39,7 +39,7 @@ pageEncoding="UTF-8"%>
 				<p>${member}</p>
 				<div> ${member.nickname}
 				<c:choose>
-						<c:when test="${member.memberImg == null}">
+						<c:when test="${member.memberImg != null}">
 								<img class="user-img" src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
 						</c:when>
 					

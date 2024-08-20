@@ -9,6 +9,7 @@ import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipType;
 import com.damoim.model.vo.MembershipUserList;
+import com.damoim.model.vo.Paging;
 import com.damoim.model.vo.TypeCategory;
 
 import mapper.MembershipMapper;
@@ -20,9 +21,9 @@ public class MembershipService {
 	
 	
 	
-	public List<MembershipUserList> allMembership(){
-		
-		return mapper.allMembership();
+	public List<MembershipUserList> allMembership(Paging paging){
+		paging.setOffset(paging.getLimit() * (paging.getPage() - 1));
+		return mapper.allMembership(paging);
 	}
 	public List<MembershipUserList> MembershipAllInfo(int membershipCode){
 		
@@ -76,5 +77,9 @@ public class MembershipService {
 
 	public List<BasicRoomListVo> roomlist() {
 		return mapper.roomlist();
+	}
+	public List<MembershipUserList> list(Paging paging) {
+		
+		return mapper.allMembership(paging);
 	}
 }

@@ -44,14 +44,15 @@
 		<result column="membership_name" property="membershipName" />
 	</resultMap>
 	
-	<select id="allMembership" resultMap="listMap">
+	<select id="allMembership" parameterType="Paging" resultMap="listMap">
 		SELECT *
 		FROM
 		membership_user_list
 		JOIN membership USING (membership_code)
 		JOIN member
 		USING (id)
-		WHERE list_grade = "host";
+		WHERE list_grade = "host"
+		LIMIT #{offset}, #{limit}
 	</select>
 
 	<select id="MembershipAllInfo" parameterType="Integer"

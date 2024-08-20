@@ -11,7 +11,9 @@ import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.BasicRoomListVo;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
+import com.damoim.model.vo.MembershipType;
 import com.damoim.model.vo.MembershipUserList;
+import com.damoim.model.vo.TypeCategory;
 
 @Mapper
 public interface MembershipMapper {
@@ -27,9 +29,13 @@ public interface MembershipMapper {
 	List<MembershipUserList> MembershipAllInfo(int membershipCode);
 	void membershipApply(MemberListDTO member);
 	
-	List<MembershipUserList> grade(Member member);
+	List<MemberListDTO> grade(Member member);
+	List<MembershipUserList> listGrade(Member member);
+	
 	void agreeMemeber(MemberListDTO member);
 	
+	 
+	List<Integer> membershipCodeList(String id);
 	List<BasicRoomListVo> roomlist();
 	
 	void membershipImg(Membership membership);

@@ -1,26 +1,24 @@
 package com.damoim.controller;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.vo.Member;
 import com.damoim.service.MembershipService;
-
 
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-
 @Controller
 public class PageController {
 	
-
 	@Autowired
 	private MembershipService service;
 
@@ -31,6 +29,9 @@ public class PageController {
 	@GetMapping("/")
 	public String index(Model model) {
 		
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("인증인가? : " + authentication.getPrincipal());
 		List<Integer> countList = new ArrayList(); // count 계산용 인덱스 번호담는 배열
 		model.addAttribute("list", service.allMembership()); // 현재 존재하는 모든 맴버쉽 정보가있는 배열		
 		for(int i = 0; i < service.allMembership().size(); i++) {
@@ -89,5 +90,9 @@ public class PageController {
 	 	return "login/findMember";
 	 }
 	 
+	 @GetMapping("/loginFail") 
+	 public String loginFail() {
+		 return "login/loginFail";
+	 }
 
 }

@@ -7,6 +7,7 @@
 		<result column="membership_code" property="membershipCode" />
 
 	</resultMap>
+	
 	<resultMap type="Membership" id="membershipMap">
 		<id property="membershipCode" column="membership_code" />
 		<result property="membershipName" column="membership_name" />
@@ -139,13 +140,23 @@
 
 
 	<select id="grade" parameterType="Member"
-		resultMap="membershipmap">
+		resultMap="memberListmap">
 		SELECT *
 		FROM membership_user_list
 		JOIN membership USING
 		(membership_code)
 		JOIN member USING (id)
 		WHERE id = #{id}
+	</select>
+	
+	<select id="listGrade" parameterType="Member" resultMap="membershipmap">
+			SELECT *
+		FROM membership_user_list
+		JOIN membership USING
+		(membership_code)
+		JOIN member USING (id)
+		WHERE id = #{id}
+
 	</select>
 
 	<update id="agreeMemeber" parameterType="MemberListDTO">

@@ -79,7 +79,7 @@ pageEncoding="UTF-8"%>
 					<h1 class="membership-name">${id.membership.membershipName}</h1>
 					<h2>${id.membership.membershipInfo}</h2>
 					<h3>멤버수 :
-						${countList.get(status.index)}/${id.membership.membershipMax}</h3>
+						${id.count}/${id.membership.membershipMax}</h3>
 						<div id="host">
 						<c:choose>
 						<c:when test="${id.member.memberImg != null}">

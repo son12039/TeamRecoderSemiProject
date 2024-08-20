@@ -30,7 +30,7 @@ window.addEventListener("scroll", () => {
                             '<div class="membership-info">' +
                                 '<h1 class="membership-name">' + id.membership.membershipName + '</h1>' +
                                 '<h2>' + id.membership.membershipInfo + '</h2>' +
-                                '<h3>멤버수: ' + '2' + '/' + id.membership.membershipMax + '</h3>' +
+                                '<h3>멤버수: ' + id.count + '/' + id.membership.membershipMax + '</h3>' +
                                 '<div id="host">' +
                                     '<img class="user-img" src="' + hostImg + '">' +
                                     '<h2>호스트: ' + id.member.nickname + '</h2>' +

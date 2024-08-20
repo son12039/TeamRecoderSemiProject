@@ -114,7 +114,7 @@ public class MemberController {
 		// 내 등급별 클럽
 		model.addAttribute("membership", infoService.listGrade(member));
 		
-		System.out.println(infoService.grade2(member));
+		
 	
 		
 		

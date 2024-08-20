@@ -35,7 +35,7 @@
         <h2>${main.membership.membershipInfo}</h2>
         
            <!-- 멤버쉽 최대 인원과 현재 인원 표기  -->
-        <p>인원 현황 : ${membershipUserCount}/${main.membership.membershipMax}</p>
+        <p>인원 현황 : ${main.count}/${main.membership.membershipMax}</p>
         
          <!--  해당 멤버쉽 호스트 닉네임  -->
         <h4>호스트 : ${main.member.nickname} 
@@ -51,7 +51,7 @@
         </h4>
      
 				
-        <c:if test="${member.id == main.member.id && membershipUserCount >= main.membership.membershipMax}">
+        <c:if test="${member.id == main.member.id && main.count >= main.membership.membershipMax}">
                         	<div>최대 인원에 도달하였습니다. 최대인원을 다시 설정후 확인해줏비시오</div>
                         </c:if>
 

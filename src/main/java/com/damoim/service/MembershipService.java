@@ -79,9 +79,7 @@ public class MembershipService {
 		return mapper.roomlist();
 	}
 	
-	public List<MembershipUserList> grade2(Member member){
-		
-		return mapper.grade2(member);
+	
 	public List<MembershipUserList> list(Paging paging) {
 		
 		return mapper.allMembership(paging);

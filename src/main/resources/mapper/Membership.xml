@@ -1,6 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.MembershipMapper">
-
+<!-- Member -->
 	<resultMap type="MemberListDTO" id="memberListmap">
 		<result column="id" property="id" />
 		<result column="list_grade" property="listGrade" />
@@ -26,7 +26,6 @@
 			<result column="nickname" property="nickname" />
 			<result column="member_img" property="memberImg" />
 		</association>
-
 		<association property="membership" javaType="Membership">
 			<id column="membership_code" property="membershipCode" />
 			<result column="Membership_name" property="membershipName" />
@@ -147,6 +146,21 @@
 		JOIN member USING (id)
 		WHERE id = #{id}
 	</select>
+	
+	
+	<select id="grade2" parameterType="Member"
+		resultMap="membershipmap">
+		SELECT *
+		FROM membership_user_list
+		JOIN membership USING
+		(membership_code)
+		JOIN member USING (id)
+		WHERE id = #{id}
+	</select>
+	
+	
+	
+	
 
 	<update id="agreeMemeber" parameterType="MemberListDTO">
 		UPDATE

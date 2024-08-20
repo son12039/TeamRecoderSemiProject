@@ -74,4 +74,9 @@ public class MembershipService {
 	public List<BasicRoomListVo> roomlist() {
 		return mapper.roomlist();
 	}
+	
+	public List<MembershipUserList> grade2(Member member){
+		
+		return mapper.grade2(member);
+	}
 }

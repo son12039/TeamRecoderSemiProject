@@ -31,14 +31,13 @@ pageEncoding="UTF-8"%>
                 <a href="/signUp">회원가입</a>
                 <a href="/loginPage">로그인</a>
               </div>
-            
               </sec:authorize>
 				<sec:authorize access="isAuthenticated()" var="principal">
 				<sec:authentication property="principal" var="member" />
 				<p>${member}</p>
 				<div> ${member.nickname}
 				<c:choose>
-						<c:when test="${member.memberImg == null}">
+						<c:when test="${member.memberImg != null}">
 								<img class="user-img" src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
 						</c:when>
 					
@@ -47,6 +46,7 @@ pageEncoding="UTF-8"%>
 								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
 						</c:otherwise>
 					</c:choose>
+					
 				
 				</div>
 					<div class="header_right_menu">
@@ -61,8 +61,17 @@ pageEncoding="UTF-8"%>
 		<c:forEach items="${list}" var="id" varStatus="status">
 			<div class="membership-card">
 				<div class="membership-img">
-					<a href="/${id.membership.membershipCode}"> <img
-						src="http://192.168.10.51:8081/membership/${id.membership.membershipCode}/${id.membership.membershipImg}">
+					<a href="/${id.membership.membershipCode}">
+					<c:choose>
+						<c:when test="${id.membership.membershipImg != null}">
+								<img src="http://192.168.10.51:8081/membership/${id.membership.membershipCode}/${id.membership.membershipImg}">
+						</c:when>
+					
+						<c:otherwise>
+							<img
+								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">
+						</c:otherwise>
+					</c:choose>
 					</a>
 				</div>
 				<div class="membership-info">
@@ -72,7 +81,7 @@ pageEncoding="UTF-8"%>
 						${countList.get(status.index)}/${id.membership.membershipMax}</h3>
 						<div id="host">
 						<c:choose>
-						<c:when test="${id.member.memberImg == null}">
+						<c:when test="${id.member.memberImg != null}">
 								<img class="user-img" src="http://192.168.10.51:8081/member/${id.member.id}/${id.member.memberImg}">
 						</c:when>
 						<c:otherwise>

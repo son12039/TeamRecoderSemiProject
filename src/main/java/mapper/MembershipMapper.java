@@ -50,6 +50,8 @@ public interface MembershipMapper {
 	List<BasicRoomListVo> roomlist();
 	
 	void membershipImg(Membership membership);
+	
+	List<MembershipUserList> grade2(Member member);
 }
 
 

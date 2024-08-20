@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.damoim.model.vo.Member;
+import com.damoim.model.vo.MembershipUserList;
 import com.damoim.service.EmailService;
 import com.damoim.service.MemberService;
 import com.damoim.service.MembershipService;
@@ -135,8 +137,13 @@ public class MemberController {
 	public String myMembership(Member member, Model model) {
 		
 		// 내 등급별 클럽
-		model.addAttribute("membership", infoService.grade(member));
+		model.addAttribute("membership", infoService.grade2(member));
 		
+		System.out.println(infoService.grade2(member));
+	
+		
+		
+	
 		return "mypage/myMembership";
 	}
 	

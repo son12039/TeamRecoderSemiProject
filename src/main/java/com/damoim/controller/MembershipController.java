@@ -66,6 +66,7 @@ public class MembershipController {
 	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model
 			) {
 		System.out.println(service.main(membershipCode).getListCode());
+		System.out.println("어디서 오류가 날까?");
 		// 홍보페이지에 membership 관련 정보 + 호스트 정보
 		model.addAttribute("main", service.main(membershipCode));
 		// 현재 가입된 인원수
@@ -98,6 +99,7 @@ public class MembershipController {
 			List<MembershipUserList> list = service.MembershipAllInfo(membershipCode);
 			// 해당클럽 모든 유저 정보 불러오기
 			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
+		//	System.out.println(service.MembershipAllInfo(membershipCode));
 			return "membership/membershipPage";
 		}
 	 /*
@@ -147,6 +149,7 @@ public class MembershipController {
 		System.out.println("해당 맴버쉽 코드 : " + m.getMembershipCode());
 		System.out.println("이미지 URL 테스트 " + m.getMembershipImg());
 		service.membershipImg(m);
+		// 멤버쉽 유저 리스트에 등록 절차 
 		MemberListDTO list = new MemberListDTO();
 				list.setId(dto.getId());
 				list.setListGrade(dto.getListGrade());

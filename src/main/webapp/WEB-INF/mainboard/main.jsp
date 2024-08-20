@@ -29,21 +29,30 @@
     	
     	<sec:authorize access="isAuthenticated()" var="principal">
 <sec:authentication property="principal" var="member" />
-    <c:choose>
 
-    <c:when test="${checkMember.listGrade == 'guest'}">
+	<c:set var="memberGrade" value="none"/>
+	<c:forEach items="${member.memberListDTO}" var="list" >
+		<c:if  test="${list.membershipCode == main.membership.membershipCode}">
+			<c:set var="memberGrade" value="${list.listGrade}"/>
+	</c:if>
+    </c:forEach>
+    
+    <c:choose>
+    
+
+    		<c:when test="${memberGrade == 'guest'}">
 				<p>가입 대기중인 클럽입니다</p>
 			</c:when>
 			<c:when
-				test="${(checkMember != null) && (checkMember.listGrade != 'guest')}">
+				test="${memberGrade == 'regular' || memberGrade == 'host' || memberGrade == 'admin'}">
 				<a href="/club/${main.membership.membershipCode}">☞ 내 클럽 페이지로 이동하기</a>
 			</c:when>
-    <c:when test="${membershipUserCount >= main.membership.membershipMax}">
+    <c:when test="${memberGrade == 'none' || true}">
     <h2>최대 인원에 도달한 클럽입니다 신청할수 없습니다.</h2>
     </c:when>
  
 	
-       <c:when test="${checkMember == null && member != null}"> 
+       <c:when test="${memberGrade == 'none' || true }"> 
      
     <form action="/membershipApply" method="post">
     <input type="submit" value="가입 신청하기">

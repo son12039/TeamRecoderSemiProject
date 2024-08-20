@@ -78,8 +78,8 @@ public class MembershipController {
 		 // 로그인 유무 확인 . 널포인트 에러 방지
 			// 가입한 클럽 인지 확인을 위한 아이디 정보 가져오기
 			memberListDTO.setId(mem.getId());
-			// 해당클럽 안에서의 등급 가져오기
-			model.addAttribute("checkMember", service.checkMember(memberListDTO));
+			// 해당클럽 안에서의 등급 가져오기 삭제중
+//			model.addAttribute("checkMember", service.checkMember(memberListDTO));
 	}
 		return "mainboard/main";
 	}

@@ -260,3 +260,11 @@ ADD list_code INT;
 ALTER TABLE membership_meetings
 ADD FOREIGN KEY (list_code) REFERENCES membership_user_list(list_code);
 
+ALTER TABLE membership
+ADD column memership_accession_text text,
+ADD column memership_simple_text VARCHAR(20),
+ADD column memership_main_text text,
+ADD column memership_secret_text text;
+
+ALTER TABLE membership DROP COLUMN memership_main_text;
+

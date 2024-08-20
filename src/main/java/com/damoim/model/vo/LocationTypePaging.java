@@ -1,51 +1,25 @@
-package com.damoim.model.dto;
-
-
-import java.util.List;
+package com.damoim.model.vo;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data @NoArgsConstructor @AllArgsConstructor
+public class LocationTypePaging {
 
-@Builder @Data 
-@NoArgsConstructor @AllArgsConstructor
-public class SearchDTO {
-	
-	private String keyword;
-	private String select;
-	private String nickname;
-	private String id;
-	private String name;
-	//0814
-	private List<Integer> membershipCodes;
-	
-	private String locationLaName;
-	private List<String> locationSNameList;
-	private String typeLaName;
-	private List<String> typeSNameList;
-	
-	
-	
-	
-	
-	
-	
-    // 인덱스 페이징 처리
-    private int page = 1; 	//현재 페이지
+	private int page = 1; 	//현재 페이지
 	
 	private int offset = 0;	//시작위치
 	private int limit = 12; //레코드 수
 	
-	private int pageSize = 10; // 한 페이지 당 페이지 개수
+	private int pageSize = 5; // 한 페이지 당 페이지 개수
 	private int endPage = this.pageSize; // 한 페이지의 마지막 페이지 수
 	private int startPage = this.page; 
 	
 	private boolean prev;
 	private boolean next;
 	
-	public SearchDTO(int page, int total) {
+	public LocationTypePaging(int page, int total) {
 		/*
 		 * page : 1 ~ 10 -> endPage : 10
 		 * page : 11 ~ 20 -> endPage : 20
@@ -66,5 +40,5 @@ public class SearchDTO {
 		this.next = this.endPage < lastPage;
 	}
 	
+	
 }
-

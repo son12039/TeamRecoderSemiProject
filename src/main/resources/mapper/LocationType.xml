@@ -43,8 +43,11 @@
 	<resultMap id="MemberMap" type="Member">
         <id property="id" column="id" />
         <result property="memberImg" column="member_img" />
+        <result property="nickname" column="nickname" />
+        <result property="memberLocation" column="member_location" />
+        <result property="memberType" column="member_type" />
     </resultMap>
-
+	
 	
 	<!-- 위치 부분 -->
 	<!--  지역 상위 카테고리  -->
@@ -92,8 +95,8 @@
 				</foreach>
 				)
 			</if>
-			and list_grade = "host"
 		</where>
+		LIMIT #{offset}, #{limit}
 	</select>
 
 	<!--  전체 리스트 -->
@@ -136,8 +139,9 @@
 		where type_la_name = #{typeLaName};
 	</select>
 	
+	
 	<select id="selectMemberNickName" parameterType="int" resultMap="MemberMap">
-		SELECT nickname, member_img 
+		SELECT nickname, member_img ,id , member_location, member_type
 		FROM membership_user_list
 		JOIN member USING (id)
 		WHERE list_grade = 'host'

@@ -41,11 +41,14 @@ public class LocationTypeService {
 	
 	
 	
-	
-	// 3. 파라미터 값을 받고 code 숫자 뽑아오기
+	// 전체리스트 및 페이징
+	// 파라미터 값을 받고 code 숫자 뽑아오기
 	public List<Integer> searchList(SearchDTO dto) {
+		dto.setOffset(dto.getLimit() * (dto.getPage() - 1));
 		return mapper.searchList(dto);
 	}
+	
+	
 	public List<MemberLocTypeDTO> memberLocTypeList(SearchDTO dto) {
 		return mapper.memberLocTypeList(dto);
 	}

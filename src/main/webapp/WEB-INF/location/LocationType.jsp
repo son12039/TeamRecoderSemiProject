@@ -67,6 +67,8 @@
 		${info.membershipMax}<br>
 		${info.nickname}<br>
 		${info.memberImg}<br>
+		${info.id}
+		<br>
 	<c:forEach items="${info.locations}" var="location">
 		# ${location.locLaName} ${location.locSName} 
 	</c:forEach>

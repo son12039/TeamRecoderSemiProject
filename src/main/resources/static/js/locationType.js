@@ -132,19 +132,26 @@ $('#typeSNameForm input[name="typeSName"]').change(function() {
 		$("#typeSNameAll")[0].checked = false;
 	} 
 })
-/*
-$("#locSNameAll").change(function(){
-	if($("#locSNameAll").is(":checked")){
-		for(let item of $('#locationSNameForm input[name="locationSName"]')) {
-			item.checked = false;
-		}
-    }
-});
-$('#locationSNameForm input[name="locationSName"]').change(function() {
-	if($("#locSNameAll").is(":checked")){
-		$("#locSNameAll")[0].checked = false;
-	} 
-})
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

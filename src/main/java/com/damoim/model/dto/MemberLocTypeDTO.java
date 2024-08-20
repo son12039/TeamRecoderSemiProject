@@ -31,13 +31,24 @@ public class MemberLocTypeDTO {
     private double membershipGrade; // 클럽 별점
     private int membershipMax; // 클럽최대인원
     
+    /*join 역활*/ 
     private String nickname;
     private String memberImg;
+    private String id;
+    private String memberLocation;
+    private String memberType;
 	
-    /*join*/
     private MembershipLocation membershipLocation;
     private MembershipType membershipType;
     
+    private List<Integer> countList;
     private List<LocationCategory> locations;
     private List<TypeCategory> types;
+    
+    
+    
+    
+
+    
+    
 }

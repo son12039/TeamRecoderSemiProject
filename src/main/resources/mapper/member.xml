@@ -72,12 +72,17 @@
     AND id != #{id}
 	</select>
 	<!-- / updateMember  -->
-	<!-- 일단 memberInfo만 수정 -->
-	<update id="updateMember" parameterType="member">
+	<!-- 일단 이미지랑 info만 수정 -->
+	<update id="updateMember" parameterType="Member">
 	UPDATE member
-		SET member_img = #{memberImg}, member_info =#{memberInfo}
-	WHERE id= #{id}
+	SET member_img = #{memberImg}, member_info = #{memberInfo}
+	WHERE id = #{id}
 	</update>
+	
+	<select id="selectImg" parameterType="String" resultType="Member">
+	SELECT * FROM member
+	WHERE id = #{id}
+	</select>
 	
 	
 	<!-- 내 정보 업데이트 / ============================================ -->

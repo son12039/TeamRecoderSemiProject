@@ -55,7 +55,7 @@ pwd.addEventListener('input', function() {
 	} else {
 		pwdSubmit = true;
 		pwdCheck.textContent = "사용 가능한 비밀번호입니다.";
-		pwdCheck.style.color = "green";
+		pwdCheck.style.color = "blue";
 	}
 });
 
@@ -65,7 +65,7 @@ pwdConfirmCheck.addEventListener('input', function() {
 
 	if (pwdcValue === pwdValue) {
 		pwdConfirm.textContent = "비밀번호가 일치합니다";
-		pwdConfirm.style.color = "green";
+		pwdConfirm.style.color = "blue";
 		pwdcSubmit = true;
 	} else {
 		pwdConfirm.textContent = "비밀번호가 일치하지 않습니다.";

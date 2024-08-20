@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-     <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 				
 
 <!DOCTYPE html>
@@ -16,16 +16,17 @@
 </head>
 <body>
     <main>
+   <sec:authorize access="isAuthenticated()" var="principal">
+   <sec:authentication property="principal" var="member" />
         <h1>${main.membership.membershipName}</h1>
         <!-- 멤버쉽 수정 -->
-       	<a href="updateMembership">정보 수정하기</a>
-        
-        <a href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a>
-        <img id="mainImg" src="${main.membership.membershipImg}" alt="클럽 이미지">
+        <div>
+       	<h2><a href="/updateMembership">정보 수정하기</a></h2>
+        </div>
+        <h2><a href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a></h2>
         <h2>${main.membership.membershipInfo}</h2>
         <p>인원 현황 : ${membershipUserCount}/${main.membership.membershipMax}</p>
         <h4>호스트 : ${main.member.nickname} 
-            <img id="hostImg" src="http://192.168.10.51:8081/member/${main.member.id}/${main.member.memberImg}" alt="호스트 이미지">
         </h4>
      
 				
@@ -63,6 +64,8 @@
             </div>
         </c:forEach>
         <a href="/" id="toIndex">메인페이지로 가기</a>
+        </sec:authorize>
+        
     </main>
     <script src="${pageContext.request.contextPath}/js/membershipPage.js"></script>
 </body>

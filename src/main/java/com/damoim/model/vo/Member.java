@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
 public class Member implements UserDetails {
+	
     private String id; // 아이디
     private String pwd; // 비밀번호
     private String addr; // 주소
@@ -33,7 +34,8 @@ public class Member implements UserDetails {
     private String memberInfo; // 유저 간단한 자기소개
     private String memberLocation; // 유저선호지역
     private String memberType; // 유저 선호만남유형
-    private MultipartFile file;
+    
+    private MultipartFile file; // 이미지 업로드 파일
     
     private List<MemberListDTO> memberListDTO;
 

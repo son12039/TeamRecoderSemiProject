@@ -67,6 +67,7 @@ public class MemberService  implements UserDetailsService{
 	
 	// 업데이트 관련 서비스 =======================================
 	// 중요도 떨어지는 정보 수정 메서드
+	// 일단 프로필이랑 info 정보만 수정
 	public void updateMember(Member member) {
 		mapper.updateMember(member);
 	}
@@ -95,6 +96,11 @@ public class MemberService  implements UserDetailsService{
 	public boolean nicknameDupCheck(Member vo) {
 		return mapper.nicknameDupCheck(vo);
 	}
+
+	public Member selectImg(String string) {
+		return mapper.selectImg(string);
+	}
+	
 	// =========================================================
 	
 	
@@ -138,4 +144,5 @@ public class MemberService  implements UserDetailsService{
 		
 		return member;
 	}
+
 }

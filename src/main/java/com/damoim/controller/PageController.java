@@ -29,7 +29,6 @@ public class PageController {
 	@GetMapping("/")
 	public String index(Model model) {
 		
-		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("인증인가? : " + authentication.getPrincipal());
 		List<Integer> countList = new ArrayList(); // count 계산용 인덱스 번호담는 배열
@@ -52,24 +51,19 @@ public class PageController {
 		return "signUp/signUp";
 	}
 
+	
+    // 기본 정보 수정
+	@GetMapping("/mypage")
+	public String mypage(Model model) {
+		return "mypage/mypage";
+	}
+	
 	// 내 정보 열람 비밀번호 체크
 	@GetMapping("/updateCheck")
 	public String updateCheck() {
 		return "mypage/updateCheck";
 	}
 	
-	 
-	 
-	// (동문)
-    // 마이페이지(일단은 수정기능있는 페이지 이동)
-	@GetMapping("/mypage")
-	public String mypage(Model model) {
-		
-		
-		
-		return "mypage/mypage";
-	}
-
 	// 중요 회원정보 수정
 	@GetMapping("/updateMemberInfo")
 	public String updateMemberInfo() {
@@ -79,13 +73,11 @@ public class PageController {
 	// 멤버쉽 정보 수정
 	@GetMapping("/updateMembership")
 	public String updateMembership() {
-		
 		return "membership/updateMembership";
 	}
 	
 
 	// 내가 가입한 맴버쉽 페이지 이동
-
 	/*
 	 * 성일
 	 * 로그인 페이지

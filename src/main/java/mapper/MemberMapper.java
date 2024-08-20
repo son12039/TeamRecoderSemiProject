@@ -35,12 +35,15 @@ public interface MemberMapper {
 	
 	// 업데이트 ===============================
 	void updateMember(Member member);
+	
+	
+	
 	Member updateCheck(Member vo, Member mem);
 	void updateMemberInfo(Member member);
 	void addrUpdate(Member member);
 	boolean nicknameDupCheck(Member vo);
-	
-	
+	void fileDelete(String string);
+	Member selectImg(String string);
 	
 	// id 이메일 맞나 체크
 	Member memberEmailIdcheck(Member member);

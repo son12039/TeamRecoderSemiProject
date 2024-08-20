@@ -42,8 +42,7 @@
   
    --%>
    
-   <sec:authorize access="isAuthenticated()" var="principal">
-				<sec:authentication property="principal" var="member" />
+   
      <c:set var="hasHost" value="${false}" />
 
     <!-- Iterate through memberships to check for 'host' -->
@@ -132,7 +131,7 @@
    </c:forEach>
   </div>
   
-  </sec:authorize>
+
   
   <script src="${pageContext.request.contextPath}/js/myMembership.js">  
     </script>

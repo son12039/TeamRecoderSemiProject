@@ -1,10 +1,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.MemberMapper">
+ <!--(멤버 리스트 DTO) 변수명 컬럼명 일치시키는 리설트맵  -->
 	<resultMap type="MemberListDTO" id="memberListmap">
 		<result column="id" property="id"/>
 		<result column="list_grade" property="listGrade"/>
 		<result column="membership_code" property="membershipCode"/>
-		
 	</resultMap>
 	
 <resultMap id="MemberResultMap" type="Member">

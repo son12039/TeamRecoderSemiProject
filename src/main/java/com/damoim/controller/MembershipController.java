@@ -66,10 +66,13 @@ public class MembershipController {
 	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model
 			) {
 		System.out.println(service.main(membershipCode).getListCode());
+		System.out.println("어디서 오류가 날까?");
 		// 홍보페이지에 membership 관련 정보 + 호스트 정보
-		model.addAttribute("main", service.main(membershipCode));
-		// 현재 가입된 인원수
-		model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));	
+		MembershipUserList list =  service.main(membershipCode);
+		list.setCount((service.membershipUserCount(membershipCode)));
+		
+		model.addAttribute("main", list);
+		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("클럽 홍보 페이지 컨트롤러 왔을때 " + authentication.getName().equals("anonymousUser"));
 	if(	!authentication.getName().equals("anonymousUser") ) {
@@ -89,12 +92,13 @@ public class MembershipController {
 	  * */
 	 @GetMapping("/club/{membershipCode}") // 클럽 페이지 이동
 		public String membershipPage(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO memberListDTO, Model model) {
-		 	// 클럽 페이지에 membership 관련 정보 + 호스트 정보
-		 	model.addAttribute("main",service.main(membershipCode));
-		 	// 현재 가입된 인원수
-			model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));
-			// 해당 맴버쉽의 모든 유저 정보		
+			MembershipUserList list =  service.main(membershipCode);
+			list.setCount((service.membershipUserCount(membershipCode)));
+			
+			model.addAttribute("main", list);
+			// 현재 가입 또는 신청되어있는  회원 정보		
 			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
+		//	System.out.println(service.MembershipAllInfo(membershipCode));
 			return "membership/membershipPage";
 		}
 	 /*
@@ -140,6 +144,7 @@ public class MembershipController {
 		System.out.println("해당 맴버쉽 코드 : " + m.getMembershipCode());
 		System.out.println("이미지 URL 테스트 " + m.getMembershipImg());
 		service.membershipImg(m);
+		// 멤버쉽 유저 리스트에 등록 절차 
 		MemberListDTO list = new MemberListDTO();
 				list.setId(dto.getId());
 				list.setListGrade(dto.getListGrade());

@@ -78,6 +78,8 @@ public class MembershipService {
 	public List<BasicRoomListVo> roomlist() {
 		return mapper.roomlist();
 	}
+	
+	
 	public List<MembershipUserList> list(Paging paging) {
 		
 		return mapper.allMembership(paging);

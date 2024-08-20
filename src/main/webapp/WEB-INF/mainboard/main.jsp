@@ -53,7 +53,7 @@
  
 	
        <c:when test="${memberGrade == 'none' && main.count < main.membership.membershipMax }"> 
-     <p>지금 로그인 세션 업데이트 하는법 몰라서 누를때마다 들어감 주의!!</p>
+     
     <form action="/membershipApply" method="post">
     <input type="submit" value="가입 신청하기">
     <input type="hidden" name="membershipCode" value="${main.membership.membershipCode}">

@@ -146,6 +146,15 @@ public class MembershipController {
 	public String membershipApply(MemberListDTO member) {
 		// 클럽 가입 신청
 		service.membershipApply(member);
+		
+
+ 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem =  (Member)authentication.getPrincipal();
+		ArrayList<MemberListDTO> list =  (ArrayList<MemberListDTO>) mem.getMemberListDTO();
+		list.add(member);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		
 		return "redirect:/" + member.getMembershipCode();
 	}
 	/* 성철

@@ -93,7 +93,7 @@ public class MembershipController {
 		 	model.addAttribute("main",service.main(membershipCode));
 		 	// 현재 가입된 인원수
 			model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));
-			// 로그인된 회원 정보		
+			// 해당 맴버쉽의 모든 유저 정보		
 			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
 			return "membership/membershipPage";
 		}

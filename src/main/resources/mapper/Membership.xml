@@ -1,7 +1,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.MembershipMapper">
 
-	<resultMap type="MemberListDTO" id="memberListmap">
+	<resultMap type="MemberListDTO" id="listDTOMap">
 		<result column="id" property="id" />
 		<result column="list_grade" property="listGrade" />
 		<result column="membership_code" property="membershipCode" />
@@ -18,7 +18,7 @@
 		<result property="membershipMax" column="membership_max" />
 	</resultMap>
 
-	<resultMap type="MembershipUserList" id="membershipmap">
+	<resultMap type="MembershipUserList" id="listMap">
 		<id column="list_code" property="listCode" />
 		<result column="list_grade" property="listGrade" />
 		<association property="member" javaType="Member">
@@ -44,7 +44,7 @@
 		<result column="membership_name" property="membershipName" />
 	</resultMap>
 	
-	<select id="allMembership" resultMap="membershipmap">
+	<select id="allMembership" resultMap="listMap">
 		SELECT *
 		FROM
 		membership_user_list
@@ -55,7 +55,7 @@
 	</select>
 
 	<select id="MembershipAllInfo" parameterType="Integer"
-		resultMap="membershipmap">
+		resultMap="listMap">
 		SELECT *
 		FROM membership_user_list
 		JOIN membership USING
@@ -70,9 +70,9 @@
 		membership_user_list(membership_code , id,list_grade)
 		VALUES(#{membershipCode},#{id},#{listGrade})
 	</insert>
-
+	<!-- 1 -->
 	<select id="checkMember" parameterType="MemberListDTO"
-		resultMap="memberListmap">
+		resultMap="listDTOMap">
 		SELECT *
 		FROM membership_user_list
 		WHERE id = #{id} AND
@@ -88,7 +88,7 @@
 
 
 	<select id="main" parameterType="Integer"
-		resultMap="membershipmap">
+		resultMap="listMap">
 		SELECT *
 		FROM membership_user_list
 		JOIN membership USING
@@ -130,6 +130,7 @@
 		WHERE membership_code = #{membershipCode}
 	</update>
 
+	<!--  클럽 생성시 리스트에 호스트로 바로 추가 -->
 	<insert id="host" parameterType="MemberListDTO">
 		INSERT INTO membership_user_list
 		(list_grade,id,membership_code)
@@ -138,9 +139,9 @@
 	</insert>
 
 
-
+	<!-- 로그인시 member의 가입된 클럽 정보 -->
 	<select id="grade" parameterType="Member"
-		resultMap="memberListmap">
+		resultMap="listDTOMap">
 		SELECT *
 		FROM membership_user_list
 		JOIN membership USING
@@ -149,7 +150,7 @@
 		WHERE id = #{id}
 	</select>
 	
-	<select id="listGrade" parameterType="Member" resultMap="membershipmap">
+	<select id="listGrade" parameterType="Member" resultMap="listMap">
 			SELECT *
 		FROM membership_user_list
 		JOIN membership USING

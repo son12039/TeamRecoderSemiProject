@@ -135,7 +135,7 @@ public class MembershipController {
 		Files.createDirectories(directoryPath);
 		Membership m = Membership.builder()
 					.membershipCode(membership.getMembershipCode())
-					.membershipImg(FileUpload(file, membership.getMembershipCode()))
+					.membershipImg(fileUpload(file, membership.getMembershipCode()))
 					.build();
 		System.out.println("해당 맴버쉽 코드 : " + m.getMembershipCode());
 		System.out.println("이미지 URL 테스트 " + m.getMembershipImg());
@@ -162,7 +162,7 @@ public class MembershipController {
 	 * 파일 삽입 메서드 해당맴버쉽 프로필사진 !!
 	 * 
 	 * */ 
-	public String FileUpload(MultipartFile file, int code) throws IllegalStateException, IOException {
+	public String fileUpload(MultipartFile file, int code) throws IllegalStateException, IOException {
 		if(file.getOriginalFilename() == "") {
 			System.out.println("NULL 리턴");
 			return null;
@@ -178,7 +178,7 @@ public class MembershipController {
 	 * 파일 삭제 메서드 해당유저 프로필사진 변경시 사용!!
 	 * 실 사용때는 조건에 만약 보내준 링크가 null이면 변하지 않도록
 	 * */ 
-	public void FileDelete(String file, int code) throws IllegalStateException, IOException {
+	public void fileDelete(String file, int code) throws IllegalStateException, IOException {
 		if(file == null) {
 			System.out.println("삭제할 파일이 없습니다");
 		}

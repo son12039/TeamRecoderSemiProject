@@ -67,28 +67,28 @@
  
   
    -->
-        <c:forEach items="${allMember}" var="cMember">
+        <c:forEach items="${allMember}" var="listMember">
             <div class="memberTable">
          
                  <c:choose> 
              
-                    <c:when test="${cMember.listGrade == 'guest'}">
+                    <c:when test="${listMember.listGrade == 'guest'}">
                         <ul> 
                        
-                            <li>${cMember.member.nickname} - 가입 대기중</li>
+                            <li>${listMember.member.nickname} - 가입 대기중</li>
                             
                            
-                            <c:if test="${cMember.member.memberImg != null}">
+                            <c:if test="${listMember.member.memberImg != null}">
                             <li><img class="allmemberImg" src="http://192.168.10.51:8081/member/${cMember.member.id}/${cMember.member.memberImg}" alt="회원 이미지"></li>
                             </c:if>
-                            <c:if test="${cMember.member.memberImg == null}">
+                            <c:if test="${listMember.member.memberImg == null}">
                             <img class="allmemberImg" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg" alt="회원 이미지">
                              </c:if>                          
-                              
+                              <%-- 현제 호스트만 수락버튼 보이게 해둬서 조건 이런데 나중에 바꿔야함 --%>
                             <c:if test="${main.member.id == member.id && !(membershipUserCount >= main.membership.membershipMax)}">
-                        
+                        	
                                 <form id="agreefrm">
-                                    <input type="hidden" name="id" value="${cMember.member.id}">
+                                    <input type="hidden" name="id" value="${listMember.member.id}">
                                     <input type="hidden" name="listGrade" value="regular">
                                     <input type="hidden" name="membershipCode" value="${main.membership.membershipCode}">
                                     <button id="agreeMember">가입 승인</button>

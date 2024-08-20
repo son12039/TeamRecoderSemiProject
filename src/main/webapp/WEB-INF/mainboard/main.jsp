@@ -47,14 +47,13 @@
 				test="${memberGrade == 'regular' || memberGrade == 'host' || memberGrade == 'admin'}">
 				<a href="/club/${main.membership.membershipCode}">☞ 내 클럽 페이지로 이동하기</a>
 			</c:when>
-    <c:when test="${memberGrade == 'none' || true}">
-    <c:when test="${main.count >= main.membership.membershipMax}">
+    <c:when test="${memberGrade == 'none' && main.count >= main.membership.membershipMax}">
     <h2>최대 인원에 도달한 클럽입니다 신청할수 없습니다.</h2>
     </c:when>
  
 	
-       <c:when test="${memberGrade == 'none' || true }"> 
-     
+       <c:when test="${memberGrade == 'none' && main.count < main.membership.membershipMax }"> 
+     <p>지금 로그인 세션 업데이트 하는법 몰라서 누를때마다 들어감 주의!!</p>
     <form action="/membershipApply" method="post">
     <input type="submit" value="가입 신청하기">
     <input type="hidden" name="membershipCode" value="${main.membership.membershipCode}">

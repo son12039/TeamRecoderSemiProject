@@ -5,11 +5,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +20,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.MembershipUserList;
+import com.damoim.model.vo.Paging;
 import com.damoim.service.EmailService;
 import com.damoim.service.MemberService;
 import com.damoim.service.MembershipService;
@@ -109,15 +113,23 @@ public class MemberController {
 	 * 내가 가입한 클럽을 가입된, 관리자or호스트, 가입대기중 클럽 조회가능한 페이지이동 
 	 * */
 	@GetMapping("/myMembership") // 내가 가입한 클럽확인
-	public String myMembership(Member member, Model model) {
+	public String myMembership(Model model) {
+		
+ 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member member = (Member) authentication.getPrincipal();
+		
+		List<MembershipUserList> list =	new ArrayList<MembershipUserList>();
+		for(MemberListDTO m : member.getMemberListDTO()) {
+			list.add((MembershipUserList) infoService.main(m.getMembershipCode()));	
+		}
+		for(int i =0; i < list.size(); i++) {
+			list.get(i).setCount(list.get(i).getListCode());
+		}
+
 		
 		// 내 등급별 클럽
-		model.addAttribute("membership", infoService.listGrade(member));
-		
-		
-	
-		
-		
+		model.addAttribute("membership", list);
+
 	
 		return "mypage/myMembership";
 	}

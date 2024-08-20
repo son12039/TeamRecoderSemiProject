@@ -51,7 +51,7 @@ pageEncoding="UTF-8"%>
 				
 				</div>
 					<div class="header_right_menu">
-						<a href="/update">마이페이지</a> <a href="/myMembership?id=${member.id}">나의
+						<a href="/update">마이페이지</a> <a href="/myMembership">나의
 							모임</a> <a href="/logout">로그아웃</a>
 					</div>
 				</sec:authorize>

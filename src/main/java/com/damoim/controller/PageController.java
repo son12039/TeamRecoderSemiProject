@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.damoim.model.dto.IndexMembershipDTO;
+
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.MembershipUserList;
@@ -36,7 +36,7 @@ public class PageController {
 	
 	 
  		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("인증인가? : " + authentication.getPrincipal());
+		System.out.println("인증인가된 유저? : " + authentication.getPrincipal());
 		List<Integer> countList = new ArrayList(); // count 계산용 인덱스 번호담는 배열
 		model.addAttribute("list", service.allMembership(paging)); // 현재 존재하는 모든 맴버쉽 정보가있는 배열		
 		for(int i = 0; i < service.allMembership(paging).size(); i++) {
@@ -45,27 +45,17 @@ public class PageController {
 		}	
 		model.addAttribute("countList", countList); // 카운트 정보 출력용
 		
-		
-		
-		List<MembershipUserList> asd =	new ArrayList<MembershipUserList>();
+		List<MembershipUserList> list =	new ArrayList<MembershipUserList>();
 		
 		
 		for(int i =0; i < service.allMembership(paging).size(); i++) {
 			
-			asd.add(service.allMembership(paging).get(i));
-			asd.get(i).setCount(service.membershipUserCount(service.allMembership(paging).get(i).getMembership().getMembershipCode()));
-			System.out.println(asd.get(i).getCount());
-			System.out.println(asd.get(i));
+			list.add(service.allMembership(paging).get(i));
+			list.get(i).setCount(service.membershipUserCount(service.allMembership(paging).get(i).getMembership().getMembershipCode()));
 		}
 		
-		model.addAttribute("list", asd);
-		
-		System.out.println("1번 " + asd.get(1));
+		model.addAttribute("list", list);
 
-	
-	
-		
-	
 
 		return "index";
 	}
@@ -79,8 +69,6 @@ public class PageController {
 			
 		list.add(service.allMembership(paging).get(i));
 		list.get(i).setCount(service.membershipUserCount(service.allMembership(paging).get(i).getMembership().getMembershipCode()));
-			System.out.println(list.get(i).getCount());
-			System.out.println(list.get(i));
 		}
 		
 		

@@ -48,7 +48,6 @@ public class MembershipController {
 	 * */
 	@PostMapping("/createclub")
 	public String createclub(Membership membership) {
-		System.out.println(membership);
 		membership.setMembershipInfo(null);
      return "redirect:/"; // 클럽 생성 후 인덱스 페이지로 리다이렉션
 }	
@@ -59,31 +58,17 @@ public class MembershipController {
 
 	/*
 	 * 성일
-	 * 
+	 * 카운트 관련  VO에 합쳐버림
 	 * 
 	 * */
 	@GetMapping("/{membershipCode}") // 클럽 홍보 페이지 각각 맞춰 갈수있는거
 	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model
 			) {
-		System.out.println(service.main(membershipCode).getListCode());
-		System.out.println("어디서 오류가 날까?");
 		// 홍보페이지에 membership 관련 정보 + 호스트 정보
 		MembershipUserList list =  service.main(membershipCode);
 		list.setCount((service.membershipUserCount(membershipCode)));
-		
-		model.addAttribute("main", list);
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("클럽 홍보 페이지 컨트롤러 왔을때 " + authentication.getName().equals("anonymousUser"));
-	if(	!authentication.getName().equals("anonymousUser") ) {
-		Member mem = (Member) authentication.getPrincipal();
-		
-		 // 로그인 유무 확인 . 널포인트 에러 방지
-			// 가입한 클럽 인지 확인을 위한 아이디 정보 가져오기
-			memberListDTO.setId(mem.getId());
-			// 해당클럽 안에서의 등급 가져오기 삭제중
-//			model.addAttribute("checkMember", service.checkMember(memberListDTO));
-	}
+		model.addAttribute("main", list);		
+
 		return "mainboard/main";
 	}
 	/*
@@ -92,13 +77,13 @@ public class MembershipController {
 	  * */
 	 @GetMapping("/club/{membershipCode}") // 클럽 페이지 이동
 		public String membershipPage(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO memberListDTO, Model model) {
-			MembershipUserList list =  service.main(membershipCode);
-			list.setCount((service.membershipUserCount(membershipCode)));
-			
+			// 해당클럽 정보 다담음
+		 	MembershipUserList list =  service.main(membershipCode);
+			list.setCount((service.membershipUserCount(membershipCode)));	
 			model.addAttribute("main", list);
-			// 현재 가입 또는 신청되어있는  회원 정보		
+			// 해당클럽에 가입신청된 모든 유저정보		
 			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
-		//	System.out.println(service.MembershipAllInfo(membershipCode));
+			
 			return "membership/membershipPage";
 		}
 	 /*

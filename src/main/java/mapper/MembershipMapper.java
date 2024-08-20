@@ -22,8 +22,7 @@ public interface MembershipMapper {
 	
 	MembershipUserList main(int membershipCode);
 	int membershipUserCount(int membershipCode);
-	List<MembershipUserList>allMembership(Paging paging);
-	MemberListDTO checkMember(MemberListDTO member);
+	List<MembershipUserList> allMembership(Paging paging);
 	void makeMembership(Membership membership);
 	void host(MemberListDTO list);
 	ArrayList<Member> allMember();
@@ -31,7 +30,6 @@ public interface MembershipMapper {
 	void membershipApply(MemberListDTO member);
 	
 	List<MemberListDTO> grade(Member member);
-	List<MembershipUserList> listGrade(Member member);
 	
 	void agreeMemeber(MemberListDTO member);
 	
@@ -40,8 +38,7 @@ public interface MembershipMapper {
 	List<BasicRoomListVo> roomlist();
 	
 	void membershipImg(Membership membership);
-	
-	List<MembershipUserList> grade2(Member member);
+
 }
 
 

@@ -25,6 +25,8 @@ public class MembershipService {
 		paging.setOffset(paging.getLimit() * (paging.getPage() - 1));
 		return mapper.allMembership(paging);
 	}
+	
+
 	public List<MembershipUserList> MembershipAllInfo(int membershipCode){
 		
 		return mapper.MembershipAllInfo(membershipCode);
@@ -42,10 +44,7 @@ public class MembershipService {
 	   mapper.membershipApply(member);
 	  
    }
-   public MemberListDTO checkMember(MemberListDTO member) {
-	   return mapper.checkMember(member);
-	  
-   }
+
 	
 	public void makeMembership(Membership membership) {
 		mapper.makeMembership(membership);
@@ -62,9 +61,7 @@ public class MembershipService {
 	public List<MemberListDTO> grade(Member member){
 		return mapper.grade(member);
 	}
-	public List<MembershipUserList> listGrade(Member member){
-		return mapper.listGrade(member);
-	}
+
 	
 	public void agreeMemeber(MemberListDTO member) {
 		mapper.agreeMemeber(member);

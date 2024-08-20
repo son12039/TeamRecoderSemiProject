@@ -56,6 +56,7 @@
 		WHERE list_grade = "host"
 		LIMIT #{offset}, #{limit}
 	</select>
+
 	<!-- 
 		클럽 페이지에서
 		페이지클릭 했을때 해당 맴버쉽 코드를 받아서
@@ -79,16 +80,7 @@
 		membership_user_list(membership_code , id,list_grade)
 		VALUES(#{membershipCode},#{id},#{listGrade})
 	</insert>
-	<!-- 홍보 페이지에서 
-		클럽 등급에 따라 뜨는 화면 차이때문에 있는 메서드
-		인데 로그인정보에 DTO로 저장되어서 없어질 예정 -->
-	<select id="checkMember" parameterType="MemberListDTO"
-		resultMap="listDTOMap">
-		SELECT *
-		FROM membership_user_list
-		WHERE id = #{id} AND
-		membership_code = #{membershipCode};
-	</select>
+
 	
 	<!-- 클럽 페이지 클릭하면 그 맴버쉽 코드를 받아와 
 		해당 클럽의 호스트와 클럽정보 가져오는 쿼리 -->
@@ -151,17 +143,8 @@
 		JOIN member USING (id)
 		WHERE id = #{id}
 	</select>
-	
-	<!--  잘모르겟음 용도를  뺄예정-->
-	<select id="listGrade" parameterType="Member" resultMap="listMap">
-		SELECT *
-		FROM membership_user_list
-		JOIN membership USING
-		(membership_code)
-		JOIN member USING (id)
-		WHERE id = #{id}
 
-	</select>
+
 	<!--  해당 맴버쉽 코드와 유저 정보를 가져와서 유저 등급을 변경하는 컬럼
 		(아직은 단순 게스트 -> 레귤러)
 	 -->

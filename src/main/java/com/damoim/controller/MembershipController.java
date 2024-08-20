@@ -80,7 +80,6 @@ public class MembershipController {
 			// 가입한 클럽 인지 확인을 위한 아이디 정보 가져오기
 			memberListDTO.setId(mem.getId());
 			// 해당클럽 안에서의 등급 가져오기
-			System.out.println("checkMember : " + service.checkMember(memberListDTO));
 			model.addAttribute("checkMember", service.checkMember(memberListDTO));
 	}
 		return "mainboard/main";
@@ -90,14 +89,12 @@ public class MembershipController {
 	  * 해당 클럽에 가입된 회원이 그클럽에 정보와 클럽 가입 현황 볼수있는 페이지 이동
 	  * */
 	 @GetMapping("/club/{membershipCode}") // 클럽 페이지 이동
-		public String membershipPage(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO memberListDTO, Model model,HttpServletRequest request) {
+		public String membershipPage(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO memberListDTO, Model model) {
 		 	// 클럽 페이지에 membership 관련 정보 + 호스트 정보
 		 	model.addAttribute("main",service.main(membershipCode));
 		 	// 현재 가입된 인원수
 			model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));
 			// 로그인된 회원 정보		
-			List<MembershipUserList> list = service.MembershipAllInfo(membershipCode);
-			// 해당클럽 모든 유저 정보 불러오기
 			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
 		//	System.out.println(service.MembershipAllInfo(membershipCode));
 			return "membership/membershipPage";
@@ -110,11 +107,7 @@ public class MembershipController {
 	 @PostMapping("/agreeMember") // 클럽 회원가입 승인
 	 public void agreeMemeber(MemberListDTO member) {
 		 // 일단은 호스트일때만 클럽 회원 승인기능
-		 System.out.println("맴버 잘왔나? : " + member);
-		 service.agreeMemeber(member);
-		System.out.println("승인");
-		
-		
+		 service.agreeMemeber(member);	
 	 }
 	
 	/*
@@ -144,7 +137,7 @@ public class MembershipController {
 		Files.createDirectories(directoryPath);
 		Membership m = Membership.builder()
 					.membershipCode(membership.getMembershipCode())
-					.membershipImg(FileUpload(file, membership.getMembershipCode()))
+					.membershipImg(fileUpload(file, membership.getMembershipCode()))
 					.build();
 		System.out.println("해당 맴버쉽 코드 : " + m.getMembershipCode());
 		System.out.println("이미지 URL 테스트 " + m.getMembershipImg());
@@ -172,7 +165,7 @@ public class MembershipController {
 	 * 파일 삽입 메서드 해당맴버쉽 프로필사진 !!
 	 * 
 	 * */ 
-	public String FileUpload(MultipartFile file, int code) throws IllegalStateException, IOException {
+	public String fileUpload(MultipartFile file, int code) throws IllegalStateException, IOException {
 		if(file.getOriginalFilename() == "") {
 			System.out.println("NULL 리턴");
 			return null;
@@ -188,7 +181,7 @@ public class MembershipController {
 	 * 파일 삭제 메서드 해당유저 프로필사진 변경시 사용!!
 	 * 실 사용때는 조건에 만약 보내준 링크가 null이면 변하지 않도록
 	 * */ 
-	public void FileDelete(String file, int code) throws IllegalStateException, IOException {
+	public void fileDelete(String file, int code) throws IllegalStateException, IOException {
 		if(file == null) {
 			System.out.println("삭제할 파일이 없습니다");
 		}

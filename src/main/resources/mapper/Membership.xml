@@ -1,12 +1,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.MembershipMapper">
-<!-- Member -->
-	<resultMap type="MemberListDTO" id="memberListmap">
+
+	<resultMap type="MemberListDTO" id="listDTOMap">
 		<result column="id" property="id" />
 		<result column="list_grade" property="listGrade" />
 		<result column="membership_code" property="membershipCode" />
 
 	</resultMap>
+	
 	<resultMap type="Membership" id="membershipMap">
 		<id property="membershipCode" column="membership_code" />
 		<result property="membershipName" column="membership_name" />
@@ -17,7 +18,7 @@
 		<result property="membershipMax" column="membership_max" />
 	</resultMap>
 
-	<resultMap type="MembershipUserList" id="membershipmap">
+	<resultMap type="MembershipUserList" id="listMap">
 		<id column="list_code" property="listCode" />
 		<result column="list_grade" property="listGrade" />
 		<association property="member" javaType="Member">
@@ -42,18 +43,19 @@
 		<result column="membership_name" property="membershipName" />
 	</resultMap>
 	
-	<select id="allMembership" resultMap="membershipmap">
+	<select id="allMembership" parameterType="Paging" resultMap="listMap">
 		SELECT *
 		FROM
 		membership_user_list
 		JOIN membership USING (membership_code)
 		JOIN member
 		USING (id)
-		WHERE list_grade = "host";
+		WHERE list_grade = "host"
+		LIMIT #{offset}, #{limit}
 	</select>
 
 	<select id="MembershipAllInfo" parameterType="Integer"
-		resultMap="membershipmap">
+		resultMap="listMap">
 		SELECT *
 		FROM membership_user_list
 		JOIN membership USING
@@ -68,9 +70,9 @@
 		membership_user_list(membership_code , id,list_grade)
 		VALUES(#{membershipCode},#{id},#{listGrade})
 	</insert>
-
+	<!-- 1 -->
 	<select id="checkMember" parameterType="MemberListDTO"
-		resultMap="memberListmap">
+		resultMap="listDTOMap">
 		SELECT *
 		FROM membership_user_list
 		WHERE id = #{id} AND
@@ -86,7 +88,7 @@
 
 
 	<select id="main" parameterType="Integer"
-		resultMap="membershipmap">
+		resultMap="listMap">
 		SELECT *
 		FROM membership_user_list
 		JOIN membership USING
@@ -128,6 +130,7 @@
 		WHERE membership_code = #{membershipCode}
 	</update>
 
+	<!--  클럽 생성시 리스트에 호스트로 바로 추가 -->
 	<insert id="host" parameterType="MemberListDTO">
 		INSERT INTO membership_user_list
 		(list_grade,id,membership_code)
@@ -136,9 +139,9 @@
 	</insert>
 
 
-
+	<!-- 로그인시 member의 가입된 클럽 정보 -->
 	<select id="grade" parameterType="Member"
-		resultMap="memberListmap">
+		resultMap="listDTOMap">
 		SELECT *
 		FROM membership_user_list
 		JOIN membership USING
@@ -147,20 +150,15 @@
 		WHERE id = #{id}
 	</select>
 	
-	
-	<select id="grade2" parameterType="Member"
-		resultMap="membershipmap">
-		SELECT *
+	<select id="listGrade" parameterType="Member" resultMap="listMap">
+			SELECT *
 		FROM membership_user_list
 		JOIN membership USING
 		(membership_code)
 		JOIN member USING (id)
 		WHERE id = #{id}
+
 	</select>
-	
-	
-	
-	
 
 	<update id="agreeMemeber" parameterType="MemberListDTO">
 		UPDATE
@@ -170,63 +168,6 @@
 		membership_code =
 		#{membershipCode}
 	</update>
-	
-	<resultMap type="TypeCategory" id="typeMap">
-	<id column="type_code" property="typeSmallCode"/>
-	<result column="type_la_name" property="typeLargeName"/>
-	<result column ="type_s_name" property="typeSmallName"/>
-	
-	</resultMap>
-	
-	
-	<select id="membershipType" resultMap="typeMap">
-	SELECT type_la_name
-	FROM type_category
-	GROUP BY type_la_name
-	</select>
-	
-	
-	<select id="membershipType1" resultMap="typeMap">
-	SELECT *
-	FROM type_category
-	
-	</select>
-	
-	<resultMap type="MembershipType" id="typeMembership">
-	<id column ="mem_type_code" property="memTypeCode"/>
-      <association property="membership" javaType="Membership" resultMap="membershipMap"/>
-      <association property="typeCategory" javaType="TypeCategory" resultMap="typeMap"/>
-	</resultMap>
-	
-	<select id="typeCheck" parameterType="String"   resultMap="typeMembership">
-	SELECT *
-	FROM membership_type
-	JOIN membership USING (membership_code)
-	JOIN type_category USING(type_code)
-	 <where>
-    <if test="typeLargeName != 'all'">
-      AND type_la_name = #{typeLargeName}
-    </if>
-  </where>
-	</select>
-	
-	<select id="typeCount" parameterType="Integer"   resultType="Integer">
-    SELECT count(*)
-    FROM membership_user_list 
-    WHERE membership_code = #{code} AND list_grade != 'guest'
-	</select>
-	
-	<select id="typeHost"  parameterType="Integer" resultMap="membershipmap">
-	SELECT *
-	FROM membership_user_list
-	JOIN membership USING (membership_code)
-	JOIN member USING (id)
-	WHERE list_grade = "host" AND membership_code = #{code};
-	</select>
-    
-    
-	
-	
 
 	<select id="membershipCodeList" parameterType="String"
 		resultType="Integer">

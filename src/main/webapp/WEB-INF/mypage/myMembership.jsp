@@ -80,7 +80,7 @@
    <c:forEach items="${membership}" var="mem">
     
     <c:if test="${mem.listGrade == 'guest'}">
-    <a href="/${mem.membership.membershipCode}">
+   
   <div class="membership-each">
      <div><img  class="membership-img" src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"></div>
      <div class="membership-String">
@@ -88,7 +88,7 @@
      <div><p>${mem.membership.membershipInfo}</p></div>
      </div>
     </div>
-    </a>
+
     </c:if>
   
    </c:forEach>

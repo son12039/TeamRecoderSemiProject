@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
      <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+				
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -48,9 +49,9 @@
             </c:if>
            
         </h4>
-        
-        <!-- 현재 로그인한 회원의 아이디와 호스트의 아이디가 일치하면서 멤버쉽 현재 인원이 최대 인원보다 크거나 같을경우  출력되는 경고문  -->
-        <c:if test="${mem.id == main.member.id && membershipUserCount >= main.membership.membershipMax}">
+     
+				
+        <c:if test="${member.id == main.member.id && membershipUserCount >= main.membership.membershipMax}">
                         	<div>최대 인원에 도달하였습니다. 최대인원을 다시 설정후 확인해줏비시오</div>
                         </c:if>
 
@@ -111,6 +112,7 @@
                         </ul>
                     </c:otherwise>
                 </c:choose>
+                 
             </div>
         </c:forEach>
         <a href="/" id="toIndex">메인페이지로 가기</a>

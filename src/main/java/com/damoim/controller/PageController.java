@@ -7,12 +7,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
+import com.damoim.model.vo.MembershipUserList;
+import com.damoim.model.vo.Paging;
 import com.damoim.service.MembershipService;
-
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -27,26 +28,28 @@ public class PageController {
 	 * 인덱스에 현재 호스트가 존재하는 모든 클럽들 모두 출력
 	 * */
 	@GetMapping("/")
-	public String index(Model model) {
+	public String index(Model model, Paging paging) {
 		
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	//	Member member = (Member) authentication.getPrincipal();
 		System.out.println("인증인가? : " + authentication.getPrincipal());
-	//	System.out.println("인덱스에서 ! : " + member);
-		
-		//model.addAttribute("member", authentication.getPrincipal());
-		
-		
 		List<Integer> countList = new ArrayList(); // count 계산용 인덱스 번호담는 배열
-		model.addAttribute("list", service.allMembership()); // 현재 존재하는 모든 맴버쉽 정보가있는 배열		
-		for(int i = 0; i < service.allMembership().size(); i++) {
-		int j = service.allMembership().get(i).getMembership().getMembershipCode();
+		model.addAttribute("list", service.allMembership(paging)); // 현재 존재하는 모든 맴버쉽 정보가있는 배열		
+		for(int i = 0; i < service.allMembership(paging).size(); i++) {
+		int j = service.allMembership(paging).get(i).getMembership().getMembershipCode();
 		countList.add(service.membershipUserCount(j)); // 각각 클럽의 인원수 (신청자는 제외)
 		}	
 		model.addAttribute("countList", countList); // 카운트 정보 출력용
 		
 		return "index";
+	}
+	@ResponseBody
+	@GetMapping("/list")
+	public List<MembershipUserList> list(Paging paging){
+		System.out.println("리스트 도착");
+		List<MembershipUserList> list = service.allMembership(paging);
+		System.out.println(list);
+		return list;
 	}
 	/*
 	 * 성철

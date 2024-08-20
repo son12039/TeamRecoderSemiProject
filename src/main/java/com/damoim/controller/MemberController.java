@@ -38,29 +38,10 @@ public class MemberController {
     private EmailService emailService; // 이메일 서비스
 	
 	
-	// 로그인 , 해당 회원 정보 , 가입 클럽 코드 및 등급을 세션에
     /*
      * 성일
-     * 
+     * 로그인 시큐리티 처리
      * */
-	/*
-	 * @ResponseBody
-	 * 
-	 * @PostMapping("/login") public boolean login(Member member, HttpServletRequest
-	 * request, Model model) { HttpSession session = request.getSession(); // 로그인 성공
-	 * ! if (service.login(member) != null) {
-	 * 
-	 * session.setAttribute("mem", service.login(member)); // 로그인 정보 세션에 // 내가 가입한
-	 * 클럽 정보 체크용
-	 * 
-	 * // 해당 id를 가진 맴버의 맴버쉽 의 모든정보 + 맴버, 등급 등등
-	 * System.out.println(infoService.grade(member));
-	 * 
-	 * session.setAttribute("membership", infoService.grade(member)); return true;
-	 * // 로그인 실패! } return false; }
-	 */
-	
-	// *** 회원가입 관련
 
 	/*
 	  * 성철
@@ -101,8 +82,8 @@ public class MemberController {
 		// 해당 id 이름의 회원 폴더 생성
 		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\member\\"+ mem.getId()+"\\");  
 		Files.createDirectories(directoryPath);
-		String  fileUrl = FileUpload(imgFile, mem.getId());
-		member.setMemberImg(fileUrl);
+		member.setMemberImg(fileUpload(imgFile, mem.getId()));
+		System.out.println("회원가입전 맴버 변수 체크 " + member);
 		service.signUp(member);	
 		
 		System.out.println(member);
@@ -111,15 +92,9 @@ public class MemberController {
 	}
 	/*
 	 * 성일
-	 * 
+	 * 로그아웃 시큐리티
 	 * */
-	@GetMapping("/logout") // 로그아웃 메서드
-    public String logout(HttpServletRequest request) {
-		System.out.println("logout!!!!");
-		//HttpSession session = request.getSession();
-		//session.invalidate();
-		return "redirect:/";
-	}
+
 	/*
 	  * 성철
 	  * 단순히 더미데이터 비밀번호 처리
@@ -137,7 +112,7 @@ public class MemberController {
 	public String myMembership(Member member, Model model) {
 		
 		// 내 등급별 클럽
-		model.addAttribute("membership", infoService.grade2(member));
+		model.addAttribute("membership", infoService.listGrade(member));
 		
 		System.out.println(infoService.grade2(member));
 	
@@ -180,7 +155,7 @@ public class MemberController {
 	/* 성철
 	 * 파일 업로드 각각 mamber의 id 폴더에 저장후 URL 리턴
 	 * */
-	public String FileUpload(MultipartFile file,String id) throws IllegalStateException, IOException {
+	public String fileUpload(MultipartFile file,String id) throws IllegalStateException, IOException {
 		if(file.getOriginalFilename() == "") {
 			System.out.println("NULL 리턴");
 			return null;
@@ -190,13 +165,14 @@ public class MemberController {
 		File copyFile = new File("\\\\192.168.10.51\\damoim\\member\\"+ id + "\\" + fileName);
 		file.transferTo(copyFile);
 		System.out.println("파일1개 추가!");
+		System.out.println("파일 이름 : " + fileName);
 		return fileName;
 	}
 	/* 성철
 	 * 파일 삭제 메서드 해당유저 프로필사진 변경시 사용!!
 	 * 실 사용때는 조건에 만약 보내준 링크가 null이면 변하지 않도록
 	 * */ 
-	public void FileDelete(String file, String id) throws IllegalStateException, IOException {
+	public void fileDelete(String file, String id) throws IllegalStateException, IOException {
 		if(file == null) {
 			System.out.println("삭제할 파일이 없습니다");
 		}

@@ -32,6 +32,7 @@ pageEncoding="UTF-8"%>
                 <a href="/loginPage">로그인</a>
               </div>
               </sec:authorize>
+              
 				<sec:authorize access="isAuthenticated()" var="principal">
 				<sec:authentication property="principal" var="member" />
 				<p>${member}</p>
@@ -61,14 +62,14 @@ pageEncoding="UTF-8"%>
 		<c:forEach items="${list}" var="id" varStatus="status">
 			<div class="membership-card">
 				<div class="membership-img">
-					<a href="/${id.membership.membershipCode}">
+					<a href="/${id.membership.membershipCode}"> 
 					<c:choose>
 						<c:when test="${id.membership.membershipImg != null}">
 								<img src="http://192.168.10.51:8081/membership/${id.membership.membershipCode}/${id.membership.membershipImg}">
 						</c:when>
 					
 						<c:otherwise>
-							<img
+							<img 
 								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">
 						</c:otherwise>
 					</c:choose>
@@ -101,6 +102,7 @@ pageEncoding="UTF-8"%>
 	<a href="/dummyUpdate">!!!!!!!!!!!주의!!!!!!!!!!!! 기존 유저들 비밀번호 암호화하는거임 건드리지 말것</a>
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="login.js"></script>
+	<script src="${pageContext.request.contextPath}/js/index.js"></script>
 	
 	
 	

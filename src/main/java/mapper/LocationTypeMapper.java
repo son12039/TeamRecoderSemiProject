@@ -37,5 +37,9 @@ public interface LocationTypeMapper {
 	//맴버 닉네임 뽑기
 	Member selectMemberNickName(int code);
 
+	//맴버 코드로 그룹에 게스트를 제외한 모든 인원
+	int allMemberShipUser(int code);
+//	<select id="allMemberShipUser" parameterType="int" resultMap="int">
+	
 	
 }

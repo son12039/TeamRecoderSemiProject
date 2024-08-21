@@ -23,7 +23,8 @@ public interface MembershipMapper {
 	
 	MembershipUserList main(int membershipCode);
 	int membershipUserCount(int membershipCode);
-	List<MembershipUserList> allMembership(Paging paging);
+	List<MembershipUserList> allMembership();// 08-21 14:30 채승훈 지움 (Paging paging)
+	
 	void makeMembership(Membership membership);
 	void host(MemberListDTO list);
 	ArrayList<Member> allMember();

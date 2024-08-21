@@ -41,7 +41,7 @@ public class MemberLocTypeDTO {
     private MembershipLocation membershipLocation;
     private MembershipType membershipType;
     
-    private List<Integer> countList;
+    private Integer countList;
     private List<LocationCategory> locations;
     private List<TypeCategory> types;
     

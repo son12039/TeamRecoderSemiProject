@@ -47,6 +47,7 @@
 				
 				</div>
 					<div class="header_right_menu">
+					${member}
 						<a href="/update">마이페이지</a> <a href="/myMembership">나의
 							모임</a> <a href="/logout">로그아웃</a>
 					</div>
@@ -139,17 +140,19 @@
 						<input type="hidden" name="code" value="${info.membershipCode}">
 						<br>
 					</div>
-					<div class="location">
-						<c:forEach items="${info.locations}" var="location">
-								<div class="locationList"># ${location.locLaName} ${location.locSName}</div> 
-						</c:forEach>
-					</div>
-					<br>
-					<div class="type">
-						<c:forEach items="${info.types}" var="type">
-							 	 <div class="typeList">${type.typeSName}</div> 
-						</c:forEach>
-					</div>
+						<div class="locationTypeBox">
+							<div class="location">
+								<c:forEach items="${info.locations}" var="location">
+										<div class="locationList"># ${location.locLaName} ${location.locSName}</div> 
+								</c:forEach>
+							</div>
+							<br>
+							<div class="type">
+								<c:forEach items="${info.types}" var="type">
+									 	 <div class="typeList">${type.typeSName}</div> 
+								</c:forEach>
+							</div>
+						</div>
 				</div>
 			</div>
 		</c:forEach>
@@ -160,17 +163,10 @@
 
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
-	<!-- <script src="login.js"></script> -->
-
-
-
-	<a href="/dummyUpdate">!!!!!!!!!!!주의!!!!!!!!!!!! 기존 유저들 비밀번호
-		암호화하는거임 건드리지 말것</a>
+	<script src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-	<script src="login.js"></script>
-	<script src="${pageContext.request.contextPath}/js/index.js"></script>
+
+
 	
 	
 	

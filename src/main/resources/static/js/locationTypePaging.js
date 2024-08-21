@@ -39,14 +39,19 @@ window.addEventListener("scroll", () => {
 					ajaxLocationType += '<h2>호스트 : ' + club.nickname + '</h2>' +
 						'<input type="hidden" name="code" value="' + club.membershipCode + '">' +
 						'<br>' +
-						'</div>';
-					for (let location of club.locations) {
-						ajaxLocationType += '#' + location.locLaName+'#' +  location.locSName;
-					}
-					ajaxLocationType += '<br>';
-					for (let type of club.types) {
-						ajaxLocationType +=  type.typeSName;
-					}
+						'</div>'+
+							'<div class="locationTypeBox">' +
+							'<div class="location">';
+								for (let location of club.locations) {
+									ajaxLocationType += '<div class="locationList">'+ '#' + location.locLaName+'#' +  location.locSName+'</div>';
+								}
+								ajaxLocationType +='</div>'+'<br>'+
+								'<div class="type">';
+								for (let type of club.types) {
+									ajaxLocationType += '<div class="typeList">'+ type.typeSName+'</div>';
+								}
+								ajaxLocationType += '</div>'+
+							'</div>'+
 					'</div>'+
 					'</div>';
 
@@ -58,5 +63,16 @@ window.addEventListener("scroll", () => {
 		});
 	}
 });
+
+/*
+for (let location of club.locations) {
+	ajaxLocationType += '#' + location.locLaName+'#' +  location.locSName;
+}
+ajaxLocationType += '<br>';
+for (let type of club.types) {
+	ajaxLocationType +=  type.typeSName;
+}
+
+*/
 
 

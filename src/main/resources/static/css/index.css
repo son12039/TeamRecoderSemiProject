@@ -170,8 +170,8 @@
 }
 img {
   border-radius: 15px;
-  width: 200px;
-  height: 200px;
+  width: 270px;
+  height: 270px; /* 08-21 채승훈 : 타입 설명란 때문에 잠깐 이미지 크기 키웠음*/
   margin: 20px;
 }
 body {
@@ -227,4 +227,23 @@ body {
 }
 .search:hover {
   background: yellow;
+}
+
+/* 08-21 14:53 채승훈 시작*/
+.locationTypeBox {
+	font-size: 12px;	
+	width : 200px;
+}
+.type{
+	display:flex;
+	flex-wrap: wrap;
+	
+}
+.typeList{
+	background-color : white;
+	width: fit-content; /*글자크기에 맞게 width값 주기*/
+	border: 1px solid grey;
+	padding:2.5px;
+	border-radius: 15px;
+	margin:1px;
 }

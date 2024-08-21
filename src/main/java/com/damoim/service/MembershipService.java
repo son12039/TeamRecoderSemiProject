@@ -24,9 +24,10 @@ public class MembershipService {
 	
 	
 	
-	public List<MembershipUserList> allMembership(Paging paging){
-		paging.setOffset(paging.getLimit() * (paging.getPage() - 1));
-		return mapper.allMembership(paging);
+	public List<MembershipUserList> allMembership(){
+		// 08-21 14:30 채승훈 지움 (Paging paging)
+		// paging.setOffset(paging.getLimit() * (paging.getPage() - 1));
+		return mapper.allMembership();
 	}
 	
 	public List<MembershipUserList> MembershipAllInfo(int membershipCode){
@@ -88,10 +89,10 @@ public class MembershipService {
 	
 	
 	
-	public List<MembershipUserList> list(Paging paging) {
-		
-		return mapper.allMembership(paging);
-	}
+//	public List<MembershipUserList> list(Paging paging) {
+//		
+//		return mapper.allMembership(paging);
+//	}
 }
 
 

@@ -65,4 +65,9 @@ public class LocationTypeService {
 		return mapper.selectMemberNickName(code);
 	}
 	
+	//
+	public int allMemberShipUser(int code) {
+		return mapper.allMemberShipUser(code);
+	}
+	
 }

@@ -51,36 +51,49 @@ public class LocationTypeController {
 		
 		List<MemberLocTypeDTO> list = new ArrayList<MemberLocTypeDTO>();
 		
-		//성일님이 만든거
+//		성일님이 만든거
 		List<Integer> countList = new ArrayList(); // count 계산용 인덱스 번호담는 배열	
-		for(int i = 0; i < memberService.allMembership().size(); i++) {
+
+		for(int i = 0; i < locationTypeservice.searchList(search).size(); i++) {
 		int j = memberService.allMembership().get(i).getMembership().getMembershipCode();
 		countList.add(memberService.membershipUserCount(j)); // 각각 클럽의 인원수 (신청자는 제외)
-		}	
-		
+		}
+
+		System.out.println(list.size());
+		System.out.println("카"+countList.size());
+		System.out.println("1번 "+countList);
+		System.out.println("2번 "+locationTypeservice.searchList(search));
 		
 		// 모든 정보 합쳐서 리스트로 뿌리기
 		if(membershipCodes.size()!=0) {
 			search.setMembershipCodes(membershipCodes);
 			list = locationTypeservice.memberLocTypeList(search);
+			int a= 0;
 			for(MemberLocTypeDTO dto : list) {
 				//그리고 dto에 만든 리스트에 또 넣기
 				List<LocationCategory> locations = locationTypeservice.locationList(dto.getMembershipCode());
 				List<TypeCategory> types = locationTypeservice.typeList(dto.getMembershipCode());
 				Member member = locationTypeservice.selectMemberNickName(dto.getMembershipCode());
+				
 				dto.setLocations(locations);
 				dto.setTypes(types);
-				
 				dto.setNickname(member.getNickname());
 				dto.setMemberImg(member.getMemberImg());
 				dto.setId(member.getId());
 				dto.setMemberLocation(member.getMemberLocation());
 				dto.setMemberType(member.getMemberType());
-				dto.setCountList(countList);
+				dto.setCountList(countList.get(a));
+				a++;
 			}
 		}
-		return list;
 		
+		
+		for(int i =0; i<list.size();i++) {
+//			System.out.println(list.get(i).getCountList());
+		}
+		
+		
+		return list;
 	}
 	
 	

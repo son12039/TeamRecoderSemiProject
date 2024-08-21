@@ -211,7 +211,7 @@ public class MemberController {
 
 	}
 
-	// 탈퇴한 회원 접근 제한
+	
 	
 	
 	

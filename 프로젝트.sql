@@ -254,9 +254,35 @@ ADD FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
 
 -- membership_meetings 테이블에 list_code 컬럼 추가
 ALTER TABLE membership_meetings
-ADD list_code INT;
+ADD id varchar(50);
 
--- membership_meetings 테이블의 외래 키 제약 조건 추가 (list_code 참조)
+SELECT *
+from membership_meetings;
+
 ALTER TABLE membership_meetings
-ADD FOREIGN KEY (list_code) REFERENCES membership_user_list(list_code);
+drop list_code;
+
+ALTER TABLE membership_meetings
+DROP CONSTRAINT membership_meetings_ibfk_3;
+-- membership_meetings 테이블의 외래 키 제약 조건 추가 (list_code 참조)
+
+CREATE TABLE membership_meetings ( -- 클럽모임게시판
+    meet_code INT PRIMARY KEY auto_increment, -- 모임게시판코드
+    membership_code INT, -- 클럽코드 /외래키
+    meet_date_start DATE, -- 모임 시작일
+    meet_date_end DATE, -- 모임 종료일
+    meet_agree_code INT, -- 참여여부 테이블 연결
+    meet_info TEXT, -- 모임관련 정보
+    meet_creat_date DATE default(current_date)
+);
+
+
+
+ALTER TABLE membership_meetings
+ADD FOREIGN KEY (id) REFERENCES member(id);
+
+UPDATE membership_meetings
+set meet_date_start=2024-08-01 
+,meet_date_end =2024-08-03
+WHERE meet_code = 1;
 

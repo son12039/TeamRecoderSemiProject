@@ -26,6 +26,7 @@
 			<result column="name" property="name" />
 			<result column="nickname" property="nickname" />
 			<result column="member_img" property="memberImg" />
+			<result column="member_info" property="memberInfo"/>
 		</association>
 		<association property="membership" javaType="Membership">
 			<id column="membership_code" property="membershipCode" />

@@ -14,19 +14,36 @@
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/reset.css"
         />
+        <link
+          rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/membershipPage.css"
+        />
+          <link
+          rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/calender.css"
+        />
           
          <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+         
+      
+         
+     
 </head>
 <body>
+
+
+<jsp:include page="../header.jsp"></jsp:include>
 <sec:authorize access="isAuthenticated()" var="principal">
 	<sec:authentication property="principal" var="member" />
     <main>
     <!-- ${main}은 멤버쉽관련 정보 + 호스트 정보  타입은 멤버쉽유저리스트임 -->
      <!-- 멤버쉽 이름  -->  
-        <h1>${main.membership.membershipName}</h1>  
+        <h1 >${main.membership.membershipName}</h1>  
         
         <!-- 멤버쉽 채팅 서버 링크   -->
         <a href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a> 
+        
+        <a href="/write?membershipCode=${main.membership.membershipCode}">모임게시판작성하러가기</a>
           
         <!--멤버쉽 대표 이미지   -->
         <img id="mainImg" src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}" alt="클럽 이미지">
@@ -108,6 +125,7 @@
                             <c:if test="${main.member.memberImg == null}">
                             <img class="allmemberImg" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg" alt="회원 이미지">
                             </c:if>
+                            <li>${cMember.member.memberInfo}</li>
                             <li>${cMember.listGrade}</li>
                         </ul>
                     </c:otherwise>
@@ -118,7 +136,35 @@
         <a href="/" id="toIndex">메인페이지로 가기</a>
 
     </main>
+    
+    <c:forEach items="${allmeet}" var="list" varStatus="status" >
+        <p id="start${list.meetCode}" style="display: none">${list.meetDateStart}</p>
+         <p id="end${list.meetCode}" style="display: none">${list.meetDateEnd}</p>
+    </c:forEach>
+    <p id="size">${allmeet.size()}</p>
+  
+    <div class="calendar">
+      <div class="header1">
+        <button id="prevMonth">&lt;</button>
+        <div class="month-year" id="monthYear"></div>
+        <button id="nextMonth">&gt;</button>
+      </div>
+      <div class="days">
+        <div class="day">Sun</div>
+        <div class="day">Mon</div>
+        <div class="day">Tue</div>
+        <div class="day">Wed</div>
+        <div class="day">Thu</div>
+        <div class="day">Fri</div>
+        <div class="day">Sat</div>
+      </div>
+      <div class="dates" id="dates"></div>
+    </div>    
+    ${allmeet}
     </sec:authorize>
+    
     <script src="${pageContext.request.contextPath}/js/membershipPage.js"></script>
+    <script src="${pageContext.request.contextPath}/js/calendar.js"></script>
+   
 </body>
 </html>

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MembershipDTO;
 import com.damoim.model.dto.MembershipTypeDTO;
+import com.damoim.service.MembershipMeetingService;
 import com.damoim.service.MembershipService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -43,6 +45,8 @@ public class MembershipController {
 		return "mypage/createclub";
 		
 	}
+	@Autowired
+	private  MembershipMeetingService meetingService;
 	/*
 	 * 
 	 * */
@@ -73,6 +77,7 @@ public class MembershipController {
 		
 		model.addAttribute("main", list);
 		
+		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("클럽 홍보 페이지 컨트롤러 왔을때 " + authentication.getName().equals("anonymousUser"));
 	if(	!authentication.getName().equals("anonymousUser") ) {
@@ -99,6 +104,26 @@ public class MembershipController {
 			// 현재 가입 또는 신청되어있는  회원 정보		
 			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
 		//	System.out.println(service.MembershipAllInfo(membershipCode));
+			
+			System.out.println("리스트 : " + list);
+			System.out.println("올멤버 : "+ service.MembershipAllInfo(membershipCode));
+			List<Date> startList = new ArrayList<Date>();
+			List<Date> endList = new ArrayList<Date>();
+			for(int i=0; i<meetingService.allMeetings(membershipCode).size(); i ++) {
+				startList.add(meetingService.allMeetings(membershipCode).get(i).getMeetDateStart());
+				endList.add(meetingService.allMeetings(membershipCode).get(i).getMeetDateEnd());
+			}
+			
+
+			System.out.println("미팅정보 : " +meetingService.allMeetings(membershipCode));
+			meetingService.allMeetings(membershipCode).get(0).getMeetDateEnd();
+			
+			System.out.println("시작날짜 배열 : " + startList);
+			System.out.println("종료날짜 배열 : " + endList);
+			model.addAttribute("startList", startList);
+			model.addAttribute("endList", endList);
+			model.addAttribute("allmeet", meetingService.allMeetings(membershipCode));
+			
 			return "membership/membershipPage";
 		}
 	 /*

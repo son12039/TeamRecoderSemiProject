@@ -111,6 +111,11 @@ public class PageController {
 		return "membership/updateMembership";
 	}
 	
+	// 회원탈퇴
+	@GetMapping("/memberDelete")
+	public String memberDelete(){
+		return "mypage/memberDelete";
+	}
 
 	// 내가 가입한 맴버쉽 페이지 이동
 	/*

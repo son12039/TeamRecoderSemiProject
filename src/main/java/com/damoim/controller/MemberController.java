@@ -130,20 +130,15 @@ public class MemberController {
 	}
 
 	// (동문) 비밀번호 확인후 update 페이지 이동
+	@ResponseBody
 	@PostMapping("/updateCheck")
-	public String updateCheck(String pwdCheck) {
+	public boolean updateCheck(String pwdCheck) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
 
 		boolean check = service.updateCheck(mem, pwdCheck);
 		System.out.println("체크 확인" + check);
-		if (check) {
-			System.out.println("비밀번호 확인 완료!!!");
-			return "mypage/updateMemberInfo";
-		} else {
-			System.out.println("비밀번호 오류!!!!");
-			return "redirect:/updateCheck";
-		}
+		return check;
 		
 		
 	}
@@ -168,7 +163,7 @@ public class MemberController {
 		vo.setAddr(addr);
 		vo.setNickname(nickname);
 		System.out.println("vo.getNickname : " + vo.getNickname()); // 닉네임 받아온거 확인
-
+		
 		// 닉네임 중복확인
 		if (service.nicknameDupCheck(vo)) {
 			System.out.println("닉네임 중복");
@@ -192,17 +187,42 @@ public class MemberController {
 		return true;
 	}
 	
+	// 회원 탈퇴
+	@ResponseBody
 	@PostMapping("/memberDelete")
-	public void memberDelete(Member member) {
+	public boolean memberDelete(Member member) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		
 		System.out.println("memberDelete : " + mem); // mem 정보 받음
+		boolean delete = false;
 		
-		
-		
+		if(!mem.isStatus()) {
+			System.out.println("이미 탈퇴한 회원입니다");
+			return false;
+			
+		} else { // true 인 회원들
+			mem.setStatus(delete);
+			System.out.println("멤버 탈퇴 Status : " + mem.isStatus());
+			member.setId(mem.getId());
+			service.memberDelete(member);
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+			return true;
+		}
+
 	}
 
+	// 탈퇴한 회원 접근 제한
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// 프로필, info 업데이트
 	@ResponseBody
@@ -236,15 +256,6 @@ public class MemberController {
 		return "redirect:/mypage";
 	}
 
-	
-	// // 성철 파일 업로드 각각 mamber의 id 폴더에 저장후 URL 리턴
-	// public String fileUpload(MultipartFile file, String id) throws IllegalStateException, IOException {
-	// 	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	// 	Member mem = (Member) authentication.getPrincipal();
-		
-	// 	if (file.getOriginalFilename() == "") {
-    //     return "redirect:/"; // 인덱스 페이지로 리다이렉트
-    // }
    
 	/* 성철
 	 * 파일 업로드 각각 mamber의 id 폴더에 저장후 URL 리턴

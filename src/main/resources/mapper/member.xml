@@ -73,14 +73,12 @@
 	</select>
 	
 	<!-- 회원 탈퇴 -->
-	<delete id="memberDelete" parameterType="Member">
-	DELETE FROM member
+	<update id="memberDelete" parameterType="Member">
+	UPDATE member
+		SET status = #{status}
 	WHERE id = #{id}
-	</delete>
+	</update>
 	
-	
-	
-	<!-- 회원 탈퇴  -->
 	
 	
 	
@@ -99,6 +97,9 @@
 	SELECT * FROM member
 	WHERE id = #{id}
 	</select>
+	
+	
+	
 	
 	
 	<!-- 내 정보 업데이트 / ============================================ -->

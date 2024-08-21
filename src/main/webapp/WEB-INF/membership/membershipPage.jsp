@@ -124,7 +124,7 @@
         </sec:authorize>
         
     </main>
-    </sec:authorize>
+
     <script src="${pageContext.request.contextPath}/js/membershipPage.js"></script>
 </body>
 </html>

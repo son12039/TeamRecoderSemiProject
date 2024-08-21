@@ -2,8 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -70,13 +69,11 @@
 						id="age" name="age" placeholder="age" value="${member.age}"
 						required />
 				</div>
-				<button type="button" id="updateSubmit">제출</button>
+				<button type="button" id="updateSubmit">변경</button>
 			</form>
 			
-			<form action="/memberDelete" method="post" id="memberDelete">
-				<div>
-					<button type="submit">회원탈퇴</button>
-				</div>
+			<form action="/memberDelete">
+				<button>회원탈퇴</button>
 			</form>
 			
 

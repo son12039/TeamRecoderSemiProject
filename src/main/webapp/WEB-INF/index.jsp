@@ -25,15 +25,17 @@
 			<div class="header_right">
 		
 				<sec:authorize access="!isAuthenticated()">
+			
               <div class="header_right_menu">
                 <a href="/signUp">회원가입</a>
                 <a href="/loginPage">로그인</a>
               </div>
+              
               </sec:authorize>
               
 				<sec:authorize access="isAuthenticated()" var="principal">
 				<sec:authentication property="principal" var="member" />
-				<p>${member}</p>
+				<div id="member-info"><h2>${member}</h2></div>
 				<div> ${member.nickname}
 				<c:choose>
 						<c:when test="${member.memberImg != null}">

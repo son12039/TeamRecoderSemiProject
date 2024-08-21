@@ -33,11 +33,8 @@ public interface MemberMapper {
 	Member memberInfo(Member member);
 	String grade(Member member);
 	
-	// 업데이트 ===============================
+	// 회원정보 업데이트 ===============================
 	void updateMember(Member member);
-	void memberDelete(Member member);
-	
-	
 	Member updateCheck(Member vo, Member mem);
 	void updateMemberInfo(Member member);
 	void addrUpdate(Member member);
@@ -45,7 +42,13 @@ public interface MemberMapper {
 	void fileDelete(String string);
 	Member selectImg(String string);
 	
-	// id 이메일 맞나 체크
+	// 회원탈퇴 ===============================
+	boolean memberDelete(Member member);
+	
+	
+	
+	
+	// id 이메일 맞나 체크 ======================
 	Member memberEmailIdcheck(Member member);
 	
 	// 업데이트

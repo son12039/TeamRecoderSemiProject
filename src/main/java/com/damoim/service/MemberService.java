@@ -50,6 +50,7 @@ public class MemberService  implements UserDetailsService{
 	}
 	
 	public Member idCheck(Member member) {
+		 
 		return mapper.idCheck(member);
 		
 	}

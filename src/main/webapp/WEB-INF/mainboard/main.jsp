@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,12 @@
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/main.css"
         />
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <style>
+        .reply-form{
+       	 display: none;
+        }
+        </style>
 </head>
 <body>
 
@@ -62,14 +69,51 @@
     </form>
     </c:when>
     </c:choose>
-    <form id="comment-frm">
-    <div></div>
-    <input type="text" name="mainCommentText">
-    </form>
-    
-   </sec:authorize>
-   <p>댓글 내용</p>
 </div>
+	<div id="comment-container">
+    <form id="comment-frm">
+    <div id="comment-box">
+    <input type="text" name="mainCommentText" placeholder="댓글을 입력하세요">
+    <input type="hidden" name="id" value="${member.id}">
+    <input type="hidden" name="membershipCode" value="${main.membership.membershipCode}">
+    <button id="submit-comment" type="submit">댓글 등록</button>
+    </div>
+    </form>
+    <c:choose>
+    <c:when test="${fn:length(comment) == 0}">
+    
+    <p>현재 등록된 댓글이 없습니다.</p>
+	</c:when>
 
+<c:otherwise>
+
+<c:forEach items="${comment}" var="com">
+    <div id="comm-${com.mainCommentCode}" class="comment">
+        댓글 내용 ${com.mainCommentText} <br/>
+        댓글 작성시간 ${com.mainCommentDate} <br/>
+        댓글 작성자 닉네임 ${com.member.nickname} <br/>
+        <button type="button" onclick="showReplyForm(${com.mainCommentCode})">대댓글</button>
+        
+        <div id="reply-form-${com.mainCommentCode}" class="reply-form" >
+            <form id="comment-frm-${com.mainCommentCode}">
+                <div id="comment-box">
+                    <input type="text" name="mainCommentText" placeholder="대댓글을 입력하세요" >
+                    <input type="hidden" name="mainParentsCommentCode" value="${com.mainCommentCode}">
+                    <input type="hidden" name="id" value="${com.member.id}">
+                    <input type="hidden" name="membershipCode" value="${com.membershipCode}">
+                    <button id="submit-comment-comment-${com.mainCommentCode}" data-comment-code="${com.mainCommentCode}" type="submit">댓글 등록</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</c:forEach>
+
+</c:otherwise>
+  </c:choose>
+
+  
+ </sec:authorize>
+ </div>
+<script src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>
 </html>

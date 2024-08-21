@@ -95,7 +95,8 @@ public class MembershipController {
 		    
 		    dtoList.add(commentDTO);
 		    ArrayList<MainComment> recommList = commentService.mainReComment(membershipCode, commentDTO.getMainCommentCode());
-		    
+		    // 모든 댓글에 대댓글이 달리는 상황 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 수정요망
+		    if(recommList.size()> 0) {
 		    for (int j = 0; j < recommList.size(); j++) {
 		        CommentDTO recommentDTO = new CommentDTO().builder()
 		                .mainCommentCode(recommList.get(j).getMainCommentCode())
@@ -110,6 +111,7 @@ public class MembershipController {
 		     
 		        commentDTO.getRecoment().add(recommentDTO);
 		    }
+		}
 		}
 
 		System.out.println(dtoList);

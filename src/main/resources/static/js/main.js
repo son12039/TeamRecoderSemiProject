@@ -47,24 +47,5 @@ function recomment(e, code) {
 			location.reload();
 		}
 	})
-	//$(`#comment-box-${}`)
+	
 }
-//let hiddenCode = $("#hiddenCode").val;
-//let hiddenSubmit = "#submit-comment-comment-" + hiddenCode;
-//$("#recommment").click((e) => {
-	//alert("#####");
-	//alert(e.target.value);
-  /*  let commentCommentFrom = "#comment-frm-" + hiddenCode;
-	e.preventDefault();
-     // AJAX 요청 보내기
-     $.ajax({
-         url: '/mainComment', // 대댓글을 처리할 서버 URL
-         type: 'POST',
-         data: $(commentCommentFrom).serialize,
-         success: function() {  
-             alert('대댓글이 등록완료!.');
-			 location.reload();
-
-         }
-     });*/
-// });

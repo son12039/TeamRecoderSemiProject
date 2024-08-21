@@ -73,7 +73,8 @@
 	<div id="comment-container">
     <form id="comment-frm">
     <div id="comment-box">
-    <input type="text" name="mainCommentText" placeholder="댓글을 입력하세요">
+    <label for="textbox"> ${member.nickname} : </label>
+    <input id="textbox" type="text" name="mainCommentText" placeholder="댓글을 입력하세요">
     <input type="hidden" name="id" value="${member.id}">
     <input type="hidden" name="membershipCode" value="${main.membership.membershipCode}">
     <button id="submit-comment" type="button">댓글 등록</button>
@@ -97,7 +98,8 @@
         <div id="reply-form-${com.mainCommentCode}" class="reply-form" >
             <form id="comment-frm-${com.mainCommentCode}">
                 <div id="comment-box-${com.mainCommentCode}">
-                    <input type="text" name="mainCommentText" placeholder="대댓글을 입력하세요" >
+               		<label for="textbox${com.mainCommentCode}"> ${member.nickname} : </label>
+                    <input id="textbox${com.mainCommentCode}" type="text" name="mainCommentText" placeholder="대댓글을 입력하세요" >
                     <input type="hidden" name="id" value="${member.id}">
                     <input type="hidden" name="membershipCode" value="${com.membershipCode}">
                     <button type="button" onclick="recomment(event, ${com.mainCommentCode})">댓글 등록</button>

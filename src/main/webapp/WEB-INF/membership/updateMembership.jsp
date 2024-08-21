@@ -18,8 +18,6 @@
 	
 	<sec:authorize access="isAuthenticated()" var="principal">
 		<sec:authentication property="principal" var="member" />
-	<!--<c:forEach items="${member.membershipListDTO}">
-		</c:forEach>-->
 
 		<div class="container">
 			<h1>클럽 정보 수정</h1>

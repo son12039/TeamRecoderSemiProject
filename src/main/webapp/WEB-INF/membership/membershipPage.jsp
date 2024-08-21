@@ -15,8 +15,6 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-<sec:authorize access="isAuthenticated()" var="principal">
-	<sec:authentication property="principal" var="member" />
     <main>
    <sec:authorize access="isAuthenticated()" var="principal">
    <sec:authentication property="principal" var="member" />
@@ -60,7 +58,7 @@
                         	<div>최대 인원에 도달하였습니다. 최대인원을 다시 설정후 확인해줏비시오</div>
                         </c:if>
 		
-        <c:forEach items="${allMember}" var="cMember">
+
 
   <!-- 멤버쉽 코드를 기반으로 멤버쉽 유저리스트 조회  
   

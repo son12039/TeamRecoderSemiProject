@@ -179,6 +179,13 @@ public class MemberController {
 		service.updateMemberInfo(vo);
 		
 		System.out.println("updateMemberInfo" + vo); // 수정된 값 들어옴
+		mem.setNickname(vo.getNickname());
+		mem.setPwd(vo.getPwd());
+		mem.setName(vo.getName());
+		mem.setPhone(vo.getPhone());
+		mem.setAddr(vo.getAddr());
+		mem.setEmail(vo.getEmail());
+		mem.setAge(vo.getAge());
 		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
@@ -223,7 +230,7 @@ public class MemberController {
 		// 새 이미지 업데이트
 		System.out.println("수정후 member 정보 : " + mem);
 		service.updateMember(mem);
-
+		
 		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		return "redirect:/mypage";
@@ -250,7 +257,7 @@ public class MemberController {
 		
 		UUID uuid = UUID.randomUUID(); // 랜덤 파일명 부여
 		String fileName = uuid.toString() + "_" + file.getOriginalFilename();
-		File copyFile = new File("\\\\192.168.10.51\\damoim\\member\\" + mem.getId() + "\\" + fileName);
+		File copyFile = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + fileName);
 		file.transferTo(copyFile);
 		System.out.println("파일1개 추가!");
 		System.out.println("파일 이름 : " + fileName);

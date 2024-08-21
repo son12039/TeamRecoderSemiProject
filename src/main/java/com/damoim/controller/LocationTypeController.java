@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.MergedAnnotations.Search;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -36,32 +37,15 @@ public class LocationTypeController {
 	@Autowired
 	private MembershipService memberService;
 	
-	List<MemberLocTypeDTO> ajaxList = new ArrayList<MemberLocTypeDTO>();
-	
-	
-	// 08_14
-	//새로 시작
-	//대분류 리스트 보여주기
-	@GetMapping("/")
-	public String LocationType(Model model, String locationLaName,String locationSName,String typeLaName,String typeSName) {
-		LocationTypeController LTC = new LocationTypeController();
-		
-		//틀 만들고
-		SearchDTO search = new SearchDTO();
-		// null 이 아니면 "세종" 넣고
-		if(locationLaName!=null) {
-			search.setLocationLaName(locationLaName);
-		}
-		if(typeLaName!=null) {
-			search.setTypeLaName(typeLaName);
-		}
+	public List<MemberLocTypeDTO> locationTypeList(SearchDTO search) {
 		// '세종' 안에 null 이 아니면 '세종시' 넣고
-		if(locationSName!=null) {
-			search.setLocationSNameList(new ArrayList<>(Arrays.asList(locationSName.split(","))));
+		if(search.getLocationSName()!=null) {
+			search.setLocationSNameList(new ArrayList<>(Arrays.asList(search.getLocationSName().split(","))));	
 		}
-		if(typeSName!=null) {
-			search.setTypeSNameList(new ArrayList<>(Arrays.asList(typeSName.split(","))));
+		if(search.getTypeSName()!=null) {
+			search.setTypeSNameList(new ArrayList<>(Arrays.asList(search.getTypeSName().split(","))));
 		}
+
 
 		List<Integer> membershipCodes = locationTypeservice.searchList(search);		
 		
@@ -74,6 +58,8 @@ public class LocationTypeController {
 		countList.add(memberService.membershipUserCount(j)); // 각각 클럽의 인원수 (신청자는 제외)
 		}	
 		
+		
+		// 모든 정보 합쳐서 리스트로 뿌리기
 		if(membershipCodes.size()!=0) {
 			search.setMembershipCodes(membershipCodes);
 			list = locationTypeservice.memberLocTypeList(search);
@@ -93,26 +79,28 @@ public class LocationTypeController {
 				dto.setCountList(countList);
 			}
 		}
+		return list;
 		
+	}
+	
+	
+	// 화면단에 뿌리기
+	@GetMapping("/")
+	public String locationType(Model model, SearchDTO search) {
 		
-		
-		//Ajax 페이징 처리용
-		ajaxList = list;
-		
-		// <!-- 1.화면 옵션에 도시 이름 전체 리스트 보여주기 -->
-		model.addAttribute("list",list);
+		model.addAttribute("list", locationTypeList(search));
+		// 화면 상단바
 		model.addAttribute("locLaNameList", locationTypeservice.locLaNameList());
-		model.addAttribute("locSNameList",locationTypeservice.locSNameList(locationLaName));
+		model.addAttribute("locSNameList",locationTypeservice.locSNameList(search.getLocationLaName()));
 		model.addAttribute("typeLaNameList", locationTypeservice.typeLaNameList());
-		model.addAttribute("typeSNameList",locationTypeservice.typeSNameList(typeLaName));
-
+		model.addAttribute("typeSNameList",locationTypeservice.typeSNameList(search.getTypeLaName()));
 		
 		return "index";
 	}
 	
 	@ResponseBody
 	@GetMapping("list")
-	public List<MemberLocTypeDTO> list() {	
-		return ajaxList;
+	public List<MemberLocTypeDTO> list(SearchDTO search) {	
+		return locationTypeList(search);
 	}
 }

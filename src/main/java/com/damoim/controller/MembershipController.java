@@ -1,5 +1,6 @@
 package com.damoim.controller;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,12 +18,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.damoim.model.vo.Membership;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.damoim.model.dto.CommentDTO;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MembershipDTO;
 import com.damoim.model.dto.MembershipTypeDTO;
+import com.damoim.service.MainCommentService;
 import com.damoim.service.MembershipService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+
+import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.MembershipUserList;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +41,9 @@ public class MembershipController {
 	// 클럽 생성 관련 컨트롤
 	@Autowired
 	private MembershipService service;
+	
+	@Autowired
+	private MainCommentService commentService;
 	/*
 	 * 
 	 * */
@@ -67,8 +76,44 @@ public class MembershipController {
 		// 홍보페이지에 membership 관련 정보 + 호스트 정보
 		MembershipUserList list =  service.main(membershipCode);
 		list.setCount((service.membershipUserCount(membershipCode)));
-		model.addAttribute("main", list);		
+		
+		
+		model.addAttribute("main", list);			
+		
+		ArrayList<MainComment> commList = commentService.allMainComment(membershipCode); // 일반댓글
+		ArrayList<CommentDTO> dtoList = new ArrayList<CommentDTO>(); //합칠예정
+		for (int i = 0; i < commList.size(); i++) {
+		    CommentDTO commentDTO = new CommentDTO().builder()
+		            .mainCommentCode(commList.get(i).getMainCommentCode())
+		            .mainCommentText(commList.get(i).getMainCommentText())
+		            .mainCommentDate(commList.get(i).getMainCommentDate())
+		            .nickname(commList.get(i).getMember().getNickname())
+		            .memberImg(commList.get(i).getMember().getMemberImg())
+		            .membershipCode(commList.get(i).getMembershipCode()) 
+		            .recoment(new ArrayList<>()) 
+		            .build();
+		    
+		    dtoList.add(commentDTO);
+		    ArrayList<MainComment> recommList = commentService.mainReComment(membershipCode, commentDTO.getMainCommentCode());
+		    
+		    for (int j = 0; j < recommList.size(); j++) {
+		        CommentDTO recommentDTO = new CommentDTO().builder()
+		                .mainCommentCode(recommList.get(j).getMainCommentCode())
+		                .mainCommentText(recommList.get(j).getMainCommentText())
+		                .mainCommentDate(recommList.get(j).getMainCommentDate())
+		                .nickname(recommList.get(j).getMember().getNickname())
+		                .memberImg(recommList.get(j).getMember().getMemberImg())
+		                .membershipCode(recommList.get(j).getMembershipCode()) 
+		                .mainParentsCommentCode(commList.get(i).getMainCommentCode())
+		                .build();
+		        
+		     
+		        commentDTO.getRecoment().add(recommentDTO);
+		    }
+		}
 
+		System.out.println(dtoList);
+		model.addAttribute("comment", dtoList);
 		return "mainboard/main";
 	}
 	/*

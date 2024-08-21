@@ -18,6 +18,9 @@ from member ;
 		SELECT list_grade, id, membership_code 
 		FROM membership_user_list
 		WHERE id = 'asd123';
+select* 
+FROM main_comment;
+insert into main_comment(main_comment_text, id, membership_code, main_parents_comment_code)
 
 select *
 from membership ;

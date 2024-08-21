@@ -24,10 +24,6 @@
        	<h2><a href="/updateMembership">정보 수정하기</a></h2>
         </div>
         
-    <!-- ${main}은 멤버쉽관련 정보 + 호스트 정보  타입은 멤버쉽유저리스트임 -->
-     <!-- 멤버쉽 이름  -->  
-        <h1>${main.membership.membershipName}</h1>  
-        
         <!-- 멤버쉽 채팅 서버 링크   -->
         <a href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a> 
           
@@ -106,14 +102,14 @@
                       
                     <c:otherwise>
                         <ul> 
-                            <li>${cMember.member.nickname}</li>
-                            <c:if test="${main.member.memberImg != null}">
+                            <li>${listMember.member.nickname}</li>
+                            <c:if test="${listMember.member.memberImg != null}">
                             <li><img class="allmemberImg" src="http://192.168.10.51:8081/member/${cMember.member.id}/${cMember.member.memberImg}" alt="회원 이미지"></li>
                             </c:if>
-                            <c:if test="${main.member.memberImg == null}">
+                            <c:if test="${listMember.member.memberImg == null}">
                             <img class="allmemberImg" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg" alt="회원 이미지">
                             </c:if>
-                            <li>${cMember.listGrade}</li>
+                            <li>${listMember.listGrade}</li>
                         </ul>
                     </c:otherwise>
                 </c:choose>
@@ -124,7 +120,6 @@
         </sec:authorize>
         
     </main>
-
     <script src="${pageContext.request.contextPath}/js/membershipPage.js"></script>
 </body>
 </html>

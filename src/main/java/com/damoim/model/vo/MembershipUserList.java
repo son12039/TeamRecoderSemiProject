@@ -15,5 +15,6 @@ public class MembershipUserList {
     
     private Member member; // 멤버 연결 
     private Membership membership; // 멤버십 연결 
+    private int count;
 }
 

@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +21,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.damoim.model.vo.Image;
+import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
+import com.damoim.model.vo.MembershipUserList;
+import com.damoim.model.vo.Paging;
 import com.damoim.service.EmailService;
 import com.damoim.service.MemberService;
 import com.damoim.service.MembershipService;
@@ -104,11 +108,24 @@ public class MemberController {
 	 * 성철 내가 가입한 클럽을 가입된, 관리자or호스트, 가입대기중 클럽 조회가능한 페이지이동
 	 */
 	@GetMapping("/myMembership") // 내가 가입한 클럽확인
-	public String myMembership(Member member, Model model) {
+	public String myMembership(Model model) {
+		
+ 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member member = (Member) authentication.getPrincipal();
+		
+		List<MembershipUserList> list =	new ArrayList<MembershipUserList>();
+		for(MemberListDTO m : member.getMemberListDTO()) {
+			list.add((MembershipUserList) infoService.main(m.getMembershipCode()));	
+		}
+		for(int i =0; i < list.size(); i++) {
+			list.get(i).setCount(list.get(i).getListCode());
+		}
 
+		
 		// 내 등급별 클럽
-		model.addAttribute("membership", infoService.listGrade(member));
+		model.addAttribute("membership", list);
 
+	
 		return "mypage/myMembership";
 	}
 
@@ -213,12 +230,20 @@ public class MemberController {
 	}
 
 	
-	// 성철 파일 업로드 각각 mamber의 id 폴더에 저장후 URL 리턴
-	public String fileUpload(MultipartFile file, String id) throws IllegalStateException, IOException {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member mem = (Member) authentication.getPrincipal();
+	// // 성철 파일 업로드 각각 mamber의 id 폴더에 저장후 URL 리턴
+	// public String fileUpload(MultipartFile file, String id) throws IllegalStateException, IOException {
+	// 	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	// 	Member mem = (Member) authentication.getPrincipal();
 		
-		if (file.getOriginalFilename() == "") {
+	// 	if (file.getOriginalFilename() == "") {
+    //     return "redirect:/"; // 인덱스 페이지로 리다이렉트
+    // }
+   
+	/* 성철
+	 * 파일 업로드 각각 mamber의 id 폴더에 저장후 URL 리턴
+	 * */
+	public String fileUpload(MultipartFile file,String id) throws IllegalStateException, IOException {
+		if(file.getOriginalFilename() == "") {
 			System.out.println("NULL 리턴");
 			return null;
 		}
@@ -235,14 +260,13 @@ public class MemberController {
 	
 	// 성철 파일 삭제 메서드 해당유저 프로필사진 변경시 사용!! 실 사용때는 조건에 만약 보내준 링크가 null이면 변하지 않도록
 	public String fileDelete(String fileName, String id) throws IllegalStateException, IOException {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member mem = (Member) authentication.getPrincipal();
+
 		
 		if (fileName == null || fileName.isEmpty()) {
 			System.out.println("삭제할 파일이 없습니다");
 		} else {
 			System.out.println("삭제될 URL : " + fileName);
-			File file = new File("\\\\192.168.10.51\\damoim\\member\\" + mem.getId() + "\\" + fileName);
+			File file = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + fileName);
 			file.delete();
 		}
 		service.selectImg(id);

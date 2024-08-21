@@ -48,7 +48,6 @@ public class MembershipController {
 	 * */
 	@PostMapping("/createclub")
 	public String createclub(Membership membership) {
-		System.out.println(membership);
 		membership.setMembershipInfo(null);
      return "redirect:/"; // 클럽 생성 후 인덱스 페이지로 리다이렉션
 }	
@@ -59,28 +58,17 @@ public class MembershipController {
 
 	/*
 	 * 성일
-	 * 
+	 * 카운트 관련  VO에 합쳐버림
 	 * 
 	 * */
 	@GetMapping("/{membershipCode}") // 클럽 홍보 페이지 각각 맞춰 갈수있는거
 	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model
 			) {
-		System.out.println(service.main(membershipCode).getListCode());
 		// 홍보페이지에 membership 관련 정보 + 호스트 정보
-		model.addAttribute("main", service.main(membershipCode));
-		// 현재 가입된 인원수
-		model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));	
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("클럽 홍보 페이지 컨트롤러 왔을때 " + authentication.getName().equals("anonymousUser"));
-	if(	!authentication.getName().equals("anonymousUser") ) {
-		Member mem = (Member) authentication.getPrincipal();
-		
-		 // 로그인 유무 확인 . 널포인트 에러 방지
-			// 가입한 클럽 인지 확인을 위한 아이디 정보 가져오기
-			memberListDTO.setId(mem.getId());
-			// 해당클럽 안에서의 등급 가져오기
-			model.addAttribute("checkMember", service.checkMember(memberListDTO));
-	}
+		MembershipUserList list =  service.main(membershipCode);
+		list.setCount((service.membershipUserCount(membershipCode)));
+		model.addAttribute("main", list);		
+
 		return "mainboard/main";
 	}
 	/*
@@ -89,12 +77,13 @@ public class MembershipController {
 	  * */
 	 @GetMapping("/club/{membershipCode}") // 클럽 페이지 이동
 		public String membershipPage(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO memberListDTO, Model model) {
-		 	// 클럽 페이지에 membership 관련 정보 + 호스트 정보
-		 	model.addAttribute("main",service.main(membershipCode));
-		 	// 현재 가입된 인원수
-			model.addAttribute("membershipUserCount", service.membershipUserCount(membershipCode));
-			// 로그인된 회원 정보		
+			// 해당클럽 정보 다담음
+		 	MembershipUserList list =  service.main(membershipCode);
+			list.setCount((service.membershipUserCount(membershipCode)));	
+			model.addAttribute("main", list);
+			// 해당클럽에 가입신청된 모든 유저정보		
 			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
+			
 			return "membership/membershipPage";
 		}
 	 /*
@@ -135,11 +124,12 @@ public class MembershipController {
 		Files.createDirectories(directoryPath);
 		Membership m = Membership.builder()
 					.membershipCode(membership.getMembershipCode())
-					.membershipImg(FileUpload(file, membership.getMembershipCode()))
+					.membershipImg(fileUpload(file, membership.getMembershipCode()))
 					.build();
 		System.out.println("해당 맴버쉽 코드 : " + m.getMembershipCode());
 		System.out.println("이미지 URL 테스트 " + m.getMembershipImg());
 		service.membershipImg(m);
+		// 멤버쉽 유저 리스트에 등록 절차 
 		MemberListDTO list = new MemberListDTO();
 		list.setId(dto.getId());
 		list.setListGrade(dto.getListGrade());
@@ -156,6 +146,15 @@ public class MembershipController {
 	public String membershipApply(MemberListDTO member) {
 		// 클럽 가입 신청
 		service.membershipApply(member);
+		
+
+ 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem =  (Member)authentication.getPrincipal();
+		ArrayList<MemberListDTO> list =  (ArrayList<MemberListDTO>) mem.getMemberListDTO();
+		list.add(member);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		
 		return "redirect:/" + member.getMembershipCode();
 	}
 	
@@ -183,7 +182,7 @@ public class MembershipController {
 	 * 파일 삽입 메서드 해당맴버쉽 프로필사진 !!
 	 * 
 	 * */ 
-	public String FileUpload(MultipartFile file, int code) throws IllegalStateException, IOException {
+	public String fileUpload(MultipartFile file, int code) throws IllegalStateException, IOException {
 		if(file.getOriginalFilename() == "") {
 			System.out.println("NULL 리턴");
 			return null;
@@ -199,7 +198,7 @@ public class MembershipController {
 	 * 파일 삭제 메서드 해당유저 프로필사진 변경시 사용!!
 	 * 실 사용때는 조건에 만약 보내준 링크가 null이면 변하지 않도록
 	 * */ 
-	public void FileDelete(String file, int code) throws IllegalStateException, IOException {
+	public void fileDelete(String file, int code) throws IllegalStateException, IOException {
 		if(file == null) {
 			System.out.println("삭제할 파일이 없습니다");
 		}

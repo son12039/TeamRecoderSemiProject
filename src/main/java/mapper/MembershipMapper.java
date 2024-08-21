@@ -13,6 +13,7 @@ import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipType;
 import com.damoim.model.vo.MembershipUserList;
+import com.damoim.model.vo.Paging;
 import com.damoim.model.vo.TypeCategory;
 
 @Mapper
@@ -21,10 +22,7 @@ public interface MembershipMapper {
 	
 	MembershipUserList main(int membershipCode);
 	int membershipUserCount(int membershipCode);
-	
-	List<MembershipUserList>allMembership();
-	
-	MemberListDTO checkMember(MemberListDTO member);
+	List<MembershipUserList> allMembership(Paging paging);
 	void makeMembership(Membership membership);
 	void host(MemberListDTO list);
 	ArrayList<Member> allMember();
@@ -32,7 +30,6 @@ public interface MembershipMapper {
 	void membershipApply(MemberListDTO member);
 	
 	List<MemberListDTO> grade(Member member);
-	List<MembershipUserList> listGrade(Member member);
 	
 	void agreeMemeber(MemberListDTO member);
 	

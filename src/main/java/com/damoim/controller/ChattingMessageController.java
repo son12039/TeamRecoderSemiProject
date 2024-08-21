@@ -17,7 +17,8 @@ public class ChattingMessageController {
 	// getmapping("/뭐시기") 리턴 "/"하는 얘랑 똑같음!
 	@MessageMapping("/socket/roomList")
 	@SendTo("/topic/roomList")
-	public void roomList() {
+	public String roomList() {
+		return "";
 	}
 
 	// 클럽코드가 roomNumber인 클럽채팅방에서 메세지를 보내면 그 클럽코드이름으로된 메세지가 오고, 

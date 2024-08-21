@@ -1,12 +1,13 @@
 $(document).ready(function() {
 	const urlParams = new URL(location.href).searchParams;
 	const membershipCode = urlParams.get('membershipCode') * 1;
+	
 	// 채팅방 목록 불러오기
 	const chattingRoomList = function() {
-
+	console.log("방목록불러오기메서드호출됨!!!");
 		$.ajax({ url: "/chattingRoomList", type: "GET", })
 			.then(function(roomList) {
-				
+				console.log(roomList);
 				let listHtml = "";
 				for (let i = 0; i < roomList.length; i++) {
 					if (membershipCode == roomList[i].roomNumber) {
@@ -27,10 +28,9 @@ $(document).ready(function() {
 	const socket = new SockJS('/websocket');
 	const stomp = Stomp.over(socket);
 	stomp.debug = null; // stomp 콘솔출력 X
-
 	// 구독을 취소하기위해 구독 시 아이디 저장
+	
 	const subscribe = [];
-
 	// 모든 구독 취소하기
 	const subscribeCancle = function() {
 		const length = subscribe.length;
@@ -44,7 +44,6 @@ $(document).ready(function() {
 	const main = function() {
 		$("main").show();
 		subscribeCancle();
-
 		const subscribeId = stomp.subscribe("/topic/roomList", function() {
 			chattingRoomList();
 		});
@@ -56,7 +55,6 @@ $(document).ready(function() {
 	stomp.connect({}, function() {
 		main();
 	});
-
 	// 채팅방
 	const info = (function() {
 		let nickname = "";
@@ -69,7 +67,6 @@ $(document).ready(function() {
 			setRoomNumber: (set) => { roomNumber = set; },
 		};
 	})();
-
 	// 참가자 그리기
 	const userList = function(users) {
 		$(".chat .chat_users .user").text(users.length + "명");
@@ -84,6 +81,7 @@ $(document).ready(function() {
 
 	// 메세지 그리기
 	const chatting = function(messageInfo) {
+		console.log(messageInfo);
 		let nickname = messageInfo.nickname;
 		let message = messageInfo.message;
 
@@ -166,7 +164,6 @@ $(document).ready(function() {
 	// 메세지 보내기
 	const sendMessage = function() {
 		const message = $(".chat_input_area textarea");
-
 		if (message.val() === "") {
 			return;
 		}
@@ -178,7 +175,8 @@ $(document).ready(function() {
 			message: message.val(),
 			nickname: nickname,
 		};
-
+		console.log(data.message);
+		console.log(roomNumber);
 		stomp.send("/socket/sendMessage/" + roomNumber, {}, JSON.stringify(data));
 		message.val("");
 	};
@@ -270,7 +268,7 @@ $(document).ready(function() {
 			});
 	});
 	// css용 오류나면 제일 먼저 치워버리기@@@@@@@@@@@@@@@@@@@@@@@@@@
-
+/* 
 	const characters = document.querySelectorAll('.character');
 
 	const speed = 2;
@@ -319,5 +317,5 @@ $(document).ready(function() {
 		character.style.backgroundColor = getRandomColor();
 		updatePosition(character, direction);
 	});
-	// css용 오류나면 제일 먼저 치워버리기@@@@@@@@@@@@@@@@@@@@@@@@@@
+	// css용 오류나면 제일 먼저 치워버리기@@@@@@@@@@@@@@@@@@@@@@@@@@*/
 });

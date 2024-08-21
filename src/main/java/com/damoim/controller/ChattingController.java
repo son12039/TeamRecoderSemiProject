@@ -1,21 +1,18 @@
 package com.damoim.controller;
 
 import com.damoim.model.dto.ChattingRoomDAO;
-import com.damoim.model.dto.MemberListDTO;
-import com.damoim.model.dto.MessageDAO;
 import com.damoim.model.vo.BasicRoomListVo;
 import com.damoim.model.vo.Member;
-import com.damoim.service.MemberService;
 import com.damoim.service.MembershipService;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -119,7 +116,6 @@ public class ChattingController {
     // 메인화면
     @GetMapping("/chatserver")
     public String chatServer(@RequestParam(value = "membershipCode", required = false) String membershipCode, Model model) {
-        Integer  code = Integer.valueOf(membershipCode);;
         model.addAttribute("membershipCode", membershipCode);
                 return "chatting/chatting";
 //        return "chatPage"; // 적절한 JSP 페이지 반환
@@ -144,28 +140,26 @@ public class ChattingController {
 
     // 닉네임 조회
     @GetMapping("/nick1")
-    public ResponseEntity<String> nick1(HttpServletRequest request) throws Exception {
-        HttpSession session = request.getSession();
-        Member nick = (Member) session.getAttribute("mem");
-        return new ResponseEntity<>(nick.getNickname(), HttpStatus.OK);
+    public ResponseEntity<String> nick1() throws Exception {
+       Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+       System.out.println(mem.getNickname());
+     return new ResponseEntity<>(mem.getNickname(), HttpStatus.OK);
     }
 
     // 새 채팅방 만들기
     @PostMapping("/chattingRoom")
-    public ResponseEntity<?> chattingRoom(@RequestParam("roomName") String roomName,HttpServletRequest request) throws Exception {
-    	HttpSession session = request.getSession();
-    	 Member nick = (Member) session.getAttribute("mem");
-    	 System.out.println(roomName+" : "+nick.getNickname());
+    public ResponseEntity<?> chattingRoom(@RequestParam("roomName") String roomName) throws Exception {
+    	Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	 System.out.println(roomName+" : "+mem.getNickname());
         String roomNumber = UUID.randomUUID().toString(); // UUID를 문자열로 사용
         ChattingRoomDAO chattingRoom = ChattingRoomDAO.builder()
             .roomNumber(roomNumber)
             .users(new LinkedList<>())
             .roomName(roomName)
             .build();
-
         chattingRoomList.add(chattingRoom);
         // 방 입장하기
-        enterChattingRoom(chattingRoom, nick.getNickname());
+        enterChattingRoom(chattingRoom, mem.getNickname());
         return new ResponseEntity<>(chattingRoom, HttpStatus.OK);
     }
 }

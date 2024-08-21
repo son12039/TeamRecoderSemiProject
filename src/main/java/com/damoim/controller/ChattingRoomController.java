@@ -31,10 +31,10 @@ public class ChattingRoomController {
 		ChattingRoomDAO chattingRoom = main.findRoom(roomNumber);
 
 		if (chattingRoom == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 없는 방이라고 클라한테 알려줌
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 없는 방이라고 클라이언트한테 알려줌
 		} else {
-			main.enterChattingRoom(chattingRoom, nickname); 
-			return new ResponseEntity<>(chattingRoom, HttpStatus.OK);
+			main.enterChattingRoom(chattingRoom, nickname); // 방이 있다면 방입장 메서드호출후
+			return new ResponseEntity<>(chattingRoom, HttpStatus.OK); // 클라이언트에게 방정보와 요청성공이라고 전송
 		}
 	}
 
@@ -42,10 +42,10 @@ public class ChattingRoomController {
 	@PatchMapping("/chattingRoom-exit")
 	public ResponseEntity<?> ExitChattingRoom() {
 
-		Map<String, String> map = main.findCookie();
+		Map<String, String> map = main.findCookie(); // 방입장 시 쿠키에 방 정보가 저장되므로 나가기 메서드 호출 시 그 정보를 가져옴
 
 		if (map == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 없으면 오류코드전송
 		}
 
 		String roomNumber = map.get("roomNumber");
@@ -68,6 +68,7 @@ public class ChattingRoomController {
 	@GetMapping("/chattingRoom")
 	public ResponseEntity<?> chattingRoom() {
 		// 쿠키에 닉네임과 방번호가 있다면 대화중이던 방이 있던것
+		// 방 제대로 안 나가고 브라우저 종료 시에 채팅서버 접속 시 입장했었던 방으로 입장
 		Map<String, String> map = main.findCookie();
 
 		if (map == null) {

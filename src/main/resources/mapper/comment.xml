@@ -57,8 +57,16 @@
 		SELECT * 
 		FROM main_comment
 		JOIN Member USING(id)
+		WHERE membership_code = #{mainCommentCode}
+		AND main_parents_comment_code IS NULL	
+	</select>
+	
+		<select id="mainReComment" parameterType="int" resultMap="commentMemberMap" >
+		SELECT * 
+		FROM main_comment
+		JOIN Member USING(id)
 		WHERE membership_code = #{membershipCode}
-		
+		AND main_parents_comment_code IS NOT NULL	
 	</select>
 	
 </mapper>

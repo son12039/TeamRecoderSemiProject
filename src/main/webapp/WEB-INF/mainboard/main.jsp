@@ -76,7 +76,7 @@
     <input type="text" name="mainCommentText" placeholder="댓글을 입력하세요">
     <input type="hidden" name="id" value="${member.id}">
     <input type="hidden" name="membershipCode" value="${main.membership.membershipCode}">
-    <button id="submit-comment" type="submit">댓글 등록</button>
+    <button id="submit-comment" type="button">댓글 등록</button>
     </div>
     </form>
     <c:choose>
@@ -89,22 +89,33 @@
 
 <c:forEach items="${comment}" var="com">
     <div id="comm-${com.mainCommentCode}" class="comment">
+    <h1>댓글</h1>
         댓글 내용 ${com.mainCommentText} <br/>
         댓글 작성시간 ${com.mainCommentDate} <br/>
-        댓글 작성자 닉네임 ${com.member.nickname} <br/>
+        댓글 작성자 닉네임 ${com.nickname} <br/>
         <button type="button" onclick="showReplyForm(${com.mainCommentCode})">대댓글</button>
-        
         <div id="reply-form-${com.mainCommentCode}" class="reply-form" >
             <form id="comment-frm-${com.mainCommentCode}">
-                <div id="comment-box">
+                <div id="comment-box-${com.mainCommentCode}">
                     <input type="text" name="mainCommentText" placeholder="대댓글을 입력하세요" >
-                    <input type="hidden" name="mainParentsCommentCode" value="${com.mainCommentCode}">
-                    <input type="hidden" name="id" value="${com.member.id}">
+                    <input type="hidden" name="id" value="${member.id}">
                     <input type="hidden" name="membershipCode" value="${com.membershipCode}">
-                    <button id="submit-comment-comment-${com.mainCommentCode}" data-comment-code="${com.mainCommentCode}" type="submit">댓글 등록</button>
+                    <button type="button" onclick="recomment(event, ${com.mainCommentCode})">댓글 등록</button>
                 </div>
             </form>
-        </div>
+            </div>
+            <c:if test="${fn:length(com.recoment) != 0}">
+            	<c:forEach items="${com.recoment}" var="recom">
+            	<div id="comm-${recom.mainCommentCode}" class="comment">
+            	<h1>대댓 굴</h1>
+			주인님 코드 ${recom.mainParentsCommentCode} <br/>
+			대댓글 내용  ${recom.mainCommentText} <br/>
+			대댓글 작성시간 ${recom.mainCommentDate} <br/>
+			작성자 닉네임 ${recom.nickname} <br/>
+			</div>
+		</c:forEach>
+		</c:if>
+        
     </div>
 </c:forEach>
 

@@ -62,7 +62,13 @@
     </form>
     </c:when>
     </c:choose>
+    <form id="comment-frm">
+    <div></div>
+    <input type="text" name="mainCommentText">
+    </form>
+    
    </sec:authorize>
+   <p>댓글 내용</p>
 </div>
 
 </body>

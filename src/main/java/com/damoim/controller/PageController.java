@@ -7,12 +7,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
+import com.damoim.model.vo.MembershipUserList;
+import com.damoim.model.vo.Paging;
 import com.damoim.service.MembershipService;
-
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -52,27 +54,34 @@ public class PageController {
 	public String signUp() {
 		return "signUp/signUp";
 	}
-	/*
-	 * 동문
-	 * 회원정보 수정 페이지
-	 * */
-	@GetMapping("/update")
-	public String update() {
-		
-		return "mypage/update";
-	}
+
 	
-	/*
-	 * 동문
-	 * 마이페이지(일단은 수정기능있는 페이지 이동)
-	 * */
-	@GetMapping("/mypage")
-	public String mypage() {
-		
+    // 기본 정보 수정
+	@GetMapping("/update")
+	public String mypage(Model model) {
 		return "mypage/mypage";
 	}
-	// 내가 가입한 맴버쉽 페이지 이동
+	
+	// 내 정보 열람 비밀번호 체크
+	@GetMapping("/updateCheck")
+	public String updateCheck() {
+		return "mypage/updateCheck";
+	}
+	
+	// 중요 회원정보 수정
+	@GetMapping("/updateMemberInfo")
+	public String updateMemberInfo() {
+		return "mypage/updateMemberInfo";
+	}
+	
+	// 멤버쉽 정보 수정
+	@GetMapping("/updateMembership")
+	public String updateMembership() {
+		return "membership/updateMembership";
+	}
+	
 
+	// 내가 가입한 맴버쉽 페이지 이동
 	/*
 	 * 성일
 	 * 로그인 페이지
@@ -91,9 +100,25 @@ public class PageController {
 	 	return "login/findMember";
 	 }
 	 
+  // 카카오맵 이동
+	 @GetMapping("/kakaoMap")
+	 public String kakaoMap() {
+		 
+		 return "kakaoMap";
+	 }
+	 
 	 @GetMapping("/loginFail") 
 	 public String loginFail() {
 		 return "login/loginFail";
 	 }
 
 }
+
+
+
+
+
+
+
+
+

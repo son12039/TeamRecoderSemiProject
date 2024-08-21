@@ -15,7 +15,6 @@
 	href="${pageContext.request.contextPath}/css/index.css" />
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
-
 <body>
 	<div class="header">
 		<div class="header_left">
@@ -23,36 +22,33 @@
 				<div class="LOGO">DAMOIM</div>
 			</a>
 			<div class="header_right">
-
+		
 				<sec:authorize access="!isAuthenticated()">
-					<div class="header_right_menu">
-						<a href="/signUp">회원가입</a> <a href="/loginPage">로그인</a>
-					</div>
-
-				</sec:authorize>
-
+              <div class="header_right_menu">
+                <a href="/signUp">회원가입</a>
+                <a href="/loginPage">로그인</a>
+              </div>
+              </sec:authorize>
+              
 				<sec:authorize access="isAuthenticated()" var="principal">
-					<sec:authentication property="principal" var="member" />
-					<p>${member}</p>
-					<div>
-						${member.nickname}
-						<c:choose>
-							<c:when test="${member.memberImg != null}">
-								<img class="user-img"
-									src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
-							</c:when>
-
-							<c:otherwise>
-								<img class="user-img"
-									src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
-							</c:otherwise>
-						</c:choose>
-
-
-					</div>
+				<sec:authentication property="principal" var="member" />
+				<div> ${member.nickname}
+				<c:choose>
+						<c:when test="${member.memberImg != null}">
+								<img class="user-img" src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
+						</c:when>
+					
+						<c:otherwise>
+							<img class="user-img"
+								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+						</c:otherwise>
+					</c:choose>
+					
+				
+				</div>
 					<div class="header_right_menu">
-						<a href="/update">마이페이지</a> <a
-							href="/myMembership?id=${member.id}">나의 모임</a> <a href="/logout">로그아웃</a>
+						<a href="/update">마이페이지</a> <a href="/myMembership">나의
+							모임</a> <a href="/logout">로그아웃</a>
 					</div>
 				</sec:authorize>
 			</div>
@@ -120,6 +116,8 @@
 							</c:otherwise>
 						</c:choose>
 					</a>
+
+
 				</div>
 				<div class="membership-info">
 					<h1 class="membership-name">${info.membershipName}</h1>
@@ -168,5 +166,13 @@
 
 
 
+	<a href="/dummyUpdate">!!!!!!!!!!!주의!!!!!!!!!!!! 기존 유저들 비밀번호
+		암호화하는거임 건드리지 말것</a>
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<script src="login.js"></script>
+	<script src="${pageContext.request.contextPath}/js/index.js"></script>
+	
+	
+	
 </body>
 </html>

@@ -18,22 +18,23 @@ public class ChattingRoomController {
 
 	/*
 	 * 정배
-	 * 하나도몰라서 못적어 두겟어요...
 	 * */
 	@Autowired
-	private ChattingController main;
+	private ChattingController main; 
 
-	// 방 들어가기
+	// 여기 모든 요청은 chatting.jsp에 연결되어 있는 js를 통해서 옴
+	
+	// 방 들어가기 어떤 사용자가 클럽채팅방에 들어오려고 시도하면 입장하려는 방번호로 방을 찾고, 회원닉네임을 가져와 쿠키에 저장함
 	@GetMapping("/chattingRoom-enter")
 	public ResponseEntity<?> EnterChattingRoom(String roomNumber, String nickname) {
 		// 방 번호로 방 찾기
 		ChattingRoomDAO chattingRoom = main.findRoom(roomNumber);
 
 		if (chattingRoom == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 없는 방이라고 클라이언트한테 알려줌
 		} else {
-			main.enterChattingRoom(chattingRoom, nickname);
-			return new ResponseEntity<>(chattingRoom, HttpStatus.OK);
+			main.enterChattingRoom(chattingRoom, nickname); // 방이 있다면 방입장 메서드호출후
+			return new ResponseEntity<>(chattingRoom, HttpStatus.OK); // 클라이언트에게 방정보와 요청성공이라고 전송
 		}
 	}
 
@@ -41,15 +42,15 @@ public class ChattingRoomController {
 	@PatchMapping("/chattingRoom-exit")
 	public ResponseEntity<?> ExitChattingRoom() {
 
-		Map<String, String> map = main.findCookie();
+		Map<String, String> map = main.findCookie(); // 방입장 시 쿠키에 방 정보가 저장되므로 나가기 메서드 호출 시 그 정보를 가져옴
 
 		if (map == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 없으면 오류코드전송
 		}
 
 		String roomNumber = map.get("roomNumber");
 		String nickname = map.get("nickname");
-
+		
 		// 방목록에서 방번호에 맞는 유저목록 가져오기
 		ChattingRoomDAO chattingRoom = main.findRoom(roomNumber);
 		List<String> users = chattingRoom.getUsers();
@@ -60,11 +61,6 @@ public class ChattingRoomController {
 		// 쿠키에서 닉네임과 방번호 삭제
 		main.deleteCookie();
 
-		// 유저가 한명도 없다면 방 삭제
-			if (users.size() == 0) {
-			main.chattingRoomList.remove(chattingRoom);
-			}
-
 		return new ResponseEntity<>(chattingRoom, HttpStatus.OK);
 	}
 
@@ -72,6 +68,7 @@ public class ChattingRoomController {
 	@GetMapping("/chattingRoom")
 	public ResponseEntity<?> chattingRoom() {
 		// 쿠키에 닉네임과 방번호가 있다면 대화중이던 방이 있던것
+		// 방 제대로 안 나가고 브라우저 종료 시에 채팅서버 접속 시 입장했었던 방으로 입장
 		Map<String, String> map = main.findCookie();
 
 		if (map == null) {

@@ -1,10 +1,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mapper.MemberMapper">
+ <!--(멤버 리스트 DTO) 변수명 컬럼명 일치시키는 리설트맵  -->
 	<resultMap type="MemberListDTO" id="memberListmap">
 		<result column="id" property="id"/>
 		<result column="list_grade" property="listGrade"/>
 		<result column="membership_code" property="membershipCode"/>
-		
 	</resultMap>
 	
 <resultMap id="MemberResultMap" type="Member">
@@ -43,18 +43,66 @@
 		FROM member
 		WHERE id=#{id} AND pwd=#{pwd}
 	</select>
+ 	
+ 	<!-- / updateMemberInfo (동문) ========================================= -->
+ 	<!-- 비밀번호 확인 -->
+ 	<select id="updateCheck" parameterType="Member" resultType="Member">
+ 		SELECT *
+ 		FROM member
+ 		WHERE id = #{id}
+ 	</select>
+ 	<!-- 회원정보 업데이트 -->
+	<update id="updateMemberInfo" parameterType="Member">
+	UPDATE member
+		SET pwd = #{pwd} , addr = #{addr}, name = #{name}, 
+		phone = #{phone}, email = #{email} , age = #{age} , nickname = #{nickname}
+	WHERE id = #{id}
+	</update>
+	<!-- 상세주소 업데이트 -->
+	<update id="addrUpdate" parameterType="Member">
+    UPDATE member
+    	SET addr = #{addr}
+    WHERE id = #{id}
+	</update>
+	<!-- 닉네임 업데이트 중복체크 -->
+	<select id="nicknameDupCheck" parameterType="Member" resultType="boolean">
+    SELECT COUNT(*) > 0
+    FROM member
+    WHERE nickname = #{nickname}
+    AND id != #{id}
+	</select>
 	
-
- 	
- 	
- 	
-	<update id="update" parameterType="Member" >
-		UPDATE member
-		SET pwd = #{pwd} , name = #{name}, phone = #{phone},
-		addr = #{addr}, email = #{email}, age = #{age}
-		WHERE id = #{id}
+	<!-- 회원 탈퇴 -->
+	<delete id="memberDelete" parameterType="Member">
+	DELETE FROM member
+	WHERE id = #{id}
+	</delete>
+	
+	
+	
+	<!-- 회원 탈퇴  -->
+	
+	
+	
+	
+	
+	
+	<!-- / updateMember  -->
+	<!-- 일단 이미지랑 info만 수정 -->
+	<update id="updateMember" parameterType="Member">
+	UPDATE member
+	SET member_img = #{memberImg}, member_info = #{memberInfo}
+	WHERE id = #{id}
 	</update>
 	
+	<select id="selectImg" parameterType="String" resultType="Member">
+	SELECT * FROM member
+	WHERE id = #{id}
+	</select>
+	
+	
+	<!-- 내 정보 업데이트 / ============================================ -->
+
 	<select id="login" parameterType="String" resultMap="MemberResultMap">
 		SELECT *
 		FROM member
@@ -90,12 +138,13 @@
 		#{nickname},#{memberImg},#{memberHobby},#{memberInfo},#{memberLocation},#{memberType}
 		)
 	</insert>
+	
 	<select id ="memberInfo" parameterType="Member" resultType="Member">
-		SELECT * 
+		SELCET * 
 		FROM member
 		WHERE id = #{id}
 	</select>
-	
+		
 	<!--  이메일 아이디 확인 -->
     <select id="memberEmailIdcheck" parameterType="Member" resultType="Member">
         SELECT *
@@ -103,14 +152,7 @@
         WHERE id = #{id}
         AND email = #{email}
     </select>
-
-    <!-- 비밀번호 업데이트 -->
-    <update id="updatePassword" parameterType="Member">
-        UPDATE member
-        SET pwd = #{pwd}
-        WHERE id = #{id}
-    </update>
-
+	
 </mapper>
 	
 

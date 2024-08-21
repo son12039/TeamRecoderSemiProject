@@ -4,6 +4,10 @@
 
 -- _은 자바 타입으로 매핑 해줘야 한다 
 
+INSERT INTO member(id,pwd,addr,phone,email,name,age,gender) VALUES ('asd','123','경기도','010-1111-2222','sdm@gmail.com','감자',22 ,'M');
+
+-- _은 자바 타입으로 매핑 해줘야 한다 
+
 CREATE TABLE member ( -- 회원가입
     id VARCHAR(50) PRIMARY KEY, -- 아이디
     pwd VARCHAR(255) NOT NULL, -- 비밀번호
@@ -248,4 +252,12 @@ ADD list_code INT;
 -- membership_meetings 테이블의 외래 키 제약 조건 추가 (list_code 참조)
 ALTER TABLE membership_meetings
 ADD FOREIGN KEY (list_code) REFERENCES membership_user_list(list_code);
+
+ALTER TABLE membership
+ADD column memership_accession_text text,
+ADD column memership_simple_text VARCHAR(20),
+ADD column memership_main_text text,
+ADD column memership_secret_text text;
+
+ALTER TABLE membership DROP COLUMN memership_main_text;
 

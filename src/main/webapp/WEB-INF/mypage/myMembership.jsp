@@ -28,35 +28,19 @@
         </style>
 </head>
 <body>
+<%-- 로그인 정보에 DTO에  host인게 있다면 --%>
+ <c:set var="hasHost" value="${false}" />
+<sec:authorize access="isAuthenticated()" var="principal">
+<sec:authentication property="principal" var="member" />
 
- <%-- 
-  <c:forEach items="${membership}" var="mem">
-   <h1>모임명 :${mem.membership.membershipName}</h1>
-   <img src="${mem.membership.membershipImg }">
-   <h2>모임 소개 :${mem.membership.membershipInfo}</h2>
-   <h3>나의 등급 : ${mem.listGrade}</h3>
-   
-   
-  
-  </c:forEach>
-  
-   --%>
-   
-   <sec:authorize access="isAuthenticated()" var="principal">
-				<sec:authentication property="principal" var="member" />
-     <c:set var="hasHost" value="${false}" />
-
-    <!-- Iterate through memberships to check for 'host' -->
-    <c:forEach items="${membership}" var="mem">
-        <c:if test="${mem.listGrade == 'host'}">
-            <c:set var="hasHost" value="${true}" />
-        </c:if>
+	<c:set var="memberGrade" value="none"/>
+	<c:forEach items="${member.memberListDTO}" var="list" >
+		<c:if  test="${list.listGrade == 'host'}">
+			<c:set var="hasHost" value="${true}"/>
+	</c:if>
     </c:forEach>
-
-    <!-- Display the form to create a club only if no 'host' is present -->
-
-
- 
+    </sec:authorize>
+   
 	    <c:choose>
         <c:when test="${!hasHost}">
             <form action="/makeMembership">            
@@ -66,7 +50,7 @@
         </c:when>
         <c:otherwise>
 
-            <p>클럽 생성 기능이 활성화되지 않았습니다. 이미 보유중인 크럽이 있습니다.</p>
+            <p>클럽 생성 기능이 활성화되지 않았습니다. 이미 보유중인 클럽이 있습니다.</p>
         </c:otherwise>
         </c:choose>
    
@@ -79,8 +63,15 @@
   <div class="membership-card" id = "wait-club">
   <h1>가입 대기중인 클럽 보기</h1>
    <c:forEach items="${membership}" var="mem">
-    
-    <c:if test="${mem.listGrade == 'guest'}">
+    <sec:authorize access="isAuthenticated()" var="principal">
+	<sec:authentication property="principal" var="member" />
+	<c:forEach items="${member.memberListDTO}" var="list" >
+		<c:if  test="${list.membershipCode == mem.membership.membershipCode}">
+			<c:set var="guestClub" value="${list.listGrade}"/>
+	</c:if>
+    </c:forEach>
+    </sec:authorize>
+    <c:if test="${guestClub == 'guest'}">
    
   <div class="membership-each">
      <div><img  class="membership-img" src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"></div>
@@ -98,8 +89,16 @@
   <div class="membership-card" id = "manage-club">
   <h1>관리중인 클럽 보기</h1>
    <c:forEach items="${membership}" var="mem">
-    
-    <c:if test="${mem.listGrade == 'host' || mem.listGrade == 'admin'}">
+    <sec:authorize access="isAuthenticated()" var="principal">
+	<sec:authentication property="principal" var="member" />
+	<c:forEach items="${member.memberListDTO}" var="list" >
+		<c:if  test="${list.membershipCode == mem.membership.membershipCode}">
+			<c:set var="adminClub" value="${list.listGrade}"/>
+	</c:if>
+	
+    </c:forEach>
+    </sec:authorize>
+    <c:if test="${adminClub == 'host' || adminClub == 'admin'}">
     <a href="/club/${mem.membership.membershipCode}">
    <div class="membership-each">
      <div><img  class="membership-img" src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"></div>
@@ -116,8 +115,16 @@
   <div class="membership-card" id = "all-club" style="display: block;">
   <h1>가입 된 클럽 보기</h1>
    <c:forEach items="${membership}" var="mem">
-    
-    <c:if test="${mem.listGrade == 'regular'|| mem.listGrade == 'host' || mem.listGrade == 'admin'}">
+       <sec:authorize access="isAuthenticated()" var="principal">
+	<sec:authentication property="principal" var="member" />
+	<c:forEach items="${member.memberListDTO}" var="list" >
+		<c:if  test="${list.membershipCode == mem.membership.membershipCode}">
+			<c:set var="myClub" value="${list.listGrade}"/>
+	</c:if>
+	
+    </c:forEach>
+    </sec:authorize>
+    <c:if test="${myClub == 'regular'|| myClub == 'host' || myClub == 'admin'}">
    <a href="/club/${mem.membership.membershipCode}">
    <div class="membership-each">
      <div><img  class="membership-img" src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"></div>
@@ -132,7 +139,7 @@
    </c:forEach>
   </div>
   
-  </sec:authorize>
+
   
   <script src="${pageContext.request.contextPath}/js/myMembership.js">  
     </script>

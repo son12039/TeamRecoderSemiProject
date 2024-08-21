@@ -72,6 +72,13 @@
 				</div>
 				<button type="button" id="updateSubmit">제출</button>
 			</form>
+			
+			<form action="/memberDelete" method="post" id="memberDelete">
+				<div>
+					<button type="submit">회원탈퇴</button>
+				</div>
+			</form>
+			
 
 		</div>
 

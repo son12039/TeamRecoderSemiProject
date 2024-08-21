@@ -72,6 +72,10 @@ public class MemberService  implements UserDetailsService{
 		mapper.updateMember(member);
 	}
 	
+	public void memberDelete(Member member) {
+		mapper.memberDelete(member);
+	}
+	
 	public boolean updateCheck(Member vo,String pwdCheck) {
 
 		if(bcpe.matches(pwdCheck,vo.getPwd())) {

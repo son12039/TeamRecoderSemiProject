@@ -127,7 +127,8 @@ public class MemberController {
 			System.out.println("비밀번호 오류!!!!");
 			return "redirect:/updateCheck";
 		}
-
+		
+		
 	}
 	
 	/*
@@ -140,7 +141,9 @@ public class MemberController {
 	public boolean updateMemberInfo(Member vo, Model model, String addrDetail, String nickname) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-
+		
+		
+		
 		vo.setId(mem.getId());
 
 		String addr = vo.getAddr();
@@ -154,15 +157,28 @@ public class MemberController {
 			System.out.println("닉네임 중복");
 			return false;
 		}
-
+		
 		service.addrUpdate(vo);
 		service.updateMemberInfo(vo);
+		
+		System.out.println("updateMemberInfo" + vo); // 수정된 값 들어옴
+		
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
 		return true;
 	}
-
 	
+	@PostMapping("/memberDelete")
+	public void memberDelete(Member member) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) authentication.getPrincipal();
+		
+		System.out.println("memberDelete : " + mem); // mem 정보 받음
+		
+		
+		
+	}
 
-	
 	
 	// 프로필, info 업데이트
 	@ResponseBody
@@ -190,6 +206,9 @@ public class MemberController {
 		// 새 이미지 업데이트
 		System.out.println("수정후 member 정보 : " + mem);
 		service.updateMember(mem);
+
+		
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 		return "redirect:/mypage";
 	}
 

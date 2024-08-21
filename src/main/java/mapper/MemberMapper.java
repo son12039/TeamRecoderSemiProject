@@ -35,7 +35,7 @@ public interface MemberMapper {
 	
 	// 업데이트 ===============================
 	void updateMember(Member member);
-	
+	void memberDelete(Member member);
 	
 	
 	Member updateCheck(Member vo, Member mem);

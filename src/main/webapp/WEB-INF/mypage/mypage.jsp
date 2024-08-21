@@ -95,6 +95,7 @@
 				processData: false,
 				success: function (result) {
 					if (result){
+						console.log(result);
 						window.location.href = "/";
 						alert("정보가 수정되었습니다");
 					}

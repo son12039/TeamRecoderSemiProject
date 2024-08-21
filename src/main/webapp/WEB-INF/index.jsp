@@ -47,6 +47,7 @@
 
 					</div>
 					<div class="header_right_menu">
+					${member}
 						<a href="/mypage">마이페이지</a> <a
 							href="/myMembership?id=${member.id}">나의 모임</a> <a href="/logout">로그아웃</a>
 					</div>

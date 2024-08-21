@@ -18,7 +18,7 @@
 	<!-- 채팅방 목록 -->
 	<main>
         <h1>채팅방</h1>
-        <button class="new_chat">미완성</button>
+           <!-- <button class="new_chat">채팅방만들기</button> -->
         <nav>
         	<span>방 제목</span>
         	<span>인원</span>

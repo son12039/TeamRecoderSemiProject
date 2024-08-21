@@ -33,7 +33,6 @@
               
 				<sec:authorize access="isAuthenticated()" var="principal">
 				<sec:authentication property="principal" var="member" />
-				<p>${member}</p>
 				<div> ${member.nickname}
 				<c:choose>
 						<c:when test="${member.memberImg != null}">

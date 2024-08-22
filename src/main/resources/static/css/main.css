@@ -87,20 +87,38 @@ a:hover {
 }
 .comment,
 .re-comment{
-	background-color: blue;
+	padding : 5px;
+	background-color: #ffff;
 	width: 100%;
 	max-width: 500px;
 	margin: 10px;
-	border: 2px solid;
+	border: 1px solid;
 	border-radius: 10px;
+}
+.re-comment{
+	margin: 10px 0px;
 }
 .comment{
 	margin-left: 150px;
 	
 }
-.re-comment{
-	margin-left: 200px;
+div[id^="comment-box"] {
+   
+	border: 1px solid;
+	width: 500px;
+	height: 100px;
+	display: flex;
+	justify-content: space-between;
+	padding: 5px;
+	align-items: center;
 }
+
+div[id^="comment-box"] > input{
+	height: 50%;
+	width: 60%;
+	margin: 5px;
+}
+
 #comment-container{
 	display: flex;
 	flex-direction : column;
@@ -108,3 +126,61 @@ a:hover {
 	background-color: silver;
 	margin: 0 50px;
 }
+.comment-head{
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.comment-head > h1 {
+	font-weight: bold;
+	font-size: 1.2rem;
+	
+}
+button {
+	border: none;
+	padding: 3px 10px;
+	border-radius: 35%;
+}
+button > img {
+	width: 20px;
+	height: 15px;
+	margin: 0px;
+	padding: 0px;
+}
+.recomment-box{
+	margin-left: 100px;
+
+}
+.prof{
+	display: flex;
+	align-items: center;
+}
+.prof img{
+	margin: 0;
+	margin-left: 5px;
+}
+#textbox > button {
+	height: 50%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

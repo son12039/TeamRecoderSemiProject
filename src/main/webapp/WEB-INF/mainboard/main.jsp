@@ -102,7 +102,20 @@
 	<sec:authorize access="isAuthenticated()">
 		<form id="comment-frm">
 			<div id="comment-box">
-				<label for="textbox"> ${member.nickname} : </label> <input
+			<div class="prof">
+				<label for="textbox"> ${member.nickname}</label> 
+							<c:choose>
+						<c:when test="${member.memberImg != null}">
+								<img class="user-img" src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
+						</c:when>
+					
+						<c:otherwise>
+							<img class="user-img"
+								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+						</c:otherwise>
+					</c:choose>
+					</div>
+				<input
 					id="textbox" type="text" name="mainCommentText"
 					placeholder="댓글을 입력하세요"> <input type="hidden" name="id"
 					value="${member.id}"> <input type="hidden"
@@ -121,16 +134,40 @@
 
 				<c:forEach items="${comment}" var="com">
 					<div id="comm-${com.mainCommentCode}" class="comment">
-						<div><h1>${com.nickname}</h1>${com.mainCommentDate}</div>
-						댓글 내용 ${com.mainCommentText} <br />
+						<div class="comment-head"><div class="prof">${com.nickname}
+						<c:choose>
+						<c:when test="${com.memberImg != null}">
+								<img class="user-img" src="http://192.168.10.51:8081/member/${com.id}/${com.memberImg}">
+						</c:when>
 					
+						<c:otherwise>
+							<img class="user-img"
+								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+						</c:otherwise>
+					</c:choose>
+					</div>${com.mainCommentDate}</div>
+						<div class="comment-text">${com.mainCommentText} 
+						</div>
 						<c:if test="${com.nickname == member.nickname}">
 							<button type="button" onclick="updateForm(${com.mainCommentCode})">수정</button>
 							<div id="update-form-${com.mainCommentCode}" class="update-form">
 								<form id="comment-frm-${com.mainCommentCode}">
 									<div id="comment-box-update-${com.mainCommentCode}">
-										<label for="textbox-update${com.mainCommentCode}">
-											${member.nickname} : </label> <input
+												<div class="prof">
+				<label for="textbox-update${com.mainCommentCode}">
+											${member.nickname}</label>
+							<c:choose>
+						<c:when test="${member.memberImg != null}">
+								<img class="user-img" src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
+						</c:when>
+					
+						<c:otherwise>
+							<img class="user-img"
+								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+						</c:otherwise>
+					</c:choose>
+					</div>
+										 <input
 											id="textbox-update${com.mainCommentCode}" type="text"
 											name="mainCommentText" value="${com.mainCommentText}">
 										<button type="button"
@@ -154,8 +191,22 @@
 						<sec:authorize access="isAuthenticated()">
 							<form id="comment-frm-${com.mainCommentCode}">
 								<div id="comment-box-${com.mainCommentCode}">
-									<label for="textbox${com.mainCommentCode}">
-										${member.nickname} : </label> <input
+									
+										<div class="prof">
+				<label for="textbox${com.mainCommentCode}">
+										${member.nickname}</label>
+							<c:choose>
+						<c:when test="${member.memberImg != null}">
+								<img class="user-img" src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
+						</c:when>
+					
+						<c:otherwise>
+							<img class="user-img"
+								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+						</c:otherwise>
+					</c:choose>
+					</div>
+										 <input
 										id="textbox${com.mainCommentCode}" type="text"
 										name="mainCommentText" placeholder="대댓글을 입력하세요"> <input
 										type="hidden" name="id" value="${member.id}"> <input
@@ -169,11 +220,22 @@
 							</sec:authorize>
 						</div>
 						<c:if test="${fn:length(com.recoment) != 0}">
+						<div class="recomment-box">
 							<c:forEach items="${com.recoment}" var="recom">
 								<div id="comm-${recom.mainCommentCode}" class="re-comment">
-									<div><h1>${recom.nickname}</h1>${recom.mainCommentDate}</div>
-									주인님 코드 ${recom.mainParentsCommentCode} <br /> 대댓글 내용 ${recom.mainCommentText}
-									 <br />
+									<div class="comment-head" ><div class="prof">${recom.nickname}
+									<c:choose>
+						<c:when test="${recom.memberImg != null}">
+								<img class="user-img" src="http://192.168.10.51:8081/member/${recom.id}/${recom.memberImg}">
+						</c:when>
+					
+						<c:otherwise>
+							<img class="user-img"
+								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+						</c:otherwise>
+					</c:choose></div>${recom.mainCommentDate}</div> 
+									 <br /><div class="comment-text">${recom.mainCommentText} 
+									</div>
 									<c:if test="${recom.nickname == member.nickname}">
 										<button type="button"
 											onclick="updateForm(${recom.mainCommentCode})">수정</button>
@@ -199,6 +261,7 @@
 									</c:if>
 								</div>
 							</c:forEach>
+							</div>
 						</c:if>
 
 					</div>

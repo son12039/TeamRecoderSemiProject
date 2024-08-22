@@ -26,8 +26,13 @@
          <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
          
       
-         
-     
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>     
+ <style>
+ #calendar{
+ margin: auto;
+ }
+ 
+ </style>
 </head>
 <body>
 
@@ -137,12 +142,15 @@
 
     </main>
     
-    <c:forEach items="${allmeet}" var="list" varStatus="status" >
-        <p id="start${list.meetCode}" style="display: none">${list.meetDateStart}</p>
-         <p id="end${list.meetCode}" style="display: none">${list.meetDateEnd}</p>
+   
+  
+  <!-- 
+   <c:forEach items="${allmeet}" var="list" varStatus="status" >
+        <p id="start${status.count}" style="display: block;">${list.meetDateStart}</p>
+         <p id="end${status.count}" style="display: block">${list.meetDateEnd}</p>
+         <p id="color${status.count}" style="display:block">${list.color}</p>
     </c:forEach>
     <p id="size">${allmeet.size()}</p>
-  
     <div class="calendar">
       <div class="header1">
         <button id="prevMonth">&lt;</button>
@@ -161,7 +169,25 @@
       <div class="dates" id="dates"></div>
     </div>    
     ${allmeet}
-    </sec:authorize>
+   
+     -->
+     <div id="calendar" style= "width: 60%"     ></div>
+     </sec:authorize>
+    
+    <script>
+    const allDates = [];
+    let allMeet = {};
+    <c:forEach items="${allmeet}" var="item">
+    	allMeet.title = "${item.meetInfo}";
+    	allMeet.start = "${item.meetDateStart}";
+    	allMeet.end = "${item.meetDateEnd}";
+    	allMeet.color = "${item.color}";
+    	allMeet.meetCode= "${item.meetCode}";
+    	allDates.push(allMeet);
+    	allMeet = {};
+    </c:forEach>
+    console.log(allDates);
+    </script>
     
     <script src="${pageContext.request.contextPath}/js/membershipPage.js"></script>
     <script src="${pageContext.request.contextPath}/js/calendar.js"></script>

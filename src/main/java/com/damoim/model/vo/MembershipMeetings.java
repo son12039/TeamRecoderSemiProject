@@ -18,4 +18,5 @@ public class MembershipMeetings {
 	private String meetInfo; // 모임관련 정보 구분자로 지정해서 캘린더에 제목만 표시해야할듯?
 //	private Date meetCreatDate; // 모임 생성일
 	private String id; // 모임 작성글 작성자 = id
+	private String color;
 }

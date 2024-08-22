@@ -122,6 +122,7 @@ public class MembershipController {
 			System.out.println("종료날짜 배열 : " + endList);
 			model.addAttribute("startList", startList);
 			model.addAttribute("endList", endList);
+			//System.out.println("125 : " + meetingService.allMeetings(membershipCode));
 			model.addAttribute("allmeet", meetingService.allMeetings(membershipCode));
 			
 			return "membership/membershipPage";

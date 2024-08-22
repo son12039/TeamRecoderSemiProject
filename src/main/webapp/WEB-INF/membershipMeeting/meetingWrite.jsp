@@ -26,6 +26,11 @@
     <label>Title</label>
     시작 날짜 :  <input type="date"  name="meetDateStart">
     종료 날짜 :  <input type="date"  name="meetDateEnd">
+    색상 선택 : <select name="color">
+    <option  value="yellow">노랑</option>
+    <option  value="blue">파랑</option>
+    <option  value="red">빨강</option>
+    </select>
     <input class="form-control" name="title">
     </div>
      <div class="form-group">

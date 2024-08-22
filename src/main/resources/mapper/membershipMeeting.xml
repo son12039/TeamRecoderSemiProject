@@ -3,9 +3,9 @@
 
 <insert id="addMeeting" parameterType="MembershipMeetings">
 INSERT INTO membership_meetings
-(membership_code,meet_date_start,meet_date_end,meet_info,id)
+(membership_code,meet_date_start,meet_date_end,meet_info,id,color)
 VALUES (#{membershipCode},#{meetDateStart},#{meetDateEnd},
-#{meetInfo},#{id})
+#{meetInfo},#{id},#{color})
 
 </insert>
 
@@ -17,6 +17,7 @@ VALUES (#{membershipCode},#{meetDateStart},#{meetDateEnd},
         <result property="meetDateEnd" column="meet_date_end"/>
         <result property="meetInfo" column="meet_info"/>
         <result property="id" column="id"/>
+        <result property="color" column="color"/>
     </resultMap>
     
     <!-- SELECT 쿼리 -->
@@ -25,4 +26,14 @@ VALUES (#{membershipCode},#{meetDateStart},#{meetDateEnd},
         SELECT * FROM membership_meetings
         WHERE membership_code = #{membershipCode}
     </select>
+    
+    <select id="">
+    
+    
+    
+    </select>
+    
+    
+    
+    
 </mapper>

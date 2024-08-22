@@ -7,7 +7,15 @@
 		<result column="membership_code" property="membershipCode" />
 	</resultMap>
 
-	<resultMap type="MemberInfoDTO" id="MemberInfoDTOMap">
+	<resultMap type="MembershipDTO" id="MembershipDTOmap">
+		<result column="membership_name" property="membershipName" />
+		<result column="membership_info" property="membershipInfo" />
+		<result column="membership_max" property="membershipMax" />
+		<result column="id" property="id" />
+		<result column="list_grade" property="listGrade" />
+	</resultMap>
+
+	<resultMap type="MemberInfoDTO" id="MemberInfomap">
 		<result column="id" property="id" />
 		<result column="pwd" property="pwd" />
 		<result column="addr" property="addr" />
@@ -54,6 +62,8 @@
 		<result property="memberType" column="member_type" />
 	</resultMap>
 
+
+
 	<!-- 더미용 쿼리 2개 -->
 	<select id="dummyMember" resultType="Member">
 		SELECT id, pwd
@@ -84,10 +94,14 @@
 	<!-- 회원정보 업데이트 -->
 	<update id="updateMemberInfo" parameterType="Member">
 		UPDATE member
-		SET pwd
-		= #{pwd} , addr = #{addr}, name = #{name},
-		phone = #{phone}, email =
-		#{email} , age = #{age} , nickname = #{nickname}
+		SET 
+		pwd = #{pwd} , 
+		addr = #{addr},
+		name = #{name},
+		phone = #{phone}, 
+		email = #{email} , 
+		age = #{age} , 
+		nickname = #{nickname}
 		WHERE id = #{id}
 	</update>
 	<!-- 상세주소 업데이트 -->
@@ -108,23 +122,11 @@
 	<!-- 회원 탈퇴시 status 조정 -->
 	<update id="memberStatus" parameterType="Member">
 		UPDATE member
-		SET status
-		= #{status}
+		SET
+		status =
+		#{status}
 		WHERE id = #{id}
 	</update>
-	<!-- 회원 탈퇴시 활동정보 처리 -->
-	<update id="memberActBlock" parameterType="MemberInfoDTO">
-		UPDATE membership
-		SET 
-		membership_name = #{membershipName},
-		membership_img = #{membershipImg},
-		membership_info = #{membershipInfo},
-		membership_date = #{membershipDate},
-		membership_grade = #{membershipGrade},
-		membership_max = #{membershipMax}
-		WHERE id = #{id}
-	</update>
-
 
 
 	<!-- / updateMember -->
@@ -136,7 +138,7 @@
 		WHERE id = #{id}
 	</update>
 
-	<select id="selectImg" parameterType="String"
+	<select id="selectMember" parameterType="String"
 		resultType="Member">
 		SELECT * FROM member
 		WHERE id = #{id}
@@ -201,6 +203,7 @@
 		WHERE id = #{id}
 		AND email = #{email}
 	</select>
+	
 
 </mapper>
 	

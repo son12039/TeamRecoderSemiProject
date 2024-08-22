@@ -5,7 +5,6 @@
 		<result column="id" property="id" />
 		<result column="list_grade" property="listGrade" />
 		<result column="membership_code" property="membershipCode" />
-
 	</resultMap>
 	
 	<resultMap type="Membership" id="membershipMap">
@@ -162,9 +161,28 @@
 		membership
 	</select>
 	
+	<!-- 클럽 정보 수정 -->
+	<update id="membershipUpdate" parameterType="Membership">
+		UPDATE membership
+		SET 
+		membership_name = #{membershipName},
+		membership_img = #{membershipImg},
+		membership_info = #{membershipInfo},
+		membership_max = #{membershipMax}
+		WHERE 
+		id = #{id} AND
+		membership_code = #{membershipCode}
+	</update>
+	
 
-	
-	
+	<select id="selectName" parameterType="String" resultMap="listMap">
+		SELECT *
+		FROM member
+		JOIN membership_user_list USING (id)
+		JOIN membership USING (membership_code)
+		WHERE id = #{id}
+        AND (list_grade = "host" OR list_grade = "admin");
+	</select>
 	
 
 

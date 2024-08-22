@@ -23,12 +23,11 @@
 			<h1>클럽 정보 수정</h1>
 			<form action="/updateMembership" method="post"
 				enctype="multipart/form-data">
-				<h3>${membership}</h3>
 				<div class="form-group">
 				
 					<label for="membershipName">클럽 이름 수정 : </label> 
 					
-					<input type="text" id="membershipName" name="membershipName" required>
+					<input type="text" id="membershipName" name="membershipName" >
 				</div>
 				<div class="form-group">
 					<label for="membershipImg">클럽 썸네일 수정 : </label> <input type="file"
@@ -36,27 +35,30 @@
 				</div>
 				<div class="form-group">
 					<label for="membershipMax">최대 인원 수 : </label> <input type="number"
-						id="membershipMax" name="membershipMax" min="1" required>
+						id="membershipMax" name="membershipMax" min="1" >
 				</div>
 				<div class="form-group">
 					<label for="memershipAccessionText">클럽 가입 조건 : </label> <input
 						type="text" id="memershipAccessionText"
-						name="memershipAccessionText" required>
+						name="memershipAccessionText" >
 				</div>
 				<div class="form-group">
 					<label for="memershipSimpleText">공개 정보 : </label> <input
 						type="text" id="memershipSimpleText" name="memershipSimpleText"
-						required>
+						>
 				</div>
 				<div class="form-group">
 					<label for="memershipSecretText">비밀 정보 : </label> <input
 						type="text" id="memershipSecretText" name="memershipSecretText"
-						required>
+						>
 				</div>
 				
 				<button type="submit">수정하기</button>
 			</form>
 		</div>
 	</sec:authorize>
+	
+	
+	
 </body>
 </html>

@@ -40,10 +40,16 @@ public interface MembershipMapper {
 	void membershipImg(Membership membership);
 	
 	
+	ArrayList<MembershipUserList> selectName(String member);
+	
+	
+	
+	
+	
 	
 	void updateMembership(Membership membership);
-	
-	
+
+
 }
 
 

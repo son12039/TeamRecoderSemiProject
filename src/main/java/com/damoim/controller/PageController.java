@@ -113,7 +113,12 @@ public class PageController {
 	
 	// 회원탈퇴
 	@GetMapping("/memberDelete")
-	public String memberDelete(){
+	public String memberDelete(Model model){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) authentication.getPrincipal();
+		System.out.println("memberDelete : " + mem);
+		ArrayList<MembershipUserList> membershipList = service.selectName(mem.getId());
+		model.addAttribute("list", membershipList);
 		return "mypage/memberDelete";
 	}
 

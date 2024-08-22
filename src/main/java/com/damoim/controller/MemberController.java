@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
+import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
 import com.damoim.service.EmailService;
@@ -88,7 +89,7 @@ public class MemberController {
 		member.setMemberImg(fileUpload(imgFile, mem.getId()));
 		System.out.println("회원가입전 맴버 변수 체크 " + member);
 		service.signUp(member);
-		
+
 		System.out.println(member);
 		return "redirect:/";
 
@@ -112,23 +113,21 @@ public class MemberController {
 	 */
 	@GetMapping("/myMembership") // 내가 가입한 클럽확인
 	public String myMembership(Model model) {
-		
- 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member member = (Member) authentication.getPrincipal();
-		
-		List<MembershipUserList> list =	new ArrayList<MembershipUserList>();
-		for(MemberListDTO m : member.getMemberListDTO()) {
-			list.add((MembershipUserList) infoService.main(m.getMembershipCode()));	
+
+		List<MembershipUserList> list = new ArrayList<MembershipUserList>();
+		for (MemberListDTO m : member.getMemberListDTO()) {
+			list.add((MembershipUserList) infoService.main(m.getMembershipCode()));
 		}
-		for(int i =0; i < list.size(); i++) {
+		for (int i = 0; i < list.size(); i++) {
 			list.get(i).setCount(list.get(i).getListCode());
 		}
 
-		
 		// 내 등급별 클럽
 		model.addAttribute("membership", list);
 
-	
 		return "mypage/myMembership";
 	}
 
@@ -142,10 +141,9 @@ public class MemberController {
 		boolean check = service.updateCheck(mem, pwdCheck);
 		System.out.println("체크 확인" + check);
 		return check;
-		
-		
+
 	}
-	
+
 	/*
 	 * 성철 로그인 X 한 상태에서 유저에게 ID랑 이메일 정보를 받아서 일치할시에 그 유저가 가입할때 넣은 이메일주소에 임시 비밀번호 발송 ->
 	 * 암호화 -> DB변경 (이메일서비스)
@@ -164,16 +162,16 @@ public class MemberController {
 		vo.setAddr(addr);
 		vo.setNickname(nickname);
 		System.out.println("vo.getNickname : " + vo.getNickname()); // 닉네임 받아온거 확인
-		
+
 		// 닉네임 중복확인
 		if (service.nicknameDupCheck(vo)) {
 			System.out.println("닉네임 중복");
 			return false;
 		}
-		
+
 		service.addrUpdate(vo);
 		service.updateMemberInfo(vo);
-		
+
 		System.out.println("updateMemberInfo" + vo); // 수정된 값 들어옴
 		mem.setNickname(vo.getNickname());
 		mem.setPwd(vo.getPwd());
@@ -182,98 +180,74 @@ public class MemberController {
 		mem.setAddr(vo.getAddr());
 		mem.setEmail(vo.getEmail());
 		mem.setAge(vo.getAge());
-		
+
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		
+
 		return true;
 	}
-	
+
 	// 회원 탈퇴
 	@ResponseBody
 	@PostMapping("/memberStatus")
-	public boolean memberStatus(MemberInfoDTO dto ,Member member, HttpServletRequest request, HttpServletResponse response) {
+	public boolean memberStatus( HttpServletRequest request, HttpServletResponse response) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		System.out.println("memberStatus : " + mem); // mem 정보 받음
-		boolean delete = false;
-		
-		System.out.println("memberStatus : " + dto);
-		
-		if(!mem.isStatus()) {
-			System.out.println("이미 탈퇴한 회원입니다");
+		ArrayList<MembershipUserList> membershipList = infoService.selectName(mem.getId());
+
+		// membershipList <- 해당 탈퇴하려는 유저가 가입되어있는 클럽 중에서 admin 이거나 host인 클럽 정보 를 담고있는 리스트
+		if (membershipList.size() > 0) { // 해당 유저가 가입된 클럽중 어드민이나 호스트인게 있다면!
 			return false;
-			
-		} else { // 호스트나 어드민인 사람
-			mem.setStatus(delete); // 멤버 status false
-			System.out.println("멤버 탈퇴 Status : " + mem.isStatus());
-			member.setId(mem.getId()); // 회원 아이디 set
-			service.memberStatus(member);
-			// 서비스 돌린거 바로 시큐리티 적용시킴
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-			// logoutHandler 사용하면 시큐리티에서 만든 로그아웃 사용 가능
-            SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
-            logoutHandler.logout(request, response, authentication);
-            
-			return true;
 		}
+		mem.setStatus(false); // 멤버 status false
+		service.memberStatus(mem);
+		// 서비스 돌린거 바로 시큐리티 적용시킴
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		// logoutHandler 사용하면 시큐리티에서 만든 로그아웃 사용 가능
+		SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+		logoutHandler.logout(request, response, authentication);
+		return true;
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	// 프로필, info 업데이트
 	@ResponseBody
 	@PostMapping("/updateMember")
-	public String updateMember(String memberInfo, MultipartFile file)
-			throws IllegalStateException, IOException {
+	public String updateMember(String memberInfo, MultipartFile file) throws IllegalStateException, IOException {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		
+
 		System.out.println("멤버 파일 정보 : " + mem.getFile());
 		System.out.println("업데이트멤버 멤버 정보: " + mem); // 멤버정보 확인
 		// mem에 member정보 다 담겨져서 옴
 		System.out.println("파일을 보냈나? : " + file.getOriginalFilename());
 		System.out.println("null임? : " + file.getOriginalFilename().isEmpty());
-		
+
 		// 조건에 만약 보내준 링크가 null이면 변하지 않도록
 		if (!file.getOriginalFilename().isEmpty()) {
-			
+
 			fileDelete(mem.getMemberImg(), mem.getId());
 			String url = fileUpload(file, mem.getId());
 			mem.setMemberImg(url);
 			System.out.println("updateMember 삭제 : " + mem.getMemberImg() + mem.getId());
 		}
-		
+
 		// 새 이미지 업데이트
 		System.out.println("수정후 member 정보 : " + mem);
 		service.updateMember(mem);
-		
-		
+
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		return "redirect:/mypage";
 	}
 
-   
-	/* 성철
-	 * 파일 업로드 각각 mamber의 id 폴더에 저장후 URL 리턴
-	 * */
-	public String fileUpload(MultipartFile file,String id) throws IllegalStateException, IOException {
-		if(file.getOriginalFilename() == "") {
+	/*
+	 * 성철 파일 업로드 각각 mamber의 id 폴더에 저장후 URL 리턴
+	 */
+	public String fileUpload(MultipartFile file, String id) throws IllegalStateException, IOException {
+		if (file.getOriginalFilename() == "") {
 			System.out.println("NULL 리턴");
 			return null;
 		}
-		
+
 		UUID uuid = UUID.randomUUID(); // 랜덤 파일명 부여
 		String fileName = uuid.toString() + "_" + file.getOriginalFilename();
 		File copyFile = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + fileName);
@@ -282,12 +256,10 @@ public class MemberController {
 		System.out.println("파일 이름 : " + fileName);
 		return fileName;
 	}
-	
-	
+
 	// 성철 파일 삭제 메서드 해당유저 프로필사진 변경시 사용!! 실 사용때는 조건에 만약 보내준 링크가 null이면 변하지 않도록
 	public String fileDelete(String fileName, String id) throws IllegalStateException, IOException {
 
-		
 		if (fileName == null || fileName.isEmpty()) {
 			System.out.println("삭제할 파일이 없습니다");
 		} else {
@@ -295,11 +267,9 @@ public class MemberController {
 			File file = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + fileName);
 			file.delete();
 		}
-		service.selectImg(id);
+		service.selectMember(id);
 		return "redirect:/mypage";
 	}
-	
-	
 
 	@PostMapping("/sendEmail")
 	public String sendEmail(@RequestParam("id") String id, @RequestParam("email") String email, Model model) {

@@ -38,6 +38,10 @@ public class MemberService implements UserDetailsService {
 		return mapper.loginMemberMembership(member);
 
 	}
+	
+	
+	
+	
 
 	@Transactional
 	public void signUp(Member member) {
@@ -101,8 +105,8 @@ public class MemberService implements UserDetailsService {
 	}
 
 	// 이미지 선택
-	public Member selectImg(String string) {
-		return mapper.selectImg(string);
+	public Member selectMember(String string) {
+		return mapper.selectMember(string);
 	}
 
 	// 회원탈퇴 서비스 ==================================================
@@ -110,11 +114,9 @@ public class MemberService implements UserDetailsService {
 	public boolean memberStatus(Member member) {
 		return mapper.memberStatus(member);
 	}
-	// 탈퇴시 활동정보 처리
-	public void memberActBlock(MemberInfoDTO memberInfoDTO) {
-		mapper.memberActBlock(memberInfoDTO);
-	}
 	
+
+
 	
 	// ===============================================================
 	public ArrayList<Member> dummyMember() {

@@ -33,6 +33,7 @@ public interface MemberMapper {
 	Member pwdCheck(Member member);	
 	Member memberInfo(Member member);
 	String grade(Member member);
+	Member selectMember(Member member);
 	
 	// 회원정보 업데이트 ===============================
 	void updateMember(Member member);
@@ -41,12 +42,12 @@ public interface MemberMapper {
 	void addrUpdate(Member member);
 	boolean nicknameDupCheck(Member vo);
 	void fileDelete(String string);
-	Member selectImg(String string);
+	Member selectMember(String string);
 	
 	// 회원탈퇴 ======================================
 	boolean memberStatus(Member member);
-	void memberActBlock(MemberInfoDTO memberInfoDTO);
-	
+	void memberActBlock(MemberInfoDTO dto);
+	Member membershipSelect(Member member);
 	
 	
 	// id 이메일 맞나 체크 =============================

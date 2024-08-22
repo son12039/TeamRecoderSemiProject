@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.damoim.model.vo.Membership;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.damoim.model.dto.CommentDTO;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MembershipDTO;
 import com.damoim.model.dto.MembershipTypeDTO;
@@ -77,10 +79,43 @@ public class MembershipController {
 		
 		
 		model.addAttribute("main", list);			
-		System.out.println(commentService.allMainComment(membershipCode));
-		ArrayList<MainComment> commList = commentService.allMainComment(membershipCode);
-		System.out.println(commList);
-		model.addAttribute("comment", commList);
+		
+		ArrayList<MainComment> commList = commentService.allMainComment(membershipCode); // 일반댓글
+		ArrayList<CommentDTO> dtoList = new ArrayList<CommentDTO>(); //합칠예정
+		for (int i = 0; i < commList.size(); i++) {
+		    CommentDTO commentDTO = new CommentDTO().builder()
+		            .mainCommentCode(commList.get(i).getMainCommentCode())
+		            .mainCommentText(commList.get(i).getMainCommentText())
+		            .mainCommentDate(commList.get(i).getMainCommentDate())
+		            .nickname(commList.get(i).getMember().getNickname())
+		            .memberImg(commList.get(i).getMember().getMemberImg())
+		            .membershipCode(commList.get(i).getMembershipCode()) 
+		            .recoment(new ArrayList<>()) 
+		            .build();
+		    
+		    dtoList.add(commentDTO);
+		    ArrayList<MainComment> recommList = commentService.mainReComment(membershipCode, commentDTO.getMainCommentCode());
+		    // 모든 댓글에 대댓글이 달리는 상황 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 수정요망
+		    if(recommList.size()> 0) {
+		    for (int j = 0; j < recommList.size(); j++) {
+		        CommentDTO recommentDTO = new CommentDTO().builder()
+		                .mainCommentCode(recommList.get(j).getMainCommentCode())
+		                .mainCommentText(recommList.get(j).getMainCommentText())
+		                .mainCommentDate(recommList.get(j).getMainCommentDate())
+		                .nickname(recommList.get(j).getMember().getNickname())
+		                .memberImg(recommList.get(j).getMember().getMemberImg())
+		                .membershipCode(recommList.get(j).getMembershipCode()) 
+		                .mainParentsCommentCode(commList.get(i).getMainCommentCode())
+		                .build();
+		        
+		     
+		        commentDTO.getRecoment().add(recommentDTO);
+		    }
+		}
+		}
+
+		System.out.println(dtoList);
+		model.addAttribute("comment", dtoList);
 		return "mainboard/main";
 	}
 	/*

@@ -45,7 +45,7 @@
         <c:when test="${!hasHost}">
             <form action="/makeMembership">            
                 <input type="hidden" name="id" value="${mem.id}">
-                <button type="submit" value="클럽생성">클럽 만들기</button>
+                <button id="make-club" type="submit" value="클럽생성">클럽 만들기</button>
             </form>
         </c:when>
         <c:otherwise>

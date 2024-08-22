@@ -15,13 +15,7 @@
 	href="${pageContext.request.contextPath}/css/main.css" />
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <style>
-.reply-form {
-	display: none;
-}
 
-.update-form {
-	display: none;
-}
 </style>
 </head>
 <body>
@@ -102,9 +96,8 @@
 						댓글 내용 ${com.mainCommentText} <br /> 댓글 작성시간 ${com.mainCommentDate}
 						<br /> 댓글 작성자 닉네임 ${com.nickname} <br />
 						<c:if test="${com.nickname == member.nickname}">
-							<button type="button"
-								onclick="updateForm(${com.mainCommentCode})">수정</button>
-							<div id="update-form--${com.mainCommentCode}" class="update-form">
+							<button type="button" onclick="updateForm(${com.mainCommentCode})">수정</button>
+							<div id="update-form-${com.mainCommentCode}" class="update-form">
 								<form id="comment-frm-${com.mainCommentCode}">
 									<div id="comment-box-update-${com.mainCommentCode}">
 										<label for="textbox-update${com.mainCommentCode}">
@@ -146,7 +139,7 @@
 						</div>
 						<c:if test="${fn:length(com.recoment) != 0}">
 							<c:forEach items="${com.recoment}" var="recom">
-								<div id="comm-${recom.mainCommentCode}" class="comment">
+								<div id="comm-${recom.mainCommentCode}" class="re-comment">
 									<h1>대댓 굴</h1>
 									주인님 코드 ${recom.mainParentsCommentCode} <br /> 대댓글 내용
 									${recom.mainCommentText} <br /> 대댓글 작성시간
@@ -154,7 +147,7 @@
 									<c:if test="${recom.nickname == member.nickname}">
 										<button type="button"
 											onclick="updateForm(${recom.mainCommentCode})">수정</button>
-										<div id="update-form--${recom.mainCommentCode}"
+										<div id="update-form-${recom.mainCommentCode}"
 											class="update-form">
 											<form id="comment-frm-${recom.mainCommentCode}">
 												<div id="comment-box-update-${recom.mainCommentCode}">

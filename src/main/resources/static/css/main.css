@@ -78,3 +78,16 @@ a {
 a:hover {
   color: #555;
 }
+.reply-form {
+	display: none;
+}
+
+.update-form {
+	display: none;
+}
+.comment{
+	padding-left: 50px;
+}
+.re-comment{
+	padding-left: 100px;
+}

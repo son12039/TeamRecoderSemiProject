@@ -4,6 +4,8 @@ function showReplyForm(commentCode) {
         let formId = "#reply-form-" + commentCode;
         let formElement = $(formId);
 
+		console.log(formId);
+		console.log(formElement);
         // 대댓글 숨기기
         formElement.toggle();
     }
@@ -77,7 +79,7 @@ function updateComment(e, commentCode){
 	const text = inputs[0].value;
 	console.log(text);
 	$.ajax({
-			url: '/deleteComment', 
+			url: '/updateComment', 
 			type: 'POST',
 			data: {
 				mainCommentCode: commentCode,

@@ -170,7 +170,7 @@
 }
 img {
   border-radius: 15px;
-  width: 270px;
+  width: 200px;
   height: 270px; /* 08-21 채승훈 : 타입 설명란 때문에 잠깐 이미지 크기 키웠음*/
   margin: 20px;
 }
@@ -255,3 +255,5 @@ body {
 	align-items : center;
 	text-align : center;
 }
+
+/* 그냥 박스 상자 */

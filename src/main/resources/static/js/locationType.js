@@ -38,6 +38,43 @@ $("#locationLaNameSelect").change(function() {
 	}
 	location.href = url;
 });
+
+
+	
+$("#locationSNameForm input[type=checkbox]").change(function() {
+	const locationSName = $(this).val();
+	//
+	//console.log($(this).parent().find("input"));
+	if(locationSName === '전체보기') {
+		urlParams.delete('locationSName');
+	} else if($(this).is(':checked')) {
+		urlParams.append('locationSName', locationSName);
+	} else {
+		urlParams.delete('locationSName');
+		const inputAll = $(this).parent().find("input[type=checkbox]");
+		for(let input of inputAll) {
+			if(input.checked) {
+				urlParams.append("locationSName", input.value);
+			}
+			//console.log(input.value);
+			//console.log(input.checked);
+		}
+		//$(this).parent().find("input").forEach((input) => {
+			//console.log(input);
+		//})
+	}
+	location.href = url;
+	//if(locationSName === '전체보기') {
+		//urlParams.delete('')
+	//}
+	//urlParams.delete("locationSName");
+	
+	//if(locationSName !== '전체보기'){
+	//	urlParams.append('locationSName',locationSName);
+	//}
+	//location.href = url;
+});
+/*
 $("#locationSNameForm").submit((e) => {
 	e.preventDefault();
 	urlParams.delete("locationSName");
@@ -57,6 +94,8 @@ $("#locationSNameForm").submit((e) => {
 	}
 	location.href = url;
 });
+*/
+
 
 
 $("#locSNameAll").change(function(){

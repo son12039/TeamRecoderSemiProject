@@ -16,46 +16,47 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
+
+
+	<jsp:include page="header/header.jsp" />
+	
+
 	<div class="header">
 		<div class="header_left">
 			<a href="/">
 				<div class="LOGO">DAMOIM</div>
 			</a>
 			<div class="header_right">
-		
-				<sec:authorize access="!isAuthenticated()">
-              <div class="header_right_menu">
-                <a href="/signUp">회원가입</a>
-                <a href="/loginPage">로그인</a>
-              </div>
-              </sec:authorize>
-              
-				<sec:authorize access="isAuthenticated()" var="principal">
-				<sec:authentication property="principal" var="member" />
-				<div> ${member.nickname}
-				<c:choose>
-						<c:when test="${member.memberImg != null}">
-								<img class="user-img" src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
-						</c:when>
-					
-						<c:otherwise>
-							<img class="user-img"
-								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
-						</c:otherwise>
-					</c:choose>
-					
 				
-				</div>
-					<div class="header_right_menu">
-					${member}
-						<a href="/update">마이페이지</a> <a href="/myMembership">나의
-							모임</a> <a href="/logout">로그아웃</a>
-					</div>
+				<sec:authorize access="!isAuthenticated()">
+	             <div class="header_right_menu">
+	               <a href="/signUp">회원가입</a>
+	               <a href="/loginPage">로그인</a>
+	             </div>
+              </sec:authorize>
+				<sec:authorize access="isAuthenticated()" var="principal">
+					<sec:authentication property="principal" var="member" />
+						<div> ${member.nickname}
+							<c:choose>
+								<c:when test="${member.memberImg != null}">
+										<img class="user-img" src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
+								</c:when>
+							
+								<c:otherwise>
+									<img class="user-img"
+										src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+								</c:otherwise>
+							</c:choose>	
+						</div>
+						<div class="header_right_menu">
+							<a href="/update">마이페이지</a> <a href="/myMembership">나의
+								모임</a> <a href="/logout">로그아웃</a>
+						</div>
 				</sec:authorize>
 			</div>
 		</div>
 	</div>
-
+	
 
 	<!-- 08-20 채승훈 -->
 	<select id="locationLaNameSelect">

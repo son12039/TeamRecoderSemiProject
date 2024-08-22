@@ -7,7 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
 
-
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import mapper.MemberMapper;
 
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class MemberService  implements UserDetailsService{
 	}
 	
 	public Member idCheck(Member member) {
+		 
 		return mapper.idCheck(member);
 		
 	}
@@ -62,11 +64,64 @@ public class MemberService  implements UserDetailsService{
 		
 		return mapper.pwdCheck(member);
 	}
-    
-	public void update(Member member) {
-		
-		mapper.update(member);
+	
+	
+	// 업데이트 관련 서비스 =======================================
+	// 중요도 떨어지는 정보 수정 메서드
+	// 일단 프로필이랑 info 정보만 수정
+	public void updateMember(Member member) {
+		mapper.updateMember(member);
 	}
+	
+	public void memberDelete(Member member) {
+		mapper.memberDelete(member);
+	}
+	
+	public boolean updateCheck(Member vo,String pwdCheck) {
+
+		if(bcpe.matches(pwdCheck,vo.getPwd())) {
+			System.out.println("서비스에서 true 리턴!!!");
+			return true;
+		} else {
+			System.out.println("서비스에서 false 리턴!!!");
+			return false;
+		}
+	}
+	
+	// 비밀번호 재설정시 암호화
+	public void updateMemberInfo(Member member) {
+		member.setPwd(bcpe.encode(member.getPwd()));
+		mapper.updateMemberInfo(member);
+	}
+	// 주소 업데이트
+	public void addrUpdate(Member member) {
+		 mapper.addrUpdate(member);
+	}
+	// 닉네임 중복 체크
+	public boolean nicknameDupCheck(Member vo) {
+		return mapper.nicknameDupCheck(vo);
+	}
+
+	public Member selectImg(String string) {
+		return mapper.selectImg(string);
+	}
+	
+	// =========================================================
+	
+	
+	
+	
+	/*
+	// 카카오 로그인
+	public User loginWithKakao(User user) {
+		User savedUser = userMapper.getUserByEmail(user.getEmail());
+		if(savedUser == null) {
+			userMapper.addUser(user);
+		}
+		return savedUser;
+	}
+	*/
+	
 	
 	public ArrayList<Member> dummyMember(){
 		return mapper.dummyMember();
@@ -94,4 +149,5 @@ public class MemberService  implements UserDetailsService{
 		
 		return member;
 	}
+
 }

@@ -1,8 +1,7 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-     <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 				
 
 <!DOCTYPE html>
@@ -10,33 +9,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link
-          rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/reset.css"
-        />
-        <link
-          rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/membershipPage.css"
-        />
-          <link
-          rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/calender.css"
-        />
-          
-         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-         
-      
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>     
- <style>
- #calendar{
- margin: auto;
- }
- 
- </style>
-</head>
-<body>
-
-
 <jsp:include page="../header.jsp"></jsp:include>
 <sec:authorize access="isAuthenticated()" var="principal">
 	<sec:authentication property="principal" var="member" />
@@ -44,6 +16,30 @@
     <!-- ${main}은 멤버쉽관련 정보 + 호스트 정보  타입은 멤버쉽유저리스트임 -->
      <!-- 멤버쉽 이름  -->  
         <h1 >${main.membership.membershipName}</h1>  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클럽 회원 페이지</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/membershipPage.css"/>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>     
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        #calendar{
+        margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <main>
+   <sec:authorize access="isAuthenticated()" var="principal">
+   <sec:authentication property="principal" var="member" />
+        <h1>${main.membership.membershipName}</h1>
+        <!-- 멤버쉽 수정 -->
+        <div>
+       	<h2><a href="/updateMembership">정보 수정하기</a></h2>
+        </div>
         
         <!-- 멤버쉽 채팅 서버 링크   -->
         <a href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a> 
@@ -58,6 +54,31 @@
         
            <!-- 멤버쉽 최대 인원과 현재 인원 표기  -->
         <p>인원 현황 : ${main.count}/${main.membership.membershipMax}</p>
+        
+        
+        
+        <!-- 08-22 채승훈 로케이션타입 추가함 -->
+			<div class="locationTypeBox">
+				<div class="location">
+					<c:forEach items="${location}" var="location">
+						<div class="locationText">
+							<div class="locationList"># ${location.locLaName} ${location.locSName}</div>
+						</div>	 
+					</c:forEach>
+				</div>
+				<br>
+				<div class="type">
+					<c:forEach items="${type}" var="type">
+						<div class="typeText">
+							<div class="typeList">${type.typeSName}</div>
+						</div>						
+					</c:forEach>
+				</div>
+			</div>
+        
+        
+        
+        
         
          <!--  해당 멤버쉽 호스트 닉네임  -->
         <h4>호스트 : ${main.member.nickname} 
@@ -76,6 +97,8 @@
         <c:if test="${member.id == main.member.id && main.count >= main.membership.membershipMax}">
                         	<div>최대 인원에 도달하였습니다. 최대인원을 다시 설정후 확인해줏비시오</div>
                         </c:if>
+		
+
 
   <!-- 멤버쉽 코드를 기반으로 멤버쉽 유저리스트 조회  
   
@@ -89,28 +112,28 @@
  
   
    -->
-        <c:forEach items="${allMember}" var="cMember">
+        <c:forEach items="${allMember}" var="listMember">
             <div class="memberTable">
          
                  <c:choose> 
              
-                    <c:when test="${cMember.listGrade == 'guest'}">
+                    <c:when test="${listMember.listGrade == 'guest'}">
                         <ul> 
                        
-                            <li>${cMember.member.nickname} - 가입 대기중</li>
+                            <li>${listMember.member.nickname} - 가입 대기중</li>
                             
                            
-                            <c:if test="${cMember.member.memberImg != null}">
+                            <c:if test="${listMember.member.memberImg != null}">
                             <li><img class="allmemberImg" src="http://192.168.10.51:8081/member/${cMember.member.id}/${cMember.member.memberImg}" alt="회원 이미지"></li>
                             </c:if>
-                            <c:if test="${cMember.member.memberImg == null}">
+                            <c:if test="${listMember.member.memberImg == null}">
                             <img class="allmemberImg" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg" alt="회원 이미지">
                              </c:if>                          
-                              
+                              <%-- 현제 호스트만 수락버튼 보이게 해둬서 조건 이런데 나중에 바꿔야함 --%>
                             <c:if test="${main.member.id == member.id && !(membershipUserCount >= main.membership.membershipMax)}">
-                        
+                        	
                                 <form id="agreefrm">
-                                    <input type="hidden" name="id" value="${cMember.member.id}">
+                                    <input type="hidden" name="id" value="${listMember.member.id}">
                                     <input type="hidden" name="listGrade" value="regular">
                                     <input type="hidden" name="membershipCode" value="${main.membership.membershipCode}">
                                     <button id="agreeMember">가입 승인</button>
@@ -123,15 +146,14 @@
                       
                     <c:otherwise>
                         <ul> 
-                            <li>${cMember.member.nickname}</li>
-                            <c:if test="${main.member.memberImg != null}">
+                            <li>${listMember.member.nickname}</li>
+                            <c:if test="${listMember.member.memberImg != null}">
                             <li><img class="allmemberImg" src="http://192.168.10.51:8081/member/${cMember.member.id}/${cMember.member.memberImg}" alt="회원 이미지"></li>
                             </c:if>
-                            <c:if test="${main.member.memberImg == null}">
+                            <c:if test="${listMember.member.memberImg == null}">
                             <img class="allmemberImg" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg" alt="회원 이미지">
                             </c:if>
-                            <li>${cMember.member.memberInfo}</li>
-                            <li>${cMember.listGrade}</li>
+                            <li>${listMember.listGrade}</li>
                         </ul>
                     </c:otherwise>
                 </c:choose>
@@ -139,38 +161,9 @@
             </div>
         </c:forEach>
         <a href="/" id="toIndex">메인페이지로 가기</a>
-
+        </sec:authorize>
+        
     </main>
-    
-   
-  
-  <!-- 
-   <c:forEach items="${allmeet}" var="list" varStatus="status" >
-        <p id="start${status.count}" style="display: block;">${list.meetDateStart}</p>
-         <p id="end${status.count}" style="display: block">${list.meetDateEnd}</p>
-         <p id="color${status.count}" style="display:block">${list.color}</p>
-    </c:forEach>
-    <p id="size">${allmeet.size()}</p>
-    <div class="calendar">
-      <div class="header1">
-        <button id="prevMonth">&lt;</button>
-        <div class="month-year" id="monthYear"></div>
-        <button id="nextMonth">&gt;</button>
-      </div>
-      <div class="days">
-        <div class="day">Sun</div>
-        <div class="day">Mon</div>
-        <div class="day">Tue</div>
-        <div class="day">Wed</div>
-        <div class="day">Thu</div>
-        <div class="day">Fri</div>
-        <div class="day">Sat</div>
-      </div>
-      <div class="dates" id="dates"></div>
-    </div>    
-    ${allmeet}
-   
-     -->
      <div id="calendar" style= "width: 60%"     ></div>
      </sec:authorize>
     

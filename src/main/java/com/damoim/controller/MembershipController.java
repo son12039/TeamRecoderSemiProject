@@ -1,5 +1,6 @@
 package com.damoim.controller;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,13 +19,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.damoim.model.vo.Membership;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.damoim.model.dto.CommentDTO;
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.dto.MembershipDTO;
 import com.damoim.model.dto.MembershipTypeDTO;
 import com.damoim.service.MembershipMeetingService;
+import com.damoim.model.dto.SearchDTO;
+import com.damoim.service.LocationTypeService;
+import com.damoim.service.MainCommentService;
 import com.damoim.service.MembershipService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+
+import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.MembershipUserList;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +46,16 @@ public class MembershipController {
 	// 클럽 생성 관련 컨트롤
 	@Autowired
 	private MembershipService service;
+	
+	@Autowired
+	private MainCommentService commentService;
+	
+	//08-22 채승훈 클럽메인페이지에 지역과 타입 추가
+	@Autowired
+	private LocationTypeService locationTypeService;
+
+	
+	
 	/*
 	 * 
 	 * */
@@ -52,7 +71,6 @@ public class MembershipController {
 	 * */
 	@PostMapping("/createclub")
 	public String createclub(Membership membership) {
-		System.out.println(membership);
 		membership.setMembershipInfo(null);
      return "redirect:/"; // 클럽 생성 후 인덱스 페이지로 리다이렉션
 }	
@@ -63,32 +81,58 @@ public class MembershipController {
 
 	/*
 	 * 성일
-	 * 
+	 * 카운트 관련  VO에 합쳐버림
 	 * 
 	 * */
 	@GetMapping("/{membershipCode}") // 클럽 홍보 페이지 각각 맞춰 갈수있는거
 	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model
 			) {
-		System.out.println(service.main(membershipCode).getListCode());
-		System.out.println("어디서 오류가 날까?");
 		// 홍보페이지에 membership 관련 정보 + 호스트 정보
 		MembershipUserList list =  service.main(membershipCode);
 		list.setCount((service.membershipUserCount(membershipCode)));
+
 		
-		model.addAttribute("main", list);
+		model.addAttribute("main", list);			
 		
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("클럽 홍보 페이지 컨트롤러 왔을때 " + authentication.getName().equals("anonymousUser"));
-	if(	!authentication.getName().equals("anonymousUser") ) {
-		Member mem = (Member) authentication.getPrincipal();
-		
-		 // 로그인 유무 확인 . 널포인트 에러 방지
-			// 가입한 클럽 인지 확인을 위한 아이디 정보 가져오기
-			memberListDTO.setId(mem.getId());
-			// 해당클럽 안에서의 등급 가져오기
-			model.addAttribute("checkMember", service.checkMember(memberListDTO));
-	}
+		ArrayList<MainComment> commList = commentService.allMainComment(membershipCode); // 일반댓글
+		ArrayList<CommentDTO> dtoList = new ArrayList<CommentDTO>(); //합칠예정
+		for (int i = 0; i < commList.size(); i++) {
+		    CommentDTO commentDTO = new CommentDTO().builder()
+		            .mainCommentCode(commList.get(i).getMainCommentCode())
+		            .mainCommentText(commList.get(i).getMainCommentText())
+		            .mainCommentDate(commList.get(i).getMainCommentDate())
+		            .nickname(commList.get(i).getMember().getNickname())
+		            .memberImg(commList.get(i).getMember().getMemberImg())
+		            .membershipCode(commList.get(i).getMembershipCode()) 
+		            .recoment(new ArrayList<>()) 
+		            .build();
+		    
+		    dtoList.add(commentDTO);
+		    ArrayList<MainComment> recommList = commentService.mainReComment(membershipCode, commentDTO.getMainCommentCode());
+		    // 모든 댓글에 대댓글이 달리는 상황 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 수정요망
+		    if(recommList.size()> 0) {
+		    for (int j = 0; j < recommList.size(); j++) {
+		        CommentDTO recommentDTO = new CommentDTO().builder()
+		                .mainCommentCode(recommList.get(j).getMainCommentCode())
+		                .mainCommentText(recommList.get(j).getMainCommentText())
+		                .mainCommentDate(recommList.get(j).getMainCommentDate())
+		                .nickname(recommList.get(j).getMember().getNickname())
+		                .memberImg(recommList.get(j).getMember().getMemberImg())
+		                .membershipCode(recommList.get(j).getMembershipCode()) 
+		                .mainParentsCommentCode(commList.get(i).getMainCommentCode())
+		                .build();
+		        
+		     
+		        commentDTO.getRecoment().add(recommentDTO);
+		    }
+		}
+		}
+
+		System.out.println(dtoList);
+		model.addAttribute("comment", dtoList);
+		// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
+		model.addAttribute("location", locationTypeService.locationList(membershipCode));
+		model.addAttribute("type", locationTypeService.typeList(membershipCode));
 		return "mainboard/main";
 	}
 	/*
@@ -97,11 +141,11 @@ public class MembershipController {
 	  * */
 	 @GetMapping("/club/{membershipCode}") // 클럽 페이지 이동
 		public String membershipPage(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO memberListDTO, Model model) {
-			MembershipUserList list =  service.main(membershipCode);
-			list.setCount((service.membershipUserCount(membershipCode)));
-			
+			// 해당클럽 정보 다담음
+		 	MembershipUserList list =  service.main(membershipCode);
+			list.setCount((service.membershipUserCount(membershipCode)));	
 			model.addAttribute("main", list);
-			// 현재 가입 또는 신청되어있는  회원 정보		
+			// 해당클럽에 가입신청된 모든 유저정보		
 			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
 		//	System.out.println(service.MembershipAllInfo(membershipCode));
 			
@@ -124,6 +168,9 @@ public class MembershipController {
 			model.addAttribute("endList", endList);
 			//System.out.println("125 : " + meetingService.allMeetings(membershipCode));
 			model.addAttribute("allmeet", meetingService.allMeetings(membershipCode));
+			// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
+			model.addAttribute("location", locationTypeService.locationList(membershipCode));
+			model.addAttribute("type", locationTypeService.typeList(membershipCode));
 			
 			return "membership/membershipPage";
 		}
@@ -158,7 +205,7 @@ public class MembershipController {
 				.membershipName(dto.getMembershipName())
 				.membershipInfo(dto.getMembershipInfo())
 				.membershipMax(Integer.parseInt(dto.getMembershipMax())
-						).build();
+				).build();
 		// 클럽생성?
 		service.makeMembership(membership);
 		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\membership\\"+ Integer.toString(membership.getMembershipCode())+"\\");  
@@ -172,9 +219,9 @@ public class MembershipController {
 		service.membershipImg(m);
 		// 멤버쉽 유저 리스트에 등록 절차 
 		MemberListDTO list = new MemberListDTO();
-				list.setId(dto.getId());
-				list.setListGrade(dto.getListGrade());
-				list.setMembershipCode(membership.getMembershipCode());
+		list.setId(dto.getId());
+		list.setListGrade(dto.getListGrade());
+		list.setMembershipCode(membership.getMembershipCode());
 		// 호스트로 보유중인 클럽 유무 확인
 		service.host(list);
 		return "redirect:/";
@@ -187,8 +234,38 @@ public class MembershipController {
 	public String membershipApply(MemberListDTO member) {
 		// 클럽 가입 신청
 		service.membershipApply(member);
+		
+
+ 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem =  (Member)authentication.getPrincipal();
+		ArrayList<MemberListDTO> list =  (ArrayList<MemberListDTO>) mem.getMemberListDTO();
+		list.add(member);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		
 		return "redirect:/" + member.getMembershipCode();
 	}
+	
+
+	
+//	@PostMapping("/updateMembership")
+//	public void updateMembership(HttpServletRequest request, Membership vo) {
+//		System.out.println(vo);
+//		
+//		
+//		
+//		
+//		
+//		
+//		
+//	}
+	
+	
+	
+	
+	
+	
+	
 	/* 성철
 	 * 파일 삽입 메서드 해당맴버쉽 프로필사진 !!
 	 * 

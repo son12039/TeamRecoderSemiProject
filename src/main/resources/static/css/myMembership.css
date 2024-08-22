@@ -1,58 +1,65 @@
-@charset "UTF-8";
-
-.membership-card{
-	
-	width: 40%;
-	background-color: beige;
-	
-	border: 1px solid;
-	
-	margin: auto;
-	
-	
-	
+.membership-card {
+    display: none; /* 기본적으로 카드 숨기기 */
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
 }
-.membership-type{
-	display: flex;
-	justify-content: center;
-	
-	
-}
-.membership-type button{
-
-	width:189.7975px;
-	margin-top:20px;
-	background-color: white;
-	cursor: pointer;
-	
-	line-height: 55px;
-
-	
+body{
+	padding: 80px;
+	margin-top: 30px;
 }
 
+/* 카드가 보여질 때의 스타일 */
+#all-club, #manage-club, #wait-club {
+    display: flex;
+    flex-direction: column;
+}
+/* 모든 카드에 대한 기본 스타일 */
+#manage-club, #wait-club{
+	display: none;
+}
+/* 각 카드 내 항목의 스타일 */
+.membership-each {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* 카드 내 이미지 스타일 */
 .membership-img {
-	
-	width:200px;
-	height: 200px;
-	border-radius: 50%;
-	border: 1px solid;
+    width: 100px; /* 이미지의 고정된 너비 */
+    height: 100px; /* 이미지의 고정된 높이 */
+    object-fit: cover; /* 이미지 비율 유지 */
+    border-radius: 8px;
+    margin-right: 10px;
 }
 
-.membership-each{
-	display: flex;
-}
-.membership-name p{
-	font-size: 32px;
-	font-weight: bold;
+/* 카드 내 텍스트 스타일 */
+.membership-String {
+    flex: 1;
 }
 
-.membership-info p{
-	margin-top: 20px;
-	margin-left: 20px;
+.membership-String p {
+    margin: 0;
+    padding: 5px 0;
 }
-.myGrade p{
-	
-	color:brown;
-	margin-left: 400px;
-	margin-top:50px;
+
+/* 버튼 스타일 */
+#make-club , #all-club-button, #manage-club-button, #wait-club-button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#all-club-button:hover, #manage-club-button:hover, #wait-club-button:hover {
+    background-color: #0056b3;
 }

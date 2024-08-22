@@ -45,14 +45,13 @@ h4 {
 }
 
 #mainImg {
-  width: 100%;
-  height: auto;
   border-radius: 8px;
   margin-bottom: 20px;
   border: 3px solid #00796b;
-  margin: auto;
+  border-radius: 15px;
+  width: 200px;
+  height: 200px;
 }
-
 #hostImg {
   width: 50px;
   height: 50px;

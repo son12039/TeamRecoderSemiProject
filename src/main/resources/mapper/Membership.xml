@@ -44,7 +44,10 @@
 		<result column="membership_name" property="membershipName" />
 	</resultMap>
 	
-	<select id="allMembership" parameterType="Paging" resultMap="listMap">
+	<!--  인덱스에 클럽 띄울때 한번에 12개(Paging 메서드)씩 
+	해당 클럽의 호스트와 클럽 모든정보 불러오는 쿼리 나중에 listMap에 위치정보와 타입정보 추가 요망
+	-->
+	<select id="allMembership" resultMap="listMap">
 		SELECT *
 		FROM
 		membership_user_list
@@ -52,9 +55,19 @@
 		JOIN member
 		USING (id)
 		WHERE list_grade = "host"
+		<!-- 
+		08-21 14:30 채승훈 지움
+		parameterType="Paging"
 		LIMIT #{offset}, #{limit}
+		 -->
+		
 	</select>
 
+	<!-- 
+		클럽 페이지에서
+		페이지클릭 했을때 해당 맴버쉽 코드를 받아서
+		그 맴버쉽에 가입중인 (신청중 포함) 모든 맴버 정보 가져오기용 
+	 -->
 	<select id="MembershipAllInfo" parameterType="Integer"
 		resultMap="listMap">
 		SELECT *
@@ -65,29 +78,18 @@
 		WHERE membership_code =
 		#{membership_code};
 	</select>
-
+	<!-- 해당 맴버쉽의 코드와 유저 ID (로그인) 정보 받아서 
+		맴버쉽에 가입 신청 하는 기능 
+		-->
 	<insert id="membershipApply" parameterType="MemberListDTO">
 		INSERT INTO
 		membership_user_list(membership_code , id,list_grade)
 		VALUES(#{membershipCode},#{id},#{listGrade})
 	</insert>
-	<!-- 1 -->
-	<select id="checkMember" parameterType="MemberListDTO"
-		resultMap="listDTOMap">
-		SELECT *
-		FROM membership_user_list
-		WHERE id = #{id} AND
-		membership_code = #{membershipCode};
-	</select>
-	<select id="myMembership" parameterType="Integer"
-		resultMap="membershipMap">
-		SELECT *
-		FROM membership
-		WHERE membership_code =
-		#{membershipCode}
-	</select>
 
-
+	
+	<!-- 클럽 페이지 클릭하면 그 맴버쉽 코드를 받아와 
+		해당 클럽의 호스트와 클럽정보 가져오는 쿼리 -->
 	<select id="main" parameterType="Integer"
 		resultMap="listMap">
 		SELECT *
@@ -98,7 +100,11 @@
 		WHERE membership_code =
 		"${memebershipCode}" AND list_grade = "host";
 	</select>
-
+	
+	<!--  해당 클럽의 유저 현황을 클럽 코드를 가져와서 
+		  현재 인원만 반환해주는 쿼리
+		  변경필요
+	 -->
 	<select id="membershipUserCount" parameterType="Integer"
 		resultType="Integer">
 		SELECT count(membership_code) as count
@@ -109,15 +115,7 @@
 		GROUP BY membership_code
 	</select>
 
-
-	<select id="count" parameterType="Integer" resultType="Integer">
-		SELECT
-		count(*) as count
-		FROM membership_user_list
-		WHERE membership_code= #{i}
-		GROUP BY membership_code;
-	</select>
-
+	<!--  클럽 생성관련 쿼리 -->
 	<insert id="makeMembership" parameterType="Membership"
 		useGeneratedKeys="true" keyProperty="membershipCode">
 		INSERT INTO
@@ -125,6 +123,7 @@
 		VALUES(#{membershipName},#{membershipInfo},#{membershipMax})
 	</insert>
 	
+	<!--  클럽 생성시 코드가 없어서 폴더생성이 안대니까 업데이트로 이미지 추가 -->
 	<update id="membershipImg" parameterType="Membership">
 		UPDATE membership
 		SET membership_img = #{membershipImg}
@@ -150,17 +149,11 @@
 		JOIN member USING (id)
 		WHERE id = #{id}
 	</select>
-	
-	<select id="listGrade" parameterType="Member" resultMap="listMap">
-			SELECT *
-		FROM membership_user_list
-		JOIN membership USING
-		(membership_code)
-		JOIN member USING (id)
-		WHERE id = #{id}
 
-	</select>
 
+	<!--  해당 맴버쉽 코드와 유저 정보를 가져와서 유저 등급을 변경하는 컬럼
+		(아직은 단순 게스트 -> 레귤러)
+	 -->
 	<update id="agreeMemeber" parameterType="MemberListDTO">
 		UPDATE
 		membership_user_list
@@ -169,15 +162,9 @@
 		membership_code =
 		#{membershipCode}
 	</update>
-
-	<select id="membershipCodeList" parameterType="String"
-		resultType="Integer">
-		SELECT membership_code
-		FROM membership
-		JOIN membership_user_list USING (membership_code)
-		WHERE id = #{id}
-	</select>
-
+	
+	 
+	<!-- 모든 채팅방리스트 불러옴 -->
 	<select id="roomlist" resultMap="roomListmap">
 		SELECT membership_name,membership_code FROM
 		membership

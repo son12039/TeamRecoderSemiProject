@@ -17,6 +17,7 @@ import com.damoim.model.vo.Membership;
 
 
 
+
 @Mapper
 public interface MemberMapper {
 	
@@ -29,10 +30,25 @@ public interface MemberMapper {
 	Member idCheck(Member member);
 	Member nicknameCheck(Member member);
 	Member pwdCheck(Member member);	
-	void update(Member member);
 	Member memberInfo(Member member);
 	String grade(Member member);
+	
+	// 업데이트 ===============================
+	void updateMember(Member member);
+	void memberDelete(Member member);
+	
+	
+	Member updateCheck(Member vo, Member mem);
+	void updateMemberInfo(Member member);
+	void addrUpdate(Member member);
+	boolean nicknameDupCheck(Member vo);
+	void fileDelete(String string);
+	Member selectImg(String string);
+	
+	// id 이메일 맞나 체크
 	Member memberEmailIdcheck(Member member);
+	
+	// 업데이트
 	void updatePassword(Member member);
 	// 아래 2개 더미 비밀번호 암호화용도
 	ArrayList<Member> dummyMember();

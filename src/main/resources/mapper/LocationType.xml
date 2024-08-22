@@ -1,0 +1,157 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.LocationTypeMapper">
+
+
+	<!-- 08_14 -->
+
+
+	<resultMap type="MemberLocTypeDTO" id="membershipMap">
+		<id column="membership_code" property="membershipCode"/> <!-- 프라이머리키 -->
+		<result column="membership_name" property="membershipName"/>
+		<result column="membership_img" property="membershipImg"/>
+		<result column="membership_info" property="membershipInfo"/>
+		<result column="membership_date" property="membershipDate"/>
+		<result column="membership_grade" property="membershipGrade"/>
+		<result column="membership_max" property="membershipMax"/>
+	</resultMap>
+
+	
+	
+	<resultMap type="LocationCategory" id="locationMap">
+		<id column="loc_code" property="locCode"/> 
+		<result column="loc_la_name" property="locLaName"/>
+		<result column="loc_s_name" property="locSName"/>
+	</resultMap>
+	
+	
+	<resultMap type="TypeCategory" id="typeMap">
+		<id column="type_code" property="typeCode"/>
+		<result column="type_la_name" property="typeLaName"/>
+		<result column="type_s_name" property="typeSName"/>
+	</resultMap>
+	
+	<resultMap id="MemberMap" type="Member">
+        <id property="id" column="id" />
+        <result property="memberImg" column="member_img" />
+        <result property="nickname" column="nickname" />
+        <result property="memberLocation" column="member_location" />
+        <result property="memberType" column="member_type" />
+    </resultMap>
+
+	
+	
+	<!-- 위치 부분 -->
+	<!--  지역 상위 카테고리  -->
+	<!-- 1.화면 옵션에 도시 이름 전체 리스트 보여주기 -->
+	<select id="locLaNameList" resultType="String">
+		SELECT DISTINCT loc_la_name 
+		FROM location_category
+	</select>
+	
+	<!-- 지역 하위 카테고리 뽑기 --> 
+	<select id="locSNameList" parameterType="String" resultType="String">
+		SELECT loc_s_name
+		FROM location_category
+		WHERE loc_la_name = #{laName}
+	</select>	
+
+
+	<!-- 지역 상위 선택에 따른 멤버십 코드 뽑기 -->
+	<!-- 3. jsp에서 받아온 파라미터 ex>부산 -->
+	<select id="searchList" parameterType="SearchDTO" resultType="Integer">		
+		select DISTINCT membership_code from membership
+		join membership_location USING(membership_code)
+		join location_category USING(loc_code)
+		join membership_type USING(membership_code)
+		join type_category USING(type_code)
+		join membership_user_list using(membership_code)
+		<where>
+			<if test="locationLaName!=null">
+				AND loc_code IN (SELECT loc_code FROM location_category WHERE loc_la_name =#{locationLaName})
+			</if>
+			<if test="locationSNameList!=null">
+				AND loc_code IN (SELECT loc_code FROM location_category WHERE loc_s_name IN 
+				<foreach collection="locationSNameList" item="loc" open="(" close=")" separator=",">
+					#{loc}
+				</foreach>
+				)
+			</if>
+			<if test="typeLaName!=null">
+				AND type_code IN (SELECT type_code FROM type_category WHERE type_la_name =#{typeLaName})
+			</if>
+			<if test="typeSNameList!=null">
+				AND type_code IN (SELECT type_code FROM type_category WHERE type_s_name IN 
+				<foreach collection="typeSNameList" item="type" open="(" close=")" separator=",">
+					#{type}
+				</foreach>
+				)
+			</if>
+		</where>
+		LIMIT #{offset}, #{limit}
+	</select>
+
+	<!--  전체 리스트 -->
+	<!-- 위에서 뽑아온 code 숫자를 받아서 관련된 membership 전체 뽑아오기 -->
+	<select id="memberLocTypeList" parameterType="SearchDTO" resultMap="membershipMap">
+		SELECT * FROM membership
+		WHERE membership_code IN 
+		<foreach collection="membershipCodes" item="code" open="(" close=")" separator=",">
+			#{code}
+		</foreach>
+	</select>
+	
+		<!-- 클럽 안에 유저 전체 인원 -->
+	<select id="allMemberShipUser" parameterType="int" resultType="int">
+		SELECT count(*)
+		FROM membership 
+		JOIN membership_user_list using(membership_code)
+		WHERE list_grade!='guest'
+		AND membership_code = #{code}
+	</select>
+	
+	
+	
+	
+	
+
+	<!-- 멤버십 위치 가져오기 -->
+	<select id="locationList" parameterType="Integer" resultMap="locationMap">
+		SELECT * 
+		FROM membership_location 
+		JOIN location_category USING (loc_code)
+		WHERE membership_code = #{code}
+	</select>
+		
+	<!-- 멤버십에 따른 타입 가져오기 -->	
+	<select id="typeList" parameterType="Integer" resultMap="typeMap">
+		SELECT *
+		FROM membership_type
+		JOIN type_category USING (type_code)
+		WHERE membership_code = #{code};
+	</select>
+	
+
+	
+ 	<!-- 타입부분 -->
+	<select id="typeLaNameList" resultType="String">
+		select distinct type_la_name
+		from type_category;
+	</select> 		
+		
+	<select id="typeSNameList" parameterType="String" resultType="String">
+		select type_s_name
+		from type_category
+		where type_la_name = #{typeLaName};
+	</select>
+	
+	
+	<select id="selectMemberNickName" parameterType="int" resultMap="MemberMap">
+		SELECT nickname, member_img ,id , member_location, member_type
+		FROM membership_user_list
+		JOIN member USING (id)
+		WHERE list_grade = 'host'
+		AND membership_code = #{code}
+	</select>
+	
+		
+</mapper>

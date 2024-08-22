@@ -168,6 +168,7 @@ public class MembershipController {
 			model.addAttribute("endList", endList);
 			//System.out.println("125 : " + meetingService.allMeetings(membershipCode));
 			model.addAttribute("allmeet", meetingService.allMeetings(membershipCode));
+			System.out.println(meetingService.allMeetings(membershipCode));
 			// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
 			model.addAttribute("location", locationTypeService.locationList(membershipCode));
 			model.addAttribute("type", locationTypeService.typeList(membershipCode));

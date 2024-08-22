@@ -31,11 +31,11 @@
     <option  value="blue">파랑</option>
     <option  value="red">빨강</option>
     </select>
-    <input class="form-control" name="title">
+    <input class="form-control" name="meetTitle">
     </div>
      <div class="form-group">
     <label>Content</label>
-    <textarea class="form-control" name="content" rows="10"></textarea>
+    <textarea class="form-control" name="meetInfo" rows="10"></textarea>
     </div>
      <div class="form-group">
     <label>Add File</label>

@@ -170,7 +170,7 @@
     const allDates = [];
     let allMeet = {};
     <c:forEach items="${allmeet}" var="item">
-    	allMeet.title = "${item.meetInfo}";
+    	allMeet.title = "${item.meetTitle}";
     	allMeet.start = "${item.meetDateStart}";
     	allMeet.end = "${item.meetDateEnd}";
     	allMeet.color = "${item.color}";

@@ -124,7 +124,7 @@
 					<h1 class="membership-name">${info.membershipName}</h1>
 					<h2>${info.membershipInfo}</h2>
 					<h3>멤버수 :
-						${info.countList.get(status.index)}/${info.membershipMax}</h3>
+						${info.count}/${info.membershipMax}</h3>
 					<div id="host">
 						<c:choose>
 							<c:when test="${info.memberImg != null}">

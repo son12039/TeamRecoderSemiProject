@@ -29,7 +29,7 @@ window.addEventListener("scroll", () => {
 						'<div class="membership-info">' +
 						'<h1 class="membership-name">' + club.membershipName + '</h1>' +
 						'<h2>' + club.membershipInfo + '</h2>' +
-						'<h3>멤버수 :' + club.countList[index] + '/' + club.membershipMax + '</h3>' +
+						'<h3>멤버수 :' + club.count+ '/' + club.membershipMax + '</h3>' +
 						'<div id="host">';
 					if (club.memberImg != null) {
 						ajaxLocationType += '<img class="user-img" src="http://192.168.10.51:8081/member/' + club.id +'/'+ club.memberImg + '">';

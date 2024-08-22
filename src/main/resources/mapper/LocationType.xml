@@ -92,13 +92,27 @@
 
 	<!--  전체 리스트 -->
 	<!-- 위에서 뽑아온 code 숫자를 받아서 관련된 membership 전체 뽑아오기 -->
-	<select id="memberLocTypeList" resultMap="membershipMap" parameterType="SearchDTO">
+	<select id="memberLocTypeList" parameterType="SearchDTO" resultMap="membershipMap">
 		SELECT * FROM membership
 		WHERE membership_code IN 
 		<foreach collection="membershipCodes" item="code" open="(" close=")" separator=",">
 			#{code}
 		</foreach>
 	</select>
+	
+		<!-- 클럽 안에 유저 전체 인원 -->
+	<select id="allMemberShipUser" parameterType="int" resultType="int">
+		SELECT count(*)
+		FROM membership 
+		JOIN membership_user_list using(membership_code)
+		WHERE list_grade!='guest'
+		AND membership_code = #{code}
+	</select>
+	
+	
+	
+	
+	
 
 	<!-- 멤버십 위치 가져오기 -->
 	<select id="locationList" parameterType="Integer" resultMap="locationMap">
@@ -138,16 +152,6 @@
 		WHERE list_grade = 'host'
 		AND membership_code = #{code}
 	</select>
-	
-	<!-- 클럽 안에 유저 전체 인원 -->
-	<select id="allMemberShipUser" parameterType="int" resultType="int">
-		select membership_name, count(*) from member
-		join membership_user_list using(id)
-		join membership using(membership_code)
-		where list_grade != 'guest' AND membership_code =#{code}
-		group by membership_name;	
-	</select>
-	
 	
 		
 </mapper>

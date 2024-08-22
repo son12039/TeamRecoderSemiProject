@@ -39,6 +39,7 @@ public class LocationTypeController {
 	
 	public List<MemberLocTypeDTO> locationTypeList(SearchDTO search) {
 		// '세종' 안에 null 이 아니면 '세종시' 넣고
+		System.out.println(locationTypeservice.searchList(search).size());
 		if(search.getLocationSName()!=null) {
 			search.setLocationSNameList(new ArrayList<>(Arrays.asList(search.getLocationSName().split(","))));	
 		}
@@ -46,35 +47,26 @@ public class LocationTypeController {
 			search.setTypeSNameList(new ArrayList<>(Arrays.asList(search.getTypeSName().split(","))));
 		}
 
-
+		// Location type 확인후 MemberShipCode 뽑기
 		List<Integer> membershipCodes = locationTypeservice.searchList(search);		
 		
 		List<MemberLocTypeDTO> list = new ArrayList<MemberLocTypeDTO>();
 		
-//		성일님이 만든거
-		List<Integer> countList = new ArrayList(); // count 계산용 인덱스 번호담는 배열	
 
-		for(int i = 0; i < locationTypeservice.searchList(search).size(); i++) {
-		int j = memberService.allMembership().get(i).getMembership().getMembershipCode();
-		countList.add(memberService.membershipUserCount(j)); // 각각 클럽의 인원수 (신청자는 제외)
-		}
-
-		System.out.println(list.size());
-		System.out.println("카"+countList.size());
-		System.out.println("1번 "+countList);
-		System.out.println("2번 "+locationTypeservice.searchList(search));
-		
 		// 모든 정보 합쳐서 리스트로 뿌리기
 		if(membershipCodes.size()!=0) {
+			// 위에서 뽑아온 코드를 다시 searchDTO에 저장
 			search.setMembershipCodes(membershipCodes);
+			// 받아온 코드로 다시 memberLocTypeList 관련된 지역 및 타입 가져오기 
 			list = locationTypeservice.memberLocTypeList(search);
-			int a= 0;
+
 			for(MemberLocTypeDTO dto : list) {
 				//그리고 dto에 만든 리스트에 또 넣기
 				List<LocationCategory> locations = locationTypeservice.locationList(dto.getMembershipCode());
 				List<TypeCategory> types = locationTypeservice.typeList(dto.getMembershipCode());
 				Member member = locationTypeservice.selectMemberNickName(dto.getMembershipCode());
-				
+
+ 		
 				dto.setLocations(locations);
 				dto.setTypes(types);
 				dto.setNickname(member.getNickname());
@@ -82,16 +74,9 @@ public class LocationTypeController {
 				dto.setId(member.getId());
 				dto.setMemberLocation(member.getMemberLocation());
 				dto.setMemberType(member.getMemberType());
-				dto.setCountList(countList.get(a));
-				a++;
+				dto.setCount(locationTypeservice.allMemberShipUser(dto.getMembershipCode()));
 			}
 		}
-		
-		
-		for(int i =0; i<list.size();i++) {
-//			System.out.println(list.get(i).getCountList());
-		}
-		
 		
 		return list;
 	}

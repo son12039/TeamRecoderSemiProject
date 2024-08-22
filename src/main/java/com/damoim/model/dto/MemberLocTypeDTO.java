@@ -37,14 +37,16 @@ public class MemberLocTypeDTO {
     private String id;
     private String memberLocation;
     private String memberType;
-	
+    private int count;
+    
+    
     private MembershipLocation membershipLocation;
     private MembershipType membershipType;
     
-    private Integer countList;
     private List<LocationCategory> locations;
     private List<TypeCategory> types;
     
+
     
     
     

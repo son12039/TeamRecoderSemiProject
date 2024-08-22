@@ -24,6 +24,18 @@ public class MainCommentController {
 		System.out.println("댓글 등록 성공!");
 		
 	}
+	// 부모 댓글 삭제시 자식 댓글
+	@ResponseBody
+	@PostMapping("/deleteComment")
+	public void deleteComment(int mainCommentCode) {
+		service.deleteComment(mainCommentCode);
+
+	}
+	@ResponseBody
+	@PostMapping("/updateComment")
+	public void updateComment(MainComment mainComment) {
+		service.updateComment(mainComment);
+	}
 	
 
 }

@@ -1,4 +1,3 @@
-/* 모든 카드에 대한 기본 스타일 */
 .membership-card {
     display: none; /* 기본적으로 카드 숨기기 */
     padding: 20px;
@@ -7,12 +6,20 @@
     background-color: #f9f9f9;
     margin-bottom: 20px;
 }
+body{
+	padding: 80px;
+	margin-top: 30px;
+}
 
 /* 카드가 보여질 때의 스타일 */
 #all-club, #manage-club, #wait-club {
-    display: block;
+    display: flex;
+    flex-direction: column;
 }
-
+/* 모든 카드에 대한 기본 스타일 */
+#manage-club, #wait-club{
+	display: none;
+}
 /* 각 카드 내 항목의 스타일 */
 .membership-each {
     display: flex;

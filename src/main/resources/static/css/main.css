@@ -78,3 +78,33 @@ a {
 a:hover {
   color: #555;
 }
+.reply-form {
+	display: none;
+}
+
+.update-form {
+	display: none;
+}
+.comment,
+.re-comment{
+	background-color: blue;
+	width: 100%;
+	max-width: 500px;
+	margin: 10px;
+	border: 2px solid;
+	border-radius: 10px;
+}
+.comment{
+	margin-left: 150px;
+	
+}
+.re-comment{
+	margin-left: 200px;
+}
+#comment-container{
+	display: flex;
+	flex-direction : column;
+	justify-content :center;
+	background-color: silver;
+	margin: 0 50px;
+}

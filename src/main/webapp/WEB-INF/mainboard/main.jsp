@@ -11,9 +11,13 @@
 <title>클럽 홍보게시판</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/reset.css" />
+	<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/index.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/main.css" />
+	
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
 <style>
 
 </style>
@@ -26,6 +30,27 @@
 			src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}">
 		<h2>${main.membership.membershipInfo }</h2>
 		<p>인원 현황 : ${main.count}/${main.membership.membershipMax}</p>
+		
+		<!-- 08-22 채승훈 로케이션타입 추가함 -->
+			<div class="locationTypeBox">
+				<div class="location">
+					<c:forEach items="${location}" var="location">
+						<div class="locationText">
+							<div class="locationList"># ${location.locLaName} ${location.locSName}</div>
+						</div>	 
+					</c:forEach>
+				</div>
+				<br>
+				<div class="type">
+					<c:forEach items="${type}" var="type">
+						<div class="typeText">
+							<div class="typeList">${type.typeSName}</div>
+						</div>						
+					</c:forEach>
+				</div>
+			</div>
+	
+		
 		<h2>호스트 : ${main.member.nickname}</h2>
 		<p>가입조건 : 사지멀쩡한 남녀노소 누구나!!</p>
 

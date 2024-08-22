@@ -11,6 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>클럽 회원 페이지</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/index.css" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/membershipPage.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
@@ -35,6 +37,31 @@
         
            <!-- 멤버쉽 최대 인원과 현재 인원 표기  -->
         <p>인원 현황 : ${main.count}/${main.membership.membershipMax}</p>
+        
+        
+        
+        <!-- 08-22 채승훈 로케이션타입 추가함 -->
+			<div class="locationTypeBox">
+				<div class="location">
+					<c:forEach items="${location}" var="location">
+						<div class="locationText">
+							<div class="locationList"># ${location.locLaName} ${location.locSName}</div>
+						</div>	 
+					</c:forEach>
+				</div>
+				<br>
+				<div class="type">
+					<c:forEach items="${type}" var="type">
+						<div class="typeText">
+							<div class="typeList">${type.typeSName}</div>
+						</div>						
+					</c:forEach>
+				</div>
+			</div>
+        
+        
+        
+        
         
          <!--  해당 멤버쉽 호스트 닉네임  -->
         <h4>호스트 : ${main.member.nickname} 

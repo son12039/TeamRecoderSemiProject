@@ -9,7 +9,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<jsp:include page="../header.jsp"></jsp:include>
 <sec:authorize access="isAuthenticated()" var="principal">
 	<sec:authentication property="principal" var="member" />
     <main>

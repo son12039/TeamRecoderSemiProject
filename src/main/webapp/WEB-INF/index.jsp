@@ -29,7 +29,6 @@
                 <a href="/loginPage">로그인</a>
               </div>
               </sec:authorize>
-              
 				<sec:authorize access="isAuthenticated()" var="principal">
 				<sec:authentication property="principal" var="member" />
 				<div> ${member.nickname}
@@ -55,8 +54,6 @@
 			</div>
 		</div>
 	</div>
-
-
 	<!-- 08-20 채승훈 -->
 	<select id="locationLaNameSelect">
 		<option>전체보기</option>
@@ -64,7 +61,6 @@
 			<option>${locLaName}</option>
 		</c:forEach>
 	</select>
-
 	<c:if test="${locSNameList.size()!=0}">
 		<form id="locationSNameForm">
 			<input type="checkbox" value="전체보기" id="locSNameAll" /> <label
@@ -78,15 +74,12 @@
 		</form>
 	</c:if>
 	<br>
-
-
 	<select id="typeLaNameSelect">
 		<option>전체보기</option>
 		<c:forEach items="${typeLaNameList}" var="typeLaName">
 			<option>${typeLaName}</option>
 		</c:forEach>
 	</select>
-
 	<c:if test="${typeSNameList.size()!=0}">
 		<form id="typeSNameForm">
 			<input type="checkbox" value="지역 보기" id="typeSNameAll"><label
@@ -99,7 +92,6 @@
 			<input type="submit" value="타입 검색" id="typeSNameBtn">
 		</form>
 	</c:if>
-
 	<br>
 	<div class="membership-list">
 		<c:forEach items="${list}" var="info" varStatus="status">
@@ -110,15 +102,12 @@
 								<img
 									src="http://192.168.10.51:8081/membership/${info.membershipCode}/${info.membershipImg}">
 							</c:when>
-
 							<c:otherwise>
 								<img
 									src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">
 							</c:otherwise>
 						</c:choose>
 					</a>
-
-
 				</div>
 				<div class="membership-info">
 					<h1 class="membership-name">${info.membershipName}</h1>
@@ -143,13 +132,13 @@
 						<div class="locationTypeBox">
 							<div class="location">
 								<c:forEach items="${info.locations}" var="location">
-										<div class="locationList"># ${location.locLaName} ${location.locSName}</div> 
+										<div class="locationList"># ${location.locLaName} ${location.locSName}</div>
 								</c:forEach>
 							</div>
 							<br>
 							<div class="type">
 								<c:forEach items="${info.types}" var="type">
-									 	 <div class="typeList">${type.typeSName}</div> 
+									 	 <div class="typeList">${type.typeSName}</div>
 								</c:forEach>
 							</div>
 						</div>
@@ -157,16 +146,12 @@
 			</div>
 		</c:forEach>
 	</div>
-
 	<!-- <a href="/dummyUpdate">!!!!!!!!!!!주의!!!!!!!!!!!! 기존 유저들 비밀번호 암호화하는거임 건드리지 말것</a> -->
 	<!-- <div class="membership-list"> -->
-
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
 	<script src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
-
 	
 	
 	

@@ -27,12 +27,8 @@ VALUES (#{membershipCode},#{meetDateStart},#{meetDateEnd},
         WHERE membership_code = #{membershipCode}
     </select>
     
-    <select id="">
-    
-    
-    
-    </select>
-    
+   
+     
     
     
     

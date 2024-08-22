@@ -10,7 +10,7 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
 	eventClick: function(info) {
 		console.log(info)
 		console.log(info.event._def.title);
-		//location.href="/";
+		location.href="/";
 		//info.
 		console.log(info.event.extendedProps.meetCode);
 	},

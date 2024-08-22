@@ -33,19 +33,13 @@ CREATE TABLE type_category ( -- 유형 분류
     type_code INT PRIMARY KEY auto_increment, -- 소분류코드
     type_la_name VARCHAR(50),
     type_s_name VARCHAR(50) -- 소분류이름
-
-    
 );
 
 CREATE TABLE location_category ( -- 위치 분류
     loc_code INT PRIMARY KEY auto_increment, -- 위치 분류 코드
 	loc_la_name VARCHAR(50), -- ex) 서울 , 경기, 부산, 강원
     loc_s_name VARCHAR(50) -- 위치소분류 ex) 서울이면 강남구, 서초구  경기면 성남시, 부천시 이런식으로
-   
 );
-
-
-
 CREATE TABLE membership ( -- 클럽
     membership_code INT PRIMARY KEY auto_increment, -- 클럽코드
     membership_name VARCHAR(100) UNIQUE, -- 클럽이름
@@ -54,17 +48,12 @@ CREATE TABLE membership ( -- 클럽
     membership_date DATE DEFAULT(current_date), -- 클럽생성날짜
     membership_grade DECIMAL(2,1) DEFAULT(0), -- 클럽 별점
     membership_max INT -- 클럽최대인원
-
 );
-
-
 CREATE TABLE membership_type  ( -- 클럽 유형 리스트
     mem_type_code INT PRIMARY KEY auto_increment, -- 클럽 유형 리스트 코드
     type_code INT, -- 소분류이름 / 외래키
     membership_code INT -- 클럽 /외래키
 );
-
-
 CREATE TABLE membership_location  ( -- 클럽 지역 리스트
     mem_loc_code INT PRIMARY KEY auto_increment, -- 클럽 지역 리스트 코드
     loc_code INT, -- 소분류 / 외래키

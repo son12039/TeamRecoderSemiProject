@@ -21,8 +21,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.damoim.model.dto.CommentDTO;
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.dto.MembershipDTO;
 import com.damoim.model.dto.MembershipTypeDTO;
+import com.damoim.model.dto.SearchDTO;
+import com.damoim.service.LocationTypeService;
 import com.damoim.service.MainCommentService;
 import com.damoim.service.MembershipService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -44,6 +47,13 @@ public class MembershipController {
 	
 	@Autowired
 	private MainCommentService commentService;
+	
+	//08-22 채승훈 클럽메인페이지에 지역과 타입 추가
+	@Autowired
+	private LocationTypeService locationTypeService;
+
+	
+	
 	/*
 	 * 
 	 * */
@@ -76,7 +86,7 @@ public class MembershipController {
 		// 홍보페이지에 membership 관련 정보 + 호스트 정보
 		MembershipUserList list =  service.main(membershipCode);
 		list.setCount((service.membershipUserCount(membershipCode)));
-		
+
 		
 		model.addAttribute("main", list);			
 		
@@ -116,6 +126,9 @@ public class MembershipController {
 
 		System.out.println(dtoList);
 		model.addAttribute("comment", dtoList);
+		// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
+		model.addAttribute("location", locationTypeService.locationList(membershipCode));
+		model.addAttribute("type", locationTypeService.typeList(membershipCode));
 		return "mainboard/main";
 	}
 	/*
@@ -130,6 +143,9 @@ public class MembershipController {
 			model.addAttribute("main", list);
 			// 해당클럽에 가입신청된 모든 유저정보		
 			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
+			// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
+			model.addAttribute("location", locationTypeService.locationList(membershipCode));
+			model.addAttribute("type", locationTypeService.typeList(membershipCode));
 			
 			return "membership/membershipPage";
 		}

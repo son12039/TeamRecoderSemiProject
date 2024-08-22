@@ -6,8 +6,10 @@ import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 public class LocationCategory {
-    private int locSmallCode; // 위치소분류코드
-    private String locLargeName;
-    private String locSmallName; // 위치소분류이름
-   
+    private int locCode;
+    private String locLaName;
+    private String locSName; 
 }
+
+
+//loc_code, loc_la_name, loc_s_name

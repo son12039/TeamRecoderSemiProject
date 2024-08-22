@@ -13,6 +13,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.MembershipUserList;
@@ -29,6 +31,7 @@ import com.damoim.service.EmailService;
 import com.damoim.service.MemberService;
 import com.damoim.service.MembershipService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -153,9 +156,7 @@ public class MemberController {
 	public boolean updateMemberInfo(Member vo, Model model, String addrDetail, String nickname) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		
-		
-		
+
 		vo.setId(mem.getId());
 
 		String addr = vo.getAddr();
@@ -189,28 +190,35 @@ public class MemberController {
 	
 	// 회원 탈퇴
 	@ResponseBody
-	@PostMapping("/memberDelete")
-	public boolean memberDelete(Member member) {
+	@PostMapping("/memberStatus")
+	public boolean memberStatus(MemberInfoDTO dto ,Member member, HttpServletRequest request, HttpServletResponse response) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		System.out.println("memberDelete : " + mem); // mem 정보 받음
+		System.out.println("memberStatus : " + mem); // mem 정보 받음
 		boolean delete = false;
+		
+		System.out.println("memberStatus : " + dto);
 		
 		if(!mem.isStatus()) {
 			System.out.println("이미 탈퇴한 회원입니다");
 			return false;
 			
-		} else { // true 인 회원들
-			mem.setStatus(delete);
+		} else { // 호스트나 어드민인 사람
+			mem.setStatus(delete); // 멤버 status false
 			System.out.println("멤버 탈퇴 Status : " + mem.isStatus());
-			member.setId(mem.getId());
-			service.memberDelete(member);
+			member.setId(mem.getId()); // 회원 아이디 set
+			service.memberStatus(member);
+			// 서비스 돌린거 바로 시큐리티 적용시킴
 			SecurityContextHolder.getContext().setAuthentication(authentication);
+			// logoutHandler 사용하면 시큐리티에서 만든 로그아웃 사용 가능
+            SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+            logoutHandler.logout(request, response, authentication);
+            
 			return true;
 		}
-
+		
 	}
-
+	
 	
 	
 	

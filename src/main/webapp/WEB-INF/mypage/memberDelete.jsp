@@ -41,10 +41,8 @@
 					<li><strong>클럽:</strong> 클럽 및 게시물 삭제</li>
 					<li><strong>주소록:</strong> 저장된 주소및 연락처 삭제</li>
 					<li><strong>나의 정보:</strong> 저장된 활동 기록</li>
-					
 				</ul>
 			</section>
-
 			<section class="post-retention">
 				<h2>※ 주의사항 ※</h2>
 				<p>탈퇴 후에도 게시판 서비스에 등록한 게시물은 그대로 남아 있습니다. 가입한 클럽에 올린 게시글 및 댓글은
@@ -57,10 +55,9 @@
 				<p>탈퇴 후에는 해당 아이디 로 다시 가입할 수 없으며 아이디와 데이터는 복구할 수 없습니다. 게시판 서비스에 남아 있는 게시글은 탈퇴 후 삭제할 수
 				없습니다.
 				</p>
-
 			</section>
 			<section class="confirmation">
-				<form action="/memberDelete" method="post" id="form">
+				<form action="/memberStatus" method="post" id="form">
 					<p>안내 사항을 모두 확인하였으며, 이에 동의합니다.
 					<input type="checkbox" id="checkbox" name="checkbox">
 					</p>
@@ -77,7 +74,7 @@
             }
 			$.ajax({
 				type: "post",
-				url: "/memberDelete",
+				url: "/memberStatus",
 				data: $("#form").serialize(),
 				success: function (result){
 					if(result){

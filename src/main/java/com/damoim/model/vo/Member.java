@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.dto.MemberListDTO;
 
 import lombok.AllArgsConstructor;
@@ -38,7 +39,9 @@ public class Member implements UserDetails {
     private MultipartFile file; // 이미지 업로드 파일
     
     private List<MemberListDTO> memberListDTO;
-
+    private List<MemberInfoDTO> memberInfoDTO;
+    
+    
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		

@@ -11,6 +11,7 @@ import com.damoim.model.dto.SearchDTO;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
@@ -42,13 +43,13 @@ public interface MemberMapper {
 	void fileDelete(String string);
 	Member selectImg(String string);
 	
-	// 회원탈퇴 ===============================
-	boolean memberDelete(Member member);
+	// 회원탈퇴 ======================================
+	boolean memberStatus(Member member);
+	void memberActBlock(MemberInfoDTO memberInfoDTO);
 	
 	
 	
-	
-	// id 이메일 맞나 체크 ======================
+	// id 이메일 맞나 체크 =============================
 	Member memberEmailIdcheck(Member member);
 	
 	// 업데이트

@@ -80,7 +80,7 @@
 		membership_user_list(membership_code , id,list_grade)
 		VALUES(#{membershipCode},#{id},#{listGrade})
 	</insert>
-
+	
 	
 	<!-- 클럽 페이지 클릭하면 그 맴버쉽 코드를 받아와 
 		해당 클럽의 호스트와 클럽정보 가져오는 쿼리 -->
@@ -108,7 +108,7 @@
 		list_grade != "guest"
 		GROUP BY membership_code
 	</select>
-
+	
 	<!--  클럽 생성관련 쿼리 -->
 	<insert id="makeMembership" parameterType="Membership"
 		useGeneratedKeys="true" keyProperty="membershipCode">
@@ -131,7 +131,6 @@
 		VALUES
 		(#{listGrade},#{id},#{membershipCode});
 	</insert>
-
 
 	<!-- 로그인시 member의 가입된 클럽 정보 -->
 	<select id="grade" parameterType="Member"
@@ -157,12 +156,16 @@
 		#{membershipCode}
 	</update>
 	
-	 
 	<!-- 모든 채팅방리스트 불러옴 -->
 	<select id="roomlist" resultMap="roomListmap">
 		SELECT membership_name,membership_code FROM
 		membership
 	</select>
+	
+
+	
+	
+	
 
 
 </mapper>

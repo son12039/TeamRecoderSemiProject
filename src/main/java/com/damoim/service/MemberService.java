@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.vo.Member;
 
@@ -105,17 +106,17 @@ public class MemberService implements UserDetailsService {
 	}
 
 	// 회원탈퇴 서비스 ==================================================
-
-	public boolean memberDelete(Member member) {
-		return mapper.memberDelete(member);
+	// 탈퇴시 status 조정
+	public boolean memberStatus(Member member) {
+		return mapper.memberStatus(member);
 	}
-
-	/*
-	 * // 카카오 로그인 public User loginWithKakao(User user) { User savedUser =
-	 * userMapper.getUserByEmail(user.getEmail()); if(savedUser == null) {
-	 * userMapper.addUser(user); } return savedUser; }
-	 */
-
+	// 탈퇴시 활동정보 처리
+	public void memberActBlock(MemberInfoDTO memberInfoDTO) {
+		mapper.memberActBlock(memberInfoDTO);
+	}
+	
+	
+	// ===============================================================
 	public ArrayList<Member> dummyMember() {
 		return mapper.dummyMember();
 

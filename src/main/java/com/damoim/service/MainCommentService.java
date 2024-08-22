@@ -21,7 +21,13 @@ public class MainCommentService {
 		return mapper.allMainComment(membershipCode);
 	}
 	public ArrayList<MainComment>mainReComment(int membershipCode, int mainCommentCode){
-		return mapper.mainReComment(membershipCode, mainCommentCode);
-		
+		return mapper.mainReComment(membershipCode, mainCommentCode);	
+	}
+	
+	public void deleteComment(int mainCommentCode) {
+		mapper.deleteComment(mainCommentCode);
+	}
+	public void updateComment(MainComment mainComment) {
+		mapper.updateComment(mainComment);
 	}
 }

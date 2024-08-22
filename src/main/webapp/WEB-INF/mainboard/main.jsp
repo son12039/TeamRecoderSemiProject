@@ -23,6 +23,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="../header.jsp"></jsp:include>
 
 	<div id="container">
 		<h1>${main.membership.membershipName }</h1>

@@ -70,8 +70,10 @@
 					</form>
 				</c:when>
 			</c:choose>
+			</sec:authorize>
 	</div>
 	<div id="comment-container">
+	<sec:authorize access="isAuthenticated()">
 		<form id="comment-frm">
 			<div id="comment-box">
 				<label for="textbox"> ${member.nickname} : </label> <input
@@ -82,6 +84,7 @@
 				<button id="submit-comment" type="button">댓글 등록</button>
 			</div>
 		</form>
+		</sec:authorize>
 		<c:choose>
 			<c:when test="${fn:length(comment) == 0}">
 
@@ -95,6 +98,7 @@
 						<h1>댓글</h1>
 						댓글 내용 ${com.mainCommentText} <br /> 댓글 작성시간 ${com.mainCommentDate}
 						<br /> 댓글 작성자 닉네임 ${com.nickname} <br />
+					
 						<c:if test="${com.nickname == member.nickname}">
 							<button type="button" onclick="updateForm(${com.mainCommentCode})">수정</button>
 							<div id="update-form-${com.mainCommentCode}" class="update-form">
@@ -122,6 +126,7 @@
 								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEMAAABDCAYAAADHyrhzAAAACXBIWXMAAAsTAAALEwEAmpwYAAAD3klEQVR4nO1bSYhcVRR9DRJjUJGoaCRQIVTXO+fcX3SknBChcWc0ghBdiIIgKCpiTAgOIM5Ig8EhunHhQtCNA24EF4oYEEFxoBGjgkayUVFQSCuJJEZ51W2M9JD+VfXrvuqqA4cPxS849/CG+9+7N4QRRhhhhAwh6dRmjE0zbDHgDgkPGTll5PNGvjD3nJr7/fb0Xno//S8MOoqiASO3GfmKyK9M/MvEv8tS4hERe414uSDvasYYwyCA5MVGPmfi950EXsKgfUbslnRRyAn1ev10I3dK/LpKAxY1htgrYUeM8TQ3EwCcaeQTIn7zMGEBU36V8LiktX0zYXJy8iQJt0r82duAJUy5V9KqSo2QtMnEL7wDXp4pnDaziSp8GEtuG/Gnd5AlecjIe5L+nrhQq9VWp+0xg8C6GSWvt1qtNV0ZURTFORI/8Q6mN4bg4031+tkdGdFoNM4alPWhxAiZTrtgB7kDPvcWXxE/LZPijxnxWgaiKyTeXNaiKuE+f7F9ILlzSSMANNrbkbfQ/vCQmXHx6SHsyUBk3yjyvQWnSwFc5S3OxRDpivlrBfmBtzAfYs//jDCzC/1F+ZHk+f+ZQe7yFuRKcuq47ZT73AU5UsS3c0boXG8xlgGTD6F9Wp2BGHMmyc0p49zhLcRyIHB3MuMxdyHKgOSjIR25uwtRBiR2p53kaXchyoDkrpRjPOIuRP6U8GAoyJu9hVgGlHBTMIuXeguxDNi+qqzX6yebeHCojSD+SD7MfpsI73oLciXx9vFHfbe4C3JkWjePmTExMXGGETNDOipm5p2WG/mUuzAHSnhy3klXjPG8oRsdxMyit2wS7h+yUfHMkrUXRnw0HEbwSLM5vjGcsDBNPOAttk+3aicGyc3JOX/B1ZHkNWG5sFSLKR71Fl1VqdOxjLOEIdtWoiESXixlxL8wi1tX2reLpBtCpyiKeIGJ33gH0SvGGDeEbnDJ+vWnSHjWO5CuSfwYegVJ1xqx3z2oDinx/dBL1Gq11RK2m/iLd3CV5Rcd1o0/bOIPA2TGO6FKTKY03rBF5Bu5F86K/C70C41UMtnOT/CZd+CL8Gjp8sdeAEBh5AOpIDWr5M3i1p4E2CkArCvIG1P2l4aq61QRXwo5AcA6Sde1+9Mq7lxagAfS4h9yRbM5vjGNnHbjXqriJQ5XaUhB3hYGBa1Wa42ky+YW41dF/NTTqUJOh0FGjHHDbAbMqXTX03VLmMXLwwrCGMlxCden032JH5apcE7lnmElQ9Kq1D6WPtNnm4b5lhFfivh9IUNIXhmGEZLWtvvsLF4t4c70KZGe3rpGGGGEMJD4Bxew+s340mLFAAAAAElFTkSuQmCC">
 						</button>
 						<div id="reply-form-${com.mainCommentCode}" class="reply-form">
+						<sec:authorize access="isAuthenticated()">
 							<form id="comment-frm-${com.mainCommentCode}">
 								<div id="comment-box-${com.mainCommentCode}">
 									<label for="textbox${com.mainCommentCode}">
@@ -136,6 +141,7 @@
 										등록</button>
 								</div>
 							</form>
+							</sec:authorize>
 						</div>
 						<c:if test="${fn:length(com.recoment) != 0}">
 							<c:forEach items="${com.recoment}" var="recom">
@@ -178,7 +184,7 @@
 		</c:choose>
 
 
-		</sec:authorize>
+		
 	</div>
 	<script src="${pageContext.request.contextPath}/js/main.js"></script>
 </body>

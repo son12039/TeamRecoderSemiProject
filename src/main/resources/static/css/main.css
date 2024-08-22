@@ -85,9 +85,26 @@ a:hover {
 .update-form {
 	display: none;
 }
+.comment,
+.re-comment{
+	background-color: blue;
+	width: 100%;
+	max-width: 500px;
+	margin: 10px;
+	border: 2px solid;
+	border-radius: 10px;
+}
 .comment{
-	padding-left: 50px;
+	margin-left: 150px;
+	
 }
 .re-comment{
-	padding-left: 100px;
+	margin-left: 200px;
+}
+#comment-container{
+	display: flex;
+	flex-direction : column;
+	justify-content :center;
+	background-color: silver;
+	margin: 0 50px;
 }

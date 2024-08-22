@@ -1,13 +1,11 @@
 $(document).ready(function() {
 	const urlParams = new URL(location.href).searchParams;
 	const membershipCode = urlParams.get('membershipCode') * 1;
-	
+
 	// 채팅방 목록 불러오기
 	const chattingRoomList = function() {
-	console.log("방목록불러오기메서드호출됨!!!");
 		$.ajax({ url: "/chattingRoomList", type: "GET", })
 			.then(function(roomList) {
-				console.log(roomList);
 				let listHtml = "";
 				for (let i = 0; i < roomList.length; i++) {
 					if (membershipCode == roomList[i].roomNumber) {
@@ -15,8 +13,9 @@ $(document).ready(function() {
 				 <li data-room_number=${roomList[i].roomNumber}>
 					<span class="chat_title">${roomList[i].roomName}</span>
 					<span class="chat_count">${roomList[i].users.length}명</span>
-				</li>`;						 
-					 break;}
+				</li>`;
+						break;
+					}
 				}
 
 				$("main ul").html(listHtml);
@@ -29,7 +28,7 @@ $(document).ready(function() {
 	const stomp = Stomp.over(socket);
 	stomp.debug = null; // stomp 콘솔출력 X
 	// 구독을 취소하기위해 구독 시 아이디 저장
-	
+
 	const subscribe = [];
 	// 모든 구독 취소하기
 	const subscribeCancle = function() {
@@ -59,12 +58,14 @@ $(document).ready(function() {
 	const info = (function() {
 		let nickname = "";
 		let roomNumber = "";
-
+		let image = "";
 		return {
 			getNickname: () => nickname,
 			setNickname: (set) => { nickname = set; },
 			getRoomNumber: () => roomNumber,
 			setRoomNumber: (set) => { roomNumber = set; },
+			getImage: () => image,
+			setImage: (set) => { image = set; },
 		};
 	})();
 	// 참가자 그리기
@@ -84,8 +85,9 @@ $(document).ready(function() {
 		console.log(messageInfo);
 		let nickname = messageInfo.nickname;
 		let message = messageInfo.message;
-
-		message = message.replaceAll("\n", "<br>").replaceAll(" ", "&nbsp");
+		message = message.replaceAll("\n", "<br>").replaceAll(" ", "&nbsp")
+			.replaceAll("<", "&lt;")
+			.replaceAll(">", "&gt;");
 
 		const date = messageInfo.date;
 		const d = new Date(date);
@@ -93,23 +95,29 @@ $(document).ready(function() {
 		const time = String(d.getHours()).padStart(2, "0")
 			+ ":"
 			+ String(d.getMinutes()).padStart(2, "0");
-
-		let sender = info.getNickname() === nickname ? "chat_me" : "chat_other";
-		nickname = info.getNickname() === nickname ? "" : nickname;
-
+		let check = info.getNickname() === nickname;
+		let sender = check ? "chat_me" : "chat_other";
+		nickname = check ? "" : nickname;
+		let img = check ? "" : '<img src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg" width="30" height="30" style="border-radius: 50%" />';
 		const chatHtml = `
         <li>
             <div class=${sender}>
-                <div>
-                    <div class="nickname">${nickname}</div>
-                    <div class="message">
+                <div class="all">                    
+					${img}
+					<div class="nm">
+					<div class="nickname">${nickname}</div>
+					<div class="message">
                         <span class=chat_in_time>${time}</span>
                         <span class="chat_content">${message}</span>
+						</div>
                     </div>
                 </div>
             </div>
         </li>`;
-
+		/*		data: "nick="+ encodeURI(encodeURIComponent(nick)),
+							// 응답
+							success: function(result) {
+								$("#result").text(decodeURI(decodeURIComponent(result)));*/
 		$(".chat ul.chat_list").append(chatHtml);
 		$(".chat ul").scrollTop($(".chat ul")[0].scrollHeight);
 	};
@@ -199,21 +207,20 @@ $(document).ready(function() {
 	const enterChattingRoom = function(roomNumber) {
 		let id = "";
 		$.ajax({ url: "/nick1", type: "GET", })
-			.then(function(nickname) {
-
+			.then(function(mem) {
 				const data = {
 					roomNumber: roomNumber,
-					nickname: nickname
+					nickname: mem.nickname
 				};
 				$.ajax({
 					url: "/chattingRoom-enter",
 					type: "GET",
 					data: data,
 					success: function(room) { // 성공 시 호출됨
-						initRoom(room, nickname);
+						initRoom(room, mem.nickname);
 
 						// 채팅방 참가 메세지
-						room.message = nickname + "님이 참가하셨습니다";
+						room.message = mem.nickname + "님이 참가하셨습니다";
 						stomp.send(
 							"/socket/notification/" + roomNumber, {},
 							JSON.stringify(room));
@@ -267,8 +274,38 @@ $(document).ready(function() {
 				}
 			});
 	});
+	window.addEventListener('beforeunload', () => {
+		$.ajax({
+			url: "/chattingRoom-exit",
+			type: "PATCH",
+		})
+			.then(function(room) {
+				const roomNumber = info.getRoomNumber();
+
+				if (room.users.length !== 0) {
+					// 채팅방 나가기 메세지
+					room.message = info.getNickname() + "님이 퇴장하셨습니다";
+					stomp.send(
+						"/socket/notification/" + roomNumber, {},
+						JSON.stringify(room));
+				}
+
+				// 채팅방 목록 업데이트
+				stomp.send("/socket/roomList");
+
+				main();
+				$(".chat").hide();
+				$(".chat ul.chat_list").html("");
+
+				info.setRoomNumber("");
+				info.setNickname("");
+			})
+
+	});
+
+
 	// css용 오류나면 제일 먼저 치워버리기@@@@@@@@@@@@@@@@@@@@@@@@@@
-/* 
+
 	const characters = document.querySelectorAll('.character');
 
 	const speed = 2;
@@ -317,5 +354,5 @@ $(document).ready(function() {
 		character.style.backgroundColor = getRandomColor();
 		updatePosition(character, direction);
 	});
-	// css용 오류나면 제일 먼저 치워버리기@@@@@@@@@@@@@@@@@@@@@@@@@@*/
+	// css용 오류나면 제일 먼저 치워버리기@@@@@@@@@@@@@@@@@@@@@@@@@@
 });

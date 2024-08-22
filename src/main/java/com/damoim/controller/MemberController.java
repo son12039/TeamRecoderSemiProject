@@ -78,7 +78,8 @@ public class MemberController {
 		addr += "#"+ addrDetail;
 		mem.setAddr(addr);
 		// 해당 id 이름의 회원 폴더 생성
-		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\member\\"+ mem.getId()+"\\");  
+		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\member\\"+ mem.getId()+"\\");
+		System.out.println(directoryPath);
 		Files.createDirectories(directoryPath);
 		member.setMemberImg(FileUpload(imgFile, mem.getId()));
 		System.out.println("회원가입전 맴버 변수 체크 " + member);

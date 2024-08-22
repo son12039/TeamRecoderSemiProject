@@ -95,9 +95,8 @@
 
 				<c:forEach items="${comment}" var="com">
 					<div id="comm-${com.mainCommentCode}" class="comment">
-						<h1>댓글</h1>
-						댓글 내용 ${com.mainCommentText} <br /> 댓글 작성시간 ${com.mainCommentDate}
-						<br /> 댓글 작성자 닉네임 ${com.nickname} <br />
+						<div><h1>${com.nickname}</h1>${com.mainCommentDate}</div>
+						댓글 내용 ${com.mainCommentText} <br />
 					
 						<c:if test="${com.nickname == member.nickname}">
 							<button type="button" onclick="updateForm(${com.mainCommentCode})">수정</button>
@@ -146,10 +145,9 @@
 						<c:if test="${fn:length(com.recoment) != 0}">
 							<c:forEach items="${com.recoment}" var="recom">
 								<div id="comm-${recom.mainCommentCode}" class="re-comment">
-									<h1>대댓 굴</h1>
-									주인님 코드 ${recom.mainParentsCommentCode} <br /> 대댓글 내용
-									${recom.mainCommentText} <br /> 대댓글 작성시간
-									${recom.mainCommentDate} <br /> 작성자 닉네임 ${recom.nickname} <br />
+									<div><h1>${recom.nickname}</h1>${recom.mainCommentDate}</div>
+									주인님 코드 ${recom.mainParentsCommentCode} <br /> 대댓글 내용 ${recom.mainCommentText}
+									 <br />
 									<c:if test="${recom.nickname == member.nickname}">
 										<button type="button"
 											onclick="updateForm(${recom.mainCommentCode})">수정</button>

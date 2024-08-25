@@ -125,6 +125,26 @@ $("#typeLaNameSelect").change(function(){
 })
 
 
+$("#typeSNameForm input[type=checkbox]").change(function(){
+	const typeSName = $(this).val();
+	console.log(typeSName);
+	if(typeSName === '전체보기'){
+		urlParams.delete('typeSName');	
+	}else if($(this).is(':checked')){
+		urlParams.append('typeSName', typeSName);
+	}else {
+		urlParams.delete('typeSName');
+		const inputAll = $(this).parent().find("input[type=checkbox]");
+		for(let input of inputAll){
+			if(input.checked){
+				urlParams.append('typeSName', input.value);
+			}
+		}
+	}
+	location.href = url;
+})
+
+/*
 $("#typeSNameForm").submit((e) =>{
 	e.preventDefault();
 	urlParams.delete('typeSName')
@@ -138,6 +158,9 @@ $("#typeSNameForm").submit((e) =>{
 	}
 	location.href = url;
 })
+*/
+
+
 
 if(urlParams.has("typeLaName")){
 	let typeLaName = urlParams.get("typeLaName")
@@ -171,26 +194,5 @@ $('#typeSNameForm input[name="typeSName"]').change(function() {
 		$("#typeSNameAll")[0].checked = false;
 	} 
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

@@ -13,41 +13,41 @@
 </head>
 <body>
 	<div class="main_header">
-		<div class="main_header_left">
-			<div class="main_header_left_text">문토</div>
-			<div class="main_header_left_text">문토</div>
-			<div class="main_header_left_text">문토</div>
-			<div class="main_header_left_text">문토</div>
-		</div>
-		<div class="main_header_center">
-			<div class="main_header_center_text">DAMOIM</div>
-		</div>
-		<div class="main_header_rigth">
-				<sec:authorize access="!isAuthenticated()">
-	             <div class="header_right_menu">
-	               <a href="/signUp">회원가입</a>
-	               <a href="/loginPage">로그인</a>
-	             </div>
-              </sec:authorize>
-				<sec:authorize access="isAuthenticated()" var="principal">
-					<sec:authentication property="principal" var="member" />
-						<div> ${member.nickname}
-							<c:choose>
-								<c:when test="${member.memberImg != null}">
-										<img class="user-img" src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
-								</c:when>
-							
-								<c:otherwise>
-									<img class="user-img"
-										src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
-								</c:otherwise>
-							</c:choose>	
-						</div>
-						<div class="header_right_menu">
-							<a href="/update">마이페이지</a> <a href="/myMembership">나의
-								모임</a> <a href="/logout">로그아웃</a>
-						</div>
-				</sec:authorize>
+		<div class="main_header_body">
+			<div class="main_header_left">
+				<a  href="/">공지사항</a>
+				<a  href="/">이벤트</a>
+			</div>
+			<div class="main_header_center">
+				<div class="main_header_center_text">DAMOIM</div>
+			</div>
+			<div class="main_header_right">
+					<sec:authorize access="!isAuthenticated()">
+		             <div class="main_header_right_menu">
+			               <a href="/signUp">회원가입</a>
+			               <a href="/loginPage">로그인</a>
+		             </div>
+	              </sec:authorize>
+					<sec:authorize access="isAuthenticated()" var="principal">
+						<sec:authentication property="principal" var="member" />
+							<div> ${member.nickname}
+								<c:choose>
+									<c:when test="${member.memberImg != null}">
+											<img class="user-img" src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
+									</c:when>
+								
+									<c:otherwise>
+										<img class="user-img" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+									</c:otherwise>
+								</c:choose>	
+							</div>
+							<div class="main_header_right_menu">
+								<a href="/update">마이페이지</a> 
+								<a href="/myMembership">나의모임</a> 
+								<a href="/logout">로그아웃</a>
+							</div>
+					</sec:authorize>
+			</div>		
 		</div>
 	</div>
 </body>

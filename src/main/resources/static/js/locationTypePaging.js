@@ -1,6 +1,23 @@
 let page = 1;
 let isLoading = false; // 로딩 상태를 추적
 window.addEventListener("scroll", () => {
+
+	// 953 + 582 =    1535
+	if (1200 <= window.scrollY + window.innerHeight){
+		console.log("들어왔어!");
+		$(".locationTypeBody").css({position : "fixed",
+									 width : "100%",
+									 top : "70px",
+									 display : "flex"
+								 });
+		$(".locationTypeBodyBox").css({margin : "auto"})
+
+	}else{
+		console.log("빠져나왔어!");
+		$(".locationTypeBody").removeAttr("style")
+		$(".locationTypeBodyBox").removeAttr("style")
+	}
+	
 	if (isLoading) return; // 로딩 중이면 AJAX 요청을 방지
 	
 	if (document.body.offsetHeight <= window.scrollY + window.innerHeight) {
@@ -65,13 +82,6 @@ window.addEventListener("scroll", () => {
 });
 
 /*
-for (let location of club.locations) {
-	ajaxLocationType += '#' + location.locLaName+'#' +  location.locSName;
-}
-ajaxLocationType += '<br>';
-for (let type of club.types) {
-	ajaxLocationType +=  type.typeSName;
-}
 
 */
 

@@ -82,9 +82,9 @@ $(document).ready(function() {
 
 	// 메세지 그리기
 	const chatting = function(messageInfo) {
-		console.log(messageInfo);
 		let nickname = messageInfo.nickname;
 		let message = messageInfo.message;
+		let a = `<img src="${messageInfo.img}" width="100"/>`;
 		message = message.replaceAll("\n", "<br>").replaceAll(" ", "&nbsp")
 			.replaceAll("<", "&lt;")
 			.replaceAll(">", "&gt;");
@@ -108,16 +108,15 @@ $(document).ready(function() {
 					<div class="nickname">${nickname}</div>
 					<div class="message">
                         <span class=chat_in_time>${time}</span>
-                        <span class="chat_content">${message}</span>
+                        <span class="chat_content">
+						${messageInfo.img != null ? a : ""}
+						${message}</span>
 						</div>
                     </div>
                 </div>
             </div>
         </li>`;
-		/*		data: "nick="+ encodeURI(encodeURIComponent(nick)),
-							// 응답
-							success: function(result) {
-								$("#result").text(decodeURI(decodeURIComponent(result)));*/
+
 		$(".chat ul.chat_list").append(chatHtml);
 		$(".chat ul").scrollTop($(".chat ul")[0].scrollHeight);
 	};
@@ -171,8 +170,9 @@ $(document).ready(function() {
 
 	// 메세지 보내기
 	const sendMessage = function() {
+		const img = $(".chat_input img");
 		const message = $(".chat_input_area textarea");
-		if (message.val() === "") {
+		if (message.val() === "" && $(".chat_input img").length == 0) {
 			return;
 		}
 
@@ -180,20 +180,23 @@ $(document).ready(function() {
 		const nickname = info.getNickname();
 
 		const data = {
+			img: img.attr("src"),
 			message: message.val(),
 			nickname: nickname,
 		};
-		console.log(data.message);
-		console.log(roomNumber);
 		stomp.send("/socket/sendMessage/" + roomNumber, {}, JSON.stringify(data));
 		message.val("");
+		img.remove();
 	};
 
-	$(".chat_button_area button").click(function() {
+	$("#text").click(function() {
 		sendMessage();
 		$(".chat_input_area textarea").focus();
 	});
-
+	$("#cancle").click(function() {
+		$(".chat_input img").remove();
+		$(".chat_input_area textarea").focus();
+	});
 	// 채팅방 안에서 채팅 발송 로직
 	$(".chat_input_area textarea").keypress(function(event) {
 		if (event.keyCode === 13) { // Enter 눌렀을 때
@@ -303,6 +306,21 @@ $(document).ready(function() {
 
 	});
 
+	$(".chat_input_area textarea").on('drop', (e) => {
+		e.preventDefault();
+		$(".chat_input img").remove();
+			const files = e.originalEvent.dataTransfer.files;
+
+			const reader = new FileReader();
+
+			reader.onload = function(event) {
+				const img = document.createElement("img");
+				img.setAttribute("src", event.target.result);
+				$(".chat_input_area").before(img);
+			}
+			reader.readAsDataURL(files[0]);
+			$(".chat_input_area textarea").focus();
+	});
 
 	// css용 오류나면 제일 먼저 치워버리기@@@@@@@@@@@@@@@@@@@@@@@@@@
 

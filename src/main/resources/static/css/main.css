@@ -78,53 +78,58 @@ a {
 a:hover {
   color: #555;
 }
-.reply-form {
-	display: none;
-}
+
 
 .update-form {
 	display: none;
 }
 .comment,
 .re-comment{
-	padding : 5px;
-	background-color: #ffff;
+	padding : 8px;
 	width: 100%;
-	max-width: 500px;
+	max-width: 820px;
 	margin: 10px;
 	border: 1px solid;
 	border-radius: 10px;
+	
 }
 .re-comment{
 	margin: 10px 0px;
-}
-.comment{
-	margin-left: 150px;
 	
 }
+
 div[id^="comment-box"] {
    
 	border: 1px solid;
-	width: 500px;
+	width: 800px;
 	height: 100px;
 	display: flex;
 	justify-content: space-between;
-	padding: 5px;
+	padding: 8px;
 	align-items: center;
+	background-color: #E5E5E5;
+	border-radius: 10px;
+	margin-top: 10px;
+}
+div[id^="recomment-box"] {
+	display: none;
 }
 
 div[id^="comment-box"] > input{
 	height: 50%;
 	width: 60%;
 	margin: 5px;
+	
 }
+
 
 #comment-container{
 	display: flex;
 	flex-direction : column;
 	justify-content :center;
-	background-color: silver;
+	align-items: center;
 	margin: 0 50px;
+	
 }
 .comment-head{
 	display: flex;
@@ -137,19 +142,34 @@ div[id^="comment-box"] > input{
 	font-size: 1.2rem;
 	
 }
-button {
-	border: none;
-	padding: 3px 10px;
-	border-radius: 35%;
+.comment-text{
+	margin-bottom: 5px;
 }
+button {
+  background-color: #f88c1d;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #e76f00;
+}
+
 button > img {
 	width: 20px;
 	height: 15px;
 	margin: 0px;
 	padding: 0px;
+	
 }
 .recomment-box{
-	margin-left: 100px;
+	margin-left: 10px;
 
 }
 .prof{

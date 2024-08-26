@@ -117,7 +117,7 @@ public class MembershipController {
 		                .mainCommentCode(recommList.get(j).getMainCommentCode())
 		                .mainCommentText(recommList.get(j).getMainCommentText())
 		                .mainCommentDate(recommList.get(j).getMainCommentDate())
-		                .id(recommList.get(i).getId())
+		                .id(recommList.get(j).getId())
 		                .nickname(recommList.get(j).getMember().getNickname())
 		                .memberImg(recommList.get(j).getMember().getMemberImg())
 		                .membershipCode(recommList.get(j).getMembershipCode()) 

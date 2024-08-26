@@ -30,14 +30,15 @@
 	              </sec:authorize>
 					<sec:authorize access="isAuthenticated()" var="principal">
 						<sec:authentication property="principal" var="member" />
-							<div> ${member.nickname}
+							<div class="main_header_right_user"> 
+								<div class="main_header_right_nickname">${member.nickname}</div>
 								<c:choose>
 									<c:when test="${member.memberImg != null}">
-											<img class="user-img" src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
+											<img class="main_header_right_user_img" src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
 									</c:when>
 								
 									<c:otherwise>
-										<img class="user-img" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+										<img class="main_header_right_user_img" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
 									</c:otherwise>
 								</c:choose>	
 							</div>

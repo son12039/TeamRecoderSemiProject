@@ -3,14 +3,17 @@ const url = new URL(location.href);
 // 현재 페이지에 대한 url 파라미터 가져오기기
 const urlParams = url.searchParams;
 
+//window.scrollTo({top: localStorage.getItem("scroll"), behavior: 'instant'});
+
 // 상위 지역 : locationLaName, 하위 지역들 : locationSName, 
 // 상위 유형 : typeLaName, 하위 유형들 : typeSName
 
 // 파라미터값 존재여부 체크 & 파라미터 값 가져오기
 // 상위 지역 필터
 
+
 if(urlParams.has("locationLaName")) {
-	
+	window.scrollTo({top:630, left:0, behavior:'smooth'});// 클릭시 해당 위치로
 	const locationLaName = urlParams.get('locationLaName');
 	const list = $('#locationLaNameSelect option');
 	for(let item of list) {
@@ -20,6 +23,7 @@ if(urlParams.has("locationLaName")) {
 	}
 }
 if(urlParams.has("locationSName")) {
+	window.scrollTo({top:630, left:0, behavior:'smooth'});
 	const locationSName = urlParams.getAll('locationSName');
 	const list = $('#locationSNameForm input');
 	for(let item of list) {
@@ -37,14 +41,14 @@ $("#locationLaNameSelect").change(function() {
 		urlParams.append('locationLaName', laName);
 	}
 	location.href = url;
+
 });
 
 
 	
 $("#locationSNameForm input[type=checkbox]").change(function() {
 	const locationSName = $(this).val();
-	//
-	//console.log($(this).parent().find("input"));
+
 	if(locationSName === '전체보기') {
 		urlParams.delete('locationSName');
 	} else if($(this).is(':checked')) {
@@ -56,45 +60,12 @@ $("#locationSNameForm input[type=checkbox]").change(function() {
 			if(input.checked) {
 				urlParams.append("locationSName", input.value);
 			}
-			//console.log(input.value);
-			//console.log(input.checked);
 		}
-		//$(this).parent().find("input").forEach((input) => {
-			//console.log(input);
-		//})
+
 	}
 	location.href = url;
-	//if(locationSName === '전체보기') {
-		//urlParams.delete('')
-	//}
-	//urlParams.delete("locationSName");
-	
-	//if(locationSName !== '전체보기'){
-	//	urlParams.append('locationSName',locationSName);
-	//}
-	//location.href = url;
+
 });
-/*
-$("#locationSNameForm").submit((e) => {
-	e.preventDefault();
-	urlParams.delete("locationSName");
-	const locationSName = e.target.locationSName;
-	if(locationSName.length === undefined) {
-		// 세종시 -> 즉 1개일 때
-		if(locationSName.checked) {
-			urlParams.append('locationSName', locationSName.value);
-		}
-	} else {
-		// 그게 아니라면 여러값 리스트!
-		for(let item of locationSName) {
-			if(item.checked) {
-				urlParams.append('locationSName', item.value);
-			}
-		}
-	}
-	location.href = url;
-});
-*/
 
 
 
@@ -144,25 +115,10 @@ $("#typeSNameForm input[type=checkbox]").change(function(){
 	location.href = url;
 })
 
-/*
-$("#typeSNameForm").submit((e) =>{
-	e.preventDefault();
-	urlParams.delete('typeSName')
-	const typeSName = e.target.typeSName;
-	if(typeSName.length !== undefined) {
-		for(let item of typeSName) {
-			if(item.checked) {
-				urlParams.append('typeSName', item.value);
-			}
-		}
-	}
-	location.href = url;
-})
-*/
-
 
 
 if(urlParams.has("typeLaName")){
+	window.scrollTo({top:630, left:0, behavior:'smooth'});
 	let typeLaName = urlParams.get("typeLaName")
 	let list = $('#typeLaNameSelect option')
 	for(let item of list){
@@ -172,6 +128,7 @@ if(urlParams.has("typeLaName")){
 	}
 }
 if(urlParams.has("typeSName")){
+	window.scrollTo({top:630, left:0, behavior:'smooth'});
 	const typeSName = urlParams.getAll('typeSName');	
 	const list = $('#typeSNameForm input');
 	for(let item of list){

@@ -19,8 +19,16 @@
 
 
 	<jsp:include page="header/header.jsp" />
-	<div class="body_img_box">img</div>
-	<!-- 
+	<div class="body_img_box_body">
+		<div class="body_img_box">
+			<img  class="body_img" src="http://192.168.10.51:8081/member/asd12300/bf611066-4b30-43a3-b6ef-538811e5dcb8_pizza.jpg"/>
+		</div>
+	</div>
+	<!--
+	다시 꺼내써야함 
+	
+	
+	
 	잠깐 거두기
 	<div class="header">
 		<div class="header_left">
@@ -71,6 +79,10 @@
 			</c:forEach>
 		</select>
 		
+		<!-- 셀릭이 아니라 버튼방식으로 -->
+		
+		
+		
 		<c:if test="${locSNameList.size()!=0}">
 			<form id="locationSNameForm">
 				<input type="checkbox" value="전체보기" id="locSNameAll" /> <label
@@ -102,7 +114,6 @@
 						name="typeSName">
 					<label for="${typeSName}">${typeSName}</label>
 				</c:forEach>
-				<input type="submit" value="타입 검색" id="typeSNameBtn">
 			</form>
 		</c:if>
 	</div>
@@ -117,13 +128,11 @@
 				<div class="membership-img">
 					<a href="/${info.membershipCode}"> <c:choose>
 							<c:when test="${info.membershipImg != null}">
-								<img
-									src="http://192.168.10.51:8081/membership/${info.membershipCode}/${info.membershipImg}">
+								<img src="http://192.168.10.51:8081/membership/${info.membershipCode}/${info.membershipImg}">
 							</c:when>
 
 							<c:otherwise>
-								<img
-									src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">
+								<img src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">
 							</c:otherwise>
 						</c:choose>
 					</a>
@@ -138,12 +147,10 @@
 					<div id="host">
 						<c:choose>
 							<c:when test="${info.memberImg != null}">
-								<img class="user-img"
-									src="http://192.168.10.51:8081/member/${info.id}/${info.memberImg}">
+								<img class="user-img" src="http://192.168.10.51:8081/member/${info.id}/${info.memberImg}">
 							</c:when>
 							<c:otherwise>
-								<img class="user-img"
-									src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+								<img class="user-img" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
 							</c:otherwise>
 						</c:choose>
 						<h2>호스트 : ${info.nickname}</h2>

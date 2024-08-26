@@ -38,6 +38,7 @@ public class LocationTypeController {
 	private MembershipService memberService;
 	
 	public List<MemberLocTypeDTO> locationTypeList(SearchDTO search) {
+		
 		// '세종' 안에 null 이 아니면 '세종시' 넣고
 		System.out.println(locationTypeservice.searchList(search).size());
 		if(search.getLocationSName()!=null) {

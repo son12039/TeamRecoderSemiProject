@@ -50,10 +50,11 @@
 					바랍니다.</strong> 탈퇴 후에는 회원정보가 삭제되어 본인 여부를 확인할 수 있는 방법이 없어, 게시글을 임의로 삭제해드릴 수
 					없습니다.</p>
 				<h3>(단, 질문자/답변자 아이디가 비공개 처리됨)</h3>
+				<!-- fn:length() == 리스트가 비어있지 않을때만 c:if 출력 -->
 				<c:if test="${fn:length(list) != 0}">
-				<c:forEach items="${list}" var="list2">
-					<h2>가입되어있는 클럽명 : ( ${list2.membership.membershipName} )</h2>
-					<h2>회원님의 등급 : ( ${list2.listGrade} )</h2>
+				<c:forEach items="${list}" var="listItems">
+					<h2>가입되어있는 클럽명 : (${listItems.membership.membershipName} )</h2>
+					<h2>회원님의 등급 : ( ${listItems.listGrade} )</h2>
 					</c:forEach>
 					</c:if>
 				<p>탈퇴 후에는 해당 아이디 로 다시 가입할 수 없으며 아이디와 데이터는 복구할 수 없습니다. 게시판 서비스에

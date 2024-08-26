@@ -162,19 +162,15 @@
 	</select>
 	
 	<!-- 클럽 정보 수정 -->
-	<update id="membershipUpdate" parameterType="Membership">
+	<update id="updateMembership" parameterType="Membership">
 		UPDATE membership
-		SET 
-		membership_name = #{membershipName},
-		membership_img = #{membershipImg},
-		membership_info = #{membershipInfo},
-		membership_max = #{membershipMax}
-		WHERE 
+		SET
+		membership_name = #{membershipName}
+		WHERE
 		id = #{id} AND
 		membership_code = #{membershipCode}
 	</update>
 	
-
 	<select id="selectName" parameterType="String" resultMap="listMap">
 		SELECT *
 		FROM member

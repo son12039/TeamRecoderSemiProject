@@ -162,7 +162,7 @@ public class MemberController {
 		vo.setAddr(addr);
 		vo.setNickname(nickname);
 		System.out.println("vo.getNickname : " + vo.getNickname()); // 닉네임 받아온거 확인
-
+		
 		// 닉네임 중복확인
 		if (service.nicknameDupCheck(vo)) {
 			System.out.println("닉네임 중복");
@@ -193,7 +193,7 @@ public class MemberController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
 		ArrayList<MembershipUserList> membershipList = infoService.selectName(mem.getId());
-
+		
 		// membershipList <- 해당 탈퇴하려는 유저가 가입되어있는 클럽 중에서 admin 이거나 host인 클럽 정보 를 담고있는 리스트
 		if (membershipList.size() > 0) { // 해당 유저가 가입된 클럽중 어드민이나 호스트인게 있다면!
 			return false;
@@ -294,20 +294,4 @@ public class MemberController {
 	}
 }
 
-/*
- * // kakao로그인 요청을 처리한다.
- * 
- * @PostMapping("/kakao-login") public String loginWithKakao(KakaoLoginForm
- * form){ log.info("카카오 로그인 인증정보:"+ form);
- * 
- * User user = User.builder() .email(form.getEmail()) .name(form.getName())
- * .img(form.getImg()) .loginType(KAKAO_LOGIN_TYPE) .build();
- * 
- * User savedUser = userService.loginWithKakao(user);
- * 
- * // 저장된 회원정보가 없으면 전달받은 회원정보를 세션에 저장, 있으면 기존 정보 저장. if(savedUser != null) {
- * SessionUtils.addAttribute("LOGIN_USER", savedUser); }else {
- * SessionUtils.addAttribute("LOGIN_USER", user); }
- * 
- * return "redirect:/"; }
- */
+

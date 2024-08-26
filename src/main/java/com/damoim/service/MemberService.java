@@ -115,8 +115,8 @@ public class MemberService implements UserDetailsService {
 		return mapper.memberStatus(member);
 	}
 	
-
-
+	
+	
 	
 	// ===============================================================
 	public ArrayList<Member> dummyMember() {
@@ -138,7 +138,7 @@ public class MemberService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Member member = mapper.login(username);
 		if (member == null) {
-			System.out.println("사용자 정보를 찾지 못한 경우");
+			System.out.println("사용자 정보를 찾지 못했습니다");
 		} else if (!member.isStatus()){
 			System.out.println("이미 탈퇴한 회원입니다 : " + username);
 			return null;

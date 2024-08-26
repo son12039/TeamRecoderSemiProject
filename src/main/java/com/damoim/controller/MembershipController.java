@@ -196,22 +196,30 @@ public class MembershipController {
 		return "redirect:/" + member.getMembershipCode();
 	}
 	
-
+	
 	@PostMapping("/updateMembership")
 	public String updateMembership(Membership vo) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
+		mem.getId();
+		System.out.println("updateMembership : "+ mem);
+		System.out.println(vo);
+		vo.getMembershipCode();
+		service.updateMembership(vo);
+		
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
 		
 		
-		System.out.println("updateMembership : "+mem);
-		
-		
-		
-		
-		
-		
-		return "redirect:/myMembership";
+		return "/";
 	}
+	
+	
+	
+	
+	
+	
+	
 
 	/*
 	 * 성철 파일 삽입 메서드 해당맴버쉽 프로필사진 !!

@@ -7,14 +7,28 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<sec:authorize access="isAuthenticated()" var="principal">
+	<sec:authentication property="principal" var="member" />
+    <main>
+    <!-- ${main}은 멤버쉽관련 정보 + 호스트 정보  타입은 멤버쉽유저리스트임 -->
+     <!-- 멤버쉽 이름  -->  
+        <h1 >${main.membership.membershipName}</h1>  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>클럽 회원 페이지</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/index.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/membershipPage.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/membershipPage.css"/>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>     
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        #calendar{
+        margin: auto;
+        }
+    </style>
 </head>
 <body>
     <main>
@@ -24,10 +38,13 @@
         <!-- 멤버쉽 수정 -->
         <div>
        	<h2><a href="/updateMembership">정보 수정하기</a></h2>
+       	<a href="/club/${main.membership.membershipCode}/membershipPromotionDetail">홍보글 작성</a>
         </div>
         
         <!-- 멤버쉽 채팅 서버 링크   -->
         <a href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a> 
+        
+        <a href="/write?membershipCode=${main.membership.membershipCode}">모임게시판작성하러가기</a>
           
         <!--멤버쉽 대표 이미지   -->
         <img id="mainImg" src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}" alt="클럽 이미지">
@@ -147,6 +164,26 @@
         </sec:authorize>
         
     </main>
+     <div id="calendar" style= "width: 60%"     ></div>
+     </sec:authorize>
+    
+    <script>
+    const allDates = [];
+    let allMeet = {};
+    <c:forEach items="${allmeet}" var="item">
+    	allMeet.title = "${item.meetInfo}";
+    	allMeet.start = "${item.meetDateStart}";
+    	allMeet.end = "${item.meetDateEnd}";
+    	allMeet.color = "${item.color}";
+    	allMeet.meetCode= "${item.meetCode}";
+    	allDates.push(allMeet);
+    	allMeet = {};
+    </c:forEach>
+    console.log(allDates);
+    </script>
+    
     <script src="${pageContext.request.contextPath}/js/membershipPage.js"></script>
+    <script src="${pageContext.request.contextPath}/js/calendar.js"></script>
+   
 </body>
 </html>

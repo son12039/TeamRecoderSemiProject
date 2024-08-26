@@ -84,15 +84,17 @@ CREATE TABLE membership_meetings ( -- 클럽모임게시판
     membership_code INT, -- 클럽코드 /외래키
     meet_date_start DATE, -- 모임 시작일
     meet_date_end DATE, -- 모임 종료일
-    meet_agree_code INT, -- 참여여부 테이블 연결
     meet_info TEXT, -- 모임관련 정보
-    meet_creat_date DATE default(current_date)
+    meet_creat_date DATE default(current_date),
+    id VARCHAR(50),
+    color VARCHAR(50)
 );
 
 CREATE TABLE meetings_agree (-- 클럽 모임게시판 - 클럽 회원 리스트 참여여부 테이블 
 	meet_agree_code INT PRIMARY KEY auto_increment,
     meet_agree_yn BOOLEAN DEFAULT(false),
-    list_code INT
+    id VARCHAR(50),
+    meet_code INT
 );
 
 
@@ -205,13 +207,10 @@ ADD FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
 ALTER TABLE membership_meetings
 ADD FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
 
--- membership_meetings 테이블의 외래 키 제약 조건 추가 (meet_agree_code 참조)
-ALTER TABLE membership_meetings
-ADD FOREIGN KEY (meet_agree_code) REFERENCES meetings_agree(meet_agree_code);
 
--- meetings_agree 테이블의 외래 키 제약 조건 추가 (list_code 참조)
+-- meetings_agree 테이블의 외래 키 제약 조건 추가 (list_code 참조) -- 변경 id 참조
 ALTER TABLE meetings_agree
-ADD FOREIGN KEY (list_code) REFERENCES membership_user_list(list_code);
+ADD FOREIGN KEY (id) REFERENCES member(id);
 
 -- meetings_comment 테이블의 외래 키 제약 조건 추가 (id 참조)
 ALTER TABLE meetings_comment
@@ -234,8 +233,16 @@ ALTER TABLE main_comment
 ADD FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
 
 -- main_comment 테이블의 외래 키 제약 조건 추가 (main_parents_comment_code 참조)
-ALTER TABLE main_comment
-ADD FOREIGN KEY (main_parents_comment_code) REFERENCES main_comment(main_comment_code);
+-- ALTER TABLE main_comment
+-- ADD FOREIGN KEY (main_parents_comment_code) REFERENCES main_comment(main_comment_code);
+
+-- SELECT * FROM information_schema.table_constraints WHERE CONSTRAINT_SCHEMA = 'damoim' AND TABLE_NAME = 'main_comment';
+-- ALTER TABLE main_comment DROP CONSTRAINT main_comment_ibfk_3;
+
+DELETE FROM main_comment WHERE main_comment_code = 1;
+
+SELECT * FROM main_comment;
+
 
 -- image 테이블의 외래 키 제약 조건 추가 (meet_code 참조)
 ALTER TABLE image
@@ -247,11 +254,11 @@ ADD FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
 
 -- membership_meetings 테이블에 list_code 컬럼 추가
 ALTER TABLE membership_meetings
-ADD list_code INT;
+ADD id VARCHAR(50);
 
 -- membership_meetings 테이블의 외래 키 제약 조건 추가 (list_code 참조)
 ALTER TABLE membership_meetings
-ADD FOREIGN KEY (list_code) REFERENCES membership_user_list(list_code);
+ADD FOREIGN KEY (id) REFERENCES member(id);
 
 ALTER TABLE membership
 ADD column memership_accession_text text,
@@ -260,4 +267,15 @@ ADD column memership_main_text text,
 ADD column memership_secret_text text;
 
 ALTER TABLE membership DROP COLUMN memership_main_text;
+ALTER TABLE membership_meetings
+ADD column meet_title VARCHAR(50);
+
+SELECT * FROM membership_meetings;
+
+
+SELECT count(*) FROM main_comment 
+WHERE main_parents_comment_code = 4;
+
+ALTER TABLE membership
+MODIFY COLUMN membership_info LONGTEXT;
 

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,6 +25,7 @@ import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.dto.MembershipDTO;
 import com.damoim.model.dto.MembershipTypeDTO;
+import com.damoim.service.MembershipMeetingService;
 import com.damoim.model.dto.SearchDTO;
 import com.damoim.service.LocationTypeService;
 import com.damoim.service.MainCommentService;
@@ -62,6 +64,8 @@ public class MembershipController {
 		return "mypage/createclub";
 		
 	}
+	@Autowired
+	private  MembershipMeetingService meetingService;
 	/*
 	 * 
 	 * */
@@ -97,6 +101,7 @@ public class MembershipController {
 		            .mainCommentCode(commList.get(i).getMainCommentCode())
 		            .mainCommentText(commList.get(i).getMainCommentText())
 		            .mainCommentDate(commList.get(i).getMainCommentDate())
+		            .id(commList.get(i).getId())
 		            .nickname(commList.get(i).getMember().getNickname())
 		            .memberImg(commList.get(i).getMember().getMemberImg())
 		            .membershipCode(commList.get(i).getMembershipCode()) 
@@ -112,6 +117,7 @@ public class MembershipController {
 		                .mainCommentCode(recommList.get(j).getMainCommentCode())
 		                .mainCommentText(recommList.get(j).getMainCommentText())
 		                .mainCommentDate(recommList.get(j).getMainCommentDate())
+		                .id(recommList.get(j).getId())
 		                .nickname(recommList.get(j).getMember().getNickname())
 		                .memberImg(recommList.get(j).getMember().getMemberImg())
 		                .membershipCode(recommList.get(j).getMembershipCode()) 
@@ -143,6 +149,8 @@ public class MembershipController {
 			model.addAttribute("main", list);
 			// 해당클럽에 가입신청된 모든 유저정보		
 			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
+
+			model.addAttribute("allmeet", meetingService.allMeetings(membershipCode));
 			// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
 			model.addAttribute("location", locationTypeService.locationList(membershipCode));
 			model.addAttribute("type", locationTypeService.typeList(membershipCode));
@@ -235,7 +243,27 @@ public class MembershipController {
 //		
 //	}
 	
+	// 홍보글 작성페이지 테스트
+	@GetMapping("/club/{membershipCode}/membershipPromotionDetail")
+	public String membershipPromotionDetail(@PathVariable("membershipCode") Integer membershipCode, Model model){
+		System.out.println("맴버쉽" + service.selectMembership(membershipCode));
+		model.addAttribute("memInfo", service.selectMembership(membershipCode));
+		model.addAttribute("code" , membershipCode);
+		return "membership/membershipPromotionDetail";
+	}
 	
+	@ResponseBody
+	@PostMapping("/membershipInfoUpdate")
+	public void test(int membershipCode, String test) {
+		System.out.println("맴버쉽 코드 : " + membershipCode);
+		System.out.println("테스트 : " + test );
+		Membership membership = new Membership().builder()
+				.membershipCode(membershipCode)
+				.membershipInfo(test)
+				.build();
+		service.updateMembershipInfo(membership);
+		System.out.println("DB 통과");
+	}
 	
 	
 	

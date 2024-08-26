@@ -30,42 +30,7 @@
             </li>
         </ul>
     </main>
-	 			 <div id="ch1" class="character"></div>
-  				 <div id="ch2" class="character"></div>
-   				 <div id="ch3" class="character"></div>
-   				 <div id="ch4" class="character"></div>
-  				 <div id="ch5" class="character"></div>
-   				 <div id="ch6" class="character"></div>
-   				 <div id="ch7" class="character"></div>
-  				 <div id="ch8" class="character"></div>
-   				 <div id="ch9" class="character"></div>
-   				 <div id="ch10" class="character"></div>
-  				 <div id="ch11" class="character"></div>
-   				 <div id="ch12" class="character"></div>
-   				 <div id="ch13" class="character"></div>
-  				 <div id="ch14" class="character"></div>
-   				 <div id="ch15" class="character"></div>
-   				 <div id="ch16" class="character"></div>
-  				 <div id="ch17" class="character"></div>
-   				 <div id="ch18" class="character"></div>
-   				 <div id="ch1" class="character"></div>
-  				 <div id="ch2" class="character"></div>
-   				 <div id="ch3" class="character"></div>
-   				 <div id="ch4" class="character"></div>
-  				 <div id="ch5" class="character"></div>
-   				 <div id="ch6" class="character"></div>
-   				 <div id="ch7" class="character"></div>
-  				 <div id="ch8" class="character"></div>
-   				 <div id="ch9" class="character"></div>
-   				 <div id="ch10" class="character"></div>
-  				 <div id="ch11" class="character"></div>
-   				 <div id="ch12" class="character"></div>
-   				 <div id="ch13" class="character"></div>
-  				 <div id="ch14" class="character"></div>
-   				 <div id="ch15" class="character"></div>
-   				 <div id="ch16" class="character"></div>
-  				 <div id="ch17" class="character"></div>
-   				 <div id="ch18" class="character"></div>
+	 		
 	<!-- 채팅방 입장 -->
     <div class="chat">
    		<div>
@@ -80,11 +45,12 @@
 				 
 		        <div class="chat_input">
 		            <div class="chat_input_area">
-		                <textarea></textarea>
+		                <textarea placeholder="이미지를 드래그하세요.(한장만 첨부가능)"></textarea>
 		            </div>
 
 		            <div class="chat_button_area">
-		                <button>전송</button>
+		                <button id="text">전송</button>
+		                <button id="cancle">사진지우기</button>
 		            </div>
 		        </div>
 	        </div>

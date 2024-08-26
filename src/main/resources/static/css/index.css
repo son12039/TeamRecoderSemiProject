@@ -189,10 +189,10 @@ body {
   margin: 20px;
   border-radius: 15px;
 }
-#host{
-	display: flex;
-	justify-content: center;
-	align-items: center;
+#host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .membership-info h1 {
   font-weight: bolder;
@@ -210,7 +210,6 @@ body {
   width: 50px;
   height: 50px;
 }
-
 .search {
   background: orange;
   border: none;
@@ -229,62 +228,59 @@ body {
   background: yellow;
 }
 
-/* 08-21 14:53 채승훈 시작 클럽안 내용들*/ 
+/* 08-21 14:53 채승훈 시작 클럽안 내용들*/
 .locationTypeBox {
-	font-size: 12px;	
-	width : 200px;
+  font-size: 12px;
+  width: 200px;
 }
-.type{
-	display:flex;
-	flex-wrap: wrap;
-	
+.type {
+  display: flex;
+  flex-wrap: wrap;
 }
-.typeList{
-	background-color : white;
-	width: fit-content; /*글자크기에 맞게 width값 주기*/
-	border: 1px solid grey;
-	padding:2.5px 5px;
-	border-radius: 15px;
-	margin:1px;
+.typeList {
+  background-color: white;
+  width: fit-content; /*글자크기에 맞게 width값 주기*/
+  border: 1px solid grey;
+  padding: 2.5px 5px;
+  border-radius: 15px;
+  margin: 1px;
 }
-
-.typeText{
-	padding :1px;
-	display:flex;
-	justify-content : center;
-	align-items : center;
-	text-align : center;
+.typeText {
+  padding: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 /* 그냥 박스 상자 */
 /* 08-25 채승훈 추가 */
-.body_img_box_body{
-	width: 1520px;
-	height: 955px;
-	background-color: orange;
-	margin: auto;
-	padding:90px 20px 20px 20px;
+.body_img_box_body {
+  width: 1520px;
+  height: 955px;
+  background-color: orange;
+  margin: auto;
+  padding: 90px 20px 20px 20px;
 }
-.body_img_box{
-	width: 100%;
-	height: 100%;
-	background-color: rgb(0, 128, 255);
+.body_img_box {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 128, 255);
 }
-.body_img{
-	width: 100%;
-	height: 100%;
+.body_img {
+  width: 100%;
+  height: 100%;
 }
 
-.locationTypeBody{
-	background-color: orange;
-	position: sticky;
-	top: 70px;
+.locationTypeBody {
+  background-color: orange;
+  position: sticky;
+  top: 70px;
 }
-.locationTypeBodyBox{
-	background-color: pink;
-	width: 1520px;
-	height: auto;
-	margin : auto;
+.locationTypeBodyBox {
+  background-color: pink;
+  width: 1520px;
+  height: auto;
+  margin: auto;
 }
 /* 스크롤 없애기 */
-

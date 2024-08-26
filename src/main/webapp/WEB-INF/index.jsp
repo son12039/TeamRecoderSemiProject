@@ -130,14 +130,11 @@
 							<c:when test="${info.membershipImg != null}">
 								<img src="http://192.168.10.51:8081/membership/${info.membershipCode}/${info.membershipImg}">
 							</c:when>
-
 							<c:otherwise>
 								<img src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">
 							</c:otherwise>
 						</c:choose>
 					</a>
-
-
 				</div>
 				<div class="membership-info">
 					<h1 class="membership-name">${info.membershipName}</h1>
@@ -160,13 +157,13 @@
 						<div class="locationTypeBox">
 							<div class="location">
 								<c:forEach items="${info.locations}" var="location">
-										<div class="locationList"># ${location.locLaName} ${location.locSName}</div> 
+										<div class="locationList"># ${location.locLaName} ${location.locSName}</div>
 								</c:forEach>
 							</div>
 							<br>
 							<div class="type">
 								<c:forEach items="${info.types}" var="type">
-									 	 <div class="typeList">${type.typeSName}</div> 
+									 	 <div class="typeList">${type.typeSName}</div>
 								</c:forEach>
 							</div>
 						</div>
@@ -174,16 +171,12 @@
 			</div>
 		</c:forEach>
 	</div>
-
 	<!-- <a href="/dummyUpdate">!!!!!!!!!!!주의!!!!!!!!!!!! 기존 유저들 비밀번호 암호화하는거임 건드리지 말것</a> -->
 	<!-- <div class="membership-list"> -->
-
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
 	<script src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
-
 	
 	
 	

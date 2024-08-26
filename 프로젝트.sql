@@ -239,6 +239,10 @@ ADD FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
 -- SELECT * FROM information_schema.table_constraints WHERE CONSTRAINT_SCHEMA = 'damoim' AND TABLE_NAME = 'main_comment';
 -- ALTER TABLE main_comment DROP CONSTRAINT main_comment_ibfk_3;
 
+DELETE FROM main_comment WHERE main_comment_code = 1;
+
+SELECT * FROM main_comment;
+
 
 -- image 테이블의 외래 키 제약 조건 추가 (meet_code 참조)
 ALTER TABLE image
@@ -268,4 +272,10 @@ ADD column meet_title VARCHAR(50);
 
 SELECT * FROM membership_meetings;
 
+
+SELECT count(*) FROM main_comment 
+WHERE main_parents_comment_code = 4;
+
+ALTER TABLE membership
+MODIFY COLUMN membership_info LONGTEXT;
 

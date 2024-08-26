@@ -243,7 +243,27 @@ public class MembershipController {
 //		
 //	}
 	
+	// 홍보글 작성페이지 테스트
+	@GetMapping("/club/{membershipCode}/membershipPromotionDetail")
+	public String membershipPromotionDetail(@PathVariable("membershipCode") Integer membershipCode, Model model){
+		System.out.println("맴버쉽" + service.selectMembership(membershipCode));
+		model.addAttribute("memInfo", service.selectMembership(membershipCode));
+		model.addAttribute("code" , membershipCode);
+		return "membership/membershipPromotionDetail";
+	}
 	
+	@ResponseBody
+	@PostMapping("/membershipInfoUpdate")
+	public void test(int membershipCode, String test) {
+		System.out.println("맴버쉽 코드 : " + membershipCode);
+		System.out.println("테스트 : " + test );
+		Membership membership = new Membership().builder()
+				.membershipCode(membershipCode)
+				.membershipInfo(test)
+				.build();
+		service.updateMembershipInfo(membership);
+		System.out.println("DB 통과");
+	}
 	
 	
 	

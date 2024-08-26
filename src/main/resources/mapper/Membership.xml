@@ -62,6 +62,20 @@
 		 -->
 		
 	</select>
+	<!--  맴버쉽 코드로 해당 맴버쉽 정보만  -->
+	<select id="selectMembership" parameterType="int" resultMap="membershipMap">
+		SELECT *
+		FROM
+		membership
+		WHERE membership_code = #{membershipCode}
+	</select>
+	
+	<update id="updateMembershipInfo" parameterType="Membership">
+		UPDATE
+		membership
+		SET membership_info = #{membershipInfo}
+		WHERE membership_code = #{membershipCode}
+	</update>
 
 	<!-- 
 		클럽 페이지에서
@@ -169,6 +183,7 @@
 		SELECT membership_name,membership_code FROM
 		membership
 	</select>
+
 
 
 </mapper>

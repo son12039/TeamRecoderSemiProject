@@ -79,11 +79,7 @@ public class PageController {
 	public String updateMembership() {
 		return "membership/updateMembership";
 	}
-	// 홍보글 작성페이지 테스트
-	@GetMapping("/membershipPromotionDetail")
-	public String membershipPromotionDetail(){
-		return "membership/membershipPromotionDetail";
-	}
+
 
 	// 내가 가입한 맴버쉽 페이지 이동
 	/*

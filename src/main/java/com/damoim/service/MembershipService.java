@@ -87,7 +87,13 @@ public class MembershipService {
 	}
 	
 	
+	public void updateMembershipInfo(Membership membershipInfo) {
+		mapper.updateMembershipInfo(membershipInfo);
+	}
 	
+	public Membership selectMembership(int membershipCode) {
+		return	mapper.selectMembership(membershipCode);
+	}
 	
 //	public List<MembershipUserList> list(Paging paging) {
 //		

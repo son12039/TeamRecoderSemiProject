@@ -37,7 +37,7 @@
   padding: 20px;
   font-size: 3rem;
   font-weight: bold;
-  border: 4px solid #00796b; /* 청록색 테두리 */
+  border: 4px solid #00796B; /* 청록색 테두리 */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -79,7 +79,7 @@
 }
 .login-box h1 {
   margin-bottom: 30px;
-  color: #271e04;
+  color: #271E04;
   font-size: 2em;
 }
 .textbox {
@@ -91,7 +91,7 @@
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
-  color: #271e04;
+  color: #271E04;
 }
 .textbox input {
   width: 100%;
@@ -99,7 +99,7 @@
   background: rgba(255, 255, 255, 0.2);
   border: none;
   border-radius: 5px;
-  color: #0a0a0a;
+  color: #0A0A0A;
   font-size: 1em;
 }
 .textbox input::placeholder {
@@ -107,7 +107,7 @@
 }
 .btn {
   width: 100%;
-  background: #ffcc33;
+  background: #FFCC33;
   border: none;
   padding: 15px;
   color: #000000;
@@ -118,7 +118,7 @@
   margin-bottom: 20px;
 }
 .btn:hover {
-  background: #ff9966;
+  background: #FF9966;
 }
 .login-boxs {
   display: flex;
@@ -175,12 +175,12 @@
 }
 img {
   border-radius: 15px;
-  width: 200px;
-  height: 200px;
+  width: 270px;
+  height: 270px; /* 08-21 채승훈 : 타입 설명란 때문에 잠깐 이미지 크기 키웠음*/
   margin: 20px;
 }
 body {
-  background-color: #e6e1e1;
+  background-color: #E6E1E1;
 }
 .membership-name {
   font-weight: bolder;
@@ -215,7 +215,6 @@ body {
   width: 50px;
   height: 50px;
 }
-
 .search {
   background: orange;
   border: none;
@@ -232,4 +231,29 @@ body {
 }
 .search:hover {
   background: yellow;
+}
+/* 08-21 14:53 채승훈 시작*/
+.locationTypeBox {
+	font-size: 12px;	
+	width : 200px;
+}
+.type{
+	display:flex;
+	flex-wrap: wrap;
+	
+}
+.typeList{
+	background-color : white;
+	width: fit-content; /*글자크기에 맞게 width값 주기*/
+	border: 1px solid grey;
+	padding:2.5px 5px;
+	border-radius: 15px;
+	margin:1px;
+}
+.typeText{
+	padding :1px;
+	display:flex;
+	justify-content : center;
+	align-items : center;
+	text-align : center;
 }

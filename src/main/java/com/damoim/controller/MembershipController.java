@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,8 +23,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.damoim.model.dto.CommentDTO;
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.dto.MembershipDTO;
 import com.damoim.model.dto.MembershipTypeDTO;
+import com.damoim.service.MembershipMeetingService;
+import com.damoim.model.dto.SearchDTO;
+import com.damoim.service.LocationTypeService;
 import com.damoim.service.MainCommentService;
 import com.damoim.service.MembershipService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -46,7 +51,13 @@ public class MembershipController {
 
 	@Autowired
 	private MainCommentService commentService;
+	
+	//08-22 채승훈 클럽메인페이지에 지역과 타입 추가
+	@Autowired
+	private LocationTypeService locationTypeService;
 
+	
+	
 	/*
 	 * 
 	 * */
@@ -55,7 +66,8 @@ public class MembershipController {
 		return "mypage/createclub";
 
 	}
-
+	@Autowired
+	private  MembershipMeetingService meetingService;
 	/*
 	 * 
 	 * */
@@ -76,69 +88,84 @@ public class MembershipController {
 		MembershipUserList list = service.main(membershipCode);
 		list.setCount((service.membershipUserCount(membershipCode)));
 
-		model.addAttribute("main", list);
-
+		
+		model.addAttribute("main", list);			
+		
 		ArrayList<MainComment> commList = commentService.allMainComment(membershipCode); // 일반댓글
 		ArrayList<CommentDTO> dtoList = new ArrayList<CommentDTO>(); // 합칠예정
 		for (int i = 0; i < commList.size(); i++) {
-			CommentDTO commentDTO = new CommentDTO().builder().mainCommentCode(commList.get(i).getMainCommentCode())
-					.mainCommentText(commList.get(i).getMainCommentText())
-					.mainCommentDate(commList.get(i).getMainCommentDate())
-					.nickname(commList.get(i).getMember().getNickname())
-					.memberImg(commList.get(i).getMember().getMemberImg())
-					.membershipCode(commList.get(i).getMembershipCode()).recoment(new ArrayList<>()).build();
-
-			dtoList.add(commentDTO);
-			ArrayList<MainComment> recommList = commentService.mainReComment(membershipCode,
-					commentDTO.getMainCommentCode());
-			// 모든 댓글에 대댓글이 달리는 상황 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 수정요망
-			if (recommList.size() > 0) {
-				for (int j = 0; j < recommList.size(); j++) {
-					CommentDTO recommentDTO = new CommentDTO().builder()
-							.mainCommentCode(recommList.get(j).getMainCommentCode())
-							.mainCommentText(recommList.get(j).getMainCommentText())
-							.mainCommentDate(recommList.get(j).getMainCommentDate())
-							.nickname(recommList.get(j).getMember().getNickname())
-							.memberImg(recommList.get(j).getMember().getMemberImg())
-							.membershipCode(recommList.get(j).getMembershipCode())
-							.mainParentsCommentCode(commList.get(i).getMainCommentCode()).build();
-
-					commentDTO.getRecoment().add(recommentDTO);
-				}
-			}
+		    CommentDTO commentDTO = new CommentDTO().builder()
+		            .mainCommentCode(commList.get(i).getMainCommentCode())
+		            .mainCommentText(commList.get(i).getMainCommentText())
+		            .mainCommentDate(commList.get(i).getMainCommentDate())
+		            .id(commList.get(i).getId())
+		            .nickname(commList.get(i).getMember().getNickname())
+		            .memberImg(commList.get(i).getMember().getMemberImg())
+		            .membershipCode(commList.get(i).getMembershipCode()) 
+		            .recoment(new ArrayList<>()) 
+		            .build();
+		    
+		    dtoList.add(commentDTO);
+		    ArrayList<MainComment> recommList = commentService.mainReComment(membershipCode, commentDTO.getMainCommentCode());
+		    // 모든 댓글에 대댓글이 달리는 상황 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 수정요망
+		    if(recommList.size()> 0) {
+		    for (int j = 0; j < recommList.size(); j++) {
+		        CommentDTO recommentDTO = new CommentDTO().builder()
+		                .mainCommentCode(recommList.get(j).getMainCommentCode())
+		                .mainCommentText(recommList.get(j).getMainCommentText())
+		                .mainCommentDate(recommList.get(j).getMainCommentDate())
+		                .id(recommList.get(j).getId())
+		                .nickname(recommList.get(j).getMember().getNickname())
+		                .memberImg(recommList.get(j).getMember().getMemberImg())
+		                .membershipCode(recommList.get(j).getMembershipCode()) 
+		                .mainParentsCommentCode(commList.get(i).getMainCommentCode())
+		                .build();
+		        
+		     
+		        commentDTO.getRecoment().add(recommentDTO);
+		    }
+		}
 		}
 
 		System.out.println(dtoList);
 		model.addAttribute("comment", dtoList);
+		// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
+		model.addAttribute("location", locationTypeService.locationList(membershipCode));
+		model.addAttribute("type", locationTypeService.typeList(membershipCode));
 		return "mainboard/main";
 	}
 
 	/*
-	 * 성철 해당 클럽에 가입된 회원이 그클럽에 정보와 클럽 가입 현황 볼수있는 페이지 이동
-	 */
-	@GetMapping("/club/{membershipCode}") // 클럽 페이지 이동
-	public String membershipPage(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO,
-			Model model) {
-		// 해당클럽 정보 다담음
-		MembershipUserList list = service.main(membershipCode);
-		list.setCount((service.membershipUserCount(membershipCode)));
-		model.addAttribute("main", list);
-		// 해당클럽에 가입신청된 모든 유저정보
-		model.addAttribute("allMember", service.MembershipAllInfo(membershipCode));
+	  * 성철
+	  * 해당 클럽에 가입된 회원이 그클럽에 정보와 클럽 가입 현황 볼수있는 페이지 이동
+	  * */
+	 @GetMapping("/club/{membershipCode}") // 클럽 페이지 이동
+		public String membershipPage(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO memberListDTO, Model model) {
+			// 해당클럽 정보 다담음
+		 	MembershipUserList list =  service.main(membershipCode);
+			list.setCount((service.membershipUserCount(membershipCode)));	
+			model.addAttribute("main", list);
+			// 해당클럽에 가입신청된 모든 유저정보		
+			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
 
-		return "membership/membershipPage";
-	}
-
-	/*
-	 * 성철 일단 클럽 호스트가 가입 승인대기인원 -> 일반 회원으로 바꾸는기능
-	 */
-	@ResponseBody
-	@PostMapping("/agreeMember") // 클럽 회원가입 승인
-	public void agreeMemeber(MemberListDTO member) {
-		// 일단은 호스트일때만 클럽 회원 승인기능
-		service.agreeMemeber(member);
-	}
-
+			model.addAttribute("allmeet", meetingService.allMeetings(membershipCode));
+			// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
+			model.addAttribute("location", locationTypeService.locationList(membershipCode));
+			model.addAttribute("type", locationTypeService.typeList(membershipCode));
+			
+			return "membership/membershipPage";
+		}
+	 /*
+	  * 성철
+	  * 일단 클럽 호스트가 가입 승인대기인원 -> 일반 회원으로 바꾸는기능 
+	  * */
+	 @ResponseBody
+	 @PostMapping("/agreeMember") // 클럽 회원가입 승인
+	 public void agreeMemeber(MemberListDTO member) {
+		 // 일단은 호스트일때만 클럽 회원 승인기능
+		 service.agreeMemeber(member);	
+	 }
+	
 	/*
 	 * 
 	 * */
@@ -214,7 +241,27 @@ public class MembershipController {
 		return "/";
 	}
 	
+	// 홍보글 작성페이지 테스트
+	@GetMapping("/club/{membershipCode}/membershipPromotionDetail")
+	public String membershipPromotionDetail(@PathVariable("membershipCode") Integer membershipCode, Model model){
+		System.out.println("맴버쉽" + service.selectMembership(membershipCode));
+		model.addAttribute("memInfo", service.selectMembership(membershipCode));
+		model.addAttribute("code" , membershipCode);
+		return "membership/membershipPromotionDetail";
+	}
 	
+	@ResponseBody
+	@PostMapping("/membershipInfoUpdate")
+	public void test(int membershipCode, String test) {
+		System.out.println("맴버쉽 코드 : " + membershipCode);
+		System.out.println("테스트 : " + test );
+		Membership membership = new Membership().builder()
+				.membershipCode(membershipCode)
+				.membershipInfo(test)
+				.build();
+		service.updateMembershipInfo(membership);
+		System.out.println("DB 통과");
+	}
 	
 	
 	

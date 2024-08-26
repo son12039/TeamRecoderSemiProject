@@ -78,19 +78,15 @@ public class MemberController {
 	 */
 	@PostMapping("/signUp") // 회원가입 메서드
 	public String signUp(Member member, String addrDetail, MultipartFile imgFile) throws IOException {
-		System.out.println("이미지 체크 : " + imgFile.getOriginalFilename());
 		Member mem = member;
 		String addr = mem.getAddr();
 		addr += "#" + addrDetail;
 		mem.setAddr(addr);
 		// 해당 id 이름의 회원 폴더 생성
-		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\member\\" + mem.getId() + "\\");
+		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\member\\"+ mem.getId()+"\\");
 		Files.createDirectories(directoryPath);
 		member.setMemberImg(fileUpload(imgFile, mem.getId()));
-		System.out.println("회원가입전 맴버 변수 체크 " + member);
 		service.signUp(member);
-
-		System.out.println(member);
 		return "redirect:/";
 
 	}

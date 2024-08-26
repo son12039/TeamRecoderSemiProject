@@ -1,0 +1,35 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.MembershipMeetingMapper">
+
+<insert id="addMeeting" parameterType="MembershipMeetings">
+INSERT INTO membership_meetings
+(membership_code,meet_date_start,meet_date_end,meet_info,id,color)
+VALUES (#{membershipCode},#{meetDateStart},#{meetDateEnd},
+#{meetInfo},#{id},#{color})
+
+</insert>
+
+    <!-- ResultMap 정의 -->
+    <resultMap id="MembershipMeetingsResultMap" type="MembershipMeetings">
+        <id property="meetCode" column="meet_code"/>
+        <result property="membershipCode" column="membership_code"/>
+        <result property="meetDateStart" column="meet_date_start"/>
+        <result property="meetDateEnd" column="meet_date_end"/>
+        <result property="meetInfo" column="meet_info"/>
+        <result property="id" column="id"/>
+        <result property="color" column="color"/>
+    </resultMap>
+    
+    <!-- SELECT 쿼리 -->
+    <select id="allMeetings" resultMap="MembershipMeetingsResultMap"
+    parameterType="Integer">
+        SELECT * FROM membership_meetings
+        WHERE membership_code = #{membershipCode}
+    </select>
+    
+   
+     
+    
+    
+    
+</mapper>

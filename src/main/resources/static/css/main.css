@@ -78,33 +78,139 @@ a {
 a:hover {
   color: #555;
 }
-.reply-form {
-	display: none;
-}
+
 
 .update-form {
 	display: none;
 }
 .comment,
 .re-comment{
-	background-color: blue;
+	padding : 8px;
 	width: 100%;
-	max-width: 500px;
+	max-width: 820px;
 	margin: 10px;
-	border: 2px solid;
 	border-radius: 10px;
-}
-.comment{
-	margin-left: 150px;
+	background-color: white;
 	
 }
 .re-comment{
-	margin-left: 200px;
+	margin: 10px 0px;
+	
+	
 }
+.re-comment >.comment-head{
+	border-top: 2px dashed;
+	margin-top: 10px;
+	padding-top: 5px;
+}
+
+div[id^="comment-box"] {
+   
+	
+	width: 790px;
+	height: 100px;
+	display: flex;
+	justify-content: space-between;
+	padding: 8px;
+	align-items: center;
+	background-color: #E5E5E5;
+	border-radius: 10px;
+	margin-top: 10px;
+}
+div[id^="recomment-box"] {
+	display: none;
+	
+	margin-top: 10px;
+}
+
+div[id^="comment-box"] > input{
+	height: 50%;
+	width: 60%;
+	margin: 5px;
+	
+}
+
+
 #comment-container{
 	display: flex;
 	flex-direction : column;
 	justify-content :center;
-	background-color: silver;
+	align-items: center;
 	margin: 0 50px;
+	
 }
+.comment-head{
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.comment-head > h1 {
+	font-weight: bold;
+	font-size: 1.2rem;
+	
+}
+.comment-text{
+	margin-bottom: 5px;
+}
+button {
+  background-color: #f88c1d;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #e76f00;
+}
+
+button > img {
+	width: 20px;
+	height: 15px;
+	margin: 0px;
+	padding: 0px;
+	
+}
+.recomment-box{
+	margin-left: 10px;
+
+}
+.prof{
+	display: flex;
+	align-items: center;
+}
+.prof img{
+	margin: 0;
+	margin-left: 5px;
+}
+#textbox > button {
+	height: 50%;
+}
+.comment > p{
+	padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,87 @@
+/* styles.css */
+
+
+
+.calendar {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 350px;
+  background-color: #fff;
+}
+
+.header1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+}
+
+.month-year {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+button:hover {
+  color: #ddd;
+}
+
+.days {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #f0f0f0;
+}
+
+.day {
+  width: 14.28%;
+  text-align: center;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+  box-sizing: border-box;
+}
+
+.day:last-child {
+  border-right: none;
+}
+
+.dates {
+  display: flex;
+  flex-wrap: wrap;
+  border-top: 1px solid #ddd;
+}
+
+.date {
+  width: 14.28%; /* 7 days in a week */
+  min-height: 80px;
+  text-align: center;
+  padding: 15px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.date.empty {
+  background-color: #f9f9f9;
+}
+
+.date:hover {
+  background-color: #e0e0e0;
+}
+
+.date.highlight {
+  background-color: yellow; /* 하이라이트 색상 */
+}

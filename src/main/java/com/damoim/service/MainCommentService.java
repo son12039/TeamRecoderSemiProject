@@ -25,9 +25,15 @@ public class MainCommentService {
 	}
 	
 	public void deleteComment(int mainCommentCode) {
-		mapper.deleteComment(mainCommentCode);
+		int reCommentCount = mapper.reCommentCount(mainCommentCode);
+		if(reCommentCount == 0) {
+			mapper.deleteComment(mainCommentCode);
+		} else {
+			mapper.deleteUpdateComment(mainCommentCode);
+		}
 	}
 	public void updateComment(MainComment mainComment) {
 		mapper.updateComment(mainComment);
-	}
+	}	
+	
 }

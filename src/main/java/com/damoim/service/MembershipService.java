@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.vo.BasicRoomListVo;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
@@ -24,9 +25,10 @@ public class MembershipService {
 	
 	
 	
-	public List<MembershipUserList> allMembership(Paging paging){
-		paging.setOffset(paging.getLimit() * (paging.getPage() - 1));
-		return mapper.allMembership(paging);
+	public List<MembershipUserList> allMembership(){
+		// 08-21 14:30 채승훈 지움 (Paging paging)
+		// paging.setOffset(paging.getLimit() * (paging.getPage() - 1));
+		return mapper.allMembership();
 	}
 	
 	public List<MembershipUserList> MembershipAllInfo(int membershipCode){
@@ -92,7 +94,19 @@ public class MembershipService {
 	public List<MembershipUserList> list(Paging paging) {
 		
 		return mapper.allMembership(paging);
+	
+	public void updateMembershipInfo(Membership membershipInfo) {
+		mapper.updateMembershipInfo(membershipInfo);
 	}
+	
+	public Membership selectMembership(int membershipCode) {
+		return	mapper.selectMembership(membershipCode);
+	}
+	
+//	public List<MembershipUserList> list(Paging paging) {
+//		
+//		return mapper.allMembership(paging);
+//	}
 }
 
 

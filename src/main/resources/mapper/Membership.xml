@@ -25,6 +25,7 @@
 			<result column="name" property="name" />
 			<result column="nickname" property="nickname" />
 			<result column="member_img" property="memberImg" />
+			<result column="member_info" property="memberInfo"/>
 		</association>
 		<association property="membership" javaType="Membership">
 			<id column="membership_code" property="membershipCode" />
@@ -45,7 +46,7 @@
 	<!--  인덱스에 클럽 띄울때 한번에 12개(Paging 메서드)씩 
 	해당 클럽의 호스트와 클럽 모든정보 불러오는 쿼리 나중에 listMap에 위치정보와 타입정보 추가 요망
 	-->
-	<select id="allMembership" parameterType="Paging" resultMap="listMap">
+	<select id="allMembership" resultMap="listMap">
 		SELECT *
 		FROM
 		membership_user_list
@@ -53,8 +54,27 @@
 		JOIN member
 		USING (id)
 		WHERE list_grade = "host"
+		<!-- 
+		08-21 14:30 채승훈 지움
+		parameterType="Paging"
 		LIMIT #{offset}, #{limit}
+		 -->
+		
 	</select>
+	<!--  맴버쉽 코드로 해당 맴버쉽 정보만  -->
+	<select id="selectMembership" parameterType="int" resultMap="membershipMap">
+		SELECT *
+		FROM
+		membership
+		WHERE membership_code = #{membershipCode}
+	</select>
+	
+	<update id="updateMembershipInfo" parameterType="Membership">
+		UPDATE
+		membership
+		SET membership_info = #{membershipInfo}
+		WHERE membership_code = #{membershipCode}
+	</update>
 
 	<!-- 
 		클럽 페이지에서
@@ -180,6 +200,7 @@
         AND (list_grade = "host" OR list_grade = "admin");
 	</select>
 	
+
 
 
 </mapper>

@@ -35,7 +35,7 @@ public class MembershipMeetingController {
 		System.out.println("아이디인가? " + authentication.getName());
 		System.out.println("제목 " + title);
 		System.out.println("내용 " + content);
-		meeting.setMeetInfo( "%title%" + title + "%content%"+content );
+		
 			
 		meeting.setId(authentication.getName());
 		// 받아온 meeting을 DB에 insert하면 될듯 

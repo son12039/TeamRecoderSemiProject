@@ -133,6 +133,70 @@
 			<c:otherwise>
 
 				<c:forEach items="${comment}" var="com">
+				<c:choose>
+					<c:when test="${com.mainCommentText == null}">
+					<div id="comm-${com.mainCommentCode}" class="comment">
+					<c:if test="${fn:length(com.recoment) != 0}">
+					<p>삭제된 댓글입니다.</p>
+						<button id="re-comment" type="button"
+							onclick="showReplyForm(${com.mainCommentCode})">
+							답글
+							<c:if test="${fn:length(com.recoment) != 0}">(${fn:length(com.recoment)})</c:if>
+						</button>
+						<div class="recomment-box"
+							id="recomment-box-${com.mainCommentCode}">
+							<c:if test="${fn:length(com.recoment) != 0}">
+
+								<c:forEach items="${com.recoment}" var="recom">
+									<div id="comm-${recom.mainCommentCode}" class="re-comment">
+										<div class="comment-head">
+											<div class="prof">${recom.nickname}
+												<c:choose>
+													<c:when test="${recom.memberImg != null}">
+														<img class="user-img"
+															src="http://192.168.10.51:8081/member/${recom.id}/${recom.memberImg}">
+													</c:when>
+
+													<c:otherwise>
+														<img class="user-img"
+															src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+													</c:otherwise>
+												</c:choose>
+											</div>${recom.mainCommentDate}</div>
+										<br />
+										<div class="comment-text">${recom.mainCommentText}</div>
+										<c:if
+											test="${recom.nickname == member.nickname || memberGrade == 'host'}">
+											<button type="button"
+												onclick="deleteComment(event, ${recom.mainCommentCode})">삭제</button>
+										</c:if>
+										<c:if test="${recom.nickname == member.nickname}">
+											<button type="button"
+												onclick="updateForm(${recom.mainCommentCode})">수정</button>
+											<div id="update-form-${recom.mainCommentCode}"
+												class="update-form">
+												<form id="comment-frm-${recom.mainCommentCode}">
+													<div id="comment-box-update-${recom.mainCommentCode}">
+														<label for="textbox-update${recom.mainCommentCode}">
+															${member.nickname} : </label> <input
+															id="textbox-update${recom.mainCommentCode}" type="text"
+															name="mainCommentText" value="${recom.mainCommentText}">
+														<button type="button"
+															onclick="updateComment(event,${recom.mainCommentCode})">댓글
+															수정</button>
+													</div>
+												</form>
+											</div>
+										</c:if>
+
+									</div>
+								</c:forEach>
+					</c:if>
+						</div>
+						</c:if>
+					</div>
+					</c:when>
+					<c:otherwise>
 					<div id="comm-${com.mainCommentCode}" class="comment">
 						<div class="comment-head">
 							<div class="prof">${com.nickname}
@@ -183,7 +247,6 @@
 									</div>
 								</form>
 							</div>
-							<c:set var="reNum" value="" />
 
 						</c:if>
 
@@ -278,6 +341,8 @@
 								</div>
 						</div>
 					</div>
+					</c:otherwise>
+					</c:choose>
 				</c:forEach>
 
 			</c:otherwise>

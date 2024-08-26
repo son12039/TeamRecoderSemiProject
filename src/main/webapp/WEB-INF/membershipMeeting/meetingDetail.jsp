@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>비밀번호가 같습니다</h1>
+
 </body>
 </html>

@@ -149,26 +149,7 @@ public class MembershipController {
 			model.addAttribute("main", list);
 			// 해당클럽에 가입신청된 모든 유저정보		
 			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
-		//	System.out.println(service.MembershipAllInfo(membershipCode));
-			
-			System.out.println("리스트 : " + list);
-			System.out.println("올멤버 : "+ service.MembershipAllInfo(membershipCode));
-			List<Date> startList = new ArrayList<Date>();
-			List<Date> endList = new ArrayList<Date>();
-			for(int i=0; i<meetingService.allMeetings(membershipCode).size(); i ++) {
-				startList.add(meetingService.allMeetings(membershipCode).get(i).getMeetDateStart());
-				endList.add(meetingService.allMeetings(membershipCode).get(i).getMeetDateEnd());
-			}
-			
 
-			System.out.println("미팅정보 : " +meetingService.allMeetings(membershipCode));
-			meetingService.allMeetings(membershipCode).get(0).getMeetDateEnd();
-			
-			System.out.println("시작날짜 배열 : " + startList);
-			System.out.println("종료날짜 배열 : " + endList);
-			model.addAttribute("startList", startList);
-			model.addAttribute("endList", endList);
-			//System.out.println("125 : " + meetingService.allMeetings(membershipCode));
 			model.addAttribute("allmeet", meetingService.allMeetings(membershipCode));
 			// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
 			model.addAttribute("location", locationTypeService.locationList(membershipCode));

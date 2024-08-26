@@ -233,8 +233,12 @@ ALTER TABLE main_comment
 ADD FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
 
 -- main_comment 테이블의 외래 키 제약 조건 추가 (main_parents_comment_code 참조)
-ALTER TABLE main_comment
-ADD FOREIGN KEY (main_parents_comment_code) REFERENCES main_comment(main_comment_code);
+-- ALTER TABLE main_comment
+-- ADD FOREIGN KEY (main_parents_comment_code) REFERENCES main_comment(main_comment_code);
+
+-- SELECT * FROM information_schema.table_constraints WHERE CONSTRAINT_SCHEMA = 'damoim' AND TABLE_NAME = 'main_comment';
+-- ALTER TABLE main_comment DROP CONSTRAINT main_comment_ibfk_3;
+
 
 -- image 테이블의 외래 키 제약 조건 추가 (meet_code 참조)
 ALTER TABLE image

@@ -69,11 +69,21 @@
 		AND main_parents_comment_code = #{mainCommentCode}	
 	</select>
 	
-	<delete id="deleteComment" parameterType="int">
+	<delete id="deleteUpdateComment" parameterType="int">
 		UPDATE main_comment
 		SET main_comment_text = null
 		WHERE main_comment_code = #{mainCommentCode}
 	</delete>
+	
+	<delete id="deleteComment" parameterType="int">
+		DELETE FROM main_comment
+		WHERE main_comment_code = #{code}
+	</delete>
+	
+	<select id="reCommentCount" parameterType="int" resultType="int">
+		SELECT count(*) FROM main_comment 
+		WHERE main_parents_comment_code = #{code} 
+	</select>
 	
 	<update id="updateComment" parameterType="MainComment">
 		UPDATE main_comment

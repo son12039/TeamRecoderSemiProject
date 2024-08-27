@@ -54,9 +54,9 @@
 				<div>
 				<c:forEach items="${dto}" var="list">
 					<h1>가입한 클럽들</h1>
-					<img src="img/cake.jpg" /> 
-					<img src="img/cat.jpg" /> 
-					<img src="img/family1.jpg" />
+					<img src="http://192.168.10.51:8081" /> 
+					<img src="http://192.168.10.51:8081" /> 
+					<img src="http://192.168.10.51:8081" />
 					</c:forEach>
 				</div>
 			</div>

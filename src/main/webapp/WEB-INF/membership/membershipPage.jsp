@@ -132,12 +132,12 @@
                               <%-- 현제 호스트만 수락버튼 보이게 해둬서 조건 이런데 나중에 바꿔야함 --%>
                             <c:if test="${main.member.id == member.id && !(membershipUserCount >= main.membership.membershipMax)}">
                         	
-                                <form id="agreefrm-${listMember.listCode}">
-                                    <input type="hidden" name="id" value="${listMember.member.id}">
-                                    <input type="hidden" name="listGrade" value="regular">
-                                    <input type="hidden" name="membershipCode" value="${main.membership.membershipCode}">
-                                    <button id="agreeMember-${listMember.listCode}" onclick="submit('${listMember.listCode}')">가입 승인</button>
-                                </form>
+                                 <form id="agreefrm-${listMember.listCode}">
+                            <input type="hidden" name="id" value="${listMember.member.id}">
+                            <input type="hidden" name="listGrade" value="regular">
+                            <input type="hidden" name="membershipCode" value="${main.membership.membershipCode}">
+                            <button type="button" id="agreeMember-${listMember.listCode}">가입 승인</button>
+                        </form>
                             </c:if>
                             
                             

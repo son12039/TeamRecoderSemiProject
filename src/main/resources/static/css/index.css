@@ -278,9 +278,9 @@ body {
 }
 .locationTypeBodyBox {
   background-color: pink;
-  width: 1520px;
+  width: 100%;
   height: auto;
-  margin: auto;
+  text-align: center;
 }
 
 

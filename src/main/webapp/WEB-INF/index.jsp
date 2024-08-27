@@ -73,47 +73,35 @@
 <div class="locationTypeBody">
 	<div class="locationTypeBodyBox">
 	
-		<!-- 터졌을때 비상용 
-		<select id="locationLaNameSelect">
-			<option>전체보기</option>
-			<c:forEach items="${locLaNameList}" var="locLaName">
-				<option>${locLaName}</option>
-			</c:forEach>
-		</select>
-		
-		 -->
-		
-		<form id="locationLaNameSelect">
+		<form id="locationLaNameForm">
 			<input type="checkbox" value="전체보기" id="locLaNameAll" /> <label for="locLaNameAll">전체보기</label>
 			<c:forEach items="${locLaNameList}" var="locLaName">
 				<input type="checkbox" value="${locLaName}" id="${locLaName}" name="locationLaName">
 				<label for="${locLaName}">${locLaName}</label>
 			</c:forEach>
 		</form>
-		<!-- 셀릭이 아니라 버튼방식으로 -->
 		
 		
+		<form id="locationSNameForm">
+			<input type="checkbox" value="전체보기" id="locSNameAll" /> <label
+				for="locSNameAll">전체보기</label>
+			<c:forEach items="${locSNameList}" var="locSName">
+				<input type="checkbox" value="${locSName}" id="${locSName}"
+					name="locationSName">
+				<label for="${locSName}">${locSName}</label>
+			</c:forEach>
+		</form>
 		
-		<c:if test="${locSNameList.size()!=0}">
-			<form id="locationSNameForm">
-				<input type="checkbox" value="전체보기" id="locSNameAll" /> <label
-					for="locSNameAll">전체보기</label>
-				<c:forEach items="${locSNameList}" var="locSName">
-					<input type="checkbox" value="${locSName}" id="${locSName}"
-						name="locationSName">
-					<label for="${locSName}">${locSName}</label>
-				</c:forEach>
-			</form>
-		</c:if>
 		<br>
 		
-		
-		<select id="typeLaNameSelect">
-			<option>전체보기</option>
+		<form id="typeLaNameSelect">
+			<input type="checkbox" value="전체보기" id="typeLaNameAll" /> <label for="typeLaNameAll">전체보기</label>
 			<c:forEach items="${typeLaNameList}" var="typeLaName">
-				<option>${typeLaName}</option>
+				<input type="checkbox" value="${typeLaName}" id="${typeLaName}" name="typeLaName">
+				<label for="${typeLaName}">${typeLaName}</label>
 			</c:forEach>
-		</select>
+		</form>
+		
 		
 		<c:if test="${typeSNameList.size()!=0}">
 			<form id="typeSNameForm">

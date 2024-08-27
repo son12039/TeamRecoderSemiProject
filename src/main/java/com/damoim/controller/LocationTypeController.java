@@ -19,6 +19,7 @@ import com.damoim.model.dto.LocationTypeDTO;
 import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.dto.MembershipDTO;
 import com.damoim.model.dto.SearchDTO;
+import com.damoim.model.dto.searchAjaxDTO;
 import com.damoim.model.vo.LocationCategory;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
@@ -65,7 +66,6 @@ public class LocationTypeController {
 				List<LocationCategory> locations = locationTypeservice.locationList(dto.getMembershipCode());
 				List<TypeCategory> types = locationTypeservice.typeList(dto.getMembershipCode());
 				Member member = locationTypeservice.selectMemberNickName(dto.getMembershipCode());
-				System.out.println(dto.getMembershipSimpleText());
 				dto.setLocations(locations);
 				dto.setTypes(types);
 				dto.setNickname(member.getNickname());
@@ -88,6 +88,7 @@ public class LocationTypeController {
 		model.addAttribute("list", locationTypeList(search));
 		// 화면 상단바
 		model.addAttribute("locLaNameList", locationTypeservice.locLaNameList());
+		//잠시 꺼두기
 		model.addAttribute("locSNameList",locationTypeservice.locSNameList(search.getLocationLaName()));
 		model.addAttribute("typeLaNameList", locationTypeservice.typeLaNameList());
 		model.addAttribute("typeSNameList",locationTypeservice.typeSNameList(search.getTypeLaName()));
@@ -99,5 +100,13 @@ public class LocationTypeController {
 	@GetMapping("list")
 	public List<MemberLocTypeDTO> list(SearchDTO search) {	
 		return locationTypeList(search);
+	}
+	
+	@ResponseBody
+	@GetMapping("locationSList")
+	public void locationSList(searchAjaxDTO searchAjax,Model model) {
+		System.out.println(searchAjax);
+		System.out.println(searchAjax.getLocationLaName());
+		model.addAttribute("locSNameList",locationTypeservice.locSNameList(searchAjax.getLocationLaName()));
 	}
 }

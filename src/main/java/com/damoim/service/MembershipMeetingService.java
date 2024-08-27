@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.damoim.model.vo.Image;
 import com.damoim.model.vo.MeetingsAgree;
 import com.damoim.model.vo.MembershipMeetings;
 
@@ -42,6 +43,13 @@ public List<MeetingsAgree> meetMember(int meetCode){
 	
 	return mapper.meetMember(meetCode);
 }
+
+public void participation (MeetingsAgree ma) {
+	
+	mapper.participation(ma);
+}
+
+
 	 
 	 
 }

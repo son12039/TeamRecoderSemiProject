@@ -63,10 +63,11 @@ VALUES (#{membershipCode},#{meetDateStart},#{meetDateEnd},
         
         <insert id="yesOrNo" parameterType="MeetingsAgree">
         INSERT INTO meetings_agree(id,meet_code)
-        VALUES (#{id},#{meetCode})
-        </insert>
-        
-        
+        VALUES 
+        	<foreach collection="ides" item="id" separator=",">
+        		(#{id},#{meetCode})
+        	</foreach>
+        </insert>  
 
         
         <select id="meetMember" resultMap="meetAgree" parameterType="Integer">
@@ -76,13 +77,20 @@ VALUES (#{membershipCode},#{meetDateStart},#{meetDateEnd},
         WHERE meet_code = #{meetCode}
         </select>
         
-        <update id="participation" parameterType="String">
-        UPDATE meetings_agree
-        set meet_agree_yn = true
-        WHERE meet_code = #{meetCode} AND id = #{id}      
-        </update>
+    <update id="participation" parameterType="MeetingsAgree">
+    UPDATE meetings_agree
+    <set>
+        <if test="meetAgreeYn == false">
+            meet_agree_yn = true
+        </if>
+        <if test="meetAgreeYn == true">
+            meet_agree_yn = false
+        </if>
+    </set>
+    WHERE meet_code = #{meetCode} AND id = #{id}
+</update>
         
-     
+    
     
     
     

@@ -42,9 +42,9 @@
         
         <!-- 멤버쉽 채팅 서버 링크   -->
         <a href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a> 
-        
+        <c:if test="${member.id == main.member.id }">
         <a href="/write?membershipCode=${main.membership.membershipCode}">모임게시판작성하러가기</a>
-          
+          </c:if>
         <!--멤버쉽 대표 이미지   -->
         <img id="mainImg" src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}" alt="클럽 이미지">
         

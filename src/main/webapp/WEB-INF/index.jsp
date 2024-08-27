@@ -119,7 +119,7 @@
 					<h3>멤버수 :
 						${info.count}/${info.membershipMax}</h3>
 					<div id="host">
-					<!-- 이부분! -->
+					
 						<c:choose>
 							<c:when test="${info.memberImg != null}">
 								<a href="/${id}"><img class="user-img" 

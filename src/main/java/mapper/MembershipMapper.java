@@ -51,6 +51,10 @@ public interface MembershipMapper {
 
 	
 	void updateMembershipInfo(Membership membershipInfo);
+	int meetCount (String string);
+	List<MembershipUserList> selectMemberUserList(String id);
+	
+	
 }
 
 

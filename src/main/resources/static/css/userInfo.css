@@ -1,0 +1,90 @@
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#container {
+  background-color: cornsilk;
+  width: 100%;
+  height: 100vh;
+  max-width: 1000px;
+  min-width: 500px;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  padding-top: 100px;
+  padding: 50px;
+}
+#header {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+}
+.text div h1 {
+  font-size: 1rem;
+  font-weight: bolder;
+}
+
+#section {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+button {
+  margin-left: 20px;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.text {
+  width: 100%;
+  justify-content: space-around;
+  padding: 10px;
+}
+#group p {
+  margin-right: 20px;
+}
+.text div {
+  display: flex;
+  text-wrap: nowrap;
+  margin: 10px;
+}
+.text div span {
+  font-size: 1rem;
+  font-weight: bolder;
+}
+
+.text h3 {
+  width: 400px;
+  height: 100px;
+  text-wrap: wrap;
+  overflow-wrap: break-word;
+}
+
+#section img {
+  max-width: 300px;
+  max-height: 300px;
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
+}
+
+#section2 {
+  width: 100%;
+  height: 200px;
+  padding-top: 100px;
+}
+
+#section2 div img {
+  width: 100px;
+  height: 100px;
+  border-radius: 200px;
+}

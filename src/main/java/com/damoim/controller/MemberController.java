@@ -240,12 +240,25 @@ public class MemberController {
 	@GetMapping("/userInfo/{nickname}")
 	public String getMethodName(@PathVariable("nickname") String nickname, Model model) {
 		Member member = service.nicknameCheck(new Member().builder().nickname(nickname).build());
-		System.out.println(member);
-		model.addAttribute("mem" ,member );
+		
+		
+		MemberInfoDTO dto = new MemberInfoDTO().builder()
+					.member(member)
+					.memberMeetCount(infoService.meetCount(member.getId()))
+					.membershipUserList(infoService.selectMemberUserList(member.getId()))
+					.build();
+	
+		
+		model.addAttribute("mem" ,dto);
 		return "member/userInfo";
 	}
 	 
    
+	private MemberInfoDTO[] MembershipUserList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/* 성철
 	 * 파일 업로드 각각 mamber의 id 폴더에 저장후 URL 리턴
 	 * */

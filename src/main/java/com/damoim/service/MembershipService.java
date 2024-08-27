@@ -99,6 +99,14 @@ public class MembershipService {
 		return	mapper.selectMembership(membershipCode);
 	}
 	
+	public int meetCount(String id) {
+		return mapper.meetCount(id);
+	}
+	
+	public List<MembershipUserList> selectMemberUserList(String id){
+		return mapper.selectMemberUserList(id);
+	}
+	
 //	public List<MembershipUserList> list(Paging paging) {
 //		
 //		return mapper.allMembership(paging);

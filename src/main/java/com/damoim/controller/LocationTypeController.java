@@ -65,8 +65,8 @@ public class LocationTypeController {
 				List<LocationCategory> locations = locationTypeservice.locationList(dto.getMembershipCode());
 				List<TypeCategory> types = locationTypeservice.typeList(dto.getMembershipCode());
 				Member member = locationTypeservice.selectMemberNickName(dto.getMembershipCode());
-
- 		
+				
+				
 				dto.setLocations(locations);
 				dto.setTypes(types);
 				dto.setNickname(member.getNickname());

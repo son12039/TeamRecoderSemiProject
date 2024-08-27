@@ -15,33 +15,7 @@
 		<result column="list_grade" property="listGrade" />
 	</resultMap>
 
-	<resultMap type="MemberInfoDTO" id="MemberInfomap">
-		<result column="id" property="id" />
-		<result column="pwd" property="pwd" />
-		<result column="addr" property="addr" />
-		<result column="phone" property="phone" />
-		<result column="email" property="email" />
-		<result column="name" property="name" />
-		<result column="age" property="age" />
-		<result column="gender" property="gender" />
-		<result column="status" property="status" />
-		<result column="member_manner" property="MemberManner" />
-		<result column="nickname" property="nickname" />
-		<result column="member_img" property="MemberImg" />
-		<result column="member_hobby" property="MemberHobby" />
-		<result column="member_info" property="MemberInfo" />
-		<result column="member_location" property="MemberLocation" />
-		<result column="member_type" property="MemberType" />
-		<result column="membership_code" property="membershipCode" />
-		<result column="membership_name" property="membershipName" />
-		<result column="membership_img" property="membershipImg" />
-		<result column="membership_info" property="membershipInfo" />
-		<result column="membership_date" property="membershipDate" />
-		<result column="membership_grade" property="membershipGrade" />
-		<result column="membership_max" property="membershipMax" />
-		<result column="listCode" property="listCode" />
-		<result column="listGrade" property="listGrade" />
-	</resultMap>
+
 
 	<resultMap id="MemberResultMap" type="Member">
 		<id property="id" column="id" />

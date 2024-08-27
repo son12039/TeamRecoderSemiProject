@@ -40,6 +40,7 @@ public class Member implements UserDetails {
     private MultipartFile file; // 이미지 업로드 파일
     
     private List<MemberListDTO> memberListDTO;
+    private int memberMeetCount;
     
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

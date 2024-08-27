@@ -1,7 +1,7 @@
 
 
 function showReplyForm(commentCode) {
-        let formId = "#reply-form-" + commentCode;
+        let formId = "#recomment-box-" + commentCode;
         let formElement = $(formId);
 
 		console.log(formId);

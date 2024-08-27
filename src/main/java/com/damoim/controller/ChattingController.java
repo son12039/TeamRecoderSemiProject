@@ -140,10 +140,9 @@ public class ChattingController {
 
     // 닉네임 조회
     @GetMapping("/nick1")
-    public ResponseEntity<String> nick1() throws Exception {
+    public ResponseEntity<Member> nick1() throws Exception {
        Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-       System.out.println(mem.getNickname());
-     return new ResponseEntity<>(mem.getNickname(), HttpStatus.OK);
+     return new ResponseEntity<>(mem, HttpStatus.OK);
     }
 
     // 새 채팅방 만들기

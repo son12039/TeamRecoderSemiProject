@@ -6,6 +6,7 @@ import java.util.Date;
 
 @Data
 public class MessageDAO {
+	private String img;
     private String message;
     private String nickname;
     private Date date;

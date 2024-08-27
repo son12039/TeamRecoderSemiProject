@@ -38,6 +38,7 @@
         <!-- 멤버쉽 수정 -->
         <div>
        	<h2><a href="/updateMembership">정보 수정하기</a></h2>
+       	<a href="/club/${main.membership.membershipCode}/membershipPromotionDetail">홍보글 작성</a>
         </div>
         
         <!-- 멤버쉽 채팅 서버 링크   -->

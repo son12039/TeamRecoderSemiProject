@@ -141,7 +141,11 @@
 					</c:if>
 					<c:if test="${com.mainCommentText != null}">
 						<div class="comment-head">
-							<div class="prof">${com.nickname}
+						
+						<a href="/userInfo/${com.nickname}">
+						
+							<div class="prof" >${com.nickname}
+							
 								<c:choose>
 									<c:when test="${com.memberImg != null}">
 										<img class="user-img"
@@ -151,9 +155,10 @@
 									<c:otherwise>
 										<img class="user-img"
 											src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+										
 									</c:otherwise>
 								</c:choose>
-							</div>${com.mainCommentDate}</div>
+							</div></a>${com.mainCommentDate}</div>
 						<div class="comment-text">${com.mainCommentText}</div>
 						<c:if
 							test="${com.nickname == member.nickname || memberGrade == 'host'}">
@@ -202,6 +207,7 @@
 							<c:forEach items="${com.recoment}" var="recom">
 								<div id="comm-${recom.mainCommentCode}" class="re-comment">
 									<div class="comment-head">
+										<a href="/userInfo/${recom.nickname}">
 										<div class="prof">${recom.nickname}
 											<c:choose>
 												<c:when test="${recom.memberImg != null}">
@@ -214,7 +220,7 @@
 														src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
 												</c:otherwise>
 											</c:choose>
-										</div>${recom.mainCommentDate}</div>
+										</div></a>${recom.mainCommentDate}</div>
 									<br />
 									<div class="comment-text">${recom.mainCommentText}</div>
 									<c:if
@@ -283,5 +289,8 @@
 	</div>
 
 	<script src="${pageContext.request.contextPath}/js/main.js"></script>
+	<script>
+
+	</script>
 </body>
 </html>

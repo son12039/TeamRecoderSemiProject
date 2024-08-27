@@ -261,17 +261,36 @@ ALTER TABLE membership_meetings
 ADD FOREIGN KEY (id) REFERENCES member(id);
 
 ALTER TABLE membership
-ADD column memership_accession_text text,
-ADD column memership_simple_text VARCHAR(20),
-ADD column memership_main_text text,
-ADD column memership_secret_text text;
+ADD column membership_accession_text text,
+ADD column membership_simple_text VARCHAR(255);
+
 
 ALTER TABLE membership DROP COLUMN memership_main_text;
 ALTER TABLE membership_meetings
 ADD column meet_title VARCHAR(50);
 
-SELECT * FROM membership_meetings;
+ALTER TABLE member
+ADD COLUMN last_recommendation_time TIMESTAMP NULL DEFAULT NULL;
+ 
+update member
+set last_recommendation_time = now()
+where id = 'user001';
 
+select * from member where id = 'user001';
+CREATE EVENT update_recommendations_test2
+ON SCHEDULE EVERY 1 day
+DO
+  UPDATE member
+  SET last_recommendation_time = NULL
+  WHERE last_recommendation_time IS NOT NULL
+    AND last_recommendation_time < NOW() - INTERVAL 1 day;
+
+
+SHOW VARIABLES LIKE 'event%';
+SELECT * FROM information_schema.events;
+
+SELECT * FROM membership_meetings;
+show variables like '%dir';
 
 SELECT count(*) FROM main_comment 
 WHERE main_parents_comment_code = 4;

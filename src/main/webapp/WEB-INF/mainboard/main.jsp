@@ -18,11 +18,17 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
+   <script
+      src="https://kit.fontawesome.com/ef885bd654.js"
+      crossorigin="anonymous"
+    ></script>
 <style>
+
 </style>
 </head>
 <body>
 	<jsp:include page="../header.jsp"></jsp:include>
+	
 
 	<div id="container">
 		<h1>${main.membership.membershipName }</h1>
@@ -83,7 +89,7 @@
 					test="${memberGrade == 'none' && main.count >= main.membership.membershipMax}">
 					<h2>최대 인원에 도달한 클럽입니다 신청할수 없습니다.</h2>
 				</c:when>
-
+		
 
 				<c:when
 					test="${memberGrade == 'none' && main.count < main.membership.membershipMax }">

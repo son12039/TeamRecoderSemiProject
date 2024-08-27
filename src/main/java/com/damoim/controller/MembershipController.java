@@ -224,22 +224,7 @@ public class MembershipController {
 	}
 	
 	
-	@PostMapping("/updateMembership")
-	public String updateMembership(Membership vo) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member mem = (Member) authentication.getPrincipal();
-		mem.getId();
-		System.out.println("updateMembership : "+ mem);
-		System.out.println(vo);
-		vo.getMembershipCode();
-		service.updateMembership(vo);
-		
-		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		
-		
-		return "/";
-	}
 	
 	// 홍보글 작성페이지 테스트
 	@GetMapping("/club/{membershipCode}/membershipPromotionDetail")

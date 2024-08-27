@@ -72,9 +72,11 @@ public class MemberService implements UserDetailsService {
 
 	// 중요도 떨어지는 정보 수정 메서드
 	// 일단 프로필이랑 info 정보만 수정
-	public void updateMember(Member member) {
-		mapper.updateMember(member);
+	public void updateMember(Member vo) {
+		mapper.updateMember(vo);
 	}
+	
+
 
 	// 2차인증
 	public boolean updateCheck(Member vo, String pwdCheck) {

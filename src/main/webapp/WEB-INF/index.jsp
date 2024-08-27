@@ -28,6 +28,7 @@
               <div class="header_right_menu">
                 <a href="/signUp">회원가입</a>
                 <a href="/loginPage">로그인</a>
+                
               </div>
               
               </sec:authorize>
@@ -49,9 +50,9 @@
 				
 				</div>
 					<div class="header_right_menu">
-					${member}
-						<a href="/update">마이페이지</a> <a href="/myMembership">나의
+						<a href="/mypage">마이페이지</a> <a href="/myMembership">나의
 							모임</a> <a href="/logout">로그아웃</a>
+							<a href="/user">유저페이지</a>
 					</div>
 				</sec:authorize>
 			</div>
@@ -118,14 +119,15 @@
 					<h3>멤버수 :
 						${info.count}/${info.membershipMax}</h3>
 					<div id="host">
+					<!-- 이부분! -->
 						<c:choose>
 							<c:when test="${info.memberImg != null}">
-								<img class="user-img"
-									src="http://192.168.10.51:8081/member/${info.id}/${info.memberImg}">
+								<a href="/${id}"><img class="user-img" 
+									src="http://192.168.10.51:8081/member/${info.id}/${info.memberImg}"></a>
 							</c:when>
 							<c:otherwise>
-								<img class="user-img"
-									src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+								<a href="/${id}"><img class="user-img"
+									src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg"></a>
 							</c:otherwise>
 						</c:choose>
 						<h2>호스트 : ${info.nickname}</h2>

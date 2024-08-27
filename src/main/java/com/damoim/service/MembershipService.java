@@ -83,17 +83,13 @@ public class MembershipService {
 	
 	
 	
-	public void updateMembership(Membership membership) {
-		mapper.updateMembership(membership);
-	}
+
 	
 	public ArrayList<MembershipUserList> selectName(String member) {
 		return mapper.selectName(member);
 	}
 	
-	public List<MembershipUserList> list(Paging paging) {
-		
-		return mapper.allMembership(paging);
+
 	
 	public void updateMembershipInfo(Membership membershipInfo) {
 		mapper.updateMembershipInfo(membershipInfo);

@@ -130,13 +130,16 @@
 
 
 	<!-- / updateMember -->
-	<!-- 일단 이미지랑 info만 수정 -->
 	<update id="updateMember" parameterType="Member">
 		UPDATE member
 		SET
-		member_img = #{memberImg}, member_info = #{memberInfo}
+		member_img = #{memberImg},
+		member_info = #{memberInfo},
+		member_hobby = #{memberHobby}
 		WHERE id = #{id}
 	</update>
+	
+
 
 	<select id="selectMember" parameterType="String"
 		resultType="Member">

@@ -48,8 +48,7 @@ public interface MembershipMapper {
 	
 	
 	// 멤버쉽 업데이트 ============================
-	
-	void updateMembership(Membership membership);
+
 	
 	void updateMembershipInfo(Membership membershipInfo);
 }

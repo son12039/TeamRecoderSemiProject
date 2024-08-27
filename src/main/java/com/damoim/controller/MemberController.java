@@ -83,7 +83,7 @@ public class MemberController {
 		addr += "#" + addrDetail;
 		mem.setAddr(addr);
 		// 해당 id 이름의 회원 폴더 생성
-		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\member\\"+ mem.getId()+"\\");
+		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\member\\" + mem.getId() + "\\");
 		Files.createDirectories(directoryPath);
 		member.setMemberImg(fileUpload(imgFile, mem.getId()));
 		service.signUp(member);
@@ -144,7 +144,7 @@ public class MemberController {
 	 * 성철 로그인 X 한 상태에서 유저에게 ID랑 이메일 정보를 받아서 일치할시에 그 유저가 가입할때 넣은 이메일주소에 임시 비밀번호 발송 ->
 	 * 암호화 -> DB변경 (이메일서비스)
 	 */
-
+	
 	@ResponseBody
 	@PostMapping("/updateMemberInfo")
 	public boolean updateMemberInfo(Member vo, Model model, String addrDetail, String nickname) {
@@ -158,7 +158,7 @@ public class MemberController {
 		vo.setAddr(addr);
 		vo.setNickname(nickname);
 		System.out.println("vo.getNickname : " + vo.getNickname()); // 닉네임 받아온거 확인
-		
+
 		// 닉네임 중복확인
 		if (service.nicknameDupCheck(vo)) {
 			System.out.println("닉네임 중복");
@@ -185,11 +185,11 @@ public class MemberController {
 	// 회원 탈퇴
 	@ResponseBody
 	@PostMapping("/memberStatus")
-	public boolean memberStatus( HttpServletRequest request, HttpServletResponse response) {
+	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
 		ArrayList<MembershipUserList> membershipList = infoService.selectName(mem.getId());
-		
+
 		// membershipList <- 해당 탈퇴하려는 유저가 가입되어있는 클럽 중에서 admin 이거나 host인 클럽 정보 를 담고있는 리스트
 		if (membershipList.size() > 0) { // 해당 유저가 가입된 클럽중 어드민이나 호스트인게 있다면!
 			return false;
@@ -202,36 +202,37 @@ public class MemberController {
 		SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 		logoutHandler.logout(request, response, authentication);
 		return true;
-		
+
 	}
 
 	// 프로필, info 업데이트
 	@ResponseBody
 	@PostMapping("/updateMember")
-	public String updateMember(String memberInfo, MultipartFile file) throws IllegalStateException, IOException {
+	public String updateMember(Member vo, MultipartFile file) throws IllegalStateException, IOException {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
 
-		System.out.println("멤버 파일 정보 : " + mem.getFile());
-		System.out.println("업데이트멤버 멤버 정보: " + mem); // 멤버정보 확인
-		// mem에 member정보 다 담겨져서 옴
-		System.out.println("파일을 보냈나? : " + file.getOriginalFilename());
-		System.out.println("null임? : " + file.getOriginalFilename().isEmpty());
-
 		// 조건에 만약 보내준 링크가 null이면 변하지 않도록
-		if (!file.getOriginalFilename().isEmpty()) {
+		if (!file.getOriginalFilename().isEmpty() || mem.getMemberImg() == null) {
 
 			fileDelete(mem.getMemberImg(), mem.getId());
 			String url = fileUpload(file, mem.getId());
 			mem.setMemberImg(url);
 			System.out.println("updateMember 삭제 : " + mem.getMemberImg() + mem.getId());
 		}
-
-		// 새 이미지 업데이트
-		System.out.println("수정후 member 정보 : " + mem);
+		
+		
+		mem.setMemberHobby(vo.getMemberHobby());
+		System.out.println("업데이트 MemberHobby : " + mem.getMemberHobby());
+		
+		mem.setMemberInfo(vo.getMemberInfo());
+		System.out.println("업데이트 MemberInfo : " + mem.getMemberInfo());
+		
 		service.updateMember(mem);
-
+		System.out.println("수정후 member 정보 : " + mem);
+		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
+
 		return "redirect:/mypage";
 	}
 
@@ -289,5 +290,3 @@ public class MemberController {
 		return "redirect:/"; // 인덱스 페이지로 리다이렉트
 	}
 }
-
-

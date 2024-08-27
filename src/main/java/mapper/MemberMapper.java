@@ -36,7 +36,7 @@ public interface MemberMapper {
 	Member selectMember(Member member);
 	
 	// 회원정보 업데이트 ===============================
-	void updateMember(Member member);
+	void updateMember(Member vo);
 	Member updateCheck(Member vo, Member mem);
 	void updateMemberInfo(Member member);
 	void addrUpdate(Member member);

@@ -172,7 +172,7 @@
 	</select>
 
 	<select id="nicknameCheck" parameterType="Member"
-		resultType="Member">
+		resultMap="MemberResultMap">
 		SELECT * FROM member
 		WHERE nickname = #{nickname}
 	</select>

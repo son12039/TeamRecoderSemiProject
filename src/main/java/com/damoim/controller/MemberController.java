@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -236,11 +237,20 @@ public class MemberController {
 		return "redirect:/mypage";
 	}
 
-	/*
-	 * 성철 파일 업로드 각각 mamber의 id 폴더에 저장후 URL 리턴
-	 */
-	public String fileUpload(MultipartFile file, String id) throws IllegalStateException, IOException {
-		if (file.getOriginalFilename() == "") {
+	@GetMapping("/userInfo/{nickname}")
+	public String getMethodName(@PathVariable("nickname") String nickname, Model model) {
+		Member member = service.nicknameCheck(new Member().builder().nickname(nickname).build());
+		System.out.println(member);
+		model.addAttribute("mem" ,member );
+		return "member/userInfo";
+	}
+	 
+   
+	/* 성철
+	 * 파일 업로드 각각 mamber의 id 폴더에 저장후 URL 리턴
+	 * */
+	public String fileUpload(MultipartFile file,String id) throws IllegalStateException, IOException {
+		if(file.getOriginalFilename() == "") {
 			System.out.println("NULL 리턴");
 			return null;
 		}

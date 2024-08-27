@@ -72,6 +72,8 @@
 	<!-- 08-20 채승훈 -->
 <div class="locationTypeBody">
 	<div class="locationTypeBodyBox">
+	
+		<!-- 터졌을때 비상용 
 		<select id="locationLaNameSelect">
 			<option>전체보기</option>
 			<c:forEach items="${locLaNameList}" var="locLaName">
@@ -79,6 +81,15 @@
 			</c:forEach>
 		</select>
 		
+		 -->
+		
+		<form id="locationLaNameSelect">
+			<input type="checkbox" value="전체보기" id="locLaNameAll" /> <label for="locLaNameAll">전체보기</label>
+			<c:forEach items="${locLaNameList}" var="locLaName">
+				<input type="checkbox" value="${locLaName}" id="${locLaName}" name="locationLaName">
+				<label for="${locLaName}">${locLaName}</label>
+			</c:forEach>
+		</form>
 		<!-- 셀릭이 아니라 버튼방식으로 -->
 		
 		
@@ -92,7 +103,6 @@
 						name="locationSName">
 					<label for="${locSName}">${locSName}</label>
 				</c:forEach>
-				<!-- <input type="submit" value="지역 검색" id="locSNameBtn"> -->
 			</form>
 		</c:if>
 		<br>
@@ -138,7 +148,7 @@
 				</div>
 				<div class="membership-info">
 					<h1 class="membership-name">${info.membershipName}</h1>
-					<h2>${info.membershipInfo}</h2>
+					<h2>${info.membershipSimpleText}</h2>
 					<h3>멤버수 :
 						${info.count}/${info.membershipMax}</h3>
 					<div id="host">
@@ -171,6 +181,8 @@
 			</div>
 		</c:forEach>
 	</div>
+	<jsp:include page="footer/footer.jsp" />
+	
 	<!-- <a href="/dummyUpdate">!!!!!!!!!!!주의!!!!!!!!!!!! 기존 유저들 비밀번호 암호화하는거임 건드리지 말것</a> -->
 	<!-- <div class="membership-list"> -->
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>

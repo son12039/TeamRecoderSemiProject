@@ -3,8 +3,6 @@ const url = new URL(location.href);
 // 현재 페이지에 대한 url 파라미터 가져오기기
 const urlParams = url.searchParams;
 
-//window.scrollTo({top: localStorage.getItem("scroll"), behavior: 'instant'});
-
 // 상위 지역 : locationLaName, 하위 지역들 : locationSName, 
 // 상위 유형 : typeLaName, 하위 유형들 : typeSName
 
@@ -13,17 +11,17 @@ const urlParams = url.searchParams;
 
 
 if(urlParams.has("locationLaName")) {
-	window.scrollTo({top:630, left:0, behavior:'smooth'});// 클릭시 해당 위치로
+	//window.scrollTo({top:630, left:0, behavior:'smooth'});// 클릭시 해당 위치로
 	const locationLaName = urlParams.get('locationLaName');
-	const list = $('#locationLaNameSelect option');
+	const list = $('#locationLaNameSelect input');
 	for(let item of list) {
 		if(locationLaName === item.value) {
-			item.setAttribute('selected', true);
+			item.setAttribute('checked', true);
 		}
 	}
 }
 if(urlParams.has("locationSName")) {
-	window.scrollTo({top:630, left:0, behavior:'smooth'});
+	//window.scrollTo({top:630, left:0, behavior:'smooth'});
 	const locationSName = urlParams.getAll('locationSName');
 	const list = $('#locationSNameForm input');
 	for(let item of list) {
@@ -33,11 +31,15 @@ if(urlParams.has("locationSName")) {
 	}
 }
 
-$("#locationLaNameSelect").change(function() {
+$("#locationLaNameSelect input[type=checkbox]").change(function() {
+	console.log("나 눌렸냐?")
+	console.log($(this).val())
+	
 	urlParams.delete("locationLaName");
 	urlParams.delete("locationSName");
 	const laName = $(this).val();
 	if(laName !== '전체보기') {
+		
 		urlParams.append('locationLaName', laName);
 	}
 	location.href = url;
@@ -118,7 +120,7 @@ $("#typeSNameForm input[type=checkbox]").change(function(){
 
 
 if(urlParams.has("typeLaName")){
-	window.scrollTo({top:630, left:0, behavior:'smooth'});
+	//window.scrollTo({top:630, left:0, behavior:'smooth'});
 	let typeLaName = urlParams.get("typeLaName")
 	let list = $('#typeLaNameSelect option')
 	for(let item of list){
@@ -128,7 +130,7 @@ if(urlParams.has("typeLaName")){
 	}
 }
 if(urlParams.has("typeSName")){
-	window.scrollTo({top:630, left:0, behavior:'smooth'});
+	//window.scrollTo({top:630, left:0, behavior:'smooth'});
 	const typeSName = urlParams.getAll('typeSName');	
 	const list = $('#typeSNameForm input');
 	for(let item of list){

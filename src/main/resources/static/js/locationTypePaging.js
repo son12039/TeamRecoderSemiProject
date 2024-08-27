@@ -3,8 +3,8 @@ let isLoading = false; // 로딩 상태를 추적
 window.addEventListener("scroll", () => {
 
 	if (isLoading) return; // 로딩 중이면 AJAX 요청을 방지
-
-	if (document.body.offsetHeight <= window.scrollY + window.innerHeight) {
+	
+	if (document.body.offsetHeight -700 <= window.scrollY + window.innerHeight) {
 		isLoading = true; // 로딩 상태 설정
 
 		page++;
@@ -34,7 +34,7 @@ window.addEventListener("scroll", () => {
 							'</div>' +
 							'<div class="membership-info">' +
 							'<h1 class="membership-name">' + club.membershipName + '</h1>' +
-							'<h2>' + club.membershipInfo + '</h2>' +
+							'<h2>' + club.membershipSimpleText + '</h2>' +
 							'<h3>멤버수 :' + club.count + '/' + club.membershipMax + '</h3>' +
 							'<div id="host">';
 						if (club.memberImg != null) {

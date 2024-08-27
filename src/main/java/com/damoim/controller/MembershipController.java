@@ -149,7 +149,8 @@ public class MembershipController {
 			model.addAttribute("main", list);
 			// 해당클럽에 가입신청된 모든 유저정보		
 			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
-
+			System.out.println("에러전");
+			System.out.println(meetingService.allMeetings(membershipCode));
 			model.addAttribute("allmeet", meetingService.allMeetings(membershipCode));
 			// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
 			model.addAttribute("location", locationTypeService.locationList(membershipCode));

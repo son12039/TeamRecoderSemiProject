@@ -40,7 +40,6 @@ public class LocationTypeController {
 	public List<MemberLocTypeDTO> locationTypeList(SearchDTO search) {
 		
 		// '세종' 안에 null 이 아니면 '세종시' 넣고
-		System.out.println(locationTypeservice.searchList(search).size());
 		if(search.getLocationSName()!=null) {
 			search.setLocationSNameList(new ArrayList<>(Arrays.asList(search.getLocationSName().split(","))));	
 		}
@@ -66,8 +65,7 @@ public class LocationTypeController {
 				List<LocationCategory> locations = locationTypeservice.locationList(dto.getMembershipCode());
 				List<TypeCategory> types = locationTypeservice.typeList(dto.getMembershipCode());
 				Member member = locationTypeservice.selectMemberNickName(dto.getMembershipCode());
-
- 		
+				System.out.println(dto.getMembershipSimpleText());
 				dto.setLocations(locations);
 				dto.setTypes(types);
 				dto.setNickname(member.getNickname());

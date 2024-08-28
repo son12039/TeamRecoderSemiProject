@@ -169,6 +169,7 @@ public class MembershipController {
 	 @PostMapping("/agreeMember") // 클럽 회원가입 승인
 	 public void agreeMemeber(MemberListDTO member) {
 		 // 일단은 호스트일때만 클럽 회원 승인기능
+		 System.out.println(member);
 		 service.agreeMemeber(member);	
 	 }
 	

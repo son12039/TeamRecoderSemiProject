@@ -28,6 +28,7 @@
               <div class="header_right_menu">
                 <a href="/signUp">회원가입</a>
                 <a href="/loginPage">로그인</a>
+                <a href="/resignedMember">테스트</a>
               </div>
               
               </sec:authorize>

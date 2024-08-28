@@ -36,4 +36,13 @@ public class MainCommentService {
 		mapper.updateComment(mainComment);
 	}	
 	
+	
+	// 탈퇴한 회원 댓글 비공개
+	public ArrayList<MainComment> resignedMember(MainComment mainComment){
+		return mapper.resignedMember(mainComment);
+	}
+	public void resignedComment(MainComment mainComment) {
+		mapper.resignedComment(mainComment);
+	}
+	
 }

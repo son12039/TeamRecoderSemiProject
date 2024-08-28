@@ -20,9 +20,14 @@
 	<sec:authorize access="isAuthenticated()" var="principal">
 		<sec:authentication property="principal" var="member" />
 		<nav>
-			<a href="/" class="header_menu">HOME</a> 
-			<a href="/logout" class="header_menu">로그아웃</a> 
-			<a href="/memberDelete" class="header_menu">회원탈퇴</a>
+			<div>
+				<a id ="LOGO" href="/">다모임</a>
+			</div>
+			<div>
+				<a href="/" class="header_menu">HOME</a> 
+				<a href="/logout" class="header_menu">로그아웃</a> 
+				<a href="/memberDelete" class="header_menu">회원탈퇴</a>
+			</div>
 		</nav>
 		<!-- (동문) -->
 		<div class="container">

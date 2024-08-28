@@ -21,8 +21,13 @@
 	<sec:authorize access="isAuthenticated()" var="principal">
 		<sec:authentication property="principal" var="member" />
 		<nav>
+			<div>
+				<a id ="LOGO" href="/">다모임</a>
+			</div>
+			<div>
 			<a href="/">HOME</a> <a href="/logout">로그아웃</a> <a
 				href="/updateCheck">회원정보 수정</a>
+			</div>
 		</nav>
 		<form action="/updateMember" method="post" id="form"
 			enctype="multipart/form-data">

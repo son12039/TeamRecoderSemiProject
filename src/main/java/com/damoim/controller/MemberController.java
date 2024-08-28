@@ -253,10 +253,7 @@ public class MemberController {
 	}
 	 
    
-	private MemberInfoDTO[] MembershipUserList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	/* 성철
 	 * 파일 업로드 각각 mamber의 id 폴더에 저장후 URL 리턴

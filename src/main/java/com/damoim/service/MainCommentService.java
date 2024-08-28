@@ -2,9 +2,9 @@ package com.damoim.service;
 
 import java.util.ArrayList;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.damoim.model.vo.MainComment;
 
 import mapper.MainCommentMapper;
@@ -39,10 +39,29 @@ public class MainCommentService {
 	
 	// 탈퇴한 회원 댓글 비공개
 	public ArrayList<MainComment> resignedMember(MainComment mainComment){
+		// 멤버정보DTO
+		MainComment member = new MainComment();
+		member.setMember(mainComment.getMember());
+		
+		System.out.println("resignedMember : " + member);
+		
+		ArrayList<MainComment> comments = mapper.resignedMember(mainComment);
+		
+		String text = "비공개된 댓글입니다";
+		
+		// status가 false면 text로 댓글 덮어씌우기
+		for (MainComment comment : comments) {
+			if(comment.getMember().isStatus() == false) {
+				
+				comment.setMainCommentText(text);
+				
+			}
+		}
+		
 		return mapper.resignedMember(mainComment);
 	}
-	public void resignedComment(MainComment mainComment) {
-		mapper.resignedComment(mainComment);
-	}
 	
+	
+	
+
 }

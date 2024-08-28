@@ -91,25 +91,14 @@
 		WHERE main_comment_code = #{mainCommentCode}
 	</update>
 	
-	
-	
-	
-	
-	<!-- 회원탈퇴한 회원 검색 -->
-	<select id="resignedMember" parameterType="MainComment" resultMap="commentMemberMap">
+	<!-- 회원탈퇴한 회원 검색후 댓글 비공개 -->
+	<select id="resignedMember" parameterType="mainComment" resultMap="commentMemberMap">
 		SELECT *
 		FROM member
 		JOIN main_comment USING (id)
 		WHERE id =#{id} AND status =#{status}
-			AND main_comment_code =#{mainCommentCode}
 	</select>
 	
-	<!-- status가 false인 회원 댓글 비공개 -->
-	<update id="resignedComment" parameterType="MainComment">
-		UPDATE main_comment
-		SET main_comment_text =#{main_comment_text}
-		WHERE main_comment_code =#{main_comment_code} AND id =#{id}
-	</update>
 	
 	
 	

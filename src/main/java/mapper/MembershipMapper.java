@@ -41,7 +41,7 @@ public interface MembershipMapper {
 	
 	void membershipImg(Membership membership);
 	
-	
+	List<MembershipUserList> MembershipAllRegular(int membershipCode);
 	
 	void updateMembership(Membership membership);
 	

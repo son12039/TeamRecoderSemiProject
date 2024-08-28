@@ -28,7 +28,7 @@ window.addEventListener("scroll", () => {
 						'</div>' +
 						'<div class="membership-info">' +
 						'<h1 class="membership-name">' + club.membershipName + '</h1>' +
-						'<h2>' + club.membershipInfo + '</h2>' +
+					
 						'<h3>멤버수 :' + club.count+ '/' + club.membershipMax + '</h3>' +
 						'<div id="host">';
 					if (club.memberImg != null) {

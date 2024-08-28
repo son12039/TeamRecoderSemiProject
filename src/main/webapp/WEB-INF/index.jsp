@@ -111,7 +111,9 @@
 				</div>
 				<div class="membership-info">
 					<h1 class="membership-name">${info.membershipName}</h1>
-					<h2>${info.membershipInfo}</h2>
+					
+				
+					
 					<h3>멤버수 :
 						${info.count}/${info.membershipMax}</h3>
 					<div id="host">

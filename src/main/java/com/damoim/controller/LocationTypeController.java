@@ -87,11 +87,16 @@ public class LocationTypeController {
 	public String locationType(Model model, SearchDTO search) {
 		
 		model.addAttribute("list", locationTypeList(search));
+		System.out.println(locationTypeList(search).get(1).getMemberImg());
 		// 화면 상단바
 		model.addAttribute("locLaNameList", locationTypeservice.locLaNameList());
 		model.addAttribute("locSNameList",locationTypeservice.locSNameList(search.getLocationLaName()));
 		model.addAttribute("typeLaNameList", locationTypeservice.typeLaNameList());
 		model.addAttribute("typeSNameList",locationTypeservice.typeSNameList(search.getTypeLaName()));
+		
+	
+		
+		
 		
 		return "index";
 	}

@@ -8,11 +8,10 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
 	height: 800,
 	locale: "ko", // 여기
 	eventClick: function(info) {
-		console.log(info)
-		console.log(info.event._def.title);
+	
 		location.href="/meetingDetail?meetCode="+info.event.extendedProps.meetCode;
 		//info.
-		console.log(info.event.extendedProps.meetCode);
+	
 	},
 	dayCellContent: function (arg) {
 	    const { date } = arg;

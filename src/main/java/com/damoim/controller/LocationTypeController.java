@@ -40,6 +40,8 @@ public class LocationTypeController {
 	
 	public List<MemberLocTypeDTO> locationTypeList(SearchDTO search) {
 		
+		
+		
 		// '세종' 안에 null 이 아니면 '세종시' 넣고
 		if(search.getLocationSName()!=null) {
 			search.setLocationSNameList(new ArrayList<>(Arrays.asList(search.getLocationSName().split(","))));	
@@ -47,6 +49,8 @@ public class LocationTypeController {
 		if(search.getTypeSName()!=null) {
 			search.setTypeSNameList(new ArrayList<>(Arrays.asList(search.getTypeSName().split(","))));
 		}
+		
+		System.out.println("53 : " + search);
 
 		// Location type 확인후 MemberShipCode 뽑기
 		List<Integer> membershipCodes = locationTypeservice.searchList(search);		
@@ -88,10 +92,7 @@ public class LocationTypeController {
 		model.addAttribute("list", locationTypeList(search));
 		// 화면 상단바
 		model.addAttribute("locLaNameList", locationTypeservice.locLaNameList());
-		//잠시 꺼두기
-		model.addAttribute("locSNameList",locationTypeservice.locSNameList(search.getLocationLaName()));
 		model.addAttribute("typeLaNameList", locationTypeservice.typeLaNameList());
-		model.addAttribute("typeSNameList",locationTypeservice.typeSNameList(search.getTypeLaName()));
 		
 		return "index";
 	}
@@ -104,9 +105,13 @@ public class LocationTypeController {
 	
 	@ResponseBody
 	@GetMapping("locationSList")
-	public void locationSList(searchAjaxDTO searchAjax,Model model) {
-		System.out.println(searchAjax);
-		System.out.println(searchAjax.getLocationLaName());
-		model.addAttribute("locSNameList",locationTypeservice.locSNameList(searchAjax.getLocationLaName()));
+	public List<String> locationSList(String laName,Model model) {
+		return locationTypeservice.locSNameList(laName);
+	}
+	
+	@ResponseBody
+	@GetMapping("typeSName")
+	public List<String> typeSName(String typeLaName) {
+		return locationTypeservice.typeSNameList(typeLaName);
 	}
 }

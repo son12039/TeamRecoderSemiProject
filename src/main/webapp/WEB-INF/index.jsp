@@ -83,8 +83,6 @@
 		
 		
 		<form id="locationSNameForm">
-			<input type="checkbox" value="전체보기" id="locSNameAll" /> <label
-				for="locSNameAll">전체보기</label>
 			<c:forEach items="${locSNameList}" var="locSName">
 				<input type="checkbox" value="${locSName}" id="${locSName}"
 					name="locationSName">
@@ -103,17 +101,15 @@
 		</form>
 		
 		
-		<c:if test="${typeSNameList.size()!=0}">
-			<form id="typeSNameForm">
-				<input type="checkbox" value="전체보기" id="typeSNameAll"><label
-					for="typeSNameAll">전체보기</label>
-				<c:forEach items="${typeSNameList}" var="typeSName">
-					<input type="checkbox" value="${typeSName}" id="${typeSName}"
-						name="typeSName">
-					<label for="${typeSName}">${typeSName}</label>
-				</c:forEach>
-			</form>
-		</c:if>
+		
+		<form id="typeSNameForm">
+			<c:forEach items="${typeSNameList}" var="typeSName">
+				<input type="checkbox" value="${typeSName}" id="${typeSName}"
+					name="typeSName">
+				<label for="${typeSName}">${typeSName}</label>
+			</c:forEach>
+		</form>
+		
 	</div>
 </div>
 

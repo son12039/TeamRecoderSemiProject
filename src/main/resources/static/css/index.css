@@ -283,6 +283,9 @@ body {
   text-align: center;
 }
 
+ #locationLaNameForm input[type="checkbox"] {
+   
+ }
 
 /* 샐릭트를 버튼식으로 바꾸기 */
 

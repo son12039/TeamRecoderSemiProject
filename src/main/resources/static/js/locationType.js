@@ -9,16 +9,11 @@ const urlParams = url.searchParams;
 // 파라미터값 존재여부 체크 & 파라미터 값 가져오기
 // 상위 지역 필터
 
-let searchAjax = {
-	locLaName: null,
-	locSName: [],
-	typeLaName: null,
-	typeSName: [],
-}
 
-
+// 새로고침해도 체크 남기기 그대로 남기기
+/* 강제 새로 고침시 없어지게 했기때문에 폐기
 if (urlParams.has("locationLaName")) {
-	window.scrollTo({ top: 630, left: 0, behavior: 'smooth' });// 클릭시 해당 위치로
+	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });;// 클릭시 해당 위치로
 	const locationLaName = urlParams.get('locationLaName');
 	const list = $('#locationLaNameForm input');
 	for (let item of list) {
@@ -28,7 +23,7 @@ if (urlParams.has("locationLaName")) {
 	}
 }
 if (urlParams.has("locationSName")) {
-	window.scrollTo({ top: 630, left: 0, behavior: 'smooth' });
+	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 	const locationSName = urlParams.getAll('locationSName');
 	const list = $('#locationSNameForm input');
 	for (let item of list) {
@@ -37,75 +32,88 @@ if (urlParams.has("locationSName")) {
 		}
 	}
 }
+ */
+
 
 $("#locationLaNameForm input[type=checkbox]").change(function() {
 	urlParams.delete("locationLaName");
 	urlParams.delete("locationSName");
+	// ajax 체인걸어놔서 두번째까지는 안와서 변수선언
+	const location = $(this);
+	// 체크 이벤트
 	const laName = $(this).val();
 	if ($(this).prop('checked')) {
 		$('#locationLaNameForm input[type=checkbox]').prop('checked', false);
 		$(this).prop('checked', true);
 		if (laName !== '전체보기') {
 			urlParams.append('locationLaName', laName);
-		} else {
-			urlParams.delete('locationLaName');
 		}
-	} else {
-		urlParams.delete('locationLaName');
 	}
+	// 체크 눌렀을때 그쪽 방향으로 이동
 	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
+	// 새로고침안하고 url로 보내기
 	history.pushState({}, null, url);
-	searchAjax.locLaName = $(this).val();
-	console.log(searchAjax.locLaName)
-	page = 1;
-	
+	let list = "";
+
 	$.ajax({
 		url: 'list',
 		type: 'get',
 		data: {
-			page: page,
+			page: 1,
 			locationLaName: urlParams.get("locationLaName"),
 			locationSName: urlParams.getAll("locationSName"),
 			typeLaName: urlParams.get("typeLaName"),
 			typeSName: urlParams.getAll("typeSName")
 		},
-		success: function(clubList) {
-			renderClubList(clubList);
-			console.log(searchAjax);
+		success: function(clubList1) {
+			renderClubList(clubList1);
 			$.ajax({
 				url: 'locationSList',
 				type: 'get',
-				data: searchAjax,
-				success: function(location) {
-					console.log(location);
-					let locationS = $(".locationSNameForm");
+				data: "laName=" + laName,
+				success: function(locationS) {
+					$("#locationSNameForm").empty();
+					if (location.prop('checked')) {
+						$.each(locationS, function(index, item) {
+							list += `<input type="checkbox" value="${item}" id="${item}"
+										name="locationSName">
+									<label for="${item}">${item}</label>`
+						})
+						$("#locationSNameForm").html(list);
+					}
+					$("#locationSNameForm input[type=checkbox]").change(function() {
+						const locationSName = $(this).val();
+						if ($(this).is(':checked')) {
+							urlParams.append('locationSName', locationSName);
+						} else {
+							urlParams.delete('locationSName');
+							const inputAll = $(this).parent().find("input[type=checkbox]");
+							for (let input of inputAll) {
+								if (input.checked) {
+									urlParams.append("locationSName", input.value);
+								}
+							}
+						}
+						history.pushState({}, null, url);
+						$.ajax({
+							url: 'list',
+							type: 'get',
+							data: {
+								page: 1,
+								locationLaName: urlParams.get("locationLaName"),
+								locationSName: urlParams.getAll("locationSName"),
+								typeLaName: urlParams.get("typeLaName"),
+								typeSName: urlParams.getAll("typeSName")
+							},
+							success: function(clubList2) {
+								renderClubList(clubList2);
+							}
+						})
+					});
 				}
 			})
 		}
 	});
-});
-
-
-
-$("#locationSNameForm input[type=checkbox]").change(function() {
-	const locationSName = $(this).val();
-
-	if (locationSName === '전체보기') {
-		urlParams.delete('locationSName');
-	} else if ($(this).is(':checked')) {
-		urlParams.append('locationSName', locationSName);
-	} else {
-		urlParams.delete('locationSName');
-		const inputAll = $(this).parent().find("input[type=checkbox]");
-		for (let input of inputAll) {
-			if (input.checked) {
-				urlParams.append("locationSName", input.value);
-			}
-		}
-
-	}
-	location.href = url;
-
 });
 
 
@@ -115,7 +123,7 @@ $("#locSNameAll").change(function() {
 		for (let item of $('#locationSNameForm input[name="locationSName"]')) {
 			item.checked = false;
 		}
-	}
+	} 
 });
 $('#locationSNameForm input[name="locationSName"]').change(function() {
 	if ($("#locSNameAll").is(":checked")) {
@@ -127,40 +135,86 @@ $('#locationSNameForm input[name="locationSName"]').change(function() {
 
 /*타입 클릭시*/
 $("#typeLaNameSelect input[type=checkbox]").change(function() {
+	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 	urlParams.delete('typeLaName')
 	urlParams.delete('typeSName')
 	const typeLaName = $(this).val();
-
-	if (typeLaName != '전체보기') {
-		urlParams.append('typeLaName', typeLaName)
-	}
-	location.href = url;
-})
-
-
-$("#typeSNameForm input[type=checkbox]").change(function() {
-	const typeSName = $(this).val();
-	console.log(typeSName);
-	if (typeSName === '전체보기') {
-		urlParams.delete('typeSName');
-	} else if ($(this).is(':checked')) {
-		urlParams.append('typeSName', typeSName);
-	} else {
-		urlParams.delete('typeSName');
-		const inputAll = $(this).parent().find("input[type=checkbox]");
-		for (let input of inputAll) {
-			if (input.checked) {
-				urlParams.append('typeSName', input.value);
-			}
+	const typeLa = $(this);
+	if ($(this).prop('checked')) {
+		$('#typeLaNameSelect input[type=checkbox]').prop('checked', false);
+		$(this).prop('checked', true);
+		if (typeLaName !== '전체보기') {
+			urlParams.append('typeLaName', typeLaName)
 		}
 	}
-	location.href = url;
+	history.pushState({}, null, url);
+	let list = "";
+	$.ajax({
+		url: "list",
+		type: "get",
+		data: {
+			page: 1,
+			locationLaName: urlParams.get("locationLaName"),
+			locationSName: urlParams.getAll("locationSName"),
+			typeLaName: urlParams.get("typeLaName"),
+			typeSName: urlParams.getAll("typeSName")
+		},
+		success: function(clubList1) {
+			renderClubList(clubList1);
+			$.ajax({
+				url: 'typeSName',
+				type: 'get',
+				data: $.param({ typeLaName: typeLaName }),
+				success: function(result) {
+					$("#typeSNameForm").empty();
+					if (typeLa.prop('checked')) {
+						$.each(result, function(index, item) {
+							list += `<input type="checkbox" value="${item}" id="${item}"
+							name="typeSName">
+							<label for="${item}">${item}</label>`
+						})
+						$("#typeSNameForm").html(list)
+					}
+					$("#typeSNameForm input[type=checkbox]").change(function() {
+						const typeSName = $(this).val();
+						if ($(this).is(':checked')) {
+							urlParams.append('typeSName', typeSName);
+						} else {
+							urlParams.delete('typeSName');
+							const inputAll = $(this).parent().find("input[type=checkbox]");
+							for (let input of inputAll) {
+								if (input.checked) {
+									urlParams.append('typeSName', input.value);
+								}
+							}
+						}
+						history.pushState({}, null, url);
+						$.ajax({
+							url: 'list',
+							type: 'get',
+							data: {
+								page: 1,
+								locationLaName: urlParams.get("locationLaName"),
+								locationSName: urlParams.getAll("locationSName"),
+								typeLaName: urlParams.get("typeLaName"),
+								typeSName: urlParams.getAll("typeSName")
+							},
+							success: function(clubList2) {
+								renderClubList(clubList2);
+								console.log(clubList2.length);
+							}
+						})
+					})
+				}
+			})
+		}
+	})
 })
 
 
-
+/*
 if (urlParams.has("typeLaName")) {
-	//window.scrollTo({top:630, left:0, behavior:'smooth'});
+	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 	let typeLaName = urlParams.get("typeLaName")
 	let list = $('#typeLaNameSelect input')
 	for (let item of list) {
@@ -170,7 +224,7 @@ if (urlParams.has("typeLaName")) {
 	}
 }
 if (urlParams.has("typeSName")) {
-	//window.scrollTo({top:630, left:0, behavior:'smooth'});
+	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 	const typeSName = urlParams.getAll('typeSName');
 	const list = $('#typeSNameForm input');
 	for (let item of list) {
@@ -179,6 +233,9 @@ if (urlParams.has("typeSName")) {
 		}
 	}
 }
+ */
+
+
 
 $("#typeSNameAll").change(function() {
 	if ($("#typeSNameAll").is(":checked")) {
@@ -245,9 +302,9 @@ function renderClubList(clubList) {
 }
 
 
-
-
-
-
-
-
+window.addEventListener('load', (e) => {
+	const baseUrl = window.location.origin + '/'; // 기본 URL
+	if (window.location.search) {
+		window.location.href = baseUrl; // 쿼리 문자열이 있는 경우 인덱스 페이지로 리디렉션
+	}
+});

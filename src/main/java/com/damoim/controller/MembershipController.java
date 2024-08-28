@@ -48,14 +48,14 @@ public class MembershipController {
 	// 클럽 생성 관련 컨트롤
 	@Autowired
 	private MembershipService service;
-
+	
 	@Autowired
 	private MainCommentService commentService;
 	
 	//08-22 채승훈 클럽메인페이지에 지역과 타입 추가
 	@Autowired
 	private LocationTypeService locationTypeService;
-
+	
 	
 	
 	/*
@@ -90,7 +90,7 @@ public class MembershipController {
 		System.out.println(membershipCode);
 		MembershipUserList list =  service.main(membershipCode);
 		list.setCount((service.membershipUserCount(membershipCode)));
-
+		
 		
 		model.addAttribute("main", list);			
 		
@@ -133,6 +133,7 @@ public class MembershipController {
 
 		System.out.println(dtoList);
 		model.addAttribute("comment", dtoList);
+		System.out.println("dto List " + dtoList);
 		// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
 		model.addAttribute("location", locationTypeService.locationList(membershipCode));
 		model.addAttribute("type", locationTypeService.typeList(membershipCode));
@@ -196,8 +197,10 @@ public class MembershipController {
 		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\membership\\"
 				+ Integer.toString(membership.getMembershipCode()) + "\\");
 		Files.createDirectories(directoryPath);
-		Membership m = Membership.builder().membershipCode(membership.getMembershipCode())
-				.membershipImg(fileUpload(file, membership.getMembershipCode())).build();
+		Membership m = Membership.builder()
+				.membershipCode(membership.getMembershipCode())
+				.membershipImg(fileUpload(file, membership.getMembershipCode()))
+				.build();
 		System.out.println("해당 맴버쉽 코드 : " + m.getMembershipCode());
 		System.out.println("이미지 URL 테스트 " + m.getMembershipImg());
 		service.membershipImg(m);

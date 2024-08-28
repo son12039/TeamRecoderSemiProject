@@ -1,69 +1,85 @@
-
 /* 기본 스타일 설정 */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
 }
 
 /* 네비게이션 바 스타일 */
 nav {
-    background-color: #333;
-    padding: 10px;
-    text-align: center;
+  background-color: #333;
+  padding: 10px;
+  text-align: center;
 }
 
 nav a {
-    color: #fff;
-    text-decoration: none;
-    padding: 10px 20px;
-    display: inline-block;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  display: inline-block;
 }
 
 nav a:hover {
-    background-color: #575757;
+  background-color: #575757;
 }
 
 /* .info 클래스를 사용하는 div 스타일 */
 .info {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 20px auto;
-    max-width: 600px;
-    padding: 20px;
-    text-align: center;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 600px;
+  padding: 20px;
+  text-align: center;
+}
+.textBox {
+  align-items: center;
+}
+
+.textBox > * {
+  margin-bottom: 20px;
 }
 
 .info .text {
-    font-size: 1.2em;
-    color: #555;
-    margin-bottom: 10px;
+  font-size: 1.2em;
+  color: #555;
+  margin-bottom: 10px;
 }
 
 .info h1 {
-    font-size: 2.5em;
-    margin: 10px 0;
+  font-size: 1.5rem;
 }
 
 /* 특정 상태나 조건에 따라 추가적인 스타일을 적용할 수 있음 */
 .info h1:nth-child(2) {
-    color: #333;
+  color: #333;
 }
 
 .info img {
-	width: 400px;
-	height: 400px;
-	border-radius: 200px;
+  width: 200px;
+  height: 200px;
+  border-radius: 200px;
+  margin-bottom: 10px;
 }
 
-button {
+.textImg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#updateSubmit {
   background-color: #4caf50;
   color: white;
   padding: 10px 15px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  width: 100%;
+  width: 50%;
+}
+
+#updateSubmit:hover {
+  background-color: #45a049;
 }

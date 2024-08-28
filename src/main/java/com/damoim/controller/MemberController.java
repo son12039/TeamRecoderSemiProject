@@ -242,14 +242,13 @@ public class MemberController {
 		Member member = service.nicknameCheck(new Member().builder().nickname(nickname).build());
 		
 		
-		MemberInfoDTO dto = new MemberInfoDTO().builder()
+		MemberInfoDTO mem = new MemberInfoDTO().builder()
 					.member(member)
 					.memberMeetCount(infoService.meetCount(member.getId()))
 					.membershipUserList(infoService.selectMemberUserList(member.getId()))
 					.build();
-	
 		
-		model.addAttribute("mem" ,dto);
+		model.addAttribute("mem" ,mem);
 		return "member/userInfo";
 	}
 	 

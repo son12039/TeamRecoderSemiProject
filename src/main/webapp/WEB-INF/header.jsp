@@ -69,9 +69,7 @@ pageEncoding="UTF-8"%>
 						<div class="index-member-link"><a href="/logout">로그아웃</a></div>
 							
 							</div>
-							
-						
-					
+
 				</sec:authorize>
 			</div>
 		

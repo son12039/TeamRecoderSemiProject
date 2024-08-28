@@ -1,61 +1,53 @@
 @charset "UTF-8";
-/* Reset CSS based on provided reset.css */
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
+nav {
+  background-color: #333;
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header_menu {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  display: inline-block;
 }
 
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-  display: block;
+.header_menu:hover {
+  background-color: #575757;
 }
-
 body {
-  line-height: 1.6;
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
 }
 
+h1 {
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+
+h2 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+strong {
+  font-weight: bolder;
+}
+
+.container > * {
+  margin-bottom: 20px;
+}
+
 .container {
   max-width: 800px;
+  min-width: 800px;
   margin: 20px auto;
   padding: 20px;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-h2 {
-  font-size: 20px;
-  margin-top: 20px;
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 5px;
-  color: #444;
-}
-
-ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-ul li {
-  margin-bottom: 10px;
-  color: #555;
-}
-
-strong {
-  font-weight: bold;
-  color: #000;
 }
 
 .warning {
@@ -66,7 +58,52 @@ strong {
   border-radius: 5px;
 }
 
-.details, .post-retention, .external-services {
+.warning div > * {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.warning ul li {
+  padding-top: 10px;
+}
+
+.details {
+  background: #fff3cd;
+  border-left: 5px solid #ffeeba;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.details div > * {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.details ul li {
+  padding-top: 10px;
+}
+
+.post-retention {
+  background: #fff3cd;
+  border-left: 5px solid #ffeeba;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.post-retention div > * {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  line-height: 1.7;
+}
+.post-retention ul li {
+  padding-top: 10px;
+}
+
+.details,
+.post-retention,
+.external-services {
   background: #e9ecef;
   border-left: 5px solid #ced4da;
   padding: 15px;
@@ -81,6 +118,17 @@ strong {
   border-radius: 5px;
 }
 
+.confirmation div {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.confirmation p {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 button {
   background-color: #4caf50;
   color: white;
@@ -91,6 +139,16 @@ button {
   width: 20%;
 }
 
-button:hover {
+#button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 50%;
+}
+
+#button:hover {
   background-color: #45a049;
 }

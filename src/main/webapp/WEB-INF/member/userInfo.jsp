@@ -22,22 +22,29 @@
 	<main>
 
 		<div id="container">
-			<div id="header">${mem.member.nickname} 님의 프로필</div>
 			<div id="section">
-				<img src="http://192.168.10.51:8081/member/${mem.member.id}/${mem.member.memberImg}">
+				<div>
+					<c:choose>
+						<c:when test="${mem.member.memberImg != null}">
+						<img
+							src="http://192.168.10.51:8081/member/${mem.member.id}/${mem.member.memberImg}">
+						</c:when>
+						<c:otherwise>
+						<img
+							src="http://192.168.10.51:8081/기본프사.jpg">
+						</c:otherwise>
+					</c:choose>
+				</div>
+
 				<div class="info">
 					<div class="text">
 						<div>
 							<h1>
-								<i class="fa-solid fa-user"></i>${mem.member.nickname}
+								<i class="fa-solid fa-user"></i> ${mem.member.nickname}
 							</h1>
-							<button>팔로우?</button>
-							<button>메시지 보내기</button>
 						</div>
-						
-
 						<div id="group">
-							<span>모임 참여 횟수 </span>
+							<span>모임 참여 횟수</span>
 							<p> ${mem.member.memberMeetCount}회</p>
 							<span>온도 ${mem.member.memberManner}℃</span>
 						</div>
@@ -52,11 +59,10 @@
 			</div>
 			<div id="section2">
 				<div>
-				<c:forEach items="${dto}" var="list">
-					<h1>가입한 클럽들</h1>
-					<img src="http://192.168.10.51:8081" /> 
-					<img src="http://192.168.10.51:8081" /> 
-					<img src="http://192.168.10.51:8081" />
+					<h1>가입한 클럽</h1>
+					<c:forEach items="${mem.membershipUserList}" var="list">
+						<a href="/"><img class="club-img"
+							src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}"></a>
 					</c:forEach>
 				</div>
 			</div>

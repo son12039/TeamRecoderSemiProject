@@ -1,5 +1,6 @@
 package com.damoim.controller;
 import java.util.ArrayList;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -44,10 +45,11 @@ public class PageController {
 	
     // 기본 정보 수정
 	@GetMapping("/mypage")
-	public String mypage(Model model) {
+	public String mypage(Model model, Member member) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
 		ArrayList<MembershipUserList> membershipList = service.selectName(mem.getId());
+		
 		model.addAttribute("list", membershipList);
 		return "mypage/mypage";
 	}

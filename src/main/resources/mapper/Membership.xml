@@ -199,7 +199,8 @@
 
 	<select id="selectMemberUserList" parameterType="String"
 		resultMap="listMap">
-		SELECT * FROM membership_user_list
+		SELECT * FROM 
+		membership_user_list
 		JOIN membership USING(membership_code)
 		WHERE id = #{id}
 	</select>

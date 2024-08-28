@@ -28,7 +28,6 @@
               <div class="header_right_menu">
                 <a href="/signUp">회원가입</a>
                 <a href="/loginPage">로그인</a>
-                
               </div>
               
               </sec:authorize>
@@ -101,7 +100,8 @@
 		<c:forEach items="${list}" var="info" varStatus="status">
 			<div class="membership-card">
 				<div class="membership-img">
-					<a href="/${info.membershipCode}"> <c:choose>
+					<a href="/${info.membershipCode}">
+					 <c:choose>
 							<c:when test="${info.membershipImg != null}">
 								<img
 									src="http://192.168.10.51:8081/membership/${info.membershipCode}/${info.membershipImg}">

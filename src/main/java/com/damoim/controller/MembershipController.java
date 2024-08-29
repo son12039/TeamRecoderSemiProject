@@ -337,12 +337,18 @@ public class MembershipController {
 		
 		return "membership/asd";
 	}
+	
 	@ResponseBody
 	@PostMapping("/gradeUpdate")
-	public int gradeUpdate(MemberListDTO dto) {
+	public int gradeUpdate(MemberListDTO member) {
 		System.out.println("ajax 호출 ");
-		System.out.println(dto);
-		int code = dto.getMembershipCode();
+		
+		System.out.println(member);
+		
+		int code = member.getMembershipCode();
+		
+		service.agreeMemeber(member);
+		
 		return code;
 		
 	}

@@ -41,11 +41,13 @@ public interface MembershipMapper {
 	
 	void membershipImg(Membership membership);
 	
-	
+	List<MembershipUserList> MembershipAllRegular(int membershipCode);
 	
 	void updateMembership(Membership membership);
 	
 	void updateMembershipInfo(Membership membershipInfo);
+	
+	void expelMember(MemberListDTO member);
 }
 
 

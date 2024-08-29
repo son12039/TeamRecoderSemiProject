@@ -129,11 +129,11 @@ public class MembershipController {
 		     
 		        commentDTO.getRecoment().add(recommentDTO);
 		    }
-		    System.out.println(commentDTO);
+		    
 		}
 		}
 
-		System.out.println(dtoList);
+		
 		model.addAttribute("comment", dtoList);
 		// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
 		model.addAttribute("location", locationTypeService.locationList(membershipCode));

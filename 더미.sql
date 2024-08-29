@@ -20,10 +20,19 @@ from member ;
 		WHERE id = 'asd123';
 select* 
 FROM main_comment;
-insert into main_comment(main_comment_text, id, membership_code, main_parents_comment_code)
+
+
+
+ALTER TABLE membership
+DROP COLUMN memership_secret_text;
+
+ALTER TABLE membership
+CHANGE COLUMN memership_accession_text membership_accession_text text;
 
 select *
 from membership ;
+
+SHOW COLUMNS FROM membership;
 
 SELECT *
 FROM membership_user_list

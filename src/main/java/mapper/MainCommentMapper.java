@@ -15,4 +15,5 @@ public interface MainCommentMapper {
 	void deleteComment(int mainCommentCode);
 	int reCommentCount(int mainCommentCode);
 	void updateComment(MainComment mainComment);
+	MainComment selectComment(int mainCommetCode);
 }

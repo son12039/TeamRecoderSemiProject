@@ -12,10 +12,7 @@ pageEncoding="UTF-8"%>
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/reset.css"
         />
-          <link
-          rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/index.css"
-        />
+        
         <link
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/header.css"

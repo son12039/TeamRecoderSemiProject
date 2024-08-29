@@ -25,8 +25,8 @@
 </style>
 </head>
 <body>
-	<jsp:include page="../header.jsp"></jsp:include>
-	
+
+	<jsp:include page="../header/header.jsp" />
 
 	<div id="container">
 		<h1>${main.membership.membershipName }</h1>
@@ -285,7 +285,7 @@
 			</c:forEach>
 		</c:if>
 	</div>
-
+	<jsp:include page="../footer/footer.jsp" />
 	<script src="${pageContext.request.contextPath}/js/main.js"></script>
 	<script>
 

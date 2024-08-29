@@ -45,7 +45,8 @@
 	background-color: #e6e1f9;
 }
 .footer_box{
-	width: 1520px;
+	width: 100%;
+	max-width: 1520px;
 	height : 100%;
 	margin : auto;
 	padding-top : 50px;

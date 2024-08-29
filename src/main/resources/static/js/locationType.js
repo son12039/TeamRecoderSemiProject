@@ -10,8 +10,7 @@ const urlParams = url.searchParams;
 // 상위 지역 필터
 
 
-// 새로고침해도 체크 남기기 그대로 남기기
-/* 강제 새로 고침시 없어지게 했기때문에 폐기
+
 if (urlParams.has("locationLaName")) {
 	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });;// 클릭시 해당 위치로
 	const locationLaName = urlParams.get('locationLaName');
@@ -32,7 +31,7 @@ if (urlParams.has("locationSName")) {
 		}
 	}
 }
- */
+
 
 
 $("#locationLaNameForm input[type=checkbox]").change(function() {
@@ -46,7 +45,6 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 	const laName = $(this).val();
 	if ($(this).prop('checked')) {
 		// 체크 걸면서 css도 같이 주기
-		//border-bottom: 1px solid red;
 		$('#locationLaNameForm input[type=checkbox]')
 			.prop('checked', false)
 			.next('label')
@@ -131,8 +129,7 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 });
 
 
-/* 
- 소분류 잠깐 전체보기 없애으로써 필요없어짐
+
  // 로케이션
 $("#locSNameAll").change(function() {
 	if ($("#locSNameAll").is(":checked")) {
@@ -160,7 +157,7 @@ $('#locationSNameForm input[name="locationSName"]').change(function() {
 			$("#typeSNameAll")[0].checked = false;
 	  }
  })
-*/
+
 
 
 
@@ -253,10 +250,8 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 })
 
 
-/*
-새로고침 함으로써 필요없어짐 (단 다시 필요하다싶으면 맨 아래있는 새로고침없애고 다시 부활시키면됨)
 if (urlParams.has("typeLaName")) {
-	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
+	window.scrollTo({ top: 920, left: 0, behavior: 'smooth' });
 	let typeLaName = urlParams.get("typeLaName")
 	let list = $('#typeLaNameSelect input')
 	for (let item of list) {
@@ -266,7 +261,7 @@ if (urlParams.has("typeLaName")) {
 	}
 }
 if (urlParams.has("typeSName")) {
-	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
+	window.scrollTo({ top: 920, left: 0, behavior: 'smooth' });
 	const typeSName = urlParams.getAll('typeSName');
 	const list = $('#typeSNameForm input');
 	for (let item of list) {
@@ -275,7 +270,7 @@ if (urlParams.has("typeSName")) {
 		}
 	}
 }
- */
+
 
 
 
@@ -329,6 +324,7 @@ function renderClubList(clubList) {
 }
 
 // 새로고침시 모든 url 정보 사라지게 하기
+/*
 window.addEventListener('load', (e) => {
 	window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
 	const baseUrl = window.location.origin + '/';
@@ -336,3 +332,5 @@ window.addEventListener('load', (e) => {
 		window.location.href = baseUrl;
 	}
 });
+*/
+

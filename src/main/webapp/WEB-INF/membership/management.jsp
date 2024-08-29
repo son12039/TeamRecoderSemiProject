@@ -8,6 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 
@@ -124,7 +129,7 @@ a {
     </thead>
     <tbody>
      <!-- 데이터 행을 여기에 추가합니다 -->
-                <c:forEach items="${allMember}" var="list">
+                <c:forEach items="${allMember}" var="list" >
                 <tr>
                     <td id="${list.member.id}" class="${list.membership.membershipCode}">${list.member.id}</td>
                     <td>${list.member.nickname}</td>
@@ -134,15 +139,15 @@ a {
                     <td>${list.listGrade}</td>
                     
                     <c:if test="${list.listGrade != 'host'}"> 
-                    <form  id="${list.member.nickname}">            
+                    <form id="id${list.member.id}" class="fom">            
                     <td>
                    
                     <input type="hidden" name="id" value="${list.member.id}">
                     <input type="hidden" name="membershipCode" value="${list.membership.membershipCode}">
-                    <input type="hidden" class="${list.member.nickname }">
-                     <button class="btn btn-danger btn-sm" name="listGrade" >관리자</button>
-                    <button class="btn btn-danger btn-sm" name="listGrade"  >일반회원</button>
-                    <button class="btn btn-danger btn-sm" name="listGrade" >삭제</button>
+                  
+                     <button class="btn btn-primary btn-sm" name="listGrade" value="${list.member.id}" data-value="admin">관리자</button>
+                    <button class="btn btn-dark btn-sm" name="listGrade" value="${list.member.id}" data-value="regular">일반회원</button>
+                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">삭제</button>
                     </td>
                     </form>      
                     </c:if>
@@ -160,28 +165,29 @@ a {
  <script>
  
  $(document).ready(function() {
-     $('#userInfo').on('submit', function(e) {
+	 
+     $('.fom').on('submit', function(e) {
          e.preventDefault();  // 폼의 기본 제출 동작을 방지합니다.
      });
  
-$(".btn.btn-danger.btn-sm").click((e)=>{
+$("button").click((e)=>{
+	  var buttonText = $(e.target).attr("data-value");
 	  var buttonValue = $(e.target).val();
+     
+ 
+      var formData = $("#id"+buttonValue).serialize(); 
       
-      // 폼 데이터 가져오기
-      var formData = $('#userInfo').serialize();
-	 
-    
-      var combinedData = formData + '&listGrade=' +buttonValue;
+      var resultData = formData + '&listGrade=' +buttonText;
       
-      alert("?")
+     
       
       $.ajax({
     		url: "/gradeUpdate",
     		type: 'post',
-    		data: combinedData,
+    		data: resultData,
     		success: function(data) {
     			
-    				
+    
     				location.href= "management?membershipCode=" +data;
     			
     			}
@@ -195,33 +201,7 @@ $(".btn.btn-danger.btn-sm").click((e)=>{
 
  })
  
-/* function list(nickname , gread){
-	 var info = "#userInfo" + nickname;
-	 var formData = $(info).serialize();
-	 var btn = "btn btn-danger btn-sm-" + nickname;
-	 console.log(formData);
-	 $(btn).click((e) =>{
-		  $.ajax({
-		  		url: "/gradeUpdate",
-		  		type: 'post',
-		  		data: {
-		  			membershipCode : membershipCode,
-    				id : id,
-    				listGrade = gread
-    				},
-		  		success: function(data) {
-		  			
-		  				
-		  				location.href= "management?membershipCode=" +data;
-		  			
-		  			}
-		  						
-		  		
-		  	});	
-		 
-	 })
 
- } */
  </script>
 
 

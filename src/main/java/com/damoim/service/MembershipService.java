@@ -73,7 +73,11 @@ public class MembershipService {
 
 	
 	public void agreeMemeber(MemberListDTO member) {
+		if(member.getListGrade().equals("delete")) {
+			mapper.expelMember(member);
+		} else {
 		mapper.agreeMemeber(member);
+		}
 		
 	}
 	public List<Integer> membershipCodeList(String id){

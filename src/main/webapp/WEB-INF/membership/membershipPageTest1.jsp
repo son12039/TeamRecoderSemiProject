@@ -80,7 +80,8 @@
 						href="/club/${main.membership.membershipCode}/membershipPromotionDetail"
 						class="dropdown-item">홍보글 작성</a></li>
 					<li><a href="/updateMembership" class="dropdown-item">정보 수정하기</a></li>
-					<li><a href="/write?membershipCode=${main.membership.membershipCode}" class="dropdown-item">모임게시판작성하러가기</a></li>
+					<li><a href="/write?membershipCode=${main.membership.membershipCode}" class="dropdown-item">모임게시판작성하러가기</a></li>				
+					<li><a id="management"  class="dropdown-item" href="/management?membershipCode=${main.membership.membershipCode}"   > 멤버관리페이지 </a></li>
 					
 				</ul>
 			</div>
@@ -90,12 +91,7 @@
 					<a
 						href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a>
 				</div>
-				<div>
-				<form action="/management" method="post">
-				<input type="hidden" name="membershipCode" value="${main.membership.membershipCode}">
-				<input type="submit" value="멤버관리페이지">
-				</form>
-				</div>
+			
 			</div>
 			
 
@@ -265,7 +261,29 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
 		integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
 		crossorigin="anonymous"></script>
+<script>
 
+$("#management").click(()=>{
+	
+	
+	
+	
+ 	$.ajax({
+		url: "/management",
+		type: 'post',
+		data: 
+			 {membershipCode: $("#management").val()},
+		success: function() {
+			
+			alert("?")
+			 
+			}
+						
+		
+	});	 
+})
+
+</script>
 
 </body>
 </html>

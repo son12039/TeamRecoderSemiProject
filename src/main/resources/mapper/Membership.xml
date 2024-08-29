@@ -190,19 +190,29 @@
 	 -->
 	<update id="agreeMemeber" parameterType="MemberListDTO">
 		UPDATE
-		membership_user_list
+		membership_user_list		
 		SET list_grade = #{listGrade}
 		WHERE id = #{id} AND
 		membership_code =
 		#{membershipCode}
 	</update>
 	
+	<delete id="expelMember" parameterType="MemberListDTO">
+	DELETE FROM membership_user_list
+		WHERE id = #{id} AND
+		membership_code =
+		#{membershipCode}
+	</delete>
 	 
 	<!-- 모든 채팅방리스트 불러옴 -->
 	<select id="roomlist" resultMap="roomListmap">
 		SELECT membership_name,membership_code FROM
 		membership
 	</select>
+	
+	
+	
+	
 
 
 

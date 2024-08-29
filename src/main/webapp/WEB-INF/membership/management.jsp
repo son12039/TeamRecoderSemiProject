@@ -1,16 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 
 <style>
 body {
-  padding:1.5em;
+  padding:0px;
+  margin:0px;
   background: #f5f5f5
 }
 
@@ -99,9 +103,12 @@ a {
 
 <body>
  
-
+<sec:authorize access="isAuthenticated()" var="principal">
+<sec:authentication property="principal" var="member" />
     
-    
+    <c:if test="${member.id == host.member.id}">
+    <p>로그인한 사람 ${member.id}</p>
+    <p>여기의 호스트 ${host.member.id}</p>
     <table>
     <thead>
     <tr>
@@ -110,8 +117,7 @@ a {
                     <th>성별</th>
                     <th>나이</th>
                     <th>폰 번호</th>
-                    <th>권한</th>
-                    <th>강퇴</th>
+                    <th>권한</th>    
                     <th>등급설정</th>
 
     </tr>
@@ -120,19 +126,153 @@ a {
      <!-- 데이터 행을 여기에 추가합니다 -->
                 <c:forEach items="${allMember}" var="list">
                 <tr>
-                    <td>${list.member.id}</td>
+                    <td id="${list.member.id}" class="${list.membership.membershipCode}">${list.member.id}</td>
                     <td>${list.member.nickname}</td>
                     <td>${list.member.gender }</td>
                     <td>${list.member.age }</td>
                     <td>${list.member.phone }</td>
                     <td>${list.listGrade}</td>
-                    <td><input type="checkbox" disabled checked></td>
-                    <td><button class="btn btn-danger btn-sm">관리자</button><button class="btn btn-danger btn-sm">일반</button><button class="btn btn-danger btn-sm">삭제</button></td>
+                    
+                    <c:if test="${list.listGrade != 'host'}"> 
+                    <form  id="${list.member.nickname}">            
+                    <td>
+                   
+                    <input type="hidden" name="id" value="${list.member.id}">
+                    <input type="hidden" name="membershipCode" value="${list.membership.membershipCode}">
+                    <input type="hidden" class="${list.member.nickname }">
+                     <button class="btn btn-danger btn-sm" name="listGrade" >관리자</button>
+                    <button class="btn btn-danger btn-sm" name="listGrade"  >일반회원</button>
+                    <button class="btn btn-danger btn-sm" name="listGrade" >삭제</button>
+                    </td>
+                    </form>      
+                    </c:if>
+                    <c:if test="${list.listGrade == 'host'}">                   
+                    <td>관리자</td>
+                    </c:if>
                 </tr>   
                 </c:forEach>         
    
     </tbody>
 </table>
 
+
+
+ <script>
+ 
+ $(document).ready(function() {
+     $('#userInfo').on('submit', function(e) {
+         e.preventDefault();  // 폼의 기본 제출 동작을 방지합니다.
+     });
+ 
+$(".btn.btn-danger.btn-sm").click((e)=>{
+	  var buttonValue = $(e.target).val();
+      
+      // 폼 데이터 가져오기
+      var formData = $('#userInfo').serialize();
+	 
+    
+      var combinedData = formData + '&listGrade=' +buttonValue;
+      
+      alert("?")
+      
+      $.ajax({
+    		url: "/gradeUpdate",
+    		type: 'post',
+    		data: combinedData,
+    		success: function(data) {
+    			
+    				
+    				location.href= "management?membershipCode=" +data;
+    			
+    			}
+    						
+    		
+    	});	
+
+
+
+});
+
+ })
+ 
+/* function list(nickname , gread){
+	 var info = "#userInfo" + nickname;
+	 var formData = $(info).serialize();
+	 var btn = "btn btn-danger btn-sm-" + nickname;
+	 console.log(formData);
+	 $(btn).click((e) =>{
+		  $.ajax({
+		  		url: "/gradeUpdate",
+		  		type: 'post',
+		  		data: {
+		  			membershipCode : membershipCode,
+    				id : id,
+    				listGrade = gread
+    				},
+		  		success: function(data) {
+		  			
+		  				
+		  				location.href= "management?membershipCode=" +data;
+		  			
+		  			}
+		  						
+		  		
+		  	});	
+		 
+	 })
+
+ } */
+ </script>
+
+
+
+
+
+</c:if>
+</sec:authorize>
+<sec:authorize access="!isAuthenticated()" var="principal">
+<style>
+#image{
+
+    height: 100vh;
+    width: 100%;
+    background-image: url(http://192.168.10.51:8081/sungil/1901315….png);
+    background-position: center;
+    background-size: cover;
+}
+
+</style>
+<div id="image" style="background-image: url('http://192.168.10.51:8081/sungil/1901315feaaf2919e248748e71f1a99d089cb7.png');">
+
+</div>
+</sec:authorize>
+
+<sec:authorize access="isAuthenticated()" var="principal">
+<sec:authentication property="principal" var="member" />
+
+ <c:if test="${member.id != host.member.id}">
+
+<style>
+#image{
+
+    height: 100vh;
+    width: 100%;
+    background-image: url(http://192.168.10.51:8081/sungil/1901315….png);
+    background-position: center;
+    background-size: cover;
+}
+
+</style>
+<div id="image" style="background-image: url('http://192.168.10.51:8081/sungil/1901315feaaf2919e248748e71f1a99d089cb7.png');">
+
+
+
+</c:if>
+
+
+
+  </sec:authorize>
+  
+ 
 </body>
 </html>

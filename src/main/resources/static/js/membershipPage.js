@@ -6,7 +6,7 @@ $(".agreeMember").click((e) =>{
 		$.ajax({
 			url: "/agreeMember",
 			type: 'post',
-			data: $("#agreefrm"+asd).serialize(),
+			data: membershipcode = code ,
 			success: function() {
 				location.reload()
 				

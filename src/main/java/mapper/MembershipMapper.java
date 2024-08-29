@@ -46,6 +46,8 @@ public interface MembershipMapper {
 	void updateMembership(Membership membership);
 	
 	void updateMembershipInfo(Membership membershipInfo);
+	
+	void expelMember(MemberListDTO member);
 }
 
 

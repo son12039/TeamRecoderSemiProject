@@ -21,6 +21,7 @@ import com.damoim.model.vo.Membership;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.damoim.model.dto.CommentDTO;
+import com.damoim.model.dto.GradeDTO;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.dto.MembershipDTO;
@@ -318,14 +319,33 @@ public class MembershipController {
 	
 	
 	
-	@PostMapping("/management")
-	public String management(int membershipCode ,Model model) {
+	@GetMapping("/management")
+	public String management(Integer membershipCode ,Model model) {
 
 		model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
+		model.addAttribute("host", service.main(membershipCode));
+		// 들어온 사람의 id랑 
+		// 해당 클럽의 호스트인 사람의 id가 일치 
+		// 해당 클럽의 호스트인 사람 찾는 xml 필요 
+		System.out.println("접속");
 		
 		return "membership/management";
 	}
 	
+	@GetMapping("/membership/asd")
+	public String asd() {
+		
+		return "membership/asd";
+	}
+	@ResponseBody
+	@PostMapping("/gradeUpdate")
+	public int gradeUpdate(MemberListDTO dto) {
+		System.out.println("ajax 호출 ");
+		System.out.println(dto);
+		int code = dto.getMembershipCode();
+		return code;
+		
+	}
 	
 
 }

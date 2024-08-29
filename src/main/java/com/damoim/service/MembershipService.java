@@ -35,6 +35,11 @@ public class MembershipService {
 		return mapper.MembershipAllInfo(membershipCode);
 		
 	}
+	
+	public List<MembershipUserList> MembershipAllRegular(int membershipCode){
+		
+		return mapper.MembershipAllRegular(membershipCode);
+	}
 
 	
    public MembershipUserList main(Integer membershipCode){
@@ -68,7 +73,11 @@ public class MembershipService {
 
 	
 	public void agreeMemeber(MemberListDTO member) {
+		if(member.getListGrade().equals("delete")) {
+			mapper.expelMember(member);
+		} else {
 		mapper.agreeMemeber(member);
+		}
 		
 	}
 	public List<Integer> membershipCodeList(String id){

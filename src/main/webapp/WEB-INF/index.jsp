@@ -90,8 +90,10 @@
 					<h2>${info.membershipSimpleText}</h2>
 					<h3>멤버수 :
 						${info.count}/${info.membershipMax}</h3>
-					<div id="host">
+					<a href="/userInfo/${info.nickname}">
+					<div class="host">
 						<c:choose>
+						
 							<c:when test="${info.memberImg != null}">
 								<img class="user-img" src="http://192.168.10.51:8081/member/${info.id}/${info.memberImg}">
 							</c:when>
@@ -101,8 +103,9 @@
 						</c:choose>
 						<h2>호스트 : ${info.nickname}</h2>
 						<input type="hidden" name="code" value="${info.membershipCode}">
-						<br>
+					
 					</div>
+					</a>
 						<div class="locationTypeBox">
 							<div class="location">
 								<c:forEach items="${info.locations}" var="location">

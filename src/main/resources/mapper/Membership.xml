@@ -27,6 +27,12 @@
 			<result column="nickname" property="nickname" />
 			<result column="member_img" property="memberImg" />
 			<result column="member_info" property="memberInfo"/>
+			<result column="member_manner" property="memberManner"/>
+			 <result property="memberHobby" column="member_hobby" />
+			  <result property="memberLocation" column="member_location" />
+			  <result property="phone" column="phone"/>
+			   <result property="age" column="age" />
+        <result property="gender" column="gender" />
 		</association>
 		<association property="membership" javaType="Membership">
 			<id column="membership_code" property="membershipCode" />
@@ -91,6 +97,20 @@
 		JOIN member USING (id)
 		WHERE membership_code =
 		#{membership_code};
+	</select>
+	
+	
+	
+	
+		<select id="MembershipAllRegular" parameterType="Integer"
+		resultMap="listMap">
+		SELECT *
+		FROM membership_user_list
+		JOIN membership USING
+		(membership_code)
+		JOIN member USING (id)
+		WHERE membership_code =
+		#{embership_cmode} AND list_grade != "guest";
 	</select>
 	<!-- 해당 맴버쉽의 코드와 유저 ID (로그인) 정보 받아서 
 		맴버쉽에 가입 신청 하는 기능 
@@ -170,19 +190,29 @@
 	 -->
 	<update id="agreeMemeber" parameterType="MemberListDTO">
 		UPDATE
-		membership_user_list
+		membership_user_list		
 		SET list_grade = #{listGrade}
 		WHERE id = #{id} AND
 		membership_code =
 		#{membershipCode}
 	</update>
 	
+	<delete id="expelMember" parameterType="MemberListDTO">
+	DELETE FROM membership_user_list
+		WHERE id = #{id} AND
+		membership_code =
+		#{membershipCode}
+	</delete>
 	 
 	<!-- 모든 채팅방리스트 불러옴 -->
 	<select id="roomlist" resultMap="roomListmap">
 		SELECT membership_name,membership_code FROM
 		membership
 	</select>
+	
+	
+	
+	
 
 
 

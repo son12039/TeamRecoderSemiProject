@@ -10,7 +10,9 @@ public class Image {
     private String imgUrl; // 사진 URL
     private int membershipCode; // 맴버쉽코드
     private int meetCode; // 모임게시판코드
-    private MembershipMeetings membership_meetings;
+  //  private MembershipMeetings membership_meetings;
+    private Membership membership;
+    private MembershipMeetings membershipMeetings;
     
 }
 

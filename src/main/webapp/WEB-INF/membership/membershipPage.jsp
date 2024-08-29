@@ -3,23 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 				
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
+  <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Insert title here</title>
-<sec:authorize access="isAuthenticated()" var="principal">
-	<sec:authentication property="principal" var="member" />
-    <main>
-    <!-- ${main}은 멤버쉽관련 정보 + 호스트 정보  타입은 멤버쉽유저리스트임 -->
-     <!-- 멤버쉽 이름  -->  
-        <h1 >${main.membership.membershipName}</h1>  
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>클럽 회원 페이지</title>
+
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css" />
+    
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/membershipPage.css"/>
 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>     
@@ -34,7 +28,32 @@
     <main>
    <sec:authorize access="isAuthenticated()" var="principal">
    <sec:authentication property="principal" var="member" />
-        <h1>${main.membership.membershipName}</h1>
+    <img id="mainImg" src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}" alt="클럽 이미지">
+      
+      <div id="top">
+      
+      <div id="top-left">
+      <c:if test="${main.member.memberImg != null}">
+            <img id="hostImg" src="http://192.168.10.51:8081/member/${main.member.id}/${main.member.memberImg}" alt="호스트 이미지">
+            </c:if>
+            <c:if test="${main.member.memberImg == null}">
+            <img id="hostImg" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg" alt="호스트 이미지">
+            </c:if>
+      </div>
+      <div id="top-right">
+      
+      <div id="top-right1">
+      <h1>${main.membership.membershipName}</h1>
+      </div>
+      <div id="top-right2">
+      <h4 id="host">호스트</h4> <h4 id="hostName">${main.member.nickname }</h4>
+      </div>
+      </div>
+      
+      
+      
+      </div>
+       
         <!-- 멤버쉽 수정 -->
         <div>
        	<h2><a href="/updateMembership">정보 수정하기</a></h2>
@@ -43,19 +62,17 @@
         
         <!-- 멤버쉽 채팅 서버 링크   -->
         <a href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a> 
-        
+        <c:if test="${member.id == main.member.id }">
         <a href="/write?membershipCode=${main.membership.membershipCode}">모임게시판작성하러가기</a>
-          
-        <!--멤버쉽 대표 이미지   -->
-        <img id="mainImg" src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}" alt="클럽 이미지">
-        
-        <!-- 멤버쉽 소개  -->
-        <h2>${main.membership.membershipInfo}</h2>
+          </c:if>
+      
+       
+    
         
            <!-- 멤버쉽 최대 인원과 현재 인원 표기  -->
         <p>인원 현황 : ${main.count}/${main.membership.membershipMax}</p>
         
-        
+        <div id="calendar" style= "width: 60%"     ></div>
         
         <!-- 08-22 채승훈 로케이션타입 추가함 -->
 			<div class="locationTypeBox">
@@ -139,7 +156,8 @@
                             <button type="button" id="agreeMember-${listMember.listCode}">가입 승인</button>
                         </form>
                             </c:if>
-                            
+                             
+                           
                             
                         </ul>
                     </c:when>
@@ -161,18 +179,20 @@
             </div>
         </c:forEach>
         <a href="/" id="toIndex">메인페이지로 가기</a>
-        </sec:authorize>
-        
-    </main>
-     <div id="calendar" style= "width: 60%"     ></div>
-     </sec:authorize>
      
-    <script src="${pageContext.request.contextPath}/js/membershipPage.js"></script>
+           
+     </sec:authorize>
+       
+    </main>
+  
+    
     <script>
+   
+    
     const allDates = [];
     let allMeet = {};
     <c:forEach items="${allmeet}" var="item">
-    	allMeet.title = "${item.meetInfo}";
+    	allMeet.title = "${item.meetTitle}";
     	allMeet.start = "${item.meetDateStart}";
     	allMeet.end = "${item.meetDateEnd}";
     	allMeet.color = "${item.color}";
@@ -180,11 +200,12 @@
     	allDates.push(allMeet);
     	allMeet = {};
     </c:forEach>
+    
    
     </script>
-    
-    
-    <script src="${pageContext.request.contextPath}/js/calendar.js"></script>
+      <script src="${pageContext.request.contextPath}/js/calendar.js"></script>
+    <script src="${pageContext.request.contextPath}/js/membershipPage.js"></script>
+  
    
 </body>
 </html>

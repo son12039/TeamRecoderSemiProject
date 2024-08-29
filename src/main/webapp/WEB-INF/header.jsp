@@ -28,7 +28,7 @@ pageEncoding="UTF-8"%>
 	<div class="header">
 		<div class="header_left">
 			<a href="/">
-				<div class="LOGO">DAMOIM</div>
+				<div class="LOGO">다모임</div>
 			</a>
 			</div>
 			<div class="header_right">

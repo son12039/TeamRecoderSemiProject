@@ -72,12 +72,11 @@
 	<!-- 08-20 채승훈 -->
 <div class="locationTypeBody">
 	<div class="locationTypeBodyBox">
-	
 		<form id="locationLaNameForm">
-			<input type="checkbox" value="전체보기" id="locLaNameAll" /> <label for="locLaNameAll">전체보기</label>
+			<input type="checkbox" value="전체보기" id="locLaNameAll" /> <label class="locLaNameLabel" for="locLaNameAll">전체보기</label>
 			<c:forEach items="${locLaNameList}" var="locLaName">
 				<input type="checkbox" value="${locLaName}" id="${locLaName}" name="locationLaName">
-				<label for="${locLaName}">${locLaName}</label>
+				<label for="${locLaName}" class="locationLaCss">${locLaName}</label>
 			</c:forEach>
 		</form>
 		
@@ -86,12 +85,11 @@
 			<c:forEach items="${locSNameList}" var="locSName">
 				<input type="checkbox" value="${locSName}" id="${locSName}"
 					name="locationSName">
-				<label for="${locSName}">${locSName}</label>
+				<label for="${locSName}" class="locationTypeCss">${locSName}</label>
 			</c:forEach>
 		</form>
 		
-		<br>
-		
+
 		<form id="typeLaNameSelect">
 			<input type="checkbox" value="전체보기" id="typeLaNameAll" /> <label for="typeLaNameAll">전체보기</label>
 			<c:forEach items="${typeLaNameList}" var="typeLaName">

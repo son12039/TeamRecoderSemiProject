@@ -258,7 +258,7 @@ body {
 .body_img_box_body {
   width: 1520px;
   height: 955px;
-  background-color: orange;
+  background-color:orange;
   margin: auto;
   padding: 90px 20px 20px 20px;
 }
@@ -272,22 +272,67 @@ body {
 }
 
 .locationTypeBody {
-  background-color: orange;
   position: sticky;
-  top: 70px;
+  top: 50px;
 }
 .locationTypeBodyBox {
-  background-color: pink;
+  background-color: rgb(255, 185, 100);
   width: 100%;
   height: auto;
   text-align: center;
 }
-
- #locationLaNameForm input[type="checkbox"] {
-   
+/*중단 locationLa 이벤트 놈들*/
+#locationLaNameForm input[type="checkbox"] {
+   display:none;
  }
+#locationLaNameForm{
+	
+	font-size:20px;
+	padding :10px;
+	font-weight: bold;
+	height: 100%;
+}
+.locationLaCss{
+	padding:0px 10px 0px 10px;
+	cursor: pointer;
+}
+.locationLaCss:hover{
+	background-color: rgb(255, 142, 4);
+	border-radius : 20px;
+}
 
-/* 샐릭트를 버튼식으로 바꾸기 */
+.locLaNameLabel{
+	padding:0px 10px 0px 10px;
+	cursor: pointer;	
+}
+.locLaNameLabel:hover{
+	background-color: rgb(255, 142, 4);
+	border-radius : 20px;
+}
+
+/*중단 locationLa 이벤트 놈들*/
+
+/*중단 locationType 이벤트 놈들*/
+#locationSNameForm input[type="checkbox"] {
+   display:none;
+ }
+#locationSNameForm{
+	font-weight: bold;
+}
+.locationTypeCss{
+	padding:0px 10px 0px 10px;
+}
+
+/*중단 locationType 이벤트 놈들*/
+
+
+#typeLaNameSelect input[type="checkbox"] {
+   display:none;
+ }
+ 
+ #typeSNameForm input[type="checkbox"] {
+   display:none;
+ }
 
 
 

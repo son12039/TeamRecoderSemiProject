@@ -50,7 +50,6 @@ public class LocationTypeController {
 			search.setTypeSNameList(new ArrayList<>(Arrays.asList(search.getTypeSName().split(","))));
 		}
 		
-		System.out.println("53 : " + search);
 
 		// Location type 확인후 MemberShipCode 뽑기
 		List<Integer> membershipCodes = locationTypeservice.searchList(search);		

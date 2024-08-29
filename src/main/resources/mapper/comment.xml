@@ -91,15 +91,14 @@
 		WHERE main_comment_code = #{mainCommentCode}
 	</update>
 	
-	<!-- 회원탈퇴한 회원 검색후 댓글 비공개 -->
-	<select id="resignedMember" parameterType="mainComment" resultMap="commentMemberMap">
-		SELECT *
-		FROM member
-		JOIN main_comment USING (id)
-		WHERE id =#{id} AND status =#{status}
-	</select>
-	
-	
+	<update id="resignedCommentUpdate" parameterType="ResignedDTO">
+		UPDATE main_comment
+		SET main_comment_text = null
+		WHERE 
+		main_comment_code = #{mainCommentCode} 
+		AND id =#{id}
+		AND status =#{status}
+	</update>
 	
 	
 </mapper>

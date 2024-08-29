@@ -38,33 +38,51 @@
 
 				<div class="info">
 					<div class="text">
-						<div>
-							<h1>
-								<i class="fa-solid fa-user"></i> ${mem.member.nickname}
-							</h1>
-						</div>
+						<h1>
+							<i class="fa-solid fa-user"></i> ${mem.member.nickname}
+						</h1>
 						<div id="group">
-							<span>모임 참여 횟수</span>
-							<p> ${mem.member.memberMeetCount}회</p>
+							<span>모임 참여 횟수 ${mem.member.memberMeetCount}회</span>
 							<span>온도 ${mem.member.memberManner}℃</span>
 						</div>
 						<div>
-							<h1>자기소개</h1>
-						</div>
-						<div>
-							<h3>${mem.member.memberInfo}</h3>
+							<h3>한줄소개 : ${mem.member.memberInfo}</h3>
 						</div>
 					</div>
 				</div>
 			</div>
+
 			<div id="section2">
-				<div>
-					<h1>가입한 클럽</h1>
+				<div class="section2_memberInfo">
+					<h4>가입한 클럽</h4>
+				</div>
+				<div class="club_info">
 					<c:forEach items="${mem.membershipUserList}" var="list">
-						<a href="/"><img class="club-img"
-							src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}"></a>
+						<c:if test="${list.listGrade != 'guest'}">
+							<div class="club_box">
+							<img class="club_img" src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}">
+							<p>${list.membership.membershipName}</p>
+							</div>
+						</c:if>
+							<!-- <c:if test="${list.listGrade == 'guest'}">
+							<img class="club-img" src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}">
+						</c:if> -->
 					</c:forEach>
 				</div>
+				<div class="section2_memberInfo">
+					<h4>가입신청한 클럽</h4>
+					<div class="club_info">
+					<c:forEach items="${mem.membershipUserList}" var="list">
+						 <c:if test="${list.listGrade == 'guest'}">
+						 	<div class="club_box">
+							<img class="club-img" src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}">
+							<p>${list.membership.membershipName}</p>
+							</div>
+						</c:if>
+					</c:forEach>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 	</main>

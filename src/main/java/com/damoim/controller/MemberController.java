@@ -1,8 +1,8 @@
 package com.damoim.controller;
 
 import java.io.File;
+
 import java.io.IOException;
-import java.util.Arrays;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -25,11 +25,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.dto.ResignedDTO;
+import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
 import com.damoim.service.EmailService;
+import com.damoim.service.MainCommentService;
 import com.damoim.service.MemberService;
 import com.damoim.service.MembershipService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -48,6 +51,8 @@ public class MemberController {
 	@Autowired
 	private EmailService emailService; // 이메일 서비스
 
+	@Autowired
+	private MainCommentService commentService; // 댓글 서비스
 	/*
 	 * 성일 로그인 시큐리티 처리
 	 */
@@ -186,16 +191,18 @@ public class MemberController {
 	// 회원 탈퇴
 	@ResponseBody
 	@PostMapping("/memberStatus")
-	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response) {
+	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response, MainComment mainComment) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
 		ArrayList<MembershipUserList> membershipList = infoService.selectName(mem.getId());
-		
+
 		// membershipList <- 해당 탈퇴하려는 유저가 가입되어있는 클럽 중에서 admin 이거나 host인 클럽 정보 를 담고있는 리스트
 		if (membershipList.size() > 0) { // 해당 유저가 가입된 클럽중 어드민이나 호스트인게 있다면!
 			return false;
 		}
 		mem.setStatus(false); // 멤버 status false
+
+
 		service.memberStatus(mem);
 		// 서비스 돌린거 바로 시큐리티 적용시킴
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -203,7 +210,7 @@ public class MemberController {
 		SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 		logoutHandler.logout(request, response, authentication);
 		return true;
-
+		
 	}
 
 	// 프로필, info 업데이트
@@ -221,7 +228,6 @@ public class MemberController {
 			mem.setMemberImg(url);
 			System.out.println("updateMember 삭제 : " + mem.getMemberImg() + mem.getId());
 		}
-		
 		
 		mem.setMemberHobby(vo.getMemberHobby());
 		System.out.println("업데이트 MemberHobby : " + mem.getMemberHobby());

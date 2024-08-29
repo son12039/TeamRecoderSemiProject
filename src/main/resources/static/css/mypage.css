@@ -5,15 +5,17 @@ body {
   padding: 0;
   background-color: #f4f4f4;
 }
+/* 헤더 nav */
 #LOGO {
-  font-size: 1.5rem;
+  font-size: 1rem;
 }
-/* 네비게이션 바 스타일 */
+
 nav {
   background-color: #333;
   text-align: center;
   display: flex;
   justify-content: space-between;
+  padding: 5px;
 }
 
 nav div {
@@ -32,6 +34,9 @@ nav a {
 nav a:hover {
   background-color: #575757;
 }
+
+/* 헤더 nav */
+
 
 /* .info 클래스를 사용하는 div 스타일 */
 .info {

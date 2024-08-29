@@ -237,6 +237,7 @@ public class MembershipController {
 	/* 성철 :
 	 * 클럽 홍보글 작성 페이지
 	 * */
+	
 	@GetMapping("/club/{membershipCode}/membershipPromotionDetail")
 	public String membershipPromotionDetail(@PathVariable("membershipCode") Integer membershipCode, Model model){
 		System.out.println(membershipCode);

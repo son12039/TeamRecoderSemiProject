@@ -1,19 +1,35 @@
 @charset "UTF-8";
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+/* 헤더 nav */
+#LOGO {
+  font-size: 1rem;
+}
+
 nav {
   background-color: #333;
-  padding: 10px;
   text-align: center;
   display: flex;
   justify-content: space-between;
+  padding: 5px;
 }
 
 nav div {
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 nav a {
   color: #fff;
   text-decoration: none;
+  padding: 10px 20px;
   display: inline-block;
 }
 
@@ -21,13 +37,9 @@ nav a:hover {
   background-color: #575757;
 }
 
-#LOGO {
-  width: 100px;
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+/* 헤더 nav */
+
+
 .header_menu {
   color: #fff;
   text-decoration: none;
@@ -40,13 +52,7 @@ nav a:hover {
   background-color: #575757;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-  min-width: 600px;
-}
+
 
 .container {
   max-width: 600px;

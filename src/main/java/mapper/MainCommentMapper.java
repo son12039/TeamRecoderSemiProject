@@ -2,6 +2,7 @@ package mapper;
 
 import java.util.ArrayList;
 
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.damoim.model.dto.ResignedDTO;
@@ -18,9 +19,8 @@ public interface MainCommentMapper {
 	int reCommentCount(int mainCommentCode);
 	void updateComment(MainComment mainComment);
 	
-	
-	// 탈퇴한 회원 댓글 비공개
-	ArrayList<MainComment> resignedMember(MainComment mainComment);
+	// 탈퇴한 회원 댓글 찾기
+	void resignedCommentUpdate(ResignedDTO resignedDTO);
 
 	
 	

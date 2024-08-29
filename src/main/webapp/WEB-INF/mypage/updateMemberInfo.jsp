@@ -102,7 +102,6 @@
 		<script
 			src="${pageContext.request.contextPath}/js/updateMemberInfo.js"></script>
 		<script>
-	
 		$("#updateSubmit").click(()=>{
 			const updateSubmit = $("#nickname").val();
 			$.ajax({
@@ -119,6 +118,8 @@
 				},
 			});
 		});
+		
+		
 	</script>
 	</sec:authorize>
 </body>

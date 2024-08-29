@@ -102,6 +102,9 @@
 		WHERE id = #{id}
 	</update>
 
+	
+	
+
 
 	<!-- / updateMember -->
 	<update id="updateMember" parameterType="Member">
@@ -113,8 +116,6 @@
 		WHERE id = #{id}
 	</update>
 	
-
-
 	<select id="selectMember" parameterType="String"
 		resultType="Member">
 		SELECT * FROM member
@@ -181,7 +182,7 @@
 		AND email = #{email}
 	</select>
 	
-
+	
 </mapper>
 	
 

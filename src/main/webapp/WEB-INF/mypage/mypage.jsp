@@ -20,6 +20,7 @@
 <body>
 	<sec:authorize access="isAuthenticated()" var="principal">
 		<sec:authentication property="principal" var="member" />
+		<!-- 헤더 nav -->
 		<nav>
 			<div>
 				<a id ="LOGO" href="/">다모임</a>
@@ -29,6 +30,7 @@
 				href="/updateCheck">회원정보 수정</a>
 			</div>
 		</nav>
+		<!-- 헤더 nav -->
 		<form action="/updateMember" method="post" id="form"
 			enctype="multipart/form-data">
 			<div class="info">

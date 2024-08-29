@@ -106,7 +106,7 @@
 		"${memebershipCode}" AND
 		list_grade = "host";
 	</select>
-
+	
 	<!-- 해당 클럽의 유저 현황을 클럽 코드를 가져와서 현재 인원만 반환해주는 쿼리 변경필요 -->
 	<select id="membershipUserCount" parameterType="Integer"
 		resultType="Integer">
@@ -117,7 +117,7 @@
 		list_grade != "guest"
 		GROUP BY membership_code
 	</select>
-
+	
 	<!-- 클럽 생성관련 쿼리 -->
 	<insert id="makeMembership" parameterType="Membership"
 		useGeneratedKeys="true" keyProperty="membershipCode">

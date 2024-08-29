@@ -67,24 +67,7 @@ body {
 	
 }
 
-h1 {
-  margin-bottom: 20px;
-  font-size: 3rem;
-  font-weight: bolder;
-  font-family: sans-serif;
-  color: black;
-}
 
-h2 {
-  font-size: 1.5rem;
-  
-  margin-top: 10px;
-}
-
-p {
-  font-weight: bolder;
-  margin-top: 10px;
-}
 
 #mainImg {
   width: 100%;
@@ -107,10 +90,6 @@ p {
   height: 50px;
 }
 
-p {
-  margin-bottom: 15px;
-  color: #555;
-}
 
 form {
   margin-top: 20px;
@@ -130,17 +109,6 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   background-color: #e76f00;
-}
-
-a {
-  color: #f88c1d;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s ease;
-}
-
-a:hover {
-  color: #555;
 }
 
 
@@ -276,18 +244,12 @@ button > img {
     bottom: 10px;
 }
 
-	
-
-
-
 .host-user-img{
 	margin:0px;
 	width: 50px;
 	height:50px;
 	border-radius: 50%;
-	
 }
-
 
 #middle-container-top{
 	margin-bottom: 20px;
@@ -312,8 +274,6 @@ button > img {
 #imageContainer{
 	margin-top: 20px;
 }
-
-
 
 .locTyBox {
 	width: 100%;

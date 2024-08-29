@@ -1,50 +1,8 @@
 @charset "UTF-8";
-@keyframes gradientBG {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+body {
+  background-color: #f4f4f4;
 }
-.header_left {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: bold;
-}
-.header_right {
-  display: flex;
-  font-weight: bold;
-}
-.header_right_menu {
-  font-size: 1.5rem;
-  padding: 10px;
-  font-weight: bold;
-}
-.header_right_menu a {
-  padding-right: 30px;
-}
-.LOGO {
-  padding: 20px;
-  font-size: 3rem;
-  font-weight: bold;
-  border: 4px solid #00796b; /* 청록색 테두리 */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.LOGO:hover {
-  transform: scale(1.1); /* 마우스 오버 시 확대 효과 */
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3); /* 확대 시 그림자 효과 증가 */
-}
-.menu {
-  align-items: center;
-  justify-items: center;
-  font-size: 1.5rem;
-}
+
 .container {
   align-items: flex-start;
   display: flex;
@@ -53,105 +11,8 @@
   width: 100%;
   height: 80vh;
 }
-.searchBox {
-  display: flex;
-  justify-content: space-between;
-}
-.search {
-  display: flex;
-  justify-content: space-between;
-  background-color: white;
-  padding: 5px;
-  margin: 5px;
-}
-.login-box {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-  text-align: center;
-}
-.login-box h1 {
-  margin-bottom: 30px;
-  color: #271e04;
-  font-size: 2em;
-}
-.textbox {
-  position: relative;
-  margin-bottom: 30px;
-}
-.textbox i {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #271e04;
-}
-.textbox input {
-  width: 100%;
-  padding: 10px 10px 10px 40px;
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  border-radius: 5px;
-  color: #0a0a0a;
-  font-size: 1em;
-}
-.textbox input::placeholder {
-  color: #000000;
-}
-.btn {
-  width: 100%;
-  background: #ffcc33;
-  border: none;
-  padding: 15px;
-  color: #000000;
-  font-size: 1em;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background 0.3s ease;
-  margin-bottom: 20px;
-}
-.btn:hover {
-  background: #ff9966;
-}
-.login-boxs {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: rgb(87, 114, 138);
-}
-.google_box {
-  width: 100%;
-  background-color: rgb(23, 78, 166);
-}
-/*====== (keyframes) ===========================*/
-@keyframes textSlide {
-  from {
-    left: -200px;
-    opacity: 0;
-  }
-  to {
-    left: 300px;
-    opacity: 1;
-  }
-}
-@keyframes textSlide__disappear {
-  from {
-    left: 300px;
-    opacity: 1;
-  }
-  to {
-    left: -100px;
-    opacity: 0;
-  }
-}
-/*====== (active) ===========================*/
-@media screen and (max-width: 1000px) {
-  .header_left {
-    display: none;
-  }
-}
+
+
 .membership-list {
   width: 100%;
   display: flex;
@@ -167,71 +28,51 @@
   background-color: white;
   border-radius: 20px;
   margin: 20px;
+  width: 550px;
+  height: 300px;
 }
 .membership-img a img {
   border-radius: 15px;
-  width: 200px;
-  height: 270px; /* 08-21 채승훈 : 타입 설명란 때문에 잠깐 이미지 크기 키웠음*/
+  width: 250px;
+  height: 250px; 
   margin: 20px;
 }
-body {
-  background-color: #e6e1e1;
-}
+
 .membership-name {
   font-weight: bolder;
   font-size: 20px;
 }
 .membership-info {
-  width: 200px;
-  height: 120px;
+  width: 250px;
+  height: 80%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   margin: 20px;
   border-radius: 15px;
 }
-#host {
+.host {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 10px;
 }
 .membership-info h1 {
   font-weight: bolder;
-  font-size: 20px;
 }
 .membership-info h2  {
-  margin-top: 15px;
+  margin-left: 10px;
   width: 100%;
- 
-  
- 
-  
+   
   
 }
-.membership-info h3 {
-  margin-top: 8px;
-}
+
 .user-img {
   border-radius: 50%;
   width: 50px;
   height: 50px;
 }
-.search {
-  background: orange;
-  border: none;
-  padding: 15px;
-  color: #000000;
-  font-size: 0.8rem;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background 0.3s ease;
-  margin-bottom: 20px;
-}
-.search nth:first-child {
-  width: 100%;
-}
-.search:hover {
-  background: yellow;
-}
+
 
 /* 08-21 14:53 채승훈 시작 클럽안 내용들*/
 .locationTypeBox {
@@ -261,21 +102,16 @@ body {
 /* 그냥 박스 상자 */
 /* 08-25 채승훈 추가 */
 .body_img_box_body {
-  width: 1520px;
-  height: 955px;
-  background-color:orange;
-  margin: auto;
-  padding: 90px 20px 20px 20px;
-}
-.body_img_box {
   width: 100%;
-  height: 100%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
 }
+
 .body_img {
   width: 100%;
   height: 100%;
 }
-
 .locationTypeBody {
   position: sticky;
   top: 50px;
@@ -284,21 +120,30 @@ body {
   background-color: rgb(255, 185, 100);
   width: 100%;
   height: auto;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
 }
 /*중단 locationLa 이벤트 놈들*/
 #locationLaNameForm input[type="checkbox"] {
    display:none;
  }
 #locationLaNameForm{
-	
+	display:flex;
+	justify-content: space-around;
+	align-self: center;
+	width: 100%;
+	max-width: 1200px;
 	font-size:20px;
 	padding :10px;
 	font-weight: bold;
-	height: 100%;
+	height: 50px;
 }
+
 .locationLaCss{
-	padding:0px 10px 0px 10px;
+	padding: 8px 10px;
+	align-self: center;
 	cursor: pointer;
 }
 .locationLaCss:hover{
@@ -307,7 +152,8 @@ body {
 }
 
 .locLaNameLabel{
-	padding:0px 10px 0px 10px;
+	padding: 8px 10px;
+	align-self: center;
 	cursor: pointer;	
 }
 .locLaNameLabel:hover{
@@ -325,7 +171,7 @@ body {
 	font-weight: bold;
 }
 .locationTypeCss{
-	padding:0px 10px 0px 10px;
+	padding:10px 5px;
 }
 
 /*중단 locationType 이벤트 놈들*/

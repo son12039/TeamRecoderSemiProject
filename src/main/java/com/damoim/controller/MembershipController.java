@@ -82,12 +82,14 @@ public class MembershipController {
 	/*
 	 * 성일
 	 * 카운트 관련  VO에 합쳐버림
-	 * 
+	 * 성철
+	 * 댓글 대댓글 글 관련 로직 추가
 	 * */
 	@GetMapping("/{membershipCode}") // 클럽 홍보 페이지 각각 맞춰 갈수있는거
 	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model
 			) {
 		// 홍보페이지에 membership 관련 정보 + 호스트 정보
+		System.out.println(membershipCode);
 		MembershipUserList list =  service.main(membershipCode);
 		list.setCount((service.membershipUserCount(membershipCode)));
 
@@ -96,12 +98,13 @@ public class MembershipController {
 		
 		ArrayList<MainComment> commList = commentService.allMainComment(membershipCode); // 일반댓글
 		ArrayList<CommentDTO> dtoList = new ArrayList<CommentDTO>(); //합칠예정
+		
 		for (int i = 0; i < commList.size(); i++) {
 		    CommentDTO commentDTO = new CommentDTO().builder()
 		            .mainCommentCode(commList.get(i).getMainCommentCode())
 		            .mainCommentText(commList.get(i).getMainCommentText())
 		            .mainCommentDate(commList.get(i).getMainCommentDate())
-		            .id(commList.get(i).getId())
+		            .id(commList.get(i).getMember().getId())
 		            .nickname(commList.get(i).getMember().getNickname())
 		            .memberImg(commList.get(i).getMember().getMemberImg())
 		            .membershipCode(commList.get(i).getMembershipCode()) 
@@ -110,14 +113,13 @@ public class MembershipController {
 		    
 		    dtoList.add(commentDTO);
 		    ArrayList<MainComment> recommList = commentService.mainReComment(membershipCode, commentDTO.getMainCommentCode());
-		    // 모든 댓글에 대댓글이 달리는 상황 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 수정요망
 		    if(recommList.size()> 0) {
 		    for (int j = 0; j < recommList.size(); j++) {
 		        CommentDTO recommentDTO = new CommentDTO().builder()
 		                .mainCommentCode(recommList.get(j).getMainCommentCode())
 		                .mainCommentText(recommList.get(j).getMainCommentText())
 		                .mainCommentDate(recommList.get(j).getMainCommentDate())
-		                .id(recommList.get(j).getId())
+		                .id(recommList.get(j).getMember().getId())
 		                .nickname(recommList.get(j).getMember().getNickname())
 		                .memberImg(recommList.get(j).getMember().getMemberImg())
 		                .membershipCode(recommList.get(j).getMembershipCode()) 
@@ -127,10 +129,11 @@ public class MembershipController {
 		     
 		        commentDTO.getRecoment().add(recommentDTO);
 		    }
+		    
 		}
 		}
 
-		System.out.println(dtoList);
+		
 		model.addAttribute("comment", dtoList);
 		// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
 		model.addAttribute("location", locationTypeService.locationList(membershipCode));
@@ -144,6 +147,7 @@ public class MembershipController {
 	 @GetMapping("/club/{membershipCode}") // 클럽 페이지 이동
 		public String membershipPage(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO memberListDTO, Model model) {
 			// 해당클럽 정보 다담음
+		 	System.out.println(membershipCode);
 		 	MembershipUserList list =  service.main(membershipCode);
 			list.setCount((service.membershipUserCount(membershipCode)));	
 			model.addAttribute("main", list);
@@ -166,6 +170,7 @@ public class MembershipController {
 	 @PostMapping("/agreeMember") // 클럽 회원가입 승인
 	 public void agreeMemeber(MemberListDTO member) {
 		 // 일단은 호스트일때만 클럽 회원 승인기능
+		 System.out.println(member);
 		 service.agreeMemeber(member);	
 	 }
 	
@@ -231,28 +236,22 @@ public class MembershipController {
 	}
 	
 
-	
-//	@PostMapping("/updateMembership")
-//	public void updateMembership(HttpServletRequest request, Membership vo) {
-//		System.out.println(vo);
-//		
-//		
-//		
-//		
-//		
-//		
-//		
-//	}
-	
-	// 홍보글 작성페이지 테스트
+
+	/* 성철 :
+	 * 클럽 홍보글 작성 페이지
+	 * */
 	@GetMapping("/club/{membershipCode}/membershipPromotionDetail")
 	public String membershipPromotionDetail(@PathVariable("membershipCode") Integer membershipCode, Model model){
+		System.out.println(membershipCode);
 		System.out.println("맴버쉽" + service.selectMembership(membershipCode));
 		model.addAttribute("memInfo", service.selectMembership(membershipCode));
 		model.addAttribute("code" , membershipCode);
 		return "membership/membershipPromotionDetail";
 	}
 	
+	/* 성철 :
+	 * 클럽 홍보글 작성 페이지
+	 * */
 	@ResponseBody
 	@PostMapping("/membershipInfoUpdate")
 	public void test(int membershipCode, String test) {

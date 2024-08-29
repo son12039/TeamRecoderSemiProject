@@ -12,17 +12,21 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/reset.css" />
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/index.css" />
-<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/main.css" />
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
+   <script
+      src="https://kit.fontawesome.com/ef885bd654.js"
+      crossorigin="anonymous"
+    ></script>
 <style>
+
 </style>
 </head>
 <body>
 	<jsp:include page="../header.jsp"></jsp:include>
+	
 
 	<div id="container">
 		<h1>${main.membership.membershipName }</h1>
@@ -83,7 +87,7 @@
 					test="${memberGrade == 'none' && main.count >= main.membership.membershipMax}">
 					<h2>최대 인원에 도달한 클럽입니다 신청할수 없습니다.</h2>
 				</c:when>
-
+		
 
 				<c:when
 					test="${memberGrade == 'none' && main.count < main.membership.membershipMax }">
@@ -117,7 +121,7 @@
 						</c:choose>
 					</div>
 					<input id="textbox" type="text" name="mainCommentText"
-						placeholder="댓글을 입력하세요"> <input type="hidden" name="id"
+						placeholder="댓글을 입력하세요"  > <input type="hidden" name="id"
 						value="${member.id}"> <input type="hidden"
 						name="membershipCode" value="${main.membership.membershipCode}">
 					<button id="submit-comment" type="button">댓글 등록</button>
@@ -135,7 +139,11 @@
 					</c:if>
 					<c:if test="${com.mainCommentText != null}">
 						<div class="comment-head">
-							<div class="prof">${com.nickname}
+						
+						<a href="/userInfo/${com.nickname}">
+						
+							<div class="prof" >${com.nickname}
+							
 								<c:choose>
 									<c:when test="${com.memberImg != null}">
 										<img class="user-img"
@@ -145,9 +153,10 @@
 									<c:otherwise>
 										<img class="user-img"
 											src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+										
 									</c:otherwise>
 								</c:choose>
-							</div>${com.mainCommentDate}</div>
+							</div></a>${com.mainCommentDate}</div>
 						<div class="comment-text">${com.mainCommentText}</div>
 						<c:if
 							test="${com.nickname == member.nickname || memberGrade == 'host'}">
@@ -155,13 +164,13 @@
 								onclick="deleteComment(event, ${com.mainCommentCode})">삭제</button>
 						</c:if>
 						<c:if test="${com.nickname == member.nickname}">
-							<button type="button"
+							<button type="button" class="btn"
 								onclick="updateForm(${com.mainCommentCode})">수정</button>
 							<div id="update-form-${com.mainCommentCode}" class="update-form">
 								<form id="comment-frm-${com.mainCommentCode}">
 									<div id="comment-box-update-${com.mainCommentCode}">
 										<div class="prof">
-											<label for="textbox-update${com.mainCommentCode}">
+											<label for="textbox-update-${com.mainCommentCode}">
 												${member.nickname}</label>
 											<c:choose>
 												<c:when test="${member.memberImg != null}">
@@ -175,8 +184,8 @@
 												</c:otherwise>
 											</c:choose>
 										</div>
-										<input id="textbox-update${com.mainCommentCode}" type="text"
-											name="mainCommentText" value="${com.mainCommentText}">
+										<input id="textbox-update-${com.mainCommentCode}" type="text"
+											name="mainCommentText" value="${com.mainCommentText}" onclick="updateKey(${com.mainCommentCode})">
 										<button type="button"
 											onclick="updateComment(event,${com.mainCommentCode})">댓글
 											수정</button>
@@ -185,7 +194,7 @@
 							</div>
 						</c:if>
 					</c:if>
-					<button id="re-comment" type="button"
+					<button type="button" class="btn"
 						onclick="showReplyForm(${com.mainCommentCode})">
 						답글
 						<c:if test="${fn:length(com.recoment) != 0}">(${fn:length(com.recoment)})</c:if>
@@ -196,6 +205,7 @@
 							<c:forEach items="${com.recoment}" var="recom">
 								<div id="comm-${recom.mainCommentCode}" class="re-comment">
 									<div class="comment-head">
+										<a href="/userInfo/${recom.nickname}">
 										<div class="prof">${recom.nickname}
 											<c:choose>
 												<c:when test="${recom.memberImg != null}">
@@ -208,7 +218,7 @@
 														src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
 												</c:otherwise>
 											</c:choose>
-										</div>${recom.mainCommentDate}</div>
+										</div></a>${recom.mainCommentDate}</div>
 									<br />
 									<div class="comment-text">${recom.mainCommentText}</div>
 									<c:if
@@ -217,16 +227,17 @@
 											onclick="deleteComment(event, ${recom.mainCommentCode})">삭제</button>
 									</c:if>
 									<c:if test="${recom.nickname == member.nickname}">
-										<button type="button"
+										<button type="button" class="btn"
 											onclick="updateForm(${recom.mainCommentCode})">수정</button>
 										<div id="update-form-${recom.mainCommentCode}"
 											class="update-form">
 											<form id="comment-frm-${recom.mainCommentCode}">
 												<div id="comment-box-update-${recom.mainCommentCode}">
-													<label for="textbox-update${recom.mainCommentCode}">
+													<label for="textbox-update-${recom.mainCommentCode}">
 														${member.nickname} : </label> <input
-														id="textbox-update${recom.mainCommentCode}" type="text"
-														name="mainCommentText" value="${recom.mainCommentText}">
+														id="textbox-update-${recom.mainCommentCode}" type="text"
+														name="mainCommentText" value="${recom.mainCommentText}"
+														onclick="updateKey(${recom.mainCommentCode})">
 													<button type="button"
 														onclick="updateComment(event,${recom.mainCommentCode})">댓글
 														수정</button>
@@ -258,10 +269,9 @@
 											</c:choose>
 										</div>
 										<input id="textbox${com.mainCommentCode}" type="text"
-											name="mainCommentText" placeholder="대댓글을 입력하세요"> <input
-											type="hidden" name="id" value="${member.id}"> <input
-											type="hidden" name="membershipCode"
-											value="${com.membershipCode}">
+											name="mainCommentText" placeholder="대댓글을 입력하세요" onclick="reCommentKey(${com.mainCommentCode})"> 
+											<input type="hidden" name="id" value="${member.id}"> 
+											<input type="hidden" name="membershipCode" value="${com.membershipCode}">
 										<button type="button"
 											onclick="recomment(event, ${com.mainCommentCode})">댓글
 											등록</button>
@@ -277,5 +287,8 @@
 	</div>
 
 	<script src="${pageContext.request.contextPath}/js/main.js"></script>
+	<script>
+
+	</script>
 </body>
 </html>

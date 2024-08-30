@@ -186,10 +186,10 @@
 <update id="memberManner" parameterType="MemberMannerDTO">
     UPDATE member 
     SET member_manner = member_manner
-    <if test="pulsMinus">
+    <if test="!pulsMinus">
         + 0.5
     </if>
-    <if test="!pulsMinus">
+    <if test="pulsMinus">
         - 0.5
     </if>
     WHERE id = #{member.id}

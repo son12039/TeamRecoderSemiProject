@@ -270,13 +270,14 @@ public class MemberController {
 	   Member m2 = new Member().builder().id(loginMember).build();
 	   RecommendationDTO dto = new RecommendationDTO(service.idCheck(m1), service.idCheck(m2), plusMinus);
 	   // 추천 성공, 실패 여부 블리언으로 반환
-	   if(service.memberManner(dto)) { 
+	   boolean check  = service.memberManner(dto);
+	   if(check) { 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
 		mem.setLastRecommendationTime(service.idCheck(m2).getLastRecommendationTime());	
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 	   }
-	   return service.memberManner(dto);
+	   return check;
    }
 
 

@@ -20,7 +20,7 @@ $(document).ready(function() {
 						}else {
 							alert("회원 추천기능은 24시간마다 가능합니다.")
 						}
-						
+						location.reload();
 					}
 		})
     }

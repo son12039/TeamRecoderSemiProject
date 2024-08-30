@@ -170,7 +170,7 @@ margin-left: 5px;
                   
                      
                     <button class="btn btn-dark btn-sm" name="listGrade" value="${list.member.id}" data-value="regular">일반회원</button>
-                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">삭제</button>
+                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">추방</button>
                     
                     <button class="btn btn-warning btn-sm" name="listGrade" value="${list.member.id}" data-value="host">호스트</button>
                     </td>
@@ -187,7 +187,7 @@ margin-left: 5px;
                   
                     
                     <button class="btn btn-dark btn-sm" name="listGrade" value="${list.member.id}" data-value="regular">일반회원</button>
-                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">삭제</button>
+                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">추방</button>
                     
                     </td>
                     </form>      
@@ -202,7 +202,7 @@ margin-left: 5px;
                   
                     
                     <button class="btn btn-dark btn-sm" name="listGrade" value="${list.member.id}" data-value="regular">일반회원</button>
-                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">삭제</button>
+                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">추방</button>
                     
                     </td>
                     </form>      
@@ -218,7 +218,7 @@ margin-left: 5px;
                   
                       <button class="btn btn-primary btn-sm" name="listGrade" value="${list.member.id}" data-value="admin">관리자</button>
                     
-                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">삭제</button>
+                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">추방</button>
                     
                     </td>
                     </form>      
@@ -294,7 +294,7 @@ margin-left: 5px;
                   
                     
                     
-                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">삭제</button>
+                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">추방</button>
                     </td>
                     </form>      
                     </c:if>
@@ -307,7 +307,7 @@ margin-left: 5px;
                   
                     
                     <button class="btn btn-dark btn-sm" name="listGrade" value="${list.member.id}" data-value="regular">일반회원</button>
-                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">삭제</button>
+                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">추방</button>
                     </td>
                     </form>      
                     </c:if>

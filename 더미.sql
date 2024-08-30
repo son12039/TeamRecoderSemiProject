@@ -9,9 +9,13 @@ FROM membership_location;
 SELECT *
 FROM location_category;
 
-SELECT *
-FROM member;
-
+SELECT id, member_manner, last_recommendation_time
+FROM member
+WHERE id IN('user010', 'user006');
+UPDATE member 
+	SET member_manner = member_manner - 0.5
+	WHERE id = user006;
+	
 select *
 from member ;
 
@@ -20,10 +24,19 @@ from member ;
 		WHERE id = 'asd123';
 select* 
 FROM main_comment;
-insert into main_comment(main_comment_text, id, membership_code, main_parents_comment_code)
+
+
+
+ALTER TABLE membership
+DROP COLUMN memership_secret_text;
+
+ALTER TABLE membership
+CHANGE COLUMN memership_accession_text membership_accession_text text;
 
 select *
 from membership ;
+
+SHOW COLUMNS FROM membership;
 
 SELECT *
 FROM membership_user_list

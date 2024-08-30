@@ -170,26 +170,27 @@ form.addEventListener("submit", function(e) {
 		!addrDetail.value ||
 		!email.value ||
 		!age.value
-	) {
+	)  {
+		alert("모든 필드를 입력해주세요.");
 		e.preventDefault();
 		return;
 	}
+	
 
 	// 모든 정규표현식이 유효한지 확인
 	if (
-		pwdReg &&
-		nameReg &&
-		phoneReg &&
-		addrReg &&
-		addrDetailReg &&
-		emailReg &&
-		ageReg
+		!pwdReg.test(pwd.value) ||
+		 !nameReg.test(name.value) ||
+		 !phoneReg.test(phone.value) ||
+		 !addrReg.test(addr.value) ||
+		 !addrDetailReg.test(addrDetail.value) ||
+		 !emailReg.test(email.value) ||
+		 !ageReg.test(age.value)
 	) {
-		return true;
-	} else {
+		alert("입력된 정보가 유효하지 않습니다");
 		e.preventDefault();
 		return;
-	}
+	} 
 });
 
 

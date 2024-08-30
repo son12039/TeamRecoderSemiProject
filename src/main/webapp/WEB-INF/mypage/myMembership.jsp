@@ -40,26 +40,24 @@
 	</c:if>
     </c:forEach>
     </sec:authorize>
+   <nav>
+    <div>
+    <a id ="LOGO" href="/">다모임</a>
+    </div>
+    <div>
+    <a id="all-club-button">가입 중인 모든 클럽</a> 
+    <a id="manage-club-button">내가 관리중인 클럽</a>  
+    <a id="wait-club-button">가입 대기중인 클럽</a>
+    </div>
+    <div>
+      <a href="/">HOME</a>
+      <a href="/logout">로그아웃</a>
+    </div>
+   </nav>
    
-	    <c:choose>
-        <c:when test="${!hasHost}">
-            <form action="/makeMembership">            
-                <input type="hidden" name="id" value="${mem.id}">
-                <button id="make-club" type="submit" value="클럽생성">클럽 만들기</button>
-            </form>
-        </c:when>
-        <c:otherwise>
-
-            <p>클럽 생성 기능이 활성화되지 않았습니다. 이미 보유중인 클럽이 있습니다.</p>
-        </c:otherwise>
-        </c:choose>
    
-   <div class="membership-type">
-   <button id="all-club-button">가입 중인 모든 클럽</button> 
-  <button id="manage-club-button">내가 관리중인 클럽</button>  
-  <button id="wait-club-button">가입 대기중인 클럽</button>  
-  </div>
-  
+   
+   
   <div class="membership-card" id = "wait-club">
   <h1>가입 대기중인 클럽 보기</h1>
    <c:forEach items="${membership}" var="mem">
@@ -138,8 +136,23 @@
   
    </c:forEach>
   </div>
-  
+  <div>
+  <c:choose>
+    <c:when test="${!hasHost}">
+        <form action="/makeMembership">            
+            <input type="hidden" name="id" value="${mem.id}">
+            <button id="make-club" type="submit" value="클럽생성">클럽 만들기</button>
+        </form>
+         <form action="/updateMembership">            
+            <button id="update-club" type="submit" value="클럽수정">클럽 정보 수정</button>
+        </form>
+    </c:when>
+    <c:otherwise>
 
+        <p>클럽 생성 기능이 활성화되지 않았습니다. 이미 보유중인 클럽이 있습니다.</p>
+    </c:otherwise>
+    </c:choose>
+  </div>
   
   <script src="${pageContext.request.contextPath}/js/myMembership.js">  
     </script>

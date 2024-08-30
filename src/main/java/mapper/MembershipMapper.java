@@ -42,11 +42,21 @@ public interface MembershipMapper {
 	
 	void membershipImg(Membership membership);
 	
+	
+	ArrayList<MembershipUserList> selectName(String member);
 	List<MembershipUserList> MembershipAllRegular(int membershipCode);
 	
-	void updateMembership(Membership membership);
+	
+	
+	
+	// 멤버쉽 업데이트 ============================
+
 	
 	void updateMembershipInfo(Membership membershipInfo);
+	int meetCount (String string);
+	List<MembershipUserList> selectMemberUserList(String id);
+	
+	
 	
 	void expelMember(MemberListDTO member);
 	

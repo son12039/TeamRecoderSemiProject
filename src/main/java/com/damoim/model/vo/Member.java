@@ -1,5 +1,6 @@
 package com.damoim.model.vo;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -8,7 +9,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.dto.MembershipDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,11 +37,14 @@ public class Member implements UserDetails {
     private String memberInfo; // 유저 간단한 자기소개
     private String memberLocation; // 유저선호지역
     private String memberType; // 유저 선호만남유형
+    private LocalDateTime deletedAt; // 회원탈퇴시 날짜
     
     private MultipartFile file; // 이미지 업로드 파일
     
     private List<MemberListDTO> memberListDTO;
-
+    private int memberMeetCount;
+    private LocalDateTime lastRecommendationTime;
+    
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		

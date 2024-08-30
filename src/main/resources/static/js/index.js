@@ -1,6 +1,6 @@
 let page = 1;
 window.addEventListener("scroll", () => {
-	console.log("현ㅈ:", window.innerHeight + window.pageYOffset); // 브라우저 창의 보이는 영역 높이
+	console.log("현재:", window.innerHeight + window.pageYOffset); // 브라우저 창의 보이는 영역 높이
 		    console.log("전체:", document.body.offsetHeight); // 전체 웹 페이지 높이
     if (document.body.offsetHeight <= (window.pageYOffset + window.innerHeight + 10)) {
         page++;

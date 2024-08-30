@@ -11,7 +11,9 @@ import com.damoim.model.dto.SearchDTO;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.dto.MemberMannerDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 
@@ -32,24 +34,31 @@ public interface MemberMapper {
 	Member pwdCheck(Member member);	
 	Member memberInfo(Member member);
 	String grade(Member member);
+	Member selectMember(Member member);
 	
-	// 업데이트 ===============================
-	void updateMember(Member member);
-	void memberDelete(Member member);
-	
-	
+	// 회원정보 업데이트 ===============================
+	void updateMember(Member vo);
 	Member updateCheck(Member vo, Member mem);
 	void updateMemberInfo(Member member);
 	void addrUpdate(Member member);
 	boolean nicknameDupCheck(Member vo);
 	void fileDelete(String string);
-	Member selectImg(String string);
+	Member selectMember(String string);
 	
-	// id 이메일 맞나 체크
+	// 회원탈퇴 ======================================
+	boolean memberStatus(Member member);
+	void memberActBlock(MemberInfoDTO dto);
+	Member membershipSelect(Member member);
+	
+	
+	// id 이메일 맞나 체크 =============================
 	Member memberEmailIdcheck(Member member);
 	
 	// 업데이트
 	void updatePassword(Member member);
+	// 매너 업데이트
+	void memberManner(MemberMannerDTO dto);
+	void updateLastRecommendationTime(String id);
 	// 아래 2개 더미 비밀번호 암호화용도
 	ArrayList<Member> dummyMember();
 	void dummyUpdate(Member member);

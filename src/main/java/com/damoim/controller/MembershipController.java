@@ -1,4 +1,5 @@
 package com.damoim.controller;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.io.File;
@@ -42,6 +43,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestBody;
+
 @Controller
 public class MembershipController {
 	// 클럽 생성 관련 컨트롤
@@ -54,7 +56,7 @@ public class MembershipController {
 	//08-22 채승훈 클럽메인페이지에 지역과 타입 추가
 	@Autowired
 	private LocationTypeService locationTypeService;
-
+	
 	
 	
 	
@@ -62,9 +64,9 @@ public class MembershipController {
 	 * 
 	 * */
 	@GetMapping("/createclub")
-	public String createclub(){
+	public String createclub() {
 		return "mypage/createclub";
-		
+
 	}
 	@Autowired
 	private  MembershipMeetingService meetingService;
@@ -74,34 +76,32 @@ public class MembershipController {
 	@PostMapping("/createclub")
 	public String createclub(Membership membership) {
 		membership.setMembershipInfo(null);
-     return "redirect:/"; // 클럽 생성 후 인덱스 페이지로 리다이렉션
-}	
-	
-	
-	
-	
+		return "redirect:/"; // 클럽 생성 후 인덱스 페이지로 리다이렉션
+	}
 
 	/*
 	 * 성일
 	 * 카운트 관련  VO에 합쳐버림
-	 * 
+	 * 성철
+	 * 댓글 대댓글 글 관련 로직 추가
 	 * */
 	
 	
 	@GetMapping("/{membershipCode}") // 클럽 홍보 페이지 각각 맞춰 갈수있는거
-	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO, Model model
-			) {
+	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO,
+			Model model) {
 		// 홍보페이지에 membership 관련 정보 + 호스트 정보
+		System.out.println(membershipCode);
 		MembershipUserList list =  service.main(membershipCode);
 		list.setCount((service.membershipUserCount(membershipCode)));
 		
-
 		
 		model.addAttribute("main", list);		
 		model.addAttribute("allMember", service.MembershipAllRegular(membershipCode));
 
 		ArrayList<MainComment> commList = commentService.allMainComment(membershipCode); // 일반댓글
 		ArrayList<CommentDTO> dtoList = new ArrayList<CommentDTO>(); //합칠예정
+		
 		for (int i = 0; i < commList.size(); i++) {
 		    CommentDTO commentDTO = new CommentDTO().builder()
 		            .mainCommentCode(commList.get(i).getMainCommentCode())
@@ -116,7 +116,6 @@ public class MembershipController {
 		    
 		    dtoList.add(commentDTO);
 		    ArrayList<MainComment> recommList = commentService.mainReComment(membershipCode, commentDTO.getMainCommentCode());
-		    // 모든 댓글에 대댓글이 달리는 상황 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 수정요망
 		    if(recommList.size()> 0) {
 		    for (int j = 0; j < recommList.size(); j++) {
 		        CommentDTO recommentDTO = new CommentDTO().builder()
@@ -133,6 +132,7 @@ public class MembershipController {
 		     
 		        commentDTO.getRecoment().add(recommentDTO);
 		    }
+		    
 		}
 		}
 
@@ -145,6 +145,7 @@ public class MembershipController {
 		
 		return "mainboard/main";
 	}
+
 	/*
 	  * 성철
 	  * 해당 클럽에 가입된 회원이 그클럽에 정보와 클럽 가입 현황 볼수있는 페이지 이동
@@ -152,6 +153,7 @@ public class MembershipController {
 	 @GetMapping("/club/{membershipCode}") // 클럽 페이지 이동
 		public String membershipPage(@PathVariable("membershipCode") Integer membershipCode,MemberListDTO memberListDTO, Model model) {
 			// 해당클럽 정보 다담음
+		 	System.out.println(membershipCode);
 		 	MembershipUserList list =  service.main(membershipCode);
 			list.setCount((service.membershipUserCount(membershipCode)));
 			// 호스트정보 
@@ -173,7 +175,7 @@ public class MembershipController {
 			model.addAttribute("type", locationTypeService.typeList(membershipCode));
 			
 		
-			return "membership/membershipPageTest1";
+			return "membership/membershipPage";
 		}
 	 /*
 	  * 성철
@@ -194,32 +196,32 @@ public class MembershipController {
 	public String makeMembership() {
 		return "mypage/makeMembership";
 	}
-	/* ???
+
+	/*
+	 * ???
 	 * 
 	 * 
 	 * 
-	 * 성철
-	 * 만들어진거에 사진첨부만 추가
-	 * */
+	 * 성철 만들어진거에 사진첨부만 추가
+	 */
 	@PostMapping("/makeMembership") // 클럽 생성
 	public String makeMembership(MembershipDTO dto, MultipartFile file) throws IOException {
-		Membership membership = Membership.builder()
-				.membershipName(dto.getMembershipName())
-				.membershipInfo(dto.getMembershipInfo())
-				.membershipMax(Integer.parseInt(dto.getMembershipMax())
-				).build();
+		Membership membership = Membership.builder().membershipName(dto.getMembershipName())
+				.membershipInfo(dto.getMembershipInfo()).membershipMax(Integer.parseInt(dto.getMembershipMax()))
+				.build();
 		// 클럽생성?
 		service.makeMembership(membership);
-		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\membership\\"+ Integer.toString(membership.getMembershipCode())+"\\");  
+		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\membership\\"
+				+ Integer.toString(membership.getMembershipCode()) + "\\");
 		Files.createDirectories(directoryPath);
 		Membership m = Membership.builder()
-					.membershipCode(membership.getMembershipCode())
-					.membershipImg(fileUpload(file, membership.getMembershipCode()))
-					.build();
+				.membershipCode(membership.getMembershipCode())
+				.membershipImg(fileUpload(file, membership.getMembershipCode()))
+				.build();
 		System.out.println("해당 맴버쉽 코드 : " + m.getMembershipCode());
 		System.out.println("이미지 URL 테스트 " + m.getMembershipImg());
 		service.membershipImg(m);
-		// 멤버쉽 유저 리스트에 등록 절차 
+		// 멤버쉽 유저 리스트에 등록 절차
 		MemberListDTO list = new MemberListDTO();
 		list.setId(dto.getId());
 		list.setListGrade(dto.getListGrade());
@@ -228,49 +230,42 @@ public class MembershipController {
 		service.host(list);
 		return "redirect:/";
 	}
-	 /*
-	  * 성철
-	  * 세션에 맴버가 해당 클럽에 가입 X 상황일시 신청가능한 메서드
-	  * */
+
+	/*
+	 * 성철 세션에 맴버가 해당 클럽에 가입 X 상황일시 신청가능한 메서드
+	 */
 	@PostMapping("/membershipApply") // 클럽 회원가입 신청
 	public String membershipApply(MemberListDTO member) {
 		// 클럽 가입 신청
 		service.membershipApply(member);
-		
 
- 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member mem =  (Member)authentication.getPrincipal();
-		ArrayList<MemberListDTO> list =  (ArrayList<MemberListDTO>) mem.getMemberListDTO();
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) authentication.getPrincipal();
+		ArrayList<MemberListDTO> list = (ArrayList<MemberListDTO>) mem.getMemberListDTO();
 		list.add(member);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		
 		return "redirect:/" + member.getMembershipCode();
 	}
 	
 
+
+	/* 성철 :
+	 * 클럽 홍보글 작성 페이지
+	 * */
 	
-//	@PostMapping("/updateMembership")
-//	public void updateMembership(HttpServletRequest request, Membership vo) {
-//		System.out.println(vo);
-//		
-//		
-//		
-//		
-//		
-//		
-//		
-//	}
-	
-	// 홍보글 작성페이지 테스트
 	@GetMapping("/club/{membershipCode}/membershipPromotionDetail")
 	public String membershipPromotionDetail(@PathVariable("membershipCode") Integer membershipCode, Model model){
+		System.out.println(membershipCode);
 		System.out.println("맴버쉽" + service.selectMembership(membershipCode));
 		model.addAttribute("memInfo", service.selectMembership(membershipCode));
 		model.addAttribute("code" , membershipCode);
 		return "membership/membershipPromotionDetail";
 	}
 	
+	/* 성철 :
+	 * 클럽 홍보글 작성 페이지
+	 * */
 	@ResponseBody
 	@PostMapping("/membershipInfoUpdate")
 	public void test(int membershipCode, String test) {
@@ -288,37 +283,37 @@ public class MembershipController {
 	
 	
 	
-	/* 성철
-	 * 파일 삽입 메서드 해당맴버쉽 프로필사진 !!
+
+	/*
+	 * 성철 파일 삽입 메서드 해당맴버쉽 프로필사진 !!
 	 * 
-	 * */ 
+	 */
 	public String fileUpload(MultipartFile file, int code) throws IllegalStateException, IOException {
-		if(file.getOriginalFilename() == "") {
+		if (file.getOriginalFilename() == "") {
 			System.out.println("NULL 리턴");
 			return null;
 		}
 		UUID uuid = UUID.randomUUID(); // 랜덤 파일명 부여
-		String fileName = uuid.toString()+"_" + file.getOriginalFilename();
-		File copyFile = new File("\\\\192.168.10.51\\damoim\\membership\\"+ Integer.toString(code) + "\\" + fileName);
+		String fileName = uuid.toString() + "_" + file.getOriginalFilename();
+		File copyFile = new File("\\\\192.168.10.51\\damoim\\membership\\" + Integer.toString(code) + "\\" + fileName);
 		file.transferTo(copyFile);
 		System.out.println("파일1개 추가!");
 		return fileName;
 	}
-	/* 성철
-	 * 파일 삭제 메서드 해당유저 프로필사진 변경시 사용!!
-	 * 실 사용때는 조건에 만약 보내준 링크가 null이면 변하지 않도록
-	 * */ 
+
+	/*
+	 * 성철 파일 삭제 메서드 해당유저 프로필사진 변경시 사용!! 실 사용때는 조건에 만약 보내준 링크가 null이면 변하지 않도록
+	 */
 	public void fileDelete(String file, int code) throws IllegalStateException, IOException {
-		if(file == null) {
+		if (file == null) {
 			System.out.println("삭제할 파일이 없습니다");
+		} else {
+			System.out.println("삭제될 URL : " + file);
+			File f = new File("\\\\192.168.10.51\\damoim\\membership\\" + Integer.toString(code) + "\\" + file);
+			f.delete();
+
 		}
-		else {
-			System.out.println("삭제될 URL : "  + file);
-		File f = new File("\\\\192.168.10.51\\damoim\\membership\\"+ Integer.toString(code) + "\\" + file);
-		f.delete();
-		
-		}
-	
+
 	}
 	
 	

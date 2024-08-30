@@ -80,7 +80,6 @@
 						 	<div class="club_box">
 							<a href="/${list.membership.membershipCode}""><img class="club_img" src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}"></a>
 							<p>${list.membership.membershipName}</p>
-							<button id="toggle">토글버튼</button>
 							</div>
 						</c:if>
 					</c:forEach>

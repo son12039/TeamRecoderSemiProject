@@ -9,9 +9,13 @@ FROM membership_location;
 SELECT *
 FROM location_category;
 
-SELECT *
-FROM member;
-
+SELECT id, member_manner, last_recommendation_time
+FROM member
+WHERE id IN('user010', 'user006');
+UPDATE member 
+	SET member_manner = member_manner - 0.5
+	WHERE id = user006;
+	
 select *
 from member ;
 

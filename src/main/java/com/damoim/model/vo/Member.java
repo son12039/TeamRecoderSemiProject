@@ -43,6 +43,7 @@ public class Member implements UserDetails {
     
     private List<MemberListDTO> memberListDTO;
     private int memberMeetCount;
+    private LocalDateTime lastRecommendationTime;
     
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

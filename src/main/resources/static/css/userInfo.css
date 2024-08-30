@@ -10,7 +10,7 @@ main {
   min-width: 600px;
   margin: 20px;
   padding: 20px;
-  height: 95.5vh;
+  height: 100%;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -23,15 +23,34 @@ main {
   padding-top: 50px;
   padding-bottom: 50px;
 }
-#section div {
-  display: flex;
-}
 
-#section img {
+.user-img {
   width: 150px;
   height: 150px;
   border-radius: 50px;
+  margin-bottom: 50px;
 }
+#rating{
+	display: flex;
+	justify-content: space-between;
+}
+#emoji-plus{
+	color: green;
+}
+#emoji-minus{
+	color: red;
+}
+.rating-btn{
+	align-items: center;
+    flex-direction: column;
+    display: flex;
+    font-weight: bold;
+	border: none;
+	background-color: white;
+	margin: 0px 10px;
+	cursor: pointer;
+}
+
 .memberInfo_div h1 {
   font-size: 1.5rem;
   font-weight: bolder;
@@ -45,7 +64,16 @@ main {
   display: flex;
   justify-content: space-between;
   width: 50%;
-  padding-top: 50px;
+  padding-top: 30px;
+  align-items: center;
+}
+.manner{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.manner > p{
+	margin-right: 5px;
 }
 .group {
   margin-top: 20px;
@@ -78,16 +106,13 @@ main {
 }
 
 #section2 {
-  padding: 20px;
-  background-color: #f9f9f9;
-  height: 50%;
+    display: flex;
+    padding: 20px;
+    background-color: #f9f9f9;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.section2_memberInfo h3 {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 15px;
-}
 
 .section2_memberInfo h1 {
   font-size: 1rem;

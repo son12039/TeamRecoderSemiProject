@@ -20,11 +20,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.damoim.model.dto.CommentDTO;
+import com.damoim.model.dto.MeetCommentDTO;
 import com.damoim.model.vo.Image;
+import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.MeetingsAgree;
+import com.damoim.model.vo.MeetingsComment;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipMeetings;
 import com.damoim.model.vo.MembershipUserList;
+import com.damoim.service.MeetingsCommentService;
 import com.damoim.service.MembershipMeetingService;
 import com.damoim.service.MembershipService;
 
@@ -37,6 +42,8 @@ public class MembershipMeetingController {
 	private  MembershipMeetingService service;
 	@Autowired
 	private MembershipService membershipService;
+	@Autowired
+	private MeetingsCommentService commentService;
 	
 	@GetMapping("/write")
 	public String write(int membershipCode, Model model) {
@@ -96,7 +103,46 @@ public class MembershipMeetingController {
 	  }
 	  
 	  System.out.println(agree);
-	  
+		ArrayList<MeetingsComment> commList = commentService.allMeetingsComment(meetCode); // 일반댓글
+		ArrayList<MeetCommentDTO> dtoList = new ArrayList<MeetCommentDTO>(); //합칠예정
+		
+		for (int i = 0; i < commList.size(); i++) {
+			MeetCommentDTO commentDTO = new MeetCommentDTO().builder()
+		            .meetCommentCode(commList.get(i).getMeetCommentCode())
+		            .meetCommentText(commList.get(i).getMeetCommentText())
+		            .meetCommentDate(commList.get(i).getMeetCommentDate())
+		            .id(commList.get(i).getMember().getId())
+		            .nickname(commList.get(i).getMember().getNickname())
+		            .memberImg(commList.get(i).getMember().getMemberImg())
+		            .meetCode(commList.get(i).getMeetCode()) 
+		            .recoment(new ArrayList<>()) 
+		            .build();
+		    
+		    dtoList.add(commentDTO);
+		    ArrayList<MeetingsComment> recommList = commentService.MeetingsReComment(meetCode, commentDTO.getMeetCommentCode());
+		    if(recommList.size()> 0) {
+		    for (int j = 0; j < recommList.size(); j++) {
+		    	MeetCommentDTO recommentDTO = new MeetCommentDTO().builder()
+		                .meetCommentCode(recommList.get(j).getMeetCommentCode())
+		                .meetCommentText(recommList.get(j).getMeetCommentText())
+		                .meetCommentDate(recommList.get(j).getMeetCommentDate())
+		                .id(recommList.get(j).getMember().getId())
+		                .nickname(recommList.get(j).getMember().getNickname())
+		                .memberImg(recommList.get(j).getMember().getMemberImg())
+		                .meetCode(recommList.get(j).getMeetCode()) 
+		                .meetParentsCommentCode(commList.get(i).getMeetCommentCode())
+		                .build();
+		        
+		     
+		        commentDTO.getRecoment().add(recommentDTO);
+		    }
+		    
+		}
+		}
+		System.out.println(dtoList);
+
+		
+		model.addAttribute("comment", dtoList); 
 	
 	 
 	 

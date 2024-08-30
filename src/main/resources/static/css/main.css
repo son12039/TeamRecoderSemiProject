@@ -1,7 +1,7 @@
 body {
   font-family: "Arial", sans-serif;
   line-height: 1.6;
-  background-color: #e6e1e1;
+  background-color: #ffff;
 }
 
 #box {
@@ -77,13 +77,36 @@ body {
   width: 50px;
   height: 50px;
 }
+.locationTypeBox {
+  font-size: 12px;
+  width: 200px;
+}
+.type {
+  display: flex;
+  flex-wrap: wrap;
+}
+.typeList {
+  background-color: white;
+  width: fit-content; /*글자크기에 맞게 width값 주기*/
+  border: 1px solid grey;
+  padding: 2.5px 5px;
+  border-radius: 15px;
+  margin: 1px;
+}
+.typeText {
+  padding: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
 form {
   margin-top: 20px;
 }
 
 input[type="submit"] {
-  background-color: #f88c1d;
+  background-color: #fca311;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -101,6 +124,10 @@ input[type="submit"]:hover {
 .update-form {
   display: none;
 }
+.comment{
+	border: 1px solid #fca311;
+	
+}
 .comment,
 .re-comment {
   padding: 8px;
@@ -109,6 +136,7 @@ input[type="submit"]:hover {
   margin: 10px;
   border-radius: 10px;
   background-color: #e5e5e5;
+  
 }
 .re-comment {
   margin: 10px 0px;
@@ -161,7 +189,7 @@ div[id^="comment-box"] > input {
   margin-bottom: 5px;
 }
 button {
-  background-color: #f88c1d;
+  background-color: #fca311;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -172,7 +200,7 @@ button {
   transition: background-color 0.3s ease;
 }
 .btn.active {
-  background-color: #28a745;
+  background-color: #14213d;
   color: #fff;
 }
 button:hover {

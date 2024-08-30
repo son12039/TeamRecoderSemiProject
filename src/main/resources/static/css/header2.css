@@ -12,28 +12,28 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  
+
   width: 100%;
   min-width: 1000px;
 }
 /*헤더 왼쪽*/
 .main_header_left {
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   height: 100%;
-   width: 378.5px;
-  
+  width: 378.5px;
 }
 .main_header_left a {
   font-size: 18px;
   font-weight: bold;
   margin-right: 15px;
-  color : #fca35b;
- 
+  color: #fca35b;
 }
 /*헤더 센터*/
 .main_header_center {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,24 +41,22 @@
   font-size: 50px;
   height: 100%;
   font-weight: bold;
-  color : #fca35b;
-   width: 378.5px;
+  color: #fca35b;
+  width: 378.5px;
 }
 
 /*헤더 오른쪽*/
 .main_header_right {
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   height: 100%;
   font-size: 18px;
   font-weight: bold;
 }
 .main_header_right a {
-  color : #fca35b;
-}
-
-.main_header_right_menu {
+  color: #fca35b;
 }
 
 .main_header_right_nickname {

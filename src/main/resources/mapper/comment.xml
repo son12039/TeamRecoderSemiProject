@@ -90,6 +90,15 @@
 		WHERE main_comment_code = #{mainCommentCode}
 	</update>
 	
+	<update id="resignedCommentUpdate" parameterType="ResignedDTO">
+		UPDATE main_comment
+		SET main_comment_text = null
+		WHERE 
+		main_comment_code = #{mainCommentCode}
+		AND status =#{status}
+	</update>
+	
+	
 	<select id="selectComment" parameterType="int" resultMap="commentMemberMap">
 		SELECT * FROM main_comment
 		WHERE  main_comment_code = #{mainCommentCode}

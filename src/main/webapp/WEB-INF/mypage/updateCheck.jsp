@@ -11,10 +11,46 @@
 <body>
 	<div class="container">
 		<h1>비밀번호를 입력하세요</h1>
-		<form action="/updateCheck" method="post" id="updateCheck">
-			<input type="password" name="pwdCheck" required> 
+		<form onsubmit="return false">
+			<input type="password" name="pwdCheck" id="pwdCheck"> 
 			<span id="checkSpan"></span>
-			<button type="submit">확인</button>
+			<button type="button" id="button">확인</button>
 		</form>
+		
+		<!-- 
+		텍스트 인풋 영역에서 커서가 있는 상태에서 
+		키보드 Enter를 치게 되면 submit이 일어남
+		그럴 경우 onsubmit="return false" 로 폼 전송을 막는다
+		그런다음 엔터 이벤트 (keyCode = 13)와 버튼의 클릭 이벤트를 걸어서
+		updateMember() 함수 작동
+		 -->
+		<script>
+			$("#pwdCheck").keyup((e) => {
+				if(e.keyCode === 13) {
+					e.preventDefault();
+					updateMember();
+				}
+			})
+			$("#button").click(() => {
+				const pwdCheck = $("#pwdCheck").val();
+				updateMember();
+			});
+			
+			function updateMember() {
+				$.ajax({
+					type: "post",
+					url: "/updateCheck",
+					data: "pwdCheck=" + $("#pwdCheck").val(),
+					success: function (result){
+						if(result){
+							window.location.href = "/updateMemberInfo";
+						} else {
+							checkSpan.innerHTML="비밀번호가 다릅니다"
+							checkSpan.style.color="red"
+						}
+					},
+				});
+			}
+		</script>
 	</div>
 </body>

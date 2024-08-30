@@ -1,4 +1,5 @@
 package com.damoim.service;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -91,10 +92,13 @@ public class MembershipService {
 	
 	
 	
-	public void updateMembership(Membership membership) {
-		mapper.updateMembership(membership);
+
+	
+	public ArrayList<MembershipUserList> selectName(String member) {
+		return mapper.selectName(member);
 	}
 	
+
 	
 	public void updateMembershipInfo(Membership membershipInfo) {
 		mapper.updateMembershipInfo(membershipInfo);
@@ -102,6 +106,14 @@ public class MembershipService {
 	
 	public Membership selectMembership(int membershipCode) {
 		return	mapper.selectMembership(membershipCode);
+	}
+	
+	public int meetCount(String id) {
+		return mapper.meetCount(id);
+	}
+	
+	public List<MembershipUserList> selectMemberUserList(String id){
+		return mapper.selectMemberUserList(id);
 	}
 	
 //	public List<MembershipUserList> list(Paging paging) {

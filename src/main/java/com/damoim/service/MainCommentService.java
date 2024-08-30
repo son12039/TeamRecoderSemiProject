@@ -2,10 +2,16 @@ package com.damoim.service;
 
 import java.util.ArrayList;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.damoim.model.dto.ResignedDTO;
 import com.damoim.model.vo.MainComment;
+import com.damoim.model.vo.Member;
 
 import mapper.MainCommentMapper;
 
@@ -13,7 +19,7 @@ import mapper.MainCommentMapper;
 public class MainCommentService {
 	@Autowired
 	private MainCommentMapper mapper;
-
+	
 	public void insertComment(MainComment mainComment) {
 		mapper.insertComment(mainComment);
 	}
@@ -48,4 +54,16 @@ public class MainCommentService {
 		mapper.updateComment(mainComment);
 	}	
 	
+	
+	
+	public void resignedCommentUpdate(ResignedDTO resignedDTO){
+		 mapper.resignedCommentUpdate(resignedDTO);
+	}
+	
+	
+
+	
+	
+	
+
 }

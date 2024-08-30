@@ -1,5 +1,6 @@
 package com.damoim.controller;
 import java.util.ArrayList;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -7,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -42,9 +44,19 @@ public class PageController {
 
 	
     // 기본 정보 수정
-	@GetMapping("/update")
-	public String mypage(Model model) {
+	@GetMapping("/mypage")
+	public String mypage(Model model, Member member) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) authentication.getPrincipal();
+		ArrayList<MembershipUserList> membershipList = service.selectName(mem.getId());
+		model.addAttribute("list", membershipList);
 		return "mypage/mypage";
+	}
+	
+	// 개인 유저 페이지
+	@GetMapping("/user")
+	public String user() {
+		return "member/user";
 	}
 	
 	// 내 정보 열람 비밀번호 체크
@@ -64,7 +76,17 @@ public class PageController {
 	public String updateMembership() {
 		return "membership/updateMembership";
 	}
-
+	
+	// 회원탈퇴
+	@GetMapping("/memberDelete")
+	public String memberDelete(Model model){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) authentication.getPrincipal();
+		System.out.println("memberDelete : " + mem);
+		ArrayList<MembershipUserList> membershipList = service.selectName(mem.getId());
+		model.addAttribute("list", membershipList);
+		return "mypage/memberDelete";
+	}
 
 	// 내가 가입한 맴버쉽 페이지 이동
 	/*

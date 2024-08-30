@@ -3,6 +3,7 @@ package com.damoim.model.dto;
 import com.damoim.model.vo.Membership;
 
 import lombok.AllArgsConstructor;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data @AllArgsConstructor @NoArgsConstructor

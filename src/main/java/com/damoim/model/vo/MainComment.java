@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 public class MainComment {
+	
     private int mainCommentCode; // 댓글코드
     private String mainCommentText; // 댓글 내용
     private Date mainCommentDate; // 댓글 게시시간

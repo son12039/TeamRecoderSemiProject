@@ -1,6 +1,6 @@
 @charset "UTF-8";
 body {
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
 }
 .container {
   align-items: flex-start;
@@ -56,7 +56,7 @@ body {
 .membership-info h1 {
   font-weight: bolder;
 }
-.membership-info h2  {
+.membership-info h2 {
   margin-left: 10px;
   width: 100%;
 }
@@ -115,52 +115,56 @@ body {
 }
 /*중단 locationLa 이벤트 놈들*/
 #locationLaNameForm input[type="checkbox"] {
-   display:none;
- }
-#locationLaNameForm{
-	display:flex;
-	justify-content: space-around;
-	align-self: center;
-	width: 100%;
-	max-width: 1200px;
-	font-size:20px;
-	padding :10px;
-	font-weight: bold;
-	height: 50px;
+  display: none;
 }
-.locationLaCss{
-	padding: 8px 10px;
-	align-self: center;
-	cursor: pointer;
+#locationLaNameForm {
+  display: flex;
+  justify-content: space-around;
+  align-self: center;
+  width: 100%;
+  max-width: 1200px;
+  font-size: 20px;
+  padding: 10px;
+  font-weight: bold;
+  height: 50px;
 }
-.locationLaCss:hover{
-	background-color: rgb(255, 142, 4);
-	border-radius : 20px;
+
+.locationLaCss {
+  padding: 8px 10px;
+  align-self: center;
+  cursor: pointer;
 }
-.locLaNameLabel{
-	padding: 8px 10px;
-	align-self: center;
-	cursor: pointer;	
+.locationLaCss:hover {
+  background-color: rgb(255, 142, 4);
+  border-radius: 20px;
 }
-.locLaNameLabel:hover{
-	background-color: rgb(255, 142, 4);
-	border-radius : 20px;
+
+.locLaNameLabel {
+  padding: 8px 10px;
+  align-self: center;
+  cursor: pointer;
+}
+.locLaNameLabel:hover {
+  background-color: rgb(255, 142, 4);
+  border-radius: 20px;
 }
 /*중단 locationLa 이벤트 놈들*/
 /*중단 locationType 이벤트 놈들*/
 #locationSNameForm input[type="checkbox"] {
-   display:none;
- }
-#locationSNameForm{
-	font-weight: bold;
+  display: none;
 }
-.locationTypeCss{
-	padding:10px 5px;
+#locationSNameForm {
+  font-weight: bold;
+}
+.locationTypeCss {
+  padding: 10px 5px;
 }
 /*중단 locationType 이벤트 놈들*/
+
 #typeLaNameSelect input[type="checkbox"] {
-   display:none;
- }
- #typeSNameForm input[type="checkbox"] {
-   display:none;
- }
+  display: none;
+}
+
+#typeSNameForm input[type="checkbox"] {
+  display: none;
+}

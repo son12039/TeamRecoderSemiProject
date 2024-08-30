@@ -62,7 +62,7 @@ public class ChattingController {
 
         roomCookie.setMaxAge(0);
         nicknameCookie.setMaxAge(0);
-
+        
         response.addCookie(nicknameCookie);
         response.addCookie(roomCookie);
     }

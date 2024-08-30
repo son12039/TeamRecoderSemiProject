@@ -6,12 +6,15 @@ body {
   background-color: white !important;
 }
 
+#box{
+	display: flex;
+	justify-content: center;
+	
+}
 #container {
   width: 100%;
   max-width: 800px;
-  margin: 20px auto;
   background: #F4F4F4;
- 
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border: 1px solid #ddd;
@@ -122,7 +125,7 @@ input[type="submit"]:hover {
 	max-width: 820px;
 	margin: 10px;
 	border-radius: 10px;
-	background-color: white;
+	background-color: #e5e5e5;
 	
 }
 .re-comment{
@@ -287,6 +290,51 @@ button > img {
 	margin-bottom: 3px;
 	width: 100%;
 	border-bottom: 2px dashed; 
+}
+
+.image-container {
+	display: flex;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	position: relative;
+	overflow: hidden; /* 컨테이너의 범위를 넘는 요소를 숨김 */
+	width: 600px; /* 컨테이너의 너비 조정 */
+}
+
+.image-item {
+	position: relative;
+	width: 50px; /* 이미지의 너비 */
+}
+
+.image-item img {
+	margin: 0;
+}
+
+.allmemberImg {
+	display: block;
+	width: 100%; /* 이미지의 너비를 li 요소에 맞춤 */
+	height: 50px;
+	border-radius: 50%;
+}
+
+.image-item:not(:first-child) {
+	margin-left: -20px; /* 겹치는 정도 조절 */
+}
+
+#last-item {
+	position: relative;
+}
+
+#last-img, #last-img2 {
+	position: absolute;
+}
+
+#last-img {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
 

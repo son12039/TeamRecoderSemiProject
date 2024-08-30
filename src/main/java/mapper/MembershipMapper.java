@@ -34,6 +34,7 @@ public interface MembershipMapper {
 	List<MemberListDTO> grade(Member member);
 	
 	void agreeMemeber(MemberListDTO member);
+	void hostChange(int membershipCode);
 	
 	 
 	List<Integer> membershipCodeList(String id);
@@ -48,6 +49,13 @@ public interface MembershipMapper {
 	void updateMembershipInfo(Membership membershipInfo);
 	
 	void expelMember(MemberListDTO member);
+	
+	
+	List<MemberListDTO> adminUser(int membershipCode);
+	
+	MemberListDTO ifHost(String id);
+	
+	
 }
 
 

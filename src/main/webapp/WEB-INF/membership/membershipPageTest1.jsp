@@ -71,10 +71,12 @@
 			
 			 <div id="calendar" style= "width: 60%"     ></div>
 			<div id="links">
+			<c:if test="${main.member.id  == member.id ||  fn:contains(adminList, member.id)}">
 				<div class="dropdown">
 				<a class="btn btn-secondary dropdown-toggle" href="#" role="button"
 					data-bs-toggle="dropdown" aria-expanded="false"> <i class="fa-solid fa-bars"></i> </a>
 
+   
 				<ul class="dropdown-menu">
 					<li><a
 						href="/club/${main.membership.membershipCode}/membershipPromotionDetail"
@@ -84,8 +86,9 @@
 					<li><a id="management"  class="dropdown-item" href="/management?membershipCode=${main.membership.membershipCode}"   > 멤버관리페이지 </a></li>
 					
 				</ul>
+				
 			</div>
-
+</c:if>
 		
 			<div>
 					<a
@@ -113,39 +116,7 @@
 					    <c:forEach items="${allMember}" var="listMember">
             <div class="memberTable">
          
-                 <c:choose> 
-             
-                    <c:when test="${listMember.listGrade == 'guest'}">
-                        <ul> 
-                       
-                            <li>${listMember.member.nickname} - 가입 대기중</li>
-                            
-                           
-                            <c:if test="${listMember.member.memberImg != null}">
-                            <li><img class="allmemberImg" src="http://192.168.10.51:8081/member/${cMember.member.id}/${cMember.member.memberImg}" alt="회원 이미지"></li>
-                            </c:if>
-                            <c:if test="${listMember.member.memberImg == null}">
-                            <img class="allmemberImg" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg" alt="회원 이미지">
-                             </c:if>                          
-                              <%-- 현제 호스트만 수락버튼 보이게 해둬서 조건 이런데 나중에 바꿔야함 --%>
-                            <c:if test="${main.member.id == member.id && !(membershipUserCount >= main.membership.membershipMax)}">
-                        	
-                                <form id="agreefrm${listMember.listCode}">
-                                    <input type="hidden" name="id" value="${listMember.member.id}">
-                                    <input type="hidden" name="listGrade" value="regular">
-                                    <input type="hidden" name="membershipCode" value="${main.membership.membershipCode}">
-                                    <button type="button" class="agreeMember"   value="${listMember.listCode}">가입 승인</button>
-                                   
-                                    
-                                </form>
-                            </c:if>
-                             
-                           
-                            
-                        </ul>
-                    </c:when>
-                      
-                    <c:otherwise>
+                
                         <ul> 
                         <c:if test="${listMember.listGrade == 'host'}">
                             <li class="member-grade"><span><i class="fa-solid fa-crown"></i></span></li>
@@ -211,8 +182,7 @@
                           </div>
                         </ul>
                         
-                    </c:otherwise>
-                </c:choose>
+                
                  
             </div>
         </c:forEach>

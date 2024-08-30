@@ -96,7 +96,15 @@
 		(membership_code)
 		JOIN member USING (id)
 		WHERE membership_code =
-		#{membership_code};
+		#{membership_code}
+		ORDER BY 
+    CASE list_grade
+        WHEN 'host' THEN 1
+        WHEN 'admin' THEN 2
+        WHEN 'regular' THEN 3
+        WHEN 'guest' THEN 4
+        ELSE 5
+    END;
 	</select>
 	
 	
@@ -197,6 +205,17 @@
 		#{membershipCode}
 	</update>
 	
+	
+	<update id="hostChange" parameterType="MemberListDTO">
+		UPDATE
+		membership_user_list		
+		SET list_grade = "admin"
+		WHERE list_grade = "host" AND 
+		membership_code =
+		#{membershipCode}
+	</update>
+	
+	
 	<delete id="expelMember" parameterType="MemberListDTO">
 	DELETE FROM membership_user_list
 		WHERE id = #{id} AND
@@ -210,9 +229,19 @@
 		membership
 	</select>
 	
+	<select id="adminUser" resultMap="listDTOMap" parameterType="Integer">
+	SELECT *
+	FROM membership_user_list
+	WHERE list_grade = "admin" AND membership_code = #{membershipCode}
 	
+	</select>
 	
-	
+
+     <select id="ifHost" resultMap="listDTOMap" parameterType="String">
+     SELECT *
+     FROM membership_user_list
+     WHERE list_grade ="host" AND id= #{id}    
+     </select>
 
 
 

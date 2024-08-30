@@ -3,6 +3,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,7 +103,17 @@ a {
   
   }
 
+.buttones{
+display: flex;
 
+}
+
+
+.btn{
+width: 80px;
+height: 40px;
+margin-left: 5px;
+}
 
 </style>
 
@@ -111,7 +122,7 @@ a {
 <sec:authorize access="isAuthenticated()" var="principal">
 <sec:authentication property="principal" var="member" />
     
-    <c:if test="${member.id == host.member.id}">
+    <c:if test="${member.id == host.member.id }">
     <p>로그인한 사람 ${member.id}</p>
     <p>여기의 호스트 ${host.member.id}</p>
     <table>
@@ -122,7 +133,7 @@ a {
                     <th>성별</th>
                     <th>나이</th>
                     <th>폰 번호</th>
-                    <th>권한</th>    
+                    <th>등급</th>    
                     <th>등급설정</th>
 
     </tr>
@@ -136,22 +147,174 @@ a {
                     <td>${list.member.gender }</td>
                     <td>${list.member.age }</td>
                     <td>${list.member.phone }</td>
-                    <td>${list.listGrade}</td>
+                    <c:if test="${list.listGrade == 'host' }">
+                    <td>호스트</td>
+                    </c:if>
+                   <c:if test="${list.listGrade == 'regular' }">
+                    <td>일반회원</td>
+                    </c:if>       
+                     <c:if test="${list.listGrade == 'admin' }">
+                    <td>관리자</td>
+                    </c:if>
+                     <c:if test="${list.listGrade == 'guest' }">
+                    <td>가입대기중</td>
+                    </c:if>
+                  
                     
-                    <c:if test="${list.listGrade != 'host'}"> 
+                       <c:if test="${list.listGrade == 'admin' && not fn:contains(otherHost, list.member.id)  }">
+                  <form id="id${list.member.id}" class="fom">            
+                    <td class="buttones">
+                   
+                    <input type="hidden" name="id" value="${list.member.id}">
+                    <input type="hidden" name="membershipCode" value="${list.membership.membershipCode}">
+                  
+                     
+                    <button class="btn btn-dark btn-sm" name="listGrade" value="${list.member.id}" data-value="regular">일반회원</button>
+                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">삭제</button>
+                    
+                    <button class="btn btn-warning btn-sm" name="listGrade" value="${list.member.id}" data-value="host">호스트</button>
+                    </td>
+                    </form>      
+                    </c:if>
+                    
+                    
+                       <c:if test="${list.listGrade == 'admin' &&  fn:contains(otherHost, list.member.id)  }">
+                    <form id="id${list.member.id}" class="fom">            
+                    <td class="buttones">
+                   
+                    <input type="hidden" name="id" value="${list.member.id}">
+                    <input type="hidden" name="membershipCode" value="${list.membership.membershipCode}">
+                  
+                    
+                    <button class="btn btn-dark btn-sm" name="listGrade" value="${list.member.id}" data-value="regular">일반회원</button>
+                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">삭제</button>
+                    
+                    </td>
+                    </form>      
+                    </c:if>
+                    
+                        <c:if test="${list.listGrade == 'guest'  }">
+                    <form id="id${list.member.id}" class="fom">            
+                    <td class="buttones">
+                   
+                    <input type="hidden" name="id" value="${list.member.id}">
+                    <input type="hidden" name="membershipCode" value="${list.membership.membershipCode}">
+                  
+                    
+                    <button class="btn btn-dark btn-sm" name="listGrade" value="${list.member.id}" data-value="regular">일반회원</button>
+                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">삭제</button>
+                    
+                    </td>
+                    </form>      
+                    </c:if>
+                    
+                    
+                  <c:if test="${list.listGrade == 'regular'  }">
+                    <form id="id${list.member.id}" class="fom">            
+                    <td class="buttones">
+                   
+                    <input type="hidden" name="id" value="${list.member.id}">
+                    <input type="hidden" name="membershipCode" value="${list.membership.membershipCode}">
+                  
+                      <button class="btn btn-primary btn-sm" name="listGrade" value="${list.member.id}" data-value="admin">관리자</button>
+                    
+                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">삭제</button>
+                    
+                    </td>
+                    </form>      
+                    </c:if>
+                    
+                 
+                    <c:if test="${list.listGrade == 'host'}">                   
+                    <td>호스트</td>
+                    </c:if>
+                </tr>   
+                </c:forEach>         
+   
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+</c:if>
+</sec:authorize>
+
+
+<sec:authorize access="isAuthenticated()" var="principal">
+<sec:authentication property="principal" var="member" />
+    
+    <c:if test="${ fn:contains(adminList, member.id)}">
+    <p>로그인한 사람 ${member.id}</p>
+    <p>여기의 호스트 ${host.member.id}</p>
+    <table>
+    <thead>
+    <tr>
+       <th>아이디</th>
+                    <th>이름</th>
+                    <th>성별</th>
+                    <th>나이</th>
+                    <th>폰 번호</th>
+                    <th>등급</th>    
+                    <th>등급설정</th>
+
+    </tr>
+    </thead>
+    <tbody>
+     <!-- 데이터 행을 여기에 추가합니다 -->
+                <c:forEach items="${allMember}" var="list" >
+                <tr>
+                    <td id="${list.member.id}" class="${list.membership.membershipCode}">${list.member.id}</td>
+                    <td>${list.member.nickname}</td>
+                    <td>${list.member.gender }</td>
+                    <td>${list.member.age }</td>
+                    <td>${list.member.phone }</td>
+                    <c:if test="${list.listGrade == 'host' }">
+                    <td>호스트</td>
+                    </c:if>
+                   <c:if test="${list.listGrade == 'regular' }">
+                    <td>일반회원</td>
+                    </c:if>       
+                     <c:if test="${list.listGrade == 'admin' }">
+                    <td>관리자</td>
+                    </c:if>
+                     <c:if test="${list.listGrade == 'guest' }">
+                    <td>가입대기중</td>
+                    </c:if>
+                    <c:if test="${list.listGrade != 'host' && list.listGrade != 'admin' && list.listGrade != 'guest'}"> 
                     <form id="id${list.member.id}" class="fom">            
                     <td>
                    
                     <input type="hidden" name="id" value="${list.member.id}">
                     <input type="hidden" name="membershipCode" value="${list.membership.membershipCode}">
                   
-                     <button class="btn btn-primary btn-sm" name="listGrade" value="${list.member.id}" data-value="admin">관리자</button>
+                    
+                    
+                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">삭제</button>
+                    </td>
+                    </form>      
+                    </c:if>
+                        <c:if test="${list.listGrade != 'host' && list.listGrade != 'admin' && list.listGrade != 'regular'}"> 
+                    <form id="id${list.member.id}" class="fom">            
+                    <td>
+                   
+                    <input type="hidden" name="id" value="${list.member.id}">
+                    <input type="hidden" name="membershipCode" value="${list.membership.membershipCode}">
+                  
+                    
                     <button class="btn btn-dark btn-sm" name="listGrade" value="${list.member.id}" data-value="regular">일반회원</button>
                     <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">삭제</button>
                     </td>
                     </form>      
                     </c:if>
                     <c:if test="${list.listGrade == 'host'}">                   
+                    <td>호스트</td>
+                    </c:if>
+                      <c:if test="${list.listGrade == 'admin'}">                   
                     <td>관리자</td>
                     </c:if>
                 </tr>   
@@ -162,47 +325,6 @@ a {
 
 
 
- <script>
- 
- $(document).ready(function() {
-	 
-     $('.fom').on('submit', function(e) {
-         e.preventDefault();  // 폼의 기본 제출 동작을 방지합니다.
-     });
- 
-$("button").click((e)=>{
-	  var buttonText = $(e.target).attr("data-value");
-	  var buttonValue = $(e.target).val();
-     
- 
-      var formData = $("#id"+buttonValue).serialize(); 
-      
-      var resultData = formData + '&listGrade=' +buttonText;
-      
-     
-      
-      $.ajax({
-    		url: "/gradeUpdate",
-    		type: 'post',
-    		data: resultData,
-    		success: function(data) {
-    			
-    
-    				location.href= "management?membershipCode=" +data;
-    			
-    			}
-    						
-    		
-    	});	
-
-
-
-});
-
- })
- 
-
- </script>
 
 
 
@@ -210,6 +332,18 @@ $("button").click((e)=>{
 
 </c:if>
 </sec:authorize>
+
+
+
+
+
+
+
+
+
+
+
+
 <sec:authorize access="!isAuthenticated()" var="principal">
 <style>
 #image{
@@ -230,7 +364,7 @@ $("button").click((e)=>{
 <sec:authorize access="isAuthenticated()" var="principal">
 <sec:authentication property="principal" var="member" />
 
- <c:if test="${member.id != host.member.id}">
+ <c:if test="${member.id != host.member.id  && not fn:contains(adminList, member.id)}">
 
 <style>
 #image{
@@ -253,6 +387,72 @@ $("button").click((e)=>{
 
   </sec:authorize>
   
+  
+  
+  
+  <script>
+ 
+ $(document).ready(function() {
+	 
+     $('.fom').on('submit', function(e) {
+         e.preventDefault();  // 폼의 기본 제출 동작을 방지합니다.
+     });
+ 
+$("button").click((e)=>{
+	  var buttonText = $(e.target).attr("data-value");
+	  var buttonValue = $(e.target).val();
+     
+ 
+      var formData = $("#id"+buttonValue).serialize(); 
+      
+      var resultData = formData + '&listGrade=' +buttonText;
+      
+     
+      if(confirm('정말 변경하시겠습니까?'))  {
+    	  
+          $.ajax({
+      		url: "/gradeUpdate",
+      		type: 'post',
+      		data: resultData,
+      		success: function(data) {
+      			
+              
+      				location.href= "management?membershipCode=" +data;
+      			   alert("변경이 완료되었습니다")
+      			}
+      						
+      		
+      	});	
+    	  
+    	  
+    	  
+    	  
+    	  
+    	  return true;
+      } else {
+    	  
+    	  
+    	  
+    	  
+    		return false;
+      }
+    		
+     
+    	
+    
+      
+
+
+
+
+});
+
+ })
+ 
+
+ </script>
+ 
+ 
  
 </body>
 </html>

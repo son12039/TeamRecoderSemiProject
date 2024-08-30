@@ -1,6 +1,6 @@
 @charset "UTF-8";
 body {
-  background-color: #f4f4f4;
+  background-color: #b0c4b1;
 }
 .container {
   align-items: flex-start;
@@ -25,13 +25,14 @@ body {
   background-color: white;
   border-radius: 20px;
   margin: 20px;
-  width: 550px;
-  height: 300px;
+  width: 480px;
+  height: 250px;
+  border: 2px solid orange;
 }
 .membership-img a img {
   border-radius: 15px;
-  width: 250px;
-  height: 250px;
+  width: 180px;
+  height: 200px;
   margin: 20px;
 }
 .membership-name {
@@ -100,13 +101,45 @@ body {
 .body_img {
   width: 100%;
   height: 100%;
+  z-index: 1000;
+}
+.body_text {
+  position: absolute;
+  width: 50%;
+  height: 500px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  z-index: 10;
+  top: 200px;
+  left: 20%;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  flex-direction: column;
+  line-height: 80px;
+}
+.body_text p:nth-child(1) {
+  font-size: 50px;
+}
+.body_text p:nth-child(2) {
+  font-size: 20px;
+}
+.body_text p:nth-child(3) {
+  font-size: 20px;
+}
+.body_text p:nth-child(4) {
+  line-height: 20px;
+  color: white;
+  opacity: 5;
+  font-size: 14px;
 }
 .locationTypeBody {
   position: sticky;
-  top: 50px;
+  top: 80px;
 }
 .locationTypeBodyBox {
-  background-color: rgb(255, 185, 100);
+  background-color: #14213d;
   width: 100%;
   height: auto;
   display: flex;
@@ -117,16 +150,11 @@ body {
 #locationLaNameForm input[type="checkbox"] {
   display: none;
 }
-#locationLaNameForm {
-  display: flex;
-  justify-content: space-around;
+.locationLaCss {
+  padding: 8px 10px;
   align-self: center;
-  width: 100%;
-  max-width: 1200px;
-  font-size: 20px;
-  padding: 10px;
-  font-weight: bold;
-  height: 50px;
+  cursor: pointer;
+  color: white;
 }
 
 .locationLaCss {
@@ -134,9 +162,11 @@ body {
   align-self: center;
   cursor: pointer;
 }
-.locationLaCss:hover {
-  background-color: rgb(255, 142, 4);
-  border-radius: 20px;
+.locLaNameLabel {
+  padding: 8px 10px;
+  align-self: center;
+  cursor: pointer;
+  color: white;
 }
 
 .locLaNameLabel {
@@ -153,18 +183,15 @@ body {
 #locationSNameForm input[type="checkbox"] {
   display: none;
 }
-#locationSNameForm {
-  font-weight: bold;
-}
 .locationTypeCss {
   padding: 10px 5px;
+  color: white;
 }
 /*중단 locationType 이벤트 놈들*/
 
 #typeLaNameSelect input[type="checkbox"] {
   display: none;
 }
-
 #typeSNameForm input[type="checkbox"] {
   display: none;
 }

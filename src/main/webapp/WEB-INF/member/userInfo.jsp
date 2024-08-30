@@ -37,12 +37,11 @@
 				</div>
 
 				<div class="info">
-
 						<div class="group">
-							<span>모임 참여 횟수 ${mem.member.memberMeetCount}회</span>
+							<span><h1>모임 참여 횟수 ${mem.member.memberMeetCount}회</h1></span>
 						</div>
 						<div class="group">
-							<span>온도 ${mem.member.memberManner}℃</span>
+							<span><h1>온도 ${mem.member.memberManner}℃</h1></span>
 						</div>
 
 				</div>
@@ -81,6 +80,7 @@
 						 	<div class="club_box">
 							<a href="/${list.membership.membershipCode}""><img class="club_img" src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}"></a>
 							<p>${list.membership.membershipName}</p>
+							<button id="toggle">토글버튼</button>
 							</div>
 						</c:if>
 					</c:forEach>
@@ -90,6 +90,6 @@
 			</div>
 		</div>
 	</main>
-
+	<script src="${pageContext.request.contextPath}/js/userInfo.js"></script>
 </body>
 </html>

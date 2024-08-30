@@ -30,7 +30,7 @@ main {
 #section img {
   width: 150px;
   height: 150px;
-  border-radius: 200px;
+  border-radius: 50px;
 }
 .memberInfo_div h1 {
   font-size: 1.5rem;
@@ -47,11 +47,11 @@ main {
   width: 50%;
   padding-top: 50px;
 }
-#group {
+.group {
   margin-top: 20px;
 }
-#group p {
-  margin-right: 20px;
+.group span h1 {
+  font-weight: bolder;
 }
 
 .info_group div h1 {
@@ -100,6 +100,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  height: 100px;
 }
 
 .club_info div {
@@ -117,9 +118,11 @@ main {
   border: 2px solid #ddd;
 }
 .club_box {
-  display: flex;
   justify-content: center;
   align-items: center;
+}
+.club_box p {
+  font-weight: bolder;
 }
 
 .club_info p {

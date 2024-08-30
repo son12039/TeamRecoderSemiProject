@@ -44,7 +44,7 @@ public class PageController {
 
 	
     // 기본 정보 수정
-	@GetMapping("/mypage")
+	@GetMapping("/update")
 	public String mypage(Model model, Member member) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();

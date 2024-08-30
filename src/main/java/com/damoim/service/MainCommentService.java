@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.damoim.model.dto.ResignedDTO;
 import com.damoim.model.vo.MainComment;
+import com.damoim.model.vo.MeetingsComment;
 import com.damoim.model.vo.Member;
 
 import mapper.MainCommentMapper;
@@ -34,11 +35,11 @@ public class MainCommentService {
 		int reCommentCount = mapper.reCommentCount(mainCommentCode);
 		
 		if(reCommentCount == 0) { // 해당 댓글의 대댓글이 없는 경우
-			MainComment m = mapper.selectComment(mainCommentCode);
-
-			if(mapper.reCommentCount(m.getMainParentsCommentCode()) == 1) { // 부모 댓글 코드의 대댓글이 나만 남아있는 경우
+			MainComment commentChild = mapper.selectComment(mainCommentCode);
+			MainComment commentParents = mapper.selectComment(commentChild.getMainParentsCommentCode());
+			if(mapper.reCommentCount(commentChild.getMainParentsCommentCode()) == 1  && commentParents.getMainCommentText() == null) { // 부모 댓글 코드의 대댓글이 나만 남아있는 경우
 				mapper.deleteComment(mainCommentCode); // 자식 삭제후
-				mapper.deleteComment(m.getMainParentsCommentCode()); // 부모도 삭제
+				mapper.deleteComment(commentChild.getMainParentsCommentCode()); // 부모도 삭제
 
 			}
 			else {	

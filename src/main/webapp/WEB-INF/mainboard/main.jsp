@@ -292,7 +292,7 @@
 							</div></a>${com.mainCommentDate}</div>
 						<div class="comment-text">${com.mainCommentText}</div>
 						<c:if
-							test="${com.nickname == member.nickname || memberGrade == 'host'}">
+							test="${com.nickname == member.nickname || memberGrade == 'host' || memberGrade == 'admin'}">
 							<button type="button"
 								onclick="deleteComment(event, ${com.mainCommentCode})">삭제</button>
 						</c:if>
@@ -355,7 +355,7 @@
 									<br />
 									<div class="comment-text">${recom.mainCommentText}</div>
 									<c:if
-										test="${recom.nickname == member.nickname || memberGrade == 'host'}">
+										test="${recom.nickname == member.nickname || memberGrade == 'host' || memberGrade == 'admin'}">
 										<button type="button"
 											onclick="deleteComment(event, ${recom.mainCommentCode})">삭제</button>
 									</c:if>

@@ -37,30 +37,34 @@
 				</div>
 
 				<div class="info">
-					<div class="text">
-						<h1>
-							<i class="fa-solid fa-user"></i> ${mem.member.nickname}
-						</h1>
-						<div id="group">
+
+						<div class="group">
 							<span>모임 참여 횟수 ${mem.member.memberMeetCount}회</span>
+						</div>
+						<div class="group">
 							<span>온도 ${mem.member.memberManner}℃</span>
 						</div>
-						<div>
-							<h3>한줄소개 : ${mem.member.memberInfo}</h3>
-						</div>
-					</div>
+
 				</div>
+			</div>
+			<div class="memberInfo_div">
+				<h1>
+					<i class="fa-solid fa-user"></i> ${mem.member.nickname}
+				</h1>
+			</div>
+			<div class="memberInfo_div">
+				<h2>${mem.member.memberInfo}</h2>
 			</div>
 
 			<div id="section2">
 				<div class="section2_memberInfo">
-					<h4>가입한 클럽</h4>
+					<h1>가입한 클럽</h1>
 				</div>
 				<div class="club_info">
 					<c:forEach items="${mem.membershipUserList}" var="list">
 						<c:if test="${list.listGrade != 'guest'}">
 							<div class="club_box">
-							<img class="club_img" src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}">
+							<a href="/${list.membership.membershipCode}"><img class="club_img" src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}"></a>
 							<p>${list.membership.membershipName}</p>
 							</div>
 						</c:if>
@@ -70,12 +74,12 @@
 					</c:forEach>
 				</div>
 				<div class="section2_memberInfo">
-					<h4>가입신청한 클럽</h4>
+					<h1>가입신청한 클럽</h1>
 					<div class="club_info">
 					<c:forEach items="${mem.membershipUserList}" var="list">
 						 <c:if test="${list.listGrade == 'guest'}">
 						 	<div class="club_box">
-							<img class="club-img" src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}">
+							<a href="/${list.membership.membershipCode}""><img class="club_img" src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}"></a>
 							<p>${list.membership.membershipName}</p>
 							</div>
 						</c:if>

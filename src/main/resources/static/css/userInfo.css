@@ -6,109 +6,127 @@ main {
 }
 
 #container {
-  background-color: rgb(210, 172, 44);
-  height: 100vh;
-  max-width: 800px;
-  min-width: 800px;
-  display: flex;
-  flex-direction: column;
-  padding-top: 100px;
-  padding: 50px;
+  max-width: 600px;
+  min-width: 600px;
+  margin: 20px;
+  padding: 20px;
+  height: 95.5vh;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 #section {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   padding-top: 50px;
   padding-bottom: 50px;
 }
-
-#section img {
-  width: 200px;
-  height: 200px;
-  border-radius: 200px;
+#section div {
+  display: flex;
 }
 
+#section img {
+  width: 150px;
+  height: 150px;
+  border-radius: 200px;
+}
+.memberInfo_div h1 {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  padding: 10px;
+}
+.memberInfo_div h2 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 .info {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  width: 50%;
+  padding-top: 50px;
 }
 #group {
   margin-top: 20px;
-  justify-content: space-around;
 }
 #group p {
   margin-right: 20px;
 }
-.text {
-  width: 80%;
-  padding-left: 30px;
-}
-.text div h1 {
+
+.info_group div h1 {
   font-size: 1rem;
   font-weight: bolder;
 }
-.text div {
+.info_group div {
   display: flex;
   text-wrap: nowrap;
   margin: 10px;
 }
-.text div span {
-  font-size: 1rem;
+.info_group div span {
+  font-size: 1.2rem;
   font-weight: bolder;
 }
 
-.text h3 {
-  width: 400px;
+.info_group h3 {
+  width: 300px;
   height: 100px;
+  font-size: 1rem;
+  font-weight: 800;
   text-wrap: wrap;
   overflow-wrap: break-word;
 }
 
 #section2 {
-    padding: 20px;
-    background-color: #f9f9f9;
+  padding: 20px;
+  background-color: #f9f9f9;
+  height: 50%;
 }
 
 .section2_memberInfo h3 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 15px;
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.section2_memberInfo h1 {
+  font-size: 1rem;
+  font-weight: bolder;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .club_info {
-    display: flex;
-    flex-wrap: wrap;
-	justify-content: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .club_info div {
-	width: 100px;
-	display: flex;
-	flex-direction: column;
+  width: 104px;
+  display: flex;
+  flex-direction: column;
 }
 
 .club_img {
-    width: 50px; 
-    object-fit: cover; 
-    border-radius: 8px; 
-    border: 2px solid #ddd; 
+  width: 50px;
+  height: 50px;
+
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #ddd;
 }
 .club_box {
-	display: flex;
-	
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .club_info p {
-    font-size: 0.7rem;
-    color: #555;
-    text-align: center;
-    margin-top: 5px;
-}
-
-
-.section2_memberInfo {
-    margin-bottom: 30px; 
+  font-size: 0.8rem;
+  margin-top: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 80%;
 }

@@ -99,11 +99,6 @@
 	</update>
 	
 	
-</mapper>
-
-
-
-
 	<select id="selectComment" parameterType="int" resultMap="commentMemberMap">
 		SELECT * FROM main_comment
 		WHERE  main_comment_code = #{mainCommentCode}

@@ -49,7 +49,6 @@ public class PageController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
 		ArrayList<MembershipUserList> membershipList = service.selectName(mem.getId());
-		
 		model.addAttribute("list", membershipList);
 		return "mypage/mypage";
 	}

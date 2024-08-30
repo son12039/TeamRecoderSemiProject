@@ -1,5 +1,9 @@
+/*
+메인 컬러 : #fca35b
+*/
+
 .main_header {
-  background-color: rgb(255, 185, 100);
+  background-color:white;
   position: fixed;
   width: 100%;
   height: 50px;
@@ -25,7 +29,6 @@
   font-size: 18px;
   font-weight: bold;
   margin-right: 15px;
-  background-color: rgb(255, 185, 100);
 }
 /*헤더 센터*/
 .main_header_center {
@@ -36,6 +39,7 @@
   font-size: 50px;
   height: 100%;
   font-weight: bold;
+  color : #fca35b;
 }
 .main_header_center_text {
 }
@@ -45,7 +49,6 @@
   align-items: center;
   justify-content: flex-end;
   height: 100%;
-  background-color: rgb(255, 185, 100);
   font-size: 18px;
   font-weight: bold;
 }

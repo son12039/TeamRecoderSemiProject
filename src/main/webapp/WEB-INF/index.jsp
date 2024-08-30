@@ -21,7 +21,7 @@
 	<jsp:include page="header/header.jsp" />
 	<div class="body_img_box_body">
 		<div class="body_img_box">
-			<img  class="body_img" src="http://192.168.10.51:8081/member/asd12300/bf611066-4b30-43a3-b6ef-538811e5dcb8_pizza.jpg"/>
+			<img  class="body_img" src="http://192.168.10.51:8081/mainImg.jpg"/>
 		</div>
 	</div>
 

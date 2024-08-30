@@ -18,57 +18,12 @@
 
 <script src="https://kit.fontawesome.com/ef885bd654.js"
 	crossorigin="anonymous"></script>
-<style>
-.image-container {
-	display: flex;
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	position: relative;
-	overflow: hidden; /* 컨테이너의 범위를 넘는 요소를 숨김 */
-	width: 600px; /* 컨테이너의 너비 조정 */
-}
 
-.image-item {
-	position: relative;
-	width: 50px; /* 이미지의 너비 */
-}
-
-.image-item img {
-	margin: 0;
-}
-
-.allmemberImg {
-	display: block;
-	width: 100%; /* 이미지의 너비를 li 요소에 맞춤 */
-	height: 50px;
-	border-radius: 50%;
-}
-
-.image-item:not(:first-child) {
-	margin-left: -20px; /* 겹치는 정도 조절 */
-}
-
-#last-item {
-	position: relative;
-}
-
-#last-img, #last-img2 {
-	position: absolute;
-}
-
-#last-img {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: rgba(0, 0, 0, 0.5);
-}
-</style>
 </head>
 <body>
+	<jsp:include page="../header/header.jsp"></jsp:include>
 
-	<jsp:include page="../header/header.jsp" />
-
+<div id="box">
 	<div id="container">
 
 		<img id="mainImg"
@@ -279,6 +234,7 @@
 			</c:choose>
 		</sec:authorize>
 	</div>
+	</div>
 	<div id="comment-container">
 		<sec:authorize access="isAuthenticated()">
 			<form id="comment-frm">
@@ -462,7 +418,7 @@
 			</c:forEach>
 		</c:if>
 	</div>
-	<jsp:include page="../footer/footer.jsp" />
+
 	<script src="${pageContext.request.contextPath}/js/main.js"></script>
 	<script>
 

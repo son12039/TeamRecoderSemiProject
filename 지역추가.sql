@@ -239,3 +239,159 @@ INSERT INTO location_category (loc_la_name, loc_s_name) VALUES
 -- 제주도 소분류
 ('제주도', '제주시'),
 ('제주도', '서귀포시');
+
+
+/*지역 바꾸기*/
+
+-- 서울특별시 -> 서울
+UPDATE location_category lc
+JOIN (
+    SELECT loc_code
+    FROM location_category
+    WHERE loc_la_name = '서울특별시'
+) subquery ON lc.loc_code = subquery.loc_code
+SET lc.loc_la_name = '서울';
+
+-- 부산광역시 -> 부산
+UPDATE location_category lc
+JOIN (
+    SELECT loc_code
+    FROM location_category
+    WHERE loc_la_name = '부산광역시'
+) subquery ON lc.loc_code = subquery.loc_code
+SET lc.loc_la_name = '부산';
+
+-- 경상남도 -> 경남
+UPDATE location_category lc
+JOIN (
+    SELECT loc_code
+    FROM location_category
+    WHERE loc_la_name = '경상남도'
+) subquery ON lc.loc_code = subquery.loc_code
+SET lc.loc_la_name = '경남';
+
+-- 경상북도 -> 경북
+UPDATE location_category lc
+JOIN (
+    SELECT loc_code
+    FROM location_category
+    WHERE loc_la_name = '경상북도'
+) subquery ON lc.loc_code = subquery.loc_code
+SET lc.loc_la_name = '경북';
+
+-- 대구광역시 -> 대구
+UPDATE location_category lc
+JOIN (
+    SELECT loc_code
+    FROM location_category
+    WHERE loc_la_name = '대구광역시'
+) subquery ON lc.loc_code = subquery.loc_code
+SET lc.loc_la_name = '대구';
+
+-- 대전광역시 -> 대전
+UPDATE location_category lc
+JOIN (
+    SELECT loc_code
+    FROM location_category
+    WHERE loc_la_name = '대전광역시'
+) subquery ON lc.loc_code = subquery.loc_code
+SET lc.loc_la_name = '대전';
+
+-- 인천광역시 -> 인천
+UPDATE location_category lc
+JOIN (
+    SELECT loc_code
+    FROM location_category
+    WHERE loc_la_name = '인천광역시'
+) subquery ON lc.loc_code = subquery.loc_code
+SET lc.loc_la_name = '인천';
+
+-- 광주광역시 -> 광주
+UPDATE location_category lc
+JOIN (
+    SELECT loc_code
+    FROM location_category
+    WHERE loc_la_name = '광주광역시'
+) subquery ON lc.loc_code = subquery.loc_code
+SET lc.loc_la_name = '광주';
+
+-- 울산광역시 -> 울산
+UPDATE location_category lc
+JOIN (
+    SELECT loc_code
+    FROM location_category
+    WHERE loc_la_name = '울산광역시'
+) subquery ON lc.loc_code = subquery.loc_code
+SET lc.loc_la_name = '울산';
+
+-- 세종특별자치시 -> 세종
+UPDATE location_category lc
+JOIN (
+    SELECT loc_code
+    FROM location_category
+    WHERE loc_la_name = '세종특별자치시'
+) subquery ON lc.loc_code = subquery.loc_code
+SET lc.loc_la_name = '세종';
+
+-- 경기도 -> 경기
+UPDATE location_category lc
+JOIN (
+    SELECT loc_code
+    FROM location_category
+    WHERE loc_la_name = '경기도'
+) subquery ON lc.loc_code = subquery.loc_code
+SET lc.loc_la_name = '경기';
+
+-- 충청북도 -> 충북
+UPDATE location_category lc
+JOIN (
+    SELECT loc_code
+    FROM location_category
+    WHERE loc_la_name = '충청북도'
+) subquery ON lc.loc_code = subquery.loc_code
+SET lc.loc_la_name = '충북';
+
+-- 충청남도 -> 충남
+UPDATE location_category lc
+JOIN (
+    SELECT loc_code
+    FROM location_category
+    WHERE loc_la_name = '충청남도'
+) subquery ON lc.loc_code = subquery.loc_code
+SET lc.loc_la_name = '충남';
+
+-- 전라북도 -> 전북
+UPDATE location_category lc
+JOIN (
+    SELECT loc_code
+    FROM location_category
+    WHERE loc_la_name = '전라북도'
+) subquery ON lc.loc_code = subquery.loc_code
+SET lc.loc_la_name = '전북';
+
+-- 전라남도 -> 전남
+UPDATE location_category lc
+JOIN (
+    SELECT loc_code
+    FROM location_category
+    WHERE loc_la_name = '전라남도'
+) subquery ON lc.loc_code = subquery.loc_code
+SET lc.loc_la_name = '전남';
+
+-- 강원도 -> 강원
+UPDATE location_category lc
+JOIN (
+    SELECT loc_code
+    FROM location_category
+    WHERE loc_la_name = '강원도'
+) subquery ON lc.loc_code = subquery.loc_code
+SET lc.loc_la_name = '강원';
+
+-- 제주특별자치도 -> 제주
+UPDATE location_category lc
+JOIN (
+    SELECT loc_code
+    FROM location_category
+    WHERE loc_la_name = '제주특별자치도'
+) subquery ON lc.loc_code = subquery.loc_code
+SET lc.loc_la_name = '제주';

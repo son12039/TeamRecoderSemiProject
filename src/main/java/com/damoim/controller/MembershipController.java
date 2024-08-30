@@ -22,6 +22,7 @@ import com.damoim.model.vo.Membership;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.damoim.model.dto.CommentDTO;
+import com.damoim.model.dto.GradeDTO;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.dto.MembershipDTO;
@@ -58,6 +59,7 @@ public class MembershipController {
 	
 	
 	
+	
 	/*
 	 * 
 	 * */
@@ -83,6 +85,8 @@ public class MembershipController {
 	 * 성철
 	 * 댓글 대댓글 글 관련 로직 추가
 	 * */
+	
+	
 	@GetMapping("/{membershipCode}") // 클럽 홍보 페이지 각각 맞춰 갈수있는거
 	public String main(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO,
 			Model model) {
@@ -92,8 +96,9 @@ public class MembershipController {
 		list.setCount((service.membershipUserCount(membershipCode)));
 		
 		
-		model.addAttribute("main", list);			
-		
+		model.addAttribute("main", list);		
+		model.addAttribute("allMember", service.MembershipAllRegular(membershipCode));
+
 		ArrayList<MainComment> commList = commentService.allMainComment(membershipCode); // 일반댓글
 		ArrayList<CommentDTO> dtoList = new ArrayList<CommentDTO>(); //합칠예정
 		
@@ -127,16 +132,17 @@ public class MembershipController {
 		     
 		        commentDTO.getRecoment().add(recommentDTO);
 		    }
-		    System.out.println(commentDTO);
+		    
 		}
 		}
 
-		System.out.println(dtoList);
+		
 		model.addAttribute("comment", dtoList);
-		System.out.println("dto List " + dtoList);
+		System.out.println("커맨트 dio " + dtoList);
 		// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
 		model.addAttribute("location", locationTypeService.locationList(membershipCode));
 		model.addAttribute("type", locationTypeService.typeList(membershipCode));
+		
 		return "mainboard/main";
 	}
 
@@ -153,13 +159,17 @@ public class MembershipController {
 			model.addAttribute("main", list);
 			// 해당클럽에 가입신청된 모든 유저정보		
 			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
-
+			System.out.println("에러전");
+			System.out.println(meetingService.allMeetings(membershipCode));
 			model.addAttribute("allmeet", meetingService.allMeetings(membershipCode));
+			System.out.println(meetingService.allMeetings(membershipCode));
+			
 			// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
 			model.addAttribute("location", locationTypeService.locationList(membershipCode));
 			model.addAttribute("type", locationTypeService.typeList(membershipCode));
 			
-			return "membership/membershipPage";
+		
+			return "membership/membershipPageTest1";
 		}
 	 /*
 	  * 성철
@@ -169,7 +179,7 @@ public class MembershipController {
 	 @PostMapping("/agreeMember") // 클럽 회원가입 승인
 	 public void agreeMemeber(MemberListDTO member) {
 		 // 일단은 호스트일때만 클럽 회원 승인기능
-		 System.out.println(member);
+		 System.out.println("어그리멤버");
 		 service.agreeMemeber(member);	
 	 }
 	
@@ -299,5 +309,42 @@ public class MembershipController {
 		}
 
 	}
+	
+	
+	
+	@GetMapping("/management")
+	public String management(Integer membershipCode ,Model model) {
+
+		model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
+		model.addAttribute("host", service.main(membershipCode));
+		// 들어온 사람의 id랑 
+		// 해당 클럽의 호스트인 사람의 id가 일치 
+		// 해당 클럽의 호스트인 사람 찾는 xml 필요 
+		System.out.println("접속");
+		
+		return "membership/management";
+	}
+	
+	@GetMapping("/membership/asd")
+	public String asd() {
+		
+		return "membership/asd";
+	}
+	
+	@ResponseBody
+	@PostMapping("/gradeUpdate")
+	public int gradeUpdate(MemberListDTO member) {
+		System.out.println("ajax 호출 ");
+		
+		System.out.println(member);
+		
+		int code = member.getMembershipCode();
+		
+		service.agreeMemeber(member);
+		
+		return code;
+		
+	}
+	
 
 }

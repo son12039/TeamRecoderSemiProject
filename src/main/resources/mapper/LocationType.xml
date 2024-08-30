@@ -13,6 +13,7 @@
 		<result column="membership_date" property="membershipDate"/>
 		<result column="membership_grade" property="membershipGrade"/>
 		<result column="membership_max" property="membershipMax"/>
+		<result column="membership_simple_text" property="membershipSimpleText"/>
 	</resultMap>
 
 	
@@ -66,7 +67,7 @@
 		join type_category USING(type_code)
 		join membership_user_list using(membership_code)
 		<where>
-			<if test="locationLaName!=null">
+			<if test="locationLaName!=null and locationLaName!=''">
 				AND loc_code IN (SELECT loc_code FROM location_category WHERE loc_la_name =#{locationLaName})
 			</if>
 			<if test="locationSNameList!=null">
@@ -76,7 +77,7 @@
 				</foreach>
 				)
 			</if>
-			<if test="typeLaName!=null">
+			<if test="typeLaName!=null and typeLaName!=''">
 				AND type_code IN (SELECT type_code FROM type_category WHERE type_la_name =#{typeLaName})
 			</if>
 			<if test="typeSNameList!=null">

@@ -84,7 +84,8 @@ CREATE TABLE membership_meetings ( -- 클럽모임게시판
     membership_code INT, -- 클럽코드 /외래키
     meet_date_start DATE, -- 모임 시작일
     meet_date_end DATE, -- 모임 종료일
-    meet_info TEXT, -- 모임관련 정보
+    meet_agree_code INT, -- 참여여부 테이블 연결
+    meet_info longTEXT, -- 모임관련 정보
     meet_creat_date DATE default(current_date),
     id VARCHAR(50),
     color VARCHAR(50)
@@ -125,13 +126,6 @@ CREATE TABLE main_comment (
 
 
 
- -- 확정
-CREATE TABLE image ( -- 사진 테이블
-    img_code INT PRIMARY KEY auto_increment, -- 사진코드
-	img_url VARCHAR(255), -- 사진
-	membership_code INT, -- 홍보게시판코드 / 외래키
-    meet_code INT -- 모임게시판코드 / 외래키
-);
 
 
 
@@ -260,6 +254,11 @@ ADD id VARCHAR(50);
 ALTER TABLE membership_meetings
 ADD FOREIGN KEY (id) REFERENCES member(id);
 
+-- meetings_agree 테이블에 외래키 제약 조건 추가 (membership_meetings의 meet_code)
+ALTER TABLE meetings_agree
+ADD FOREIGN KEY (meet_code) 
+REFERENCES membership_meetings (meet_code)
+ON DELETE CASCADE;
 ALTER TABLE membership
 ADD column membership_accession_text text,
 ADD column membership_simple_text VARCHAR(255);

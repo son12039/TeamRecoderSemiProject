@@ -25,4 +25,5 @@ public interface MainCommentMapper {
 	
 	
 	
+	MainComment selectComment(int mainCommetCode);
 }

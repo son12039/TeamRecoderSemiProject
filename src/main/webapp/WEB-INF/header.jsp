@@ -12,10 +12,7 @@ pageEncoding="UTF-8"%>
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/reset.css"
         />
-          <link
-          rel="stylesheet"
-          href="${pageContext.request.contextPath}/css/index.css"
-        />
+        
         <link
           rel="stylesheet"
           href="${pageContext.request.contextPath}/css/header.css"
@@ -28,7 +25,7 @@ pageEncoding="UTF-8"%>
 	<div class="header">
 		<div class="header_left">
 			<a href="/">
-				<div class="LOGO">DAMOIM</div>
+				<div class="LOGO">다모임</div>
 			</a>
 			</div>
 			<div class="header_right">

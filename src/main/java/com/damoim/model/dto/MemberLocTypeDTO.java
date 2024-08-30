@@ -30,6 +30,7 @@ public class MemberLocTypeDTO {
     private Date membershipDate; // 클럽생성날짜
     private double membershipGrade; // 클럽 별점
     private int membershipMax; // 클럽최대인원
+    private String membershipSimpleText;// 심플 소개
     
     /*join 역활*/ 
     private String nickname;

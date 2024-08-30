@@ -52,7 +52,7 @@
 	        </if>
 	        )
 	</insert>
-	
+	<!--  해당 맴버쉽 댓글에 댓글 출력 -->
 	<select id="allMainComment" parameterType="int" resultMap="commentMemberMap" >
 		SELECT * 
 		FROM main_comment
@@ -60,32 +60,31 @@
 		WHERE membership_code = #{mainCommentCode}
 		AND main_parents_comment_code IS NULL	
 	</select>
-	
-	<select id="mainReComment" parameterType="int" resultMap="commentMemberMap" >
+		<!--  대댓글 출력 -->
+		<select id="mainReComment" parameterType="int" resultMap="commentMemberMap" >
 		SELECT * 
 		FROM main_comment
 		JOIN Member USING(id)
-		WHERE membership_code = #{membershipCode}
-		AND main_parents_comment_code = #{mainCommentCode}	
+		WHERE main_parents_comment_code = #{mainCommentCode}	
 	</select>
-	
+		<!--  대댓글이 있을시 찾아서 null 처리 -->
 	<delete id="deleteUpdateComment" parameterType="int">
 		UPDATE main_comment
 		SET main_comment_text = null
 		WHERE main_comment_code = #{mainCommentCode}
 	</delete>
-	
+		<!--  대댓글이 없을시 삭제 -->
 	<delete id="deleteComment" parameterType="int">
 		DELETE FROM main_comment
 		WHERE main_comment_code = #{code}
 	</delete>
-	
+	<!--  대댓글 유무 확인 -->
 	<select id="reCommentCount" parameterType="int" resultType="int">
 		SELECT count(*) FROM main_comment 
 		WHERE main_parents_comment_code = #{code} 
 	</select>
-	
-	<update id="updateComment" parameterType="MainComment">
+	<!--  댓글 수정 -->
+	<update id="updateComment" parameterType="MainComment" >
 		UPDATE main_comment
 		SET main_comment_text = #{mainCommentText}
 		WHERE main_comment_code = #{mainCommentCode}
@@ -95,8 +94,7 @@
 		UPDATE main_comment
 		SET main_comment_text = null
 		WHERE 
-		main_comment_code = #{mainCommentCode} 
-		AND id =#{id}
+		main_comment_code = #{mainCommentCode}
 		AND status =#{status}
 	</update>
 	
@@ -106,3 +104,8 @@
 
 
 
+	<select id="selectComment" parameterType="int" resultMap="commentMemberMap">
+		SELECT * FROM main_comment
+		WHERE  main_comment_code = #{mainCommentCode}
+	</select>
+</mapper>

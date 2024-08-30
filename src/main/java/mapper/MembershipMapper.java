@@ -43,6 +43,7 @@ public interface MembershipMapper {
 	
 	
 	ArrayList<MembershipUserList> selectName(String member);
+	List<MembershipUserList> MembershipAllRegular(int membershipCode);
 	
 	
 	
@@ -55,6 +56,8 @@ public interface MembershipMapper {
 	List<MembershipUserList> selectMemberUserList(String id);
 	
 	
+	
+	void expelMember(MemberListDTO member);
 }
 
 

@@ -13,6 +13,8 @@
 	href="${pageContext.request.contextPath}/css/reset.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/index.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/locationType.css" />
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
@@ -101,6 +103,7 @@
 				</div>
 				<div class="membership-info">
 					<h1 class="membership-name">${info.membershipName}</h1>
+					
 					<h2>${info.membershipSimpleText}</h2>
 					<h3>멤버수 : ${info.count}/${info.membershipMax}</h3>
 					<a href="/userInfo/${info.nickname}">
@@ -118,7 +121,6 @@
 							</c:choose>
 							<h2>호스트 : ${info.nickname}</h2>
 							<input type="hidden" name="code" value="${info.membershipCode}">
-
 						</div>
 					</a>
 					<div class="locationTypeBox">

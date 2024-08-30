@@ -1,0 +1,67 @@
+.locationTypeBody {
+  position: sticky;
+  top: 80px;
+}
+.locationTypeBodyBox {
+  background-color:white;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/*중단 locationLa 이벤트 놈들*/
+#locationLaNameForm input[type="checkbox"] {
+   display:none;
+ }
+#locationLaNameForm{
+	display:flex;
+	justify-content: space-around;
+	align-self: center;
+	width: 100%;
+	max-width: 1200px;
+	font-size:20px;
+	padding :10px;
+	font-weight: bold;
+	height: 50px;
+}
+.locationLaCss{
+	padding: 8px 10px;
+	align-self: center;
+	cursor: pointer;
+	color: black;
+}
+.locationLaCss:hover{
+	background-color:  #fca35b;
+	border-radius : 20px;
+}
+.locLaNameLabel{
+	padding: 8px 10px;
+	align-self: center;
+	cursor: pointer;
+	color: black;
+}
+.locLaNameLabel:hover{
+	background-color:  #fca35b;
+	border-radius : 20px;
+}
+/*중단 locationLa 이벤트 놈들*/
+/*중단 locationType 이벤트 놈들*/
+#locationSNameForm input[type="checkbox"] {
+   display:none;
+ }
+#locationSNameForm{
+	font-weight: bold;
+}
+.locationTypeCss{
+	padding:10px 5px;
+	color: black;
+}
+/*중단 locationType 이벤트 놈들*/
+#typeLaNameSelect input[type="checkbox"] {
+   display:none;
+ }
+ #typeSNameForm input[type="checkbox"] {
+   display:none;
+ }
+ 

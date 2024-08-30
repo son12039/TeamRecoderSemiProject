@@ -1,6 +1,6 @@
 @charset "UTF-8";
 body {
-  background-color: #b0c4b1;
+  background-color:#e6e1e1;
 }
 .container {
   align-items: flex-start;
@@ -27,17 +27,21 @@ body {
   margin: 20px;
   width: 480px;
   height: 250px;
-  border: 2px solid orange;
+  
 }
 .membership-img a img {
   border-radius: 15px;
-  width: 180px;
+  width: 200px;
   height: 200px;
   margin: 20px;
 }
 .membership-name {
-  font-weight: bolder;
+	background-color :orange;
   font-size: 20px;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  width: 180px;
 }
 .membership-info {
   width: 250px;
@@ -73,15 +77,17 @@ body {
 }
 .type {
   display: flex;
-  flex-wrap: wrap;
+  white-space: nowrap; 
+  overflow: hidden; 
+  background-color: red;
 }
 .typeList {
-  background-color: white;
+  background-color:#F4F4F4;
   width: fit-content; /*글자크기에 맞게 width값 주기*/
-  border: 1px solid grey;
   padding: 2.5px 5px;
   border-radius: 15px;
   margin: 1px;
+  color : #666060;
 }
 .typeText {
   padding: 1px;
@@ -102,7 +108,7 @@ body {
 .body_img {
   width: 100%;
   height: 100%;
-  z-index: 1000;
+  filter: brightness(60%);
 }
 .body_text{
   position:absolute;
@@ -118,87 +124,23 @@ body {
   font-size: 20px;
   font-weight: bold;
   flex-direction: column;
-  line-height: 80px;
+  line-height: 70px;
+  font-family: "Do Hyeon", sans-serif;
 }
 .body_text p:nth-child(1){
-  font-size: 50px;
+	font-family: "Do Hyeon", sans-serif;
+  font-size: 74px;
 }
 .body_text p:nth-child(2){
-  font-size: 20px;
+  font-size: 22px;
 }
 .body_text p:nth-child(3){
-  font-size: 20px;
+  font-size: 22px;
 }
 .body_text p:nth-child(4){
-  line-height: 20px;
+  line-height: 30px;
   color :white;
   opacity : 5;
-  font-size: 14px;
+  font-size: 20px;
 }
-.locationTypeBody {
-  position: sticky;
-  top: 80px;
-}
-.locationTypeBodyBox {
-  background-color:#14213d;
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-/*중단 locationLa 이벤트 놈들*/
-#locationLaNameForm input[type="checkbox"] {
-   display:none;
- }
-#locationLaNameForm{
-	display:flex;
-	justify-content: space-around;
-	align-self: center;
-	width: 100%;
-	max-width: 1200px;
-	font-size:20px;
-	padding :10px;
-	font-weight: bold;
-	height: 50px;
-}
-.locationLaCss{
-	padding: 8px 10px;
-	align-self: center;
-	cursor: pointer;
-	color: white;
-}
-.locationLaCss:hover{
-	background-color: rgb(255, 142, 4);
-	border-radius : 20px;
-}
-.locLaNameLabel{
-	padding: 8px 10px;
-	align-self: center;
-	cursor: pointer;
-	color: white;	
-}
-.locLaNameLabel:hover{
-	background-color: rgb(255, 142, 4);
-	border-radius : 20px;
-}
-/*중단 locationLa 이벤트 놈들*/
-/*중단 locationType 이벤트 놈들*/
-#locationSNameForm input[type="checkbox"] {
-   display:none;
- }
-#locationSNameForm{
-	font-weight: bold;
-}
-.locationTypeCss{
-	padding:10px 5px;
-	color: white;
-}
-/*중단 locationType 이벤트 놈들*/
-#typeLaNameSelect input[type="checkbox"] {
-   display:none;
- }
- #typeSNameForm input[type="checkbox"] {
-   display:none;
- }
- 
+

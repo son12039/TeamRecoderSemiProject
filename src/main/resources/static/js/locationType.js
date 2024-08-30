@@ -294,7 +294,8 @@ function renderClubList(clubList) {
 			'<h1 class="membership-name">' + club.membershipName + '</h1>' +
 			'<h2>' + club.membershipSimpleText + '</h2>' +
 			'<h3>멤버수 : ' + club.count + '/' + club.membershipMax + '</h3>' +
-			'<div id="host">';
+			'<a href="/userInfo/'+club.nickname+'">'+
+			'<div class="host">';
 		if (club.memberImg != null) {
 			ajaxLocationType += '<img class="user-img" src="http://192.168.10.51:8081/member/' + club.id + '/' + club.memberImg + '">';
 		} else {
@@ -304,6 +305,7 @@ function renderClubList(clubList) {
 			'<input type="hidden" name="code" value="' + club.membershipCode + '">' +
 			'<br>' +
 			'</div>' +
+			'</a>'+
 			'<div class="locationTypeBox">' +
 			'<div class="location">';
 		for (let location of club.locations) {

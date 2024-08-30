@@ -10,6 +10,10 @@
 <title>Insert title here</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/header.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Pen+Script&family=New+Amsterdam&display=swap" rel="stylesheet">
+
 </head>
 <body>
 	<div class="main_header">
@@ -51,5 +55,6 @@
 			</div>		
 		</div>
 	</div>
+	<script src="${pageContext.request.contextPath}/js/header.js"></script>
 </body>
 </html>

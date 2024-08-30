@@ -15,6 +15,7 @@ import com.damoim.model.vo.MembershipType;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
 import com.damoim.model.vo.TypeCategory;
+import com.damoim.model.vo.UserInfoPaging;
 
 import mapper.MembershipMapper;
 @Service
@@ -22,7 +23,6 @@ public class MembershipService {
 	
 	@Autowired
 	private MembershipMapper mapper;
-	
 	
 	
 	public List<MembershipUserList> allMembership(){
@@ -34,7 +34,6 @@ public class MembershipService {
 	public List<MembershipUserList> MembershipAllInfo(int membershipCode){
 		
 		return mapper.MembershipAllInfo(membershipCode);
-		
 	}
 	
 	public List<MembershipUserList> MembershipAllRegular(int membershipCode){
@@ -47,6 +46,7 @@ public class MembershipService {
 		
 		return mapper.main(membershipCode);
 	}
+   
    public int membershipUserCount(int count){
 		return mapper.membershipUserCount(count);
  	}
@@ -113,13 +113,13 @@ public class MembershipService {
 	}
 	
 	public List<MembershipUserList> selectMemberUserList(String id){
+		
 		return mapper.selectMemberUserList(id);
 	}
 	
-//	public List<MembershipUserList> list(Paging paging) {
-//		
-//		return mapper.allMembership(paging);
-//	}
+	
+
+	
 }
 
 

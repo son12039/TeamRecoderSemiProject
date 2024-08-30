@@ -55,8 +55,6 @@ public interface MembershipMapper {
 	int meetCount (String string);
 	List<MembershipUserList> selectMemberUserList(String id);
 	
-	
-	
 	void expelMember(MemberListDTO member);
 }
 

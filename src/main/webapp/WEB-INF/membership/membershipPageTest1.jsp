@@ -29,14 +29,14 @@
 
 </head>
 <body>
- 
+ 	
 	<sec:authorize access="isAuthenticated()" var="principal">
 		<sec:authentication property="principal" var="member" />
-		<!--<jsp:include page="../header.jsp"></jsp:include>-->
+		
 
 	
 		<div id="container">
-
+		
 			<img id="mainImg"
 				src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}">
 

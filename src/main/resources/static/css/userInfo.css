@@ -4,18 +4,16 @@ main {
   justify-content: center;
   align-items: center;
 }
-
 #container {
   max-width: 600px;
   min-width: 600px;
   margin: 20px;
   padding: 20px;
-  height: 95.5vh;
+  height: 100%;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-
 #section {
   display: flex;
   align-items: center;
@@ -23,11 +21,7 @@ main {
   padding-top: 50px;
   padding-bottom: 50px;
 }
-#section div {
-  display: flex;
-}
-
-#section img {
+.user-img {
   width: 150px;
   height: 150px;
   border-radius: 50px;
@@ -46,6 +40,15 @@ main {
   justify-content: space-between;
   width: 50%;
   padding-top: 50px;
+  align-items: center;
+}
+.manner{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.manner > p{
+	margin-right: 5px;
 }
 .group {
   margin-top: 20px;
@@ -53,7 +56,6 @@ main {
 .group span h1 {
   font-weight: bolder;
 }
-
 .info_group div h1 {
   font-size: 1rem;
   font-weight: bolder;
@@ -67,7 +69,6 @@ main {
   font-size: 1.2rem;
   font-weight: bolder;
 }
-
 .info_group h3 {
   width: 300px;
   height: 100px;
@@ -76,55 +77,54 @@ main {
   text-wrap: wrap;
   overflow-wrap: break-word;
 }
-
 #section2 {
-  padding: 20px;
-  background-color: #f9f9f9;
-  height: 50%;
+    display: flex;
+    padding: 20px;
+    background-color: #F9F9F9;
+    flex-direction: column;
+    justify-content: space-between;
 }
-
-.section2_memberInfo h3 {
-  font-size: 1.5rem;
-  color: #333;
-  margin-bottom: 15px;
-}
-
 .section2_memberInfo h1 {
   font-size: 1rem;
   font-weight: bolder;
   padding-top: 20px;
   padding-bottom: 20px;
 }
-
 .club_info {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   height: 100px;
 }
-
 .club_info div {
   width: 104px;
   display: flex;
   flex-direction: column;
 }
-
 .club_img {
   width: 50px;
   height: 50px;
-
   object-fit: cover;
   border-radius: 8px;
   border: 2px solid #ddd;
 }
-.club_box {
+
+.club_img_none {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #ddd;
+  margin-bottom: 18px;
+   opacity: 0.3;
+}
+.items-container {
   justify-content: center;
   align-items: center;
 }
 .club_box p {
   font-weight: bolder;
 }
-
 .club_info p {
   font-size: 0.8rem;
   margin-top: 5px;

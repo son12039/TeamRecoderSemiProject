@@ -44,7 +44,6 @@
 							</div>
 							<div class="main_header_right_menu">
 								<a href="/mypage">마이페이지</a> 
-								<a href="/myMembership">나의모임</a> 
 								<a href="/logout">로그아웃</a>
 							</div>
 					</sec:authorize>

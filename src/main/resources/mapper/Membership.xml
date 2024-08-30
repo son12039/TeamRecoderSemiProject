@@ -15,6 +15,7 @@
 		<result property="membershipDate" column="membership_date" />
 		<result property="membershipGrade" column="membership_grade" />
 		<result property="membershipMax" column="membership_max" />
+		<result property="membershipSimpleText" column="membership_simple_text" />
 	</resultMap>
 
 	<resultMap type="MembershipUserList" id="listMap">
@@ -41,6 +42,7 @@
 			<result column="Mebership_date" property="membershipDate" />
 			<result column="Membership_grade" property="membershipGrade" />
 			<result column="Membership_max" property="membershipMax" />
+			<result column="membershipSimpleText" property="membership_simple_text" />
 		</association>
 	</resultMap>
 
@@ -216,8 +218,7 @@
 		JOIN
 		membership USING (membership_code)
 		WHERE id = #{id}
-		AND (list_grade =
-		"host" OR list_grade = "admin");
+		AND (list_grade = "host");
 	</select>
 
 	<select id="meetCount" parameterType="String" resultType="int">
@@ -231,6 +232,7 @@
 		&lt; now()
 	</select>
 
+
 	<select id="selectMemberUserList" parameterType="String"
 		resultMap="listMap">
 		SELECT * FROM 
@@ -238,6 +240,17 @@
 		JOIN membership USING(membership_code)
 		WHERE id = #{id}
 	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 </mapper>
  

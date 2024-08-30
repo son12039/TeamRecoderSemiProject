@@ -23,6 +23,7 @@
 		<nav>
 			<a href="/" class="LOGO">다모임</a>
 			<a href="/logout" class="header_menu">로그아웃</a> 
+
 		</nav>
 		<div class="container">
 			<h1>탈퇴 안내</h1>
@@ -96,10 +97,11 @@
 				data: $("#form").serialize(),
 				success: function (result){
 					if(result){
-						window.location.href="/";
+						// true면 마지막 비밀번호 체크 페이지 이동
 						alert("회원탈퇴 완료되었습니다");
+						window.location.href = "/";
 					} else {
-						alert("회원님의 등급이 어드민이거나 호스트입니다 계시물을 확인해주세요");
+						alert("회원님의 등급이 호스트입니다 계시물을 확인해주세요");
 						location.reload();
 					}
 				},
@@ -108,8 +110,6 @@
 	</script>
 </body>
 </html>
-
-http://localhost:8080/loginPage
 
 
 

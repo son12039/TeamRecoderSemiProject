@@ -20,41 +20,52 @@
 </head>
 <body>
 	<main>
-
 		<div id="container">
 			<div id="section">
 				<div>
 					<c:choose>
 						<c:when test="${mem.member.memberImg != null}">
-						<img
-							src="http://192.168.10.51:8081/member/${mem.member.id}/${mem.member.memberImg}">
+							<img class="user-img"
+								src="http://192.168.10.51:8081/member/${mem.member.id}/${mem.member.memberImg}">
 						</c:when>
 						<c:otherwise>
-						<img
-							src="http://192.168.10.51:8081/기본프사.jpg">
+							<img class="user-img" src="http://192.168.10.51:8081/기본프사.jpg">
 						</c:otherwise>
 					</c:choose>
 				</div>
-
 				<div class="info">
-						<div class="group">
-							<span><h1>모임 참여 횟수 ${mem.member.memberMeetCount}회</h1></span>
+					<div class="group">
+						<span><h1>모임 참여 횟수 ${mem.member.memberMeetCount}회</h1></span>
+					</div>
+					<div class="group">
+						<div class="manner">
+							<c:if test="${mem.member.memberManner < 36.5}">
+								<p>${mem.member.memberManner}℃</p>
+								<span style="color: rgb(252, 177, 3)"><i
+									class="fa-solid fa-face-meh fa-2x"></i></span>
+							</c:if>
+							<c:if test="${mem.member.memberManner == 36.5}">
+								<p>${mem.member.memberManner}℃</p>
+								<span style="color: rgb(252, 177, 3)"><i
+									class="fa-solid fa-face-smile fa-2x"></i></span>
+							</c:if>
+							<c:if test="${mem.member.memberManner > 36.5}">
+								<p>${mem.member.memberManner}℃</p>
+								<span style="color: rgb(252, 177, 3)"><i
+									class="fa-solid fa-face-grin fa-2x"></i></span>
+							</c:if>
 						</div>
-						<div class="group">
-							<span><h1>온도 ${mem.member.memberManner}℃</h1></span>
-						</div>
-
+					</div>
+				</div>
+				<div class="memberInfo_div">
+					<h1>
+						<i class="fa-solid fa-user"></i> ${mem.member.nickname}
+					</h1>
+				</div>
+				<div class="memberInfo_div">
+					<h2>${mem.member.memberInfo}</h2>
 				</div>
 			</div>
-			<div class="memberInfo_div">
-				<h1>
-					<i class="fa-solid fa-user"></i> ${mem.member.nickname}
-				</h1>
-			</div>
-			<div class="memberInfo_div">
-				<h2>${mem.member.memberInfo}</h2>
-			</div>
-
 			<div id="section2">
 				<div class="section2_memberInfo">
 					<h1>가입한 클럽</h1>
@@ -63,31 +74,36 @@
 					<c:forEach items="${mem.membershipUserList}" var="list">
 						<c:if test="${list.listGrade != 'guest'}">
 							<div class="club_box">
-							<a href="/${list.membership.membershipCode}"><img class="club_img" src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}"></a>
-							<p>${list.membership.membershipName}</p>
+								<a href="/${list.membership.membershipCode}"><img
+									class="club_img"
+									src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}"></a>
+								<p>${list.membership.membershipName}</p>
 							</div>
 						</c:if>
-							<!-- <c:if test="${list.listGrade == 'guest'}">
-							<img class="club-img" src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}">
-						</c:if> -->
 					</c:forEach>
+					<div class="club_box">
+						<a class="img_paging" href="/UserInfoPaging"><img class="club_img_none" src="http://192.168.10.51:8081/dot.jpg"></a>
+					</div>
 				</div>
 				<div class="section2_memberInfo">
 					<h1>가입신청한 클럽</h1>
 					<div class="club_info">
-					<c:forEach items="${mem.membershipUserList}" var="list">
-						 <c:if test="${list.listGrade == 'guest'}">
-						 	<div class="club_box">
-							<a href="/${list.membership.membershipCode}""><img class="club_img" src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}"></a>
-							<p>${list.membership.membershipName}</p>
-							</div>
-						</c:if>
-					</c:forEach>
+						<c:forEach items="${mem.membershipUserList}" var="list">
+							<c:if test="${list.listGrade == 'guest'}">
+								<div class="club_box">
+									<a href="/${list.membership.membershipCode}"> <img
+										class="club_img"
+										src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}"></a>
+									<p>${list.membership.membershipName}</p>
+								</div>
+							</c:if>
+						</c:forEach>
+						<div class="club_box">
+							<a class="img_paging"><img class="club_img_none" src="http://192.168.10.51:8081/dot.jpg"></a>
+						</div>
 					</div>
 				</div>
-				
 			</div>
-		</div>
 	</main>
 	<script src="${pageContext.request.contextPath}/js/userInfo.js"></script>
 </body>

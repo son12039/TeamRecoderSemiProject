@@ -2,12 +2,15 @@ package com.damoim.controller;
 
 import java.io.File;
 
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +28,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.dto.MemberUserDTO;
 import com.damoim.model.dto.ResignedDTO;
 import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
+import com.damoim.model.vo.UserInfoPaging;
 import com.damoim.service.EmailService;
 import com.damoim.service.MainCommentService;
 import com.damoim.service.MemberService;
@@ -110,41 +115,6 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	/*
-	 * 성철 내가 가입한 클럽을 가입된, 관리자or호스트, 가입대기중 클럽 조회가능한 페이지이동
-	 */
-	@GetMapping("/myMembership") // 내가 가입한 클럽확인
-	public String myMembership(Model model) {
-
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member member = (Member) authentication.getPrincipal();
-
-		List<MembershipUserList> list = new ArrayList<MembershipUserList>();
-		for (MemberListDTO m : member.getMemberListDTO()) {
-			list.add((MembershipUserList) infoService.main(m.getMembershipCode()));
-		}
-		for (int i = 0; i < list.size(); i++) {
-			list.get(i).setCount(list.get(i).getListCode());
-		}
-
-		// 내 등급별 클럽
-		model.addAttribute("membership", list);
-
-		return "mypage/myMembership";
-	}
-
-	// (동문) 비밀번호 확인후 update 페이지 이동
-	@ResponseBody
-	@PostMapping("/updateCheck")
-	public boolean updateCheck(String pwdCheck) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member mem = (Member) authentication.getPrincipal();
-
-		boolean check = service.updateCheck(mem, pwdCheck);
-		System.out.println("체크 확인" + check);
-		return check;
-
-	}
 
 	/*
 	 * 성철 로그인 X 한 상태에서 유저에게 ID랑 이메일 정보를 받아서 일치할시에 그 유저가 가입할때 넣은 이메일주소에 임시 비밀번호 발송 ->
@@ -187,11 +157,35 @@ public class MemberController {
 
 		return true;
 	}
+	
+	// 비밀번호 체크
+	private boolean checkPassword(Member member, String pwdCheck) {
+	    return service.updateCheck(member, pwdCheck);
+	}
 
+	// 회원정보 수정 비밀번호 체크
+	@ResponseBody
+	@PostMapping("/updateCheck")
+	public boolean updateCheck(String pwdCheck) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) authentication.getPrincipal();
+		boolean check = checkPassword(mem, pwdCheck);
+		return check;
+	}
+	// 회원탈퇴 비밀번호 체크
+	@ResponseBody
+	@PostMapping("/resignCheck")
+	public boolean resignCheck(String pwdCheck) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) authentication.getPrincipal();
+		boolean check = checkPassword(mem, pwdCheck);
+		return check;
+	}
+	
 	// 회원 탈퇴
 	@ResponseBody
 	@PostMapping("/memberStatus")
-	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response, MainComment mainComment) {
+	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response, MainComment mainComment,String pwdCheck) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
 		ArrayList<MembershipUserList> membershipList = infoService.selectName(mem.getId());
@@ -201,8 +195,7 @@ public class MemberController {
 			return false;
 		}
 		mem.setStatus(false); // 멤버 status false
-
-
+		
 		service.memberStatus(mem);
 		// 서비스 돌린거 바로 시큐리티 적용시킴
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -255,10 +248,10 @@ public class MemberController {
 					.build();
 		
 		model.addAttribute("mem" ,mem);
+		
 		return "member/userInfo";
 	}
-	 
-   
+	
 
 
 	/* 성철

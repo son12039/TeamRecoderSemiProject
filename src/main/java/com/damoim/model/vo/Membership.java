@@ -20,6 +20,7 @@ public class Membership {
     private Date membershipDate; // 클럽생성날짜
     private double membershipGrade; // 클럽 별점
     private int membershipMax; // 클럽최대인원
+    private String membershipSimpleText; // 클럽 대문정보
     private MultipartFile file; // 클럽메인사진(실저장)
 }
 

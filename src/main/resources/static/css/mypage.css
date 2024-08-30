@@ -5,23 +5,13 @@ body {
   padding: 0;
   background-color: #f4f4f4;
 }
-/* 헤더 nav */
-#LOGO {
-  font-size: 1rem;
-}
 
+/* 헤더 nav */
 nav {
   background-color: #333;
-  text-align: center;
   display: flex;
   justify-content: space-between;
   padding: 5px;
-}
-
-nav div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 nav a {
@@ -35,11 +25,17 @@ nav a:hover {
   background-color: #575757;
 }
 
-/* 헤더 nav */
+#LOGO {
+  font-size: 1rem;
+}
 
+.header_menu {
+  display: flex;
+  align-items: center;
+}
 
-/* .info 클래스를 사용하는 div 스타일 */
-.info {
+/* 정보 컨테이너 */
+.info_container {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -48,40 +44,20 @@ nav a:hover {
   padding: 20px;
   text-align: center;
 }
-.textBox {
-  align-items: center;
-}
 
-.textBox > * {
-  margin-bottom: 20px;
-}
-
-.info .text {
-  font-size: 1.2em;
-  color: #555;
-  margin-bottom: 10px;
-}
-
-.info h1 {
-  font-size: 1.5rem;
-}
-
-/* 특정 상태나 조건에 따라 추가적인 스타일을 적용할 수 있음 */
-.info h1:nth-child(2) {
-  color: #333;
-}
-
-.info img {
+.profile_img img {
   width: 200px;
   height: 200px;
-  border-radius: 200px;
+  border-radius: 50%;
   margin-bottom: 10px;
 }
 
-.textImg {
-  display: flex;
+.profile_update {
   align-items: center;
-  justify-content: center;
+}
+
+.profile_update > * {
+  margin-bottom: 20px;
 }
 
 #updateSubmit {
@@ -96,4 +72,97 @@ nav a:hover {
 
 #updateSubmit:hover {
   background-color: #45a049;
+}
+
+/* 가입 대기중인 클럽 보기 */
+.container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#all-club,
+#manage-club,
+#wait-club {
+  display: flex;
+  flex-direction: column;
+}
+
+#manage-club,
+#wait-club {
+  display: none;
+}
+
+.membership-each {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.membership-card {
+  display: none; /* 기본적으로 카드 숨기기 */
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  margin-bottom: 20px;
+}
+
+.membership-img {
+  width: 100px; /* 이미지의 고정된 너비 */
+  height: 100px; /* 이미지의 고정된 높이 */
+  object-fit: cover; /* 이미지 비율 유지 */
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+.membership-create{
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  margin-bottom: 20px;
+}
+
+.membership-each {
+  display: flex;
+  align-items: center;
+}
+
+.membership-String {
+  flex: 1;
+}
+
+.membership-String p {
+  margin: 0;
+  padding: 5px 0;
+}
+
+/* 버튼 스타일 */
+#make-club,
+#all-club-button,
+#manage-club-button,
+#wait-club-button,
+#update-club {
+background-color : gray;
+color:white;
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#all-club-button:hover,
+#manage-club-button:hover,
+#wait-club-button:hover,
+#update-club-button:hover {
+  background-color: black;
 }

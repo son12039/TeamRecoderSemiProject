@@ -48,6 +48,14 @@ nav a:hover {
   justify-content: space-between;
 }
 
+.resign{
+  padding-top: 20px;
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  opacity: 0.3;
+}
+
 .header_menu:hover {
   background-color: #575757;
 }

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 				
@@ -12,11 +11,9 @@
 
 
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css" />
-    
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/membershipPage.css"/>
-
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>     
+	
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>     
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <style>
         #calendar{
@@ -25,7 +22,7 @@
     </style>
 </head>
 <body>
-    <main>
+<main>
    <sec:authorize access="isAuthenticated()" var="principal">
    <sec:authentication property="principal" var="member" />
     <img id="mainImg" src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}" alt="클럽 이미지">
@@ -203,7 +200,7 @@
     
    
     </script>
-      <script src="${pageContext.request.contextPath}/js/calendar.js"></script>
+    <script src="${pageContext.request.contextPath}/js/calendar.js"></script>
     <script src="${pageContext.request.contextPath}/js/membershipPage.js"></script>
   
    

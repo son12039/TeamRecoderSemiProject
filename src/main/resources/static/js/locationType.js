@@ -40,23 +40,21 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 	// ajax 체인걸어놔서 두번째까지는 안와서 변수선언
 	const location = $(this);
 	//체인지하면서 css 변경
-
 	// 체크 이벤트 
 	const laName = $(this).val();
 	if ($(this).prop('checked')) {
 		// 체크 걸면서 css도 같이 주기
-		$('#locationLaNameForm input[type=checkbox]')
-			.prop('checked', false)
-			.next('label')
-			.css({borderBottom: ""});
-		$(this).prop('checked', true)// 색상 저정하기 (검은색)#4d4d4d
-			.next('label')
-			.css({borderBottom: "2.5px solid #FF6600"});
+		$('#locationLaNameForm input[type=checkbox]').prop('checked', false);
+
+		$(this).prop('checked', true);
+
 
 		if (laName !== '전체보기') {
 			urlParams.append('locationLaName', laName);
 		}
 	}
+	// 체크 해제했을때 스타일 삭제
+
 
 	// 체크 눌렀을때 그쪽 방향으로 이동
 	window.scrollTo({ top: 920, left: 0, behavior: 'smooth' });
@@ -81,14 +79,15 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 				type: 'get',
 				data: "laName=" + laName,
 				success: function(locationS) {
-					$("#locationSNameForm").empty();
+					$(".locationSDiv").empty();
 					if (location.prop('checked')) {
 						$.each(locationS, function(index, item) {
-							list += `<input type="checkbox" value="${item}" id="${item}"
+							list += `
+							<input type="checkbox" value="${item}" id="${item}"
 										name="locationSName">
-									<label for="${item}">${item}</label>`
+									<label for="${item}" class="locationTypeCss">${item}</label>`
 						})
-						$("#locationSNameForm").html(list);
+						$(".locationSDiv").html(list);
 					}
 					$("#locationSNameForm input[type=checkbox]").change(function() {
 						window.scrollTo({ top: 920, left: 0, behavior: 'smooth' });
@@ -100,7 +99,8 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 							const inputAll = $(this).parent().find("input[type=checkbox]");
 							for (let input of inputAll) {
 								if (input.checked) {
-									urlParams.append("locationSName", input.value);
+									urlParams.append("locationSName", input.value)
+									
 								}
 							}
 						}
@@ -173,13 +173,24 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 		$('#typeLaNameSelect input[type=checkbox]')
 							.prop('checked', false)
 							.next('label')
-							.css({borderBottom: ""});;
+							.css({backgroundColor : "",
+								  borderRadius : ""
+							});
 		$(this).prop('checked', true)
-							.next('label')
-							.css({borderBottom: "2.5px solid #FF6600"});
+					.next('label')
+					.css({backgroundColor : "#fca35b",
+						  borderRadius : "20px"
+					});
 		if (typeLaName !== '전체보기') {
 			urlParams.append('typeLaName', typeLaName)
 		}
+	}
+	if(!$(this).prop('checked')){
+		$(this).prop('checked',false)
+						.next('label')
+						.css({backgroundColor : "",
+							  borderRadius : ""
+						});
 	}
 	history.pushState({}, null, url);
 	let list = "";
@@ -202,20 +213,36 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 				data: $.param({ typeLaName: typeLaName }),
 				success: function(result) {
 					$("#typeSNameForm").empty();
+					
 					if (typeLa.prop('checked')) {
+						$("#typeSNameForm").css({height : "40px"})
 						$.each(result, function(index, item) {
 							list += `<input type="checkbox" value="${item}" id="${item}"
 							name="typeSName">
-							<label for="${item}">${item}</label>`
+							<label for="${item}" class="typeSCss">${item}</label>`
 						})
 						$("#typeSNameForm").html(list)
+					}else{
+						$("#typeSNameForm").css({height : ""})
 					}
 					$("#typeSNameForm input[type=checkbox]").change(function() {
 						window.scrollTo({ top: 920, left: 0, behavior: 'smooth' });
 						const typeSName = $(this).val();
 						if ($(this).is(':checked')) {
 							urlParams.append('typeSName', typeSName);
+							$(this).prop("checked",true)
+								   .next("label")
+								   .css({
+										backgroundColor : "#fca35b",
+										borderRadius : "20px"
+								   });
 						} else {
+							$(this).prop("checked",false)
+								   .next("label")
+								   .css({
+										backgroundColor : "",
+										borderRadius : ""
+								   });
 							urlParams.delete('typeSName');
 							const inputAll = $(this).parent().find("input[type=checkbox]");
 							for (let input of inputAll) {
@@ -239,7 +266,6 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 							},
 							success: function(clubList2) {
 								renderClubList(clubList2);
-								console.log(clubList2.length);
 							}
 						})
 					})

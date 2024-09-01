@@ -40,46 +40,54 @@
 	<div class="locationTypeBody">
 		<div class="locationTypeBodyBox">
 			<form id="locationLaNameForm">
-				<input type="checkbox" value="전체보기" id="locLaNameAll" /> <label
-					class="locLaNameLabel" for="locLaNameAll">전체보기</label>
-				<c:forEach items="${locLaNameList}" var="locLaName">
-					<input type="checkbox" value="${locLaName}" id="${locLaName}"
-						name="locationLaName">
-					<label for="${locLaName}" class="locationLaCss">${locLaName}</label>
-				</c:forEach>
+					<div class="locationBoxHead">
+					<div class="locationLaStar">도시별</div>
+						<input type="checkbox" value="전체보기" id="locLaNameAll" /> 
+						<label class="locLaNameLabel" for="locLaNameAll">초기화</label>
+					</div>
+						<div class="locationLaDiv">
+							<c:forEach items="${locLaNameList}" var="locLaName">
+								<input type="checkbox" value="${locLaName}" id="${locLaName}"
+									name="locationLaName">
+								<label for="${locLaName}" class="locationLaCss">${locLaName}</label>
+							</c:forEach>
+						</div>
 			</form>
-
-
+	
+	
 			<form id="locationSNameForm">
-				<c:forEach items="${locSNameList}" var="locSName">
-					<input type="checkbox" value="${locSName}" id="${locSName}"
-						name="locationSName">
-					<label for="${locSName}" class="locationTypeCss">${locSName}</label>
-				</c:forEach>
+				<div class="locationSStar">지역별</div>
+				<div class="locationSDiv">
+					<c:forEach items="${locSNameList}" var="locSName">
+						<input type="checkbox" value="${locSName}" id="${locSName}"
+							name="locationSName">
+						<label for="${locSName}" class="locationTypeCss">${locSName}</label>
+					</c:forEach>
+				</div>
 			</form>
-
-
-			<form id="typeLaNameSelect">
-				<input type="checkbox" value="전체보기" id="typeLaNameAll" /> <label
-					class="typeLaNameLabel" for="typeLaNameAll">전체보기</label>
-				<c:forEach items="${typeLaNameList}" var="typeLaName">
-					<input type="checkbox" value="${typeLaName}" id="${typeLaName}"
-						name="typeLaName">
-					<label for="${typeLaName}" class="typeLaCss">${typeLaName}</label>
-				</c:forEach>
-			</form>
-
-
-
-			<form id="typeSNameForm">
-				<c:forEach items="${typeSNameList}" var="typeSName">
-					<input type="checkbox" value="${typeSName}" id="${typeSName}"
-						name="typeSName">
-					<label for="${typeSName}">${typeSName}</label>
-				</c:forEach>
-			</form>
-
 		</div>
+	</div>
+
+	<div id="typeStickyBox">
+		<form id="typeLaNameSelect">
+			<input type="checkbox" value="전체보기" id="typeLaNameAll" /> <label
+				class="typeLaNameLabel" for="typeLaNameAll">전체보기</label>
+			<c:forEach items="${typeLaNameList}" var="typeLaName">
+				<input type="checkbox" value="${typeLaName}" id="${typeLaName}"
+					name="typeLaName">
+				<label for="${typeLaName}" class="typeLaCss">${typeLaName}</label>
+			</c:forEach>
+		</form>
+
+
+
+		<form id="typeSNameForm">
+			<c:forEach items="${typeSNameList}" var="typeSName">
+				<input type="checkbox" value="${typeSName}" id="${typeSName}"
+					name="typeSName">
+				<label for="${typeSName}" id="typeSCss">${typeSName}</label>
+			</c:forEach>
+		</form>
 	</div>
 
 

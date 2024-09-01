@@ -1,6 +1,6 @@
 .locationTypeBody {
 	padding-top:200px;
-	padding-bottom : 30px;
+	padding-bottom : 20px;
 	width: 100%;	
 }
 .locationTypeBodyBox {	
@@ -52,6 +52,7 @@
 	padding: 5px 10px 10px 10px;
 	font-size: 25px;
 	font-weight: bold;
+	color:  #fca35b;
 }
 .locationLaDiv{
 	background-color : #efefef;
@@ -67,6 +68,10 @@
 	font-size : 18px;
 	font-weight: bold;
 	cursor: pointer;
+	color: white;
+	background-color: #457b9d; 
+	padding: 5px;
+	border-radius: 5px;
 }
 
 .locationLaCss:hover{
@@ -88,19 +93,26 @@
 #locationSNameForm{
 	width: 400px;
 	height : 100%;
-	background-color: orangeRed;
 	padding: 10px;
+	background-color : white;
+	border-radius: 20px;
+	border: 1px solid #d5d5d5;
 }
 .locationSStar{
-	padding: 10px;
-	font-size: 20px;
+	padding: 5px 10px 10px 10px;
+	font-size: 25px;
 	font-weight: bold;
+	color:  #fca35b;
 }
 .locationTypeCss{
 	
 }
 .locationSDiv{
-	
+	background-color : #efefef;
+	width: 380px;
+	height: 140px;
+	border-radius: 20px;
+	padding: 10px;
 }
 /*중단 locationS 이벤트 놈들*/
 

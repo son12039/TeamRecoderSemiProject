@@ -15,7 +15,7 @@ uri="http://www.springframework.org/security/tags" %>
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
  
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Jodit CSS 스타일 시트 -->
+  
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/jodit@3.6.9/build/jodit.min.css"
@@ -26,7 +26,7 @@ uri="http://www.springframework.org/security/tags" %>
     
   </head>
   <body>
-   <jsp:include page="../header/header.jsp" />
+   <jsp:include page="../header/headerMemberShip.jsp" />
    <div id="box">
    <div id="container">
    <div id="input-box">

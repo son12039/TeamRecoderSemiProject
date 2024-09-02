@@ -21,7 +21,7 @@
 <body>
 
 	<!-- 인덱스 헤드만 헤더1 -->
-	<jsp:include page="header/header2.jsp" />
+	<jsp:include page="header/headerIndex.jsp" />
 	<div class="body_img_box_body">
 		<div class="body_img_box">
 			<img class="body_img" src="http://192.168.10.51:8081/mainImg2.jpg" />

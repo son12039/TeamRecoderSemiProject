@@ -243,7 +243,7 @@ public class MembershipMeetingController {
 		
 	}
 		
-  
+  // 미팅 수정 부분 
   @GetMapping("/meetingUpdate")
   public String update(int no, Model model) {
 		
@@ -266,12 +266,6 @@ public class MembershipMeetingController {
 	
 	}
 	
-	// 미팅 수정 부분 
-	@GetMapping("/meetingUpdate")
-	public String meetingUpdate () {
-		
-		return null;
-	}
 	
 	
 	

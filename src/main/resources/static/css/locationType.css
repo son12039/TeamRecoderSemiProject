@@ -171,7 +171,7 @@
  }
 #typeLaNameSelect{
 	width: 100%;
-	max-width: 1200px;
+	max-width: 1520px;
 	margin:auto;
 	font-size:20px;
 	padding :5px;
@@ -179,7 +179,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-		
+	color : #343a40;
 }
 .typeLaNameLabel{
 	padding :5px 5px; 
@@ -208,7 +208,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: white;
+	background-color: #ADD8E6;
 	font-weight: bold;
 	font-size: 18px;
 	width: 100%;

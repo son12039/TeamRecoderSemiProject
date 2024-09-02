@@ -45,6 +45,8 @@ public class MembershipMeetingController {
 	@Autowired
 	private MeetingsCommentService commentService;
 	
+	
+	
 	@GetMapping("/write")
 	public String write(int membershipCode, Model model) {
 		System.out.println("모임 컨트롤러 매핑 " + membershipCode);
@@ -90,27 +92,63 @@ public class MembershipMeetingController {
 		System.out.println("디테일 컨트롤러 연결 : " + meetCode);
 		model.addAttribute("meet", service.meetSelect(meetCode));
 	
-		
+	
 		model.addAttribute("list", service.meetMember(meetCode));
 		
 		// 멤버쉽 이미지가 필요해서 memebershipCode를 추출 
 		int membershipCode = service.meetSelect(meetCode).getMembershipCode();
-		
+		// 캘린더 추가 ? 
+		model.addAttribute("allmeet", service.allMeetings(membershipCode));
 		// 해당 코드로 멤버쉽 유저리스트 불러와서 membership 정보 가져옴  
 		model.addAttribute("allInfo", membershipService.MembershipAllInfo(membershipCode));
-		
+		model.addAttribute("adminList", membershipService.adminUser(membershipCode));
+		// 해당 멤버쉽 코드의 모든 멤버정보 
 		System.out.println(" 출력 테스트 : " + membershipService.MembershipAllInfo(membershipCode));
 		System.out.println("멤버 출력 테스트  : "+ service.meetMember(meetCode));
 
 		String id = service.meetSelect(meetCode).getId();
 		
+		// 글쓴이 찾아오기 
 		for(int i =0; i <membershipService.MembershipAllInfo(membershipCode).size(); i ++) {
 			
 			if( id.equals(membershipService.MembershipAllInfo(membershipCode).get(i).getMember().getId())){
 				model.addAttribute("writer",membershipService.MembershipAllInfo(membershipCode).get(i).getMember());
 			}
 		}
+		// 동의 리스트 선언  		
+		List<String> agreeMembers = new ArrayList<String>();
 		
+		// 원본 리스트 
+		List<MembershipUserList> list =  membershipService.MembershipAllInfo(membershipCode);
+		
+		// 원본 리스트에서 동의 리스트만 뽑아내기 
+		List<MembershipUserList> list2 = new ArrayList<MembershipUserList>();
+		
+		
+		// 선언한 동의 리스트에 값 삽입 
+		
+		for( int i =0; i<service.meetMember(meetCode).size(); i ++) {
+			if(service.meetMember(meetCode).get(i).isMeetAgreeYn()) {
+				agreeMembers.add(service.meetMember(meetCode).get(i).getMember().getId());
+			}
+		}
+	
+		// 완성된 동의 리스트와 원본 리스트 비교해서 해당 멤버들만 재배열화 
+	 
+	 for(int i=0; i <agreeMembers.size(); i++) {
+		 for(int j=0; j<list.size(); j++) {
+			 if(agreeMembers.get(i).equals(list.get(j).getMember().getId())) {
+				 list2.add(list.get(j));
+			 }
+			 
+		 }
+		 
+	 }
+
+	 // 동의한 멤버들만 추려서 jsp로 전달 
+	   model.addAttribute("agree",list2);
+		  
+	
 
 		List<MeetingsAgree> agree = new ArrayList<>();
 		
@@ -119,10 +157,10 @@ public class MembershipMeetingController {
 		  MeetingsAgree asd =(MeetingsAgree) service.meetMember(meetCode).get(i);
 		  asd.setId(name);
 		  agree.add(asd);
-		  System.out.println("바뀐 애들" + asd);
+		 
 	  }
 	  
-	  System.out.println(agree);
+	
 		ArrayList<MeetingsComment> commList = commentService.allMeetingsComment(meetCode); // 일반댓글
 		ArrayList<MeetCommentDTO> dtoList = new ArrayList<MeetCommentDTO>(); //합칠예정
 		
@@ -168,10 +206,9 @@ public class MembershipMeetingController {
 	 
 	  
 	
-	  
 	
 			
-		return "membershipMeeting/meetingDetail2";
+		return "membershipMeeting/meetingDetail";
 	}
 	
 	@ResponseBody
@@ -180,7 +217,7 @@ public class MembershipMeetingController {
 		System.out.println("참가 컨트롤러 접속 ");
 		service.participation(ma);
 		
-		return "redirect:/meetingDetail2";
+		return "redirect:/meetingDetail";
 	}
 		
 	
@@ -216,15 +253,28 @@ public class MembershipMeetingController {
 	}
 	
 
-	
+	// 미팅 삭제 부분 
 	@GetMapping("/meetingDelete")
 	public String remove(int meetCode) throws IllegalStateException, IOException {
 		
+		int membershipCode = service.meetSelect(meetCode).getMembershipCode();
 		
-		return null;
+		service.meetingDelete(meetCode);
+		
+		return "redirect:/club/"+membershipCode;
 
 	
 	}
+	
+	// 미팅 수정 부분 
+	@GetMapping("/meetingUpdate")
+	public String meetingUpdate () {
+		
+		return null;
+	}
+	
+	
+	
 	
 	public void fileDelete(String file, int membershipCode, int meetCode) throws IllegalStateException, IOException {
 		if(file == null) {

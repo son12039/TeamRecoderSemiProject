@@ -165,7 +165,7 @@ public class MembershipController {
 			model.addAttribute("adminList", service.adminUser(membershipCode));
 			
 			
-			System.out.println(service.MembershipAllInfo(membershipCode).get(0).getMember().getGender());
+			
 			
 			model.addAttribute("allmeet", meetingService.allMeetings(membershipCode));
 			System.out.println(meetingService.allMeetings(membershipCode));

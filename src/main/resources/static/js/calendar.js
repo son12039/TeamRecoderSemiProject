@@ -5,7 +5,7 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
 	events: allDates,
 	editable: true,
 	selectable: true,
-	height: 800,
+	height: 600,
 	locale: "ko", // 여기
 	eventClick: function(info) {
 	

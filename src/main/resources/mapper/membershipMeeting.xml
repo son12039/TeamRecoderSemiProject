@@ -90,7 +90,11 @@ VALUES (#{membershipCode},#{meetDateStart},#{meetDateEnd},
     WHERE meet_code = #{meetCode} AND id = #{id}
 </update>
         
+    <delete id="meetingDelete" parameterType="Integer">
+    DELETE FROM membership_meetings
+    WHERE meet_code = #{meetCode}
     
+    </delete>
     
     
     

@@ -49,6 +49,10 @@ public void participation (MeetingsAgree ma) {
 	mapper.participation(ma);
 }
 
+public void meetingDelete(int meetCode) {
+	
+	mapper.meetingDelete(meetCode);
+}
 
 	 
 	 

@@ -28,4 +28,7 @@ public interface MembershipMeetingMapper {
 	
 	List<Image> viewImage (int meetCode);
 	
+	// 미팅 삭제 
+	void meetingDelete(int meetCode);
+	
 }

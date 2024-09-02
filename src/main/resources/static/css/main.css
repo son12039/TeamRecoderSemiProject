@@ -188,7 +188,7 @@ div[id^="comment-box"] > input {
 .comment-text {
   margin-bottom: 5px;
 }
-.button {
+.btn {
   background-color: #fca311;
   color: #fff;
   border: none;

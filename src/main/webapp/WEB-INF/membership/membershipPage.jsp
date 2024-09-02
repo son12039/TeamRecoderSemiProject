@@ -40,9 +40,9 @@
 		<div class="accordion" id="accordionExample">
 				<div class="accordion-item">
 					<h2 class="accordion-header">
-						<button class="accordion-button " type="button"
+						<button class="accordion-button collapsed " type="button"
 							data-bs-toggle="collapse" data-bs-target="#collapseOne"
-							aria-expanded="true" aria-controls="collapseOne">
+							aria-expanded="false" aria-controls="collapseOne" >
 							함께하는 멤버들</button>
 					</h2>
 					<div id="collapseOne" class="accordion-collapse collapse "
@@ -260,6 +260,9 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
 		integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
 		crossorigin="anonymous"></script>
+		
+		
+		
 <script>
 
 $("#management").click(()=>{

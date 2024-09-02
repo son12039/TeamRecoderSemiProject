@@ -1,8 +1,11 @@
 package com.damoim.service;
+import java.util.ArrayList;
 import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.damoim.model.dto.MemberListDTO;
@@ -73,11 +76,81 @@ public class MembershipService {
 
 	
 	public void agreeMemeber(MemberListDTO member) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem =  (Member)authentication.getPrincipal();
+		
+		ArrayList<MemberListDTO> list =  (ArrayList<MemberListDTO>) mem.getMemberListDTO();
+		
+		
+		
 		if(member.getListGrade().equals("delete")) {
 			mapper.expelMember(member);
-		} else {
+			
+			for(int i =0; i<list.size(); i++) {
+				if(list.get(i).getMembershipCode() == member.getMembershipCode()) {
+					list.remove(i);
+				}
+				
+			}
+			
+		} else if (member.getListGrade().equals("host")) {
+			
+			mapper.hostChange(member.getMembershipCode());
+			mapper.agreeMemeber(member);
+			
+			for(int i = 0; i < list.size(); i++) {
+				if(list.get(i).getMembershipCode() == member.getMembershipCode() ) {
+					list.get(i).setListGrade("admin"); 
+					
+				}
+				
+			}
+			
+		}		
+		 else if(member.getListGrade().equals("admin")){
 		mapper.agreeMemeber(member);
+		
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getMembershipCode() == member.getMembershipCode() ) {
+				list.get(i).setListGrade("admin"); 
+				
+			}
+			
 		}
+		
+		
+		
+		}	 else if(member.getListGrade().equals("regular")){
+			mapper.agreeMemeber(member);
+			
+			for(int i = 0; i < list.size(); i++) {
+				if(list.get(i).getMembershipCode() == member.getMembershipCode() ) {
+					list.get(i).setListGrade("regular"); 
+					
+				}
+				
+			}
+			
+			
+			
+			} else {
+				
+				mapper.agreeMemeber(member);
+				
+				list.add(member);
+				
+			}
+		
+
+		
+		
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		
+		
+		
+		
 		
 	}
 	public List<Integer> membershipCodeList(String id){
@@ -91,10 +164,13 @@ public class MembershipService {
 	
 	
 	
-	public void updateMembership(Membership membership) {
-		mapper.updateMembership(membership);
+
+	
+	public ArrayList<MembershipUserList> selectName(String member) {
+		return mapper.selectName(member);
 	}
 	
+
 	
 	public void updateMembershipInfo(Membership membershipInfo) {
 		mapper.updateMembershipInfo(membershipInfo);
@@ -104,10 +180,31 @@ public class MembershipService {
 		return	mapper.selectMembership(membershipCode);
 	}
 	
+	public int meetCount(String id) {
+		return mapper.meetCount(id);
+	}
+	
+	public List<MembershipUserList> selectMemberUserList(String id){
+		return mapper.selectMemberUserList(id);
+	}
+	
 //	public List<MembershipUserList> list(Paging paging) {
 //		
 //		return mapper.allMembership(paging);
 //	}
+	
+	public List<MemberListDTO> adminUser(int membershipCode){
+		
+		return mapper.adminUser(membershipCode);
+	}
+	
+	public MemberListDTO ifHost(String id) {
+		
+		return mapper.ifHost(id);
+		
+		}
+	
+	
 }
 
 

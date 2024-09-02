@@ -1,7 +1,7 @@
 body {
   font-family: "Arial", sans-serif;
   line-height: 1.6;
-  background-color: #e6e1e1;
+  background-color: #ffff;
 }
 
 #box {
@@ -76,6 +76,30 @@ body {
   border-radius: 50%;
   width: 50px;
   height: 50px;
+  
+}
+.locationTypeBox {
+  font-size: 12px;
+  width: 200px;
+}
+.type {
+  display: flex;
+  flex-wrap: wrap;
+}
+.typeList {
+  background-color: white;
+  width: fit-content; /*글자크기에 맞게 width값 주기*/
+  border: 1px solid grey;
+  padding: 2.5px 5px;
+  border-radius: 15px;
+  margin: 1px;
+}
+.typeText {
+  padding: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 form {
@@ -83,7 +107,7 @@ form {
 }
 
 input[type="submit"] {
-  background-color: #f88c1d;
+  background-color: #fca311;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -101,6 +125,10 @@ input[type="submit"]:hover {
 .update-form {
   display: none;
 }
+.comment{
+	border: 1px solid #fca311;
+	
+}
 .comment,
 .re-comment {
   padding: 8px;
@@ -109,6 +137,7 @@ input[type="submit"]:hover {
   margin: 10px;
   border-radius: 10px;
   background-color: #e5e5e5;
+  
 }
 .re-comment {
   margin: 10px 0px;
@@ -120,6 +149,8 @@ input[type="submit"]:hover {
 }
 
 div[id^="comment-box"] {
+	border-top: 2px dashed;
+    border-radius: 0px 0px 10px 10px;
   width: 790px;
   height: 100px;
   display: flex;
@@ -127,7 +158,6 @@ div[id^="comment-box"] {
   padding: 8px;
   align-items: center;
   background-color: #e5e5e5;
-  border-radius: 10px;
   margin-top: 10px;
 }
 div[id^="recomment-box"] {
@@ -158,10 +188,11 @@ div[id^="comment-box"] > input {
   font-size: 1.2rem;
 }
 .comment-text {
+	padding-left: 10px;
   margin-bottom: 5px;
 }
-button {
-  background-color: #f88c1d;
+.btn {
+  background-color: #fca311;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -172,7 +203,7 @@ button {
   transition: background-color 0.3s ease;
 }
 .btn.active {
-  background-color: #28a745;
+  background-color: #14213d;
   color: #fff;
 }
 button:hover {
@@ -194,7 +225,7 @@ button > img {
 }
 .prof img {
   margin: 0;
-  margin-left: 5px;
+  margin-left: 10px;
 }
 #textbox > button {
   height: 50%;

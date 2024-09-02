@@ -1,0 +1,248 @@
+.user-img {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%
+}
+input[type="submit"] {
+  background-color: #fca311;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #e76f00;
+}
+
+.update-form {
+  display: none;
+}
+.comment{
+	border: 1px solid #fca311;
+	
+}
+.comment,
+.re-comment {
+  padding: 8px;
+  width: 100%;
+  max-width: 820px;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: #e5e5e5;
+  
+}
+.re-comment {
+  margin: 10px 0px;
+}
+.re-comment > .comment-head {
+  border-top: 2px dashed;
+  margin-top: 10px;
+  padding-top: 5px;
+}
+
+div[id^="comment-box"] {
+  width: 790px;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  align-items: center;
+  background-color: #e5e5e5;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+div[id^="recomment-box"] {
+  display: none;
+}
+
+div[id^="comment-box"] > input {
+  height: 50%;
+  width: 60%;
+  margin: 5px;
+}
+
+#comment-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 50px;
+}
+.comment-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.comment-head > h1 {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.comment-text {
+  margin-bottom: 5px;
+}
+button {
+  background-color: #fca311;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+.btn.active {
+  background-color: #14213d;
+  color: #fff;
+}
+button:hover {
+  background-color: #e76f00;
+}
+
+button > img {
+  width: 20px;
+  height: 15px;
+  margin: 0px;
+  padding: 0px;
+}
+.recomment-box {
+  margin-left: 10px;
+}
+.prof {
+  display: flex;
+  align-items: center;
+}
+.prof img {
+  margin: 0;
+  margin-left: 5px;
+}
+#textbox > button {
+  height: 50%;
+}
+.comment > p {
+  padding: 10px;
+}
+
+#hostInfo {
+  display: flex;
+  flex-direction: row;
+}
+#hostInfo-img {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  bottom: 10px;
+}
+
+
+
+
+
+
+body {
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  background-color: #ffff;
+}
+
+#box {
+  display: flex;
+  justify-content: center;
+  padding-top:80px;
+  flex-direction: column;
+}
+#container {
+  width: 100%;
+  max-width: 800px;
+  /*08-29 채승훈 마진겹칩현상? 때문에 20px 뺌*/
+  margin: auto;
+  
+ 
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#container-top {
+  display: flex;
+  flex-direction: column;
+  background-color: #fefefe;
+  border-radius: 16px;
+  align-items: center;
+  position: relative;
+  bottom: 60px;
+  width: 90%;
+  padding: 10px;
+}
+
+#membershipMain-img{
+	width: 100%;
+	
+}
+#hostImg {
+  position: relative;
+  bottom: 55px;
+}
+
+.host-img{
+	
+	width:50px;
+	heigh:50px;
+	border-radius: 50%;
+}
+
+#hostName {
+  position: relative;
+  bottom: 55px;
+}
+#membershipTitle {
+  position: relative;
+  bottom: 35px;
+}
+
+
+
+#meetInfo{
+	
+	    margin: 20px;
+}
+
+
+
+.accordion-button collapsed{
+	
+	background-color: #14213d !important;
+    color: white !important;
+    font-weight: bold !important;
+	
+}
+.accordion-collapse {
+  overflow: auto; 
+}
+
+.accordion-body {
+  max-height: 1000px; 
+}
+.accordion-button:not(.collapsed) {
+    background: #fca311 ; /* 펼쳐졌을 때 배경색 */
+    color: #ffffff; /* 텍스트 색상 */
+}
+
+
+.accordion-button.collapsed {
+    background: #14213d; /* 닫혔을 때 배경색 */
+    color: #ffffff; /* 텍스트 색상 */
+}
+

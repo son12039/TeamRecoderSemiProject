@@ -34,6 +34,7 @@ public interface MembershipMapper {
 	List<MemberListDTO> grade(Member member);
 	
 	void agreeMemeber(MemberListDTO member);
+	void hostChange(int membershipCode);
 	
 	 
 	List<Integer> membershipCodeList(String id);
@@ -41,13 +42,30 @@ public interface MembershipMapper {
 	
 	void membershipImg(Membership membership);
 	
+	
+	ArrayList<MembershipUserList> selectName(String member);
 	List<MembershipUserList> MembershipAllRegular(int membershipCode);
 	
-	void updateMembership(Membership membership);
+	
+	
+	
+	// 멤버쉽 업데이트 ============================
+
 	
 	void updateMembershipInfo(Membership membershipInfo);
+	int meetCount (String string);
+	List<MembershipUserList> selectMemberUserList(String id);
+	
+	
 	
 	void expelMember(MemberListDTO member);
+	
+	
+	List<MemberListDTO> adminUser(int membershipCode);
+	
+	MemberListDTO ifHost(String id);
+	
+	
 }
 
 

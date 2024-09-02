@@ -257,7 +257,7 @@
 						placeholder="댓글을 입력하세요"  > <input type="hidden" name="id"
 						value="${member.id}"> <input type="hidden"
 						name="membershipCode" value="${main.membership.membershipCode}">
-					<button id="submit-comment" type="button">댓글 등록</button>
+					<button class="btn" id="submit-comment" type="button">댓글 등록</button>
 				</div>
 			</form>
 		</sec:authorize>
@@ -292,8 +292,8 @@
 							</div></a>${com.mainCommentDate}</div>
 						<div class="comment-text">${com.mainCommentText}</div>
 						<c:if
-							test="${com.nickname == member.nickname || memberGrade == 'host'}">
-							<button type="button"
+							test="${com.nickname == member.nickname || memberGrade == 'host' || memberGrade == 'admin'}">
+							<button type="button" class="btn"
 								onclick="deleteComment(event, ${com.mainCommentCode})">삭제</button>
 						</c:if>
 						<c:if test="${com.nickname == member.nickname}">
@@ -319,7 +319,7 @@
 										</div>
 										<input id="textbox-update-${com.mainCommentCode}" type="text"
 											name="mainCommentText" value="${com.mainCommentText}" onclick="updateKey(${com.mainCommentCode})">
-										<button type="button"
+										<button type="button" class="btn"
 											onclick="updateComment(event,${com.mainCommentCode})">댓글
 											수정</button>
 									</div>
@@ -355,8 +355,8 @@
 									<br />
 									<div class="comment-text">${recom.mainCommentText}</div>
 									<c:if
-										test="${recom.nickname == member.nickname || memberGrade == 'host'}">
-										<button type="button"
+										test="${recom.nickname == member.nickname || memberGrade == 'host' || memberGrade == 'admin'}">
+										<button type="button" class="btn"
 											onclick="deleteComment(event, ${recom.mainCommentCode})">삭제</button>
 									</c:if>
 									<c:if test="${recom.nickname == member.nickname}">
@@ -371,7 +371,7 @@
 														id="textbox-update-${recom.mainCommentCode}" type="text"
 														name="mainCommentText" value="${recom.mainCommentText}"
 														onclick="updateKey(${recom.mainCommentCode})">
-													<button type="button"
+													<button type="button" class="btn"
 														onclick="updateComment(event,${recom.mainCommentCode})">댓글
 														수정</button>
 												</div>
@@ -405,7 +405,7 @@
 											name="mainCommentText" placeholder="대댓글을 입력하세요" onclick="reCommentKey(${com.mainCommentCode})"> 
 											<input type="hidden" name="id" value="${member.id}"> 
 											<input type="hidden" name="membershipCode" value="${com.membershipCode}">
-										<button type="button"
+										<button type="button" class="btn"
 											onclick="recomment(event, ${com.mainCommentCode})">댓글
 											등록</button>
 									</div>

@@ -1,6 +1,6 @@
 @charset "UTF-8";
 body {
-  background-color:white;
+  background-color: white;
 }
 .container {
   align-items: flex-start;
@@ -27,7 +27,6 @@ body {
   margin: 20px;
   width: 480px;
   height: 250px;
-  
 }
 .membership-img a img {
   border-radius: 15px;
@@ -36,10 +35,10 @@ body {
   margin: 20px;
 }
 .membership-name {
-  color:#2a9d8f;
+  color: #2a9d8f;
   font-size: 20px;
-  white-space: nowrap; 
-  overflow: hidden; 
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
   width: 180px;
 }
@@ -61,7 +60,7 @@ body {
 .membership-info h1 {
   font-weight: bolder;
 }
-.membership-info h2  {
+.membership-info h2 {
   margin-left: 10px;
   width: 100%;
   font-size: 13px;
@@ -78,17 +77,17 @@ body {
 }
 .type {
   display: flex;
-  white-space: nowrap; 
-  overflow: hidden; 
-   background-color: red;
+  white-space: nowrap;
+  overflow: hidden;
+  background-color: red;
 }
 .typeList {
-  background-color:#F4F4F4;
+  background-color: #f4f4f4;
   width: fit-content; /*글자크기에 맞게 width값 주기*/
   padding: 2.5px 5px;
   border-radius: 15px;
   margin: 1px;
-  color : #666060;
+  color: #666060;
 }
 .typeText {
   padding: 1px;
@@ -104,23 +103,22 @@ body {
   height: 955px;
   display: flex;
   justify-content: center;
-  
 }
 .body_img {
   width: 100%;
   height: 100%;
   filter: brightness(60%);
 }
-.body_text{
-  position:absolute;
-  width:50%	;
-  height : 500px;
-  display:flex;
+.body_text {
+  position: absolute;
+  width: 50%;
+  height: 500px;
+  display: flex;
   align-items: flex-start;
-  justify-content:center;
+  justify-content: center;
   z-index: 10;
-  top:200px;
-  left:20%;
+  top: 200px;
+  left: 20%;
   color: #ffffff;
   font-size: 20px;
   font-weight: bold;
@@ -128,20 +126,19 @@ body {
   line-height: 70px;
   font-family: "Do Hyeon", sans-serif;
 }
-.body_text p:nth-child(1){
-	font-family: "Do Hyeon", sans-serif;
+.body_text p:nth-child(1) {
+  font-family: "Do Hyeon", sans-serif;
   font-size: 74px;
 }
-.body_text p:nth-child(2){
+.body_text p:nth-child(2) {
   font-size: 22px;
 }
-.body_text p:nth-child(3){
+.body_text p:nth-child(3) {
   font-size: 22px;
 }
-.body_text p:nth-child(4){
+.body_text p:nth-child(4) {
   line-height: 30px;
-  color :white;
-  opacity : 5;
+  color: white;
+  opacity: 5;
   font-size: 20px;
 }
-

@@ -40,9 +40,9 @@
 		<div class="accordion" id="accordionExample">
 				<div class="accordion-item">
 					<h2 class="accordion-header">
-						<button class="accordion-button collapsed " type="button"
+						<button class="accordion-button " type="button"
 							data-bs-toggle="collapse" data-bs-target="#collapseOne"
-							aria-expanded="false" aria-controls="collapseOne" >
+							aria-expanded="true" aria-controls="collapseOne" >
 							함께하는 멤버들</button>
 					</h2>
 					<div id="collapseOne" class="accordion-collapse collapse "
@@ -55,7 +55,10 @@
          
                 
                         <ul> 
-                        <a href="/userInfo/${listMember.member.nickname}">
+                        <div class="member-img-icon-nickname-manner">
+                        <div class="member-img-icon">
+                        
+                        <div class="member-icon">
                         <c:if test="${listMember.listGrade == 'host'}">
                             <li class="member-grade"><span><i class="fa-solid fa-crown"></i></span></li>
                             </c:if>
@@ -65,7 +68,8 @@
                             <c:if test="${listMember.listGrade == 'admin' }">
                            <li class="member-grade">   관리자 </li>
                             </c:if>
-                            <div class="member-img-info-hobby-location">
+                           </div>
+                           
                             <div class="member-img">
                             <c:if test="${listMember.member.memberImg != null}">
                             <li><img class="allmemberImg" src="http://192.168.10.51:8081/member/${cMember.member.id}/${cMember.member.memberImg}" alt="회원 이미지"></li>
@@ -74,37 +78,16 @@
                             <img class="allmemberImg" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg" alt="회원 이미지">
                             </c:if>
                             </div>
-                            <div class="member-info-hobby-location">
-                            <div class="member-info">
-                            ${listMember.member.memberInfo}
                             </div>
-                            <div class="member-hobby-location">
-                            ${listMember.member.memberHobby} / ${listMember.member.memberLocation}
-                            </div>
-                            </div>
-                            </div>
-                            <div class="nickname-age-fm-manner">
-                            <div class="nickname-age-fm">
+                          
+                          
+                            <div class="nickname-manner">
+                            
                             <div class="nickname">
                             ${listMember.member.nickname}
                             </div>
+                     
                          
-                            <div class="age-fm">
-                            
-                            <div class="member-age">
-                            ${listMember.member.age}
-                            </div>
-                            <div class="member-fm">
-                     <c:if test="${listMember.member.gender eq 'M'.charAt(0)}">
-                       <span id="man"> <i class="fa-solid fa-person"></i></span>
-                          </c:if>
-                         
-                          <c:if test="${listMember.member.gender eq 'F'.charAt(0)}">
-                     <span id="femail">   <i class="fa-solid fa-person-dress"></i></span>
-                          </c:if>
-                          </div>
-                             </div>
-                             </div>
                            <div class="manner">
                            <c:if test="${listMember.member.memberManner < 36.5}">
                            <p> ${listMember.member.memberManner}℃</p> <span style="color:rgb(252, 177, 3)" ><i class="fa-solid fa-face-meh fa-2x"></i></span> 
@@ -117,16 +100,17 @@
                            </c:if>
                          
                         </div>
+                        
                           </div>
-                          </a>
+                          </div>
                         </ul>
              
-            </div>
+            </div> <!--  멤버 테이블 반복 출력  -->
         </c:forEach>
 					
 					
 					
-						</div>
+						</div> <!-- 여기까지가 아코디언 바디임  -->
 					</div>
 				</div>
 			
@@ -204,12 +188,15 @@
 					<li><a href="/updateMembership" class="dropdown-item">정보 수정하기</a></li>
 					<li><a href="/write?membershipCode=${main.membership.membershipCode}" class="dropdown-item">모임게시판작성하러가기</a></li>				
 					<li><a id="management"  class="dropdown-item" href="/management?membershipCode=${main.membership.membershipCode}"   > 멤버관리페이지 </a></li>
-					<li><a class="dropdown-item" href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a></li>
+					
 				</ul>
 			</div>
 
 		
-		
+			<div>
+					<a
+						href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a>
+				</div>
 			
 			</div>
 			

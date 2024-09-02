@@ -126,12 +126,14 @@
 }
 
 #accordionExample {
-  width: 450px;
- position: fixed;
+      width: 15%;
+    position: fixed;
     left: 0px;
     z-index: 99;
-    margin-top:80px;
-
+    margin-top: 80px;
+  
+    
+  
 }
 
 .accordion-button collapsed{
@@ -139,6 +141,17 @@
 	background-color: #14213d !important;
     color: white !important;
     font-weight: bold !important;
+   
+	
+}
+.accordion-header{
+	
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+
+	
 	
 }
 .accordion-collapse {
@@ -146,9 +159,12 @@
 }
 
 .accordion-body {
-  max-height: 1000px; 
+     max-height: 700px;
 }
-
+.accordion-collapse collapsing{
+	
+	height: 700px;
+}
 .memberTable {
   border: 1px solid;
   
@@ -166,74 +182,14 @@
   width: 50px;
   text-align: center;
   font-weight: bold;
+      text-wrap: nowrap;
   
 }
 
 .member-grade span {
   color: rgb(252, 177, 3);
-  font-size: 32px;
+  font-size: 20px;
   
-}
-
-.member-img-info-hobby-location {
-  display: flex;
-}
-.member-info {
-  color: gray;
-  margin-bottom: 10px;
-}
-
-.member-hobby-location{
-	
-	display: flex;
-    justify-content: center;
-    align-items: center;
-	
-}
-.member-info-hobby-location {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.member-hobby-location {
-  border: 1px solid black;
-  border-radius: 20px;
-  width: 134px;
-  height: 28px;
-  text-align: center;
-  background: beige;
-  font-weight: bold;
-}
-
-.nickname-age-fm-manner {
-  display: flex;
-}
-.nickname-age-fm {
-  width: 90px;
- 
-}
-.nickname {
-  font-weight: bold;
-}
-.age-fm {
-  font-size: 32px;
-  display: flex;
-  justify-content: space-around;
-}
-.manner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.manner > p {
-  margin: 20px;
-}
-#man {
-  color: blue;
-}
-#femail {
-  color: pink;
 }
 
 
@@ -253,4 +209,20 @@
 }
 
 
+.member-img-icon-nickname-manner{
+	display: flex;
+}
+.nickname-manner {
+	
+	    display: flex;
+    flex-direction: column;
+    justify-content: center;
+        position: relative;
+    top: 12px;
+}
+.manner{
+	display:flex;
+	justify-content: center;
+    align-items: center;
+}
 

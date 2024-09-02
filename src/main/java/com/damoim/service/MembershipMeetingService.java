@@ -54,6 +54,8 @@ public void meetingDelete(int meetCode) {
 	mapper.meetingDelete(meetCode);
 }
 
-	 
+	 public void meetingUpdate(MembershipMeetings meetings) {
+		 mapper.meetingUpdate(meetings);
+	 }
 	 
 }

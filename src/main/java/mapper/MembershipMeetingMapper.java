@@ -31,4 +31,7 @@ public interface MembershipMeetingMapper {
 	// 미팅 삭제 
 	void meetingDelete(int meetCode);
 	
+	// 미팅 수정 
+	void meetingUpdate(MembershipMeetings meetings);
+	
 }

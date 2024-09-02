@@ -243,14 +243,37 @@ public class MembershipMeetingController {
 		
 	}
 		
-  // 미팅 수정 부분 
   @GetMapping("/meetingUpdate")
-  public String update(int no, Model model) {
+	public String update(MembershipMeetings meetings, Model model) {
 		
-  
-		
-		return "redirect:/write";
+	  int meetCode = meetings.getMeetCode();
+	  
+	  model.addAttribute("meetingInfo" ,service.meetSelect(meetCode));
+	  
+	  System.out.println(service.meetSelect(meetCode).getMeetInfo());
+	 
+	  
+	  
+	  
+		return "membershipMeeting/meetingUpdate";
 	}
+  
+  
+  
+  @PostMapping("/meetingUpdate")
+	public String updateSubmit(MembershipMeetings meetings, Model model) {
+		
+	  int meetCode = meetings.getMeetCode();
+	  
+	  int membershipCode = service.meetSelect(meetCode).getMembershipCode();
+	  
+	 
+	  service.meetingUpdate(meetings);
+	  
+	  
+		return "redirect:/club/"+membershipCode;
+	}
+	
 	
 
 	// 미팅 삭제 부분 

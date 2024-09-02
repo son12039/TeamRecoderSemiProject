@@ -22,7 +22,9 @@ const emailCheck = document.querySelector("#emailCheck");
 const age = document.querySelector("#age");
 const ageCheck = document.querySelector("#ageCheck");
 // 정규표현식 체크
-const pwdRegExp = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,15}$/;
+// 편의상 간단한걸로 걸어놓음
+const pwdRegExp = /^[0-9]{8,15}$/;
+// const pwdRegExp = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,15}$/;
 const pwdConfirmCheck = document.querySelector("#pwdConfirmCheck");
 const pwdConfirm = document.querySelector("#pwdConfirm");
 

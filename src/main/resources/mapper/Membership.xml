@@ -109,7 +109,7 @@
 	
 	
 	
-		<select id="MembershipAllRegular" parameterType="Integer"
+	<select id="MembershipAllRegular" parameterType="Integer"
 		resultMap="listMap">
 		SELECT *
 		FROM membership_user_list
@@ -249,8 +249,7 @@
 		JOIN
 		membership USING (membership_code)
 		WHERE id = #{id}
-		AND (list_grade =
-		"host" OR list_grade = "admin");
+		AND (list_grade = "host");
 	</select>
 
 	<select id="meetCount" parameterType="String" resultType="int">
@@ -264,6 +263,7 @@
 		&lt; now()
 	</select>
 
+
 	<select id="selectMemberUserList" parameterType="String"
 		resultMap="listMap">
 		SELECT * FROM 
@@ -271,6 +271,17 @@
 		JOIN membership USING(membership_code)
 		WHERE id = #{id}
 	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 </mapper>
  

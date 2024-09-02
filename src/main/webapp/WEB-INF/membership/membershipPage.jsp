@@ -24,6 +24,74 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/membershipPage.css" />
 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/membershipPage.css"/>
+	
+	<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>     
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        #calendar{
+        margin: auto;
+        }
+    </style>
+</head>
+<body>
+<main>
+   <sec:authentication property="principal" var="member" />
+    <img id="mainImg" src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}" alt="클럽 이미지">
+      
+      <div id="top">
+      
+      <div id="top-left">
+      <c:if test="${main.member.memberImg != null}">
+            <img id="hostImg" src="http://192.168.10.51:8081/member/${main.member.id}/${main.member.memberImg}" alt="호스트 이미지">
+            </c:if>
+            <c:if test="${main.member.memberImg == null}">
+            <img id="hostImg" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg" alt="호스트 이미지">
+            </c:if>
+      </div>
+      <div id="top-right">
+      
+      <div id="top-right1">
+      <h1>${main.membership.membershipName}</h1>
+      </div>
+      <div id="top-right2">
+      <h4 id="host">호스트</h4> <h4 id="hostName">${main.member.nickname }</h4>
+      </div>
+      </div>
+      
+      
+      
+      </div>
+       
+        <!-- 멤버쉽 수정 -->
+        <div>
+       	<h2><a href="/updateMembership">정보 수정하기</a></h2>
+       	<a href="/club/${main.membership.membershipCode}/membershipPromotionDetail">홍보글 작성</a>
+        </div>
+        
+        <!-- 멤버쉽 채팅 서버 링크   -->
+        <a href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a> 
+        <c:if test="${member.id == main.member.id }">
+        <a href="/write?membershipCode=${main.membership.membershipCode}">모임게시판작성하러가기</a>
+          </c:if>
+      
+       
+    
+        
+           <!-- 멤버쉽 최대 인원과 현재 인원 표기  -->
+        <p>인원 현황 : ${main.count}/${main.membership.membershipMax}</p>
+        
+        <div id="calendar" style= "width: 60%"     ></div>
+        
+        <!-- 08-22 채승훈 로케이션타입 추가함 -->
+			<div class="locationTypeBox">
+				<div class="location">
+					<c:forEach items="${location}" var="location">
+						<div class="locationText">
+							<div class="locationList"># ${location.locLaName} ${location.locSName}</div>
+						</div>	 
+					</c:forEach>
 <script src="https://kit.fontawesome.com/ef885bd654.js"
 	crossorigin="anonymous"></script>
 

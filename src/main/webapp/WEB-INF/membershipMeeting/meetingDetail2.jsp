@@ -159,7 +159,7 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 			</div>
 			
 		</div>
-		<div id="info-container">${allInfo.get(0).membership.membershipInfo }</div>
+		
 		<div id="meetInfo" >${meet.meetInfo}</div>
 		
 		

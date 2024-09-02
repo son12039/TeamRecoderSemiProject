@@ -325,13 +325,13 @@ public class MembershipController {
 		model.addAttribute("host", service.main(membershipCode));
 		model.addAttribute("adminList", service.adminUser(membershipCode));
 		
-	service.ifHost(service.adminUser(membershipCode).get(0).getId());
+	
 	
 	List<String> hosts = new ArrayList<String>();
 	
 	for(int i=0; i<service.adminUser(membershipCode).size(); i++) {
 		
-		if( service.ifHost(service.adminUser(membershipCode).get(i).getId()) != null ) {
+		if(service.ifHost(service.adminUser(membershipCode).get(i).getId()) != null ) {
 			
 		String id = service.ifHost(service.adminUser(membershipCode).get(i).getId()).getId();
 			

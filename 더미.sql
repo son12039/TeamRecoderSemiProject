@@ -18,7 +18,14 @@ UPDATE member
 	
 select *
 from member ;
-
+/*
+select * 
+from meetings_agree
+join member using(id)
+join membership_user_list using(id)
+where meet_code  = #{meetCode}
+and meet_agree_yn = 1;
+*/
 		SELECT list_grade, id, membership_code 
 		FROM membership_user_list
 		WHERE id = 'asd123';
@@ -48,9 +55,21 @@ WHERE
     membership_info != 0;
     
 UPDATE membership
-SET membership_simple_text = membership_info;   
-select *
-from membership ;
+SET membership_simple_text = membership_info; 
+
+update membership 
+set membership_info = null
+where membership_code in (6,7,10,20,64);
+
+insert into membership_type(type_code, membership_code)
+values(65,135);
+
+select * from membership_location;
+select * from membership_type;
+select * from location_category;
+select * from type_category;
+select * from membership;
+
 
 SHOW COLUMNS FROM membership;
 
@@ -65,8 +84,7 @@ SELECT * FROM membership_user_list;
 SELECT count(membership_code) as count
 FROM membership_user_list
 WHERE membership_code = 1
-GROUP BY membership_code
-;
+GROUP BY membership_code;
 
 insert into member (id, pwd, addr, phone, email, name, age, gender, nickname, member_img, member_hobby, member_info, member_location, member_type)
 values ('asd123', '123' , '감자왕국',"010-0000-1234",'감자',5,'M','감자대마왕', '');

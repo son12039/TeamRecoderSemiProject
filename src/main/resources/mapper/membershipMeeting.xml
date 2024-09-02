@@ -96,6 +96,17 @@ VALUES (#{membershipCode},#{meetDateStart},#{meetDateEnd},
     
     </delete>
     
+    <update id="meetingUpdate" parameterType="MembershipMeetings">
+    Update meetings_agree
+          set meet_date_start =#{meetDateStart},
+              meet_date_end = #{meetEndStart},
+              meet_info = #{meetInfo},
+              color = #{color},
+              meet_title  = #{meetTitle}
+              WHERE meet_code = #{meetCode}
+              
+    </update>
+    
     
     
 </mapper>

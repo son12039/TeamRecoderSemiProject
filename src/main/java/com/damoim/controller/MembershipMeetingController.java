@@ -247,9 +247,9 @@ public class MembershipMeetingController {
   @GetMapping("/meetingUpdate")
   public String update(int no, Model model) {
 		
-
+  
 		
-		return "/update";
+		return "redirect:/write";
 	}
 	
 

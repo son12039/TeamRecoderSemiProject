@@ -222,16 +222,19 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
      <button type="submit">삭제</button>
   </form>
 
-
+<form action="/meetingUpdate">
+  <input type="hidden" name="meetCode" value="${meet.meetCode}">
   <button type="submit">수정</button> 
+  </form>
  </c:when>
  
  <c:when test="${member.id == allInfo.get(0).member.id }">
  
-  
-<button type="submit">삭제</button>
- 
-
+   <form action="/meetingDelete">
+     
+     <input type="hidden" name="meetCode" value="${meet.meetCode}">
+     <button type="submit">삭제</button>
+  </form>
  </c:when>
 </c:choose>
 

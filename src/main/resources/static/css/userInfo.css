@@ -20,12 +20,44 @@ main {
   flex-direction: column;
   padding-top: 50px;
   padding-bottom: 50px;
+  justify-content: center;
 }
+
 .user-img {
   width: 150px;
   height: 150px;
   border-radius: 50px;
+  margin-bottom: 50px;
 }
+#rating {
+  display: flex;
+  justify-content: center;
+}
+#emoji-plus {
+  color: green;
+}
+#emoji-minus {
+  color: red;
+}
+.rating-btn {
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  font-weight: bold;
+  border: none;
+  background-color: white;
+  margin: 0px 10px;
+  cursor: pointer;
+}
+#plus-minus {
+  text-align: center;
+}
+
+#minus-btn {
+  position: relative;
+  top: 6.5px;
+}
+
 .memberInfo_div h1 {
   font-size: 1.5rem;
   font-weight: bolder;
@@ -39,16 +71,16 @@ main {
   display: flex;
   justify-content: space-between;
   width: 50%;
-  padding-top: 50px;
+  padding-top: 30px;
   align-items: center;
 }
-.manner{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+.manner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.manner > p{
-	margin-right: 5px;
+.manner > p {
+  margin-right: 5px;
 }
 .group {
   margin-top: 20px;
@@ -78,12 +110,13 @@ main {
   overflow-wrap: break-word;
 }
 #section2 {
-    display: flex;
-    padding: 20px;
-    background-color: #F9F9F9;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  padding: 20px;
+  background-color: #f9f9f9;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
 .section2_memberInfo h1 {
   font-size: 1rem;
   font-weight: bolder;
@@ -116,7 +149,7 @@ main {
   border-radius: 8px;
   border: 2px solid #ddd;
   margin-bottom: 18px;
-   opacity: 0.3;
+  opacity: 0.3;
 }
 .items-container {
   justify-content: center;

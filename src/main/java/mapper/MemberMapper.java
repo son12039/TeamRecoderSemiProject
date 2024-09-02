@@ -13,6 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.dto.MemberMannerDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 
@@ -55,6 +56,9 @@ public interface MemberMapper {
 	
 	// 업데이트
 	void updatePassword(Member member);
+	// 매너 업데이트
+	void memberManner(MemberMannerDTO dto);
+	void updateLastRecommendationTime(String id);
 	// 아래 2개 더미 비밀번호 암호화용도
 	ArrayList<Member> dummyMember();
 	void dummyUpdate(Member member);

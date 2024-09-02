@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MemberUserDTO;
+import com.damoim.model.dto.RecommendationDTO;
 import com.damoim.model.dto.ResignedDTO;
 import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.Member;
@@ -43,6 +45,7 @@ import com.damoim.service.MembershipService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.Builder;
 
 @Controller
 public class MemberController {
@@ -235,7 +238,9 @@ public class MemberController {
 
 		return "redirect:/mypage";
 	}
-
+	/*
+	 * 닉네임값 받아서 해당유저의 상세페이지로 이동(그유저의 가입된 클럽 여부, 추천기능)
+	 * */
 	@GetMapping("/userInfo/{nickname}")
 	public String getMethodName(@PathVariable("nickname") String nickname, Model model) {
 		Member member = service.nicknameCheck(new Member().builder().nickname(nickname).build());
@@ -251,7 +256,23 @@ public class MemberController {
 		
 		return "member/userInfo";
 	}
-	
+	 
+   @ResponseBody
+   @PostMapping("/recommendation")
+   public boolean recommendation(String targetMember, String loginMember, boolean plusMinus){
+	   Member m1 = new Member().builder().id(targetMember).build();
+	   Member m2 = new Member().builder().id(loginMember).build();
+	   RecommendationDTO dto = new RecommendationDTO(service.idCheck(m1), service.idCheck(m2), plusMinus);
+	   // 추천 성공, 실패 여부 블리언으로 반환
+	   boolean check  = service.memberManner(dto);
+	   if(check) { 
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) authentication.getPrincipal();
+		mem.setLastRecommendationTime(service.idCheck(m2).getLastRecommendationTime());	
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+	   }
+	   return check;
+   }
 
 
 	/* 성철

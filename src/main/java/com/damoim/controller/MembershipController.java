@@ -169,7 +169,7 @@ public class MembershipController {
 			model.addAttribute("type", locationTypeService.typeList(membershipCode));
 			
 		
-			return "membership/membershipPageTest1";
+			return "membership/membershipPage";
 		}
 	 /*
 	  * 성철

@@ -42,10 +42,11 @@
 .footer{
 	width: 100%;
 	height: 300px;
-	background-color: #e6e1f9;
+	background-color: #14213d;
 }
 .footer_box{
-	width: 1520px;
+	width: 100%;
+	max-width: 1520px;
 	height : 100%;
 	margin : auto;
 	padding-top : 50px;
@@ -59,6 +60,9 @@
 .first_item{
 	font-size : 16px;
 	font-weight: bold;
+}
+.footer_item p{
+	color : #ffffff;
 }
 </style>
 </body>

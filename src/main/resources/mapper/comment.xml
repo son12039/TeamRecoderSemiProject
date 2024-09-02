@@ -56,7 +56,7 @@
 	<select id="allMainComment" parameterType="int" resultMap="commentMemberMap" >
 		SELECT * 
 		FROM main_comment
-		JOIN Member USING(id)
+		JOIN member USING(id)
 		WHERE membership_code = #{mainCommentCode}
 		AND main_parents_comment_code IS NULL	
 	</select>
@@ -64,7 +64,7 @@
 		<select id="mainReComment" parameterType="int" resultMap="commentMemberMap" >
 		SELECT * 
 		FROM main_comment
-		JOIN Member USING(id)
+		JOIN member USING(id)
 		WHERE main_parents_comment_code = #{mainCommentCode}	
 	</select>
 		<!--  대댓글이 있을시 찾아서 null 처리 -->

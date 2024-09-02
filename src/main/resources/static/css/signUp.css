@@ -1,19 +1,20 @@
-/* 전체 레이아웃 */
+
 body {
-  font-family: Arial, sans-serif;
+
   background-color: #f4f4f4;
   margin: 0;
   padding: 0;
 }
 
 main {
+padding : 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .container {
-  height: 100vh;
+  height: 100%;
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -56,7 +57,7 @@ main {
   align-self: flex-start;
   text-align: left;
   font-weight: bold;
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: #333;
 }
 
@@ -68,6 +69,7 @@ main {
 
 .formBox input {
   padding: 10px 15px;
+  margin-top: 5px;
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -91,6 +93,7 @@ main {
   flex-direction: row; 
   align-items: center;
   margin-right: 10px; 
+  justify-content: center;
 }
 
 /* 성별 선택 박스의 라벨 */
@@ -98,6 +101,7 @@ main {
   margin-right: 5px; 
   font-size: 0.8rem;
   width: 80px;
+  align-self: center;
 }
 
 
@@ -133,8 +137,8 @@ main {
 
 .pageButtons button,
 #singUp {
-  background-color: #e0e0e0; /* 기본 회색 */
-  color: #333;
+  background-color: #fca311; /* 기본 회색 */
+  color: #ffffff;
   border: none;
   padding: 12px 20px;
   border-radius: 4px;
@@ -145,7 +149,7 @@ main {
 
 .pageButtons button:hover,
 #singUp:hover {
-  background-color: #d5d5d5;
+  background-color: #14213d;
 }
 
 /* 활성화 상태 버튼 색상 */

@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.dto.MemberMannerDTO;
+import com.damoim.model.dto.RecommendationDTO;
 import com.damoim.model.vo.Member;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -118,7 +120,21 @@ public class MemberService implements UserDetailsService {
 	}
 	
 	
-	
+	public boolean memberManner(RecommendationDTO dto) {
+		
+		System.out.println("로그인한 회원의 마지막 정보" + dto.getLoginMember());
+		if(dto.getLoginMember().getLastRecommendationTime() == null) {
+		// 대상맴버의 매너 업데이트
+		mapper.memberManner(MemberMannerDTO.builder()
+					.member(dto.getTargetMember())
+					.pulsMinus(dto.isPlusMinus())
+					.build());
+		// 로그인 회원의 마지막 추천시간 업데이트
+		mapper.updateLastRecommendationTime(dto.getLoginMember().getId());
+		return true;
+		}
+		return false;
+	}
 	
 	// ===============================================================
 	public ArrayList<Member> dummyMember() {

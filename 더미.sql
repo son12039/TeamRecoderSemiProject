@@ -9,9 +9,13 @@ FROM membership_location;
 SELECT *
 FROM location_category;
 
-SELECT *
-FROM member;
-
+SELECT id, member_manner, last_recommendation_time
+FROM member
+WHERE id IN('user010', 'user006');
+UPDATE member 
+	SET member_manner = member_manner - 0.5
+	WHERE id = user006;
+	
 select *
 from member ;
 
@@ -20,7 +24,7 @@ from member ;
 		WHERE id = 'asd123';
 select* 
 FROM main_comment;
-
+select * from membership;
 
 
 ALTER TABLE membership
@@ -29,6 +33,22 @@ DROP COLUMN memership_secret_text;
 ALTER TABLE membership
 CHANGE COLUMN memership_accession_text membership_accession_text text;
 
+create table test_col(
+	info text
+);
+select * from test_col;
+drop table test_col;
+
+INSERT INTO test_col(info)
+SELECT
+    membership_info
+FROM
+    membership
+WHERE
+    membership_info != 0;
+    
+UPDATE membership
+SET membership_simple_text = membership_info;   
 select *
 from membership ;
 

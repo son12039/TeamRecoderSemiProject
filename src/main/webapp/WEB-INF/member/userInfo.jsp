@@ -22,7 +22,7 @@
 	<main>
 		<div id="container">
 			<div id="section">
-				<div>
+				
 					<c:choose>
 						<c:when test="${mem.member.memberImg != null}">
 							<img class="user-img"
@@ -39,22 +39,23 @@
 					</div>
 					<div class="group">
 						<div class="manner">
-							<c:if test="${mem.member.memberManner < 36.5}">
+							<c:if test="${mem.member.memberManner < 30}">
 								<p>${mem.member.memberManner}℃</p>
-								<span style="color: rgb(252, 177, 3)"><i
-									class="fa-solid fa-face-meh fa-2x"></i></span>
+								<span style="color: red"><i
+									class="fa-solid fa-face-angry fa-2x"></i></span>
 							</c:if>
-							<c:if test="${mem.member.memberManner == 36.5}">
+							<c:if test="${mem.member.memberManner >= 30 && mem.member.memberManner <= 40}">
 								<p>${mem.member.memberManner}℃</p>
 								<span style="color: rgb(252, 177, 3)"><i
 									class="fa-solid fa-face-smile fa-2x"></i></span>
 							</c:if>
-							<c:if test="${mem.member.memberManner > 36.5}">
+							<c:if test="${mem.member.memberManner > 40}">
 								<p>${mem.member.memberManner}℃</p>
-								<span style="color: rgb(252, 177, 3)"><i
+								<span style="color: green"><i
 									class="fa-solid fa-face-grin fa-2x"></i></span>
 							</c:if>
 						</div>
+
 					</div>
 				</div>
 				<div class="memberInfo_div">
@@ -66,6 +67,22 @@
 					<h2>${mem.member.memberInfo}</h2>
 				</div>
 			</div>
+			<sec:authorize access="isAuthenticated()" var="principal">
+			<sec:authentication property="principal" var="loginMember" />
+			<p id="plus-minus">추천 | 비추천</p>
+					<div id="rating">
+						<button id="plus-btn"  data-target-member-id="${mem.member.id}"
+        					data-login-member-id="${loginMember.id}"
+						class="rating-btn"
+						><span id="emoji-plus">
+								<i class="fa-solid fa-thumbs-up fa-3x"></i>
+						</span></button>
+						<button id="minus-btn" data-target-member-id="${mem.member.id}"
+        					data-login-member-id="${loginMember.id}" class="rating-btn"><span id="emoji-minus">
+								<i class="fa-solid fa-thumbs-down fa-3x"></i>
+						</span></button>
+				</div>
+				</sec:authorize>
 			<div id="section2">
 				<div class="section2_memberInfo">
 					<h1>가입한 클럽</h1>

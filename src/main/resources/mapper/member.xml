@@ -201,7 +201,9 @@
 	WHERE id = #{id}
 	</update>
 	
-
+	<delete id="userListDelete" parameterType="">
+	
+	</delete>
 	
 </mapper>
 	

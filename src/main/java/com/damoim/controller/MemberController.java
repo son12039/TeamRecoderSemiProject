@@ -197,7 +197,6 @@ public class MemberController {
 	    service.memberStatus(mem); // 멤버 상태 업데이트
 	    member.setId(mem.getId());
 	    
-	    // membershipUserList 삭제
 	    
 	    // 로그아웃 처리
 	    SecurityContextHolder.getContext().setAuthentication(authentication);

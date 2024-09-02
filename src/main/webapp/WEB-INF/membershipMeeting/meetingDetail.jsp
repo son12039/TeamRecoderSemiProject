@@ -1,36 +1,174 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib prefix="sec"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>클럽 홍보게시판</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/reset.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/meetingDetail.css" />
 
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://kit.fontawesome.com/ef885bd654.js"
 	crossorigin="anonymous"></script>
 
 </head>
 <body>
+	<jsp:include page="../header/header.jsp"></jsp:include>
 
-<h1>${meet.meetTitle}</h1>
-<h1>미트코드 : ${meet.meetCode}</h1>
-<h1>작성자 : ${meet.id}</h1>
+<div id="box">
+<div class="accordion" id="accordionExample">
+				<div class="accordion-item">
+					<h2 class="accordion-header">
+						<button class="accordion-button collapsed " type="button"
+							data-bs-toggle="collapse" data-bs-target="#collapseOne"
+							aria-expanded="false" aria-controls="collapseOne" >
+							참여하는 멤버들</button>
+					</h2>
+					<div id="collapseOne" class="accordion-collapse collapse "
+						data-bs-parent="#accordionExample">
+						<div class="accordion-body">
+						
+					    <c:forEach items="${list}" var="list">
+					    
+            <div class="memberTable">
+         
+              
+                        <ul> 
+                             <c:if test="${list. meetAgreeYn == false}">
+                            <div class="member-img-info-hobby-location">
+                            <div class="member-img">
+                            <c:if test="${list.member.memberImg != null}">
+                            <li><img class="allmemberImg" src="http://192.168.10.51:8081/member/${list.member.id}/${list.member.memberImg}" alt="회원 이미지"></li>
+                            </c:if>
+                            <c:if test="${list.member.memberImg == null}">
+                            <img class="allmemberImg" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg" alt="회원 이미지">
+                            </c:if>
+                            </div>
+                            <div class="member-info-hobby-location">
+                            <div class="member-info">
+                            ${list.member.memberInfo}
+                            </div>
+                            <div class="member-hobby-location">
+                            ${list.member.memberHobby} / ${list.member.memberLocation}
+                            </div>
+                            </div>
+                            </div>
+                            <div class="nickname-age-fm-manner">
+                            <div class="nickname-age-fm">
+                            <div class="nickname">
+                            ${list.member.nickname}
+                            </div>
+                         
+                            <div class="age-fm">
+                            
+                            <div class="member-age">
+                            ${list.member.age}
+                            </div>
+                            <div class="member-fm">
+                     <c:if test="${list.member.gender eq 'M'.charAt(0)}">
+                       <span id="man"> <i class="fa-solid fa-person"></i></span>
+                          </c:if>
+                         
+                          <c:if test="${list.member.gender eq 'F'.charAt(0)}">
+                     <span id="femail">   <i class="fa-solid fa-person-dress"></i></span>
+                          </c:if>
+                          </div>
+                             </div>
+                             </div>
+                           <div class="manner">
+                           <c:if test="${list.member.memberManner < 36.5}">
+                           <p> ${list.member.memberManner}℃</p> <span style="color:rgb(252, 177, 3)" ><i class="fa-solid fa-face-meh fa-2x"></i></span> 
+                           </c:if>
+                           <c:if test="${list.member.memberManner == 36.5}">
+                           <p> ${list.member.memberManner}℃</p> <span style="color:rgb(252, 177, 3)" ><i class="fa-solid fa-face-smile fa-2x"></i></span> 
+                           </c:if>
+                           <c:if test="${list.member.memberManner > 36.5}">
+                           <p> ${list.member.memberManner}℃</p> <span style="color:rgb(252, 177, 3)" ><i class="fa-solid fa-face-grin fa-2x"></i></span> 
+                           </c:if>
+                         
+                        </div>
+                          </div>
+                           </c:if>
+                        </ul>
+                       
+             
+            </div>
+        </c:forEach>
+					
+					
+					
+						</div>
+					</div>
+				</div>
+			
+			</div>
 
- <div id="meetInfo" >${meet.meetInfo}</div>
 
 
-<c:forEach items="${list}" var="list" >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div id="container">
+
+	<img id="membershipMain-img"
+src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membershipCode}/${allInfo.get(0).membership.membershipImg}">
+
+		<div id="container-top">
+			<div id="hostImg">
+				<c:choose>
+					<c:when test="${writer.memberImg != null}">
+						<img class="host-img"
+							src="http://192.168.10.51:8081/member/${main.member.id}/${main.member.memberImg}">
+					</c:when>
+
+					<c:otherwise>
+						<img class="host-img"
+							src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+					</c:otherwise>
+				</c:choose>
+			</div>
+			<div id="hostName">
+				<h2>${writer.nickname}</h2>
+			</div>
+			<div id="membershipTitle">
+				<h1>${meet.meetTitle }</h1>
+			</div>
+			
+		</div>
+		
+		<div id="meetInfo" >${meet.meetInfo}</div>
+		
+		
+		<c:forEach items="${list}" var="list" >
 <c:if test="${list.meetAgreeYn == true }">
 <p>참석여부 현황 : ${list.member.nickname} ---- 참여</p> 
 </c:if>
@@ -58,20 +196,18 @@
 </sec:authorize>
 
 </c:forEach>
+		</div>
+
+		
+
+
+
+
+
+
+
+
 	
-			<c:set var="memberGrade" value="none" />
-			<c:forEach items="${member.memberListDTO}" var="list">
-				<c:if
-					test="${list.membershipCode == meet.membershipCode}">
-					<c:set var="memberGrade" value="${list.listGrade}" />
-
-				</c:if>
-			</c:forEach>
-<form action="/meetingDelete">
-<input type="hidden" name="meetCode" value="${meet.meetCode}">
-<input type="submit" value="삭제">
-
-</form>
 <div id="comment-container">
 		<sec:authorize access="isAuthenticated()">
 			<form id="comment-frm">
@@ -94,7 +230,7 @@
 						placeholder="댓글을 입력하세요"  > <input type="hidden" name="id"
 						value="${member.id}"> <input type="hidden"
 						name="meetCode" value="${meet.meetCode}">
-					<button id="submit-comment" type="button">댓글 등록</button>
+					<button class="btn" id="submit-comment" type="button">댓글 등록</button>
 				</div>
 			</form>
 		</sec:authorize>
@@ -130,7 +266,7 @@
 						<div class="comment-text">${com.meetCommentText}</div>
 						<c:if
 							test="${com.nickname == member.nickname || memberGrade == 'host' || memberGrade == 'admin'}">
-							<button type="button"
+							<button type="button" class="btn"
 								onclick="deleteComment(event, ${com.meetCommentCode})">삭제</button>
 						</c:if>
 						<c:if test="${com.nickname == member.nickname}">
@@ -156,7 +292,7 @@
 										</div>
 										<input id="textbox-update-${com.meetCommentCode}" type="text"
 											name="meetCommentText" value="${com.meetCommentText}" onclick="updateKey(${com.meetCommentCode})">
-										<button type="button"
+										<button type="button" class="btn"
 											onclick="updateComment(event,${com.meetCommentCode})">댓글
 											수정</button>
 									</div>
@@ -193,7 +329,7 @@
 									<div class="comment-text">${recom.meetCommentText}</div>
 									<c:if
 										test="${recom.nickname == member.nickname || memberGrade == 'host' || memberGrade == 'admin'}">
-										<button type="button"
+										<button type="button" class="btn"
 											onclick="deleteComment(event, ${recom.meetCommentCode})">삭제</button>
 									</c:if>
 									<c:if test="${recom.nickname == member.nickname}">
@@ -208,7 +344,7 @@
 														id="textbox-update-${recom.meetCommentCode}" type="text"
 														name="mainCommentText" value="${recom.meetCommentText}"
 														onclick="updateKey(${recom.meetCommentCode})">
-													<button type="button"
+													<button type="button" class="btn"
 														onclick="updateComment(event,${recom.meetCommentCode})">댓글
 														수정</button>
 												</div>
@@ -255,30 +391,19 @@
 			</c:forEach>
 		</c:if>
 	</div>
-<script src="${pageContext.request.contextPath}/js/meetingDetail.js"></script>
-  <script>
-  
-  
-  
-        $(document).ready(function() {
-            $('#go').on('submit', function(event) {
-                event.preventDefault(); // 폼의 기본 제출을 막습니다.
-                
-                $.ajax({
-                    url: '/go', // 요청을 보낼 URL
-                    type: 'POST',
-                    data: $(this).serialize(), // 폼의 데이터를 직렬화합니다.
-                    success: function(response) {
-                        alert($(".agree").val()+" 완료되었습니다 !!");
-                         location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        alert('오류가 발생했습니다.');
-                        console.error(xhr.responseText);
-                    }
-                });
-            });
-        });
-    </script>
+	
+	</div>
+	<jsp:include page="../footer/footer.jsp" />
+
+	
+	<script src="${pageContext.request.contextPath}/js/meetingDetail.js"></script>
+		<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+		integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+		crossorigin="anonymous"></script>
 </body>
 </html>

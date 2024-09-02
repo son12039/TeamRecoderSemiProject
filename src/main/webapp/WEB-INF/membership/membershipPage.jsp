@@ -97,81 +97,20 @@
 
 </head>
 <body>
+ <jsp:include page="../header/header.jsp" />
  
 	<sec:authorize access="isAuthenticated()" var="principal">
 		<sec:authentication property="principal" var="member" />
 
 
+	<div id="main-container">
 	
-		<div id="container">
-
-			<img id="mainImg"
-				src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}">
-
-			<div id="container-top">
-				<div id="hostImg">
-					<c:choose>
-						<c:when test="${main.member.memberImg != null}">
-							<img class="user-img"
-								src="http://192.168.10.51:8081/member/${main.member.id}/${main.member.memberImg}">
-						</c:when>
-
-						<c:otherwise>
-							<img class="user-img"
-								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
-						</c:otherwise>
-					</c:choose>
-				</div>
-				<div id="hostName">
-					<h2>${main.member.nickname}</h2>
-				</div>
-				<div id="membershipTitle">
-					<h1>${main.membership.membershipName }</h1>
-				</div>
-				<div id="userCount">
-					<i class="fa-solid fa-user-group"></i>
-					${main.count}/${main.membership.membershipMax}
-				</div>
-			</div>
-			
-			<div id="option">
-			
-			
-			 <div id="calendar" style= "width: 60%"     ></div>
-			<div id="links">
-				<div class="dropdown">
-				<a class="btn btn-secondary dropdown-toggle" href="#" role="button"
-					data-bs-toggle="dropdown" aria-expanded="false"> <i class="fa-solid fa-bars"></i> </a>
-
-				<ul class="dropdown-menu">
-					<li><a
-						href="/club/${main.membership.membershipCode}/membershipPromotionDetail"
-						class="dropdown-item">홍보글 작성</a></li>
-					<li><a href="/updateMembership" class="dropdown-item">정보 수정하기</a></li>
-					<li><a href="/write?membershipCode=${main.membership.membershipCode}" class="dropdown-item">모임게시판작성하러가기</a></li>				
-					<li><a id="management"  class="dropdown-item" href="/management?membershipCode=${main.membership.membershipCode}"   > 멤버관리페이지 </a></li>
-					
-				</ul>
-			</div>
-
-		
-			<div>
-					<a
-						href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a>
-				</div>
-			
-			</div>
-			
-
- 
-		
-  </div>
-			<div class="accordion" id="accordionExample">
+		<div class="accordion" id="accordionExample">
 				<div class="accordion-item">
 					<h2 class="accordion-header">
-						<button class="accordion-button " type="button"
+						<button class="accordion-button collapsed " type="button"
 							data-bs-toggle="collapse" data-bs-target="#collapseOne"
-							aria-expanded="true" aria-controls="collapseOne">
+							aria-expanded="false" aria-controls="collapseOne" >
 							함께하는 멤버들</button>
 					</h2>
 					<div id="collapseOne" class="accordion-collapse collapse "
@@ -179,42 +118,12 @@
 						<div class="accordion-body">
 						
 					    <c:forEach items="${allMember}" var="listMember">
+					    
             <div class="memberTable">
          
-                 <c:choose> 
-             
-                    <c:when test="${listMember.listGrade == 'guest'}">
+                
                         <ul> 
-                       
-                            <li>${listMember.member.nickname} - 가입 대기중</li>
-                            
-                           
-                            <c:if test="${listMember.member.memberImg != null}">
-                            <li><img class="allmemberImg" src="http://192.168.10.51:8081/member/${cMember.member.id}/${cMember.member.memberImg}" alt="회원 이미지"></li>
-                            </c:if>
-                            <c:if test="${listMember.member.memberImg == null}">
-                            <img class="allmemberImg" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg" alt="회원 이미지">
-                             </c:if>                          
-                              <%-- 현제 호스트만 수락버튼 보이게 해둬서 조건 이런데 나중에 바꿔야함 --%>
-                            <c:if test="${main.member.id == member.id && !(membershipUserCount >= main.membership.membershipMax)}">
-                        	
-                                <form id="agreefrm${listMember.listCode}">
-                                    <input type="hidden" name="id" value="${listMember.member.id}">
-                                    <input type="hidden" name="listGrade" value="regular">
-                                    <input type="hidden" name="membershipCode" value="${main.membership.membershipCode}">
-                                    <button type="button" class="agreeMember"   value="${listMember.listCode}">가입 승인</button>
-                                   
-                                    
-                                </form>
-                            </c:if>
-                             
-                           
-                            
-                        </ul>
-                    </c:when>
-                      
-                    <c:otherwise>
-                        <ul> 
+                        <a href="/userInfo/${listMember.member.nickname}">
                         <c:if test="${listMember.listGrade == 'host'}">
                             <li class="member-grade"><span><i class="fa-solid fa-crown"></i></span></li>
                             </c:if>
@@ -277,11 +186,9 @@
                          
                         </div>
                           </div>
+                          </a>
                         </ul>
-                        
-                    </c:otherwise>
-                </c:choose>
-                 
+             
             </div>
         </c:forEach>
 					
@@ -292,14 +199,105 @@
 				</div>
 			
 			</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		<div id="container">
 
+			<img id="mainImg"
+				src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}">
+
+			<div id="container-top">
+				<div id="hostImg">
+					<c:choose>
+						<c:when test="${main.member.memberImg != null}">
+							<img class="user-img"
+								src="http://192.168.10.51:8081/member/${main.member.id}/${main.member.memberImg}">
+						</c:when>
+
+						<c:otherwise>
+							<img class="user-img"
+								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<div id="hostName">
+					<h2>${main.member.nickname} </h2>
+				</div>
+				<div id="membershipTitle">
+					<h1>${main.membership.membershipName }</h1>
+				</div>
+				<div id="userCount">
+					<i class="fa-solid fa-user-group"></i>
+					${main.count}/${main.membership.membershipMax}
+				</div>
+			</div>
+			
+			<div id="option">
+			
+			
+			 <div id="calendar" style= "width: 60%"     ></div>
+			<div id="links">
+				<div class="dropdown">
+				<a class="btn btn-warning dropdown-toggle" href="#" role="button"
+					data-bs-toggle="dropdown" aria-expanded="false"> <i class="fa-solid fa-bars"></i> </a>
+
+				<ul class="dropdown-menu">
+					<li><a
+						href="/club/${main.membership.membershipCode}/membershipPromotionDetail"
+						class="dropdown-item">홍보글 작성</a></li>
+					<li><a href="/updateMembership" class="dropdown-item">정보 수정하기</a></li>
+					<li><a href="/write?membershipCode=${main.membership.membershipCode}" class="dropdown-item">모임게시판작성하러가기</a></li>				
+					<li><a id="management"  class="dropdown-item" href="/management?membershipCode=${main.membership.membershipCode}"   > 멤버관리페이지 </a></li>
+					<li><a class="dropdown-item" href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a></li>
+				</ul>
+			</div>
+
+		
+		
+			
+			</div>
+			
+
+ 
+		
+  </div>
+		
 		
 
 
  
 		</div>
 		
+		
+		
+		
+		</div>
 	
+	<jsp:include page="../footer/footer.jsp" />
 	</sec:authorize>
 	
  <script>
@@ -329,6 +327,9 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
 		integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
 		crossorigin="anonymous"></script>
+		
+		
+		
 <script>
 
 $("#management").click(()=>{

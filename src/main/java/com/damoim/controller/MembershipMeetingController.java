@@ -89,8 +89,28 @@ public class MembershipMeetingController {
 	public String meetingDetail(int meetCode , Model model) {
 		System.out.println("디테일 컨트롤러 연결 : " + meetCode);
 		model.addAttribute("meet", service.meetSelect(meetCode));
+	
+		
 		model.addAttribute("list", service.meetMember(meetCode));
+		
+		// 멤버쉽 이미지가 필요해서 memebershipCode를 추출 
+		int membershipCode = service.meetSelect(meetCode).getMembershipCode();
+		
+		// 해당 코드로 멤버쉽 유저리스트 불러와서 membership 정보 가져옴  
+		model.addAttribute("allInfo", membershipService.MembershipAllInfo(membershipCode));
+		
+		System.out.println(" 출력 테스트 : " + membershipService.MembershipAllInfo(membershipCode));
+		System.out.println("멤버 출력 테스트  : "+ service.meetMember(meetCode));
 
+		String id = service.meetSelect(meetCode).getId();
+		
+		for(int i =0; i <membershipService.MembershipAllInfo(membershipCode).size(); i ++) {
+			
+			if( id.equals(membershipService.MembershipAllInfo(membershipCode).get(i).getMember().getId())){
+				model.addAttribute("writer",membershipService.MembershipAllInfo(membershipCode).get(i).getMember());
+			}
+		}
+		
 
 		List<MeetingsAgree> agree = new ArrayList<>();
 		

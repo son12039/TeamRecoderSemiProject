@@ -155,12 +155,18 @@ public class MembershipController {
 			// 해당클럽 정보 다담음
 		 	System.out.println(membershipCode);
 		 	MembershipUserList list =  service.main(membershipCode);
-			list.setCount((service.membershipUserCount(membershipCode)));	
+			list.setCount((service.membershipUserCount(membershipCode)));
+			// 호스트정보 
 			model.addAttribute("main", list);
 			// 해당클럽에 가입신청된 모든 유저정보		
+				
 			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
-			System.out.println("에러전");
-			System.out.println(meetingService.allMeetings(membershipCode));
+
+			model.addAttribute("adminList", service.adminUser(membershipCode));
+			
+			
+			System.out.println(service.MembershipAllInfo(membershipCode).get(0).getMember().getGender());
+			
 			model.addAttribute("allmeet", meetingService.allMeetings(membershipCode));
 			System.out.println(meetingService.allMeetings(membershipCode));
 			
@@ -317,6 +323,26 @@ public class MembershipController {
 
 		model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
 		model.addAttribute("host", service.main(membershipCode));
+		model.addAttribute("adminList", service.adminUser(membershipCode));
+		
+	
+	
+	List<String> hosts = new ArrayList<String>();
+	
+	for(int i=0; i<service.adminUser(membershipCode).size(); i++) {
+		
+		if(service.ifHost(service.adminUser(membershipCode).get(i).getId()) != null ) {
+			
+		String id = service.ifHost(service.adminUser(membershipCode).get(i).getId()).getId();
+			
+		hosts.add(id);
+		
+		}
+	
+		
+	}
+	
+	model.addAttribute("otherHost", hosts);
 		// 들어온 사람의 id랑 
 		// 해당 클럽의 호스트인 사람의 id가 일치 
 		// 해당 클럽의 호스트인 사람 찾는 xml 필요 
@@ -341,6 +367,9 @@ public class MembershipController {
 		int code = member.getMembershipCode();
 		
 		service.agreeMemeber(member);
+		
+		
+		
 		
 		return code;
 		

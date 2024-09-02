@@ -11,7 +11,7 @@
 <!-- Do+Hyeon 폰트 -->
 <!-- font-family: "Do Hyeon", sans-serif; -->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/header.css" />
+	href="${pageContext.request.contextPath}/css/headerIndex.css" />
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Pen+Script&family=New+Amsterdam&display=swap" rel="stylesheet">
@@ -28,8 +28,8 @@
 			<div class="main_header_left">
 				<a  href="/">공지사항</a>
 				<a  href="/">이벤트</a>
-				<a href="/loginPage">로그인</a>
-			</div>
+			</div>		
+		 -->
 			<div class="main_header_center">
 				<a href="/" class="main_header_center_text">DAMOIM</a>
 			</div>
@@ -56,6 +56,7 @@
 							</div>
 							<div class="main_header_right_menu">
 								<a href="/mypage">마이페이지</a> 
+								<a href="/myMembership">나의모임</a> 
 								<a href="/logout">로그아웃</a>
 							</div>
 					</sec:authorize>

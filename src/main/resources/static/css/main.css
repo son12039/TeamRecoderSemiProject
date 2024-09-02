@@ -76,6 +76,7 @@ body {
   border-radius: 50%;
   width: 50px;
   height: 50px;
+  
 }
 .locationTypeBox {
   font-size: 12px;
@@ -148,6 +149,8 @@ input[type="submit"]:hover {
 }
 
 div[id^="comment-box"] {
+	border-top: 2px dashed;
+    border-radius: 0px 0px 10px 10px;
   width: 790px;
   height: 100px;
   display: flex;
@@ -155,7 +158,6 @@ div[id^="comment-box"] {
   padding: 8px;
   align-items: center;
   background-color: #e5e5e5;
-  border-radius: 10px;
   margin-top: 10px;
 }
 div[id^="recomment-box"] {
@@ -186,6 +188,7 @@ div[id^="comment-box"] > input {
   font-size: 1.2rem;
 }
 .comment-text {
+	padding-left: 10px;
   margin-bottom: 5px;
 }
 button {
@@ -222,7 +225,7 @@ button > img {
 }
 .prof img {
   margin: 0;
-  margin-left: 5px;
+  margin-left: 10px;
 }
 #textbox > button {
   height: 50%;

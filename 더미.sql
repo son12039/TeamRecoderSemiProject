@@ -24,7 +24,7 @@ from member ;
 		WHERE id = 'asd123';
 select* 
 FROM main_comment;
-
+select * from membership;
 
 
 ALTER TABLE membership
@@ -33,6 +33,22 @@ DROP COLUMN memership_secret_text;
 ALTER TABLE membership
 CHANGE COLUMN memership_accession_text membership_accession_text text;
 
+create table test_col(
+	info text
+);
+select * from test_col;
+drop table test_col;
+
+INSERT INTO test_col(info)
+SELECT
+    membership_info
+FROM
+    membership
+WHERE
+    membership_info != 0;
+    
+UPDATE membership
+SET membership_simple_text = membership_info;   
 select *
 from membership ;
 

@@ -1,14 +1,18 @@
 .locationTypeBody {
-	padding-top:200px;
+	padding-top:40px;
 	padding-bottom : 20px;
-	width: 100%;	
+	width: 100%;
+	margin: auto;
 }
 .locationTypeBodyBox {	
 	display: flex;
 	margin : auto;
-	justify-content : flex-start;
-	max-width: 1520px;
-	height: 200px;
+	max-width: 900px;
+	height: 250px;
+	background-color : white;
+	border-radius: 7px;
+	border: 1px solid #d5d5d5;
+	
 /*
  수틀리면 다시 복구
   background-color:white;
@@ -20,17 +24,20 @@
 */
 }
 /*중단 locationLa 이벤트 놈들*/
+.line{
+	width: 1px;
+	height : 180px;
+	background-color: #d5d5d5;
+	margin : auto;
+}
 #locationLaNameForm input[type="checkbox"] {
    display:none;
  }
 #locationLaNameForm{
-	width: 400px;
+	width: 100%;
 	height : 100%;
 	padding: 10px;
-	background-color : white;
-	border-radius: 20px;
-	border: 1px solid #d5d5d5;
-	margin-right: 30px;
+
 	/*
 	display:flex;
 	justify-content: space-around;
@@ -56,13 +63,24 @@
 }
 .locationLaDiv{
 	background-color : #efefef;
-	width: 380px;
-	height: 140px;
-	border-radius: 20px;
-	padding: 10px;
+	width: 100%;
+	height: 190px;
+	border-radius: 7px;
+	padding: 7px;
 }
 .locationLaCss{
 	cursor: pointer;
+	display: inline-block;
+	width: 99px;
+	height: 31px;
+	margin: 2px 0px 2px 0px;
+	background-color: white;
+	border-radius: 7px;
+	text-align: center;
+	line-height: 31px;
+	color : #293241;
+	font-weight: bold;
+	
 }
 .locLaNameLabel{
 	font-size : 18px;
@@ -91,12 +109,9 @@
    display:none;
  }
 #locationSNameForm{
-	width: 400px;
+	width: 100%;
 	height : 100%;
 	padding: 10px;
-	background-color : white;
-	border-radius: 20px;
-	border: 1px solid #d5d5d5;
 }
 .locationSStar{
 	padding: 5px 10px 10px 10px;
@@ -109,14 +124,37 @@
 }
 .locationSDiv{
 	background-color : #efefef;
-	width: 380px;
-	height: 140px;
-	border-radius: 20px;
-	padding: 10px;
+	width: 100%;
+	height: 190px;
+	border-radius: 7px;
+	padding: 7px;
+}
+.locationTypeCss{
+	cursor: pointer;
+	display: inline-block;
+	width: 78px;
+	height: 31px;
+	margin: 2px 0px 2px 0px;
+	background-color: white;
+	border-radius: 7px;
+	text-align: center;
+	line-height: 31px;
+	color : #293241;
+	font-weight: bold;
 }
 /*중단 locationS 이벤트 놈들*/
 
- 
+ .classiFication{
+ width: 100%;
+ height: 100%;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ color :#ADD8E6;
+ font-size:30px;
+ font-weight: bold;
+ font-family: "Do Hyeon", sans-serif;
+ }
  
  
  
@@ -126,7 +164,7 @@
 #typeStickyBox{
   position: sticky;
   top: 80px;
-  background-color:white;
+  background-color:#ADD8E6;
   width: 100%;
   height: auto;
 }
@@ -144,7 +182,8 @@
 	font-weight: bold;
 	display: flex;
 	align-items: center;
-	justify-content: center;	
+	justify-content: center;
+		
 }
 .typeLaNameLabel{
 	padding :5px 5px; 

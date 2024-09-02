@@ -57,7 +57,7 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 
 
 	// 체크 눌렀을때 그쪽 방향으로 이동
-	window.scrollTo({ top: 920, left: 0, behavior: 'smooth' });
+	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 	// 새로고침안하고 url로 보내기
 	history.pushState({}, null, url);
 	let list = "";
@@ -89,8 +89,12 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 						})
 						$(".locationSDiv").html(list);
 					}
+					if(location.val() === '초기화'){
+						list+=`<div class="classiFication">지역을 선택해주세요</div>`
+						$(".locationSDiv").html(list)
+					}
 					$("#locationSNameForm input[type=checkbox]").change(function() {
-						window.scrollTo({ top: 920, left: 0, behavior: 'smooth' });
+						window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 						const locationSName = $(this).val();
 						if ($(this).is(':checked')) {
 							urlParams.append('locationSName', locationSName);
@@ -164,7 +168,7 @@ $('#locationSNameForm input[name="locationSName"]').change(function() {
 
 /*타입 클릭시*/
 $("#typeLaNameSelect input[type=checkbox]").change(function() {
-	window.scrollTo({ top: 920, left: 0, behavior: 'smooth' });
+	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 	urlParams.delete('typeLaName')
 	urlParams.delete('typeSName')
 	const typeLaName = $(this).val();
@@ -226,7 +230,7 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 						$("#typeSNameForm").css({height : ""})
 					}
 					$("#typeSNameForm input[type=checkbox]").change(function() {
-						window.scrollTo({ top: 920, left: 0, behavior: 'smooth' });
+						window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 						const typeSName = $(this).val();
 						if ($(this).is(':checked')) {
 							urlParams.append('typeSName', typeSName);
@@ -277,7 +281,7 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 
 
 if (urlParams.has("typeLaName")) {
-	window.scrollTo({ top: 920, left: 0, behavior: 'smooth' });
+	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 	let typeLaName = urlParams.get("typeLaName")
 	let list = $('#typeLaNameSelect input')
 	for (let item of list) {
@@ -287,7 +291,7 @@ if (urlParams.has("typeLaName")) {
 	}
 }
 if (urlParams.has("typeSName")) {
-	window.scrollTo({ top: 920, left: 0, behavior: 'smooth' });
+	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 	const typeSName = urlParams.getAll('typeSName');
 	const list = $('#typeSNameForm input');
 	for (let item of list) {

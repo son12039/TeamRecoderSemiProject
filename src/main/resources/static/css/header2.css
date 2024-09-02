@@ -38,14 +38,16 @@
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  font-size: 55px;
+  font-size: 60px;
   height: 100%;
   width: 100%;
   font-weight: bold;
-  color : #fca35b;
-  font-family: "Do Hyeon", sans-serif;
+  font-family: "Chewy", system-ui;
+  font-style: italic;
 }
 .main_header_center_text {
+  color : #fca35b;
+  text-shadow: 4.5px 2px black;
 }
 /*헤더 오른쪽*/
 .main_header_right {

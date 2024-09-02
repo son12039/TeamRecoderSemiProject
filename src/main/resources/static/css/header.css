@@ -3,11 +3,11 @@
 */
 
 .main_header {
+  background-color: white;
   position: fixed;
   width: 100%;
   height: 80px;
   z-index:1000;
-  background-color: white;
 }
 .main_header_body {
   height: 100%;
@@ -44,10 +44,12 @@
   height: 100%;
   width: 100%;
   font-weight: bold;
-  color : #fca35b;
-  font-family: "Do Hyeon", sans-serif;
+  font-family: "Chewy", system-ui;
+  font-style: italic;
 }
 .main_header_center_text {
+  color : #fca35b;
+  text-shadow: 4.5px 2px black;
 }
 /*헤더 오른쪽*/
 .main_header_right {

@@ -15,6 +15,7 @@
 	href="${pageContext.request.contextPath}/css/index.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/locationType.css" />
+	
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
@@ -41,9 +42,9 @@
 		<div class="locationTypeBodyBox">
 			<form id="locationLaNameForm">
 					<div class="locationBoxHead">
-					<div class="locationLaStar">도시별</div>
-						<input type="checkbox" value="전체보기" id="locLaNameAll" /> 
-						<label class="locLaNameLabel" for="locLaNameAll">초기화</label>
+						<div class="locationLaStar">도시별</div>
+							<input type="checkbox" value="초기화" id="locLaNameAll" /> 
+							<label class="locLaNameLabel" for="locLaNameAll">초기화</label>
 					</div>
 						<div class="locationLaDiv">
 							<c:forEach items="${locLaNameList}" var="locLaName">
@@ -53,11 +54,12 @@
 							</c:forEach>
 						</div>
 			</form>
-	
+			<div class="line"></div>
 	
 			<form id="locationSNameForm">
 				<div class="locationSStar">지역별</div>
 				<div class="locationSDiv">
+				<div class="classiFication">지역을 선택해주세요</div>
 					<c:forEach items="${locSNameList}" var="locSName">
 						<input type="checkbox" value="${locSName}" id="${locSName}"
 							name="locationSName">

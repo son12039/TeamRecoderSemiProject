@@ -1,6 +1,6 @@
 @charset "UTF-8";
 body {
-  background-color:#eff7fb;
+  background-color:white;
 }
 .container {
   align-items: flex-start;
@@ -22,7 +22,7 @@ body {
 }
 .membership-card {
   display: flex;
-  background-color: #ffffff;
+  background-color: #e5e5e5;
   border-radius: 20px;
   margin: 20px;
   width: 480px;
@@ -80,7 +80,7 @@ body {
   display: flex;
   white-space: nowrap; 
   overflow: hidden; 
- 
+   background-color: red;
 }
 .typeList {
   background-color:#F4F4F4;

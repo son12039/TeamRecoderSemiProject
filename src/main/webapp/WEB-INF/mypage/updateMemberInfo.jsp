@@ -20,15 +20,8 @@
 <body>
 	<sec:authorize access="isAuthenticated()" var="principal">
 		<sec:authentication property="principal" var="member" />
-		<nav>
-			<div>
-				<a id="LOGO" href="/">다모임</a>
-			</div>
-			<div>
-				<a href="/" class="header_menu">HOME</a> 
-				<a href="/logout" class="header_menu">로그아웃</a> 
-			</div>
-		</nav>
+		<jsp:include page="/WEB-INF/header/mypageHeader.jsp" />
+		
 		<!-- (동문) -->
 		<div class="container">
 			<h1>회원 정보 수정</h1>

@@ -119,7 +119,6 @@ public class MemberService implements UserDetailsService {
 		return mapper.memberStatus(member);
 	}
 	
-	
 	public boolean memberManner(RecommendationDTO dto) {
 		
 		System.out.println("로그인한 회원의 마지막 정보" + dto.getLoginMember());

@@ -26,6 +26,8 @@
 </style>
 <body>
 
+	<jsp:include page="/WEB-INF/header/mypageHeader.jsp" />
+
 	<!-- 로그인 정보에 따라 헤더와 메뉴 표시 -->
 	<c:set var="hasHost" value="${false}" />
 	<sec:authorize access="isAuthenticated()" var="principal">
@@ -37,16 +39,6 @@
 		</c:forEach>
 	</sec:authorize>
 
-	<!-- 헤더 nav -->
-	<nav class="header_nav">
-		<div class="header_menu">
-			<a id="LOGO" href="/">다모임</a>
-		</div>
-		<div class="header_menu">
-			<a href="/">HOME</a> <a href="/logout">로그아웃</a> <a
-				href="/updateCheck">회원정보 수정</a>
-		</div>
-	</nav>
 
 	<!-- 프로필 수정 폼 -->
 	<div class="info_container">
@@ -57,10 +49,11 @@
 			<div class="profile_img">
 				<c:choose>
 					<c:when test="${member.memberImg != null}">
-						<img
-							src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}"
-							alt="Profile Image">
-						<div id="previewDiv"></div>
+						<div>
+						<img src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}"
+							alt="Profile Image" id="image_container">
+						</div>
+						
 					</c:when>
 					<c:otherwise>
 						<img src="http://192.168.10.51:8081/기본프사.jpg"
@@ -71,33 +64,38 @@
 			<!-- 프로필 업데이트 -->
 			<div class="profile_update">
 				<input class="form-control" name="file" type="file" accept="image/*"
-					id="file" onchange="readURL(this)">
-				 <div class="profile_manner">
-					<c:if test="${member.memberManner < 36.5}">
+					id="file" onchange="imgShow(event)">
+				<div class="profile_manner">
+					<h1>${member.nickname}</h1>
+					<c:if test="${member.memberManner < 30}">
 						<p>${member.memberManner}℃</p>
-						<span style="color: rgb(252, 177, 3)"><i
-							class="fa-solid fa-face-meh fa-2x"></i></span>
+						<span style="color: red"><i
+							class="fa-solid fa-face-angry fa-2x"></i></span>
 					</c:if>
-					<c:if test="${member.memberManner == 36.5}">
+					<c:if
+						test="${member.memberManner >= 30 && member.memberManner <= 40}">
 						<p>${member.memberManner}℃</p>
 						<span style="color: rgb(252, 177, 3)"><i
 							class="fa-solid fa-face-smile fa-2x"></i></span>
 					</c:if>
-					<c:if test="${member.memberManner > 36.5}">
+					<c:if test="${member.memberManner > 40}">
 						<p>${member.memberManner}℃</p>
-						<span style="color: rgb(252, 177, 3)"><i
+						<span style="color: green"><i
 							class="fa-solid fa-face-grin fa-2x"></i></span>
 					</c:if>
 				</div>
-				<h3>
-					한줄소개 : <input type="text" id="memberInfo" name="memberInfo"
-						value="${member.memberInfo}">
-				</h3>
-				<h3>
-					취미 : <input type="text" id="memberHobby" name="memberHobby"
-						value="${member.memberHobby}">
-				</h3>
-				<input type="button" id="updateSubmit" value="수정">
+				<div class="profile_info">
+					<span>한줄소개 : </span> <input type="text" id="memberInfo"
+						name="memberInfo" value="${member.memberInfo}">
+				</div>
+				<div class="profile_info">
+					<span>취미 : </span> <input type="text" id="memberHobby"
+						name="memberHobby" value="${member.memberHobby}">
+				</div>
+				<div class="profile_submit">
+					<input type="button" id="submit" value="수정"> <a
+						href="/updateCheck" id="updateCheck">회원정보 수정</a>
+				</div>
 			</div>
 		</form>
 	</div>
@@ -239,6 +237,20 @@
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
+
+		function imgShow(event) {
+		    var reader = new FileReader();
+		
+		    reader.onload = function(event) {
+		        var img = document.createElement("img");
+		        img.setAttribute("src", event.target.result);
+		        document.querySelector("div#image_container").appendChild(img);
+		    };
+		    
+		    if (event.target.files.length > 0) {
+		        reader.readAsDataURL(event.target.files[0]);
+		    }
+		}
 
 
         // 파일 업로드 및 정보 수정 처리

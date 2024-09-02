@@ -1,47 +1,4 @@
 @charset "UTF-8";
-/* 헤더 nav */
-#LOGO {
-	font-size: 1rem;
-}
-
-nav {
-	overflow: hiddlen;
-	white-space: nowrap;
-	background-color: #333;
-	text-align: center;
-	display: flex;
-	justify-content: space-between;
-	padding: 5px;
-}
-
-nav div {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-nav a {
-	color: #fff;
-	text-decoration: none;
-	padding: 10px 20px;
-	display: inline-block;
-}
-
-nav a:hover {
-	background-color: #575757;
-}
-
-/* 헤더 nav */
-.header_menu {
-	color: #fff;
-	text-decoration: none;
-	padding: 10px 20px;
-	display: inline-block;
-}
-
-.header_menu:hover {
-	background-color: #575757;
-}
 
 body {
 	font-family: Arial, sans-serif;
@@ -153,19 +110,15 @@ strong {
 	padding-top: 10px;
 	padding-bottom: 20px;
 }
-
-button {
-	background-color: #4caf50;
-	color: white;
-	padding: 10px 15px;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	width: 20%;
+.membership-img{
+	width: 100px;
+	height: 100px;
+	border-radius:15px;
 }
 
+
 #button {
-	background-color: #4caf50;
+	background-color: #1b2a41;
 	color: white;
 	padding: 10px 15px;
 	border: none;
@@ -175,5 +128,5 @@ button {
 }
 
 #button:hover {
-	background-color: #45a049;
+	background-color: #324a5f;
 }

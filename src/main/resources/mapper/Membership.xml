@@ -101,7 +101,7 @@
 	
 	
 	
-		<select id="MembershipAllRegular" parameterType="Integer"
+	<select id="MembershipAllRegular" parameterType="Integer"
 		resultMap="listMap">
 		SELECT *
 		FROM membership_user_list

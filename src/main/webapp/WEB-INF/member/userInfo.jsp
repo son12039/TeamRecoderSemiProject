@@ -20,6 +20,7 @@
 </head>
 <body>
 	<main>
+
 		<div id="container">
 			<div id="section">
 				
@@ -32,7 +33,8 @@
 							<img class="user-img" src="http://192.168.10.51:8081/기본프사.jpg">
 						</c:otherwise>
 					</c:choose>
-				</div>
+			
+
 				<div class="info">
 					<div class="group">
 						<span><h1>모임 참여 횟수 ${mem.member.memberMeetCount}회</h1></span>
@@ -98,9 +100,6 @@
 							</div>
 						</c:if>
 					</c:forEach>
-					<div class="club_box">
-						<a class="img_paging" href="/UserInfoPaging"><img class="club_img_none" src="http://192.168.10.51:8081/dot.jpg"></a>
-					</div>
 				</div>
 				<div class="section2_memberInfo">
 					<h1>가입신청한 클럽</h1>
@@ -115,11 +114,9 @@
 								</div>
 							</c:if>
 						</c:forEach>
-						<div class="club_box">
-							<a class="img_paging"><img class="club_img_none" src="http://192.168.10.51:8081/dot.jpg"></a>
-						</div>
 					</div>
 				</div>
+
 			</div>
 	</main>
 	<script src="${pageContext.request.contextPath}/js/userInfo.js"></script>

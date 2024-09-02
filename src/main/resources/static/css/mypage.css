@@ -32,13 +32,11 @@ nav a:hover {
 }
 
 input[type=text] {
-	width: 60%;
-	height: 20px;
+	width: 100%;
+	height: 30px;
 	font-size: 1rem;
 	border: 0;
-	border-radius: 15px;
-	outline: none;
-	padding-left: 10px;
+	border-radius: 10px;
 	background-color: rgb(233, 233, 233);
 }
 
@@ -55,9 +53,12 @@ input[type=text] {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	margin: 20px auto;
 	max-width: 600px;
+	min-width: 600px;
 	padding: 20px;
 	text-align: center;
+	
 }
+
 
 .profile {
 	font-size: 1.5rem;
@@ -69,7 +70,7 @@ input[type=text] {
 .profile_img img {
 	width: 200px;
 	height: 200px;
-	border-radius: 50%;
+	border-radius: 25%;
 	margin-bottom: 10px;
 }
 
@@ -80,7 +81,6 @@ input[type=text] {
 
 .profile_update>* {
 	margin-bottom: 20px;
-	font-weight: bolder;
 }
 .profile_manner {
 	display: flex;
@@ -94,17 +94,59 @@ input[type=text] {
 	font-weight: bolder;
 	padding-right: 10px;
 }
-#updateSubmit {
+
+.profile_info {
+	display: flex;
+	align-items:center;
+	justify-content: center;
+	padding-right: 20px;
+}
+.profile_info span{
+	white-space: nowrap;
+	padding-left: 20px;
+	width: 150px;
+	font-size: 1.2rem;
+	font-weight: bolder;
+}
+.profile_info input{
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.profile_submit{
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+
+}
+#submit {
 	background-color: #1b2a41;
 	color: white;
 	padding: 10px 15px;
 	border: none;
-	border-radius: 4px;
+	border-radius: 6px;
 	cursor: pointer;
-	width: 50%;
+	width: 40%;
+	margin-top: 20px;
+	font-size: 1rem;
+}
+#updateCheck{
+	background-color: #393d3f;
+	color: white;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	width: 30%;
+	margin-top: 60px;
+	font-size: 1rem;
 }
 
-#updateSubmit:hover {
+#submit:hover {
+	background-color: #324a5f;
+}
+
+#updateCheck:hover {
 	background-color: #324a5f;
 }
 
@@ -145,6 +187,9 @@ input[type=text] {
 	margin-bottom: 20px;
 	overflow: hiddlen;
 	white-space: nowrap;
+}
+.membership-card h1 {
+	font-weight: bolder;
 }
 
 .membership-img {

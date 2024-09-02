@@ -8,8 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 
 import com.damoim.model.dto.MemberListDTO;
@@ -23,8 +22,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class PageController {
 	
-	@Autowired
-	private MembershipService service;
+
 	@Autowired
 	private MembershipService infoService; // 맴버쉽 서비스
 	/*
@@ -53,7 +51,7 @@ public class PageController {
 	public String mypage(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member member = (Member) authentication.getPrincipal();
-		ArrayList<MembershipUserList> membershipList = service.selectName(member.getId());
+		ArrayList<MembershipUserList> membershipList = infoService.selectName(member.getId());
 		model.addAttribute("list", membershipList);
 		
 		List<MembershipUserList> list = new ArrayList<MembershipUserList>();
@@ -104,7 +102,7 @@ public class PageController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
 		System.out.println("memberDelete : " + mem);
-		ArrayList<MembershipUserList> membershipList = service.selectName(mem.getId());
+		ArrayList<MembershipUserList> membershipList = infoService.selectName(mem.getId());
 		model.addAttribute("list", membershipList);
 		return "mypage/memberDelete";
 	}

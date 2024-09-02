@@ -17,6 +17,7 @@
 			<div class="main_header_left">
 				<a  href="/">공지사항</a>
 				<a  href="/">이벤트</a>
+				<a href="/loginPage">로그인</a>
 			</div>
 			<div class="main_header_center">
 				<div class="main_header_center_text">DAMOIM</div>

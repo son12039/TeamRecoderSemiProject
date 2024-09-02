@@ -37,9 +37,18 @@ main {
 }
 #emoji-plus{
 	color: green;
+	padding: 5px;
+    border-radius: 50%;
+    background-color: #dddd;
+ 
 }
+
 #emoji-minus{
 	color: red;
+	padding: 5px;
+    border-radius: 50%;
+    background-color: #dddd;
+    
 }
 .rating-btn{
 	align-items: center;
@@ -55,10 +64,6 @@ main {
 	text-align: center;
 }
 
-#minus-btn{
-	position: relative;
-    top: 6.5px;
-}    
 
 .memberInfo_div h1 {
   font-size: 1.5rem;
@@ -135,13 +140,11 @@ main {
   flex-wrap: wrap;
   justify-content: flex-start;
   height: 100px;
+  
+
 }
 
-.club_info div {
-  width: 104px;
-  display: flex;
-  flex-direction: column;
-}
+
 
 .club_img {
   width: 50px;
@@ -149,11 +152,24 @@ main {
 
   object-fit: cover;
   border-radius: 8px;
-  border: 2px solid #ddd;
+
 }
 .club_box {
+	width: 100px;
+	height: 100px;
+	  display: flex;
+  flex-direction: column;
+	 margin: 0px 10px;
+	border-radius :50%;
+  background-color: #dddd;
   justify-content: center;
   align-items: center;
+}
+.club_box > a{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 .club_box p {
   font-weight: bolder;

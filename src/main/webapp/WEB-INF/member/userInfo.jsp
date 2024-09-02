@@ -71,16 +71,16 @@
 			</div>
 			<sec:authorize access="isAuthenticated()" var="principal">
 			<sec:authentication property="principal" var="loginMember" />
-			<p id="plus-minus">추천 | 비추천</p>
 					<div id="rating">
 						<button id="plus-btn"  data-target-member-id="${mem.member.id}"
         					data-login-member-id="${loginMember.id}"
 						class="rating-btn"
-						><span id="emoji-plus">
+						><p id="plus-minus">추천</p>
+						<span id="emoji-plus">
 								<i class="fa-solid fa-thumbs-up fa-3x"></i>
 						</span></button>
 						<button id="minus-btn" data-target-member-id="${mem.member.id}"
-        					data-login-member-id="${loginMember.id}" class="rating-btn"><span id="emoji-minus">
+        					data-login-member-id="${loginMember.id}" class="rating-btn"><p id="plus-minus">비추천</p><span id="emoji-minus">
 								<i class="fa-solid fa-thumbs-down fa-3x"></i>
 						</span></button>
 				</div>
@@ -95,8 +95,9 @@
 							<div class="club_box">
 								<a href="/${list.membership.membershipCode}"><img
 									class="club_img"
-									src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}"></a>
+									src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}">
 								<p>${list.membership.membershipName}</p>
+								</a>
 							</div>
 						</c:if>
 					</c:forEach>
@@ -109,8 +110,9 @@
 								<div class="club_box">
 									<a href="/${list.membership.membershipCode}"> <img
 										class="club_img"
-										src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}"></a>
+										src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}">
 									<p>${list.membership.membershipName}</p>
+									</a>
 								</div>
 							</c:if>
 						</c:forEach>

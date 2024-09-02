@@ -37,7 +37,6 @@
 </head>
 <body>
 <main>
-   <sec:authorize access="isAuthenticated()" var="principal">
    <sec:authentication property="principal" var="member" />
     <img id="mainImg" src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}" alt="클럽 이미지">
       

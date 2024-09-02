@@ -50,7 +50,7 @@ public class PageController {
 	
     // 기본 정보 수정
 	@GetMapping("/mypage")
-	public String mypage(Model model, Member member) {
+	public String mypage(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member member = (Member) authentication.getPrincipal();
 		ArrayList<MembershipUserList> membershipList = service.selectName(member.getId());

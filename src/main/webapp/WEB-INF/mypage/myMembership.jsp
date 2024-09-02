@@ -24,6 +24,8 @@
 </head>
 
 <body>
+   <sec:authorize access="isAuthenticated()" var="principal">
+
 	<nav>
 		<div>
 			<a id="LOGO" href="/">다모임</a>
@@ -43,7 +45,9 @@
 			<c:set var="hasHost" value="${true}"/>
 	</c:if>
     </c:forEach>
+    
     </sec:authorize>
+    
    <nav>
     <div>
     <a id ="LOGO" href="/">다모임</a>
@@ -73,7 +77,6 @@
 	</c:if>
     </c:forEach>
     </sec:authorize>
-    <c:if test="${guestClub == 'guest'}">
    
   <div class="membership-each">
      <div><img  class="membership-img" src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"></div>
@@ -208,7 +211,6 @@
 	</div>
 	
     </c:forEach>
-    </sec:authorize>
     <c:if test="${adminClub == 'host' || adminClub == 'admin'}">
     <a href="/club/${mem.membership.membershipCode}">
    <div class="membership-each">
@@ -221,7 +223,6 @@
     </a>
     </c:if>
   
-   </c:forEach>
   </div>
   <div class="membership-card" id = "all-club" style="display: block;">
   <h1>가입 된 클럽 보기</h1>

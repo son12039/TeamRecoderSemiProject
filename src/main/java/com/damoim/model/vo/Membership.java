@@ -22,7 +22,6 @@ public class Membership {
     private int membershipMax; // 클럽최대인원
     private String membershipSimpleText; // 클럽 대문정보
     private MultipartFile file; // 클럽메인사진(실저장)
-    private String membershipSimpleText;// 한마디
     private String membershipAccessionText;// 가입조건
 }
 

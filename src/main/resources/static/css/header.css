@@ -6,17 +6,17 @@
   position: fixed;
   width: 100%;
   height: 80px;
-  background-color: #ffffff;
-  z-index: 999999;
+  background: #ffffff;
+  z-index:999999;
 }
 .main_header_body {
   height: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  margin: auto;
+  
   width: 100%;
-  max-width: 1520px;
+  min-width: 1000px;
 }
 /*헤더 왼쪽*/
 .main_header_left {
@@ -24,6 +24,7 @@
   align-items: center;
   justify-content: flex-start;
   height: 100%;
+   width: 378.5px;
   
 }
 .main_header_left a {
@@ -31,20 +32,21 @@
   font-weight: bold;
   margin-right: 15px;
   color : #fca35b;
+ 
 }
 /*헤더 센터*/
 .main_header_center {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   text-align: center;
   font-size: 50px;
   height: 100%;
   font-weight: bold;
   color : #fca35b;
+   width: 378.5px;
 }
-.main_header_center_text {
-}
+
 /*헤더 오른쪽*/
 .main_header_right {
   display: flex;

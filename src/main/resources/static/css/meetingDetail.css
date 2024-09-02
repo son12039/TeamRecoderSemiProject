@@ -1,6 +1,7 @@
-img{
+.user-img {
 	width: 30px;
 	height: 30px;
+	border-radius: 50%
 }
 input[type="submit"] {
   background-color: #fca311;
@@ -140,3 +141,108 @@ button > img {
   position: relative;
   bottom: 10px;
 }
+
+
+
+
+
+
+body {
+  font-family: "Arial", sans-serif;
+  line-height: 1.6;
+  background-color: #ffff;
+}
+
+#box {
+  display: flex;
+  justify-content: center;
+  padding-top:80px;
+  flex-direction: column;
+}
+#container {
+  width: 100%;
+  max-width: 800px;
+  /*08-29 채승훈 마진겹칩현상? 때문에 20px 뺌*/
+  margin: auto;
+  
+ 
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#container-top {
+  display: flex;
+  flex-direction: column;
+  background-color: #fefefe;
+  border-radius: 16px;
+  align-items: center;
+  position: relative;
+  bottom: 60px;
+  width: 90%;
+  padding: 10px;
+}
+
+#membershipMain-img{
+	width: 100%;
+	
+}
+#hostImg {
+  position: relative;
+  bottom: 55px;
+}
+
+.host-img{
+	
+	width:50px;
+	heigh:50px;
+	border-radius: 50%;
+}
+
+#hostName {
+  position: relative;
+  bottom: 55px;
+}
+#membershipTitle {
+  position: relative;
+  bottom: 35px;
+}
+
+
+
+#meetInfo{
+	
+	    margin: 20px;
+}
+
+
+
+.accordion-button collapsed{
+	
+	background-color: #14213d !important;
+    color: white !important;
+    font-weight: bold !important;
+	
+}
+.accordion-collapse {
+  overflow: auto; 
+}
+
+.accordion-body {
+  max-height: 1000px; 
+}
+.accordion-button:not(.collapsed) {
+    background: #fca311 ; /* 펼쳐졌을 때 배경색 */
+    color: #ffffff; /* 텍스트 색상 */
+}
+
+
+.accordion-button.collapsed {
+    background: #14213d; /* 닫혔을 때 배경색 */
+    color: #ffffff; /* 텍스트 색상 */
+}
+

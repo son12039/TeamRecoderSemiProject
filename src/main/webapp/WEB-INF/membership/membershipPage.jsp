@@ -55,6 +55,7 @@
          
                 
                         <ul> 
+                        <a href="/userInfo/${listMember.member.nickname}">
                         <c:if test="${listMember.listGrade == 'host'}">
                             <li class="member-grade"><span><i class="fa-solid fa-crown"></i></span></li>
                             </c:if>
@@ -117,6 +118,7 @@
                          
                         </div>
                           </div>
+                          </a>
                         </ul>
              
             </div>

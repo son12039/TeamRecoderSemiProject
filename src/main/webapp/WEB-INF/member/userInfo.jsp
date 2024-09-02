@@ -71,6 +71,25 @@
 			</div>
 			<sec:authorize access="isAuthenticated()" var="principal">
 			<sec:authentication property="principal" var="loginMember" />
+			<c:set var="ck" value="${false}"/>
+			<div id="align">
+					<c:forEach items="${mem.membershipUserList}" var="list">
+						<c:if test="${list.listGrade != 'guest'}">
+						<c:forEach items="${loginMember.memberListDTO}" var="loginList">
+							<c:if test="${loginList.listGrade != 'guest'}">
+								<c:if test="${list.membership.membershipCode == loginList.membershipCode}">
+								<c:set var="ck" value="${true}"/>
+								</c:if>
+								
+							</c:if>
+								
+						</c:forEach>
+						</c:if>
+					</c:forEach>
+					<c:if test="${ck}">
+						<p>나와 같은 클럽에 속한 회원입니다!</p>
+					</c:if>
+					</div>
 					<div id="rating">
 						<button id="plus-btn"  data-target-member-id="${mem.member.id}"
         					data-login-member-id="${loginMember.id}"

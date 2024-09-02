@@ -31,6 +31,10 @@ main {
   border-radius: 50px;
   margin-bottom: 50px;
 }
+#align{
+	display: flex;
+	justify-content: center;
+}
 #rating{
 	display: flex;
 	justify-content: center;
@@ -120,6 +124,7 @@ main {
 }
 
 #section2 {
+	margin-top: 10px;
     display: flex;
     padding: 20px;
     background-color: #f9f9f9;

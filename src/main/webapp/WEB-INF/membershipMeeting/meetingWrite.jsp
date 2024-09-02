@@ -7,44 +7,51 @@ uri="http://www.springframework.org/security/tags" %>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jodit 예제 - 제출 버튼만 포함</title>
+   		 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/meetingWrite.css" />
+    <title>모임 게시판 글 작성</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+ 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Jodit CSS 스타일 시트 -->
+  
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/jodit@3.6.9/build/jodit.min.css"
     />
     <style>
-      #editor {
-        width: 100%; /* 에디터의 너비를 100%로 설정 */
-      }
-      #submitButton {
-        margin-top: 20px; /* 제출 버튼 위에 여백 추가 */
-      }
+
     </style>
+    
   </head>
   <body>
-    <!-- 에디터 컨테이너 -->
-    색상 선택 : <input type="color" id="colors" name="color" />
-
-    제목 : <input type="text" id="title" name="meetTitle" />
-
-    멤버십 코드 :
-    <input
-      type="text"
-      id="code"
-      name="membershipCode"
-      value="${membershipCode}"
-    />
-
-    시작 날짜 : <input type="date" id="start" name="meetDateStart" />
-
-    종료 날짜 : <input type="date" id="end" name="meetDateEnd" />
-
+   <jsp:include page="../header/headerMemberShip.jsp" />
+   <div id="box">
+   <div id="container">
+   <div id="input-box">
+   <div id="input-left">
+   <h1>모임 게시판 글 작성</h1>
+  <input type="text" id="title" name="meetTitle" placeholder="제목을 입력해 주세요." autofocus="autofocus" />
+    </div>
+    <div id="input-right">
+    <h2>달력 색상 선택 : </h2><input type="color" id="colors" name="color" />  
+    <h2>시작 날짜 : </h2><input class="day" type="date" id="start" name="meetDateStart" />
+    <h2>종료 날짜 : </h2><input class="day" type="date" id="end" name="meetDateEnd" />
+    <input  type="hidden" id="code" name="membershipCode" value="${membershipCode}" />
+	</div>
+	</div>
     <textarea id="editor" name="editor"></textarea>
 
     <!-- 제출 버튼 -->
-    <button id="submitButton">제출</button>
+    <div id="button-box">
+     <button class="button" id="submitButton">제출</button>
+    <a class="button" id="back-button" href="/club/${memInfo.membershipCode}">뒤로가기</a>
+   
+    </div>
+     </div>
+   </div>
+    <jsp:include page="../footer/footer.jsp" />
 
     <!-- Jodit JS 라이브러리 -->
     <script src="https://cdn.jsdelivr.net/npm/jodit@3.6.9/build/jodit.min.js"></script>

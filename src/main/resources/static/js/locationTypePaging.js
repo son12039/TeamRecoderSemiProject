@@ -52,7 +52,8 @@ window.addEventListener("scroll", () => {
             "/" +
             club.membershipMax +
             "</h3>" +
-            '<div id="host">';
+			'<a href="/userInfo/'+club.nickname+'">' + // ddddddddd
+            '<div class="host">';
           if (club.memberImg != null) {
             ajaxLocationType +=
               '<img class="user-img" src="http://192.168.10.51:8081/member/' +
@@ -73,6 +74,7 @@ window.addEventListener("scroll", () => {
             '">' +
             "<br>" +
             "</div>" +
+			'</a>'+
             '<div class="locationTypeBox">' +
             '<div class="location">';
           for (let location of club.locations) {

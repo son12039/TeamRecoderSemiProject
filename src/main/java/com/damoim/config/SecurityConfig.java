@@ -25,17 +25,13 @@ public class SecurityConfig {
 						.loginProcessingUrl("/login") // 로그인할 때 POST 요청 -> 로그인 요청!
 						.defaultSuccessUrl("/", true) // 로그인 성공했을때
 						.failureUrl("/loginFail")
-
-						// .defaultSuccessUrl("/loginPage", false)
-						// .failureUrl("/loginPage")
-						// .failureHandler(new DomainFailureHandler()) // 로그인 실패했을때 에러 처리
 						.permitAll()// 로그인 성공 했을때 /로 가겠다
 				).logout(logout -> logout.logoutUrl("/logout") // 로그아웃 요청 URL
 						.logoutSuccessUrl("/") // 로그아웃 성공했을때
 						.permitAll())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)) // 세션방식으로하겠다
 				.authorizeHttpRequests(authorize -> authorize
-						.requestMatchers("/websocket/**", "/send/**", "/topic/**").permitAll()
+						.requestMatchers("/websocket/**", "/send/**", "/topic/**" ,"/ajax/**").permitAll()
 						// .requestMatchers("/like","/unlike").authenticated() // 권한이 ROLE_ADMIN인 경우만
 						// 접근이 가능
 						.anyRequest().permitAll())

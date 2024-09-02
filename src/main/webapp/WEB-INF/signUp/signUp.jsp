@@ -30,7 +30,7 @@
 
 
 
-						<input type="text" id="id" name="id" required
+						<input type="text" id="id" name="id" 
 							placeholder="아이디를 입력하세요" autofocus />
 
 

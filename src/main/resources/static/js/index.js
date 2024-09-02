@@ -15,16 +15,14 @@ setTimeout(function(){
 
 $(".text_event4").css({opacity : "0"});
 setTimeout(function(){
-	$(".text_event4").animate({ opacity: 0.8 }, 1000);
+	$(".text_event4").animate({ opacity: 0.7 }, 1000);
 },4000);
 
 window.addEventListener("scroll", () => {	
-	$(".main_header").css({
-		transition: "background-color 1s ease"
-	});
+	
 	//#14213d
-	if (1700 <= window.innerHeight + window.scrollY) {
-		$(".main_header").css({ backgroundColor: "white" })
+	if (1765 <= window.innerHeight + window.scrollY) {
+		$(".main_header").css({ backgroundColor: "#ADD8E6" })
 	} else {
 		$(".main_header").css({ backgroundColor: "" })
 	}

@@ -257,7 +257,7 @@
 						placeholder="댓글을 입력하세요"  > <input type="hidden" name="id"
 						value="${member.id}"> <input type="hidden"
 						name="membershipCode" value="${main.membership.membershipCode}">
-					<button id="submit-comment" type="button" class="btn">댓글 등록</button>
+					<button class="btn" id="submit-comment" type="button">댓글 등록</button>
 				</div>
 			</form>
 		</sec:authorize>

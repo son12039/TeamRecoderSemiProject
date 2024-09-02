@@ -181,7 +181,6 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 		
 		
 		<c:forEach items="${list}" var="list" >
-
 	<sec:authorize access="isAuthenticated()" var="principal">
 <sec:authentication property="principal" var="member" />
 <c:if test="${member.nickname == list.member.nickname}">
@@ -273,7 +272,7 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 						placeholder="댓글을 입력하세요"  > <input type="hidden" name="id"
 						value="${member.id}"> <input type="hidden"
 						name="meetCode" value="${meet.meetCode}">
-					<button id="submit-comment" type="button">댓글 등록</button>
+					<button class="btn" id="submit-comment" type="button">댓글 등록</button>
 				</div>
 			</form>
 		</sec:authorize>
@@ -309,7 +308,7 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 						<div class="comment-text">${com.meetCommentText}</div>
 						<c:if
 							test="${com.nickname == member.nickname || memberGrade == 'host' || memberGrade == 'admin'}">
-							<button type="button"
+							<button type="button" class="btn"
 								onclick="deleteComment(event, ${com.meetCommentCode})">삭제</button>
 						</c:if>
 						<c:if test="${com.nickname == member.nickname}">
@@ -335,7 +334,7 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 										</div>
 										<input id="textbox-update-${com.meetCommentCode}" type="text"
 											name="meetCommentText" value="${com.meetCommentText}" onclick="updateKey(${com.meetCommentCode})">
-										<button type="button"
+										<button type="button" class="btn"
 											onclick="updateComment(event,${com.meetCommentCode})">댓글
 											수정</button>
 									</div>
@@ -372,7 +371,7 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 									<div class="comment-text">${recom.meetCommentText}</div>
 									<c:if
 										test="${recom.nickname == member.nickname || memberGrade == 'host' || memberGrade == 'admin'}">
-										<button type="button"
+										<button type="button" class="btn"
 											onclick="deleteComment(event, ${recom.meetCommentCode})">삭제</button>
 									</c:if>
 									<c:if test="${recom.nickname == member.nickname}">
@@ -387,7 +386,7 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 														id="textbox-update-${recom.meetCommentCode}" type="text"
 														name="mainCommentText" value="${recom.meetCommentText}"
 														onclick="updateKey(${recom.meetCommentCode})">
-													<button type="button"
+													<button type="button" class="btn"
 														onclick="updateComment(event,${recom.meetCommentCode})">댓글
 														수정</button>
 												</div>

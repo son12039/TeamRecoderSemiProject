@@ -55,6 +55,7 @@
          
                 
                         <ul> 
+                        <a href="/userInfo/${listMember.member.nickname}">
                         <c:if test="${listMember.listGrade == 'host'}">
                             <li class="member-grade"><span><i class="fa-solid fa-crown"></i></span></li>
                             </c:if>
@@ -117,6 +118,7 @@
                          
                         </div>
                           </div>
+                          </a>
                         </ul>
              
             </div>
@@ -202,15 +204,12 @@
 					<li><a href="/updateMembership" class="dropdown-item">정보 수정하기</a></li>
 					<li><a href="/write?membershipCode=${main.membership.membershipCode}" class="dropdown-item">모임게시판작성하러가기</a></li>				
 					<li><a id="management"  class="dropdown-item" href="/management?membershipCode=${main.membership.membershipCode}"   > 멤버관리페이지 </a></li>
-					
+					<li><a class="dropdown-item" href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a></li>
 				</ul>
 			</div>
 
 		
-			<div>
-					<a
-						href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a>
-				</div>
+		
 			
 			</div>
 			

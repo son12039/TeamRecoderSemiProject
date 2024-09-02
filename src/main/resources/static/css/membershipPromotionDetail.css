@@ -1,8 +1,19 @@
-#con{
-  		padding: 100px;
-  		margin: 100px;
+#box{
+  		padding-top: 100px;
+  		background-color: #e5e5e5;
+  		height: 100%;
 }
-
+#container{
+	padding: 30px 195px;
+	
+	
+}
+#container > h1{
+	font-size: 2rem;
+	font-family: "Jua", sans-serif;
+	margin-bottom: 10px;
+	
+}
 #button-box{
 	padding-top: 10px;
 	display: flex;
@@ -13,13 +24,14 @@
   color: #fff;
   border: none;
   font-size : 1.2rem;
-  padding: 15px 30px;
+  padding: 8px 15px;
   text-transform: uppercase;
-  font-weight: bold;
+  
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s ease;
   margin-left: 10px;
+  font-family: "Jua", sans-serif;
 }
 .button:hover {
   background-color: #e76f00;

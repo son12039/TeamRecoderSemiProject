@@ -15,6 +15,8 @@
 		<result property="membershipDate" column="membership_date" />
 		<result property="membershipGrade" column="membership_grade" />
 		<result property="membershipMax" column="membership_max" />
+		<result property="membershipSimpleText" column="membership_simple_text" />
+		<result property="membershipAccessionText" column="membership_accession_text"/>
 	</resultMap>
 
 	<resultMap type="MembershipUserList" id="listMap">
@@ -41,6 +43,8 @@
 			<result column="Mebership_date" property="membershipDate" />
 			<result column="Membership_grade" property="membershipGrade" />
 			<result column="Membership_max" property="membershipMax" />
+			<result property="membershipSimpleText" column="membership_simple_text" />
+		<result property="membershipAccessionText" column="membership_accession_text"/>
 		</association>
 	</resultMap>
 

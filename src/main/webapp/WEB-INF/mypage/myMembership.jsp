@@ -75,7 +75,7 @@
      <div><img  class="membership-img" src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"></div>
      <div class="membership-String">
      <div><p>${mem.membership.membershipName} </p></div>
-     <div><p>${mem.membership.membershipInfo}</p></div>
+     <div><p>${mem.membership.membershipSimpleText}</p></div>
      </div>
     </div>
 
@@ -102,7 +102,7 @@
      <div><img  class="membership-img" src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"></div>
      <div class="membership-String">
      <div><p>${mem.membership.membershipName} </p></div>
-     <div><p>${mem.membership.membershipInfo}</p></div>
+     <div><p>${mem.membership.membershipSimpleText}</p></div>
      </div>
     </div>
     </a>
@@ -128,7 +128,7 @@
      <div><img  class="membership-img" src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"></div>
      <div class="membership-String">
      <div><p>${mem.membership.membershipName} </p></div>
-     <div><p>${mem.membership.membershipInfo}</p></div>
+     <div><p>${mem.membership.membershipSimpleText}</p></div>
      </div>
     </div>
     </a>

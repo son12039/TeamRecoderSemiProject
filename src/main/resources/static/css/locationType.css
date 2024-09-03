@@ -110,6 +110,7 @@
 	height: 190px;
 	border-radius: 7px;
 	padding: 7px;
+	
 }
 .locationTypeCss{
 	cursor: pointer;
@@ -142,9 +143,10 @@
 #typeStickyBox{
   position: sticky;
   top: 80px;
-  background-color: white;
+  background-color: #ffe5e5;
   width: 100%;
   height: auto;
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 /*중단 TypeLa 이벤트 놈들*/
@@ -162,7 +164,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color : #343a40;
+	color : #2c2c2c;
 }
 .typeLaNameLabel{
 	padding :5px 5px; 
@@ -191,7 +193,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: #ADD8E6;
+	background-color: white;
 	font-weight: bold;
 	font-size: 18px;
 	width: 100%;

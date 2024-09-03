@@ -123,7 +123,6 @@
 					<a href="/userInfo/${info.nickname}">
 						<div class="host">
 							<c:choose>
-
 								<c:when test="${info.memberImg != null}">
 									<img class="user-img"
 										src="http://192.168.10.51:8081/member/${info.id}/${info.memberImg}">

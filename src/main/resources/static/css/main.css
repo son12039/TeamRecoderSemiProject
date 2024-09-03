@@ -1,5 +1,5 @@
 body {
-  font-family: "Arial", sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   line-height: 1.6;
   background-color: #ffff;
 }
@@ -12,9 +12,8 @@ body {
 #container {
   width: 100%;
   max-width: 1280px;
-  /*08-29 채승훈 마진겹칩현상? 때문에 20px 뺌*/
   margin: auto;
-  background: honeydew;
+  background: #ffe8cf;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -28,28 +27,28 @@ body {
 #container-top {
   display: flex;
   flex-direction: column;
-  background-color: #fefefe;
+  background-color: #d3c5b4;
   border-radius: 16px;
   align-items: center;
   position: relative;
   bottom: 60px;
   width: 90%;
-  padding: 10px;
+  box-shadow: 0px 2px 4px #704708;
+  font-weight: bold;
 }
 #hostImg {
   position: relative;
-  bottom: 55px;
+  bottom: 40px;
 }
 
 #hostName {
   position: relative;
-  bottom: 55px;
+  bottom: 40px;
 }
 #membershipTitle {
   position: relative;
-  bottom: 35px;
+  bottom: 25px;
 }
-
 #membershipTitle > h1 {
   font-weight: bold;
   font-size: 1.5rem;
@@ -78,21 +77,36 @@ body {
   height: 50px;
   
 }
-.locationTypeBox {
-  font-size: 12px;
-  width: 200px;
+.locTyBox {
+	font-size: 15px;
+  width: 600px;
+  padding: 20px;
 }
+.locTyBox p{
+	padding-top:20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.location{
+	text-align: center;
+}
+
 .type {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
+
 .typeList {
-  background-color: white;
-  width: fit-content; /*글자크기에 맞게 width값 주기*/
-  border: 1px solid grey;
-  padding: 2.5px 5px;
-  border-radius: 15px;
-  margin: 1px;
+	background-color: white;
+	width: fit-content; /*글자크기에 맞게 width값 주기*/
+	padding: 2.5px 5px;
+	border-radius: 5px;
+	margin: 2px;
+	color: #666060;
 }
 .typeText {
   padding: 1px;
@@ -153,10 +167,10 @@ input[type="submit"]:hover {
 }
 
 div[id^="comment-box"] {
-	text-wrap: nowrap;
-	border: 1px solid #fca311;
-    border-radius: 10px;
-    max-width: 1280px;
+text-wrap: nowrap;
+border: 1px solid #fca311;
+   border-radius: 10px;
+   max-width: 1280px;
   width: 100%;
   height: 100px;
   display: flex;
@@ -228,10 +242,10 @@ button > img {
 .prof {
   display: flex;
   align-items: center;
+  flex-flow: column-reverse;
 }
 .prof img {
   margin: 0;
-  margin-left: 10px;
 }
 #textbox > button {
   height: 50%;
@@ -283,12 +297,6 @@ button > img {
 #imageContainer {
   margin-top: 20px;
 }
-
-.locTyBox {
-  width: 100%;
-  padding: 20px;
-}
-
 #asd {
   text-align: center;
   padding: 5px;

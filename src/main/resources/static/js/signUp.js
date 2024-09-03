@@ -11,12 +11,15 @@ function showPage(pageId) { // 회원가입 페이지 이동
 }
 const idRegExp = /^[a-zA-z][a-zA-Z0-9]{7,13}$/;
 const pwdRegExp = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,15}$/;
+const emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/;
 
 let idSubmit = false;
 let pwdSubmit = false;
 let pwdcSubmit = false;
 let nicknameSubmit = false;
+let emailSubmit = false;
 let ageSubmit = false;
+let nameSubmit = false;
 
 id.addEventListener('input', function() { // 아이디 체크
   const idValue = $(this).val().trim();
@@ -72,6 +75,7 @@ pwdc.addEventListener('input', function() { // 비밀번호확인 체크
       
     } 
  });
+ let nick = "";
 nickname.addEventListener('input', function() { // 닉네임 체크
   const nicknameValue = $(this).val().trim();
   
@@ -87,11 +91,40 @@ nickname.addEventListener('input', function() { // 닉네임 체크
         if (result) { // 서버 응답을 'true' 또는 'false'로 가정
 			console.log(result);
           $('#nicknameResult').text(" 사용 가능한 닉네임 입니다").css('color', 'green');
+		  nick = nicknameValue;
           nicknameSubmit = true;
         } else {
 			console.log(result);
           $('#nicknameResult').text(" 중복 닉네임 입니다").css('color', 'red');
           nicknameSubmit = false;
+        }
+      }
+    });
+  }
+});
+email.addEventListener('input', function() { // 닉네임 체크
+  const emailValue = $(this).val().trim();
+  
+  if (emailValue === '') {
+    $('#emailResult').text(" 필수 입력사항입니다").css('color', 'red');
+    emailSubmit = false;
+  }	else if (!emailRegExp.test(emailValue)) {
+	    $('#emailResult').text("이메일 형식에 맞춰야 합니다.").css('color', 'red');
+	    emailSubmit = false;
+	}else {
+    $.ajax({
+      type: 'POST',
+      url: '/emailCheck', // 컨트롤러 URL
+      data: { email: emailValue },
+      success: function(result) {
+        if (result) { // 서버 응답을 'true' 또는 'false'로 가정
+			console.log(result);
+          $('#emailResult').text(" 사용 가능한 이메일 입니다").css('color', 'green');
+          emailSubmit = true;
+        } else {
+			console.log(result);
+          $('#emailResult').text(" 중복 이메일 입니다").css('color', 'red');
+          emailSubmit = false;
         }
       }
     });
@@ -103,21 +136,25 @@ age.addEventListener('input', function() { // 나이체크
   
   if (ageValue === '' || isNaN(Number(ageValue)) || Number(ageValue) <= 0) {
 	ageSubmit = false;
-	$('#ageResult').text(" 올바른 나이를 입력해주십시오.").css('color', 'green');
+	$('#ageResult').text(" 올바른 나이를 입력해주십시오.").css('color', 'red');
   } else{
-	$('#ageResult').text("");
+	$('#ageResult').text("").css('color', 'green');
 	ageSubmit = true;
   }
 });
-// 버튼색 변경
-function updateSubmitButtonState() {
-    const submitButton = document.getElementById('singUp');
-    if (idSubmit && pwdSubmit && pwdcSubmit && ageSubmit && nicknameSubmit) {
-        submitButton.classList.add('button-enabled');
-    } else {
-        submitButton.classList.remove('button-enabled');
-    }
-}
+// 이름
+const nameInput = document.getElementById('name');
+nameInput.addEventListener('input', function() { // 이름 확인
+  const nameValue = $(this).val().trim();
+  
+  if (nameValue === '') {
+	nameSubmit = false;
+	$('#nameResult').text("이름을 입력해 주십시오.").css('color', 'red');
+  } else{
+	$('#nameResult').text("");
+	nameSubmit = true;
+  }
+});
 
 function validate() {
 	if(!idSubmit)id.focus();
@@ -128,11 +165,26 @@ function validate() {
 	
 	else if(!ageSubmit)age.focus();
 	
+	else if(!nameSubmit)nameInput.focus();
+	
 	else if(!nicknameSubmit)nickname.focus();
 	
-	if(!(idSubmit && pwdSubmit && pwdcSubmit && ageSubmit && nicknameSubmit)){
+	else if(!emailSubmit)email.focus();
+	
+	if(!(idSubmit && pwdSubmit && pwdcSubmit && ageSubmit && nicknameSubmit&& emailSubmit && nameSubmit)){
+		console.log("아이디 : " + idSubmit);
+		console.log("비밀번호 : " + pwdSubmit);
+		console.log("비밀번호확인 : " + pwdcSubmit);
+		console.log("나이 : " + ageSubmit);
+		console.log("닉네임 : " + nicknameSubmit);
+		console.log("이메일 : " + emailSubmit);
+		console.log("이름 : " + nameSubmit);
 		alert("!! 다시 확인해주십시오!!");
 	}
+	if((idSubmit && pwdSubmit && pwdcSubmit && ageSubmit && nicknameSubmit&& emailSubmit && nameSubmit)){
+
+		alert(nick +"님 환영합니다!");
+	}
 	
-	return idSubmit && pwdSubmit && pwdcSubmit && ageSubmit && nicknameSubmit;
+	return idSubmit && pwdSubmit && pwdcSubmit && ageSubmit && nicknameSubmit && emailSubmit &&nameSubmit;
 }

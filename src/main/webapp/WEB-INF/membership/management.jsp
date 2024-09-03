@@ -29,6 +29,7 @@ justify-content: center;
 align-items:center;
 padding-top: 100px;
 width: 100%;
+height: 100%;
 }
 .box-container{
 	width: 100%;

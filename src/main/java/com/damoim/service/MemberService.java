@@ -61,6 +61,10 @@ public class MemberService implements UserDetailsService {
 
 	}
 
+	public Member emailCheck(Member member) {
+		return mapper.emailCheck(member);
+	}
+
 	public Member pwdCheck(Member member) {
 
 		return mapper.pwdCheck(member);
@@ -108,6 +112,10 @@ public class MemberService implements UserDetailsService {
 	// 이미지 선택
 	public Member selectMember(String string) {
 		return mapper.selectMember(string);
+	}
+	
+	public String findMemberId(Member member) {
+		return mapper.findMemberId(member).getId();
 	}
 
 	// 회원탈퇴 서비스 ==================================================

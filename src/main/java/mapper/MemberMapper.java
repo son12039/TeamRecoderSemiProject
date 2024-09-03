@@ -31,6 +31,7 @@ public interface MemberMapper {
 	
 	Member idCheck(Member member);
 	Member nicknameCheck(Member member);
+	Member emailCheck(Member member);
 	Member pwdCheck(Member member);	
 	Member memberInfo(Member member);
 	String grade(Member member);
@@ -52,7 +53,7 @@ public interface MemberMapper {
 	void memberActBlock(MemberInfoDTO dto);
 	Member membershipSelect(Member member);
 	
-	
+	Member findMemberId(Member member);
 	// id 이메일 맞나 체크 =============================
 	Member memberEmailIdcheck(Member member);
 	

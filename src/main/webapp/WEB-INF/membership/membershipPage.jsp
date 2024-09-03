@@ -44,7 +44,7 @@
 						<div class="accordion-body">
 						
 					    <c:forEach items="${allMember}" var="listMember">
-					  
+					   
             <div class="memberTable">
                         <ul>
                         <div class="member-img-icon-nickname-manner">

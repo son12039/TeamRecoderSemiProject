@@ -121,9 +121,14 @@ public class PageController {
 	  * 아이디 찾기 미구현
 	  * 비밀번호는 이메일로 임시비밀번호 발송
 	  * */
-	 @GetMapping("/findMember")
-	 public String findMember() {
-	 	return "login/findMember";
+	 @GetMapping("/findPassword")
+	 public String findPassword() {
+	 	return "login/findPassword";
+	 }
+	 
+	 @GetMapping("/findId")
+	 public String findId() {
+	 	return "login/findId";
 	 }
 	 
   // 카카오맵 이동

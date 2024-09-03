@@ -8,8 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 
 import com.damoim.model.dto.MemberListDTO;
@@ -23,9 +22,9 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class PageController {
 	
-	@Autowired
-	private MembershipService service;
 
+	@Autowired
+	private MembershipService infoService; // 맴버쉽 서비스
 	/*
 	 * 성일
 	 * 인덱스에 현재 호스트가 존재하는 모든 클럽들 모두 출력
@@ -43,13 +42,27 @@ public class PageController {
 	}
 
 	
+	/*
+	 * 성철 내가 가입한 클럽을 가입된, 관리자or호스트, 가입대기중 클럽 조회가능한 페이지이동
+	 */
+	
     // 기본 정보 수정
-	@GetMapping("/update")
-	public String mypage(Model model, Member member) {
+	@GetMapping("/mypage")
+	public String mypage(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member mem = (Member) authentication.getPrincipal();
-		ArrayList<MembershipUserList> membershipList = service.selectName(mem.getId());
+		Member member = (Member) authentication.getPrincipal();
+		ArrayList<MembershipUserList> membershipList = infoService.selectName(member.getId());
 		model.addAttribute("list", membershipList);
+		
+		List<MembershipUserList> list = new ArrayList<MembershipUserList>();
+		for (MemberListDTO m : member.getMemberListDTO()) {
+			list.add((MembershipUserList) infoService.main(m.getMembershipCode()));
+		}
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i).setCount(list.get(i).getListCode());
+		}
+		// 내 등급별 클럽
+		model.addAttribute("membership", list);
 		return "mypage/mypage";
 	}
 	
@@ -64,6 +77,12 @@ public class PageController {
 	public String updateCheck() {
 		return "mypage/updateCheck";
 	}
+	// 회원탈퇴 비밀번호 체크
+	@GetMapping("/resignPage")
+	public String resignPage() {
+		return "mypage/resignPage";
+	}
+	
 	
 	// 중요 회원정보 수정
 	@GetMapping("/updateMemberInfo")
@@ -83,7 +102,7 @@ public class PageController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
 		System.out.println("memberDelete : " + mem);
-		ArrayList<MembershipUserList> membershipList = service.selectName(mem.getId());
+		ArrayList<MembershipUserList> membershipList = infoService.selectName(mem.getId());
 		model.addAttribute("list", membershipList);
 		return "mypage/memberDelete";
 	}

@@ -24,13 +24,12 @@
 <body>
 	<div class="main_header">
 		<div class="main_header_body">
-		<!-- 
+		
 			<div class="main_header_left">
 				<a  href="/">공지사항</a>
 				<a  href="/">이벤트</a>
-			</div>		
-		 -->
-
+				<a href="/loginPage">로그인</a>
+			</div>
 			<div class="main_header_center">
 				<a href="/" class="main_header_center_text">DAMOIM</a>
 			</div>
@@ -57,7 +56,6 @@
 							</div>
 							<div class="main_header_right_menu">
 								<a href="/mypage">마이페이지</a> 
-								<a href="/myMembership">나의모임</a> 
 								<a href="/logout">로그아웃</a>
 							</div>
 					</sec:authorize>

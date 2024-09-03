@@ -9,15 +9,22 @@ FROM membership_location;
 SELECT *
 FROM location_category;
 
+select * 
+from membership_meetings;
 SELECT id, member_manner, last_recommendation_time
 FROM member
 WHERE id IN('user010', 'user006');
 UPDATE member 
 	SET member_manner = member_manner - 0.5
 	WHERE id = user006;
+    
+    SELECT * FROM meetings_comment
+    JOIN member USING(id)
+    WHERE id = 'user010';
 	
 select *
-from member ;
+from member 
+where id = 'user099';
 /*
 select * 
 from meetings_agree

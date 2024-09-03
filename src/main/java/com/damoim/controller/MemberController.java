@@ -8,7 +8,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,17 +28,20 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.dto.MemberUserDTO;
 import com.damoim.model.dto.RecommendationDTO;
-import com.damoim.model.dto.ResignedDTO;
 import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
+import com.damoim.model.vo.UserInfoPaging;
 import com.damoim.service.EmailService;
 import com.damoim.service.MainCommentService;
 import com.damoim.service.MemberService;
 import com.damoim.service.MembershipService;
+import com.damoim.service.RemoveMemberCommentService;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -44,7 +49,7 @@ import lombok.Builder;
 
 @Controller
 public class MemberController {
-
+	
 	@Autowired
 	private MemberService service; // 맴버 서비스
 
@@ -53,9 +58,11 @@ public class MemberController {
 
 	@Autowired
 	private EmailService emailService; // 이메일 서비스
-
+	
 	@Autowired
-	private MainCommentService commentService; // 댓글 서비스
+	private RemoveMemberCommentService removeService;
+
+
 	/*
 	 * 성일 로그인 시큐리티 처리
 	 */
@@ -114,46 +121,10 @@ public class MemberController {
 	}
 
 	/*
-	 * 성철 내가 가입한 클럽을 가입된, 관리자or호스트, 가입대기중 클럽 조회가능한 페이지이동
-	 */
-	@GetMapping("/myMembership") // 내가 가입한 클럽확인
-	public String myMembership(Model model) {
-
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member member = (Member) authentication.getPrincipal();
-
-		List<MembershipUserList> list = new ArrayList<MembershipUserList>();
-		for (MemberListDTO m : member.getMemberListDTO()) {
-			list.add((MembershipUserList) infoService.main(m.getMembershipCode()));
-		}
-		for (int i = 0; i < list.size(); i++) {
-			list.get(i).setCount(list.get(i).getListCode());
-		}
-
-		// 내 등급별 클럽
-		model.addAttribute("membership", list);
-
-		return "mypage/myMembership";
-	}
-
-	// (동문) 비밀번호 확인후 update 페이지 이동
-	@ResponseBody
-	@PostMapping("/updateCheck")
-	public boolean updateCheck(String pwdCheck) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member mem = (Member) authentication.getPrincipal();
-
-		boolean check = service.updateCheck(mem, pwdCheck);
-		System.out.println("체크 확인" + check);
-		return check;
-
-	}
-
-	/*
 	 * 성철 로그인 X 한 상태에서 유저에게 ID랑 이메일 정보를 받아서 일치할시에 그 유저가 가입할때 넣은 이메일주소에 임시 비밀번호 발송 ->
 	 * 암호화 -> DB변경 (이메일서비스)
 	 */
-	
+
 	@ResponseBody
 	@PostMapping("/updateMemberInfo")
 	public boolean updateMemberInfo(Member vo, Model model, String addrDetail, String nickname) {
@@ -191,30 +162,59 @@ public class MemberController {
 		return true;
 	}
 
-	// 회원 탈퇴
+	// 비밀번호 체크
+	private boolean checkPassword(Member member, String pwdCheck) {
+		return service.updateCheck(member, pwdCheck);
+	}
+
+	// 회원정보 수정 비밀번호 체크
 	@ResponseBody
-	@PostMapping("/memberStatus")
-	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response, MainComment mainComment) {
+	@PostMapping("/updateCheck")
+	public boolean updateCheck(String pwdCheck) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		ArrayList<MembershipUserList> membershipList = infoService.selectName(mem.getId());
-
-		// membershipList <- 해당 탈퇴하려는 유저가 가입되어있는 클럽 중에서 admin 이거나 host인 클럽 정보 를 담고있는 리스트
-		if (membershipList.size() > 0) { // 해당 유저가 가입된 클럽중 어드민이나 호스트인게 있다면!
-			return false;
-		}
-		mem.setStatus(false); // 멤버 status false
-
-
-		service.memberStatus(mem);
-		// 서비스 돌린거 바로 시큐리티 적용시킴
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		// logoutHandler 사용하면 시큐리티에서 만든 로그아웃 사용 가능
-		SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
-		logoutHandler.logout(request, response, authentication);
-		return true;
-		
+		boolean check = checkPassword(mem, pwdCheck);
+		return check;
 	}
+
+	// 회원탈퇴 비밀번호 체크
+	@ResponseBody
+	@PostMapping("/resignCheck")
+	public boolean resignCheck(String pwdCheck) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) authentication.getPrincipal();
+		boolean check = checkPassword(mem, pwdCheck);
+		return check;
+	}
+	
+	// 탈퇴 로직
+	@ResponseBody
+	@PostMapping("/memberStatus")
+	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response, Member member , String pwdCheck, MainComment mainComment) {
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    Member mem = (Member) authentication.getPrincipal();
+	    ArrayList<MembershipUserList> membershipList = infoService.selectName(mem.getId());
+
+	    if (membershipList.size() > 0) { // 해당 유저가 가입된 클럽 중 어드민이나 호스트인게 있다면!
+	        return false;
+	    }
+	    mem.setStatus(false); // 멤버 status false
+	    service.memberStatus(mem); // 멤버 상태 업데이트
+	    member.setId(mem.getId());
+	    removeService.deleteAllComment(mem.getId());
+	    System.out.println("에러 확인?");
+	    
+	    // membershipUserList 삭제
+	    
+	    // 로그아웃 처리
+	    SecurityContextHolder.getContext().setAuthentication(authentication);
+	    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+	    logoutHandler.logout(request, response, authentication);
+
+	    return true;
+	}
+
+
 
 	// 프로필, info 업데이트
 	@ResponseBody
@@ -231,65 +231,63 @@ public class MemberController {
 			mem.setMemberImg(url);
 			System.out.println("updateMember 삭제 : " + mem.getMemberImg() + mem.getId());
 		}
-		
+
 		mem.setMemberHobby(vo.getMemberHobby());
 		System.out.println("업데이트 MemberHobby : " + mem.getMemberHobby());
-		
+
 		mem.setMemberInfo(vo.getMemberInfo());
 		System.out.println("업데이트 MemberInfo : " + mem.getMemberInfo());
-		
+
 		service.updateMember(mem);
 		System.out.println("수정후 member 정보 : " + mem);
-		
+
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		return "redirect:/mypage";
 	}
+
 	/*
 	 * 닉네임값 받아서 해당유저의 상세페이지로 이동(그유저의 가입된 클럽 여부, 추천기능)
-	 * */
+	 */
 	@GetMapping("/userInfo/{nickname}")
 	public String getMethodName(@PathVariable("nickname") String nickname, Model model) {
 		Member member = service.nicknameCheck(new Member().builder().nickname(nickname).build());
-		
-		
-		MemberInfoDTO mem = new MemberInfoDTO().builder()
-					.member(member)
-					.memberMeetCount(infoService.meetCount(member.getId()))
-					.membershipUserList(infoService.selectMemberUserList(member.getId()))
-					.build();
-		
-		model.addAttribute("mem" ,mem);
+
+		MemberInfoDTO mem = new MemberInfoDTO().builder().member(member)
+				.memberMeetCount(infoService.meetCount(member.getId()))
+				.membershipUserList(infoService.selectMemberUserList(member.getId())).build();
+
+		model.addAttribute("mem", mem);
+
 		return "member/userInfo";
 	}
-	 
-   @ResponseBody
-   @PostMapping("/recommendation")
-   public boolean recommendation(String targetMember, String loginMember, boolean plusMinus){
-	   Member m1 = new Member().builder().id(targetMember).build();
-	   Member m2 = new Member().builder().id(loginMember).build();
-	   RecommendationDTO dto = new RecommendationDTO(service.idCheck(m1), service.idCheck(m2), plusMinus);
-	   // 추천 성공, 실패 여부 블리언으로 반환
-	   boolean check  = service.memberManner(dto);
-	   if(check) { 
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member mem = (Member) authentication.getPrincipal();
-		mem.setLastRecommendationTime(service.idCheck(m2).getLastRecommendationTime());	
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-	   }
-	   return check;
-   }
 
+	@ResponseBody
+	@PostMapping("/recommendation")
+	public boolean recommendation(String targetMember, String loginMember, boolean plusMinus) {
+		Member m1 = new Member().builder().id(targetMember).build();
+		Member m2 = new Member().builder().id(loginMember).build();
+		RecommendationDTO dto = new RecommendationDTO(service.idCheck(m1), service.idCheck(m2), plusMinus);
+		// 추천 성공, 실패 여부 블리언으로 반환
+		boolean check = service.memberManner(dto);
+		if (check) {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			Member mem = (Member) authentication.getPrincipal();
+			mem.setLastRecommendationTime(service.idCheck(m2).getLastRecommendationTime());
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+		}
+		return check;
+	}
 
-	/* 성철
-	 * 파일 업로드 각각 mamber의 id 폴더에 저장후 URL 리턴
-	 * */
-	public String fileUpload(MultipartFile file,String id) throws IllegalStateException, IOException {
-		if(file.getOriginalFilename() == "") {
+	/*
+	 * 성철 파일 업로드 각각 mamber의 id 폴더에 저장후 URL 리턴
+	 */
+	public String fileUpload(MultipartFile file, String id) throws IllegalStateException, IOException {
+		if (file.getOriginalFilename() == "") {
 			System.out.println("NULL 리턴");
 			return null;
 		}
-
+		
 		UUID uuid = UUID.randomUUID(); // 랜덤 파일명 부여
 		String fileName = uuid.toString() + "_" + file.getOriginalFilename();
 		File copyFile = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + fileName);

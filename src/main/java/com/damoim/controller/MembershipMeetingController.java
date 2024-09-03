@@ -171,7 +171,7 @@ public class MembershipMeetingController {
 	  
 	
 			
-		return "membershipMeeting/meetingDetail2";
+		return "membershipMeeting/meetingDetail";
 	}
 	
 	@ResponseBody
@@ -180,7 +180,7 @@ public class MembershipMeetingController {
 		System.out.println("참가 컨트롤러 접속 ");
 		service.participation(ma);
 		
-		return "redirect:/meetingDetail2";
+		return "redirect:/meetingDetail";
 	}
 		
 	

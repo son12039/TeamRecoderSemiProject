@@ -23,7 +23,18 @@ body {
   margin:0px;
   background: #f5f5f5
 }
-
+.box{
+display: flex;
+justify-content: center;
+align-items:center;
+padding-top: 100px;
+width: 100%;
+height: 100%;
+}
+.box-container{
+	width: 100%;
+	max-width: 1280px;
+}
 table {
   border: 1px #a39485 solid;
   font-size: .9em;
@@ -58,10 +69,10 @@ a {
   color: #73685d;
 }
   
- @media all and (max-width: 768px) {
+ @media all and (max-width: 1280px) {
     
   table, thead, tbody, th, td, tr {
-    display: block;
+    display: flex;
   }
   
   th {
@@ -69,7 +80,7 @@ a {
   }
   
   table {
-    position: relative; 
+   
     padding-bottom: 0;
     border: none;
     box-shadow: 0 0 10px rgba(0,0,0,.2);
@@ -118,13 +129,13 @@ margin-left: 5px;
 </style>
 
 <body>
- 
+ <jsp:include page="../header/header.jsp"></jsp:include>
 <sec:authorize access="isAuthenticated()" var="principal">
 <sec:authentication property="principal" var="member" />
     
     <c:if test="${member.id == host.member.id }">
-    <p>로그인한 사람 ${member.id}</p>
-    <p>여기의 호스트 ${host.member.id}</p>
+<div class="box">
+<div class="box-container">
     <table>
     <thead>
     <tr>
@@ -233,7 +244,8 @@ margin-left: 5px;
    
     </tbody>
 </table>
-
+</div>
+</div>
 
 
 
@@ -249,8 +261,8 @@ margin-left: 5px;
 <sec:authentication property="principal" var="member" />
     
     <c:if test="${ fn:contains(adminList, member.id)}">
-    <p>로그인한 사람 ${member.id}</p>
-    <p>여기의 호스트 ${host.member.id}</p>
+<div class="box">
+<div class="box-container">
     <table>
     <thead>
     <tr>
@@ -322,6 +334,8 @@ margin-left: 5px;
    
     </tbody>
 </table>
+</div>
+</div>
 
 
 
@@ -331,6 +345,7 @@ margin-left: 5px;
 
 
 </c:if>
+<jsp:include page="../footer/footer.jsp" />
 </sec:authorize>
 
 

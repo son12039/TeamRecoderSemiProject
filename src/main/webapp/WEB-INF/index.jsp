@@ -164,7 +164,6 @@
 	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
-	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
 
 

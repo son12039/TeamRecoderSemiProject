@@ -5,7 +5,9 @@ body {
   margin: 0;
   padding: 0;
 }
-
+#box{
+	padding-top: 100px;
+}
 main {
 padding : 20px;
   display: flex;
@@ -24,6 +26,9 @@ padding : 20px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+}
+#focus{
+	margin-bottom: 5px;
 }
 
 /* 페이지 스타일 */

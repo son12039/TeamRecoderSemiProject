@@ -28,40 +28,39 @@
 			<div class="form-group">
 				<form action="/updateMemberInfo" method="post" id="form">
 					<div class="form-group">
-						<h2>닉네임</h2>
+						<label for="nickname"><span style="color: red">*</span>닉네임 <span class="result" id="nicknameResult"></span></label>
 						<input type="text" id="nickname" name="nickname"
-							placeholder="nickname" value="${member.nickname}" /> <span
-							id="nicknameCheck"></span>
+							placeholder="닉네임을 입력하십시오" value="${member.nickname}" /> 
 					</div>
 					<div class="form-group">
-						<h2>비밀번호</h2>
-						<input type="password" id="pwd" name="pwd" placeholder="pwd"
-							required /> <span id="pwdCheck"></span>
+						<label for="pwd"><span style="color: red">*</span> 비밀번호 <span class="result" id="pwdResult"></span></label>
+						<input type="password" id="pwd" name="pwd" placeholder="비밀번호를 입력하십시오."
+						 /> 
 					</div>
 					<div class="form-group">
-						<h2>비밀번호 확인</h2>
-						<input type="password" id="pwdConfirmCheck" placeholder="pwd"
-							required /> <span id="pwdConfirm"></span>
+						<label for="pwdc"><span style="color: red">*</span> 비밀번호 <span class="result" id="pwdcResult"></span></label>
+						<input type="password" id="pwdc" placeholder="위와 같은 비밀번호를 입력하십시오."
+						 /> 
 					</div>
 					<div class="form-group">
-						<h2>이름</h2>
-						<input type="text" id="name" name="name" placeholder="name"
-							value="${member.name}" required /> <span id="nameCheck"></span>
+						<label for="name"><span style="color: red">*</span>이름<span class="result" id="nameResult"></span></label>
+						<input type="text" id="name" name="name" placeholder="이름을 입력하십시오."
+							value="${member.name}" required /> 
 					</div>
 					<div class="form-group">
-						<h2>연락처</h2>
-						<input type="tel" id="phone" name="phone" placeholder="phone"
-							value="${member.phone}" required /> <span id="phoneCheck"></span>
+						<label for="phone">연락처</label>
+						<input type="text" id="phone" name="phone" placeholder="전화번호를 입력하십시오."
+							value="${member.phone}"  /> 
 					</div>
 					<div class="form-group">
-						<h2>주소</h2>
+						<label for="addr">연락처</label>
 						<div id="addrDetail-box">
 							<c:set var="addressParts" value="${fn:split(member.addr, '#')}" />
 							<c:choose>
 								<c:when test="${fn:length(addressParts) == 2}">
 									<div class="form-group">
 										<input type="text" id="sample5_address" name="addr"
-											value="${addressParts[0]}" placeholder="주소" required /> <input
+											value="${addressParts[0]}" placeholder="주소" /> <input
 											type="button" id="addr-btn"
 											onclick="sample5_execDaumPostcode()" value="주소 검색" /> <input
 											type="text" id="addrDetail" name="addrDetail"
@@ -72,14 +71,14 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<h2>이메일</h2>
-						<input type="email" id="email" name="email" placeholder="email"
-							value="${member.email}" required /> <span id="emailCheck"></span>
+						<label for="email"><span style="color: red">*</span>이메일 <span class="result" id="emailResult"></span></label>
+						<input type="text" id="email" name="email" placeholder="이메일을 입력해주십시오."
+							value="${member.email}"  /> 
 					</div>
 					<div class="form-group">
-						<h2>나이</h2>
-						<input type="text" id="age" name="age" placeholder="age"
-							value="${member.age}" required /> <span id="ageCheck"></span>
+						<label for="age"><span style="color: red">*</span>나이<span class="result" id="ageResult"></span></label>
+						<input type="text" id="age" name="age" placeholder="나이를 입력해 주십시오."
+							value="${member.age}" /> 
 					</div>
 					<div class="button_box">
 						<button type="submit" id="updateSubmit">변경</button>
@@ -95,26 +94,7 @@
 			src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script
 			src="${pageContext.request.contextPath}/js/updateMemberInfo.js"></script>
-		<script>
-		$("#updateSubmit").click(()=>{
-			const updateSubmit = $("#nickname").val();
-			$.ajax({
-				type: "post",
-				url: "/updateMemberInfo",
-				data: $("#form").serialize(),
-				success: function (result) {
-					if (result){
-						window.location.href = "/";
-					} else {
-						nicknameCheck.innerHTML= "이미 있는 닉네임 입니다"
-						nicknameCheck.style.color= "red"						
-					}
-				},
-			});
-		});
-		
-		
-	</script>
+	
 	</sec:authorize>
 </body>
 </html>

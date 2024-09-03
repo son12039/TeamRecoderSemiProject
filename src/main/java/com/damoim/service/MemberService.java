@@ -36,58 +36,58 @@ public class MemberService implements UserDetailsService {
 	@Autowired
 	private PasswordEncoder bcpe;
 
-	public ArrayList<MemberListDTO> loginMemberMembership(Member member) {
-		return mapper.loginMemberMembership(member);
 
-	}
 	
 	
 	
-	
-
+	// 회원가입 
 	@Transactional
-	public void signUp(Member member) {
-		// 비밀번호 암호화
-		member.setPwd(bcpe.encode(member.getPwd()));
-
+	public void signUp(Member member) {	
+		member.setPwd(bcpe.encode(member.getPwd()));// 비밀번호 암호화
 		mapper.signUp(member);
 
 	}
-
+	// ID로 맴버정보
 	public Member idCheck(Member member) {
 		 
 		return mapper.idCheck(member);
 
 	}
-
+	// 닉네임 으로 맴버정보
 	public Member nicknameCheck(Member member) {
 		return mapper.nicknameCheck(member);
 
 	}
-
-	public Member pwdCheck(Member member) {
-
-		return mapper.pwdCheck(member);
+	// 이메일로 맴버정보
+	public Member emailCheck(Member member) {
+		return mapper.emailCheck(member);
 	}
 
-	// 업데이트 관련 서비스 =======================================
 
+
+
+	// ID 찾기(이름, 이메일로 ID 보내줌)
+	public String findMemberId(Member member) {
+		return mapper.findMemberId(member).getId();
+	}
+
+
+	
+
+	// 탈퇴 ,업데이트 관련 서비스 =======================================
+	// 수정 필!!!!!!!
 	// 중요도 떨어지는 정보 수정 메서드
 	// 일단 프로필이랑 info 정보만 수정
 	public void updateMember(Member vo) {
 		mapper.updateMember(vo);
 	}
 	
-
-
-	// 2차인증
+	// 비밀번호 맞나 틀리나
 	public boolean updateCheck(Member vo, String pwdCheck) {
 
 		if (bcpe.matches(pwdCheck, vo.getPwd())) {
-			System.out.println("서비스에서 true 리턴!!!");
 			return true;
 		} else {
-			System.out.println("서비스에서 false 리턴!!!");
 			return false;
 		}
 	}
@@ -98,27 +98,21 @@ public class MemberService implements UserDetailsService {
 		mapper.updateMemberInfo(member);
 	}
 
-	// 주소 업데이트
-	public void addrUpdate(Member member) {
-		mapper.addrUpdate(member);
-	}
 
-	// 닉네임 중복 체크
-	public boolean nicknameDupCheck(Member vo) {
-		return mapper.nicknameDupCheck(vo);
-	}
-
-	// 이미지 선택
-	public Member selectMember(String string) {
-		return mapper.selectMember(string);
-	}
-
-	// 회원탈퇴 서비스 ==================================================
 	// 탈퇴시 status 조정
+	
 	public boolean memberStatus(Member member) {
 		return mapper.memberStatus(member);
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	// 회원 추천 + 해당회원에 쿨타임 업데이트 ==================================
 	public boolean memberManner(RecommendationDTO dto) {
 		
 		System.out.println("로그인한 회원의 마지막 정보" + dto.getLoginMember());
@@ -135,12 +129,12 @@ public class MemberService implements UserDetailsService {
 		return false;
 	}
 	
-	// ===============================================================
+	// 더미 데이터 비밀번호 업데이트용 ===============================================================
 	public ArrayList<Member> dummyMember() {
 		return mapper.dummyMember();
 
 	}
-
+	// 더미 2
 	public void dummyUpdate() {
 		ArrayList<Member> list = dummyMember();
 		System.out.println(list);
@@ -151,7 +145,7 @@ public class MemberService implements UserDetailsService {
 		}
 	}
 
-	@Override // 로그인하면 일로옴
+	@Override // 로그인하면 일로옴 ====================
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Member member = mapper.login(username);
 		if (member == null) {

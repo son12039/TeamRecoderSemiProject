@@ -50,6 +50,7 @@ public class MembershipController {
 	@Autowired
 	private MembershipService service;
 	
+	// 댓글관련 서비스
 	@Autowired
 	private MainCommentService commentService;
 	
@@ -60,6 +61,12 @@ public class MembershipController {
 	
 	
 	
+
+	@Autowired
+	private  MembershipMeetingService meetingService;
+	/*
+	 * 
+	 * */
 	/*
 	 * 
 	 * */
@@ -68,11 +75,7 @@ public class MembershipController {
 		return "mypage/createclub";
 
 	}
-	@Autowired
-	private  MembershipMeetingService meetingService;
-	/*
-	 * 
-	 * */
+	
 	@PostMapping("/createclub")
 	public String createclub(Membership membership) {
 		membership.setMembershipInfo(null);
@@ -177,21 +180,8 @@ public class MembershipController {
 		
 			return "membership/membershipPage";
 		}
-	 /*
-	  * 성철
-	  * 일단 클럽 호스트가 가입 승인대기인원 -> 일반 회원으로 바꾸는기능 
-	  * */
-	 @ResponseBody
-	 @PostMapping("/agreeMember") // 클럽 회원가입 승인
-	 public void agreeMemeber(MemberListDTO member) {
-		 // 일단은 호스트일때만 클럽 회원 승인기능
-		 System.out.println("어그리멤버");
-		 service.agreeMemeber(member);	
-	 }
-	
-	/*
-	 * 
-	 * */
+
+
 	@GetMapping("/makeMembership") // 클럽 생성페이지로 이동
 	public String makeMembership() {
 		return "mypage/makeMembership";
@@ -317,7 +307,9 @@ public class MembershipController {
 	}
 	
 	
-	
+	/* 성일
+	 * 어드민이나 호스트이냐 따라서 서로다른 맴버쉽 관리 페이지 이동처리
+	 * */
 	@GetMapping("/management")
 	public String management(Integer membershipCode ,Model model) {
 
@@ -351,12 +343,13 @@ public class MembershipController {
 		return "membership/management";
 	}
 	
-	@GetMapping("/membership/asd")
-	public String asd() {
-		
-		return "membership/asd";
-	}
-	
+
+	/* 
+	 * 성철
+	 * 일단 클럽 호스트가 가입 승인대기인원 -> 일반 회원으로 바꾸는기능 
+	 * 성일
+	 * 클럽 회원 관리 페이지에서 승인, 강퇴,호스트업그레이드 등등처리
+	 * */
 	@ResponseBody
 	@PostMapping("/gradeUpdate")
 	public int gradeUpdate(MemberListDTO member) {

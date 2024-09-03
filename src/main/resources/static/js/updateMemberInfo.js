@@ -1,3 +1,5 @@
+// 히든 id
+const id = document.querySelector("#id");
 // 닉네임
 const nickname = document.querySelector("#nickname");
 const nicknameCheck = document.querySelector("#nicknameCheck");
@@ -22,7 +24,8 @@ const emailCheck = document.querySelector("#emailCheck");
 const age = document.querySelector("#age");
 const ageCheck = document.querySelector("#ageCheck");
 // 정규표현식 체크
-const pwdRegExp = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,15}$/;
+const pwdRegExp = /^[0-9]{0,3}$/
+// const pwdRegExp = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,15}$/;
 const pwdConfirmCheck = document.querySelector("#pwdConfirmCheck");
 const pwdConfirm = document.querySelector("#pwdConfirm");
 
@@ -36,7 +39,40 @@ let ageReg = false;
 let allCheck = false;
 let pwdSubmit = false;
 let pwdcSubmit = false;
+
 let nicknameSubmit = false;
+
+
+nickname.addEventListener('input', function() { // 닉네임 체크
+  const nicknameValue = $(this).val().trim();
+  
+  if (nicknameValue === '') {
+    $('#nicknameCheck').text(" 필수 입력사항입니다").css('color', 'red');
+    nicknameSubmit = false;
+  } else {
+    $.ajax({
+      type: 'post',
+      url: '/nicknameDupCheck', // 컨트롤러 URL
+      data: { nickname: nicknameValue },
+      success: function(result) {
+        if (result) { // 서버 응답을 'true' 또는 'false'로 가정
+			console.log(result);
+          $('#nicknameCheck').text(" 사용 가능한 닉네임 입니다").css('color', 'green');
+          nicknameSubmit = true;
+        } else {
+			console.log(result);
+          $('#nicknameCheck').text(" 중복 닉네임 입니다").css('color', 'red');
+          nicknameSubmit = false;
+        }
+      }
+    });
+  }
+});
+
+
+
+
+
 
 
 
@@ -186,11 +222,14 @@ form.addEventListener("submit", function(e) {
 		 !addrDetailReg.test(addrDetail.value) ||
 		 !emailReg.test(email.value) ||
 		 !ageReg.test(age.value)
+
 	) {
 		alert("입력된 정보가 유효하지 않습니다");
 		e.preventDefault();
 		return;
 	} 
+	
+	
 });
 
 

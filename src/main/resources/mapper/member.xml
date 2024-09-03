@@ -14,9 +14,7 @@
 		<result column="id" property="id" />
 		<result column="list_grade" property="listGrade" />
 	</resultMap>
-
-
-
+	
 	<resultMap id="MemberResultMap" type="Member">
 		<id property="id" column="id" />
 		<result property="pwd" column="pwd" />
@@ -86,14 +84,15 @@
 		#{addr}
 		WHERE id = #{id}
 	</update>
+	
 	<!-- 닉네임 업데이트 중복체크 -->
-	<select id="nicknameDupCheck" parameterType="Member"
-		resultType="boolean">
-		SELECT COUNT(*) > 0
-		FROM member
-		WHERE nickname = #{nickname}
-		AND id != #{id}
-	</select>
+	<select id="nicknameDupCheck" parameterType="Member" resultType="Member">
+        SELECT *
+        FROM member
+        WHERE nickname = #{nickname}
+        AND id = #{id}
+    </select>
+	
 	<!-- 회원 탈퇴시 status 조정 -->
 	<update id="memberStatus" parameterType="Member">
 		UPDATE member
@@ -102,10 +101,7 @@
 		#{status}
 		WHERE id = #{id}
 	</update>
-
 	
-	
-
 
 	<!-- / updateMember -->
 	<update id="updateMember" parameterType="Member">
@@ -122,7 +118,6 @@
 		SELECT * FROM member
 		WHERE id = #{id}
 	</select>
-
 
 
 	<!-- 내 정보 업데이트 / ============================================ -->

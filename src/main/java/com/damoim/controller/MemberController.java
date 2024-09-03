@@ -16,6 +16,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -83,6 +84,19 @@ public class MemberController {
 		return mem == null;
 
 	}
+	
+	@ResponseBody
+	@PostMapping("/nicknameDupCheck") // 회원가입시 닉네임 중복 체크
+	public boolean nicknameDupCheck(Member member) {
+		
+		Member mem = service.NicknameDupCheck(member.getId(),member.getNickname());
+		
+		return false;
+	}
+	
+	
+	
+	
 
 	/*
 	 * 성철 회원가입 관련 재약조건문들 O (나중에 추가가능 기능 -> 생년월일 받아서 나이 반환) (휴대폰 인증 관련 API? )
@@ -99,7 +113,7 @@ public class MemberController {
 		member.setMemberImg(fileUpload(imgFile, mem.getId()));
 		service.signUp(member);
 		return "redirect:/";
-
+		
 	}
 
 	/*
@@ -127,22 +141,18 @@ public class MemberController {
 		Member mem = (Member) authentication.getPrincipal();
 
 		vo.setId(mem.getId());
-
+		
 		String addr = vo.getAddr();
 		addr += "#" + addrDetail;
 		vo.setAddr(addr);
 		vo.setNickname(nickname);
 		System.out.println("vo.getNickname : " + vo.getNickname()); // 닉네임 받아온거 확인
-
-		// 닉네임 중복확인
-		if (service.nicknameDupCheck(vo)) {
-			System.out.println("닉네임 중복");
-			return false;
-		}
-
+		
+		
+		
 		service.addrUpdate(vo);
 		service.updateMemberInfo(vo);
-
+		
 		System.out.println("updateMemberInfo" + vo); // 수정된 값 들어옴
 		mem.setNickname(vo.getNickname());
 		mem.setPwd(vo.getPwd());
@@ -171,7 +181,7 @@ public class MemberController {
 		boolean check = checkPassword(mem, pwdCheck);
 		return check;
 	}
-
+	
 	// 회원탈퇴 비밀번호 체크
 	@ResponseBody
 	@PostMapping("/resignCheck")
@@ -201,7 +211,7 @@ public class MemberController {
 	    SecurityContextHolder.getContext().setAuthentication(authentication);
 	    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 	    logoutHandler.logout(request, response, authentication);
-
+	    
 	    return true;
 	}
 
@@ -222,7 +232,7 @@ public class MemberController {
 			mem.setMemberImg(url);
 			System.out.println("updateMember 삭제 : " + mem.getMemberImg() + mem.getId());
 		}
-
+		
 		mem.setMemberHobby(vo.getMemberHobby());
 		System.out.println("업데이트 MemberHobby : " + mem.getMemberHobby());
 
@@ -233,7 +243,7 @@ public class MemberController {
 		System.out.println("수정후 member 정보 : " + mem);
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-
+		
 		return "redirect:/mypage";
 	}
 

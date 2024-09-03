@@ -41,7 +41,9 @@ public interface MemberMapper {
 	Member updateCheck(Member vo, Member mem);
 	void updateMemberInfo(Member member);
 	void addrUpdate(Member member);
-	boolean nicknameDupCheck(Member vo);
+	Member nicknameDupCheck(Member member);
+	
+	
 	void fileDelete(String string);
 	Member selectMember(String string);
 	
@@ -62,5 +64,7 @@ public interface MemberMapper {
 	// 아래 2개 더미 비밀번호 암호화용도
 	ArrayList<Member> dummyMember();
 	void dummyUpdate(Member member);
+
+	
 
 }

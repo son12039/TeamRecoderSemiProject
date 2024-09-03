@@ -24,12 +24,7 @@
 <body>
 	<div class="main_header">
 		<div class="main_header_body">
-		<!-- 
-			<div class="main_header_left">
-				<a  href="/">공지사항</a>
-				<a  href="/">이벤트</a>
-			</div>		
-		 -->
+
 			<div class="main_header_center">
 				<a href="/" class="main_header_center_text">DAMOIM</a>
 			</div>

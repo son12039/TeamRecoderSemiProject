@@ -38,11 +38,13 @@ public interface MemberMapper {
 	Member selectMember(Member member);
 	
 	// 회원정보 업데이트 ===============================
-	void updateMember(Member vo);
-	Member updateCheck(Member vo, Member mem);
-	void updateMemberInfo(Member member);
-	void addrUpdate(Member member);
-	Member nicknameDupCheck(Member member);
+	void updateMemberInfo(Member member); // 기본정보 업데이트
+	void updateMember(Member vo); // 중요정보 업데이트
+	Member updateCheck(Member vo);
+	
+	boolean nicknameDupCheck(Member member);
+	List<MemberListDTO>resignSelect(String id); 
+	
 	
 	
 	void fileDelete(String string);

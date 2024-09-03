@@ -22,19 +22,7 @@ VALUES (#{membershipCode},#{meetDateStart},#{meetDateEnd},
         <result property="color" column="color"/>
     </resultMap>
     
-    <!-- SELECT 쿼리 -->
-    <select id="allMeetings" resultMap="MembershipMeetingsResultMap"
-    parameterType="Integer">
-        SELECT * FROM membership_meetings
-        WHERE membership_code = #{membershipCode}
-    </select>
-    
-    <select id="meetSelect" resultMap="MembershipMeetingsResultMap" parameterType="Integer">
-    SELECT *
-    FROM membership_meetings
-    WHERE meet_code = #{meetCode}
-    </select>
-     <resultMap id="meetAgree" type="MeetingsAgree">
+    <resultMap id="meetAgree" type="MeetingsAgree">
         <id property="meetAgreeCode" column="meet_agree_code"/>
         <result property="meetAgreeYn" column="meet_agree_yn"/>
          <result property="meetCode" column="meet_code"/>
@@ -57,6 +45,20 @@ VALUES (#{membershipCode},#{meetDateStart},#{meetDateEnd},
         <result property="memberType" column="member_type" />      
        </association>
         </resultMap>
+    
+    <!-- SELECT 쿼리 -->
+    <select id="allMeetings" resultMap="MembershipMeetingsResultMap"
+    parameterType="Integer">
+        SELECT * FROM membership_meetings
+        WHERE membership_code = #{membershipCode}
+    </select>
+    
+    <select id="meetSelect" resultMap="MembershipMeetingsResultMap" parameterType="Integer">
+    SELECT *
+    FROM membership_meetings
+    WHERE meet_code = #{meetCode}
+    </select>
+     
         
         
         

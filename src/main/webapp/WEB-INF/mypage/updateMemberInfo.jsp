@@ -23,6 +23,7 @@
 		<jsp:include page="/WEB-INF/header/mypageHeader.jsp" />
 		
 		<!-- (동문) -->
+	<div class="top-container">
 		<div class="container">
 			<h1>회원 정보 수정</h1>
 			<div class="form-group">
@@ -89,6 +90,7 @@
 				</form>
 			</div>
 		</div>
+	</div>
 		<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
 		<script
@@ -96,6 +98,7 @@
 		<script
 			src="${pageContext.request.contextPath}/js/updateMemberInfo.js"></script>
 		<script>
+		
 		$("#updateSubmit").click(()=>{
 			const updateSubmit = $("#nickname").val();
 			$.ajax({

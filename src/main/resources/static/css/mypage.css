@@ -202,6 +202,7 @@ input[type=text] {
 }
 .membership-card h1 {
 	font-weight: bolder;
+	padding-bottom: 15px;
 }
 
 .membership-img {
@@ -243,6 +244,7 @@ input[type=text] {
 }
 .membership-text{
 	width: 350px;
+	height: 100%;
 }
 
 /* 버튼 스타일 */

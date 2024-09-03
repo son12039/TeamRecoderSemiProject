@@ -39,42 +39,7 @@ let ageReg = false;
 let allCheck = false;
 let pwdSubmit = false;
 let pwdcSubmit = false;
-
 let nicknameSubmit = false;
-
-
-nickname.addEventListener('input', function() { // 닉네임 체크
-  const nicknameValue = $(this).val().trim();
-  
-  if (nicknameValue === '') {
-    $('#nicknameCheck').text(" 필수 입력사항입니다").css('color', 'red');
-    nicknameSubmit = false;
-  } else {
-    $.ajax({
-      type: 'post',
-      url: '/nicknameDupCheck', // 컨트롤러 URL
-      data: { nickname: nicknameValue },
-      success: function(result) {
-        if (result) { // 서버 응답을 'true' 또는 'false'로 가정
-			console.log(result);
-          $('#nicknameCheck').text(" 사용 가능한 닉네임 입니다").css('color', 'green');
-          nicknameSubmit = true;
-        } else {
-			console.log(result);
-          $('#nicknameCheck').text(" 중복 닉네임 입니다").css('color', 'red');
-          nicknameSubmit = false;
-        }
-      }
-    });
-  }
-});
-
-
-
-
-
-
-
 
 
 pwd.addEventListener('input', function() {

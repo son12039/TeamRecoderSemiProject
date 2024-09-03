@@ -202,10 +202,10 @@ public class MemberController {
 			return false;
 		}
 
-		service.addrUpdate(vo);
+		// 여기서 멤버정보 업데이트
 		service.updateMemberInfo(vo);
+		
 
-		System.out.println("updateMemberInfo" + vo); // 수정된 값 들어옴
 		mem.setNickname(vo.getNickname());
 		mem.setPwd(vo.getPwd());
 		mem.setName(vo.getName());
@@ -251,19 +251,27 @@ public class MemberController {
 	 * */
 	@ResponseBody
 	@PostMapping("/memberStatus")
-	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response, Member member , String pwdCheck, MainComment mainComment) {
+	public boolean memberStatus(@RequestParam(required = false) HttpServletRequest request, HttpServletResponse response, Member member , Membership membership , MemberListDTO dto) {
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    Member mem = (Member) authentication.getPrincipal();
-	    ArrayList<MembershipUserList> membershipList = infoService.selectName(mem.getId());
-
-	    if (membershipList.size() > 0) { // 해당 유저가 가입된 클럽 중 어드민이나 호스트인게 있다면!
+	    boolean check = false;
+	    
+	    // 회원탈퇴를 할때 "host" 인 사람은 탈퇴하면 안됌
+	    List<MemberListDTO> list = service.resignSelect(mem.getId());
+	    if(list.size() > 0) {
+	    	check = true;
+	    }
+	    
+//	    ArrayList<MembershipUserList> membershipList = infoService.selectName(mem.getId());
+	    
+	    if (check) { // 해당 유저가 가입된 클럽 중 어드민이나 호스트인게 있다면!
 	        return false;
 	    }
+	    
 	    mem.setStatus(false); // 멤버 status false
 	    service.memberStatus(mem); // 멤버 상태 업데이트
 	    member.setId(mem.getId());
 	    removeService.deleteAllComment(mem.getId());
-	    System.out.println("에러 확인?");
 	    
 	    // membershipUserList 삭제
 	    
@@ -283,7 +291,7 @@ public class MemberController {
 	public String updateMember(Member vo, MultipartFile file) throws IllegalStateException, IOException {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-
+		
 		// 조건에 만약 보내준 링크가 null이면 변하지 않도록
 		if (!file.getOriginalFilename().isEmpty() || mem.getMemberImg() == null) {
 
@@ -292,10 +300,10 @@ public class MemberController {
 			mem.setMemberImg(url);
 			System.out.println("updateMember 삭제 : " + mem.getMemberImg() + mem.getId());
 		}
-
+		
 		mem.setMemberHobby(vo.getMemberHobby());
 		System.out.println("업데이트 MemberHobby : " + mem.getMemberHobby());
-
+		
 		mem.setMemberInfo(vo.getMemberInfo());
 		System.out.println("업데이트 MemberInfo : " + mem.getMemberInfo());
 

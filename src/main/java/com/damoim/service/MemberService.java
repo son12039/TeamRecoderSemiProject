@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpSession;
 import mapper.MemberMapper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,20 +39,17 @@ public class MemberService implements UserDetailsService {
 
 	public ArrayList<MemberListDTO> loginMemberMembership(Member member) {
 		return mapper.loginMemberMembership(member);
-
 	}
-
+	
 	@Transactional
 	public void signUp(Member member) {
 		// 비밀번호 암호화
 		member.setPwd(bcpe.encode(member.getPwd()));
-
 		mapper.signUp(member);
-
 	}
 
 	public Member idCheck(Member member) {
-
+		 
 		return mapper.idCheck(member);
 
 	}
@@ -77,6 +75,8 @@ public class MemberService implements UserDetailsService {
 	public void updateMember(Member vo) {
 		mapper.updateMember(vo);
 	}
+	
+
 
 	// 2차인증
 	public boolean updateCheck(Member vo, String pwdCheck) {
@@ -88,25 +88,19 @@ public class MemberService implements UserDetailsService {
 			System.out.println("서비스에서 false 리턴!!!");
 			return false;
 		}
+		
 	}
-
+	
 	// 비밀번호 재설정시 암호화
 	public void updateMemberInfo(Member member) {
 		member.setPwd(bcpe.encode(member.getPwd()));
 		mapper.updateMemberInfo(member);
 	}
 
-	// 주소 업데이트
-	public void addrUpdate(Member member) {
-		mapper.addrUpdate(member);
-	}
 
-	public Member NicknameDupCheck(String nickname, String id) {
-		Member member = new Member();
-		member.setNickname(nickname);
-		member.setId(id);
-		
-		return mapper.nicknameDupCheck(member);
+	// 닉네임 중복 체크
+	public boolean nicknameDupCheck(Member vo) {
+		return mapper.nicknameDupCheck(vo);
 	}
 
 	// 이미지 선택
@@ -123,21 +117,27 @@ public class MemberService implements UserDetailsService {
 	public boolean memberStatus(Member member) {
 		return mapper.memberStatus(member);
 	}
-
+	
+	public List<MemberListDTO> resignSelect(String id) {
+		return mapper.resignSelect(id);
+	}
+	
+	
 	public boolean memberManner(RecommendationDTO dto) {
-
+		
 		System.out.println("로그인한 회원의 마지막 정보" + dto.getLoginMember());
-		if (dto.getLoginMember().getLastRecommendationTime() == null) {
-			// 대상맴버의 매너 업데이트
-			mapper.memberManner(
-					MemberMannerDTO.builder().member(dto.getTargetMember()).pulsMinus(dto.isPlusMinus()).build());
-			// 로그인 회원의 마지막 추천시간 업데이트
-			mapper.updateLastRecommendationTime(dto.getLoginMember().getId());
-			return true;
+		if(dto.getLoginMember().getLastRecommendationTime() == null) {
+		// 대상맴버의 매너 업데이트
+		mapper.memberManner(MemberMannerDTO.builder()
+					.member(dto.getTargetMember())
+					.pulsMinus(dto.isPlusMinus())
+					.build());
+		// 로그인 회원의 마지막 추천시간 업데이트
+		mapper.updateLastRecommendationTime(dto.getLoginMember().getId());
+		return true;
 		}
 		return false;
 	}
-
 	// ===============================================================
 	public ArrayList<Member> dummyMember() {
 		return mapper.dummyMember();
@@ -159,7 +159,7 @@ public class MemberService implements UserDetailsService {
 		Member member = mapper.login(username);
 		if (member == null) {
 			System.out.println("사용자 정보를 찾지 못했습니다");
-		} else if (!member.isStatus()) {
+		} else if (!member.isStatus()){
 			System.out.println("이미 탈퇴한 회원입니다 : " + username);
 			return null;
 		} else {

@@ -129,8 +129,10 @@
 									alt="Membership Image">
 							</div>
 							<div class="membership-String">
-								<div>
-									<p>${mem.membership.membershipName}</p>
+								<div class="membership-text">
+									<h4>${mem.membership.membershipName}</h4>
+									<p>${mem.membership.membershipSimpleText}</p>
+									
 								</div>
 							</div>
 						</div>

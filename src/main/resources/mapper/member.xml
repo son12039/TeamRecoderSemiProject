@@ -15,6 +15,8 @@
 		<result column="list_grade" property="listGrade" />
 	</resultMap>
 
+
+
 	<resultMap id="MemberResultMap" type="Member">
 		<id property="id" column="id" />
 		<result property="pwd" column="pwd" />
@@ -32,8 +34,7 @@
 		<result property="memberInfo" column="member_info" />
 		<result property="memberLocation" column="member_location" />
 		<result property="memberType" column="member_type" />
-		<result property="lastRecommendationTime"
-			column="last_recommendation_time" />
+		<result property="lastRecommendationTime" column="last_recommendation_time"/>
 	</resultMap>
 
 
@@ -50,7 +51,7 @@
 		#{pwd}
 		WHERE id = #{id}
 	</update>
-	
+
 	<select id="pwdCheck" parameterType="Member" resultType="Member">
 		SELECT *
 		FROM member
@@ -68,13 +69,13 @@
 	<!-- 회원정보 업데이트 -->
 	<update id="updateMemberInfo" parameterType="Member">
 		UPDATE member
-		SET
-		pwd = #{pwd} ,
+		SET 
+		pwd = #{pwd} , 
 		addr = #{addr},
 		name = #{name},
-		phone = #{phone},
-		email = #{email} ,
-		age = #{age} ,
+		phone = #{phone}, 
+		email = #{email} , 
+		age = #{age} , 
 		nickname = #{nickname}
 		WHERE id = #{id}
 	</update>
@@ -85,9 +86,14 @@
 		#{addr}
 		WHERE id = #{id}
 	</update>
-
-
-
+	<!-- 닉네임 업데이트 중복체크 -->
+	<select id="nicknameDupCheck" parameterType="Member"
+		resultType="boolean">
+		SELECT COUNT(*) > 0
+		FROM member
+		WHERE nickname = #{nickname}
+		AND id != #{id}
+	</select>
 	<!-- 회원 탈퇴시 status 조정 -->
 	<update id="memberStatus" parameterType="Member">
 		UPDATE member
@@ -97,6 +103,9 @@
 		WHERE id = #{id}
 	</update>
 
+	
+	
+
 
 	<!-- / updateMember -->
 	<update id="updateMember" parameterType="Member">
@@ -104,16 +113,16 @@
 		SET
 		member_img = #{memberImg},
 		member_info = #{memberInfo},
-		member_hobby =
-		#{memberHobby}
+		member_hobby = #{memberHobby}
 		WHERE id = #{id}
 	</update>
-
+	
 	<select id="selectMember" parameterType="String"
 		resultType="Member">
 		SELECT * FROM member
 		WHERE id = #{id}
 	</select>
+
 
 
 	<!-- 내 정보 업데이트 / ============================================ -->
@@ -132,8 +141,7 @@
 		WHERE id = #{id}
 	</select>
 
-	<select id="idCheck" parameterType="Member"
-		resultMap="MemberResultMap">
+	<select id="idCheck" parameterType="Member" resultMap="MemberResultMap">
 		SELECT *
 		FROM member
 		WHERE id = #{id}
@@ -144,7 +152,7 @@
 		SELECT * FROM member
 		WHERE nickname = #{nickname}
 	</select>
-	<!-- 이메일 중복처리 -->
+	<!--  이메일 중복처리 -->
 	<select id="emailCheck" parameterType="Member"
 		resultMap="MemberResultMap">
 		SELECT * FROM member
@@ -174,12 +182,12 @@
 
 	<!-- 이메일 아이디 확인 -->
 	<select id="updatePassword" parameterType="Member">
-		UPDATE member
-		SET pwd = #{pwd}
-		WHERE id = #{id}
-
+	UPDATE member
+	SET pwd = #{pwd}
+	WHERE id = #{id}
+	
 	</select>
-
+	
 	<select id="memberEmailIdcheck" parameterType="Member"
 		resultType="Member">
 		SELECT *
@@ -187,7 +195,7 @@
 		WHERE id = #{id}
 		AND email = #{email}
 	</select>
-
+	
 	<select id="findMemberId" parameterType="Member"
 		resultType="Member">
 		SELECT *
@@ -195,26 +203,27 @@
 		WHERE name = #{name}
 		AND email = #{email}
 	</select>
-
+	
 	<update id="memberManner" parameterType="MemberMannerDTO">
-		UPDATE member
-		SET member_manner = member_manner
-		<if test="!pulsMinus">
-			+ 0.5
-		</if>
-		<if test="pulsMinus">
-			- 0.5
-		</if>
-		WHERE id = #{member.id}
+    UPDATE member 
+    SET member_manner = member_manner
+    <if test="!pulsMinus">
+        + 0.5
+    </if>
+    <if test="pulsMinus">
+        - 0.5
+    </if>
+    WHERE id = #{member.id}
 	</update>
 
 	<update id="updateLastRecommendationTime" parameterType="String">
-		UPDATE member
-		SET last_recommendation_time = now()
-		WHERE id = #{id}
+	UPDATE member 
+	SET last_recommendation_time = now()
+	WHERE id = #{id}
 	</update>
+	
 
-
+	
 </mapper>
 	
 

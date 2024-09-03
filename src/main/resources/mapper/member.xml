@@ -44,7 +44,7 @@
 		SELECT id, pwd
 		FROM member
 	</select>
-
+	<!--  더미용 쿼리 -->
 	<update id="dummyUpdate" parameterType="Member">
 		UPDATE member
 		SET pwd =
@@ -52,11 +52,6 @@
 		WHERE id = #{id}
 	</update>
 
-	<select id="pwdCheck" parameterType="Member" resultType="Member">
-		SELECT *
-		FROM member
-		WHERE id=#{id} AND pwd=#{pwd}
-	</select>
 
 	<!-- / updateMemberInfo (동문) ========================================= -->
 	<!-- 비밀번호 확인 -->
@@ -66,7 +61,7 @@
 		FROM member
 		WHERE id = #{id}
 	</select>
-	<!-- 회원정보 업데이트 -->
+	<!-- 회원 상세 정보 업데이트 -->
 	<update id="updateMemberInfo" parameterType="Member">
 		UPDATE member
 		SET 
@@ -79,21 +74,7 @@
 		nickname = #{nickname}
 		WHERE id = #{id}
 	</update>
-	<!-- 상세주소 업데이트 -->
-	<update id="addrUpdate" parameterType="Member">
-		UPDATE member
-		SET addr =
-		#{addr}
-		WHERE id = #{id}
-	</update>
-	<!-- 닉네임 업데이트 중복체크 -->
-	<select id="nicknameDupCheck" parameterType="Member"
-		resultType="boolean">
-		SELECT COUNT(*) > 0
-		FROM member
-		WHERE nickname = #{nickname}
-		AND id != #{id}
-	</select>
+
 	<!-- 회원 탈퇴시 status 조정 -->
 	<update id="memberStatus" parameterType="Member">
 		UPDATE member
@@ -107,7 +88,7 @@
 	
 
 
-	<!-- / updateMember -->
+	<!-- 기본정보 업데이트 -->
 	<update id="updateMember" parameterType="Member">
 		UPDATE member
 		SET
@@ -117,48 +98,35 @@
 		WHERE id = #{id}
 	</update>
 	
-	<select id="selectMember" parameterType="String"
-		resultType="Member">
-		SELECT * FROM member
-		WHERE id = #{id}
-	</select>
 
-
-
-	<!-- 내 정보 업데이트 / ============================================ -->
-
+	
+	<!--  로그인 ID로 맴버 -->
 	<select id="login" parameterType="String"
 		resultMap="MemberResultMap">
 		SELECT *
 		FROM member
 		WHERE id = #{id}
 	</select>
-
-	<select id="loginMemberMembership" parameterType="Member"
-		resultMap="memberListmap">
-		SELECT *
-		FROM membership_user_list
-		WHERE id = #{id}
-	</select>
-
+	
+	<!-- 회원가입 아이디 중복 체크 + 여러모로 id로 값가져올때 -->
 	<select id="idCheck" parameterType="Member" resultMap="MemberResultMap">
 		SELECT *
 		FROM member
 		WHERE id = #{id}
 	</select>
-
+	<!-- 회원가입 닉네임 중복 체크 -->
 	<select id="nicknameCheck" parameterType="Member"
 		resultMap="MemberResultMap">
 		SELECT * FROM member
 		WHERE nickname = #{nickname}
 	</select>
-	<!--  이메일 중복처리 -->
+	<!-- 회원가입 이메일 중복 체크 -->
 	<select id="emailCheck" parameterType="Member"
 		resultMap="MemberResultMap">
 		SELECT * FROM member
 		WHERE email = #{email}
 	</select>
-
+	<!--  회원가입 -->
 	<insert id="signUp" parameterType="Member"
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO member(id, pwd,
@@ -173,21 +141,15 @@
 		)
 	</insert>
 
-	<select id="memberInfo" parameterType="Member"
-		resultType="Member">
-		SELCET *
-		FROM member
-		WHERE id = #{id}
-	</select>
-
 	<!-- 이메일 아이디 확인 -->
-	<select id="updatePassword" parameterType="Member">
+	
+	<update id="updatePassword" parameterType="Member">
 	UPDATE member
 	SET pwd = #{pwd}
 	WHERE id = #{id}
 	
-	</select>
-	
+	</update>
+	<!--  이메일 ID 비교해서 회원 찾기 (비밀번호 찾기용) -->
 	<select id="memberEmailIdcheck" parameterType="Member"
 		resultType="Member">
 		SELECT *
@@ -195,7 +157,7 @@
 		WHERE id = #{id}
 		AND email = #{email}
 	</select>
-	
+	<!--  이메일 이름 비교해서 회원찾기 (아이디 찾기용) -->
 	<select id="findMemberId" parameterType="Member"
 		resultType="Member">
 		SELECT *
@@ -203,7 +165,7 @@
 		WHERE name = #{name}
 		AND email = #{email}
 	</select>
-	
+	<!--  회원 매너점수 조정하는 쿼리 -->
 	<update id="memberManner" parameterType="MemberMannerDTO">
     UPDATE member 
     SET member_manner = member_manner
@@ -215,7 +177,7 @@
     </if>
     WHERE id = #{member.id}
 	</update>
-
+	<!--  회원 추천기능 쿨타임 용도 -->
 	<update id="updateLastRecommendationTime" parameterType="String">
 	UPDATE member 
 	SET last_recommendation_time = now()

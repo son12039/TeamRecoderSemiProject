@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -179,22 +180,35 @@ public class MemberController {
 		service.dummyUpdate();
 		return "redirect:/";
 	}
-
-
-
 	@ResponseBody
+	@PostMapping("/updateNicknameCheck")
+	public boolean updateNicknameCheck(String nickname){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		// 로그인 회원
+		Member m1 = (Member) authentication.getPrincipal();
+		// 해당 닉네임 넣을시 회원이 있는가
+		Member m2 = service.nicknameCheck(new Member().builder().nickname(nickname).build());
+		// 해당 닉네임으로 생성된 회원정보가 없거나 
+		// 해당 닉네임으로 생성된 회원 정보가 로그인한 회원가 같을시
+		if (m2.getId() == null || m2.getId().equals(m1.getId())) { 
+			// 트루 리턴
+			return true;
+		}
+		// 아니면 false 리턴
+		return false;
+	}
+
+
+	
 	@PostMapping("/updateMemberInfo")
-	public boolean updateMemberInfo(Member vo, Model model, String addrDetail, String nickname) {
+	public String updateMemberInfo(Member vo, Model model, String addrDetail, String nickname) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
 
 		vo.setId(mem.getId());
-
 		String addr = vo.getAddr();
 		addr += "#" + addrDetail;
 		vo.setAddr(addr);
-		vo.setNickname(nickname);
-		System.out.println("vo.getNickname : " + vo.getNickname()); // 닉네임 받아온거 확인
 
 		// 닉네임 중복확인
 		if (service.nicknameDupCheck(vo)) {
@@ -215,13 +229,8 @@ public class MemberController {
 		mem.setAge(vo.getAge());
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-
-		return true;
-	}
-
-	// 비밀번호 체크
-	private boolean checkPassword(Member member, String pwdCheck) {
-		return service.updateCheck(member, pwdCheck);
+		model.addAttribute("text" , "변경 성공");
+		return "mypage";
 	}
 
 	// 회원정보 수정 비밀번호 체크
@@ -230,8 +239,7 @@ public class MemberController {
 	public boolean updateCheck(String pwdCheck) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		boolean check = checkPassword(mem, pwdCheck);
-		return check;
+		return service.updateCheck(mem, pwdCheck);
 	}
 
 	// 회원탈퇴 비밀번호 체크
@@ -240,8 +248,7 @@ public class MemberController {
 	public boolean resignCheck(String pwdCheck) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		boolean check = checkPassword(mem, pwdCheck);
-		return check;
+		return service.updateCheck(mem, pwdCheck);
 	}
 	
 	/*
@@ -325,7 +332,7 @@ public class MemberController {
 		MemberInfoDTO mem = new MemberInfoDTO().builder().member(member)
 				.memberMeetCount(infoService.meetCount(member.getId()))
 				.membershipUserList(infoService.selectMemberUserList(member.getId())).build();
-
+		System.out.println(mem);
 		model.addAttribute("mem", mem);
 
 		return "member/userInfo";
@@ -371,7 +378,7 @@ public class MemberController {
 	}
 
 	// 성철 파일 삭제 메서드 해당유저 프로필사진 변경시 사용!! 실 사용때는 조건에 만약 보내준 링크가 null이면 변하지 않도록
-	public String fileDelete(String fileName, String id) throws IllegalStateException, IOException {
+	public void fileDelete(String fileName, String id) throws IllegalStateException, IOException {
 
 		if (fileName == null || fileName.isEmpty()) {
 			System.out.println("삭제할 파일이 없습니다");
@@ -380,8 +387,8 @@ public class MemberController {
 			File file = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + fileName);
 			file.delete();
 		}
-		service.selectMember(id);
-		return "redirect:/mypage";
+		
+		
 	}
 
 }

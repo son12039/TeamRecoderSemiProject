@@ -69,7 +69,7 @@ public class MembershipService {
 	public void host(MemberListDTO list) {
 		mapper.host(list);
 	}
-	
+	// 로그인 회원 가입한 클럽처리
 	public List<MemberListDTO> grade(Member member){
 		return mapper.grade(member);
 	}

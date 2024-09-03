@@ -9,13 +9,18 @@ import org.springframework.stereotype.Service;
 import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.MeetingsComment;
 
-import mapper.RemoveMemberCommentMapper;
+
+import mapper.RemoveMemberMapper;
 
 @Service
-public class RemoveMemberCommentService {
+public class RemoveMemberService {
 
 	@Autowired
-	private RemoveMemberCommentMapper mapper;
+	private RemoveMemberMapper mapper;
+	
+	public void deleteMembershipUserList(String id) {
+		mapper.deleteMembershipUserList(id);
+	}
 	
 	public void deleteAllComment(String id) {
 		ArrayList<MainComment> mainList = mapper.selectMain(id);

@@ -231,16 +231,7 @@
      </select>
 
 	<!--  회원 탈퇴 관리시 쓰는데 용도 정확히 ?? <- 의미 없어보임? (동문님) -->
-	<select id="selectName" parameterType="String"
-		resultMap="listMap">
-		SELECT *
-		FROM member
-		JOIN membership_user_list USING (id)
-		JOIN
-		membership USING (membership_code)
-		WHERE id = #{id}
-		AND (list_grade = "host");
-	</select>
+
 	<!--  memberInfoDTO에 담을 수 있는 해당 맴버의 모임 참여 횟수 계산 -->
 	<select id="meetCount" parameterType="String" resultType="int">
 		SELECT

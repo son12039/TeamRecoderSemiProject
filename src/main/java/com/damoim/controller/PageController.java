@@ -1,6 +1,6 @@
 package com.damoim.controller;
 import java.util.ArrayList;
-
+import java.util.Iterator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 import com.damoim.model.dto.MemberListDTO;
+import com.damoim.model.dto.MembershipDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
@@ -52,7 +53,7 @@ public class PageController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member member = (Member) authentication.getPrincipal();
 		
-		ArrayList<MembershipUserList> membershipList = infoService.selectName(member.getId());
+		ArrayList<MembershipUserList> membershipList = (ArrayList<MembershipUserList>) infoService.selectMemberUserList(member.getId());
 		model.addAttribute("list", membershipList);
 		
 		List<MembershipUserList> list = new ArrayList<MembershipUserList>();
@@ -102,9 +103,13 @@ public class PageController {
 	public String memberDelete(Model model){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		System.out.println("memberDelete : " + mem);
-		ArrayList<MembershipUserList> membershipList = infoService.selectName(mem.getId());
-		model.addAttribute("list", membershipList);
+		int num = 0;
+		for(MemberListDTO m : mem.getMemberListDTO()) {
+			if(m.getListGrade().equals("host"))
+				num = m.getMembershipCode();
+		}
+		// 호스트인 클럽을 담음 호스트인게 없으면 null담김
+		model.addAttribute("list", infoService.selectMembership(num));
 		return "mypage/memberDelete";
 	}
 

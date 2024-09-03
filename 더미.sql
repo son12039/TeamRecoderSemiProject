@@ -1,4 +1,5 @@
 
+select * from membership_user_list;
 
 SELECT *
 FROM type_category;
@@ -18,12 +19,13 @@ UPDATE member
 	SET member_manner = member_manner - 0.5
 	WHERE id = user006;
     
-select * from member;
+select * from membership_user_list 
+where id = 'user037';
    
 	
 select *
 from member 
-where id = 'user099';
+where id = 'user037';
 /*
 select * 
 from meetings_agree
@@ -49,7 +51,8 @@ select * from membership;
 select *from member 
 
 where id = 'user087';
-select * from meetings_agree
+select meet_title, meet_date_start, meet_creat_date, membership_name
+from meetings_agree
 join membership_meetings using(meet_code)
 join membership using(membership_code)
 where meetings_agree.id = 'user077' and meet_agree_yn = 1;

@@ -41,7 +41,7 @@ import com.damoim.service.EmailService;
 import com.damoim.service.MainCommentService;
 import com.damoim.service.MemberService;
 import com.damoim.service.MembershipService;
-import com.damoim.service.RemoveMemberCommentService;
+import com.damoim.service.RemoveMemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -61,7 +61,7 @@ public class MemberController {
 	private EmailService emailService; // 이메일 서비스
 	
 	@Autowired // 회원 탈퇴 댓글 삭제 서비스
-	private RemoveMemberCommentService removeService;
+	private RemoveMemberService removeService;
 
 
 	/*
@@ -273,28 +273,26 @@ public class MemberController {
 	/*
 	 * 성철
 	 * 탈퇴 로직에 댓글 자동삭제 추가
+	 * 로직 추가필요 ================================================
 	 * 
 	 * */
 	@ResponseBody
 	@PostMapping("/memberStatus")
-	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response, Member member , String pwdCheck, MainComment mainComment) {
+	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response) {
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    Member mem = (Member) authentication.getPrincipal();
 	    boolean check = false;
-	   for(MemberListDTO dto : mem.getMemberListDTO()) {
-		   if(dto.getListGrade().equals("host"))
-				   check = true;
-		   
-	   }
-
+	    for(MemberListDTO dto : mem.getMemberListDTO()) {
+	    	if(dto.getListGrade().equals("host"))
+				   check = true; 
+	    		}
 	    if (check) { // 해당 유저가 가입된 클럽 중  호스트인게 있다면!
 	        return false;
-	    }
-	    mem.setStatus(false); // 멤버 status false
+	    	}
+	    
 	    service.memberStatus(mem); // 멤버 상태 업데이트
-	    member.setId(mem.getId());
 	    removeService.deleteAllComment(mem.getId());
-	
+	    removeService.deleteMembershipUserList(mem.getId());
 	    
 	    // membershipUserList 삭제
 	    

@@ -205,6 +205,7 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 	const typeLaName = $(this).val();
 	const typeLa = $(this);
 	if ($(this).prop('checked')) {
+		
 		$('#typeLaNameSelect input[type=checkbox]')
 							.prop('checked', false)
 							.next('label')

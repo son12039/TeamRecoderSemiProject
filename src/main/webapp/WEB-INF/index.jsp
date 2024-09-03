@@ -15,6 +15,9 @@
 	href="${pageContext.request.contextPath}/css/index.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/locationType.css" />
+	<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
 	
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
@@ -116,7 +119,7 @@
 					<h1 class="membership-name">${info.membershipName}</h1>
 					
 					<h2>${info.membershipSimpleText}</h2>
-					<h3>멤버수 : ${info.count}/${info.membershipMax}</h3>
+					<h3><i class="fa-solid fa-users"></i> : ${info.count}/${info.membershipMax}</h3>
 					<a href="/userInfo/${info.nickname}">
 						<div class="host">
 							<c:choose>

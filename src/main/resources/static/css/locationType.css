@@ -1,3 +1,6 @@
+/*color:  #fca35b;*/
+
+
 .locationTypeBody {
 	padding-top:40px;
 	padding-bottom : 20px;
@@ -13,15 +16,7 @@
 	border-radius: 7px;
 	border: 1px solid #d5d5d5;
 	
-/*
- 수틀리면 다시 복구
-  background-color:white;
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-*/
+
 }
 /*중단 locationLa 이벤트 놈들*/
 .line{
@@ -38,17 +33,6 @@
 	height : 100%;
 	padding: 10px;
 
-	/*
-	display:flex;
-	justify-content: space-around;
-	align-self: center;
-	width: 100%;
-	max-width: 1200px;
-	font-size:20px;
-	padding :10px;
-	font-weight: bold;
-	height: 50px;
-	*/
 }
 .locationBoxHead{
 	display: flex;
@@ -59,7 +43,6 @@
 	padding: 5px 10px 10px 10px;
 	font-size: 25px;
 	font-weight: bold;
-	color:  #fca35b;
 }
 .locationLaDiv{
 	background-color : #efefef;
@@ -117,7 +100,6 @@
 	padding: 5px 10px 10px 10px;
 	font-size: 25px;
 	font-weight: bold;
-	color:  #fca35b;
 }
 .locationTypeCss{
 	
@@ -160,7 +142,7 @@
 #typeStickyBox{
   position: sticky;
   top: 80px;
-  background-color:#ADD8E6;
+  background-color: white;
   width: 100%;
   height: auto;
 }
@@ -168,10 +150,11 @@
 /*중단 TypeLa 이벤트 놈들*/
 #typeLaNameSelect input[type="checkbox"] {
    display:none;
+   
  }
 #typeLaNameSelect{
 	width: 100%;
-	max-width: 1520px;
+	max-width: 1280px;
 	margin:auto;
 	font-size:20px;
 	padding :5px;
@@ -214,8 +197,8 @@
 	width: 100%;
 }
 .typeSCss{
-	padding :5px 10px;
-	margin : 1px 2px;
+	padding :4px 10px;
+	margin : 1px 1px;
 	cursor: pointer;
 }
 .typeSCss:hover {

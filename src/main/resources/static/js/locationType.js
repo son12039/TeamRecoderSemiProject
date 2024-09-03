@@ -59,6 +59,13 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 		if (laName !== '초기화') {
 			urlParams.append('locationLaName', laName);
 		}
+		if($(this).val() === '초기화'){
+			$(this).prop('checked', true)
+					.next("label")
+					.css({backgroundColor : "",
+						  color : ""
+					});	
+		}
 	}
 	// 체크 해제했을때 스타일 삭제
 
@@ -242,7 +249,7 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 					$("#typeSNameForm").empty();
 					
 					if (typeLa.prop('checked')) {
-						$("#typeSNameForm").css({height : "40px"})
+						$("#typeSNameForm").css({height : "30px"})
 						$.each(result, function(index, item) {
 							list += `<input type="checkbox" value="${item}" id="${item}"
 							name="typeSName">

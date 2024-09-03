@@ -40,6 +40,8 @@ import com.damoim.service.EmailService;
 import com.damoim.service.MainCommentService;
 import com.damoim.service.MemberService;
 import com.damoim.service.MembershipService;
+import com.damoim.service.RemoveMemberCommentService;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -56,6 +58,9 @@ public class MemberController {
 
 	@Autowired
 	private EmailService emailService; // 이메일 서비스
+	
+	@Autowired
+	private RemoveMemberCommentService removeService;
 
 
 	/*
@@ -196,6 +201,8 @@ public class MemberController {
 	    mem.setStatus(false); // 멤버 status false
 	    service.memberStatus(mem); // 멤버 상태 업데이트
 	    member.setId(mem.getId());
+	    removeService.deleteAllComment(mem.getId());
+	    System.out.println("에러 확인?");
 	    
 	    // membershipUserList 삭제
 	    

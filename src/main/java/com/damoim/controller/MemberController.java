@@ -59,12 +59,12 @@ public class MemberController {
 	@Autowired
 	private EmailService emailService; // 이메일 서비스
 	
-	@Autowired
+	@Autowired // 회원 탈퇴 댓글 삭제 서비스
 	private RemoveMemberCommentService removeService;
 
 
 	/*
-	 * 성일 로그인 시큐리티 처리
+	 * 성일 로그인 시큐리티 처리(member서비스)
 	 */
 
 	/*
@@ -88,9 +88,19 @@ public class MemberController {
 		return mem == null;
 
 	}
+	/*
+	 * 성철 회원가입할때 이메일 (유니크) 증복체크
+	 * */
+	@ResponseBody
+	@PostMapping("/emailCheck") // 회원가입시 닉네임 중복 체크
+	public boolean emailCheck(Member member) {
+		Member mem = service.emailCheck(member);
+		return mem == null;
+
+	}
 
 	/*
-	 * 성철 회원가입 관련 재약조건문들 O (나중에 추가가능 기능 -> 생년월일 받아서 나이 반환) (휴대폰 인증 관련 API? )
+	 * 성철 회원가입 관련 재약조건문들 O (나중에 추가? -> 생년월일 받아서 나이 반환) (휴대폰 인증 관련 API? )
 	 */
 	@PostMapping("/signUp") // 회원가입 메서드
 	public String signUp(Member member, String addrDetail, MultipartFile imgFile) throws IOException {
@@ -103,8 +113,58 @@ public class MemberController {
 		Files.createDirectories(directoryPath);
 		member.setMemberImg(fileUpload(imgFile, mem.getId()));
 		service.signUp(member);
-		return "redirect:/";
+		return "login/loginPage";
 
+	}
+	
+	/*
+	 * 성철 
+	 * 회원의 이메일, 이름 받아서 아이디 찾기
+	 * */
+	@PostMapping("/findMemberId")
+	public String findMemberId(Member member, Model model) {
+		
+		String str = service.findMemberId(member);
+		if(str == "") {
+			model.addAttribute("message" , "틀림");
+		}else {
+			model.addAttribute("message" , str);
+		}
+		return "login/findId"; // 인덱스 페이지로 리다이렉트
+	}
+
+	/*
+	 * 성철 
+	 * 비밀번호 찾기
+	 * 로그인 X 한 상태에서 유저에게 ID랑 이메일 정보를 받아서 일치할시에 그 유저가 가입할때 넣은 이메일주소에 임시 비밀번호 발송 ->
+	 * 암호화 -> DB변경 (이메일서비스)
+	 */
+
+	@PostMapping("/sendEmail")
+	public String sendEmail(@RequestParam("id") String id, @RequestParam("email") String email, Model model) {
+		Member member = new Member();
+		member.setId(id);
+		member.setEmail(email);
+		System.out.println("DB에 보낼 정보 : " + member);
+		Member mem = emailService.memberEmailIdcheck(member);
+		System.out.println("DB의 정보 : " + mem);
+		try {
+			System.out.println("서비스 진입전 member 정보 : " + mem);
+			emailService.processPasswordReset(mem);
+			System.out.println("서비스 진입성공");
+			if(mem != null) {
+			model.addAttribute("message", "임시 비밀번호가 이메일로 전송되었습니다.");
+			System.out.println("비밀번호 변경 완료");
+			}else {
+				System.out.println("아이디 비밀번호 일치 X");
+				model.addAttribute("message", "아이디와 이메일이 일치하지 않습니다.");
+			}
+		} catch (Exception e) {
+			model.addAttribute("message", "비밀번호 재설정에 실패했습니다.");
+			System.out.println("비밀번호 변경 실패");
+		}
+
+		return "login/findPassword"; // 인덱스 페이지로 리다이렉트
 	}
 
 	/*
@@ -120,10 +180,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	/*
-	 * 성철 로그인 X 한 상태에서 유저에게 ID랑 이메일 정보를 받아서 일치할시에 그 유저가 가입할때 넣은 이메일주소에 임시 비밀번호 발송 ->
-	 * 암호화 -> DB변경 (이메일서비스)
-	 */
+
 
 	@ResponseBody
 	@PostMapping("/updateMemberInfo")
@@ -187,7 +244,11 @@ public class MemberController {
 		return check;
 	}
 	
-	// 탈퇴 로직
+	/*
+	 * 성철
+	 * 탈퇴 로직에 댓글 자동삭제 추가
+	 * 
+	 * */
 	@ResponseBody
 	@PostMapping("/memberStatus")
 	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response, Member member , String pwdCheck, MainComment mainComment) {
@@ -246,7 +307,7 @@ public class MemberController {
 		return "redirect:/mypage";
 	}
 
-	/*
+	/* 성철
 	 * 닉네임값 받아서 해당유저의 상세페이지로 이동(그유저의 가입된 클럽 여부, 추천기능)
 	 */
 	@GetMapping("/userInfo/{nickname}")
@@ -262,6 +323,10 @@ public class MemberController {
 		return "member/userInfo";
 	}
 
+	/*
+	 * 성철
+	 * 유저 1명당 24시간마다 다른 유저에게 추천, 비추천 기능(온도 0.5도씩 업다운)
+	 * */
 	@ResponseBody
 	@PostMapping("/recommendation")
 	public boolean recommendation(String targetMember, String loginMember, boolean plusMinus) {
@@ -311,25 +376,4 @@ public class MemberController {
 		return "redirect:/mypage";
 	}
 
-	@PostMapping("/sendEmail")
-	public String sendEmail(@RequestParam("id") String id, @RequestParam("email") String email, Model model) {
-		Member member = new Member();
-		member.setId(id);
-		member.setEmail(email);
-		System.out.println("DB에 보낼 정보 : " + member);
-		Member mem = emailService.memberEmailIdcheck(member);
-		System.out.println("DB의 정보 : " + mem);
-		try {
-			System.out.println("서비스 진입전 member 정보 : " + mem);
-			emailService.processPasswordReset(mem);
-			System.out.println("서비스 진입성공");
-			model.addAttribute("message", "임시 비밀번호가 이메일로 전송되었습니다.");
-			System.out.println("비밀번호 변경 완료");
-		} catch (Exception e) {
-			model.addAttribute("message", "비밀번호 재설정에 실패했습니다.");
-			System.out.println("비밀번호 변경 실패");
-		}
-
-		return "redirect:/"; // 인덱스 페이지로 리다이렉트
-	}
 }

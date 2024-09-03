@@ -44,7 +44,6 @@ public class MainCommentController {
 	 * text 널처리 하면 화면단에 삭제된 댓글입니다 나오게 해둠
 	 * 만약 대댓글이 없는 댓글이면 그냥 삭제
 	 * 남아있던 마지막 대댓글이 삭제되면 해당 댓글도 삭제처리 ㅇㄹ 
-	 * (DB에 text가 null 이면서 자식 없는거 하루마다? 자동삭제? 필요?)
 	 * */
 	@ResponseBody
 	@PostMapping("/deleteComment")

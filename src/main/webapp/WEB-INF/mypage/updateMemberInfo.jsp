@@ -53,7 +53,7 @@
 							value="${member.phone}"  /> 
 					</div>
 					<div class="form-group">
-						<label for="addr">연락처</label>
+						<label for="addr">주소</label>
 						<div id="addrDetail-box">
 							<c:set var="addressParts" value="${fn:split(member.addr, '#')}" />
 							<c:choose>

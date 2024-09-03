@@ -8,7 +8,7 @@ import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.MeetingsComment;
 
 @Mapper
-public interface RemoveMemberCommentMapper {
+public interface RemoveMemberMapper {
 	// 메인 댓글 삭제 로직
 	ArrayList<MainComment> selectMain(String id);
 	void deleteUpdateMainComment(int mainCommentCode);
@@ -22,4 +22,7 @@ public interface RemoveMemberCommentMapper {
 	void deleteMeetingComment(int meetingCommentCode);
 	int meetingReCommentCount(int meetingCommentCode);
 	MeetingsComment selectMeetComment(int meetingCommentCode);
+	
+	// 댓글말고 유저리스트 삭제
+	void deleteMembershipUserList(String id);
 }

@@ -61,18 +61,16 @@
 					<h3>
 						<strong>(단, 질문자/답변자 아이디가 비공개 처리됨)</strong>
 					</h3>
-					<c:if test="${fn:length(list) != 0}">
-						<c:forEach items="${list}" var="listItems">
-							<h2>가입되어있는 클럽명 : (${listItems.membership.membershipName} )</h2>
+					<c:if test="${list != null}">
+							<h2>가입되어있는 클럽명 : (${list.membershipName} )</h2>
 							<div>
-								<a href="/club/${listItems.membership.membershipCode}">
+								<a href="/club/${list.membershipCode}">
 									<img class="membership-img" src="http://192.168.10.51:8081/membership/
-									${listItems.membership.membershipCode}/${listItems.membership.membershipImg}"
+									${list.membershipCode}/${list.membershipImg}"
 								alt="Membership Image"/>
 								</a>
 							</div>
-							<h2>회원님의 등급 : ( ${listItems.listGrade} )</h2>
-						</c:forEach>
+							<h2>회원님의 등급 : ( 호스트 )</h2>
 					</c:if>
 					<p>
 						탈퇴 후에는 <strong>해당 아이디 로 다시 가입할 수 없으며 아이디와 데이터는 복구할 수

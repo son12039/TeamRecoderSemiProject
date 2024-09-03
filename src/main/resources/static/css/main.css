@@ -7,11 +7,11 @@ body {
 #box {
   display: flex;
   justify-content: center;
-  padding-top:120px;
+  padding-top:100px;
 }
 #container {
   width: 100%;
-  max-width: 1280px;
+  max-width: 800px;
   margin: auto;
   background: #ffe8cf;
   padding: 20px;
@@ -120,7 +120,7 @@ form {
   margin-top: 20px;
 }
 #comment-frm{
-	max-width: 1280px;
+	max-width: 800px;
 	width: 100%;
 }
 
@@ -151,7 +151,7 @@ input[type="submit"]:hover {
 .re-comment {
   padding: 8px;
   width: 100%;
-  max-width: 1280px;
+  max-width:800px;
   margin: 10px;
   border-radius: 10px;
   background-color: #e5e5e5;
@@ -170,7 +170,7 @@ div[id^="comment-box"] {
 text-wrap: nowrap;
 border: 1px solid #fca311;
    border-radius: 10px;
-   max-width: 1280px;
+   max-width: 800px;
   width: 100%;
   height: 100px;
   display: flex;

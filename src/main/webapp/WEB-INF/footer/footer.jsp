@@ -46,7 +46,7 @@
 }
 .footer_box{
 	width: 100%;
-	max-width: 1280px;
+	max-width: 900px;
 	height : 100%;
 	margin : auto;
 	padding-top : 50px;

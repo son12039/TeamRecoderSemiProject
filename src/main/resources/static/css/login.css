@@ -10,6 +10,13 @@ form {
 	width:100%;
 }
 
-button {
-	width:100%
+.btn {
+	width:100%;
+ background: #fca35b;
+    border: none;
+    color:white;
+  
+}
+.btn:hover {
+ background: #E76F00;
 }

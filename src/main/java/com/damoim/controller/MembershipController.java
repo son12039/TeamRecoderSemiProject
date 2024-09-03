@@ -160,8 +160,9 @@ public class MembershipController {
 			model.addAttribute("main", list);
 			// 해당클럽에 가입신청된 모든 유저정보		
 				
-			model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
-
+	// 0903 성일  어차피 승인은 멤버관리 페이지에서 하기 때문에 모든 인원을 알려주는거 보다 regular 이상 회원만 jsp로 전달
+	//		model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
+		  model.addAttribute("allMember", service.MembershipAllRegular(membershipCode));
 			model.addAttribute("adminList", service.adminUser(membershipCode));
 			
 			
@@ -317,7 +318,11 @@ public class MembershipController {
 	}
 	
 	
-	
+	/* 멤버관리 페이지 
+	 * 호스트와 관리자만 접속 가능 
+	 * 등급 설정 및 회원 강퇴 기능 구현 
+	 * 
+	 * */
 	@GetMapping("/management")
 	public String management(Integer membershipCode ,Model model) {
 
@@ -351,11 +356,7 @@ public class MembershipController {
 		return "membership/management";
 	}
 	
-	@GetMapping("/membership/asd")
-	public String asd() {
-		
-		return "membership/asd";
-	}
+	
 	
 	@ResponseBody
 	@PostMapping("/gradeUpdate")

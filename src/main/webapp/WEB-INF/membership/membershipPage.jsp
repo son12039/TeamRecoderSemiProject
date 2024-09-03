@@ -7,11 +7,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
 <title>${main.membership.membershipName}</title>
    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>  
      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+     
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+   
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -88,18 +92,23 @@
                             </div>
                      
                          
-                           <div class="manner">
-                           <c:if test="${listMember.member.memberManner < 36.5}">
-                           <p> ${listMember.member.memberManner}℃</p> <span style="color:rgb(252, 177, 3)" ><i class="fa-solid fa-face-meh fa-2x"></i></span> 
-                           </c:if>
-                           <c:if test="${listMember.member.memberManner == 36.5}">
-                           <p> ${listMember.member.memberManner}℃</p> <span style="color:rgb(252, 177, 3)" ><i class="fa-solid fa-face-smile fa-2x"></i></span> 
-                           </c:if>
-                           <c:if test="${listMember.member.memberManner > 36.5}">
-                           <p> ${listMember.member.memberManner}℃</p> <span style="color:rgb(252, 177, 3)" ><i class="fa-solid fa-face-grin fa-2x"></i></span> 
-                           </c:if>
-                         
-                        </div>
+                  		<div class="manner">
+							<c:if test="${listMember.member.memberManner < 30}">
+								<p>${listMember.member.memberManner}℃</p>
+								<span style="color: red"><i
+									class="fa-solid fa-face-angry fa-2x"></i></span>
+							</c:if>
+							<c:if test="${listMember.member.memberManner >= 30 && listMember.member.memberManner <= 40}">
+								<p>${listMember.member.memberManner}℃</p>
+								<span style="color: rgb(252, 177, 3)"><i
+									class="fa-solid fa-face-smile fa-2x"></i></span>
+							</c:if>
+							<c:if test="${listMember.member.memberManner > 40}">
+								<p>${listMember.member.memberManner}℃</p>
+								<span style="color: green"><i
+									class="fa-solid fa-face-grin fa-2x"></i></span>
+							</c:if>
+						</div>
                         
                           </div>
                           </div>
@@ -172,44 +181,56 @@
 				</div>
 			</div>
 			
-			<div id="option">
 			
 			
-			 <div id="calendar" style= "width: 60%"     ></div>
-			<div id="links">
-				<div class="dropdown">
-				<a class="btn btn-warning dropdown-toggle" href="#" role="button"
-					data-bs-toggle="dropdown" aria-expanded="false"> <i class="fa-solid fa-bars"></i> </a>
-
-				<ul class="dropdown-menu">
-					<li><a
-						href="/club/${main.membership.membershipCode}/membershipPromotionDetail"
-						class="dropdown-item">홍보글 작성</a></li>
-					<li><a href="/updateMembership" class="dropdown-item">정보 수정하기</a></li>
-					<li><a href="/write?membershipCode=${main.membership.membershipCode}" class="dropdown-item">모임게시판작성하러가기</a></li>				
-					<li><a id="management"  class="dropdown-item" href="/management?membershipCode=${main.membership.membershipCode}"   > 멤버관리페이지 </a></li>
-					
-				</ul>
-			</div>
-
+			
+		<div id="calendar-info">
 		
-			<div>
-					<a
-						href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a>
-				</div>
-			
-			</div>
+		 <p>일정 한눈에 보기</p>
+		<div id="calendar"></div>
+		</div>
 			
 
  
 		
-  </div>
+
 		
 		
 
 
  
 		</div>
+		
+
+		
+		
+		
+		<div id="menu">
+		<ul>
+		<li class="mainMenu">MENU</li>
+<c:if test="${ fn:contains(adminList, member.id) || member.id == main.member.id}">
+					<li><a
+						href="/club/${main.membership.membershipCode}/membershipPromotionDetail"
+						>홍보글 작성</a></li>
+					<li><a href="/updateMembership">정보 수정하기</a></li>
+					<li><a href="/write?membershipCode=${main.membership.membershipCode}">모임게시판작성하러가기</a></li>				
+					<li><a id="management"  class="dropdown-item" href="/management?membershipCode=${main.membership.membershipCode}"   > 멤버관리페이지 </a></li>
+					</c:if>
+					<li><a
+						href="/chatserver?membershipCode=${main.membership.membershipCode}" >채팅서버가기</a></li>
+				
+				</ul>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -223,11 +244,27 @@
    
     
     const allDates = [];
+   
     let allMeet = {};
-    <c:forEach items="${allmeet}" var="item">
+    const endDate = [];
+    <c:forEach items="${allmeet}" var="item" varStatus="status">
+    const a${status.index} = new Date("${item.meetDateEnd}")
+   a${status.index}.setDate(a${status.index}.getDate()+1)
+    a${status.index}1 = a${status.index}.toISOString().split('T')[0];
+   endDate.push(a${status.index}1);
+    </c:forEach>
+   console.log(endDate)
+   
+   const today = new Date();
+  const now = today.toISOString().split('T')[0];
+   console.log(today)
+   console.log(now)
+   
+    <c:forEach items="${allmeet}" var="item" varStatus="status">
     	allMeet.title = "${item.meetTitle}";
     	allMeet.start = "${item.meetDateStart}";
-    	allMeet.end = "${item.meetDateEnd}";
+    	
+    	allMeet.end = endDate[${status.index}];
     	allMeet.color = "${item.color}";
     	allMeet.meetCode= "${item.meetCode}";
     	allDates.push(allMeet);
@@ -235,9 +272,10 @@
     </c:forEach>
     
    
+   
     </script>
       <script src="${pageContext.request.contextPath}/js/calendar.js"></script>
-       <script src="${pageContext.request.contextPath}/js/management.js"></script>
+       <script src="${pageContext.request.contextPath}/js/membershipPage.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
 		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -247,31 +285,37 @@
 		integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
 		crossorigin="anonymous"></script>
 		
+	<script>
+	$(".mainMenu").mouseenter((e) => {
+		  let contents = $(e.target).siblings(); // 형제들
+	
+		 
+		  if (contents.css("display") === "none") {
+		    contents.slideDown();
+		  }
 		
-		
-<script>
+		});
+	
+	
+	$("#menu").mouseleave((e) => {
+		  let contents = $(".mainMenu").siblings(); // 본인 기준 바로 다음
+	
+		 
+		 
+			  contents.slideUp();
+			  
+		  
+		});
+	
+	
+	
+	
+	
+	
+	
+	
+	</script>	
 
-$("#management").click(()=>{
-	
-	
-	
-	
- 	$.ajax({
-		url: "/management",
-		type: 'post',
-		data: 
-			 {membershipCode: $("#management").val()},
-		success: function() {
-			
-			alert("?")
-			 
-			}
-						
-		
-	});	 
-})
-
-</script>
 
 </body>
 </html>

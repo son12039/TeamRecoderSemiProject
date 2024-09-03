@@ -36,8 +36,8 @@ uri="http://www.springframework.org/security/tags" %>
     </div>
     <div id="input-right">
     <h2>달력 색상 선택 : </h2><input type="color" id="colors" name="color" value="${meetingInfo.color}" />  
-    <h2>시작 날짜 : </h2><input class="day" type="date" id="start" name="meetDateStart" value="${meetingInfo.meetDateStart}"/>
-    <h2>종료 날짜 : </h2><input class="day" type="date" id="end" name="meetDateEnd" value="${meetingInfo.meetDateEnd }" />
+    <h2>시작 날짜 : </h2><input class="day" type="date" id="start" name="meetDateStart" />
+    <h2>종료 날짜 : </h2><input class="day" type="date" id="end" name="meetDateEnd" />
     <input  type="hidden" id="code" name="membershipCode" value="${membershipCode}" />
 	</div>
 	</div>
@@ -46,7 +46,7 @@ uri="http://www.springframework.org/security/tags" %>
     <!-- 제출 버튼 -->
     <div id="button-box">
      <button class="button" id="submitButton">제출</button>
-    <a class="button" id="back-button" href="/club/${memInfo.membershipCode}">뒤로가기</a>
+    <a class="button" id="back-button" href="/club/${membershipCode}">뒤로가기</a>
    
     </div>
      </div>
@@ -88,11 +88,14 @@ uri="http://www.springframework.org/security/tags" %>
         .getElementById("submitButton")
         .addEventListener("click", function () {
           const content = editor.getEditorValue(); // 에디터의 내용을 가져옴
+          const today = new Date(); 
+          const now = today.toISOString().split('T')[0];
           const title = $("#title").val();
           const start = $("#start").val();
           const end = $("#end").val();
           const color = $("#colors").val();
           const code = $("#code").val();
+         
     
           // 콘솔에 내용 출력 (테스트 용도)
           console.log(content);
@@ -110,7 +113,12 @@ uri="http://www.springframework.org/security/tags" %>
     	   alert("날짜를 확인해주세요")
        } else if (content == ""){
     	   alert("내용을 입력해주세요!")
-       } else {
+       } else if (start < now){
+    	   
+    	   alert("시작 날짜가 오늘보다 빠를수 없습니다")
+       }  
+      
+       else {
           $.ajax({
             url: "/write", // 요청을 보낼 URL
             type: "POST",

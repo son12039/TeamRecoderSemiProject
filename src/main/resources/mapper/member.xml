@@ -169,12 +169,15 @@
 
 	<select id="memberInfo" parameterType="Member"
 		resultType="Member">
-		SELCET *
+		SELECT *
 		FROM member
 		WHERE id = #{id}
 	</select>
 
 	<!-- 이메일 아이디 확인 -->
+	
+
+	
 	<select id="memberEmailIdcheck" parameterType="Member"
 		resultType="Member">
 		SELECT *

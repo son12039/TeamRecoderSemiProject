@@ -174,9 +174,10 @@ body {
 }
 
 #box {
-  padding-top: 80px;
-  display: flex;
-  justify-content: center;
+padding-top: 80px;
+   
+  
+
 }
 #container {
   width: 100%;
@@ -237,131 +238,190 @@ body {
   margin: 20px;
 }
 
-#accordionExample {
-  width: 450px;
-  position: fixed;
-  left: 0px;
-  z-index: 99;
+
+#calendar-info{
+	
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-top: 3px solid black;
+
 }
 
-.accordion-button collapsed {
-  background-color: #14213d !important;
-  color: white !important;
-  font-weight: bold !important;
-}
-.accordion-collapse {
-  overflow: auto;
+#calendar-info p{
+font-family: "Do Hyeon", sans-serif;
+font-size: 60px;
+font-weight: bold;
+padding:10px;
+
 }
 
-.accordion-body {
-  max-height: 700px;
-}
-.accordion-button:not(.collapsed) {
-  background: #fca311; /* 펼쳐졌을 때 배경색 */
-  color: #ffffff; /* 텍스트 색상 */
+#calendar {
+  background: white;
+  width: 500px;
+  height: 600px;
+ 
+  
 }
 
-.accordion-button.collapsed {
-  background: #14213d; /* 닫혔을 때 배경색 */
-  color: #ffffff; /* 텍스트 색상 */
-}
+
 
 .allmemberImg {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  margin-right: 20px;
+ 
 }
+
 
 .memberTable {
   border: 1px solid;
-
+  
   padding: 20px;
   border-radius: 20px;
   margin-bottom: 10px;
 }
-.memberTable ui {
-  display: flex;
-
-  flex-direction: column;
+.memberTable ui{
+	
+	display: flex;
+   
+    flex-direction: column;
 }
 .member-grade {
-  width: 50px;
+
   text-align: center;
   font-weight: bold;
+      text-wrap: nowrap;
+  
 }
 
 .member-grade span {
   color: rgb(252, 177, 3);
-  font-size: 32px;
+  font-size: 20px;
+  
 }
 
-.member-img-info-hobby-location {
-  display: flex;
+
+.member-img-icon-nickname-manner{
+	display: flex;
+	justify-content: space-evenly;
 }
-.member-info {
-  color: gray;
-  margin-bottom: 10px;
+.member-img-icon{
+	
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+.nickname-manner {
+	
+	    display: flex;
+    flex-direction: column;
+    justify-content: center;
+        position: relative;
+    top: 12px;
+}
+.manner{
+	display:flex;
+	justify-content: center;
+    align-items: center;
 }
 
-.member-hobby-location {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.member-info-hobby-location {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.manner p {
+	
+	margin-right: 15px;
 }
 
-.member-hobby-location {
-  border: 1px solid black;
-  border-radius: 20px;
-  width: 134px;
-  height: 28px;
-  text-align: center;
-  background: beige;
-  font-weight: bold;
+.nickname{
+	
+	text-align: center
 }
 
-.nickname-age-fm-manner {
-  display: flex;
+
+
+#accordionExample {
+      width: 15%;
+    position: fixed;
+    left: 0px;
+    z-index: 99;
+ 
+  
 }
-.nickname-age-fm {
-  width: 90px;
+
+
+.accordion-button collapsed{
+	
+	background-color: #14213d !important;
+    color: white !important;
+    font-weight: bold !important;
+   
+	
 }
-.nickname {
-  font-weight: bold;
+.accordion-header{
+	
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+
+	
+	
 }
-.age-fm {
-  font-size: 32px;
-  display: flex;
-  justify-content: space-around;
+
+.accordion-collapse {
+  overflow: auto; 
 }
-.manner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.accordion-collapse::-webkit-scrollbar {
+	display: none;
 }
-.manner > p {
-  margin: 20px;
+.accordion-collapse.collapsing {
+	  max-height: 700px !important;
 }
-#man {
-  color: blue;
+
+.accordion-body {
+     max-height: 700px;
 }
-#femail {
-  color: pink;
+
+
+.accordion-button:not(.collapsed) {
+    background: #fca311 ; /* 펼쳐졌을 때 배경색 */
+    color: #ffffff; /* 텍스트 색상 */
 }
-#container-calendar {
-  display: flex;
-  margin-left: 450px;
+
+
+.accordion-button.collapsed {
+    background: #14213d; /* 닫혔을 때 배경색 */
+    color: #ffffff; /* 텍스트 색상 */
 }
-#calendar {
-  background: white;
-  width: 500px;
-  height: 600px;
-  position: fixed;
-  top: 88px;
-  right: 20px;
+
+
+#buttones{
+	display :flex;
+	width: 100%;
+    justify-content: space-between;
+}
+#button3{
+	
+	display: flex;
+}
+.agree{
+	margin:10px;
+	
+}
+.agree1{
+	margin: 10px;
+}
+
+#back button{
+	    width: 88px;
+    height: 45.59px;
+    background: #FBA010;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    margin-top:35px;
+    margin-left:5px;
 }

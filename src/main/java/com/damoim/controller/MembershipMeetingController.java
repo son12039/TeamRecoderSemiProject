@@ -63,6 +63,7 @@ public class MembershipMeetingController {
 		
 		
 		meeting.setId(authentication.getName());
+	
 
 		service.addMeeting(meeting);
 		
@@ -97,6 +98,7 @@ public class MembershipMeetingController {
 		
 		// 멤버쉽 이미지가 필요해서 memebershipCode를 추출 
 		int membershipCode = service.meetSelect(meetCode).getMembershipCode();
+	    model.addAttribute("regular", membershipService.MembershipAllRegular(membershipCode));
 		// 캘린더 추가 ? 
 		model.addAttribute("allmeet", service.allMeetings(membershipCode));
 		// 해당 코드로 멤버쉽 유저리스트 불러와서 membership 정보 가져옴  

@@ -46,8 +46,9 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           <div id="pwdCheck" class="form-text"></div>
         </div>
         <div id="result"></div>
-        <button type="submit" class="btn btn-dark">로그인</button>
-      </form>
+        <button type="submit" class="btn">로그인</button>
+      </form>    
+    
       <a href="/findMember">아이디/비밀번호 찾기</a>
     </div>
 

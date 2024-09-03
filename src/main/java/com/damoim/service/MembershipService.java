@@ -205,9 +205,11 @@ public class MembershipService {
 		
 		}
 	
+	public void resignUserList(String id) {
+		 mapper.resignUserList(id);
+	}
 	
 }
-
 
 
 

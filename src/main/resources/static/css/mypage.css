@@ -87,9 +87,15 @@ input[type=text] {
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
-	
+	font-weight: bolder;
 }
+
 .profile_manner p{
+	font-size: 1.2rem;
+	font-weight: bolder;
+	padding-right: 10px;
+}
+.profile_manner h1{
 	font-size: 1.2rem;
 	font-weight: bolder;
 	padding-right: 10px;
@@ -118,7 +124,7 @@ input[type=text] {
 	align-items: center;
 
 }
-#submit {
+#updateSubmit {
 	background-color: #1b2a41;
 	color: white;
 	padding: 10px 15px;
@@ -270,7 +276,6 @@ input[type=text] {
 
 #label {
 	min-width: var(--btn-min-width);
-	height: 50px;
 	min-height: var(--btn-min-height);
 	background-color: whitesmoke;
 	border-radius: var(--border-rad);

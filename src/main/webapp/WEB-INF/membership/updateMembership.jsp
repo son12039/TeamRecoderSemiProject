@@ -12,13 +12,15 @@
 <title>정보 수정</title>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/reset.css" />
+<link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/updateMembership.css">
 </head>
 <body>
-
+	<jsp:include page="/WEB-INF/header/mypageHeader.jsp" />
 	<sec:authorize access="isAuthenticated()" var="principal">
 		<sec:authentication property="principal" var="member" />
-
+		
 		<div class="container">
 			<h1>클럽 정보 수정</h1>
 			<form action="/updateMembership" method="post"
@@ -27,7 +29,7 @@
 					<label for="membershipName">클럽 이름 수정 : </label> <input type="text"
 						id="membershipName" name="membershipName">
 				</div>
-
+				
 				<button type="submit">수정하기</button>
 			</form>
 		</div>

@@ -185,7 +185,7 @@ public class MemberController {
 	// 탈퇴 로직
 	@ResponseBody
 	@PostMapping("/memberStatus")
-	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response, Member member , String pwdCheck, MainComment mainComment) {
+	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response, String pwdCheck) {
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    Member mem = (Member) authentication.getPrincipal();
 	    ArrayList<MembershipUserList> membershipList = infoService.selectName(mem.getId());
@@ -195,8 +195,7 @@ public class MemberController {
 	    }
 	    mem.setStatus(false); // 멤버 status false
 	    service.memberStatus(mem); // 멤버 상태 업데이트
-	    member.setId(mem.getId());
-	    
+	    infoService.resignUserList(mem.getId()); // 멤버쉽 유저 리스트 삭제
 	    
 	    // 로그아웃 처리
 	    SecurityContextHolder.getContext().setAuthentication(authentication);

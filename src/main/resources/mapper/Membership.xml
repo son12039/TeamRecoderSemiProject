@@ -15,8 +15,10 @@
 		<result property="membershipDate" column="membership_date" />
 		<result property="membershipGrade" column="membership_grade" />
 		<result property="membershipMax" column="membership_max" />
-		<result property="membershipSimpleText" column="membership_simple_text" />
-		<result property="membershipAccessionText" column="membership_accession_text"/>
+		<result property="membershipSimpleText"
+			column="membership_simple_text" />
+		<result property="membershipAccessionText"
+			column="membership_accession_text" />
 	</resultMap>
 
 	<resultMap type="MembershipUserList" id="listMap">
@@ -27,13 +29,13 @@
 			<result column="name" property="name" />
 			<result column="nickname" property="nickname" />
 			<result column="member_img" property="memberImg" />
-			<result column="member_info" property="memberInfo"/>
-			<result column="member_manner" property="memberManner"/>
-			 <result property="memberHobby" column="member_hobby" />
-			  <result property="memberLocation" column="member_location" />
-			  <result property="phone" column="phone"/>
-			   <result property="age" column="age" />
-        <result property="gender" column="gender" />
+			<result column="member_info" property="memberInfo" />
+			<result column="member_manner" property="memberManner" />
+			<result property="memberHobby" column="member_hobby" />
+			<result property="memberLocation" column="member_location" />
+			<result property="phone" column="phone" />
+			<result property="age" column="age" />
+			<result property="gender" column="gender" />
 		</association>
 		<association property="membership" javaType="Membership">
 			<id column="membership_code" property="membershipCode" />
@@ -43,8 +45,10 @@
 			<result column="Mebership_date" property="membershipDate" />
 			<result column="Membership_grade" property="membershipGrade" />
 			<result column="Membership_max" property="membershipMax" />
-			<result property="membershipSimpleText" column="membership_simple_text" />
-		<result property="membershipAccessionText" column="membership_accession_text"/>
+			<result property="membershipSimpleText"
+				column="membership_simple_text" />
+			<result property="membershipAccessionText"
+				column="membership_accession_text" />
 		</association>
 	</resultMap>
 
@@ -95,20 +99,20 @@
 		JOIN member USING (id)
 		WHERE membership_code =
 		#{membership_code}
-		ORDER BY 
-    CASE list_grade
-        WHEN 'host' THEN 1
-        WHEN 'admin' THEN 2
-        WHEN 'regular' THEN 3
-        WHEN 'guest' THEN 4
-        ELSE 5
-    END;
+		ORDER BY
+		CASE list_grade
+		WHEN 'host' THEN 1
+		WHEN 'admin' THEN 2
+		WHEN 'regular' THEN 3
+		WHEN 'guest' THEN 4
+		ELSE 5
+		END;
 	</select>
 	<!-- 해당 맴버쉽의 코드와 유저 ID (로그인) 정보 받아서 맴버쉽에 가입 신청 하는 기능 -->
-	
-	
-	
-	
+
+
+
+
 	<select id="MembershipAllRegular" parameterType="Integer"
 		resultMap="listMap">
 		SELECT *
@@ -119,9 +123,7 @@
 		WHERE membership_code =
 		#{embership_cmode} AND list_grade != "guest";
 	</select>
-	<!-- 해당 맴버쉽의 코드와 유저 ID (로그인) 정보 받아서 
-		맴버쉽에 가입 신청 하는 기능 
-		-->
+	<!-- 해당 맴버쉽의 코드와 유저 ID (로그인) 정보 받아서 맴버쉽에 가입 신청 하는 기능 -->
 	<insert id="membershipApply" parameterType="MemberListDTO">
 		INSERT INTO
 		membership_user_list(membership_code , id,list_grade)
@@ -141,7 +143,7 @@
 		"${memebershipCode}" AND
 		list_grade = "host";
 	</select>
-	
+
 	<!-- 해당 클럽의 유저 현황을 클럽 코드를 가져와서 현재 인원만 반환해주는 쿼리 변경필요 -->
 	<select id="membershipUserCount" parameterType="Integer"
 		resultType="Integer">
@@ -152,7 +154,7 @@
 		list_grade != "guest"
 		GROUP BY membership_code
 	</select>
-	
+
 	<!-- 클럽 생성관련 쿼리 -->
 	<insert id="makeMembership" parameterType="Membership"
 		useGeneratedKeys="true" keyProperty="membershipCode">
@@ -193,51 +195,53 @@
 	<!-- 해당 맴버쉽 코드와 유저 정보를 가져와서 유저 등급을 변경하는 컬럼 (아직은 단순 게스트 -> 레귤러) -->
 	<update id="agreeMemeber" parameterType="MemberListDTO">
 		UPDATE
-		membership_user_list		
+		membership_user_list
 		SET list_grade = #{listGrade}
 		WHERE id = #{id} AND
 		membership_code =
 		#{membershipCode}
 	</update>
-	
-	
+
+
 	<update id="hostChange" parameterType="MemberListDTO">
 		UPDATE
-		membership_user_list		
+		membership_user_list
 		SET list_grade = "admin"
-		WHERE list_grade = "host" AND 
+		WHERE list_grade = "host" AND
 		membership_code =
 		#{membershipCode}
 	</update>
-	
-	
+
+
 	<delete id="expelMember" parameterType="MemberListDTO">
-	DELETE FROM membership_user_list
+		DELETE FROM membership_user_list
 		WHERE id = #{id} AND
 		membership_code =
 		#{membershipCode}
 	</delete>
-	 
+
 	<!-- 모든 채팅방리스트 불러옴 -->
 	<select id="roomlist" resultMap="roomListmap">
 		SELECT
 		membership_name,membership_code FROM
 		membership
 	</select>
-	
-	<select id="adminUser" resultMap="listDTOMap" parameterType="Integer">
-	SELECT *
-	FROM membership_user_list
-	WHERE list_grade = "admin" AND membership_code = #{membershipCode}
-	
-	</select>
-	
 
-     <select id="ifHost" resultMap="listDTOMap" parameterType="String">
-     SELECT *
-     FROM membership_user_list
-     WHERE list_grade ="host" AND id= #{id}    
-     </select>
+	<select id="adminUser" resultMap="listDTOMap"
+		parameterType="Integer">
+		SELECT *
+		FROM membership_user_list
+		WHERE list_grade = "admin" AND membership_code = #{membershipCode}
+
+	</select>
+
+
+	<select id="ifHost" resultMap="listDTOMap"
+		parameterType="String">
+		SELECT *
+		FROM membership_user_list
+		WHERE list_grade ="host" AND id= #{id}
+	</select>
 
 	<!-- 클럽 정보 수정 -->
 
@@ -249,7 +253,8 @@
 		JOIN
 		membership USING (membership_code)
 		WHERE id = #{id}
-		AND (list_grade = "host");
+		AND (list_grade =
+		"host");
 	</select>
 
 	<select id="meetCount" parameterType="String" resultType="int">
@@ -266,22 +271,25 @@
 
 	<select id="selectMemberUserList" parameterType="String"
 		resultMap="listMap">
-		SELECT * FROM 
+		SELECT * FROM
 		membership_user_list
 		JOIN membership USING(membership_code)
 		WHERE id = #{id}
 	</select>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	<delete id="resignUserList" parameterType="String">
+		DELETE FROM membership_user_list
+		WHERE id = #{id}
+	</delete>
+
+
+
+
+
+
+
+
+
 
 </mapper>
  

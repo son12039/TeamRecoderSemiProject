@@ -49,11 +49,12 @@
 			<div class="profile_img">
 				<c:choose>
 					<c:when test="${member.memberImg != null}">
-						<div>
-						<img src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}"
-							alt="Profile Image" id="image_container">
+						<div id="image_container">
+							<img
+								src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}"
+								alt="Profile Image">
 						</div>
-						
+
 					</c:when>
 					<c:otherwise>
 						<img src="http://192.168.10.51:8081/기본프사.jpg"
@@ -63,8 +64,8 @@
 			</div>
 			<!-- 프로필 업데이트 -->
 			<div class="profile_update">
-				<input class="form-control" name="file" type="file" accept="image/*"
-					id="file" onchange="imgShow(event)">
+					<input class="form-control" name="file" type="file" accept="image/*"
+						id="file" onchange="imgShow(event)">
 				<div class="profile_manner">
 					<h1>${member.nickname}</h1>
 					<c:if test="${member.memberManner < 30}">
@@ -93,8 +94,8 @@
 						name="memberHobby" value="${member.memberHobby}">
 				</div>
 				<div class="profile_submit">
-					<input type="button" id="submit" value="수정"> <a
-						href="/updateCheck" id="updateCheck">회원정보 수정</a>
+					<input type="button" id="updateSubmit" value="수정"> 
+					<a href="/updateCheck" id="updateCheck">회원정보 수정</a>
 				</div>
 			</div>
 		</form>
@@ -242,11 +243,14 @@
 		    var reader = new FileReader();
 		
 		    reader.onload = function(event) {
+		        var imageContainer = document.querySelector("div#image_container");
+		        // 이전 이미지가 있으면 제거
+		        imageContainer.innerHTML = '';
 		        var img = document.createElement("img");
 		        img.setAttribute("src", event.target.result);
-		        document.querySelector("div#image_container").appendChild(img);
+		        imageContainer.appendChild(img);
 		    };
-		    
+		
 		    if (event.target.files.length > 0) {
 		        reader.readAsDataURL(event.target.files[0]);
 		    }

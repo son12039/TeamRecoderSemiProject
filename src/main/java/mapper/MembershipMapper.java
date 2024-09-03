@@ -63,6 +63,7 @@ public interface MembershipMapper {
 	
 	MemberListDTO ifHost(String id);
 	
+	void resignUserList(String id);
 	
 }
 

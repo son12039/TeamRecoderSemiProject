@@ -89,17 +89,7 @@ public class MemberController {
 		return mem == null;
 
 	}
-	
-	@ResponseBody
-	@PostMapping("/nicknameDupCheck") // 회원가입시 닉네임 중복 체크
-	public boolean nicknameDupCheck(Member member) {
-		
-		Member mem = service.NicknameDupCheck(member.getId(),member.getNickname());
-		
-		return false;
-	}
-	
-	
+
 	
 	
 	/*
@@ -271,7 +261,7 @@ public class MemberController {
 	    }
 	    mem.setStatus(false); // 멤버 status false
 	    service.memberStatus(mem); // 멤버 상태 업데이트
-	    member.setId(mem.getId());
+	    mem.setId(mem.getId());
 	    removeService.deleteAllComment(mem.getId());
 	    System.out.println("에러 확인?");
 	    

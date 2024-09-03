@@ -20,16 +20,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Do+Hyeon&family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&family=Jua&display=swap" rel="stylesheet">
+<!-- 나눔 폰트 -->
+<!-- font-family: "Noto Sans KR", sans-serif; -->
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
 </head>
 <body>
 	<div class="main_header">
 		<div class="main_header_body">
-		
-			<div class="main_header_left">
-				<a  href="/">공지사항</a>
-				<a  href="/">이벤트</a>
-				<a href="/loginPage">로그인</a>
-			</div>
 			<div class="main_header_center">
 				<a href="/" class="main_header_center_text">DAMOIM</a>
 			</div>

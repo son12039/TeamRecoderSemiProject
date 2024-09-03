@@ -35,6 +35,13 @@ if (urlParams.has("locationSName")) {
 
 
 $("#locationLaNameForm input[type=checkbox]").change(function() {
+	
+	// 아이콘 처리 하는 부분
+	const link = document.createElement('link');
+	link.rel = 'stylesheet';
+	link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
+	document.head.appendChild(link);
+	
 	urlParams.delete("locationLaName");
 	urlParams.delete("locationSName");
 	// ajax 체인걸어놔서 두번째까지는 안와서 변수선언
@@ -44,13 +51,27 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 	const laName = $(this).val();
 	if ($(this).prop('checked')) {
 		// 체크 걸면서 css도 같이 주기
-		$('#locationLaNameForm input[type=checkbox]').prop('checked', false);
+		$('#locationLaNameForm input[type=checkbox]')
+							.prop('checked', false)
+							.next("label")
+							.css({backgroundColor : "",
+								  color : ""
+							});
 
-		$(this).prop('checked', true);
-
-
-		if (laName !== '전체보기') {
+		$(this).prop('checked', true)
+				.next("label")
+				.css({backgroundColor : "rgb(255, 235, 187)",
+					  color : "#fca35b"
+				});
+		if (laName !== '초기화') {
 			urlParams.append('locationLaName', laName);
+		}
+		if($(this).val() === '초기화'){
+			$(this).prop('checked', true)
+					.next("label")
+					.css({backgroundColor : "",
+						  color : ""
+					});	
 		}
 	}
 	// 체크 해제했을때 스타일 삭제
@@ -97,8 +118,18 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 						window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 						const locationSName = $(this).val();
 						if ($(this).is(':checked')) {
+							$(this).prop("checked",true)
+							.next("label")
+							.css({backgroundColor : "rgb(255, 235, 187)",
+								  color : "#fca35b"
+							});
 							urlParams.append('locationSName', locationSName);
 						} else {
+							$(this).prop("checked",false)
+							.next("label")
+							.css({backgroundColor : "",
+								  color : ""
+							});							
 							urlParams.delete('locationSName');
 							const inputAll = $(this).parent().find("input[type=checkbox]");
 							for (let input of inputAll) {
@@ -174,6 +205,7 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 	const typeLaName = $(this).val();
 	const typeLa = $(this);
 	if ($(this).prop('checked')) {
+		
 		$('#typeLaNameSelect input[type=checkbox]')
 							.prop('checked', false)
 							.next('label')
@@ -187,6 +219,12 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 					});
 		if (typeLaName !== '전체보기') {
 			urlParams.append('typeLaName', typeLaName)
+		}else{
+			$(this).prop('checked', true)
+					.next('label')
+					.css({backgroundColor : "",
+						  borderRadius : ""
+					});	
 		}
 	}
 	if(!$(this).prop('checked')){
@@ -219,13 +257,16 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 					$("#typeSNameForm").empty();
 					
 					if (typeLa.prop('checked')) {
-						$("#typeSNameForm").css({height : "40px"})
+						$("#typeSNameForm").css({height : "30px"})
 						$.each(result, function(index, item) {
 							list += `<input type="checkbox" value="${item}" id="${item}"
 							name="typeSName">
 							<label for="${item}" class="typeSCss">${item}</label>`
 						})
 						$("#typeSNameForm").html(list)
+						if(typeLa.val() === '전체보기'){
+							$("#typeSNameForm").css({height : ""})	
+						}
 					}else{
 						$("#typeSNameForm").css({height : ""})
 					}
@@ -323,7 +364,7 @@ function renderClubList(clubList) {
 			'<div class="membership-info">' +
 			'<h1 class="membership-name">' + club.membershipName + '</h1>' +
 			'<h2>' + club.membershipSimpleText + '</h2>' +
-			'<h3>멤버수 : ' + club.count + '/' + club.membershipMax + '</h3>' +
+			'<h3><i class="fa-solid fa-users"></i> : ' + club.count + '/' + club.membershipMax + '</h3>' +
 			'<a href="/userInfo/'+club.nickname+'">'+
 			'<div class="host">';
 		if (club.memberImg != null) {

@@ -20,7 +20,7 @@
 <body>
 	<sec:authorize access="isAuthenticated()" var="principal">
 		<sec:authentication property="principal" var="member" />
-		<jsp:include page="/WEB-INF/header/mypageHeader.jsp" />
+		<jsp:include page="/WEB-INF/header/header.jsp" />
 		
 		<!-- (동문) -->
 	<div class="top-container">

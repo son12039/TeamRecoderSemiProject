@@ -99,9 +99,7 @@ public class MemberService implements UserDetailsService {
 		mapper.updateMemberInfo(member);
 	}
 
-
 	// 탈퇴시 status 조정
-	
 	public boolean memberStatus(Member member) {
 		return mapper.memberStatus(member);
 	}
@@ -109,9 +107,6 @@ public class MemberService implements UserDetailsService {
 	public List<MemberListDTO> resignSelect(String id) {
 		return mapper.resignSelect(id);
 	}
-	
-	
-	
 	
 	// 회원 추천 + 해당회원에 쿨타임 업데이트 ==================================
 	public boolean memberManner(RecommendationDTO dto) {
@@ -159,8 +154,7 @@ public class MemberService implements UserDetailsService {
 			member.setMemberListDTO(infoService.grade(mapper.login(username)));
 
 		}
-
+		
 		return member;
 	}
-
 }

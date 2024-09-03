@@ -86,8 +86,7 @@
 					<label for="checkbox">
 						<p>
 							안내 사항을 모두 확인하였으며, 이에 동의합니다. 
-							<input type="checkbox" id="checkbox"
-								name="checkbox">
+							<input type="checkbox" id="checkbox" name="checkbox">
 						</p>
 						</label>
 						<div>

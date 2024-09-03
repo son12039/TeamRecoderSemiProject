@@ -14,9 +14,7 @@
 		<result column="id" property="id" />
 		<result column="list_grade" property="listGrade" />
 	</resultMap>
-
-
-
+	
 	<resultMap id="MemberResultMap" type="Member">
 		<id property="id" column="id" />
 		<result property="pwd" column="pwd" />
@@ -52,8 +50,8 @@
 		#{pwd}
 		WHERE id = #{id}
 	</update>
-
-
+	
+	
 	<!-- / updateMemberInfo (동문) ========================================= -->
 	<!-- 비밀번호 확인 -->
 	<select id="updateCheck" parameterType="Member"
@@ -75,7 +73,7 @@
 		nickname = #{nickname}
 		WHERE id = #{id}
 	</update>
-
+	
 	<!-- 회원 탈퇴시 status 조정 -->
 	<update id="memberStatus" parameterType="Member">
 		UPDATE member
@@ -84,10 +82,6 @@
 		#{status}
 		WHERE id = #{id}
 	</update>
-
-	
-	
-
 
 	<!-- 기본정보 업데이트 -->
 	<update id="updateMember" parameterType="Member">
@@ -108,7 +102,6 @@
 		FROM member
 		WHERE id = #{id}
 	</select>
-	
 	<!-- 회원가입 아이디 중복 체크 + 여러모로 id로 값가져올때 -->
 	<select id="idCheck" parameterType="Member" resultMap="MemberResultMap">
 		SELECT *
@@ -184,16 +177,7 @@
 		SET last_recommendation_time = now()
 		WHERE id = #{id}
 	</update>
-
-	<select id="resignSelect" parameterType="String"
-		resultMap="memberListmap">
-		SELECT *
-		FROM member
-		JOIN membership_user_list USING(id)
-		JOIN membership USING (membership_code)
-		WHERE list_grade = 'host' AND id =#{id}
-	</select>
-
+	
 
 </mapper>
 	

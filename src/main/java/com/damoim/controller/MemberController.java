@@ -71,6 +71,7 @@ public class MemberController {
 	/*
 	 * 성철 회원가입 할때 아이디(프라이머리키 제약조건) 중복회원 체크
 	 */
+	
 	@ResponseBody
 	@PostMapping("/idCheck")
 	public boolean idCheck(Member member) {
@@ -115,7 +116,7 @@ public class MemberController {
 		member.setMemberImg(fileUpload(imgFile, mem.getId()));
 		service.signUp(member);
 		return "login/loginPage";
-
+		
 	}
 	
 	/*
@@ -180,6 +181,7 @@ public class MemberController {
 		service.dummyUpdate();
 		return "redirect:/";
 	}
+	
 	@ResponseBody
 	@PostMapping("/updateNicknameCheck")
 	public boolean updateNicknameCheck(String nickname){
@@ -197,8 +199,8 @@ public class MemberController {
 		// 아니면 false 리턴
 		return false;
 	}
-
-
+	
+	
 	
 	@PostMapping("/updateMemberInfo")
 	public String updateMemberInfo(Member vo, Model model, String addrDetail, String nickname) {
@@ -209,12 +211,6 @@ public class MemberController {
 		String addr = vo.getAddr();
 		addr += "#" + addrDetail;
 		vo.setAddr(addr);
-
-		// 닉네임 중복확인
-		if (service.nicknameDupCheck(vo)) {
-			System.out.println("닉네임 중복");
-			return false;
-		}
 
 		// 여기서 멤버정보 업데이트
 		service.updateMemberInfo(vo);
@@ -232,7 +228,7 @@ public class MemberController {
 		model.addAttribute("text" , "변경 성공");
 		return "mypage";
 	}
-
+	
 	// 회원정보 수정 비밀번호 체크
 	@ResponseBody
 	@PostMapping("/updateCheck")
@@ -241,7 +237,7 @@ public class MemberController {
 		Member mem = (Member) authentication.getPrincipal();
 		return service.updateCheck(mem, pwdCheck);
 	}
-
+	
 	// 회원탈퇴 비밀번호 체크
 	@ResponseBody
 	@PostMapping("/resignCheck")
@@ -258,7 +254,7 @@ public class MemberController {
 	 * */
 	@ResponseBody
 	@PostMapping("/memberStatus")
-	public boolean memberStatus(@RequestParam(required = false) HttpServletRequest request, HttpServletResponse response, Member member , Membership membership , MemberListDTO dto) {
+	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response, Member member) {
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    Member mem = (Member) authentication.getPrincipal();
 	    boolean check = false;
@@ -268,9 +264,7 @@ public class MemberController {
 	    if(list.size() > 0) {
 	    	check = true;
 	    }
-	    
-//	    ArrayList<MembershipUserList> membershipList = infoService.selectName(mem.getId());
-	    
+	    	    
 	    if (check) { // 해당 유저가 가입된 클럽 중 어드민이나 호스트인게 있다면!
 	        return false;
 	    }
@@ -280,7 +274,6 @@ public class MemberController {
 	    member.setId(mem.getId());
 	    removeService.deleteAllComment(mem.getId());
 	    
-	    // membershipUserList 삭제
 	    
 	    // 로그아웃 처리
 	    SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -316,7 +309,7 @@ public class MemberController {
 
 		service.updateMember(mem);
 		System.out.println("수정후 member 정보 : " + mem);
-
+		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		return "redirect:/mypage";
@@ -325,13 +318,17 @@ public class MemberController {
 	/* 성철
 	 * 닉네임값 받아서 해당유저의 상세페이지로 이동(그유저의 가입된 클럽 여부, 추천기능)
 	 */
+	
 	@GetMapping("/userInfo/{nickname}")
 	public String getMethodName(@PathVariable("nickname") String nickname, Model model) {
+		// 닉네임 체크
 		Member member = service.nicknameCheck(new Member().builder().nickname(nickname).build());
-
-		MemberInfoDTO mem = new MemberInfoDTO().builder().member(member)
+		
+		
+		MemberInfoDTO mem = new MemberInfoDTO().builder().member(member) // 닉네임 체크한 멤버를 빌드로 set
 				.memberMeetCount(infoService.meetCount(member.getId()))
-				.membershipUserList(infoService.selectMemberUserList(member.getId())).build();
+				.membershipUserList(infoService.selectMemberUserList(member.getId()))
+				.build();
 		System.out.println(mem);
 		model.addAttribute("mem", mem);
 

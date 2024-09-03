@@ -6,10 +6,11 @@ main {
 }
 
 #container {
-  max-width: 600px;
-  min-width: 600px;
+  max-width: 1280px;
+  width: 100%;
   margin: 20px;
-  padding: 20px;
+  padding-top : 100px;
+  
   height: 100%;
   background-color: #fff;
   border-radius: 8px;
@@ -30,6 +31,10 @@ main {
   height: 150px;
   border-radius: 50px;
   margin-bottom: 50px;
+}
+#align{
+	display: flex;
+	justify-content: center;
 }
 #rating{
 	display: flex;
@@ -75,9 +80,10 @@ main {
   padding-bottom: 10px;
 }
 .info {
+	text-wrap: nowrap;
   display: flex;
-  justify-content: space-between;
-  width: 50%;
+  justify-content: space-around;
+  width: 30%;
   padding-top: 30px;
   align-items: center;
 }
@@ -120,6 +126,7 @@ main {
 }
 
 #section2 {
+	margin-top: 10px;
     display: flex;
     padding: 20px;
     background-color: #f9f9f9;

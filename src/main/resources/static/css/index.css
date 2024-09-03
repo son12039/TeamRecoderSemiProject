@@ -1,150 +1,191 @@
 @charset "UTF-8";
+
 body {
-  background-color: white;
+	background-color: #f9f7f3;
+	font-family: "Noto Sans KR", sans-serif;
 }
+
 .container {
-  align-items: flex-start;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 80vh;
+	align-items: flex-start;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 80vh;
 }
+
 .membership-list {
-  width: 1280px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: auto;
-  padding-top: 90px;
-  gap:20px;
+	width: 1280px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: auto;
+	padding-top: 20px;
+	gap: 20px;
 }
+
 .membership-card {
-  display: flex;
-  background-color:#f9f7f3;
-  border-radius: 20px;
-  width: 630px;
-  height: 260px;
+	display: flex;
+	/*background-color:#f9f7f3;*/
+	background-color: white;
+	border-radius: 10px;
+	width: 630px;
+	height: 260px;
 }
+
 .membership-img a img {
-  border-radius: 15px;
-  width: 220px;
-  height: 220px;
-  margin: 20px;
-  box-shadow: 0px 3px 4px gray;
+	border-radius: 10px;
+	width: 220px;
+	height: 220px;
+	margin: 20px;
+	box-shadow: 0px 3px 4px gray;
 }
+
 .membership-name {
-  color: #fca35b;
-  font-size: 25px;
-  white-space: nowrap;
-  width: 180px;
+	font-size: 25px;
+	white-space: nowrap;
+	width: 180px;
 }
+
 .membership-info {
-  width: 100%;
-  height: 225px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 20px;
-  border-radius: 15px;
+	width: 100%;
+	height: 225px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin: 20px 20px 20px 0px;
+	border-radius: 15px;
 }
+
 .host {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
-.host img{
+
+.host img {
 	width: 35px;
 	height: 35px;
+	margin-right: 10px;
 }
+
 .membership-info h1 {
-  font-weight: bolder;
+	font-weight: bolder;
+	width: 100%;
+	background-color: #FCA35B;
+	border-radius: 5px;
+	text-align: center;
+	padding: 5px;
+	color: white;
+	box-shadow: 0px 1px 2px gray;
 }
-.membership-info >h2 {
-  margin:10px;
-  width: 97%;
-  font-size: 14px;
+
+.membership-info>h2 {
+	margin: 10px;
+	width: 97%;
+	font-size: 14px;
+	text-align: center;
 }
+
+.membership-info>h3 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%
+}
+
 .user-img {
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
 }
 /* 08-21 14:53 채승훈 시작 클럽안 내용들*/
-.location{
+.location {
 	width: 100%;
 	display: flex;
 	flex-flow: wrap;
+	justify-content: center;
 }
+
 .locationTypeBox {
-  font-size: 12px;
-  width: 200px;
+	font-size: 12px;
+	width: 100%;
 }
+
 .type {
-  display: flex;
-  width: 250px;
-  flex-flow: wrap;
+	display: flex;
+	width: 100%;
+	flex-flow: wrap;
+	justify-content: center;
 }
+
 .typeList {
-  background-color:rgb(228, 228, 228);
-  width: fit-content; /*글자크기에 맞게 width값 주기*/
-  padding: 2.5px 5px;
-  border-radius: 5px;
-  margin: 2px;
-  color: #666060;
+	background-color: rgb(228, 228, 228);
+	width: fit-content; /*글자크기에 맞게 width값 주기*/
+	padding: 2.5px 5px;
+	border-radius: 5px;
+	margin: 2px;
+	color: #666060;
 }
+
 .typeText {
-  padding: 1px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+	padding: 1px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
 }
 /* 그냥 박스 상자 */
 /* 08-25 채승훈 추가 */
 .body_img_box_body {
-  width: 100%;
-  height: 955px;
-  display: flex;
-  justify-content: center;
+	width: 100%;
+	height: 955px;
+	display: flex;
+	justify-content: center;
 }
+
 .body_img {
-  width: 100%;
-  height: 100%;
-  filter: brightness(60%);
+	width: 100%;
+	height: 100%;
+	filter: brightness(60%);
 }
+
 .body_text {
-  position: absolute;
-  width: 50%;
-  height: 500px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  z-index: 10;
-  top: 200px;
-  left: 20%;
-  color: #ffffff;
-  font-size: 20px;
-  font-weight: bold;
-  flex-direction: column;
-  line-height: 70px;
-  font-family: "Do Hyeon", sans-serif;
+	position: absolute;
+	width: 50%;
+	height: 500px;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	z-index: 10;
+	top: 200px;
+	left: 20%;
+	color: #ffffff;
+	font-size: 20px;
+	font-weight: bold;
+	flex-direction: column;
+	line-height: 70px;
+	font-family: "Do Hyeon", sans-serif;
 }
+
 .body_text p:nth-child(1) {
-  font-family: "Do Hyeon", sans-serif;
-  font-size: 74px;
+	font-family: "Do Hyeon", sans-serif;
+	font-size: 74px;
 }
+
 .body_text p:nth-child(2) {
-  font-size: 22px;
+	font-size: 22px;
 }
+
 .body_text p:nth-child(3) {
-  font-size: 22px;
+	font-size: 22px;
 }
+
 .body_text p:nth-child(4) {
-  line-height: 30px;
-  color: white;
-  opacity: 5;
-  font-size: 20px;
+	line-height: 30px;
+	color: white;
+	opacity: 5;
+	font-size: 20px;
 }

@@ -11,7 +11,7 @@ public class MembershipUserList {
     private String listGrade; // 멤버등급
   //  private int userCode ; // 유저코드
  //   private int membershipCode; // 클럽코드
-
+    
     
     private Member member; // 멤버 연결 
     private Membership membership; // 멤버십 연결 

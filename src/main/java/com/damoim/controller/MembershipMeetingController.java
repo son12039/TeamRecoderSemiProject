@@ -45,6 +45,10 @@ public class MembershipMeetingController {
 	@Autowired
 	private MeetingsCommentService commentService;
 	
+	/*
+	 * 성일
+	 * 해당 맴버쉽 내에서 호스트 or 어드민이면 모임 관련 글 작성가능
+	 * */
 	@GetMapping("/write")
 	public String write(int membershipCode, Model model) {
 		System.out.println("모임 컨트롤러 매핑 " + membershipCode);
@@ -171,7 +175,7 @@ public class MembershipMeetingController {
 	  
 	
 			
-		return "membershipMeeting/meetingDetail2";
+		return "membershipMeeting/meetingDetail";
 	}
 	
 	@ResponseBody
@@ -180,7 +184,7 @@ public class MembershipMeetingController {
 		System.out.println("참가 컨트롤러 접속 ");
 		service.participation(ma);
 		
-		return "redirect:/meetingDetail2";
+		return "redirect:/meetingDetail";
 	}
 		
 	

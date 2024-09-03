@@ -76,7 +76,7 @@
 		WHERE membership_code =
 		#{membershipCode}
 	</select>
-
+	<!--  클럽 홍보글 작성기능  -->
 	<update id="updateMembershipInfo" parameterType="Membership">
 		UPDATE
 		membership
@@ -106,10 +106,8 @@
 	</select>
 	<!-- 해당 맴버쉽의 코드와 유저 ID (로그인) 정보 받아서 맴버쉽에 가입 신청 하는 기능 -->
 	
-	
-	
-	
-		<select id="MembershipAllRegular" parameterType="Integer"
+	<!--  클럽 코드로 해당 클럽의 게스트(신청만 한사람) 제외 모두 조회 -->
+	<select id="MembershipAllRegular" parameterType="Integer"
 		resultMap="listMap">
 		SELECT *
 		FROM membership_user_list
@@ -119,9 +117,7 @@
 		WHERE membership_code =
 		#{embership_cmode} AND list_grade != "guest";
 	</select>
-	<!-- 해당 맴버쉽의 코드와 유저 ID (로그인) 정보 받아서 
-		맴버쉽에 가입 신청 하는 기능 
-		-->
+	<!-- 해당 맴버쉽의 코드와 유저 ID (로그인) 정보 받아서 맴버쉽에 가입 신청 하는 기능 -->
 	<insert id="membershipApply" parameterType="MemberListDTO">
 		INSERT INTO
 		membership_user_list(membership_code , id,list_grade)
@@ -161,7 +157,7 @@
 		VALUES(#{membershipName},#{membershipInfo},#{membershipMax})
 	</insert>
 
-	<!-- 클럽 생성시 코드가 없어서 폴더생성이 안대니까 업데이트로 이미지 추가 -->
+	<!-- 클럽 생성시 코드가 없어서 폴더생성이 안대니까 업데이트로 이미지(썸네일) 추가 -->
 	<update id="membershipImg" parameterType="Membership">
 		UPDATE membership
 		SET
@@ -190,7 +186,7 @@
 	</select>
 
 
-	<!-- 해당 맴버쉽 코드와 유저 정보를 가져와서 유저 등급을 변경하는 컬럼 (아직은 단순 게스트 -> 레귤러) -->
+	<!-- 해당 맴버쉽 코드와 유저 정보를 가져와서 유저 등급을 변경하는 컬럼 -->
 	<update id="agreeMemeber" parameterType="MemberListDTO">
 		UPDATE
 		membership_user_list		
@@ -200,7 +196,7 @@
 		#{membershipCode}
 	</update>
 	
-	
+	<!--  호스트가 관리자에게 호스트 권한 넘겨주고 본인은 관리자로 변경 -->
 	<update id="hostChange" parameterType="MemberListDTO">
 		UPDATE
 		membership_user_list		
@@ -210,7 +206,7 @@
 		#{membershipCode}
 	</update>
 	
-	
+	<!-- 호스트나 관리자가 본인보다 하위 등급인 클럽원 강퇴 -->
 	<delete id="expelMember" parameterType="MemberListDTO">
 	DELETE FROM membership_user_list
 		WHERE id = #{id} AND
@@ -218,13 +214,8 @@
 		#{membershipCode}
 	</delete>
 	 
-	<!-- 모든 채팅방리스트 불러옴 -->
-	<select id="roomlist" resultMap="roomListmap">
-		SELECT
-		membership_name,membership_code FROM
-		membership
-	</select>
-	
+
+	<!-- 해당 맴버쉽에 관리자 등급만 출력 -->
 	<select id="adminUser" resultMap="listDTOMap" parameterType="Integer">
 	SELECT *
 	FROM membership_user_list
@@ -232,27 +223,16 @@
 	
 	</select>
 	
-
+	<!-- 호스트 변경시 해당 관리자가 다른 클럽의 호스트인지 확인 -->
      <select id="ifHost" resultMap="listDTOMap" parameterType="String">
      SELECT *
      FROM membership_user_list
      WHERE list_grade ="host" AND id= #{id}    
      </select>
 
-	<!-- 클럽 정보 수정 -->
+	<!--  회원 탈퇴 관리시 쓰는데 용도 정확히 ?? <- 의미 없어보임? (동문님) -->
 
-	<select id="selectName" parameterType="String"
-		resultMap="listMap">
-		SELECT *
-		FROM member
-		JOIN membership_user_list USING (id)
-		JOIN
-		membership USING (membership_code)
-		WHERE id = #{id}
-		AND (list_grade =
-		"host" OR list_grade = "admin");
-	</select>
-
+	<!--  memberInfoDTO에 담을 수 있는 해당 맴버의 모임 참여 횟수 계산 -->
 	<select id="meetCount" parameterType="String" resultType="int">
 		SELECT
 		count(*)
@@ -261,9 +241,10 @@
 		WHERE meetings_agree.id = #{id}
 		AND meet_agree_yn = 1
 		AND meet_date_end
-		&lt; now()
+		&lt; now() 
 	</select>
 
+		<!--  해당 맴버 ID로 그 회원의 모든 클럽(상세정보)까지 담기는 쿼리 -->
 	<select id="selectMemberUserList" parameterType="String"
 		resultMap="listMap">
 		SELECT * FROM 
@@ -271,6 +252,23 @@
 		JOIN membership USING(membership_code)
 		WHERE id = #{id}
 	</select>
+	
+		<!-- 모든 채팅방리스트 불러옴 -->
+	<select id="roomlist" resultMap="roomListmap">
+		SELECT
+		membership_name,membership_code FROM
+		membership
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 </mapper>
  

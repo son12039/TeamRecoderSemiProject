@@ -26,12 +26,14 @@ import com.damoim.model.vo.Image;
 import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.MeetingsAgree;
 import com.damoim.model.vo.MeetingsComment;
+import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipMeetings;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.service.MeetingsCommentService;
 import com.damoim.service.MembershipMeetingService;
 import com.damoim.service.MembershipService;
+import com.damoim.service.RemoveMemberService;
 
 
 @Controller
@@ -44,11 +46,10 @@ public class MembershipMeetingController {
 	private MembershipService membershipService;
 	@Autowired
 	private MeetingsCommentService commentService;
+	@Autowired
+	private RemoveMemberService removeService;
 	
-	/*
-	 * 성일
-	 * 해당 맴버쉽 내에서 호스트 or 어드민이면 모임 관련 글 작성가능
-	 * */
+	
 	@GetMapping("/write")
 	public String write(int membershipCode, Model model) {
 		System.out.println("모임 컨트롤러 매핑 " + membershipCode);
@@ -65,24 +66,13 @@ public class MembershipMeetingController {
 		
 		
 		meeting.setId(authentication.getName());
+	
 
 		service.addMeeting(meeting);
 		
-		List<MembershipUserList> list = membershipService.MembershipAllInfo(membershipCode);
-		MeetingsAgree ma = new MeetingsAgree();
-		List<String> ides = new ArrayList<String>();
-		
-		for(MembershipUserList membership : list) {
-			if(!membership.getListGrade().equals("guest")) {
-				ides.add(membership.getMember().getId());
-			}
-		}
-		ma.setIdes(ides);
-		ma.setMeetCode(meeting.getMeetCode());
 	
 
 
-		System.out.println(meeting);
 	   
 	  
 	   
@@ -91,44 +81,87 @@ public class MembershipMeetingController {
 	
 	@GetMapping("/meetingDetail")
 	public String meetingDetail(int meetCode , Model model) {
-		System.out.println("디테일 컨트롤러 연결 : " + meetCode);
-		model.addAttribute("meet", service.meetSelect(meetCode));
+		
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		//로그인 정보 가져옴 
+		Member mem = (Member) authentication.getPrincipal();
+		
+		MembershipMeetings meet = service.meetSelect(meetCode);
 	
-		
-		model.addAttribute("list", service.meetMember(meetCode));
-		
+	
+
 		// 멤버쉽 이미지가 필요해서 memebershipCode를 추출 
+		
 		int membershipCode = service.meetSelect(meetCode).getMembershipCode();
 		
+		boolean check = false;
+		for( int j=0; j<mem.getMemberListDTO().size(); j++) {
+			if(mem.getMemberListDTO().get(j).getMembershipCode() == membershipCode && !mem.getMemberListDTO().get(j).getListGrade().equals("guest") ) {
+				
+				check = true;
+				
+			}
+			
+		} 
+	
+		
+		
+		if(meet.getMeetInfo()==null || !check) {
+			System.out.println("97 : ");
+			return "error";
+		}
+		
+		model.addAttribute("meet", meet);
+		
+		
+		  
+	//동의 명단을 구하는거 ok 얘네가 listgrade 없음 memebershipUserList로 가져와야함
+List<MembershipUserList> agree = new ArrayList<MembershipUserList>();
+
+System.out.println("미트 멤버 " + service.meetMember(meetCode));
+System.out.println("올레귤러 " + membershipService.MembershipAllRegular(membershipCode));
+for( int i=0; i<service.meetMember(meetCode).size(); i++) {
+	for(int j=0; j<membershipService.MembershipAllRegular(membershipCode).size(); j++) {
+		if(membershipService.MembershipAllRegular(membershipCode).get(j).getMember().getId().equals(service.meetMember(meetCode).get(i).getMember().getId())){
+			agree.add(membershipService.MembershipAllRegular(membershipCode).get(j));
+		}
+		
+	}
+	
+	
+	
+}
+model.addAttribute("agree", agree);
+
+System.out.println("어그리 " + agree);
+	    model.addAttribute("regular", membershipService.MembershipAllRegular(membershipCode));
+		// 캘린더 추가 ? 
+		model.addAttribute("allmeet", service.allMeetings(membershipCode));
 		// 해당 코드로 멤버쉽 유저리스트 불러와서 membership 정보 가져옴  
+	
 		model.addAttribute("allInfo", membershipService.MembershipAllInfo(membershipCode));
 		
-		System.out.println(" 출력 테스트 : " + membershipService.MembershipAllInfo(membershipCode));
-		System.out.println("멤버 출력 테스트  : "+ service.meetMember(meetCode));
+		model.addAttribute("adminList", membershipService.adminUser(membershipCode));
+		// 해당 멤버쉽 코드의 모든 멤버정보 
+	
 
 		String id = service.meetSelect(meetCode).getId();
 		
+		// 글쓴이 찾아오기 
 		for(int i =0; i <membershipService.MembershipAllInfo(membershipCode).size(); i ++) {
 			
 			if( id.equals(membershipService.MembershipAllInfo(membershipCode).get(i).getMember().getId())){
 				model.addAttribute("writer",membershipService.MembershipAllInfo(membershipCode).get(i).getMember());
 			}
 		}
-		
+	
+	
+	
+	
 
-//		List<MeetingsAgree> agree = new ArrayList<>();
-//		
-//	  for(int i=0; i<service.meetMember(meetCode).size(); i++) {
-//		  String name = service.meetMember(meetCode).get(i).getMember().getId();
-//		  MeetingsAgree asd =(MeetingsAgree) service.meetMember(meetCode).get(i);
-//		  asd.setId(name);
-//		  agree.add(asd);
-//		  System.out.println("바뀐 애들" + asd);
-//	  }
-//	  
-//	  System.out.println(agree);
-	  
-	  // 댓글로직
+   
+	
 		ArrayList<MeetingsComment> commList = commentService.allMeetingsComment(meetCode); // 일반댓글
 		ArrayList<MeetCommentDTO> dtoList = new ArrayList<MeetCommentDTO>(); //합칠예정
 		
@@ -165,7 +198,7 @@ public class MembershipMeetingController {
 		    
 		}
 		}
-		System.out.println(dtoList);
+		System.out.println("댓글  목록 " + dtoList);
 
 		
 		model.addAttribute("comment", dtoList); 
@@ -174,7 +207,6 @@ public class MembershipMeetingController {
 	 
 	  
 	
-	  
 	
 			
 		return "membershipMeeting/meetingDetail";
@@ -182,10 +214,19 @@ public class MembershipMeetingController {
 	
 	@ResponseBody
 	@PostMapping("/go")
-	public String participation(MeetingsAgree ma) {
+	public String participation(MeetingsAgree ma , String yN) {
 		System.out.println("참가 컨트롤러 접속 ");
-		service.participation(ma);
-		
+		System.out.println(yN);
+	//	service.participation(ma);
+		if(yN.equals("yes")) {
+			service.participation(ma);
+			
+		} else {
+			service.participationCancle(ma);
+			
+		}
+			
+			
 		return "redirect:/meetingDetail";
 	}
 		
@@ -212,25 +253,59 @@ public class MembershipMeetingController {
 		
 	}
 		
-  
   @GetMapping("/meetingUpdate")
-  public String update(int no, Model model) {
+	public String update(MembershipMeetings meetings, Model model) {
 		
-
+	  int meetCode = meetings.getMeetCode();
+	  
+	  model.addAttribute("meetingInfo" ,service.meetSelect(meetCode));
+	  
+	  System.out.println(service.meetSelect(meetCode).getMeetInfo());
+	 
+	  
+	  
+	  
+		return "membershipMeeting/meetingUpdate";
+	}
+  
+  
+  
+  @PostMapping("/meetingUpdate")
+	public String updateSubmit(MembershipMeetings meetings, Model model) {
 		
-		return "/update";
+	  int meetCode = meetings.getMeetCode();
+	  
+	  int membershipCode = service.meetSelect(meetCode).getMembershipCode();
+	  
+	 
+	  service.meetingUpdate(meetings);
+	  
+	  
+		return "redirect:/club/"+membershipCode;
 	}
 	
-
 	
+
+	// 미팅 삭제 부분 
 	@GetMapping("/meetingDelete")
 	public String remove(int meetCode) throws IllegalStateException, IOException {
 		
+		int membershipCode = service.meetSelect(meetCode).getMembershipCode();
+	 MembershipMeetings meetings= service.meetSelect(meetCode);
+	
 		
-		return null;
+		removeService.deleteMeeting(meetCode);
+		
+		System.out.println("미팅 테스트용 " + meetings);
+		
+		return "redirect:/club/"+membershipCode;
 
 	
 	}
+	
+	
+	
+	
 	
 	public void fileDelete(String file, int membershipCode, int meetCode) throws IllegalStateException, IOException {
 		if(file == null) {

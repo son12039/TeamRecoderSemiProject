@@ -174,3 +174,18 @@ function updateKey(commentCode){
 	}
 
 )}
+
+// 현재 날짜를 계산해서 
+// 현재 날짜를 기준으로 참가 ,참가 취소버튼을 마감으로 바꾸고 버튼 비활성화 시키는 기능 
+const today = new Date()
+const now = today.toISOString().split('T')[0];
+const start = $("#meetDateStart").text();
+console.log(now)
+console.log($("#meetDateStart").text())
+if(start < now ){
+	$("#gogo").val("마감");
+	$("#gogo").attr("disabled",true);
+	$("#gogo").css("background","black");
+	
+}
+

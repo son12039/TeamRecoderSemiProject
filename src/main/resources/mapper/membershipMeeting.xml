@@ -36,18 +36,9 @@
         <result property="memberType" column="member_type" />      
        </association>
         </resultMap>
-    
-	<insert id="addMeeting" parameterType="MembershipMeetings" useGeneratedKeys="true" keyProperty="meetCode">
-		INSERT INTO membership_meetings
-		(membership_code,meet_date_start,meet_date_end,meet_info,id,color,meet_title)
-		VALUES (#{membershipCode},#{meetDateStart},#{meetDateEnd},
-		#{meetInfo},#{id},#{color},#{meetTitle})
-	
-	</insert>
-
-
-    
-    <!-- SELECT 쿼리 -->
+        
+        
+        <!-- SELECT 쿼리 -->
     <select id="allMeetings" resultMap="MembershipMeetingsResultMap"
     parameterType="Integer">
         SELECT * FROM membership_meetings
@@ -58,18 +49,19 @@
     SELECT *
     FROM membership_meetings
     WHERE meet_code = #{meetCode}
-    </select>
+    </select>   
+    
+       <!--미팅 생성시  -->
+    <insert id="addMeeting" parameterType="MembershipMeetings" useGeneratedKeys="true" keyProperty="meetCode">
+        INSERT INTO membership_meetings
+        (membership_code,meet_date_start,meet_date_end,meet_info,id,color,meet_title)
+        VALUES (#{membershipCode},#{meetDateStart},#{meetDateEnd},
+        #{meetInfo},#{id},#{color},#{meetTitle})
 
-          
-        <insert id="yesOrNo" parameterType="MeetingsAgree">
-        INSERT INTO meetings_agree(id,meet_code)
-        VALUES 
-        	<foreach collection="ides" item="id" separator=",">
-        		(#{id},#{meetCode})
-        	</foreach>
-        </insert>  
+    </insert>
+      
 
-        
+        <!-- 미팅 참가자 출력  -->
         <select id="meetMember" resultMap="meetAgree" parameterType="Integer">
         SELECT *
         FROM meetings_agree
@@ -77,21 +69,18 @@
         WHERE meet_code = #{meetCode}
         </select>
         
-    <update id="participation" parameterType="MeetingsAgree">
-    UPDATE meetings_agree
-    <set>
-        <if test="meetAgreeYn == false">
-            meet_agree_yn = true
-        </if>
-        <if test="meetAgreeYn == true">
-            meet_agree_yn = false
-        </if>
-    </set>
-    WHERE meet_code = #{meetCode} AND id = #{id}
-</update>
+        <!-- 미팅에 참여버튼을 누를시 !  -->
+        <insert id="participation" parameterType="MeetingsAgree">
+        INSERT INTO  meetings_agree(id,meet_code) VALUES (#{id},#{meetCode})
+        </insert>
+
+        <!-- 참가 취소 버튼을 누를시! -->
+        <delete id="participationCancle" parameterType="MeetingsAgree">
+        DELETE FROM meetings_agree
+        WHERE id =#{id} AND meet_code = #{meetCode}
+        </delete>
         
-    
-    
+   
     
     
 </mapper>

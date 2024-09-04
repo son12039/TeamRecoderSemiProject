@@ -60,6 +60,7 @@ public class RemoveMemberService {
 		
 	}
 	
+	// 회원 탈퇴시 
 	public void deleteAllMeeting(String id) {
 		mapper.deleteMemberMeetingsAgree(id); // 동의사항 날리기(조건 X)
 		ArrayList<MembershipMeetings> list = mapper.selectMeeting(id); // 해당 유저가 작성한 모든 미팅 게시판 글

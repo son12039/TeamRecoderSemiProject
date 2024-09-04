@@ -21,11 +21,19 @@ public interface MembershipMeetingMapper {
 	void yesOrNo(MeetingsAgree ma);
 	
 	List<MeetingsAgree> meetMember (int meetCode);
-	
+	// 미팅 참가 
 	void participation(MeetingsAgree ma);
+	// 미팅 참가 취소 
+	void participationCancle(MeetingsAgree ma);
 	
 	public void addImage (Image img);
 	
 	List<Image> viewImage (int meetCode);
+	
+	// 미팅 삭제 
+	void meetingDelete(MembershipMeetings meeting);
+	
+	// 미팅 수정 
+	void meetingUpdate(MembershipMeetings meetings);
 	
 }

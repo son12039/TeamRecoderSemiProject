@@ -1,58 +1,55 @@
-label{
-	font-weight: bold;
-	font-size: 1.2rem;
+label {
+  font-weight: bold;
+  font-size: 1.2rem;
 }
-h1{
-	font-weight: bold;
-	font-size: 1.5rem;
-	margin-bottom: 10px;
+h1 {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
 }
 
 .container {
-	height:90vh;
-	display:flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 form {
-	max-width: 500px;
-	width:100%;
+  max-width: 500px;
+  width: 100%;
 }
-#a-link{
-	display: flex;
-	justify-content: space-around;
+#a-link {
+  display: flex;
+  justify-content: space-around;
 }
 
-.link{
-	margin: 10px 10px;
-	font-size: 1.2rem;
-	font-weight: bold;
-	color: black;
-
+.link {
+  margin: 10px 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: black;
 }
-#green{
-	color: green;
-	font-weight: bold;
-	margin-bottom: 5px;
+#green {
+  color: green;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
-#red{
-	color: red;
-	font-weight: bold;
-	margin-bottom: 5px;
+#red {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 button {
-	width:100%
+  width: 100%;
 }
-.btn{
-	background-color: #fca311;
-	border: none;
-	color: #fff;
-	font-weight: bold;
-	
+.btn {
+  background-color: #fca311;
+  border: none;
+  color: #fff;
+  font-weight: bold;
 }
 .btn:hover {
-	background-color: #e76f00;
-	color: white;
-
+  background-color: #e76f00;
+  color: white;
 }

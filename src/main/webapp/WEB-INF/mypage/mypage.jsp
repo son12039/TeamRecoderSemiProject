@@ -39,19 +39,95 @@
 	</sec:authorize>
 
 	<!-- 프로필 수정 폼 -->
-	<div class="box">
-		<div class="container">
-			<form action="/updateMember" method="post" id="form"
-				enctype="multipart/form-data">
-				<h1 class="profile">프로필 수정</h1>
-				<!-- 프로필 이미지 -->
-				<div class="profile_img">
-					<c:choose>
-						<c:when test="${member.memberImg != null}">
-							<div id="image_container">
-								<img
-									src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}"
-									alt="Profile Image">
+	<div class="info_container">
+		<form action="/updateMember" method="post" id="form"
+			enctype="multipart/form-data">
+			<h1 class="profile">프로필 수정</h1>
+			<!-- 프로필 이미지 -->
+			<div class="profile_img">
+				<c:choose>
+					<c:when test="${member.memberImg != null}">
+						<div>
+						<img src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}"
+							alt="Profile Image" id="image_container">
+						</div>
+						
+					</c:when>
+					<c:otherwise>
+						<img src="http://192.168.10.51:8081/기본프사.jpg"
+							alt="Default Profile Image">
+					</c:otherwise>
+				</c:choose>
+			</div>
+			<!-- 프로필 업데이트 -->
+			<div class="profile_update">
+				<input class="form-control" name="file" type="file" accept="image/*"
+					id="file" onchange="imgShow(event)">
+				<div class="profile_manner">
+					<h1>${member.nickname}</h1>
+					<c:if test="${member.memberManner < 30}">
+						<p>${member.memberManner}℃</p>
+						<span style="color: red"><i
+							class="fa-solid fa-face-angry fa-2x"></i></span>
+					</c:if>
+					<c:if
+						test="${member.memberManner >= 30 && member.memberManner <= 40}">
+						<p>${member.memberManner}℃</p>
+						<span style="color: rgb(252, 177, 3)"><i
+							class="fa-solid fa-face-smile fa-2x"></i></span>
+					</c:if>
+					<c:if test="${member.memberManner > 40}">
+						<p>${member.memberManner}℃</p>
+						<span style="color: green"><i
+							class="fa-solid fa-face-grin fa-2x"></i></span>
+					</c:if>
+				</div>
+				<div class="profile_info">
+					<span>한줄소개 : </span> <input type="text" id="memberInfo"
+						name="memberInfo" value="${member.memberInfo}">
+				</div>
+				<div class="profile_info">
+					<span>취미 : </span> <input type="text" id="memberHobby"
+						name="memberHobby" value="${member.memberHobby}">
+				</div>
+				<div class="profile_submit">
+					<input type="button" id="submit" value="수정"> <a
+						href="/updateMemberInfo" id="updateCheck">회원정보 수정</a>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<!-- 가입 대기중인 클럽 보기 -->
+	<div class="container">
+		<div class="club-button">
+			<a id="all-club-button">가입 중인 모든 클럽</a> <a id="manage-club-button">내가
+				관리중인 클럽</a> <a id="wait-club-button">가입 대기중인 클럽</a>
+		</div>
+		<div class="membership-card" id="wait-club">
+			<h1>가입 대기중인 클럽</h1>
+			<c:forEach items="${membership}" var="mem">
+				<sec:authorize access="isAuthenticated()" var="principal">
+					<sec:authentication property="principal" var="member" />
+					<c:forEach items="${member.memberListDTO}" var="list">
+						<c:if
+							test="${list.membershipCode == mem.membership.membershipCode}">
+
+							<c:set var="guestClub" value="${list.listGrade}" />
+						</c:if>
+					</c:forEach>
+				</sec:authorize>
+				<c:if test="${guestClub == 'guest'}">
+					<div class="membership-each">
+						<div>
+							<img class="membership-img"
+								src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"
+								alt="Membership Image">
+						</div>
+						<div class="membership-String">
+							<div>
+								<p>${mem.membership.membershipName}</p>
+								<button class="btn" onclick="deleteList('${guestClub}',${mem.membership.membershipCode})" >신청 취소</button>
 							</div>
 
 						</c:when>

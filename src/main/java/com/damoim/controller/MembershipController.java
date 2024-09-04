@@ -92,11 +92,12 @@ public class MembershipController {
 		MembershipUserList list = service.main(membershipCode);
 		list.setCount((service.membershipUserCount(membershipCode)));
 
-		model.addAttribute("main", list);
+		model.addAttribute("main", list);  
 		model.addAttribute("allMember", service.MembershipAllRegular(membershipCode));
 
 		ArrayList<MainComment> commList = commentService.allMainComment(membershipCode); // 일반댓글
 		ArrayList<CommentDTO> dtoList = new ArrayList<CommentDTO>(); // 합칠예정
+		
 
 		for (int i = 0; i < commList.size(); i++) {
 			CommentDTO commentDTO = new CommentDTO().builder().mainCommentCode(commList.get(i).getMainCommentCode())
@@ -142,6 +143,25 @@ public class MembershipController {
 	@GetMapping("/club/{membershipCode}") // 클럽 페이지 이동
 	public String membershipPage(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO,
 			Model model) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		Member mem = (Member) authentication.getPrincipal();
+		
+		boolean ck = false;
+		
+		for(MemberListDTO dto: mem.getMemberListDTO()) {
+			if(dto.getMembershipCode() == membershipCode && !dto.getListGrade().equals("guest")) {
+				ck = true;
+			}
+		}
+		if(!ck) {
+			System.out.println("일단함 확인");
+			return "error";
+		}
+
+		
+		System.out.println("로그인 정보 " + mem);
 		// 해당클럽 정보 다담음
 		System.out.println(membershipCode);
 		MembershipUserList list = service.main(membershipCode);
@@ -150,11 +170,11 @@ public class MembershipController {
 		model.addAttribute("main", list);
 		// 해당클럽에 가입신청된 모든 유저정보
 
-		model.addAttribute("allMember", service.MembershipAllInfo(membershipCode));
-
+		// 0903 성일 어차피 승인은 멤버관리 페이지에서 하기 때문에 모든 인원을 알려주는거 보다 regular 이상 회원만 jsp로 전달
+		// model.addAttribute("allMember" , service.MembershipAllInfo(membershipCode));
+		
+		model.addAttribute("allMember", service.MembershipAllRegular(membershipCode));
 		model.addAttribute("adminList", service.adminUser(membershipCode));
-
-		System.out.println(service.MembershipAllInfo(membershipCode).get(0).getMember().getGender());
 
 		model.addAttribute("allmeet", meetingService.allMeetings(membershipCode));
 		System.out.println(meetingService.allMeetings(membershipCode));
@@ -166,6 +186,20 @@ public class MembershipController {
 		return "membership/membershipPage";
 	}
 
+	/*
+	 * 성철 일단 클럽 호스트가 가입 승인대기인원 -> 일반 회원으로 바꾸는기능
+	 */
+	@ResponseBody
+	@PostMapping("/agreeMember") // 클럽 회원가입 승인
+	public void agreeMemeber(MemberListDTO member) {
+		// 일단은 호스트일때만 클럽 회원 승인기능
+		System.out.println("어그리멤버");
+		service.agreeMemeber(member);
+	}
+
+	/*
+	 * 
+	 * */
 	@GetMapping("/makeMembership") // 클럽 생성페이지로 이동
 	public String makeMembership() {
 		return "mypage/makeMembership";
@@ -302,16 +336,41 @@ public class MembershipController {
 		}
 
 	}
+	
+	
+	/* 성일
+	 * 어드민이나 호스트이냐 따라서 서로다른 맴버쉽 관리 페이지 이동처리
+	 * */
 
 	/*
-	 * 성일 어드민이나 호스트이냐 따라서 서로다른 맴버쉽 관리 페이지 이동처리
+	 * 멤버관리 페이지 호스트와 관리자만 접속 가능 등급 설정 및 회원 강퇴 기능 구현
+	 * 
 	 */
 	@GetMapping("/management")
 	public String management(Integer membershipCode, Model model) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) authentication.getPrincipal();
+		
+		
+	boolean check = false;
+		
+		for (int i=0; i<mem.getMemberListDTO().size(); i++) {
+			if(mem.getMemberListDTO().get(i).getMembershipCode() == membershipCode && !(mem.getMemberListDTO().get(i).getListGrade().equals("guest") || mem.getMemberListDTO().get(i).getListGrade().equals("regular")) ) {
+				check = true;
+				
+			}
+			
+		}
+
+		if (!check) {
+			
+			return "error";
+		}
 
 		model.addAttribute("allMember", service.MembershipAllInfo(membershipCode));
 		model.addAttribute("host", service.main(membershipCode));
-		model.addAttribute("adminList", service.adminUser(membershipCode));
+
 
 		List<String> hosts = new ArrayList<String>();
 
@@ -320,17 +379,14 @@ public class MembershipController {
 			if (service.ifHost(service.adminUser(membershipCode).get(i).getId()) != null) {
 
 				String id = service.ifHost(service.adminUser(membershipCode).get(i).getId()).getId();
-
 				hosts.add(id);
 
 			}
 
 		}
-
+	
 		model.addAttribute("otherHost", hosts);
-		// 들어온 사람의 id랑
-		// 해당 클럽의 호스트인 사람의 id가 일치
-		// 해당 클럽의 호스트인 사람 찾는 xml 필요
+	
 		System.out.println("접속");
 
 		return "membership/management";

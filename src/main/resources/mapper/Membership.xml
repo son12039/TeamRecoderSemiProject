@@ -120,7 +120,14 @@
 		(membership_code)
 		JOIN member USING (id)
 		WHERE membership_code =
-		#{membership_code} AND list_grade != "guest";
+		#{membership_cmode} AND list_grade != "guest"
+				ORDER BY 
+    CASE list_grade
+        WHEN 'host' THEN 1
+        WHEN 'admin' THEN 2
+        WHEN 'regular' THEN 3
+        ELSE 4
+    END;
 	</select>
 	<!-- 해당 맴버쉽의 코드와 유저 ID (로그인) 정보 받아서 맴버쉽에 가입 신청 하는 기능 -->
 	<insert id="membershipApply" parameterType="MemberListDTO">

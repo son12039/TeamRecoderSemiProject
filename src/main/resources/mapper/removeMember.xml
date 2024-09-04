@@ -10,6 +10,14 @@
     <result property="meetParentsCommentCode" column="meet_parents_comment_code"/>
 </resultMap>
 
+
+
+
+
+
+
+
+
 	  <resultMap id="MainCommentMap" type="MainComment">
         <id property="mainCommentCode" column="main_comment_code"/>
         <result property="mainCommentText" column="main_comment_text"/>
@@ -30,13 +38,11 @@
         <result property="id" column="id"/>
         <result property="color" column="color"/>
     </resultMap>
-
    <resultMap id="MeetingsAgreeMap" type="MeetingsAgree">
         <id property="meetAgreeCode" column="meet_agree_code"/>
          <result property="meetCode" column="meet_code"/>
         <result property="id" column="id"/>
         </resultMap>
-
     
     <select id="selectMain" parameterType="String" resultMap="MainCommentMap">
    		SELECT * FROM main_comment

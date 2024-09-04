@@ -148,7 +148,7 @@ ALTER TABLE membership_meetings ADD  FOREIGN KEY (meet_agree_code) REFERENCES me
 ALTER TABLE meetings_agree ADD  FOREIGN KEY (list_code) REFERENCES membership_user_list(list_code);
 
 ALTER TABLE meetings_comment ADD  FOREIGN KEY (id) REFERENCES member(id);
-ALTER TABLE meetings_comment ADD  FOREIGN KEY (meet_code) REFERENCES membership_meetings(meet_code);
+ALTER TABLE meetings_comment ADD  FOREIGN KEY (meet_code) REFERENCES membership_meetings(meet_code) ON DELETE CASCADE;
 ALTER TABLE meetings_comment ADD  FOREIGN KEY (meet_parents_comment_code) REFERENCES meetings_comment(meet_comment_code);
 
 
@@ -259,6 +259,7 @@ ALTER TABLE meetings_agree
 ADD FOREIGN KEY (meet_code) 
 REFERENCES membership_meetings (meet_code)
 ON DELETE CASCADE;
+
 ALTER TABLE membership
 ADD column membership_accession_text text,
 ADD column membership_simple_text VARCHAR(255);
@@ -270,6 +271,12 @@ ADD column meet_title VARCHAR(50);
 
 ALTER TABLE member
 ADD COLUMN last_recommendation_time TIMESTAMP NULL DEFAULT NULL;
+ 
+ -- 이메일에 유니크 제약 조건 추가 -- 
+ alter table member ADD unique key (email);
+ 
+ 
+ 
  
 update member
 set last_recommendation_time = now()

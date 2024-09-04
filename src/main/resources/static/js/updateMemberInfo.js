@@ -18,10 +18,11 @@ const emailRegExp =
 
 let pwdSubmit = false;
 let pwdcSubmit = false;
-let nicknameSubmit = false;
-let emailSubmit = false;
-let ageSubmit = false;
-let nameSubmit = false;
+let nicknameSubmit = true;
+let emailSubmit = true;
+let ageSubmit = true;
+let nameSubmit = true;
+let beforePwd = false;
 
 pwd.addEventListener("input", function () {
   // 비밀번호 체크
@@ -177,7 +178,7 @@ function validate() {
     emailSubmit &&
     nameSubmit
   ) {
-    alert(nick + "님 환영합니다!");
+    alert("변경완료");
   }
 
   return (

@@ -15,127 +15,24 @@
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/reset.css" />
+	<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/management.css" />
 </head>
 
-<style>
-body {
-  padding:0px;
-  margin:0px;
-  background: #f5f5f5
-}
-.box{
-display: flex;
-justify-content: center;
-align-items:center;
-padding-top: 100px;
-width: 100%;
-height: 100%;
-}
-.box-container{
-	width: 100%;
-	max-width: 1280px;
-}
-table {
-  border: 1px #a39485 solid;
-  font-size: .9em;
-  box-shadow: 0 2px 5px rgba(0,0,0,.25);
-  width: 100%;
-  border-collapse: collapse;
-  border-radius: 5px;
-  overflow: hidden;
-}
 
-th {
-  text-align: left;
-}
-  
-thead {
-  font-weight: bold;
-  color: #fff;
-  background: #73685d;
-}
-  
- td, th {
-  padding: 1em .5em;
-  vertical-align: middle;
-}
-  
- td {
-  border-bottom: 1px solid rgba(0,0,0,.1);
-  background: #fff;
-}
-
-a {
-  color: #73685d;
-}
-  
- @media all and (max-width: 1280px) {
-    
-  table, thead, tbody, th, td, tr {
-    display: flex;
-  }
-  
-  th {
-    text-align: right;
-  }
-  
-  table {
-   
-    padding-bottom: 0;
-    border: none;
-    box-shadow: 0 0 10px rgba(0,0,0,.2);
-  }
-  
-  thead {
-    float: left;
-    white-space: nowrap;
-  }
-  
-  tbody {
-    overflow-x: auto;
-    overflow-y: hidden;
-    position: relative;
-    white-space: nowrap;
-  }
-  
-  tr {
-    display: inline-block;
-    vertical-align: top;
-  }
-  
-  th {
-    border-bottom: 1px solid #a39485;
-  }
-  
-  td {
-    border-bottom: 1px solid #e5e5e5;
-  }
-  
-  
-  }
-
-.buttones{
-display: flex;
-
-}
-
-
-.btn{
-width: 80px;
-height: 40px;
-margin-left: 5px;
-}
-
-</style>
 
 <body>
  <jsp:include page="../header/header.jsp"></jsp:include>
-<sec:authorize access="isAuthenticated()" var="principal">
 <sec:authentication property="principal" var="member" />
     
-    <c:if test="${member.id == host.member.id }">
+
+
+  
 <div class="box">
 <div class="box-container">
+ 
     <table>
     <thead>
     <tr>
@@ -152,6 +49,14 @@ margin-left: 5px;
     <tbody>
      <!-- 데이터 행을 여기에 추가합니다 -->
                 <c:forEach items="${allMember}" var="list" >
+                <c:set var="memberGrade" value="none" />
+			<c:forEach items="${member.memberListDTO}" var="loginMember">
+				<c:if
+					test="${loginMember.membershipCode == list.membership.membershipCode}">
+					<c:set var="memberGrade" value="${loginMember.listGrade}" />
+
+				</c:if>
+			</c:forEach>
                 <tr>
                     <td id="${list.member.id}" class="${list.membership.membershipCode}">${list.member.id}</td>
                     <td>${list.member.nickname}</td>
@@ -170,9 +75,11 @@ margin-left: 5px;
                      <c:if test="${list.listGrade == 'guest' }">
                     <td>가입대기중</td>
                     </c:if>
-                  
-                    
+                
+                    <!--  관리자이면서 , 다른 멤버쉽의 호스트가 아닌경우  -->
                        <c:if test="${list.listGrade == 'admin' && not fn:contains(otherHost, list.member.id)  }">
+                       <!--  접속자가 호스트 인경우 -->
+                        <c:if test="${memberGrade == 'host'}">
                   <form id="id${list.member.id}" class="fom">            
                     <td class="buttones">
                    
@@ -185,13 +92,26 @@ margin-left: 5px;
                     
                     <button class="btn btn-warning btn-sm" name="listGrade" value="${list.member.id}" data-value="host">호스트</button>
                     </td>
-                    </form>      
+                    </form>   
+                    </c:if>
+                    <!-- 접속자가 관리자인경우  -->
+                    <c:if test="${memberGrade == 'admin'}">
+            
+                    <td>관리자</td>
+          
                     </c:if>
                     
+                       
+                    </c:if>
                     
+                    <!-- 관리자 이면서 다른 멤버쉽의 호스트인 경우  -->
                        <c:if test="${list.listGrade == 'admin' &&  fn:contains(otherHost, list.member.id)  }">
+                       <!--  접속자가 호스트인 경우  -->
+                       
+                       <c:if test="${memberGrade == 'host'}">
+                       <td class="buttones">
                     <form id="id${list.member.id}" class="fom">            
-                    <td class="buttones">
+                    
                    
                     <input type="hidden" name="id" value="${list.member.id}">
                     <input type="hidden" name="membershipCode" value="${list.membership.membershipCode}">
@@ -200,11 +120,25 @@ margin-left: 5px;
                     <button class="btn btn-dark btn-sm" name="listGrade" value="${list.member.id}" data-value="regular">일반회원</button>
                     <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">추방</button>
                     
+                    
+                    </form> 
                     </td>
-                    </form>      
+                    </c:if> 
+                    
+                     <!--  접속자가 관리자인 경우  -->
+                     <c:if test="${memberGrade == 'admin'}">
+                     
+                      <td>관리자</td>
+                    
+                    
+                    
+                    </c:if> 
+                       
                     </c:if>
                     
+                    <!--  게스트 인경우  -->
                         <c:if test="${list.listGrade == 'guest'  }">
+                  
                     <form id="id${list.member.id}" class="fom">            
                     <td class="buttones">
                    
@@ -219,21 +153,27 @@ margin-left: 5px;
                     </form>      
                     </c:if>
                     
+                   
                     
-                  <c:if test="${list.listGrade == 'regular'  }">
-                    <form id="id${list.member.id}" class="fom">            
+                    
+                    
+                    <!--  일반회원인경우  -->
+                  <c:if test="${list.listGrade == 'regular'}">
+                       <form id="id${list.member.id}" class="fom">            
                     <td class="buttones">
                    
                     <input type="hidden" name="id" value="${list.member.id}">
                     <input type="hidden" name="membershipCode" value="${list.membership.membershipCode}">
-                  
+                  <c:if test="${memberGrade == 'host'}">
                       <button class="btn btn-primary btn-sm" name="listGrade" value="${list.member.id}" data-value="admin">관리자</button>
-                    
+                    </c:if>
                     <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">추방</button>
                     
                     </td>
                     </form>      
-                    </c:if>
+                 
+                      </c:if>
+                    
                     
                  
                     <c:if test="${list.listGrade == 'host'}">                   
@@ -253,155 +193,7 @@ margin-left: 5px;
 
 
 
-</c:if>
-</sec:authorize>
 
-
-<sec:authorize access="isAuthenticated()" var="principal">
-<sec:authentication property="principal" var="member" />
-    
-    <c:if test="${ fn:contains(adminList, member.id)}">
-<div class="box">
-<div class="box-container">
-    <table>
-    <thead>
-    <tr>
-       <th>아이디</th>
-                    <th>이름</th>
-                    <th>성별</th>
-                    <th>나이</th>
-                    <th>폰 번호</th>
-                    <th>등급</th>    
-                    <th>등급설정</th>
-
-    </tr>
-    </thead>
-    <tbody>
-     <!-- 데이터 행을 여기에 추가합니다 -->
-                <c:forEach items="${allMember}" var="list" >
-                <tr>
-                    <td id="${list.member.id}" class="${list.membership.membershipCode}">${list.member.id}</td>
-                    <td>${list.member.nickname}</td>
-                    <td>${list.member.gender }</td>
-                    <td>${list.member.age }</td>
-                    <td>${list.member.phone }</td>
-                    <c:if test="${list.listGrade == 'host' }">
-                    <td>호스트</td>
-                    </c:if>
-                   <c:if test="${list.listGrade == 'regular' }">
-                    <td>일반회원</td>
-                    </c:if>       
-                     <c:if test="${list.listGrade == 'admin' }">
-                    <td>관리자</td>
-                    </c:if>
-                     <c:if test="${list.listGrade == 'guest' }">
-                    <td>가입대기중</td>
-                    </c:if>
-                    <c:if test="${list.listGrade != 'host' && list.listGrade != 'admin' && list.listGrade != 'guest'}"> 
-                    <form id="id${list.member.id}" class="fom">            
-                    <td>
-                   
-                    <input type="hidden" name="id" value="${list.member.id}">
-                    <input type="hidden" name="membershipCode" value="${list.membership.membershipCode}">
-                  
-                    
-                    
-                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">추방</button>
-                    </td>
-                    </form>      
-                    </c:if>
-                        <c:if test="${list.listGrade != 'host' && list.listGrade != 'admin' && list.listGrade != 'regular'}"> 
-                    <form id="id${list.member.id}" class="fom">            
-                    <td>
-                   
-                    <input type="hidden" name="id" value="${list.member.id}">
-                    <input type="hidden" name="membershipCode" value="${list.membership.membershipCode}">
-                  
-                    
-                    <button class="btn btn-dark btn-sm" name="listGrade" value="${list.member.id}" data-value="regular">일반회원</button>
-                    <button class="btn btn-danger btn-sm" name="listGrade" value="${list.member.id}" data-value="delete">추방</button>
-                    </td>
-                    </form>      
-                    </c:if>
-                    <c:if test="${list.listGrade == 'host'}">                   
-                    <td>호스트</td>
-                    </c:if>
-                      <c:if test="${list.listGrade == 'admin'}">                   
-                    <td>관리자</td>
-                    </c:if>
-                </tr>   
-                </c:forEach>         
-   
-    </tbody>
-</table>
-</div>
-</div>
-
-
-
-
-
-
-
-
-</c:if>
-<jsp:include page="../footer/footer.jsp" />
-</sec:authorize>
-
-
-
-
-
-
-
-
-
-
-
-
-<sec:authorize access="!isAuthenticated()" var="principal">
-<style>
-#image{
-
-    height: 100vh;
-    width: 100%;
-    background-image: url(http://192.168.10.51:8081/sungil/1901315….png);
-    background-position: center;
-    background-size: cover;
-}
-
-</style>
-<div id="image" style="background-image: url('http://192.168.10.51:8081/sungil/1901315feaaf2919e248748e71f1a99d089cb7.png');">
-
-</div>
-</sec:authorize>
-
-<sec:authorize access="isAuthenticated()" var="principal">
-<sec:authentication property="principal" var="member" />
-
- <c:if test="${member.id != host.member.id  && not fn:contains(adminList, member.id)}">
-
-<style>
-#image{
-
-    height: 100vh;
-    width: 100%;
-    background-image: url(http://192.168.10.51:8081/sungil/1901315….png);
-    background-position: center;
-    background-size: cover;
-}
-
-</style>
-<div id="image" style="background-image: url('http://192.168.10.51:8081/sungil/1901315feaaf2919e248748e71f1a99d089cb7.png');">
-
-
-
-</c:if>
-
-
-
-  </sec:authorize>
-  
   
   
   
@@ -435,6 +227,7 @@ $("button").click((e)=>{
       				location.href= "management?membershipCode=" +data;
       			   alert("변경이 완료되었습니다")
       			}
+      			
       						
       		
       	});	

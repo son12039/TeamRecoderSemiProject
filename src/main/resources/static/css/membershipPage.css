@@ -106,48 +106,16 @@
   margin-top: 20px;
 }
 
-.locTyBox {
-  width: 100%;
-  padding: 20px;
-}
 
 
-#option {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-}
 
 .allmemberImg {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  margin-right: 20px;
+ 
 }
 
-#accordionExample {
-  width: 450px;
- position: fixed;
-    left: 0px;
-    z-index: 99;
-    margin-top:80px;
-
-}
-
-.accordion-button collapsed{
-	
-	background-color: #14213d !important;
-    color: white !important;
-    font-weight: bold !important;
-	
-}
-.accordion-collapse {
-  overflow: auto; 
-}
-
-.accordion-body {
-  max-height: 1000px; 
-}
 
 .memberTable {
   border: 1px solid;
@@ -163,79 +131,102 @@
     flex-direction: column;
 }
 .member-grade {
-  width: 50px;
+
   text-align: center;
   font-weight: bold;
+      text-wrap: nowrap;
   
 }
 
 .member-grade span {
   color: rgb(252, 177, 3);
-  font-size: 32px;
+  font-size: 20px;
   
 }
 
-.member-img-info-hobby-location {
-  display: flex;
-}
-.member-info {
-  color: gray;
-  margin-bottom: 10px;
-}
 
-.member-hobby-location{
+.member-img-icon-nickname-manner{
+	display: flex;
+	justify-content: space-evenly;
+}
+.member-img-icon{
 	
 	display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+.nickname-manner {
+	
+	    display: flex;
+    flex-direction: column;
+    justify-content: center;
+        position: relative;
+    top: 12px;
+}
+.manner{
+	display:flex;
+	justify-content: center;
+    align-items: center;
+}
+
+.manner p {
+	
+	margin-right: 15px;
+}
+
+.nickname{
+	
+	text-align: center
+}
+
+
+
+#accordionExample {
+      width: 15%;
+    position: fixed;
+    left: 0px;
+    z-index: 99;
+    margin-top: 80px;
+  
+    
+  
+}
+
+
+.accordion-button collapsed{
+	
+	background-color: #14213d !important;
+    color: white !important;
+    font-weight: bold !important;
+   
 	
 }
-.member-info-hobby-location {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.accordion-header{
+	
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
+
+	
+	
 }
 
-.member-hobby-location {
-  border: 1px solid black;
-  border-radius: 20px;
-  width: 134px;
-  height: 28px;
-  text-align: center;
-  background: beige;
-  font-weight: bold;
+.accordion-collapse {
+  overflow: auto; 
+}
+.accordion-collapse::-webkit-scrollbar {
+	display: none;
+}
+.accordion-collapse.collapsing {
+	max-height: 700px !important;
 }
 
-.nickname-age-fm-manner {
-  display: flex;
+.accordion-body {
+     max-height: 700px;
 }
-.nickname-age-fm {
-  width: 90px;
- 
-}
-.nickname {
-  font-weight: bold;
-}
-.age-fm {
-  font-size: 32px;
-  display: flex;
-  justify-content: space-around;
-}
-.manner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.manner > p {
-  margin: 20px;
-}
-#man {
-  color: blue;
-}
-#femail {
-  color: pink;
-}
-
 
 
 
@@ -253,4 +244,61 @@
 }
 
 
+
+
+#menu{
+	  width: 16.4%;
+    position: fixed;
+    right: 0px;
+    z-index: 99;
+    margin-top: 80px;	
+    border-top: 1px solid black;
+     border-left: 1px solid black;
+      border-right: 1px solid black;
+      background: white;
+	
+	
+}
+.mainMenu{
+	font-weight: bold;
+	font-size:32px;
+	 cursor: pointer;
+}
+#menu li{
+	text-align: center;
+	padding : 10px;
+	border-bottom: 1px black solid;
+	font-family: "Jua",sans-serif;
+	
+}
+ul li:not(:first-of-type) {
+  display: none;
+}
+
+#calendar-info{
+	
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+
+}
+
+#calendar-info p{
+font-family: "Do Hyeon", sans-serif;
+font-size: 60px;
+font-weight: bold;
+padding:10px;
+
+}
+
+#calendar {
+  background: white;
+  width: 500px;
+  height: 600px;
+ 
+  
+}
 

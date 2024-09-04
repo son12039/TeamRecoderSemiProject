@@ -92,9 +92,15 @@ public class MemberService implements UserDetailsService {
 	}
 	
 	// 비밀번호 재설정시 암호화
-	public void updateMemberInfo(Member member) {
-		member.setPwd(bcpe.encode(member.getPwd()));
-		mapper.updateMemberInfo(member);
+	public void updateMemberInfo(Member member, String beforePwd) {
+		
+		
+		
+			
+			member.setPwd(bcpe.encode(member.getPwd()));
+			mapper.updateMemberInfo(member);
+			
+		
 	}
 
 	// 탈퇴시 status 조정

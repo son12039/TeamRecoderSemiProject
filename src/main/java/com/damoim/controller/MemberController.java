@@ -226,16 +226,27 @@ public class MemberController {
 	 * 회원 중요정보 수정
 	 * */
 	@PostMapping("/updateMemberInfo")
-	public String updateMemberInfo(Member vo, Model model, String addrDetail) {
+	public String updateMemberInfo(Member vo, Model model, String addrDetail,String beforePwd ) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-
+		
+		if(!service.updateCheck(mem, beforePwd)) {
+			
+			System.out.println("실패함 ");
+			model.addAttribute("text" , "변경 실패");
+			System.out.println("실패함1 ");
+			return "mypage/updateMemberInfo";
+			
+		}
+  System.out.println("비번은 뚫음 ");
 		vo.setId(mem.getId());
 		String addr = vo.getAddr();
 		addr += "#" + addrDetail;
 		vo.setAddr(addr);
 
-		service.updateMemberInfo(vo); // 수정
+		service.updateMemberInfo(vo,beforePwd); // 수정
+		
+		
 		
 		// 실제 로그인 회원 정보 업데이트
 		mem.setNickname(vo.getNickname());
@@ -247,8 +258,15 @@ public class MemberController {
 		mem.setAge(vo.getAge());
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
+		
+		
 		model.addAttribute("text" , "변경 성공");
-		return "index";
+	
+		
+		
+	
+		return "mypage/mypage";
 	}
 
 	// 회원정보 수정 비밀번호 체크

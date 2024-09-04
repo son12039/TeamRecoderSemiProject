@@ -74,10 +74,11 @@ public class PageController {
 		return "member/user";
 	}
 	
-	// 내 정보 열람 비밀번호 체크
+	// 내 중요 회원 정보 수정 
 	@GetMapping("/updateCheck")
 	public String updateCheck() {
-		return "mypage/updateCheck";
+		
+		return "mypage/updateMemberInfo";
 	}
 	// 회원탈퇴 비밀번호 체크
 	@GetMapping("/resignPage")
@@ -86,11 +87,11 @@ public class PageController {
 	}
 	
 	
-	// 중요 회원정보 수정
-	@GetMapping("/updateMemberInfo")
-	public String updateMemberInfo() {
-		return "mypage/updateMemberInfo";
-	}
+	/*
+	 * // 중요 회원정보 수정
+	 * 
+	 * @GetMapping("/updateMemberInfo") public String updateMemberInfo() { ; }
+	 */
 	
 	// 멤버쉽 정보 수정
 	@GetMapping("/updateMembership")

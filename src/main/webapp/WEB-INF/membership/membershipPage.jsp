@@ -168,7 +168,15 @@
 		<div id="menu">
 		<ul>
 		<li class="mainMenu">MENU</li>
-<c:if test="${ fn:contains(adminList, member.id) || member.id == main.member.id}">
+		                <c:set var="memberGrade" value="none" />
+			<c:forEach items="${member.memberListDTO}" var="loginMember">
+				<c:if
+					test="${loginMember.membershipCode == main.membership.membershipCode}">
+					<c:set var="memberGrade" value="${loginMember.listGrade}" />
+
+				</c:if>
+			</c:forEach>
+<c:if test="${memberGrade == 'host' || memberGrade == 'admin'}">
 					<li><a
 						href="/club/${main.membership.membershipCode}/membershipPromotionDetail"
 						>홍보글 작성</a></li>

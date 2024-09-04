@@ -79,29 +79,33 @@ public class MembershipService {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem =  (Member)authentication.getPrincipal();
-		
+		// 로그인한 정보 가져와서 
+		// 해당 멤버의 memberListDTO 리스트를 선언 
 		ArrayList<MemberListDTO> list =  (ArrayList<MemberListDTO>) mem.getMemberListDTO();
-		
+	
+		// 버튼을 누를떄 바뀌는 MemberListDTO를 최신화 시켜줘야함  
+		// MemberListDTO member에서 보낸값이 로그인한 본인일경우 최신화가 되어야함 
+		// 보내줄때 본인이 바뀔만한것은 호스트 양도 밖에 없음 
 		
 		
 		if(member.getListGrade().equals("delete")) {
 			mapper.expelMember(member);
 			
-			for(int i =0; i<list.size(); i++) {
-				if(list.get(i).getMembershipCode() == member.getMembershipCode()) {
-					list.remove(i);
-				}
-				
-			}
+			
 			
 		} else if (member.getListGrade().equals("host")) {
 			
+			// 보내준 값이 호스트인경우에 
+			// 우선 해당 멤버쉽의 현제 호스트를 admin으로 체인지 
+			// 그런데 무조건 본인에 영향이 가기 때문에 MemberListDTO에서 해당멤버쉽의 host인것을 admin으로 바꿔주면될듯? 
+			// 만약 바꿔주지 않으면 호스트를 양도했음에도 불구하고 호스트 권한을 가지고 있는 페이지가 출력됨 
 			mapper.hostChange(member.getMembershipCode());
 			mapper.agreeMemeber(member);
 			
 			for(int i = 0; i < list.size(); i++) {
-				if(list.get(i).getMembershipCode() == member.getMembershipCode() ) {
+				if(list.get(i).getMembershipCode() == member.getMembershipCode()) {
 					list.get(i).setListGrade("admin"); 
+					break;
 					
 				}
 				
@@ -111,26 +115,13 @@ public class MembershipService {
 		 else if(member.getListGrade().equals("admin")){
 		mapper.agreeMemeber(member);
 		
-		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getMembershipCode() == member.getMembershipCode() ) {
-				list.get(i).setListGrade("admin"); 
-				
-			}
-			
-		}
+	
 		
 		
 		
 		}	 else if(member.getListGrade().equals("regular")){
 			mapper.agreeMemeber(member);
 			
-			for(int i = 0; i < list.size(); i++) {
-				if(list.get(i).getMembershipCode() == member.getMembershipCode() ) {
-					list.get(i).setListGrade("regular"); 
-					
-				}
-				
-			}
 			
 			
 			

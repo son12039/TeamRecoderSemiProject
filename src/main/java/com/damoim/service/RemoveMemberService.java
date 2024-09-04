@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.MeetingsComment;
-
+import com.damoim.model.vo.MembershipMeetings;
 
 import mapper.RemoveMemberMapper;
 
@@ -56,6 +56,37 @@ public class RemoveMemberService {
 				}else {
 					mapper.deleteMeetingComment(meet.getMeetCommentCode());
 				}
+		}
+		
+	}
+	
+	// 회원 탈퇴시 
+	public void deleteAllMeeting(String id) {
+		mapper.deleteMemberMeetingsAgree(id); // 동의사항 날리기(조건 X)
+		ArrayList<MembershipMeetings> list = mapper.selectMeeting(id); // 해당 유저가 작성한 모든 미팅 게시판 글
+		
+		for(MembershipMeetings met: list) {
+			int count = mapper.selectMeetingAgreeMemberCount(met.getMeetCode());
+			if(count == 0) {
+				mapper.deleteMeeting(met.getMeetCode());
+			}else {
+				mapper.deleteMeetingUpdate(met.getMeetCode());
+			}
+			
+		}
+	}
+	
+	
+	// 해당 미팅 글 삭제 눌렀을때 진행 로직
+	public void deleteMeeting(int MeetCode) {
+		int count = mapper.selectMeetingAgreeMemberCount(MeetCode);
+		System.out.println("카운트 값 과 코드");
+		if(count == 0) {
+			System.out.println("일반 삭제처리");
+			mapper.deleteMeeting(MeetCode);
+		}else {
+			System.out.println("내용만 널");
+			mapper.deleteMeetingUpdate(MeetCode);
 		}
 		
 	}

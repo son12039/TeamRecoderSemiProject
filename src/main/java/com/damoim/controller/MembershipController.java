@@ -318,8 +318,6 @@ public class MembershipController {
 	/* 성일
 	 * 어드민이나 호스트이냐 따라서 서로다른 맴버쉽 관리 페이지 이동처리
 	 * */
-	@GetMapping("/management")
-	public String management(Integer membershipCode ,Model model) {
 
 	/*
 	 * 멤버관리 페이지 호스트와 관리자만 접속 가능 등급 설정 및 회원 강퇴 기능 구현
@@ -327,10 +325,29 @@ public class MembershipController {
 	 */
 	@GetMapping("/management")
 	public String management(Integer membershipCode, Model model) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) authentication.getPrincipal();
+		
+		
+	boolean check = false;
+		
+		for (int i=0; i<mem.getMemberListDTO().size(); i++) {
+			if(mem.getMemberListDTO().get(i).getMembershipCode() == membershipCode && !(mem.getMemberListDTO().get(i).getListGrade().equals("guest") || mem.getMemberListDTO().get(i).getListGrade().equals("regular")) ) {
+				check = true;
+				
+			}
+			
+		}
+
+		if (!check) {
+			
+			return "error";
+		}
 
 		model.addAttribute("allMember", service.MembershipAllInfo(membershipCode));
 		model.addAttribute("host", service.main(membershipCode));
-		model.addAttribute("adminList", service.adminUser(membershipCode));
+
 
 		List<String> hosts = new ArrayList<String>();
 
@@ -344,11 +361,9 @@ public class MembershipController {
 			}
 
 		}
-
+	
 		model.addAttribute("otherHost", hosts);
-		// 들어온 사람의 id랑
-		// 해당 클럽의 호스트인 사람의 id가 일치
-		// 해당 클럽의 호스트인 사람 찾는 xml 필요
+	
 		System.out.println("접속");
 
 		return "membership/management";

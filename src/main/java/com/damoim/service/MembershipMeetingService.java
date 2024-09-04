@@ -49,6 +49,12 @@ public void participation (MeetingsAgree ma) {
 	mapper.participation(ma);
 }
 
+
+public void participationCancle (MeetingsAgree ma) {
+	
+	mapper.participationCancle(ma);
+}
+
 public void meetingDelete(MembershipMeetings meetings) {
 	
 	mapper.meetingDelete(meetings);

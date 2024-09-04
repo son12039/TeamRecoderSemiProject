@@ -181,30 +181,33 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 		<button type="button" onclick="location.href='/club/${allInfo.get(0).membership.membershipCode}'" >돌아가기</button>	
 		</div>
 		<div id="button3">
-		<c:forEach items="${list}" var="list" >
-	<sec:authorize access="isAuthenticated()" var="principal">
-<sec:authentication property="principal" var="member" />
-<c:if test="${member.nickname == list.member.nickname}">
+	
+	<sec:authentication property="principal" var="member" />
+		
+ <c:if test="${ !fn:contains(agree, member.id)}">
 <form id="go">
 <input type="hidden" name="meetCode" value="${meet.meetCode}">
 <input type="hidden" name="id" value="${member.id}">
-<input type="hidden" name="meetAgreeYn" value="${list.meetAgreeYn}"> 
-
-<c:choose>
-    <c:when test="${list.meetAgreeYn == false}">
-        <input class="agree" type="submit"  value="참가" id="gogo">
-    </c:when>
-    <c:otherwise>
-        <input class="agree" type="submit" value="참가취소" id="gogo" >
-    </c:otherwise>
-</c:choose>
+<input type="hidden" name="yN" value="yes">
+<input class="agree" type="submit"  value="참가" id="gogo">
 </form>
 </c:if>
 
 
-</sec:authorize>
+ <c:if test="${ fn:contains(agree, member.id)}">
+<form id="go">
+<input type="hidden" name="meetCode" value="${meet.meetCode}">
+<input type="hidden" name="id" value="${member.id}">
+<input type="hidden" name="yN" value="no">
+<input class="agree" type="submit"  value="참가취소" id="gogo">
+</form>
+</c:if>
 
-</c:forEach>
+
+
+
+
+
 
 
 

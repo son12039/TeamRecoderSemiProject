@@ -237,17 +237,15 @@
      WHERE list_grade ="host" AND id= #{id}    
      </select>
 
-	<!--  회원 탈퇴 관리시 쓰는데 용도 정확히 ?? <- 의미 없어보임? (동문님) -->
-
 	<!--  memberInfoDTO에 담을 수 있는 해당 맴버의 모임 참여 횟수 계산 -->
 	<select id="meetCount" parameterType="String" resultType="int">
 		SELECT
 		count(*)
 		FROM meetings_agree
 		JOIN membership_meetings USING (meet_code)
-		WHERE meetings_agree.id = #{id}	
+		WHERE meetings_agree.id = #{id}
 		AND meet_date_start
-		&lt; now()
+		&lt; now() 
 	</select>
 
 		<!--  해당 맴버 ID로 그 회원의 모든 클럽(상세정보)까지 담기는 쿼리 -->
@@ -258,6 +256,12 @@
 		JOIN membership USING(membership_code)
 		WHERE id = #{id}
 	</select>
+	
+	<delete id="deleteList" parameterType="MemberListDTO">
+	DELETE FROM membership_user_list
+	WHERE membership_code = #{membershipCode} 
+	AND id = #{id};
+	</delete>
 	
 		<!-- 모든 채팅방리스트 불러옴 -->
 	<select id="roomlist" resultMap="roomListmap">

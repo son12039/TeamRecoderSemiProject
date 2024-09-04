@@ -74,36 +74,37 @@ public class PageController {
 		return "member/user";
 	}
 	
-	// 내 중요 회원 정보 수정 
-	@GetMapping("/updateCheck")
+	// 내 중요 정보 수정
+	@GetMapping("/updateMemberInfo")
 	public String updateCheck() {
-		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member member = (Member) authentication.getPrincipal();
+		if(member == null) {
+			return "error";
+		}
 		return "mypage/updateMemberInfo";
 	}
-	// 회원탈퇴 비밀번호 체크
-	@GetMapping("/resignPage")
-	public String resignPage() {
-		return "mypage/resignPage";
-	}
-	
-	
-	/*
-	 * // 중요 회원정보 수정
-	 * 
-	 * @GetMapping("/updateMemberInfo") public String updateMemberInfo() { ; }
-	 */
-	
-	// 멤버쉽 정보 수정
+
+	// 멤버쉽 정보 수정 ????????????????
 	@GetMapping("/updateMembership")
 	public String updateMembership() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member member = (Member) authentication.getPrincipal();
+		if(member == null) {
+			return "error";
+		}
 		return "membership/updateMembership";
 	}
 	
-	// 회원탈퇴
+	// 회원탈퇴 페이지 이동
 	@GetMapping("/memberDelete")
 	public String memberDelete(Model model){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
+
+		if(mem == null) {
+			return "error";
+		}
 		int num = 0;
 		for(MemberListDTO m : mem.getMemberListDTO()) {
 			if(m.getListGrade().equals("host"))

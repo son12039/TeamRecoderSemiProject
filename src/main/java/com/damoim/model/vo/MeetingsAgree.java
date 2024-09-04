@@ -14,7 +14,6 @@ public class MeetingsAgree {
     private String id;
    
     private int meetCode;
-    
     private Member member;
 }
 

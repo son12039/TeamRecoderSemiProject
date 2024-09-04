@@ -74,18 +74,14 @@ public class RemoveMemberService {
 			}
 			
 		}
+
 	}
-	
-	
 	// 해당 미팅 글 삭제 눌렀을때 진행 로직
 	public void deleteMeeting(int MeetCode) {
 		int count = mapper.selectMeetingAgreeMemberCount(MeetCode);
-		System.out.println("카운트 값 과 코드");
 		if(count == 0) {
-			System.out.println("일반 삭제처리");
 			mapper.deleteMeeting(MeetCode);
 		}else {
-			System.out.println("내용만 널");
 			mapper.deleteMeetingUpdate(MeetCode);
 		}
 		

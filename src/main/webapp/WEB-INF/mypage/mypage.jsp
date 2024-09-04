@@ -94,7 +94,7 @@
 				</div>
 				<div class="profile_submit">
 					<input type="button" id="submit" value="수정"> <a
-						href="/updateCheck" id="updateCheck">회원정보 수정</a>
+						href="/updateMemberInfo" id="updateCheck">회원정보 수정</a>
 				</div>
 			</div>
 		</form>
@@ -129,6 +129,7 @@
 						<div class="membership-String">
 							<div>
 								<p>${mem.membership.membershipName}</p>
+								<button class="btn" onclick="deleteList('${guestClub}',${mem.membership.membershipCode})" >신청 취소</button>
 							</div>
 						</div>
 					</div>
@@ -156,10 +157,14 @@
 								<img class="membership-img"
 									src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"
 									alt="Membership Image">
+									
 							</div>
 							<div class="membership-String">
 								<div>
 									<p>${mem.membership.membershipName}</p>
+									<c:if test="${adminClub != 'host'}">
+									<button  class="btn" onclick="deleteList('${adminClub}',${mem.membership.membershipCode})" >탈퇴</button>
+									</c:if>
 								</div>
 							</div>
 						</div>
@@ -194,6 +199,9 @@
 							<div class="membership-String">
 								<div>
 									<p>${mem.membership.membershipName}</p>
+									<c:if test="${myClub != 'host'}">
+									<button class="btn" onclick="deleteList('${myClub}',${mem.membership.membershipCode})" >탈퇴</button>
+									</c:if>
 								</div>
 							</div>
 						</div>

@@ -17,7 +17,7 @@
 	href="${pageContext.request.contextPath}/css/updateMembership.css">
 </head>
 <body>
-	<jsp:include page="/WEB-INF/header/mypageHeader.jsp" />
+	<jsp:include page="/WEB-INF/header/header.jsp" />
 	<sec:authorize access="isAuthenticated()" var="principal">
 		<sec:authentication property="principal" var="member" />
 		

@@ -30,7 +30,7 @@
   font-size: 18px;
   font-weight: bold;
   margin-right: 15px;
-  color: #fca35b;
+  color: #14213D;
   font-family: "Do Hyeon", sans-serif;
 }
 /*헤더 센터*/
@@ -61,8 +61,13 @@
   font-weight: bold;
 }
 .main_header_right a {
-  color: #fca35b;
+  color: #14213D;
   font-family: "Do Hyeon", sans-serif;
+  padding-right: 10px;
+}
+
+.main_header_right a:hover {
+	color: #9a8c98;
 }
 
 .main_header_right_menu {
@@ -70,7 +75,7 @@
 
 .main_header_right_nickname {
   margin-right: 10px;
-  color: #fca35b;
+  color: #14213D;
   font-family: "Do Hyeon", sans-serif;
 }
 .main_header_right_user {

@@ -66,15 +66,11 @@
 						</div>
 						<p>
 							탈퇴 후에도 게시판 서비스에 등록한 게시물은 그대로 남아 있습니다. <strong>가입한 클럽에 올린
-								게시글 및 댓글은 탈퇴 시 자동 삭제되지 않고 그대로 남아 있습니다.</strong> 삭제를 원하는 게시글이 있다면 반드시 <strong>탈퇴
+								게시글 및 댓글은 회원탈퇴 시 비공개 처리 됩니다.</strong> 삭제를 원하는 게시글이 있다면 반드시 <strong>탈퇴
 								전 비공개 처리하거나 삭제하시기 바랍니다.</strong> 탈퇴 후에는 회원정보가 삭제되어 본인 여부를 확인할 수 있는 방법이
 							없어, 게시글을 임의로 삭제해드릴 수 없습니다.
 						</p>
-						<div class="warning_text">
-							<i class="fa-solid fa-circle-exclamation"></i>
-							<h2>단, 질문자/답변자 아이디가 비공개 처리됨</h2>
-						</div>
-						<c:if test="${fn:length(list) != 0}">
+						<c:if test="${list != null}">
 							<c:forEach items="${list}" var="listItems">
 								<div class="warning_text">
 									<div class="warning_img">
@@ -148,9 +144,3 @@
 		});
 	</script>
 </html>
-
-
-
-
-
-

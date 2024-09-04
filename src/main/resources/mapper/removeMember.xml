@@ -116,25 +116,27 @@
   
      <!--  동의사항 날리기 (조건X) -->
     <delete id="deleteMemberMeetingsAgree" parameterType="String">
-    	DELETE FROM meetingsAgree
+    	DELETE FROM meetings_agree
     	WHERE id = #{id}
     </delete>
   
   <!--  삭제전에 해당 ID가 작성한 미팅 글 찾기 -->
     <select id="selectMeeting" parameterType="String" resultMap="MembershipMeetingsResultMap">
-    	SELECT * FROM membership_meetings
-    	WHERE id = {id}
+    	SELECT *
+    	FROM membership_meetings
+    	WHERE id = #{id}
     </select>
     <!--  작성자가 작성한 미팅 글에 참여자가 있나 확인 -->
-    <select id="selectMeetingAgreeMemberCount" parameterType="int" resultMap="MembershipMeetingsResultMap">
+    <select id="selectMeetingAgreeMemberCount" parameterType="int" resultType="int">
     	SELECT count(*) 
 		FROM meetings_agree
+		JOIN membership_meetings USING(meet_code)
 		WHERE meet_code = #{meetCode}
 		AND meet_date_end &lt; now();
     </select>
     <!--  삭제 대신 내용 널처리 -->
      <update id="deleteMeetingUpdate" parameterType="int">
-    	UPDATE FROM membership_meetings
+    	UPDATE membership_meetings
     	SET meet_info = null,
     		color = null,
     		meet_title = null

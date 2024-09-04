@@ -73,7 +73,10 @@ public class MembershipService {
 	public List<MemberListDTO> grade(Member member){
 		return mapper.grade(member);
 	}
-
+	// 가입 취소, 탈퇴
+	public void deleteList(MemberListDTO member) {
+		mapper.deleteList(member);
+	}
 	
 	public void agreeMemeber(MemberListDTO member) {
 		

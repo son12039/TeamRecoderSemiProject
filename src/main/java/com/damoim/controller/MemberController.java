@@ -304,7 +304,7 @@ public class MemberController {
 	}
 
 
-
+	
 	// 프로필, info 업데이트
 	@ResponseBody
 	@PostMapping("/updateMember")
@@ -329,6 +329,7 @@ public class MemberController {
 		return "redirect:/mypage";
 	}
 
+	
 	/* 성철
 	 * 닉네임값 받아서 해당유저의 상세페이지로 이동(그유저의 가입된 클럽 여부, 추천기능)
 	 */

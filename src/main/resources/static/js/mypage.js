@@ -31,3 +31,28 @@ membershipCreate.classList.toggle("active");
 toggleIcon.classList.toggle("active");
 });
 
+function deleteList(grade , membershipCode){
+	let text = "";
+	if(grade === 'admin'){
+		text = "당신의 등급은 관리자입니다 정말 탈퇴하시겠습니까'?"
+	}else if(grade === 'admin'){
+		text = "정말 탈퇴하시겠습니까?"
+	}else{
+		text = "정말로 신청 취소하시겠습니까?"
+	}
+
+	if(confirm(text))  {
+	$.ajax({
+		url: '/deleteList', 
+		type: 'POST',
+		data: { 
+			membershipCode: membershipCode
+		},
+		success: function() {
+			alert("변경 완료")
+			location.reload();
+		}
+	})
+	}
+}
+

@@ -71,25 +71,23 @@
 							없어, 게시글을 임의로 삭제해드릴 수 없습니다.
 						</p>
 						<c:if test="${list != null}">
-							<c:forEach items="${list}" var="listItems">
 								<div class="warning_text">
 									<div class="warning_img">
 										<i class="fa-solid fa-crown"></i> <a
-											href="/club/${listItems.membership.membershipCode}"> <img
+											href="/club/${list.membershipCode}"> <img
 											class="membership-img"
 											src="http://192.168.10.51:8081/membership/
-									${listItems.membership.membershipCode}/${listItems.membership.membershipImg}"
-											alt="Membership Image" />
+									${list.membershipCode}/${list.membershipImg}" />
 										</a>
 									</div>
 									<div class="warning_info">
 										<h3>
-											회원님은 <strong>${listItems.membership.membershipName}</strong> 의
+											회원님은 <strong>${list.membershipName}</strong> 의
 											호스트입니다
 										</h3>
 									</div>
 								</div>
-							</c:forEach>
+							
 						</c:if>
 						<div class="warning_text">
 							<p>탈퇴 후에는 <strong>해당 아이디 로 다시 가입할 수 없으며 아이디와 데이터는 복구할 수

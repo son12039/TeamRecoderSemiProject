@@ -172,3 +172,14 @@ function updateKey(commentCode){
 	}
 
 )}
+
+
+// 채승훈 댓글 클릭시 밑에 보더 이벤트 주기
+$("#textbox").click(function(){
+	console.log($("#textbox"))
+	if($("#textbox")){
+		$("#textbox").css({borderBottom : "1px solid red"})
+	}else{
+		$("#textbox").css({borderBottom : ""})
+	}
+})

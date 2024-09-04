@@ -147,7 +147,7 @@ function validate() {
 	}
 	if((pwdSubmit && pwdcSubmit && ageSubmit && nicknameSubmit&& emailSubmit && nameSubmit)){
 
-		alert(nick +"님 환영합니다!");
+		alert("변경완료");
 	}
 	
 	return pwdSubmit && pwdcSubmit && ageSubmit && nicknameSubmit && emailSubmit &&nameSubmit;

@@ -46,7 +46,7 @@
 		<div class="locationTypeBodyBox">
 			<form id="locationLaNameForm">
 				<div class="locationLaBox">
-					<div class="locationLaStar">도시별</div>&nbsp;<p>∨</p>
+					<div class="locationLaStar">도시별&nbsp;</div>&nbsp;<p>∨</p>
 						<input type="checkbox" value="" id="locLaNameAll" />
 				</div>
 				<div class="locationSDiv">
@@ -61,7 +61,7 @@
 	
 			<form id="locationSNameForm">
 				<div class="locationSBox">
-					<div class="locationSStar">지역별</div>&nbsp;<p>∨</p>
+					<div class="locationSStar">지역별&nbsp;</div>&nbsp;<p>∨</p>
 				</div>
 					<div class="locationSDiv">
 						<c:forEach items="${locSNameList}" var="locSName">
@@ -74,7 +74,7 @@
 			<!-- 타입별 -->
 			<form id="typeLaNameSelect">
 				<div class="typeLaBox">
-					<div class="typeLaStar">타입별</div>&nbsp;<p>∨</p>
+					<div class="typeLaStar">타입별&nbsp;</div>&nbsp;<p>∨</p>
 						<input type="checkbox" value="" id="typeLaNameAll" />
 				</div>
 				<div class="typeLaDiv">
@@ -90,7 +90,7 @@
 
 			<form id="typeSNameForm">
 				<div class="typeSBox">
-					<div class="typeSStar">분류별</div>&nbsp;<p>∨</p>
+					<div class="typeSStar">분류별&nbsp;</div>&nbsp;<p>∨</p>
 				</div>
 					<div class="typeSDiv">
 					<c:forEach items="${typeSNameList}" var="typeSName">

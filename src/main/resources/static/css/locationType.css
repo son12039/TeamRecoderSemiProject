@@ -198,6 +198,13 @@
     background: #f3f3f3;
     color: #818181;
 }
+.typeLaStar{
+	display: flex;
+}
+.typeLaFriend{
+	color : #0077b6;
+	border-redius : bold
+}
 .typeLaCss:hover{
 
 }

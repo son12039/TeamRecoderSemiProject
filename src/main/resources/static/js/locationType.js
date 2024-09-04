@@ -286,9 +286,11 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 	const typeLaName = $(this).val();
 	const typeLa = $(this);
 	typeLLa = typeLaName == typeLLa ? "" : typeLaName;
-	
+	// 타입 눌렀을떄 사용자가 선택한거 옆에 보여줄 친구
+	let typeLaFriend = "<div class='typeLaFriend'>" +$(this).val()+"</div>";
 	if ($(this).prop('checked')) {
-		
+		// 친구 지우기
+		$(".typeLaFriend").remove()
 		$('#typeLaNameSelect input[type=checkbox]')
 							.prop('checked', false)
 							.next("label")
@@ -304,6 +306,8 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 			
 		if (typeLaName !== '') {
 			urlParams.append('typeLaName', typeLaName)
+			// 친구 만들기
+			$(".typeLaStar").append(typeLaFriend)
 			$(this).prop('checked', true)		
 					.next("label")
 					.css({
@@ -312,6 +316,8 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 		}
 	}
 	if(!$(this).prop('checked')){
+		// 친구 지우기
+		$(".typeLaFriend").remove()
 		$(this).prop('checked', false)		
 				.next("label")
 				.css({
@@ -353,10 +359,15 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 						$(".typeSDiv").html(list)
 
 					}
+					// 소분류 친구 만들기
+					let typeSList = [];
+					let tpyeSFreind = 0;
 					$("#typeSNameForm input[type=checkbox]").change(function() {
 						window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 						const typeSName = $(this).val();
 						if ($(this).is(':checked')) {
+							// 클릭한 애들넣기
+							typeSList.push($(this).val())
 							urlParams.append('typeSName', typeSName);
 							$(this).prop("checked",true)
 								   .next("label")
@@ -364,6 +375,16 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 										backgroundColor : "#dbdbdb"
 								   });
 						} else {
+							//배열로 언체크드 되면 삭제하기
+							for(let i=0;i<typeSList.length;i++){
+								if(typeSList[i] == ($(this).val())){
+									typeSList.splice(i)
+								}
+								tpyeSFreind = typeSList.length > 1 ? 10 : 0;
+							}
+							console.log("1번"+typeSList.length)
+							console.log("2번"+tpyeSFreind)
+							
 							$(this).prop("checked",false)
 								   .next("label")
 								   .css({

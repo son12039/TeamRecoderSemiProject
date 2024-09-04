@@ -31,3 +31,7 @@ membershipCreate.classList.toggle("active");
 toggleIcon.classList.toggle("active");
 });
 
+document.getElementById('file').addEventListener('change', function() {
+  var fileName = this.files[0] ? this.files[0].name : '';
+  document.getElementById('fileName').textContent = fileName;
+});

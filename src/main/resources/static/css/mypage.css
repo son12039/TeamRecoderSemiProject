@@ -5,11 +5,9 @@ body {
 	padding: 0;
 	background-color: #f4f4f4;
 }
-.profile_file{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
+
+
+
 input[type=text] {
 	width: 100%;
 	height: 30px;
@@ -17,6 +15,33 @@ input[type=text] {
 	border: 0;
 	border-radius: 10px;
 	background-color: rgb(233, 233, 233);
+}
+
+.form-control {
+	display: none;
+}
+
+.profile_file {
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.profile_file_button {
+	border: 1px solid #ccc;
+	background-color: #fca311;
+	padding: 10px 12px;
+	cursor: pointer;
+	border-radius: 4px;
+	color: white;
+}
+.profile_file_button:hover {
+	background-color: #e76f00;
+}
+
+.file_name {
+	margin-top: 10px;
+	display: block;
 }
 
 .box {
@@ -33,19 +58,17 @@ input[type=text] {
 }
 
 /* 정보 컨테이너 */
-
-
 .container {
 	width: 100%;
-    max-width: 800px;
+	max-width: 800px;
 	margin: auto;
 	padding: 15px;
 	border-radius: 12px;
 	display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	background: honeydew;
 	margin-bottom: 20px;
 }
@@ -54,12 +77,16 @@ input[type=text] {
 	font-size: 1.5rem;
 	font-weight: bolder;
 	padding-top: 20px;
-	padding-bottom: 20px;	
+	padding-bottom: 20px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
-
+.profile_file {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 
 .profile_img {
 	display: flex;
@@ -72,12 +99,10 @@ input[type=text] {
 	height: 200px;
 	border-radius: 25%;
 	margin-bottom: 10px;
+	border: 3px #14213D solid;
 }
 
-.profile_update {
-	align-items: center;
-	justify-content: flex-start;
-}
+
 
 .profile_update>* {
 	margin-bottom: 20px;
@@ -89,18 +114,26 @@ input[type=text] {
 	align-items: center;
 	justify-content: center;
 	font-weight: bolder;
+	height: 70px;
 }
-
+.profile_manner_info{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
 .profile_manner p {
 	font-size: 1.2rem;
 	font-weight: bolder;
-	padding-right: 10px;
+	padding-right: 5px;
+	padding-left: 5px;
 }
 
 .profile_manner h1 {
 	font-size: 1.2rem;
 	font-weight: bolder;
-	padding-right: 10px;
+	padding-right: 20px;
+	padding-left: 5px;
 }
 
 .profile_info {
@@ -127,7 +160,10 @@ input[type=text] {
 	flex-direction: column;
 	align-items: center;
 }
-
+.list_grade_text{
+	display: flex;
+	flex-direction: row;
+}
 #updateSubmit {
 	background-color: #fca311;
 	color: white;
@@ -144,7 +180,7 @@ input[type=text] {
 }
 
 #updateCheck {
-	background-color: #fca311;
+	background-color: #14213D;
 	color: white;
 	padding: 10px 15px;
 	border: none;
@@ -156,18 +192,16 @@ input[type=text] {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
 }
-
-
 
 #submit:hover {
 	background-color: #e76f00;
 }
 
 #updateCheck:hover {
-	background-color: #e76f00;
+	background-color: #000000;
 }
+
 #updateSubmit:hover {
 	background-color: #e76f00;
 }
@@ -204,6 +238,7 @@ input[type=text] {
 .membership-card h1 {
 	font-weight: bolder;
 	padding-bottom: 15px;
+	padding-right: 10px;
 }
 
 .membership-img {
@@ -231,13 +266,11 @@ input[type=text] {
 .membership-String {
 	display: flex;
 	flex-direction: column;
-	
 }
 
 .membership-String h4 {
 	padding-bottom: 20px;
 	font-size: 1.2rem;
-
 	font-weight: bolder;
 }
 

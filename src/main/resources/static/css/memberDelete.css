@@ -4,6 +4,13 @@ body {
 	font-family: Arial, sans-serif;
 	background-color: #f4f4f4;
 }
+/*
+폰트 어썸 아이콘
+*/
+.fa-solid.fa-crown{
+	color:#fca311;
+	font-size: 1.9rem;
+}
 
 h1 {
 	font-size: 1.5rem;
@@ -11,18 +18,30 @@ h1 {
 }
 
 h2 {
+	font-size: 1.2rem;
+	font-weight: bolder;
+	padding-left: 10px;
+}
+h3 {
 	font-size: 1rem;
 	font-weight: 700;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+p {
+	font-weight: bolder;
 }
 
 strong {
 	font-weight: bolder;
+	color : rgb(152, 78, 163);
 }
 
 .container>* {
 	margin-bottom: 20px;
 }
-.top-container{
+
+.box{
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -56,6 +75,28 @@ strong {
 	padding-top: 10px;
 }
 
+.warning_img{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100px;
+}
+.warning_info{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-left: 50px;
+	height: 100px;
+	padding-top: 80px;
+}
+.warning_text {
+	display: flex;
+	flex-direction: row;
+	padding-top: 20px;
+    padding-bottom: 20px;
+}
+
 .details {
 	background: #fff3cd;
 	border-left: 5px solid #ffeeba;
@@ -69,10 +110,12 @@ strong {
 	padding-bottom: 10px;
 }
 
-.details ul li {
+.details_ul li {
 	padding-top: 10px;
 }
-
+.details_ul li span{
+	font-weight: bolder;
+}
 .post-retention {
 	background: #fff3cd;
 	border-left: 5px solid #ffeeba;
@@ -82,10 +125,9 @@ strong {
 }
 
 .post-retention div>* {
-	padding-top: 10px;
-	padding-bottom: 10px;
 	line-height: 1.7;
 }
+
 
 .post-retention ul li {
 	padding-top: 10px;
@@ -113,6 +155,7 @@ strong {
 }
 
 .confirmation p {
+	font-weight: bolder;
 	padding-top: 10px;
 	padding-bottom: 20px;
 }
@@ -131,6 +174,7 @@ strong {
 	border-radius: 4px;
 	cursor: pointer;
 	width: 50%;
+	font-size: 1rem;
 }
 
 #button:hover {

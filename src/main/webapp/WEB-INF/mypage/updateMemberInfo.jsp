@@ -15,15 +15,14 @@
 	href="${pageContext.request.contextPath}/css/reset.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/updateMemberInfo.css" />
-
 </head>
 <body>
 	<sec:authorize access="isAuthenticated()" var="principal">
 		<sec:authentication property="principal" var="member" />
 		<jsp:include page="/WEB-INF/header/header.jsp" />
-
+		
 		<!-- (동문) -->
-		<div class="top-container">
+		<div class="box">
 			<div class="container">
 				<h1>회원 정보 수정</h1>
 				<div class="form-group">

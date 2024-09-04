@@ -49,6 +49,7 @@
 .main_header_center_text {
   color: #fca35b;
   text-shadow: 4.5px 2px black;
+  margin: 15px;
 }
 
 /*헤더 오른쪽*/

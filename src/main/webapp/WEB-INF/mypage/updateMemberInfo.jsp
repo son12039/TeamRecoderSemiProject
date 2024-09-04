@@ -82,7 +82,7 @@
 							value="${member.age}" /> 
 					</div>
 					<div class="button_box">
-						<button type="submit" id="updateSubmit">변경</button>
+						<button type="submit" id="updateSubmit" >변경</button>
 						<i class="fa-solid fa-xmark"></i><a href="/resignPage" class="resign">회원탈퇴</a>
 					</div>
 					

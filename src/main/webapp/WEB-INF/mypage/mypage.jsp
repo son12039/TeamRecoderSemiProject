@@ -25,8 +25,7 @@
 }
 </style>
 <body>
-
-	<jsp:include page="/WEB-INF/header/header.jsp" />
+	<jsp:include page="../header/header.jsp" />
 
 	<!-- 로그인 정보에 따라 헤더와 메뉴 표시 -->
 	<c:set var="hasHost" value="${false}" />
@@ -38,7 +37,6 @@
 			</c:if>
 		</c:forEach>
 	</sec:authorize>
-
 
 	<!-- 프로필 수정 폼 -->
 	<div class="box">
@@ -116,19 +114,20 @@
 				</div>
 			</form>
 		</div>
-
-		<!-- 가입 대기중인 클럽 보기 -->
+	
 		<div class="container">
+			<!-- 클럽 보기 버튼 -->
 			<div class="club-button">
 				<a id="all-club-button">가입 된 클럽</a> <a id="manage-club-button">내가
 					관리중인 클럽</a> <a id="wait-club-button">가입 대기중인 클럽</a>
 			</div>
-			<!-- 가입 된 클럽 보기 -->
+			<!-- 가입 된 클럽 (첫번째) -->
 			<div class="membership-card" id="all-club">
 				<div class="list_grade_text">
 					<h1>가입 된 클럽</h1>
 					<i class="fa-solid fa-users"></i>
 				</div>
+				
 				<c:forEach items="${membership}" var="mem">
 					<sec:authorize access="isAuthenticated()" var="principal">
 						<sec:authentication property="principal" var="member" />
@@ -155,8 +154,8 @@
 											<p>클럽 소개가 없습니다</p>
 										</c:if>
 										<p>${mem.membership.membershipSimpleText}</p>
-										<div>
-											<c:if test="${myClub != 'host'}">
+										<div class="btn_group">
+											<c:if test="${myClub != 'host'}"> <!-- 일반회원이거나 어드민인경우 가입 된 클럽 탈퇴 버튼 on -->
 												<button class="btn"
 													onclick="deleteList('${myClub}',${mem.membership.membershipCode})">탈퇴</button>
 											</c:if>
@@ -170,7 +169,7 @@
 				</c:forEach>
 			</div>
 
-			<!-- 관리중인 클럽 보기 -->
+			<!-- 관리중인 클럽 (두번째) -->
 			<div class="membership-card" id="manage-club">
 				<div class="list_grade_text">
 					<h1>내가 관리중인 클럽</h1>
@@ -201,8 +200,8 @@
 											<p>클럽 소개가 없습니다</p>
 										</c:if>
 										<p>${mem.membership.membershipSimpleText}</p>
-										<div>
-											<c:if test="${adminClub != 'host'}">
+										<div class="btn_group">
+											<c:if test="${adminClub != 'host'}"> <!-- 어드민인 경우만 -->
 												<button class="btn"
 													onclick="deleteList('${adminClub}',${mem.membership.membershipCode})">탈퇴</button>
 											</c:if>
@@ -215,7 +214,7 @@
 				</c:forEach>
 
 			</div>
-
+			<!-- 가입 대기중인 클럽 (세번째) -->
 			<div class="membership-card" id="wait-club">
 				<div class="list_grade_text">
 					<h1>가입 대기중인 클럽</h1>
@@ -246,7 +245,7 @@
 										<p>클럽 소개가 없습니다</p>
 									</c:if>
 									<p>${mem.membership.membershipSimpleText}</p>
-									<div>
+									<div class="btn_group">
 										<button class="btn"
 											onclick="deleteList('${guestClub}',${mem.membership.membershipCode})">신청
 											취소</button>

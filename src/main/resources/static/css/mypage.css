@@ -6,6 +6,18 @@ body {
 	background-color: #f4f4f4;
 }
 
+/* 폰트 어썸 아이콘*/
+.fa-solid.fa-crown{
+	color: #fca311;
+	font-size: 1.2rem;
+}
+.fa-solid.fa-users{
+	font-size: 1.2rem;
+}
+.fa-solid.fa-user-plus {
+	font-size: 1.2rem;
+}
+
 
 
 input[type=text] {
@@ -163,6 +175,7 @@ input[type=text] {
 .list_grade_text{
 	display: flex;
 	flex-direction: row;
+	
 }
 #updateSubmit {
 	background-color: #fca311;
@@ -237,6 +250,7 @@ input[type=text] {
 
 .membership-card h1 {
 	font-weight: bolder;
+	font-size: 1.2rem;
 	padding-bottom: 15px;
 	padding-right: 10px;
 }
@@ -279,10 +293,15 @@ input[type=text] {
 	white-space: nowrap;
 	
 }
+.membership-text{
+	margin-bottom: 20px;
+}
 
-.membership-text {
+.membership-text p {
 	width: 350px;
 	height: 100%;
+	white-space: normal;
+	line-height: 30px;
 }
 
 /* 버튼 스타일 */
@@ -367,7 +386,16 @@ input[type=text] {
 #toggle:checked ~ #label>#arrow {
 	transform: rotate(180deg);
 }
-
+.btn{
+	background-color: #14213D;
+	color: white;
+	border: none;
+	border-radius: 6px;
+	width: 100px;
+	height: 40px;
+	font-size: 1rem;
+	font-weight: bolder;
+}
 .menu-name {
 	width: var(--btn-width);
 	color: rgb(0, 0, 0);

@@ -49,7 +49,6 @@ public class MemberService implements UserDetailsService {
 	}
 	// ID로 맴버정보
 	public Member idCheck(Member member) {
-		 
 		return mapper.idCheck(member);
 
 	}

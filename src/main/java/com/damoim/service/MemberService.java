@@ -84,7 +84,6 @@ public class MemberService implements UserDetailsService {
 	
 	// 비밀번호 맞나 틀리나
 	public boolean updateCheck(Member vo, String pwdCheck) {
-
 		if (bcpe.matches(pwdCheck, vo.getPwd())) {
 			return true;
 		} else {

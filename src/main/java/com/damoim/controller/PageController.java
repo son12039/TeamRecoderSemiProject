@@ -112,7 +112,7 @@ public class PageController {
 		model.addAttribute("list", infoService.selectMembership(num));
 		return "mypage/memberDelete";
 	}
-
+	
 	// 내가 가입한 맴버쉽 페이지 이동
 	/*
 	 * 성일

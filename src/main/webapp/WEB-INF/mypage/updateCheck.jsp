@@ -13,7 +13,6 @@
 		<h1>비밀번호를 입력하세요</h1>
 		<form onsubmit="return false">
 			<input type="password" name="pwdCheck" id="pwdCheck"> 
-			<span id="checkSpan"></span>
 			<button type="button" id="button">확인</button>
 		</form>
 		
@@ -45,8 +44,7 @@
 						if(result){
 							window.location.href = "/updateMemberInfo";
 						} else {
-							checkSpan.innerHTML="비밀번호가 다릅니다"
-							checkSpan.style.color="red"
+							alert("비밀번호가 다릅니다");
 						}
 					},
 				});

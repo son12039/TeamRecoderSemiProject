@@ -37,7 +37,7 @@
 
 				<div class="info">
 					<div class="group">
-						<span><h1>모임 참여 횟수 ${mem.member.memberMeetCount}회</h1></span>
+						<span><h1>모임 참여 횟수 ${mem.memberMeetCount}회</h1></span>
 					</div>
 					<div class="group">
 						<div class="manner">

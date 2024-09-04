@@ -90,16 +90,20 @@ VALUES (#{membershipCode},#{meetDateStart},#{meetDateEnd},
     WHERE meet_code = #{meetCode} AND id = #{id}
 </update>
         
-    <delete id="meetingDelete" parameterType="Integer">
-    DELETE FROM membership_meetings
-    WHERE meet_code = #{meetCode}
-    
-    </delete>
+    <update id="meetingDelete" parameterType="MembershipMeetings">
+       Update membership_meetings
+          set meet_date_start =#{meetDateStart},
+              meet_date_end = #{meetDateEnd},
+              meet_info = null,
+              color = null,
+              meet_title  = null
+              WHERE meet_code = #{meetCode}
+    </update>
     
     <update id="meetingUpdate" parameterType="MembershipMeetings">
-    Update meetings_agree
+    Update membership_meetings
           set meet_date_start =#{meetDateStart},
-              meet_date_end = #{meetEndStart},
+              meet_date_end = #{meetDateEnd},
               meet_info = #{meetInfo},
               color = #{color},
               meet_title  = #{meetTitle}

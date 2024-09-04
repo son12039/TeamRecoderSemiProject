@@ -479,19 +479,30 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
     
     <script>
    
-    
     const allDates = [];
+    
     let allMeet = {};
-    <c:forEach items="${allmeet}" var="item">
+    const endDate = [];
+    <c:forEach items="${allmeet}" var="item" varStatus="status">
+    const a${status.index} = new Date("${item.meetDateEnd}")
+   a${status.index}.setDate(a${status.index}.getDate()+1)
+    a${status.index}1 = a${status.index}.toISOString().split('T')[0];
+   endDate.push(a${status.index}1);
+    </c:forEach>
+ 
+    <c:forEach items="${allmeet}" var="item" varStatus="status">
+    
     	allMeet.title = "${item.meetTitle}";
-    	allMeet.start = "${item.meetDateStart}";
-    	allMeet.end = "${item.meetDateEnd}";
+    	
+    	allMeet.start = "${item.meetDateStart}"; 	
+    	allMeet.end = endDate[${status.index}];
     	allMeet.color = "${item.color}";
     	allMeet.meetCode= "${item.meetCode}";
+    	<c:if test="${item.meetTitle != null}">
     	allDates.push(allMeet);
+    	</c:if>
     	allMeet = {};
     </c:forEach>
-    
     
    
     </script>

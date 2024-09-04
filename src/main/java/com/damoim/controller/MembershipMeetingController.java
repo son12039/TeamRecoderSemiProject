@@ -26,6 +26,7 @@ import com.damoim.model.vo.Image;
 import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.MeetingsAgree;
 import com.damoim.model.vo.MeetingsComment;
+import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.MembershipMeetings;
 import com.damoim.model.vo.MembershipUserList;
@@ -90,14 +91,41 @@ public class MembershipMeetingController {
 	
 	@GetMapping("/meetingDetail")
 	public String meetingDetail(int meetCode , Model model) {
-		System.out.println("디테일 컨트롤러 연결 : " + meetCode);
-		model.addAttribute("meet", service.meetSelect(meetCode));
+		
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		//로그인 정보 가져옴 
+		Member mem = (Member) authentication.getPrincipal();
+		
+		MembershipMeetings meet = service.meetSelect(meetCode);
 	
 	
+
+		// 멤버쉽 이미지가 필요해서 memebershipCode를 추출 
+		
+		int membershipCode = service.meetSelect(meetCode).getMembershipCode();
+		
+		boolean check = false;
+		for( int j=0; j<mem.getMemberListDTO().size(); j++) {
+			if(mem.getMemberListDTO().get(j).getMembershipCode() == membershipCode && !mem.getMemberListDTO().get(j).getListGrade().equals("guest") ) {
+				
+				check = true;
+				
+			}
+			
+		} 
+	
+		
+		
+		if(meet.getMeetInfo()==null || !check) {
+			System.out.println("97 : ");
+			return "error";
+		}
+		
+		model.addAttribute("meet", meet);
 		model.addAttribute("list", service.meetMember(meetCode));
 		
-		// 멤버쉽 이미지가 필요해서 memebershipCode를 추출 
-		int membershipCode = service.meetSelect(meetCode).getMembershipCode();
+
 	    model.addAttribute("regular", membershipService.MembershipAllRegular(membershipCode));
 		// 캘린더 추가 ? 
 		model.addAttribute("allmeet", service.allMeetings(membershipCode));
@@ -283,8 +311,12 @@ public class MembershipMeetingController {
 	public String remove(int meetCode) throws IllegalStateException, IOException {
 		
 		int membershipCode = service.meetSelect(meetCode).getMembershipCode();
+	 MembershipMeetings meetings= service.meetSelect(meetCode);
+	
 		
-		service.meetingDelete(meetCode);
+		service.meetingDelete(meetings);
+		
+		System.out.println("미팅 테스트용 " + meetings);
 		
 		return "redirect:/club/"+membershipCode;
 

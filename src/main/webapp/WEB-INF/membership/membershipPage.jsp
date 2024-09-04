@@ -35,7 +35,7 @@
 <body>
  <jsp:include page="../header/header.jsp" />
  
-	<sec:authorize access="isAuthenticated()" var="principal">
+
 		<sec:authentication property="principal" var="member" />
 
 
@@ -238,7 +238,7 @@
 		</div>
 	
 	<jsp:include page="../footer/footer.jsp" />
-	</sec:authorize>
+	
 	
  <script>
    
@@ -253,21 +253,18 @@
     a${status.index}1 = a${status.index}.toISOString().split('T')[0];
    endDate.push(a${status.index}1);
     </c:forEach>
-   console.log(endDate)
-   
-   const today = new Date();
-  const now = today.toISOString().split('T')[0];
-   console.log(today)
-   console.log(now)
-   
+
     <c:forEach items="${allmeet}" var="item" varStatus="status">
+    
     	allMeet.title = "${item.meetTitle}";
-    	allMeet.start = "${item.meetDateStart}";
     	
+    	allMeet.start = "${item.meetDateStart}"; 	
     	allMeet.end = endDate[${status.index}];
     	allMeet.color = "${item.color}";
     	allMeet.meetCode= "${item.meetCode}";
+    	<c:if test="${item.meetTitle != null}">
     	allDates.push(allMeet);
+    	</c:if>
     	allMeet = {};
     </c:forEach>
     

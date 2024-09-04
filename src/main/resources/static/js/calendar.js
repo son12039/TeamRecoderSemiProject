@@ -9,7 +9,8 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
 	locale: "ko", // 여기
 	eventClick: function(info) {
 	
-		location.href="/meetingDetail?meetCode="+info.event.extendedProps.meetCode;
+location.href="/meetingDetail?meetCode="+info.event.extendedProps.meetCode;
+		
 		//info.
 	
 	},

@@ -286,6 +286,7 @@ public class MemberController {
 	    	if(dto.getListGrade().equals("host"))
 				   check = true; 
 	    		}
+	    
 	    if (check) { // 해당 유저가 가입된 클럽 중  호스트인게 있다면!
 	        return false;
 	    	}
@@ -297,7 +298,6 @@ public class MemberController {
 	    removeService.deleteAllComment(mem.getId());
 	    removeService.deleteMembershipUserList(mem.getId());
 	    removeService.deleteAllMeeting(mem.getId());
-	    // membershipUserList 삭제
 	    
 	    // 로그아웃 처리
 	    SecurityContextHolder.getContext().setAuthentication(authentication);

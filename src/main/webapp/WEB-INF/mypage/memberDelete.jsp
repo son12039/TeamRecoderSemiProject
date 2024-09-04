@@ -92,7 +92,7 @@
 					</label>
 					<div>
 						<label>비밀번호 확인<input type="password" id="pwdCheck"
-							name="pwdCheck"></label> <input type="button" id="button"
+							name="pwdCheck"></label><input type="button" id="button"
 							value="회원탈퇴" />
 					</div>
 				</div>
@@ -100,7 +100,9 @@
 		</div>
 	</div>
 	<script>
+	
 		$("#button").click(() => {
+			console.log("버튼체크 확인");
 			// 체크박스가 체크될시 리턴 
 			if (!$("#checkbox").is(":checked")) {
                 alert("동의란에 체크해주세요");
@@ -109,7 +111,7 @@
 			$.ajax({
 				type: "post",
 				url: "/memberStatus",
-				data: pwdCheck : $("#pwdCheck").val(),
+				data: {pwdCheck : $("#pwdCheck").val()},
 				success: function (result){
 					if(result){
 						// true면 마지막 비밀번호 체크 페이지 이동
@@ -123,4 +125,5 @@
 			});
 		});
 	</script>
+</body>
 </html>

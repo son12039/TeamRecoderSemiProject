@@ -232,8 +232,7 @@
 		<sec:authorize access="isAuthenticated()">
 			<form id="comment-frm">
 				<div id="comment-box">
-					<div class="prof">
-						<label for="textbox"> ${member.nickname}</label>
+					<div class="prof">	
 						<c:choose>
 							<c:when test="${member.memberImg != null}">
 								<img class="user-img"
@@ -246,10 +245,14 @@
 							</c:otherwise>
 						</c:choose>
 					</div>
-					<input id="textbox" type="text" name="mainCommentText"
-						placeholder="댓글을 입력하세요"  > <input type="hidden" name="id"
-						value="${member.id}"> <input type="hidden"
-						name="membershipCode" value="${main.membership.membershipCode}">
+					<div id="textboxBox">
+						<label for="textbox"> ${member.nickname}</label>
+						<input id="textbox" type="text" name="mainCommentText"
+							placeholder="댓글을 입력하세요.."  > <input type="hidden" name="id"
+							value="${member.id}"> <input type="hidden"
+							name="membershipCode" value="${main.membership.membershipCode}">
+						
+					</div>
 					<button class="btn" id="submit-comment" type="button">댓글 등록</button>
 				</div>
 			</form>

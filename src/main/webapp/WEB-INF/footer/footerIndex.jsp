@@ -62,6 +62,9 @@
 	font-size : 16px;
 	font-weight: bold;
 }
+.footer_item p{
+	color : #ffffff;
+}
 .footer_item a{
 	color : #ffffff;
 	text-decoration: none;

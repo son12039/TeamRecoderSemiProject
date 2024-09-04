@@ -19,7 +19,6 @@ setTimeout(function(){
 },4000);
 
 window.addEventListener("scroll", () => {	
-	
 	//#14213d
 	if (1765 <= window.innerHeight + window.scrollY) {
 		$(".main_header").css({ backgroundColor: "#ADD8E6" })

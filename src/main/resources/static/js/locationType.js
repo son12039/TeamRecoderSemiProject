@@ -7,10 +7,50 @@ const urlParams = url.searchParams;
 // 상위 유형 : typeLaName, 하위 유형들 : typeSName
 
 // 파라미터값 존재여부 체크 & 파라미터 값 가져오기
-// 상위 지역 필터
+// 상위 지역 필터 
+$("#locationLaNameForm").click(function(){
+	if($(".locationLaDiv").css("display")=="none"){
+		$(".locationLaDiv").css({display : "block"})
+		$(".locationSDiv").css({display : "none"})
+		$(".typeLaDiv").css({display : "none"})
+		$(".typeSDiv").css({display : "none"})
+	}else{
+		$(".locationLaDiv").css({display : "none"})
+	}
+})
+$("#locationSNameForm").click(function(){
+	if($(".locationSDiv").css("display")=="none"&&laName!=="" && laName!==null){
+		$(".locationSDiv").css({display : "block"})
+		$(".locationLaDiv").css({display : "none"})
+		$(".typeSDiv").css({display : "none"})
+		$(".typeLaDiv").css({display : "none"})
+	}else{
+		$(".locationSDiv").css({display : "none"})
+	}
+})
 
+$("#typeLaNameSelect").click(function(){
+	if($(".typeLaDiv").css("display")=="none"){
+		$(".typeLaDiv").css({display : "block"})
+		$(".locationLaDiv").css({display : "none"})
+		$(".locationSDiv").css({display : "none"})
+		$(".typeSDiv").css({display : "none"})
+	}else{
+		$(".typeLaDiv").css({display : "none"})
+	}
+})
+$("#typeSNameForm").click(function(){
+	if($(".typeSDiv").css("display")=="none" && typeLLa !=="" && typeLLa !==null){
+		$(".typeSDiv").css({display : "block"})
+		$(".locationLaDiv").css({display : "none"})
+		$(".locationSDiv").css({display : "none"})
+		$(".typeLaDiv").css({display : "none"})	
+	}else{
+		$(".typeSDiv").css({display : "none"})
+	}
+})
 
-
+let laName=urlParams.get('locationLaName');
 if (urlParams.has("locationLaName")) {
 	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });;// 클릭시 해당 위치로
 	const locationLaName = urlParams.get('locationLaName');
@@ -18,8 +58,13 @@ if (urlParams.has("locationLaName")) {
 	for (let item of list) {
 		if (locationLaName === item.value) {
 			item.setAttribute('checked', true);
+			$item.css('background-color', 'red');
 		}
 	}
+	$('#locationSNameForm').css({
+		background: '#FCA35B',
+		color : 'white'
+	})
 }
 if (urlParams.has("locationSName")) {
 	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
@@ -35,7 +80,6 @@ if (urlParams.has("locationSName")) {
 
 
 $("#locationLaNameForm input[type=checkbox]").change(function() {
-	
 	// 아이콘 처리 하는 부분
 	const link = document.createElement('link');
 	link.rel = 'stylesheet';
@@ -48,33 +92,43 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 	const location = $(this);
 	//체인지하면서 css 변경
 	// 체크 이벤트 
-	const laName = $(this).val();
+	laName = $(this).val()==laName ?  "" : $(this).val();
 	if ($(this).prop('checked')) {
+		//console.log($(this).val()) // 서울 경기 부산 ...
 		// 체크 걸면서 css도 같이 주기
 		$('#locationLaNameForm input[type=checkbox]')
 							.prop('checked', false)
 							.next("label")
-							.css({backgroundColor : "",
-								  color : ""
+							.css({
+								background : ""
 							});
-
 		$(this).prop('checked', true)
-				.next("label")
-				.css({backgroundColor : "rgb(255, 235, 187)",
-					  color : "#fca35b"
-				});
-		if (laName !== '초기화') {
+		if (laName !== '') {
 			urlParams.append('locationLaName', laName);
-		}
-		if($(this).val() === '초기화'){
-			$(this).prop('checked', true)
+			$(this).prop('checked', true)			
 					.next("label")
-					.css({backgroundColor : "",
-						  color : ""
-					});	
+					.css({
+						background : "#dbdbdb"
+					})
+			$("#locationSNameForm").css({
+				backgroundColor : "#FCA35B",
+				color : "white",
+				cursor: "pointer"
+			})
 		}
+	}else{
+		// 버튼 자기 자신 선택했을때 지우기
+		$(this).prop('checked', false)			
+				.next("label")
+				.css({
+					background : "#f3f3f3"
+				})
+		$("#locationSNameForm").css({
+				backgroundColor : "",
+				color : "",
+				cursor: ""
+			})	
 	}
-	// 체크 해제했을때 스타일 삭제
 
 
 	// 체크 눌렀을때 그쪽 방향으로 이동
@@ -104,32 +158,30 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 					if (location.prop('checked')) {
 						$.each(locationS, function(index, item) {
 							list += `
-							<input type="checkbox" value="${item}" id="${item}"
-										name="locationSName">
-									<label for="${item}" class="locationTypeCss">${item}</label>`
+								<input type="checkbox" value="${item}" id="${item}"
+									name="locationSName">
+								<label for="${item}" class="locationSCss">${item}</label>`
 						})
 						$(".locationSDiv").html(list);
-					}
-					if(location.val() === '초기화'){
-						list+=`<div class="classiFication">지역을 선택해주세요</div>`
-						$(".locationSDiv").html(list)
 					}
 					$("#locationSNameForm input[type=checkbox]").change(function() {
 						window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 						const locationSName = $(this).val();
 						if ($(this).is(':checked')) {
 							$(this).prop("checked",true)
-							.next("label")
-							.css({backgroundColor : "rgb(255, 235, 187)",
-								  color : "#fca35b"
-							});
+									.next("label")
+									.css({
+										background : "#dbdbdb"
+									})
+							
 							urlParams.append('locationSName', locationSName);
 						} else {
 							$(this).prop("checked",false)
-							.next("label")
-							.css({backgroundColor : "",
-								  color : ""
-							});							
+									.next("label")
+									.css({
+										background : "#f3f3f3"
+									})
+													
 							urlParams.delete('locationSName');
 							const inputAll = $(this).parent().find("input[type=checkbox]");
 							for (let input of inputAll) {
@@ -194,6 +246,34 @@ $('#locationSNameForm input[name="locationSName"]').change(function() {
  })
 
 
+ let typeLLa =urlParams.get("typeLaName");
+ if (urlParams.has("typeLaName")) {
+ 	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
+ 	let typeLaName = urlParams.get("typeLaName")
+ 	let list = $('#typeLaNameSelect input')
+ 	for (let item of list) {
+ 		if (typeLaName === item.value) {
+ 			item.setAttribute("checked", true)
+ 		}
+ 	}
+ 	$('#typeSNameForm').css({
+ 		background: '#FCA35B',
+		color : "white"
+ 	})
+ }
+ 
+ 
+ if (urlParams.has("typeSName")) {
+ 	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
+ 	const typeSName = urlParams.getAll('typeSName');
+ 	const list = $('#typeSNameForm input');
+ 	for (let item of list) {
+ 		if (typeSName.includes(item.value)) {
+ 			item.setAttribute("checked", true);
+ 		}
+ 	}
+ }
+
 
 
 
@@ -202,37 +282,46 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 	urlParams.delete('typeLaName')
 	urlParams.delete('typeSName')
+	
 	const typeLaName = $(this).val();
 	const typeLa = $(this);
+	typeLLa = typeLaName == typeLLa ? "" : typeLaName;
+	
 	if ($(this).prop('checked')) {
 		
 		$('#typeLaNameSelect input[type=checkbox]')
 							.prop('checked', false)
-							.next('label')
-							.css({backgroundColor : "",
-								  borderRadius : ""
+							.next("label")
+							.css({
+								background : ""
 							});
 		$(this).prop('checked', true)
-					.next('label')
-					.css({backgroundColor : "#fca35b",
-						  borderRadius : "20px"
-					});
-		if (typeLaName !== '전체보기') {
+		$("#typeSNameForm").css({
+				backgroundColor : "#FCA35B",
+				color : "white",
+				cursor: "pointer"
+		})
+			
+		if (typeLaName !== '') {
 			urlParams.append('typeLaName', typeLaName)
-		}else{
-			$(this).prop('checked', true)
-					.next('label')
-					.css({backgroundColor : "",
-						  borderRadius : ""
-					});	
+			$(this).prop('checked', true)		
+					.next("label")
+					.css({
+						background : "#dbdbdb"
+					})
 		}
 	}
 	if(!$(this).prop('checked')){
-		$(this).prop('checked',false)
-						.next('label')
-						.css({backgroundColor : "",
-							  borderRadius : ""
-						});
+		$(this).prop('checked', false)		
+				.next("label")
+				.css({
+					background : "#f3f3f3"
+				})
+		$("#typeSNameForm").css({
+			backgroundColor : "",
+			color : "",
+			cursor: ""
+		})
 	}
 	history.pushState({}, null, url);
 	let list = "";
@@ -254,21 +343,15 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 				type: 'get',
 				data: $.param({ typeLaName: typeLaName }),
 				success: function(result) {
-					$("#typeSNameForm").empty();
-					
+					$(".typeSDiv").empty();
 					if (typeLa.prop('checked')) {
-						$("#typeSNameForm").css({height : "30px"})
 						$.each(result, function(index, item) {
 							list += `<input type="checkbox" value="${item}" id="${item}"
 							name="typeSName">
-							<label for="${item}" class="typeSCss">${item}</label>`
+							<label for="${item}" id="typeSCss">${item}</label>`
 						})
-						$("#typeSNameForm").html(list)
-						if(typeLa.val() === '전체보기'){
-							$("#typeSNameForm").css({height : ""})	
-						}
-					}else{
-						$("#typeSNameForm").css({height : ""})
+						$(".typeSDiv").html(list)
+
 					}
 					$("#typeSNameForm input[type=checkbox]").change(function() {
 						window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
@@ -278,15 +361,13 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 							$(this).prop("checked",true)
 								   .next("label")
 								   .css({
-										backgroundColor : "#fca35b",
-										borderRadius : "20px"
+										backgroundColor : "#dbdbdb"
 								   });
 						} else {
 							$(this).prop("checked",false)
 								   .next("label")
 								   .css({
-										backgroundColor : "",
-										borderRadius : ""
+										backgroundColor : ""
 								   });
 							urlParams.delete('typeSName');
 							const inputAll = $(this).parent().find("input[type=checkbox]");
@@ -319,29 +400,6 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 		}
 	})
 })
-
-
-if (urlParams.has("typeLaName")) {
-	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
-	let typeLaName = urlParams.get("typeLaName")
-	let list = $('#typeLaNameSelect input')
-	for (let item of list) {
-		if (typeLaName === item.value) {
-			item.setAttribute("checked", true)
-		}
-	}
-}
-if (urlParams.has("typeSName")) {
-	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
-	const typeSName = urlParams.getAll('typeSName');
-	const list = $('#typeSNameForm input');
-	for (let item of list) {
-		if (typeSName.includes(item.value)) {
-			item.setAttribute("checked", true);
-		}
-	}
-}
-
 
 
 
@@ -406,4 +464,3 @@ window.addEventListener('load', (e) => {
 	}
 });
 */
-

@@ -1,78 +1,81 @@
 /*color:  #fca35b;*/
 
-
 .locationTypeBody {
-	padding-top:40px;
-	padding-bottom : 20px;
+	display: flex;
 	width: 100%;
-	margin: auto;
+	justify-content: center;
+	position: sticky;
+	top: 80px;
+	background-color: #F9F7F3;
+	margin-top:50px;
 }
 .locationTypeBodyBox {	
+	width: 1280px;
 	display: flex;
-	margin : auto;
-	max-width: 900px;
-	height: 250px;
-	background-color : white;
-	border-radius: 7px;
-	border: 1px solid #d5d5d5;
-	
-
+	border-bottom: 1.5px solid #c5c5c5;
 }
-/*중단 locationLa 이벤트 놈들*/
-.line{
-	width: 1px;
-	height : 180px;
-	background-color: #d5d5d5;
-	margin : auto;
+.locationTypeBodyBox >form{
+	background-color: #FCA35B;
+	padding : 10px 20px 10px 20px;
+	margin: 10px 10px 10px 0px;
+	border-radius: 10px;
+}
+.locationTypeBodyBox div p{
+ 	font-weight: bold;
 }
 #locationLaNameForm input[type="checkbox"] {
    display:none;
  }
 #locationLaNameForm{
-	width: 100%;
-	height : 100%;
-	padding: 10px;
-
+	cursor: pointer;
+	position: relative;
 }
-.locationBoxHead{
+.locationLaBox{
 	display: flex;
-	justify-content: flex-start;
-	align-items: center;
+	font-weight: bold;
+	color: white;
 }
 .locationLaStar{
-	padding: 5px 10px 10px 10px;
-	font-size: 25px;
-	font-weight: bold;
+	cursor: pointer;
+	display: flex;
 }
 .locationLaDiv{
-	background-color : #efefef;
-	width: 100%;
-	height: 190px;
-	border-radius: 7px;
-	padding: 7px;
+	display: none;
+    background-color: white;
+    width: 501px;
+    height: 310px;
+    position: absolute;
+    top: 46px;
+    left: 0px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #b1b1b1;
 }
 .locationLaCss{
-	cursor: pointer;
-	display: inline-block;
-	width: 99px;
-	height: 31px;
-	margin: 2px 0px 2px 0px;
 	background-color: white;
-	border-radius: 7px;
-	text-align: center;
-	line-height: 31px;
-	color : #293241;
-	font-weight: bold;
-	
+    display: inline-block;
+    margin: 3px 1px;
+    width: 110px;
+    height: 47px;
+    text-align: center;
+    line-height: 47px;
+    border-radius: 5px;
+    border: 1px solid #e3e3e3;
+    background: #f3f3f3;
+    color: #818181;
 }
 .locLaNameLabel{
-	font-size : 18px;
-	font-weight: bold;
-	cursor: pointer;
-	color: white;
-	background-color: #457b9d; 
-	padding: 5px;
-	border-radius: 5px;
+	background-color: white;
+    display: inline-block;
+    margin: 3px 1px;
+    width: 110px;
+    height: 47px;
+    text-align: center;
+    line-height: 47px;
+    border-radius: 5px;
+    border: 1px solid #e3e3e3;
+    background: #f3f3f3;
+    color: #818181;
 }
 
 .locationLaCss:hover{
@@ -92,97 +95,111 @@
    display:none;
  }
 #locationSNameForm{
-	width: 100%;
-	height : 100%;
-	padding: 10px;
+  cursor: default;
+  background-color: #bfab9c;
+  position: relative;
 }
+
 .locationSStar{
-	padding: 5px 10px 10px 10px;
-	font-size: 25px;
 	font-weight: bold;
 }
-.locationTypeCss{
-	
+.locationSCss{
+	background-color: white;
+    display: inline-block;
+    margin: 3px 1px;
+    width: 110px;
+    height: 47px;
+    text-align: center;
+    line-height: 47px;
+    border-radius: 5px;
+    border: 1px solid #e3e3e3;
+    background: #f3f3f3;
+    color: #818181;
+}
+.locationSBox{
+	display: flex;
 }
 .locationSDiv{
-	background-color : #efefef;
-	width: 100%;
-	height: 190px;
-	border-radius: 7px;
-	padding: 7px;
-	
+	display: none;
+    background-color: white;
+    width: 501px;
+    height: 410px;
+    position: absolute;
+    top: 46px;
+    left: 0px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #b1b1b1;
 }
 .locationTypeCss{
-	cursor: pointer;
-	display: inline-block;
-	width: 78px;
-	height: 31px;
-	margin: 2px 0px 2px 0px;
-	background-color: white;
-	border-radius: 7px;
-	text-align: center;
-	line-height: 31px;
-	color : #293241;
-	font-weight: bold;
+	margin: 3px 1px;
 }
 /*중단 locationS 이벤트 놈들*/
 
  .classiFication{
- width: 100%;
- height: 100%;
- display: flex;
- justify-content: center;
- align-items: center;
- color :#ADD8E6;
- font-size:30px;
- font-weight: bold;
  font-family: "Do Hyeon", sans-serif;
  }
  
 
 #typeStickyBox{
-  position: sticky;
-  top: 80px;
-  background-color: #ffe5e5;
-  width: 100%;
-  height: auto;
-  font-family: "Noto Sans KR", sans-serif;
+
   
 }
 
 /*중단 TypeLa 이벤트 놈들*/
 #typeLaNameSelect input[type="checkbox"] {
    display:none;
-   
  }
 #typeLaNameSelect{
-	width: 100%;
-	max-width: 1280px;
-	margin:auto;
-	font-size:20px;
-	padding :5px;
-	font-weight: bold;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color : #2c2c2c;
+	cursor: pointer;
+	position: relative;
 }
 .typeLaNameLabel{
-	padding :5px 5px; 
-	cursor: pointer;
+	background-color: white;
+    display: inline-block;
+    margin: 3px 1px;
+    width: 110px;
+    height: 47px;
+    text-align: center;
+    line-height: 47px;
+    border-radius: 5px;
+    border: 1px solid #e3e3e3;
+    background: #f3f3f3;
+    color: #818181;
 }
-.typeLaNameLabel:hover{
-	background-color:  rgb(253, 207, 170);
-	border-radius : 20px;
+.typeLaDiv{
+	display: none;
+    background-color: white;
+    width: 501px;
+    height: 200px;
+    position: absolute;
+    top: 46px;
+    left: 0px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #b1b1b1;
 }
+.typeLaBox{
+	display: flex;
+	color: white;
+	font-weight: bold;
+}
+
 .typeLaCss{
-	padding :5px 5px;
-	margin : 0px 5px;
-	cursor: pointer;
+	background-color: white;
+    display: inline-block;
+    margin: 3px 1px;
+    width: 110px;
+    height: 47px;
+    text-align: center;
+    line-height: 47px;
+    border-radius: 5px;
+    border: 1px solid #e3e3e3;
+    background: #f3f3f3;
+    color: #818181;
 }
 .typeLaCss:hover{
-	background-color:  rgb(253, 207, 170);
-	border-radius : 20px;
+
 }
  /*중단 TypeLa 이벤트 놈들*/
  
@@ -191,21 +208,38 @@
    display:none;
  }
 #typeSNameForm{
+	cursor: default;
+	background-color: #bfab9c;
+	position: relative;
+}
+.typeSBox{
 	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: white;
 	font-weight: bold;
-	font-size: 18px;
-	width: 100%;
 }
-.typeSCss{
-	padding :4px 10px;
-	margin : 1px 1px;
-	cursor: pointer;
+.typeSDiv{
+	display: none;
+    background-color: white;
+    width: 501px;
+    height: 200px;
+    position: absolute;
+    top: 46px;
+    left: 0px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #b1b1b1;
 }
-.typeSCss:hover {
-	background-color:  rgb(253, 207, 170);
-	border-radius : 20px;
+#typeSCss{
+	background-color: white;
+    display: inline-block;
+    margin: 3px 1px;
+    width: 110px;
+    height: 47px;
+    text-align: center;
+    line-height: 47px;
+    border-radius: 5px;
+    border: 1px solid #e3e3e3;
+    background: #f3f3f3;
+    color: #818181;
 }
+
  

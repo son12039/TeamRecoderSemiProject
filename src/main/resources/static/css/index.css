@@ -189,3 +189,14 @@ body {
 	opacity: 5;
 	font-size: 20px;
 }
+.memberMannerIndex{
+	display : flex;
+	justify-content: center;
+	align-items: center;
+}
+.memberMannerIndex p{
+}
+.memberMannerIndex span{
+	font-size: 9px;
+	margin: 5px 5px 5px 20px;
+}

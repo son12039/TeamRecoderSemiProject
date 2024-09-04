@@ -155,6 +155,12 @@
 											<p>클럽 소개가 없습니다</p>
 										</c:if>
 										<p>${mem.membership.membershipSimpleText}</p>
+										<div>
+											<c:if test="${myClub != 'host'}">
+												<button class="btn"
+													onclick="deleteList('${myClub}',${mem.membership.membershipCode})">탈퇴</button>
+											</c:if>
+										</div>
 									</div>
 
 								</div>
@@ -195,6 +201,12 @@
 											<p>클럽 소개가 없습니다</p>
 										</c:if>
 										<p>${mem.membership.membershipSimpleText}</p>
+										<div>
+											<c:if test="${adminClub != 'host'}">
+												<button class="btn"
+													onclick="deleteList('${adminClub}',${mem.membership.membershipCode})">탈퇴</button>
+											</c:if>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -234,7 +246,11 @@
 										<p>클럽 소개가 없습니다</p>
 									</c:if>
 									<p>${mem.membership.membershipSimpleText}</p>
-
+									<div>
+										<button class="btn"
+											onclick="deleteList('${guestClub}',${mem.membership.membershipCode})">신청
+											취소</button>
+									</div>
 								</div>
 							</div>
 						</div>

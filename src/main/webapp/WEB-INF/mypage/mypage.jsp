@@ -77,14 +77,14 @@
 						</div>
 						<div class="profile_manner_info">
 							<c:if test="${member.memberManner < 30}">
-								<i class="fa-solid fa-temperature-three-quarters"></i>
+								<i class="fa-solid fa-temperature-quarter"></i>
 								<p>${member.memberManner}℃</p>
 								<span style="color: red"><i
 									class="fa-solid fa-face-angry fa-2x"></i></span>
 							</c:if>
 							<c:if
 								test="${member.memberManner >= 30 && member.memberManner <= 40}">
-								<i class="fa-solid fa-temperature-three-quarters"></i>
+								<i class="fa-solid fa-temperature-half"></i>
 								<p>${member.memberManner}℃</p>
 								<span style="color: rgb(252, 177, 3)"><i
 									class="fa-solid fa-face-smile fa-2x"></i></span>

@@ -30,12 +30,28 @@ from member
 where id = 'user037';
 
 select * 
-from member
-where status = 0;
+from membership_meetings
+where id = 'user10';
+
 -- 5
 select * 
 from meetings_agree
-where id = 'user010';
+where id = 'user037';
+
+update membership_meetings
+set meet_info = null,
+	meet_title = null,
+    id = null,
+    color = null
+where id = 'user037';
+
+select count(*) 
+from meetings_agree
+where meet_code = 71;
+
+
+
+
 /*
 select * 
 from meetings_agree
@@ -67,8 +83,15 @@ join membership_meetings using(meet_code)
 join membership using(membership_code)
 where meetings_agree.id = 'user077' and meet_agree_yn = 1;
 
-select * from meetings_agree
-where id = 'user077';
+SELECT * FROM membership_meetings
+WHERE id = 'user010';
+ 
+select count(*) 
+from meetings_agree
+join membership_meetings USING(meet_code)  
+where meet_code = 63
+AND meet_date_end &lt; now();
+
 
 
 ALTER TABLE membership

@@ -79,7 +79,7 @@ public class MembershipMeetingController {
 		}
 		ma.setIdes(ides);
 		ma.setMeetCode(meeting.getMeetCode());
-		service.yesOrNo(ma);
+	
 
 
 		System.out.println(meeting);
@@ -116,17 +116,19 @@ public class MembershipMeetingController {
 		}
 		
 
-		List<MeetingsAgree> agree = new ArrayList<>();
-		
-	  for(int i=0; i<service.meetMember(meetCode).size(); i++) {
-		  String name = service.meetMember(meetCode).get(i).getMember().getId();
-		  MeetingsAgree asd =(MeetingsAgree) service.meetMember(meetCode).get(i);
-		  asd.setId(name);
-		  agree.add(asd);
-		  System.out.println("바뀐 애들" + asd);
-	  }
+//		List<MeetingsAgree> agree = new ArrayList<>();
+//		
+//	  for(int i=0; i<service.meetMember(meetCode).size(); i++) {
+//		  String name = service.meetMember(meetCode).get(i).getMember().getId();
+//		  MeetingsAgree asd =(MeetingsAgree) service.meetMember(meetCode).get(i);
+//		  asd.setId(name);
+//		  agree.add(asd);
+//		  System.out.println("바뀐 애들" + asd);
+//	  }
+//	  
+//	  System.out.println(agree);
 	  
-	  System.out.println(agree);
+	  // 댓글로직
 		ArrayList<MeetingsComment> commList = commentService.allMeetingsComment(meetCode); // 일반댓글
 		ArrayList<MeetCommentDTO> dtoList = new ArrayList<MeetCommentDTO>(); //합칠예정
 		

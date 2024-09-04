@@ -75,5 +75,15 @@ public class RemoveMemberService {
 		}
 
 	}
+	// 해당 미팅 글 삭제 눌렀을때 진행 로직
+	public void deleteMeeting(int MeetCode) {
+		int count = mapper.selectMeetingAgreeMemberCount(MeetCode);
+		if(count == 0) {
+			mapper.deleteMeeting(MeetCode);
+		}else {
+			mapper.deleteMeetingUpdate(MeetCode);
+		}
+		
+	}
 	
 }

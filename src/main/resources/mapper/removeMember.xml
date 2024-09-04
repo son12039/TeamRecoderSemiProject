@@ -122,15 +122,14 @@
   
   <!--  삭제전에 해당 ID가 작성한 미팅 글 찾기 -->
     <select id="selectMeeting" parameterType="String" resultMap="MembershipMeetingsResultMap">
-    	SELECT *
-    	FROM membership_meetings
+    	SELECT * FROM membership_meetings
     	WHERE id = #{id}
     </select>
     <!--  작성자가 작성한 미팅 글에 참여자가 있나 확인 -->
     <select id="selectMeetingAgreeMemberCount" parameterType="int" resultType="int">
     	SELECT count(*) 
 		FROM meetings_agree
-		JOIN membership_meetings USING(meet_code)
+		JOIN membership_meetings USING(meet_code) 
 		WHERE meet_code = #{meetCode}
 		AND meet_date_end &lt; now();
     </select>

@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.jasper.tagplugins.jstl.core.Remove;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -217,6 +218,31 @@ public class MembershipController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		return "redirect:/" + member.getMembershipCode();
+	}
+	
+	/*
+	 * 성철
+	 * 가입 탈퇴 , 신청취소
+	 * */
+	@ResponseBody
+	@PostMapping("/deleteList")
+	public void deleteList(int membershipCode) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) authentication.getPrincipal();
+		service.deleteList(new MemberListDTO().builder()
+				.id(mem.getId()).membershipCode(membershipCode).build());
+		
+		ArrayList<MemberListDTO> list = (ArrayList<MemberListDTO>) mem.getMemberListDTO();
+		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getMembershipCode() == membershipCode) {
+				System.out.println("삭제될 DTO : " + list.get(i));
+				list.remove(i);
+				break;
+				
+			}
+		}
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		System.out.println("세션변경도 완료");
 	}
 
 	/*

@@ -34,7 +34,7 @@ public interface MembershipMapper {
 
 	// 클럽 가입 신청 =========================================
 	void membershipApply(MemberListDTO member); // 가입 신청 누르면 자동으로 해당 클럽의 게스트로 추가
-	
+	void deleteList(MemberListDTO member); // 가입 취소, 탈퇴
 	// 클럽 생성 ============================================
 	void membershipImg(Membership membership); // 클럽 창설때 IMG 추가 업데이트 형식으로 추가
 	void host(MemberListDTO list); // 클럽 생성시 해당 클럽 코드 + 호스트 추가

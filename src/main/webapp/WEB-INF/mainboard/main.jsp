@@ -48,10 +48,6 @@
 			<div id="membershipTitle">
 				<h1>${main.membership.membershipName }</h1>
 			</div>
-			<div id="userCount">
-				<i class="fa-solid fa-user-group"></i>
-				${main.count}/${main.membership.membershipMax}
-			</div>
 		</div>
 		<div id="info-container">${main.membership.membershipInfo }</div>
 		<div id="middle-container">
@@ -76,7 +72,6 @@
 								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
 						</c:otherwise>
 					</c:choose>
-
 
 				</div>
 				<div id="name-and-info">
@@ -169,9 +164,7 @@
 					</div>
 				</c:forEach>
 			</div>
-
-
-			<p>인원 현황 : ${main.count}/${main.membership.membershipMax}</p>
+			<p><i class="fa-solid fa-user-group"></i>&nbsp;인원 현황 : ${main.count}/${main.membership.membershipMax}</p>
 
 			<p>가입조건 : 사지멀쩡한 남녀노소 누구나!!</p>
 

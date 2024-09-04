@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>${main.membership.membershipName}</title>
-   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>  
+   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
      
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,18 +27,14 @@
 	href="${pageContext.request.contextPath}/css/index.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/membershipPage.css" />
-
 <script src="https://kit.fontawesome.com/ef885bd654.js"
 	crossorigin="anonymous"></script>
-
 </head>
 <body>
  <jsp:include page="../header/header.jsp" />
  
 
 		<sec:authentication property="principal" var="member" />
-
-
 	<div id="main-container">
 	
 		<div class="accordion" id="accordionExample">
@@ -54,14 +50,11 @@
 						<div class="accordion-body">
 						
 					    <c:forEach items="${allMember}" var="listMember">
-					    
+					   
             <div class="memberTable">
-         
-                
-                        <ul> 
+                        <ul>
                         <div class="member-img-icon-nickname-manner">
                         <div class="member-img-icon">
-                        
                         <div class="member-icon">
                         <c:if test="${listMember.listGrade == 'host'}">
                             <li class="member-grade"><span><i class="fa-solid fa-crown"></i></span></li>
@@ -73,7 +66,6 @@
                            <li class="member-grade">   관리자 </li>
                             </c:if>
                            </div>
-                           
                             <div class="member-img">
                             <c:if test="${listMember.member.memberImg != null}">
                             <li><img class="allmemberImg" src="http://192.168.10.51:8081/member/${cMember.member.id}/${cMember.member.memberImg}" alt="회원 이미지"></li>
@@ -124,37 +116,11 @@
 				</div>
 			
 			</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 		<div id="container">
-
 			<img id="mainImg"
 				src="http://192.168.10.51:8081/membership/${main.membership.membershipCode}/${main.membership.membershipImg}">
-
 			<div id="container-top">
 				<div id="hostImg">
 					<c:choose>
@@ -162,7 +128,6 @@
 							<img class="user-img"
 								src="http://192.168.10.51:8081/member/${main.member.id}/${main.member.memberImg}">
 						</c:when>
-
 						<c:otherwise>
 							<img class="user-img"
 								src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
@@ -190,15 +155,10 @@
 		<div id="calendar"></div>
 		</div>
 			
-
- 
 		
 
 		
 		
-
-
- 
 		</div>
 		
 
@@ -241,8 +201,6 @@
 	
 	
  <script>
-   
-    
     const allDates = [];
    
     let allMeet = {};

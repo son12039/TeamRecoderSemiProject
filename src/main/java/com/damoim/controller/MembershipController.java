@@ -49,14 +49,24 @@ public class MembershipController {
 	// 클럽 생성 관련 컨트롤
 	@Autowired
 	private MembershipService service;
-
+	
+	// 댓글관련 서비스
 	@Autowired
 	private MainCommentService commentService;
 
 	// 08-22 채승훈 클럽메인페이지에 지역과 타입 추가
 	@Autowired
 	private LocationTypeService locationTypeService;
+	
+	
+	
+	
 
+	@Autowired
+	private  MembershipMeetingService meetingService;
+	/*
+	 * 
+	 * */
 	/*
 	 * 
 	 * */
@@ -65,13 +75,7 @@ public class MembershipController {
 		return "mypage/createclub";
 
 	}
-
-	@Autowired
-	private MembershipMeetingService meetingService;
-
-	/*
-	 * 
-	 * */
+	
 	@PostMapping("/createclub")
 	public String createclub(Membership membership) {
 		membership.setMembershipInfo(null);
@@ -309,6 +313,13 @@ public class MembershipController {
 		}
 
 	}
+	
+	
+	/* 성일
+	 * 어드민이나 호스트이냐 따라서 서로다른 맴버쉽 관리 페이지 이동처리
+	 * */
+	@GetMapping("/management")
+	public String management(Integer membershipCode ,Model model) {
 
 	/*
 	 * 멤버관리 페이지 호스트와 관리자만 접속 가능 등급 설정 및 회원 강퇴 기능 구현
@@ -342,7 +353,14 @@ public class MembershipController {
 
 		return "membership/management";
 	}
+	
 
+	/* 
+	 * 성철
+	 * 일단 클럽 호스트가 가입 승인대기인원 -> 일반 회원으로 바꾸는기능 
+	 * 성일
+	 * 클럽 회원 관리 페이지에서 승인, 강퇴,호스트업그레이드 등등처리
+	 * */
 	@ResponseBody
 	@PostMapping("/gradeUpdate")
 	public int gradeUpdate(MemberListDTO member) {

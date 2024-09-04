@@ -19,6 +19,7 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
+<jsp:include page="../header/header.jsp"></jsp:include>
 	<main>
 
 		<div id="container">
@@ -140,6 +141,7 @@
 
 			</div>
 	</main>
+	<jsp:include page="../footer/footer.jsp" />
 	<script src="${pageContext.request.contextPath}/js/userInfo.js"></script>
 </body>
 </html>

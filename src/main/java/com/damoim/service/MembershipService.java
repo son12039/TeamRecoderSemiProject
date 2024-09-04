@@ -17,6 +17,7 @@ import com.damoim.model.vo.MembershipType;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
 import com.damoim.model.vo.TypeCategory;
+import com.damoim.model.vo.UserInfoPaging;
 
 import mapper.MembershipMapper;
 @Service
@@ -24,7 +25,6 @@ public class MembershipService {
 	
 	@Autowired
 	private MembershipMapper mapper;
-	
 	
 	
 	public List<MembershipUserList> allMembership(){
@@ -36,7 +36,6 @@ public class MembershipService {
 	public List<MembershipUserList> MembershipAllInfo(int membershipCode){
 		
 		return mapper.MembershipAllInfo(membershipCode);
-		
 	}
 	
 	public List<MembershipUserList> MembershipAllRegular(int membershipCode){
@@ -49,6 +48,7 @@ public class MembershipService {
 		
 		return mapper.main(membershipCode);
 	}
+   
    public int membershipUserCount(int count){
 		return mapper.membershipUserCount(count);
  	}
@@ -69,7 +69,7 @@ public class MembershipService {
 	public void host(MemberListDTO list) {
 		mapper.host(list);
 	}
-	
+	// 로그인 회원 가입한 클럽처리
 	public List<MemberListDTO> grade(Member member){
 		return mapper.grade(member);
 	}
@@ -153,10 +153,6 @@ public class MembershipService {
 		
 		
 	}
-	public List<Integer> membershipCodeList(String id){
-		
-		return mapper.membershipCodeList(id);
-	}
 
 	public List<BasicRoomListVo> roomlist() {
 		return mapper.roomlist();
@@ -166,10 +162,7 @@ public class MembershipService {
 	
 
 	
-	public ArrayList<MembershipUserList> selectName(String member) {
-		return mapper.selectName(member);
-	}
-	
+
 
 	
 	public void updateMembershipInfo(Membership membershipInfo) {
@@ -185,6 +178,7 @@ public class MembershipService {
 	}
 	
 	public List<MembershipUserList> selectMemberUserList(String id){
+		
 		return mapper.selectMemberUserList(id);
 	}
 	

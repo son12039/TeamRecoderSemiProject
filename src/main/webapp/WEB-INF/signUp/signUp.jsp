@@ -18,15 +18,17 @@
 </style>
 </head>
 <body>
+<jsp:include page="../header/header.jsp"></jsp:include>
+	<div id="box">
 		<main>
 		<form id="signUpForm" action="/signUp" method="post"
 			onsubmit="return validate()" enctype="multipart/form-data">
 			<div class="container">
 				<!-- 페이지 1 -->
 				<div id="page1" class="page visible">
-					<h2>*회원가입*</h2>
+					<h2>*회원가입*</h2> <p id="focus"><span style="color: red">*</span>표시 된것은 필수 입력 사항입니다.</p>
 					<div class="formBox">
-						<label for="id">아이디 <span class="result" id="idResult"></span></label>
+						<label for="id"><span style="color: red">*</span> 아이디 <span class="result" id="idResult"></span></label>
 
 
 
@@ -38,12 +40,12 @@
 
 
 					<div class="formBox">
-						<label for="pwd">비밀번호 <span class="result" id="pwdResult"></span></label>  <input type="password" id="pwd"
+						<label for="pwd"><span style="color: red">*</span> 비밀번호 <span class="result" id="pwdResult"></span></label>  <input type="password" id="pwd"
 							name="pwd" placeholder="비밀번호를 입력하세요" />
 					</div>
 					
 					<div class="formBox">
-						<label for="pwdc">비밀번호 확인 <span class="result" id="pwdcResult"></span></label> <input type="password" id="pwdc"
+						<label for="pwdc"><span style="color: red">*</span> 비밀번호 확인 <span class="result" id="pwdcResult"></span></label> <input type="password" id="pwdc"
 							placeholder="비밀번호를 입력하세요" />
 					</div>
 					
@@ -76,21 +78,21 @@
 							name="phone" placeholder="전화번호를 입력하세요" />
 					</div>
 					<div class="formBox">
-						<label for="email">이메일</label> <input type="text" id="email"
+						<label for="email"><span style="color: red">*</span>이메일 <span class="result" id="emailResult"></span></label>  <input type="text" id="email"
 							name="email" placeholder="이메일을 입력하세요" />
 					</div>
 					<div class="formBox">
-						<label for="name">이름</label> <input type="text" id="name"
+						<label for="name"><span style="color: red">*</span>이름<span class="result" id="nameResult"></span></label> <input type="text" id="name"
 							name="name" placeholder="이름을 입력하세요" />
 					</div>
 					<div class="formBox">
-						<label for="age">나이</label> <input type="text" id="age" name="age"
+						<label for="age"><span style="color: red">*</span>나이<span class="result" id="ageResult"></span></label> <input type="text" id="age" name="age"
 							placeholder="나이를 입력하세요">
 
 					</div>
 					<div class="result" ></div>
 					<div class="formBox" id="checkBox" >
-						<label for="gender" id="genderLabel">성별</label> 
+						<label for="gender" id="genderLabel"><span style="color: red">*</span>성별</label> 
             <div class="genderBox">
             <label for="genderM">남성</label><input
 							type="radio" id="genderM" name="gender" value="M" />
@@ -109,7 +111,7 @@
 				<div id="page2" class="page hidden">
 					<h2>*회원가입*</h2>
 					<div class="formBox">
-						<label for="nickname">닉네임 <span class="result" id="nicknameResult"></span></label> <input type="text" id="nickname"
+						<label for="nickname"><span style="color: red">*</span>닉네임 <span class="result" id="nicknameResult"></span></label> <input type="text" id="nickname"
 							name="nickname" placeholder="닉네임을 입력하세요" />
 					</div>
 					
@@ -144,6 +146,8 @@
 			</div>
 		</form>
 	</main>
+	</div>
+	<jsp:include page="../footer/footer.jsp" />
 	<script src="${pageContext.request.contextPath}/js/signUp.js">
 		
 	</script>

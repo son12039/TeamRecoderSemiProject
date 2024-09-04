@@ -90,6 +90,7 @@ public class EmailService {
         System.out.println("회원 조회 결과 : " + member);
         if (member != null) { // 이메일 아이디 체크
             String tempPassword = generateTemporaryPassword();
+            System.out.println("임시 비밀번호 발급");
             member.setPwd(tempPassword);
             updatePassword(member);
             sendTemporaryPasswordEmail(member.getEmail(), tempPassword);

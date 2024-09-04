@@ -26,7 +26,7 @@ uri="http://www.springframework.org/security/tags" %>
     
   </head>
   <body>
-   <jsp:include page="../header/headerMemberShip.jsp" />
+   <jsp:include page="../header/header.jsp" />
    <div id="box">
    <div id="container">
    <div id="input-box">

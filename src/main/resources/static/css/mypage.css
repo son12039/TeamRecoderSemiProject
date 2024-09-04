@@ -39,9 +39,8 @@ input[type=text] {
 	width: 100%;
     max-width: 800px;
 	margin: auto;
-	padding: 10px;
+	padding: 15px;
 	border-radius: 12px;
-	background-color: #fff;
 	display: flex;
     justify-content: center;
     align-items: center;
@@ -88,7 +87,7 @@ input[type=text] {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: space-around;
+	justify-content: center;
 	font-weight: bolder;
 }
 
@@ -113,7 +112,6 @@ input[type=text] {
 
 .profile_info span {
 	white-space: nowrap;
-	padding-left: 20px;
 	width: 150px;
 	font-size: 1.2rem;
 	font-weight: bolder;
@@ -233,12 +231,14 @@ input[type=text] {
 .membership-String {
 	display: flex;
 	flex-direction: column;
+	
 }
 
 .membership-String h4 {
 	padding-bottom: 20px;
 	font-size: 1.2rem;
-	font-weight: 500;
+
+	font-weight: bolder;
 }
 
 .membership-String p {
@@ -253,7 +253,7 @@ input[type=text] {
 /* 버튼 스타일 */
 #make-club, #all-club-button, #manage-club-button, #wait-club-button,
 	#update-club {
-	width: 100%;
+	width: 200px;
 	background-color: #fca311;
 	color: white;
 	border: none;

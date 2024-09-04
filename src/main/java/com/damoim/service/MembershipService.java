@@ -189,10 +189,6 @@ public class MembershipService {
 		return mapper.selectMemberUserList(id);
 	}
 	
-//	public List<MembershipUserList> list(Paging paging) {
-//		
-//		return mapper.allMembership(paging);
-//	}
 	
 	public List<MemberListDTO> adminUser(int membershipCode){
 		

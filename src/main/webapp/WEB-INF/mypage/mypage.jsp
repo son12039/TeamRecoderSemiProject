@@ -107,8 +107,9 @@
 		<!-- 가입 대기중인 클럽 보기 -->
 		<div class="container">
 			<div class="club-button">
-				<a id="all-club-button">가입 중인 모든 클럽</a> <a id="manage-club-button">내가
-					관리중인 클럽</a> <a id="wait-club-button">가입 대기중인 클럽</a>
+				<a id="all-club-button">가입 된 클럽</a> 
+				<a id="manage-club-button">내가 관리중인 클럽</a> 
+				<a id="wait-club-button">가입 대기중인 클럽</a>
 			</div>
 			<div class="membership-card" id="wait-club">
 				<h1>가입 대기중인 클럽</h1>
@@ -144,7 +145,7 @@
 
 			<!-- 관리중인 클럽 보기 -->
 			<div class="membership-card" id="manage-club">
-				<h1>관리중인 클럽</h1>
+				<h1>내가 관리중인 클럽</h1>
 				<c:forEach items="${membership}" var="mem">
 					<sec:authorize access="isAuthenticated()" var="principal">
 						<sec:authentication property="principal" var="member" />
@@ -174,8 +175,7 @@
 					</c:if>
 				</c:forEach>
 				<!-- 가입 된 클럽 보기 -->
-				<div class="membership-card" id="all-club" style="display: block;">
-
+				<div class="membership-card" id="all-club">
 					<h1>가입 된 클럽</h1>
 					<c:forEach items="${membership}" var="mem">
 						<sec:authorize access="isAuthenticated()" var="principal">
@@ -187,8 +187,7 @@
 								</c:if>
 							</c:forEach>
 						</sec:authorize>
-						<c:if
-							test="${myClub == 'regular' || myClub == 'host' || myClub == 'admin'}">
+						<c:if test="${myClub == 'regular' || myClub == 'host' || myClub == 'admin'}">
 							<a href="/club/${mem.membership.membershipCode}">
 								<div class="membership-each">
 									<div>
@@ -238,9 +237,7 @@
 
 		<!-- 토글 -->
 	</div>
-
-
-
+	<jsp:include page="../footer/footer.jsp" />
 </body>
 
 <script type="module"

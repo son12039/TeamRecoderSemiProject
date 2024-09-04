@@ -69,8 +69,8 @@
 		USING (id)
 		WHERE list_grade = "host"
 		<!-- 08-21 14:30 채승훈 지움 parameterType="Paging" LIMIT #{offset}, #{limit} -->
-
 	</select>
+	
 	<!-- 맴버쉽 코드로 해당 맴버쉽 정보만 -->
 	<select id="selectMembership" parameterType="int"
 		resultMap="membershipMap">
@@ -80,6 +80,7 @@
 		WHERE membership_code =
 		#{membershipCode}
 	</select>
+	
 	<!--  클럽 홍보글 작성기능  -->
 	<update id="updateMembershipInfo" parameterType="Membership">
 		UPDATE
@@ -240,8 +241,7 @@
 		SELECT *
 		FROM member
 		JOIN membership_user_list USING (id)
-		JOIN
-		membership USING (membership_code)
+		JOIN membership USING (membership_code)
 		WHERE id = #{id}
 		AND (list_grade =
 		"host");
@@ -274,8 +274,12 @@
 		membership
 	</select>
 	
-
-	
+	<!-- 동문 -->
+	<!-- 아이디 받아서 해당유저 membership_user_list 테이블 삭제 -->
+	<delete id="resignUserList" parameterType="String">
+		DELETE FROM membership_user_list
+		WHERE id=#{id}
+	</delete>
 	
 	
 	

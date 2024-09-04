@@ -52,9 +52,6 @@ public class PageController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member member = (Member) authentication.getPrincipal();
 		
-		ArrayList<MembershipUserList> membershipList = infoService.selectName(member.getId());
-		model.addAttribute("list", membershipList);
-		
 		List<MembershipUserList> list = new ArrayList<MembershipUserList>();
 		for (MemberListDTO m : member.getMemberListDTO()) {
 			list.add((MembershipUserList) infoService.main(m.getMembershipCode()));

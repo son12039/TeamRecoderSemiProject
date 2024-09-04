@@ -98,9 +98,13 @@
 			</section>
 		</div>
 	</div>
+	<jsp:include page="../footer/footer.jsp" />
+	
 	</sec:authorize>
+</body>
 	<script>
 		$("#button").click(() => {
+			// 체크박스가 체크될시 리턴 
 			if (!$("#checkbox").is(":checked")) {
                 alert("동의란에 체크해주세요");
                 return; 
@@ -122,7 +126,6 @@
 			});
 		});
 	</script>
-</body>
 </html>
 
 

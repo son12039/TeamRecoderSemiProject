@@ -265,15 +265,14 @@ public class MemberController {
 	    	check = true;
 	    }
 	    	    
-	    if (check) { // 해당 유저가 가입된 클럽 중 어드민이나 호스트인게 있다면!
+	    if (check) { // 해당 유저가 가입된 클럽 중 호스트인게 있다면!
 	        return false;
 	    }
 	    
 	    mem.setStatus(false); // 멤버 status false
 	    service.memberStatus(mem); // 멤버 상태 업데이트
-	    member.setId(mem.getId());
-	    removeService.deleteAllComment(mem.getId());
-	    
+	    removeService.deleteAllComment(mem.getId()); // 댓글 삭제
+	    infoService.resignUserList(mem.getId()); // 멤버의 유저리스트 삭제
 	    
 	    // 로그아웃 처리
 	    SecurityContextHolder.getContext().setAuthentication(authentication);

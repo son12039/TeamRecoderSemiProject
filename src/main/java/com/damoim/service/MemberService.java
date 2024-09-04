@@ -103,7 +103,7 @@ public class MemberService implements UserDetailsService {
 	public boolean memberStatus(Member member) {
 		return mapper.memberStatus(member);
 	}
-	
+	// host인사람 골라서 회원탈퇴 방지
 	public List<MemberListDTO> resignSelect(String id) {
 		return mapper.resignSelect(id);
 	}

@@ -21,11 +21,21 @@ UPDATE member
     
 select * from membership_user_list 
 where id = 'user037';
-   
-	
+
+delete from membership_user_list
+where list_code = 37;
+
 select *
 from member 
 where id = 'user037';
+
+select * 
+from member
+where status = 0;
+-- 5
+select * 
+from meetings_agree
+where id = 'user010';
 /*
 select * 
 from meetings_agree

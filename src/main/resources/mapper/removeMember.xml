@@ -19,6 +19,8 @@
         <result property="mainParentsCommentCode" column="main_parents_comment_code"/>
     </resultMap>
     
+
+    
     <select id="selectMain" parameterType="String" resultMap="MainCommentMap">
    		SELECT * FROM main_comment
     	JOIN member USING(id)

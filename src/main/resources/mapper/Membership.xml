@@ -239,7 +239,6 @@
 		FROM meetings_agree
 		JOIN membership_meetings USING (meet_code)
 		WHERE meetings_agree.id = #{id}
-		AND meet_agree_yn = 1
 		AND meet_date_end
 		&lt; now() 
 	</select>

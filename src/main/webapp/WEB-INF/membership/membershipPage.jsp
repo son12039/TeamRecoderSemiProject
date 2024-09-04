@@ -40,7 +40,7 @@
 		<div class="accordion" id="accordionExample">
 				<div class="accordion-item">
 					<h2 class="accordion-header">
-						<button class="accordion-button " type="button"
+						<button class="accordion-button collapsed " type="button"
 							data-bs-toggle="collapse" data-bs-target="#collapseOne"
 							aria-expanded="true" aria-controls="collapseOne" >
 							함께하는 멤버들</button>

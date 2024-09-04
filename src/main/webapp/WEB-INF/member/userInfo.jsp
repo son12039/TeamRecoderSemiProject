@@ -36,22 +36,25 @@
 					<div class="info">
 						<div class="info_group">
 							<span>모임 참여 횟수 ${mem.memberMeetCount}회</span>
-							<c:if test="${mem.member.memberManner < 30}">
-								<span>${mem.member.memberManner}℃</span>
-								<span style="color: red"><i
-									class="fa-solid fa-face-angry fa-2x"></i></span>
-							</c:if>
-							<c:if
-								test="${mem.member.memberManner >= 30 && mem.member.memberManner <= 40}">
-								<span>${mem.member.memberManner}℃</span>
-								<span style="color: rgb(252, 177, 3)"><i
-									class="fa-solid fa-face-smile fa-2x"></i></span>
-							</c:if>
-							<c:if test="${mem.member.memberManner > 40}">
-								<span>${mem.member.memberManner}℃</span>
-								<span style="color: green"><i
-									class="fa-solid fa-face-grin fa-2x"></i></span>
-							</c:if>
+							<div class="tem_info">
+								<i class="fa-solid fa-temperature-quarter"></i>
+								<c:if test="${mem.member.memberManner < 30}">
+									<span>${mem.member.memberManner}℃</span>
+									<span style="color: red"><i
+										class="fa-solid fa-face-angry fa-2x"></i></span>
+								</c:if>
+								<c:if
+									test="${mem.member.memberManner >= 30 && mem.member.memberManner <= 40}">
+									<span>${mem.member.memberManner}℃</span>
+									<span style="color: rgb(252, 177, 3)"><i
+										class="fa-solid fa-face-smile fa-2x"></i></span>
+								</c:if>
+								<c:if test="${mem.member.memberManner > 40}">
+									<span>${mem.member.memberManner}℃</span>
+									<span style="color: green"><i
+										class="fa-solid fa-face-grin fa-2x"></i></span>
+								</c:if>
+							</div>
 						</div>
 					</div>
 					<div class="memberInfo_div">
@@ -60,7 +63,7 @@
 						</h1>
 					</div>
 					<div class="memberInfo_div">
-						<h2>${mem.member.memberInfo}</h2>
+						<h2>한줄소개 : ${mem.member.memberInfo}</h2>
 					</div>
 
 					<sec:authorize access="isAuthenticated()" var="principal">

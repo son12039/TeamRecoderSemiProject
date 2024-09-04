@@ -19,10 +19,10 @@
 	href="${pageContext.request.contextPath}/css/memberDelete.css" />
 </head>
 <body>
-	
-		<sec:authentication property="principal" var="member" />
-		<jsp:include page="/WEB-INF/header/mypageHeader.jsp" />
 
+	<sec:authentication property="principal" var="member" />
+	<jsp:include page="../header/header.jsp" />
+	<div class="box">
 		<div class="container">
 			<h1>탈퇴 안내</h1>
 			<p>회원탈퇴를 신청하기 전에 안내 사항을 꼭 확인해주세요.</p>
@@ -64,15 +64,16 @@
 						<strong>(단, 질문자/답변자 아이디가 비공개 처리됨)</strong>
 					</h3>
 					<c:if test="${list != null}">
-							<h2>가입되어있는 클럽명 : (${list.membershipName} )</h2>
-							<div>
-								<a href="/club/${list.membershipCode}">
-									<img class="membership-img" src="http://192.168.10.51:8081/membership/
+						<h2>가입되어있는 클럽명 : (${list.membershipName} )</h2>
+						<div>
+							<a href="/club/${list.membershipCode}"> <img
+								class="membership-img"
+								src="http://192.168.10.51:8081/membership/
 									${list.membershipCode}/${list.membershipImg}"
-								alt="Membership Image"/>
-								</a>
-							</div>
-							<h2>회원님의 등급 : ( 호스트 )</h2>
+								alt="Membership Image" />
+							</a>
+						</div>
+						<h2>회원님의 등급 : ( 호스트 )</h2>
 					</c:if>
 					<p>
 						탈퇴 후에는 <strong>해당 아이디 로 다시 가입할 수 없으며 아이디와 데이터는 복구할 수
@@ -82,21 +83,22 @@
 			</section>
 			<section class="confirmation">
 				<div>
-					
+
 					<label for="checkbox">
-						<p>안내 사항을 모두 확인하였으며, 이에 동의합니다. 
-							<input type="checkbox" id="checkbox"
+						<p>
+							안내 사항을 모두 확인하였으며, 이에 동의합니다. <input type="checkbox" id="checkbox"
 								name="checkbox">
 						</p>
-						</label>
-						<div>
-							<label>비밀번호 확인<input type="password" id="pwdCheck" name="pwdCheck"></label>
-							<input type="button" id="button" value="회원탈퇴" />
-						</div>
+					</label>
+					<div>
+						<label>비밀번호 확인<input type="password" id="pwdCheck"
+							name="pwdCheck"></label> <input type="button" id="button"
+							value="회원탈퇴" />
+					</div>
 				</div>
 			</section>
 		</div>
-
+	</div>
 	<script>
 		$("#button").click(() => {
 			// 체크박스가 체크될시 리턴 

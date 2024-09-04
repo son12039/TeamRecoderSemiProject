@@ -163,6 +163,7 @@ input[type=text] {
 	align-items: center;
 	justify-content: center;
 	padding-right: 20px;
+	padding-bottom: 20px;
 }
 
 .profile_info span {
@@ -187,7 +188,7 @@ input[type=text] {
 	flex-direction: row;
 	
 }
-#updateSubmit {
+#submit {
 	background-color: #fca311;
 	color: white;
 	padding: 10px 15px;
@@ -290,6 +291,7 @@ input[type=text] {
 .membership-String {
 	display: flex;
 	flex-direction: column;
+	width: 400px;
 }
 
 .membership-String h4 {
@@ -302,6 +304,7 @@ input[type=text] {
 	padding-bottom: 20px;
 	white-space: nowrap;
 	
+	
 }
 .membership-text{
 	margin-bottom: 20px;
@@ -313,6 +316,7 @@ input[type=text] {
 	white-space: normal;
 	line-height: 30px;
 }
+
 
 /* 버튼 스타일 */
 #make-club, #all-club-button, #manage-club-button, #wait-club-button,

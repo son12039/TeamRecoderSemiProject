@@ -1,202 +1,242 @@
 main {
-  background-color: rgb(244, 243, 234);
+	background-color: rgb(244, 243, 234);
 }
-.box{
+
+/* 폰트 어썸 아이콘*/
+.fa-solid.fa-crown{
+	color: #fca311;
+	font-size: 1.2rem;
+}
+.fa-solid.fa-users{
+	font-size: 1.2rem;
+}
+.fa-solid.fa-user-plus {
+	font-size: 1.2rem;
+}
+.fa-solid.fa-temperature-quarter{
+	font-size: 1.8rem;
+	color:#004e98;
+}
+.fa-solid.fa-temperature-half{
+	font-size: 1.8rem;
+	color:#ffd100;
+}
+.fa-solid.fa-temperature-three-quarters{
+	font-size: 1.8rem;
+	color:#a4161a;
+}
+
+.box {
 	display: flex;
-    justify-content: center;
-    flex-direction: column;
-    padding-top: 120px;
+	justify-content: center;
+	flex-direction: column;
+	padding-top: 120px;
 }
 
 .container {
-    width: 100%;
-    max-width: 800px;
-    margin: auto;
-    padding: 15px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background: honeydew;
-    margin-bottom: 20px;
+	width: 100%;
+	max-width: 800px;
+	margin: auto;
+	padding: 15px;
+	border-radius: 12px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	background: honeydew;
+	margin-bottom: 20px;
 }
 
 .section {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  justify-content: center;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	justify-content: center;
+	display: flex;
 }
 
 .user-img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50px;
-  margin-bottom: 50px;
-}
-#align{
-	display: flex;
-	justify-content: center;
-}
-#rating{
-	display: flex;
-	justify-content: center;
-}
-#emoji-plus{
-	color: green;
-	padding: 5px;
-    border-radius: 50%;
-    background-color: #dddd;
- 
+	width: 250px;
+	height: 250px;
+	border-radius: 50px;
+	margin-bottom: 50px;
 }
 
-#emoji-minus{
+#align {
+	display: flex;
+	justify-content: center;
+}
+
+#rating {
+	display: flex;
+	justify-content: center;
+}
+
+#emoji-plus {
+	color: green;
+	padding: 5px;
+	border-radius: 50%;
+	background-color: #dddd;
+}
+
+#emoji-minus {
 	color: red;
 	padding: 5px;
-    border-radius: 50%;
-    background-color: #dddd;
-    
+	border-radius: 50%;
+	background-color: #dddd;
 }
-.rating-btn{
+
+.rating-btn {
 	align-items: center;
-    flex-direction: column;
-    display: flex;
-    font-weight: bold;
+	flex-direction: column;
+	display: flex;
+	font-weight: bold;
 	border: none;
 	background-color: white;
 	margin: 0px 10px;
 	cursor: pointer;
 }
-#plus-minus{
+
+#plus-minus {
 	text-align: center;
 }
 
-
 .memberInfo_div h1 {
-  font-size: 1.5rem;
-  font-weight: bolder;
-  padding: 10px;
+	font-size: 1.5rem;
+	font-weight: bolder;
+	padding: 10px;
 }
+
 .memberInfo_div h2 {
-  padding-top: 10px;
-  padding-bottom: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-size: 1.4rem;
+	font-weight: bolder;
 }
-.info {
-	text-wrap: nowrap;
-  display: flex;
-  justify-content: space-around;
-  width: 30%;
-  align-items: center;
-}
-.manner{
+
+.manner {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
-.manner > p{
+
+.manner>p {
 	margin-right: 5px;
 }
-.info_group {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
+
+.info {
+	text-wrap: nowrap;
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+	align-items: center;
 }
+
+.info_group {
+	width: 40%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.tem_info {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 .info_group span {
-  font-weight: bolder;
+	font-weight: bolder;
 }
 
 .info_group div h1 {
-  font-size: 1rem;
-  font-weight: bolder;
+	font-size: 1rem;
+	font-weight: bolder;
 }
+
 .info_group div {
-  display: flex;
-  text-wrap: nowrap;
-  margin: 10px;
+	display: flex;
+	text-wrap: nowrap;
+	margin: 10px;
 }
+
 .info_group div span {
-  font-size: 1.2rem;
-  font-weight: bolder;
+	font-size: 1.2rem;
+	font-weight: bolder;
 }
 
 .info_group h3 {
-  width: 300px;
-  height: 100px;
-  font-size: 1rem;
-  font-weight: 800;
-  text-wrap: wrap;
-  overflow-wrap: break-word;
+	width: 300px;
+	height: 100px;
+	font-size: 1rem;
+	font-weight: 800;
+	text-wrap: wrap;
+	overflow-wrap: break-word;
 }
 
 #section2 {
+	width: 100%;
 	margin-top: 10px;
-    display: flex;
-    padding: 20px;
-    background-color: #f9f9f9;
-    flex-direction: column;
-    justify-content: space-between;
+	display: flex;
+	padding: 20px;
+	background-color: #f9f9f9;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
-
 .section2_memberInfo h1 {
-  font-size: 1rem;
-  font-weight: bolder;
-  padding-top: 20px;
-  padding-bottom: 20px;
+	font-size: 1rem;
+	font-weight: bolder;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
 .club_info {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  height: 100px;
-  
-
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	height: 100px;
 }
-
-
 
 .club_img {
-  width: 50px;
-  height: 50px;
-
-  object-fit: cover;
-  border-radius: 8px;
-
+	width: 50px;
+	height: 50px;
+	object-fit: cover;
+	border-radius: 8px;
 }
+
 .club_box {
 	width: 100px;
 	height: 100px;
-	  display: flex;
-  flex-direction: column;
-	 margin: 0px 10px;
-	border-radius :50%;
-  background-color: #dddd;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	margin: 0px 10px;
+	border-radius: 50%;
+	background-color: #dddd;
+	justify-content: center;
+	align-items: center;
 }
-.club_box > a{
+
+.club_box>a {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
+
 .club_box p {
-  font-weight: bolder;
+	font-weight: bolder;
 }
 
 .club_info p {
-  font-size: 0.8rem;
-  margin-top: 5px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 80%;
+	font-size: 0.8rem;
+	margin-top: 5px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 80%;
 }

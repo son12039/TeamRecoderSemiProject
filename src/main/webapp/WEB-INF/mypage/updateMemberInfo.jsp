@@ -21,9 +21,10 @@ uri="http://www.springframework.org/security/tags"%>
   </head>
   <body>
     <sec:authentication property="principal" var="member" />
-    <jsp:include page="/WEB-INF/header/mypageHeader.jsp" />
+	<jsp:include page="../header/header.jsp" />
 
     <!-- (동문) -->
+<div class="box">
     <div class="container">
       <h1>회원 정보 수정</h1>
       <div class="form-group">
@@ -177,6 +178,7 @@ uri="http://www.springframework.org/security/tags"%>
         </form>
       </div>
     </div>
+</div>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

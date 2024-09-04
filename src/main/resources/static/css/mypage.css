@@ -286,7 +286,7 @@ input[type=text] {
 /* 버튼 스타일 */
 #make-club, #all-club-button, #manage-club-button, #wait-club-button,
 	#update-club {
-	width: 200px;
+	width: 204px;
 	background-color: #fca311;
 	color: white;
 	border: none;

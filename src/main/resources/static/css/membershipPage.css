@@ -221,7 +221,7 @@
 	display: none;
 }
 .accordion-collapse.collapsing {
-	height: 700px !important;
+	max-height: 700px !important;
 }
 
 .accordion-body {

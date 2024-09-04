@@ -53,6 +53,27 @@ public class MembershipMeetingController {
 	@GetMapping("/write")
 	public String write(int membershipCode, Model model) {
 		System.out.println("모임 컨트롤러 매핑 " + membershipCode);
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		// 로그인 회원
+		Member m1 = (Member) authentication.getPrincipal();
+		boolean check = false;
+		
+		// 권한 체크 
+ for(int i=0; i < m1.getMemberListDTO().size(); i++) {
+	 if(m1.getMemberListDTO().get(i).getMembershipCode() == membershipCode && !(m1.getMemberListDTO().get(i).getListGrade().equals("guest") || m1.getMemberListDTO().get(i).getListGrade().equals("regular"))) {
+		 
+		 check = true;
+	 }
+	 
+ }
+
+		if(!check) {
+			
+			return "error";
+		}
+		
+		
 		model.addAttribute("membershipCode",membershipCode );
 		return "membershipMeeting/meetingWrite";
 	}

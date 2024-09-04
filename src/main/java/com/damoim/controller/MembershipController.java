@@ -288,8 +288,29 @@ public class MembershipController {
 
 	@GetMapping("/club/{membershipCode}/membershipPromotionDetail")
 	public String membershipPromotionDetail(@PathVariable("membershipCode") Integer membershipCode, Model model) {
-		System.out.println(membershipCode);
-		System.out.println("맴버쉽" + service.selectMembership(membershipCode));
+	
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member m1 = (Member) authentication.getPrincipal();
+	
+		boolean check = false;
+		
+		// 권한 체크 
+ for(int i=0; i < m1.getMemberListDTO().size(); i++) {
+	 if(m1.getMemberListDTO().get(i).getMembershipCode() == membershipCode && !(m1.getMemberListDTO().get(i).getListGrade().equals("guest") || m1.getMemberListDTO().get(i).getListGrade().equals("regular"))) {
+		 
+		 check = true;
+	 }
+	 
+ }
+
+		if(!check) {
+			
+			return "error";
+		}
+		
+		
+		
+		
 		model.addAttribute("memInfo", service.selectMembership(membershipCode));
 		model.addAttribute("code", membershipCode);
 		return "membership/membershipPromotionDetail";

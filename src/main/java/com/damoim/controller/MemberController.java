@@ -232,9 +232,9 @@ public class MemberController {
 		
 		if(!service.updateCheck(mem, beforePwd)) {
 			
-			System.out.println("실패함 ");
+			
 			model.addAttribute("text" , "변경 실패");
-			System.out.println("실패함1 ");
+		
 			return "mypage/updateMemberInfo";
 			
 		}

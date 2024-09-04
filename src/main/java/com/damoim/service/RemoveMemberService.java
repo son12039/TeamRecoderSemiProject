@@ -8,14 +8,19 @@ import org.springframework.stereotype.Service;
 
 import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.MeetingsComment;
+import com.damoim.model.vo.MembershipMeetings;
 
-import mapper.RemoveMemberCommentMapper;
+import mapper.RemoveMemberMapper;
 
 @Service
-public class RemoveMemberCommentService {
+public class RemoveMemberService {
 
 	@Autowired
-	private RemoveMemberCommentMapper mapper;
+	private RemoveMemberMapper mapper;
+	
+	public void deleteMembershipUserList(String id) {
+		mapper.deleteMembershipUserList(id);
+	}
 	
 	public void deleteAllComment(String id) {
 		ArrayList<MainComment> mainList = mapper.selectMain(id);
@@ -53,6 +58,22 @@ public class RemoveMemberCommentService {
 				}
 		}
 		
+	}
+	
+	public void deleteAllMeeting(String id) {
+		mapper.deleteMemberMeetingsAgree(id); // 동의사항 날리기(조건 X)
+		ArrayList<MembershipMeetings> list = mapper.selectMeeting(id); // 해당 유저가 작성한 모든 미팅 게시판 글
+		
+		for(MembershipMeetings met: list) {
+			int count = mapper.selectMeetingAgreeMemberCount(met.getMeetCode());
+			if(count == 0) {
+				mapper.deleteMeeting(met.getMeetCode());
+			}else {
+				mapper.deleteMeetingUpdate(met.getMeetCode());
+			}
+			
+		}
+
 	}
 	
 }

@@ -1,4 +1,5 @@
 
+select * from membership_user_list;
 
 SELECT *
 FROM type_category;
@@ -18,12 +19,39 @@ UPDATE member
 	SET member_manner = member_manner - 0.5
 	WHERE id = user006;
     
-select * from member;
-   
-	
+select * from membership_user_list 
+where id = 'user037';
+
+delete from membership_user_list
+where list_code = 37;
+
 select *
 from member 
-where id = 'user099';
+where id = 'user037';
+
+select * 
+from membership_meetings
+where id = 'user10';
+
+-- 5
+select * 
+from meetings_agree
+where id = 'user037';
+
+update membership_meetings
+set meet_info = null,
+	meet_title = null,
+    id = null,
+    color = null
+where id = 'user037';
+
+select count(*) 
+from meetings_agree
+where meet_code = 71;
+
+
+
+
 /*
 select * 
 from meetings_agree
@@ -49,13 +77,21 @@ select * from membership;
 select *from member 
 
 where id = 'user087';
-select * from meetings_agree
+select meet_title, meet_date_start, meet_creat_date, membership_name
+from meetings_agree
 join membership_meetings using(meet_code)
 join membership using(membership_code)
 where meetings_agree.id = 'user077' and meet_agree_yn = 1;
 
-select * from meetings_agree
-where id = 'user077';
+SELECT * FROM membership_meetings
+WHERE id = 'user010';
+ 
+select count(*) 
+from meetings_agree
+join membership_meetings USING(meet_code)  
+where meet_code = 63
+AND meet_date_end &lt; now();
+
 
 
 ALTER TABLE membership

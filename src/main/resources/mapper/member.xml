@@ -80,8 +80,7 @@
 	<update id="memberStatus" parameterType="Member">
 		UPDATE member
 		SET
-		status =
-		#{status}
+		status = 0
 		WHERE id = #{id}
 	</update>
 

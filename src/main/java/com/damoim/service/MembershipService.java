@@ -153,10 +153,6 @@ public class MembershipService {
 		
 		
 	}
-	public List<Integer> membershipCodeList(String id){
-		
-		return mapper.membershipCodeList(id);
-	}
 
 	public List<BasicRoomListVo> roomlist() {
 		return mapper.roomlist();
@@ -166,10 +162,7 @@ public class MembershipService {
 	
 
 	
-	public ArrayList<MembershipUserList> selectName(String member) {
-		return mapper.selectName(member);
-	}
-	
+
 
 	
 	public void updateMembershipInfo(Membership membershipInfo) {

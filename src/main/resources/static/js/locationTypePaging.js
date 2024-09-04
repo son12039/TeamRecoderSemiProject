@@ -1,6 +1,12 @@
 let page = 1;
 let isLoading = false; // 로딩 상태를 추적
 window.addEventListener("scroll", () => {
+	const link = document.createElement('link');
+	link.rel = 'stylesheet';
+	link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
+	document.head.appendChild(link);
+	
+	
   if (isLoading) return; // 로딩 중이면 AJAX 요청을 방지
 
   if (document.body.offsetHeight - 700 <= window.scrollY + window.innerHeight) {
@@ -47,7 +53,7 @@ window.addEventListener("scroll", () => {
             "<h2>" +
             club.membershipSimpleText +
             "</h2>" +
-            "<h3>멤버수 :" +
+            "<h3><i class='fa-solid fa-users'></i> :" +
             club.count +
             "/" +
             club.membershipMax +

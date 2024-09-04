@@ -47,7 +47,7 @@
          
               
                         <ul> 
-                             <c:if test="${list. meetAgreeYn == false}">
+                             
                             <div class="member-img-info-hobby-location">
                             <div class="member-img">
                             <c:if test="${list.member.memberImg != null}">
@@ -101,7 +101,7 @@
                          
                         </div>
                           </div>
-                           </c:if>
+                          
                         </ul>
                        
              
@@ -169,30 +169,11 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 		
 		
 		<c:forEach items="${list}" var="list" >
-<c:if test="${list.meetAgreeYn == true }">
-<p>참석여부 현황 : ${list.member.nickname} ---- 참여</p> 
-</c:if>
-<c:if test="${list.meetAgreeYn == false }">
-<p>참석여부 현황 : ${list.member.nickname} ---- 불참</p> 
-</c:if>
+
 	<sec:authorize access="isAuthenticated()" var="principal">
 <sec:authentication property="principal" var="member" />
-<c:if test="${member.nickname == list.member.nickname}">
-<form id="go">
-<input type="hidden" name="meetCode" value="${meet.meetCode}">
-<input type="hidden" name="id" value="${member.id}">
-<input type="hidden" name="meetAgreeYn" value="${list.meetAgreeYn}"> 
 
-<c:choose>
-    <c:when test="${list.meetAgreeYn == false}">
-        <input class="agree" type="submit" value="참가">
-    </c:when>
-    <c:otherwise>
-        <input class="agree" type="submit" value="참가취소">
-    </c:otherwise>
-</c:choose>
-</form>
-</c:if>
+
 </sec:authorize>
 
 </c:forEach>

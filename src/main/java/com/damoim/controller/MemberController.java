@@ -29,7 +29,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.dto.MemberListDTO;
-import com.damoim.model.dto.MemberUserDTO;
 import com.damoim.model.dto.RecommendationDTO;
 import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.Member;
@@ -41,7 +40,7 @@ import com.damoim.service.EmailService;
 import com.damoim.service.MainCommentService;
 import com.damoim.service.MemberService;
 import com.damoim.service.MembershipService;
-import com.damoim.service.RemoveMemberCommentService;
+import com.damoim.service.RemoveMemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -61,7 +60,7 @@ public class MemberController {
 	private EmailService emailService; // 이메일 서비스
 	
 	@Autowired // 회원 탈퇴 댓글 삭제 서비스
-	private RemoveMemberCommentService removeService;
+	private RemoveMemberService removeService;
 
 
 	/*
@@ -181,7 +180,10 @@ public class MemberController {
 		service.dummyUpdate();
 		return "redirect:/";
 	}
-	
+	/*
+	 * 성철
+	 * 업데이트시 본인꺼 OR 중복 X 확인
+	 * */
 	@ResponseBody
 	@PostMapping("/updateNicknameCheck")
 	public boolean updateNicknameCheck(String nickname){
@@ -192,18 +194,40 @@ public class MemberController {
 		Member m2 = service.nicknameCheck(new Member().builder().nickname(nickname).build());
 		// 해당 닉네임으로 생성된 회원정보가 없거나 
 		// 해당 닉네임으로 생성된 회원 정보가 로그인한 회원가 같을시
-		if (m2.getId() == null || m2.getId().equals(m1.getId())) { 
+		if (m2 == null || m2.getId().equals(m1.getId())) { 
 			// 트루 리턴
 			return true;
 		}
 		// 아니면 false 리턴
 		return false;
 	}
-	
-	
-	
+	/*
+	 * 성철
+	 * 업데이트시 본인꺼 OR 중복 X 확인
+	 * */
+	@ResponseBody
+	@PostMapping("/emailUpdateCheck")
+	public boolean emailUpdateCheck(String email){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		// 로그인 회원
+		Member m1 = (Member) authentication.getPrincipal();
+		// 해당 이메일 넣을시 회원이 있는가
+		Member m2 = service.emailCheck(new Member().builder().email(email).build());
+		// 해당 이메일로 생성된 회원정보가 없거나 
+		// 해당 이메일로 생성된 회원 정보가 로그인한 회원가 같을시
+		if (m2 == null || m2.getId().equals(m1.getId())) { 
+			// 트루 리턴
+			return true;
+		}
+		// 아니면 false 리턴
+		return false;
+	}
+	/*
+	 * 
+	 * 회원 중요정보 수정
+	 * */
 	@PostMapping("/updateMemberInfo")
-	public String updateMemberInfo(Member vo, Model model, String addrDetail, String nickname) {
+	public String updateMemberInfo(Member vo, Model model, String addrDetail) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
 
@@ -226,7 +250,7 @@ public class MemberController {
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		model.addAttribute("text" , "변경 성공");
-		return "mypage";
+		return "index";
 	}
 	
 	// 회원정보 수정 비밀번호 체크
@@ -250,29 +274,28 @@ public class MemberController {
 	/*
 	 * 성철
 	 * 탈퇴 로직에 댓글 자동삭제 추가
+	 * 로직 추가필요 ================================================
 	 * 
 	 * */
 	@ResponseBody
 	@PostMapping("/memberStatus")
-	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response, Member member) {
+	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response) {
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    Member mem = (Member) authentication.getPrincipal();
 	    boolean check = false;
-	    
-	    // 회원탈퇴를 할때 "host" 인 사람은 탈퇴하면 안됌
-	    List<MemberListDTO> list = service.resignSelect(mem.getId());
-	    if(list.size() > 0) {
-	    	check = true;
-	    }
-	    	    
-	    if (check) { // 해당 유저가 가입된 클럽 중 호스트인게 있다면!
+	    for(MemberListDTO dto : mem.getMemberListDTO()) {
+	    	if(dto.getListGrade().equals("host"))
+				   check = true; 
+	    		}
+	    if (check) { // 해당 유저가 가입된 클럽 중  호스트인게 있다면!
 	        return false;
-	    }
+	    	}
 	    
-	    mem.setStatus(false); // 멤버 status false
 	    service.memberStatus(mem); // 멤버 상태 업데이트
-	    removeService.deleteAllComment(mem.getId()); // 댓글 삭제
-	    infoService.resignUserList(mem.getId()); // 멤버의 유저리스트 삭제
+	    removeService.deleteAllComment(mem.getId());
+	    removeService.deleteMembershipUserList(mem.getId());
+	    removeService.deleteAllMeeting(mem.getId());
+	    // membershipUserList 삭제
 	    
 	    // 로그아웃 처리
 	    SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -290,25 +313,18 @@ public class MemberController {
 	public String updateMember(Member vo, MultipartFile file) throws IllegalStateException, IOException {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		
-		// 조건에 만약 보내준 링크가 null이면 변하지 않도록
-		if (!file.getOriginalFilename().isEmpty() || mem.getMemberImg() == null) {
+
+		// 삭제
+		if (file.getOriginalFilename() != null || mem.getMemberImg() == null) {
 
 			fileDelete(mem.getMemberImg(), mem.getId());
 			String url = fileUpload(file, mem.getId());
 			mem.setMemberImg(url);
-			System.out.println("updateMember 삭제 : " + mem.getMemberImg() + mem.getId());
 		}
 		
 		mem.setMemberHobby(vo.getMemberHobby());
-		System.out.println("업데이트 MemberHobby : " + mem.getMemberHobby());
-		
 		mem.setMemberInfo(vo.getMemberInfo());
-		System.out.println("업데이트 MemberInfo : " + mem.getMemberInfo());
-
 		service.updateMember(mem);
-		System.out.println("수정후 member 정보 : " + mem);
-		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		return "redirect:/mypage";

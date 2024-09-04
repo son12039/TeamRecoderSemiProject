@@ -20,6 +20,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Do+Hyeon&family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&family=Jua&display=swap" rel="stylesheet">
+<!-- 나눔 폰트 -->
+<!-- font-family: "Noto Sans KR", sans-serif; -->
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 </head>
 <body>
 	<div class="main_header">
@@ -50,8 +53,7 @@
 								</c:choose>	
 							</div>
 							<div class="main_header_right_menu">
-								<a href="/mypage">마이페이지</a> 
-								<a href="/myMembership">나의모임</a> 
+								<a href="/mypage">마이페이지</a>  
 								<a href="/logout">로그아웃</a>
 							</div>
 					</sec:authorize>

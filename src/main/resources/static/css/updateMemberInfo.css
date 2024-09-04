@@ -14,7 +14,10 @@ body {
   justify-content: space-between;
   opacity: 0.3;
 }
-
+.result {
+	font-size: 0.8rem;
+	padding-left: 10px;
+}
 .header_menu:hover {
   background-color: #575757;
 }
@@ -46,13 +49,16 @@ label {
   font-weight: bold;
   margin-bottom: 20px;
 }
-
+.input_label{
+	margin-bottom: 10px;
+}
 h2 {
   padding-bottom: 10px;
 }
 
 .form-group {
   margin-bottom: 15px;
+ 
 }
 
 .form-group h2 {
@@ -67,7 +73,7 @@ h2 {
 input,
 select {
   width: 100%;
-  padding: 8px;
+  padding: 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;

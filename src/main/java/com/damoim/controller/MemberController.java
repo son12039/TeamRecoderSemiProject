@@ -251,23 +251,6 @@ public class MemberController {
 		return "index";
 	}
 
-	// 회원정보 수정 비밀번호 체크
-	@ResponseBody
-	@PostMapping("/updateCheck")
-	public boolean updateCheck(String pwdCheck) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member mem = (Member) authentication.getPrincipal();
-		return service.updateCheck(mem, pwdCheck);
-	}
-
-	// 회원탈퇴 비밀번호 체크
-	@ResponseBody
-	@PostMapping("/resignCheck")
-	public boolean resignCheck(String pwdCheck) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member mem = (Member) authentication.getPrincipal();
-		return service.updateCheck(mem, pwdCheck);
-	}
 	
 	/*
 	 * 성철
@@ -277,7 +260,7 @@ public class MemberController {
 	 * */
 	@ResponseBody
 	@PostMapping("/memberStatus")
-	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response) {
+	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response ,String pwdCheck) {
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    Member mem = (Member) authentication.getPrincipal();
 	    boolean check = false;
@@ -288,6 +271,9 @@ public class MemberController {
 	    if (check) { // 해당 유저가 가입된 클럽 중  호스트인게 있다면!
 	        return false;
 	    	}
+	    if(!service.updateCheck(mem, pwdCheck)) { // 비밀번호 확인에서 틀렸을 경우
+	    	return false;
+	    }
 	    
 	    service.memberStatus(mem); // 멤버 상태 업데이트
 	    removeService.deleteAllComment(mem.getId());

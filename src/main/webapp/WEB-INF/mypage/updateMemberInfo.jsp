@@ -18,7 +18,7 @@
 
 </head>
 <body>
-	<sec:authorize access="isAuthenticated()" var="principal">
+	
 		<sec:authentication property="principal" var="member" />
 		<jsp:include page="/WEB-INF/header/mypageHeader.jsp" />
 		
@@ -26,7 +26,7 @@
 		<div class="container">
 			<h1>회원 정보 수정</h1>
 			<div class="form-group">
-				<form action="/updateMemberInfo" method="post" id="form">
+				<form onsubmit="return validate()" action="/updateMemberInfo" method="post" id="form">
 					<div class="form-group">
 						<label for="nickname"><span style="color: red">*</span>닉네임 <span class="result" id="nicknameResult"></span></label>
 						<input type="text" id="nickname" name="nickname"
@@ -81,8 +81,8 @@
 							value="${member.age}" /> 
 					</div>
 					<div class="button_box">
-						<button type="submit" id="updateSubmit">변경</button>
-						<i class="fa-solid fa-xmark"></i><a href="/resignPage" class="resign">회원탈퇴</a>
+						<button type="submit" id="updateSubmit" >변경</button>
+						<i class="fa-solid fa-xmark"></i><a href="/memberDelete" class="resign">회원탈퇴</a>
 					</div>
 					
 				</form>
@@ -95,7 +95,7 @@
 		<script
 			src="${pageContext.request.contextPath}/js/updateMemberInfo.js"></script>
 	
-	</sec:authorize>
+	
 </body>
 </html>
 

@@ -94,7 +94,7 @@
 				</div>
 				<div class="profile_submit">
 					<input type="button" id="submit" value="수정"> <a
-						href="/updateCheck" id="updateCheck">회원정보 수정</a>
+						href="/updateMembership" id="updateCheck">회원정보 수정</a>
 				</div>
 			</div>
 		</form>

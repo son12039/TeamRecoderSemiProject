@@ -23,16 +23,16 @@ public class RemoveMemberService {
 	}
 	
 	public void deleteAllComment(String id) {
-		ArrayList<MainComment> mainList = mapper.selectMain(id);
-		ArrayList<MeetingsComment> meetList = mapper.selectMeet(id);
+	
+		ArrayList<MainComment> mainList = mapper.selectMain(id);	
 		for(MainComment main : mainList) {
 			int count = mapper.mainReCommentCount(main.getMainCommentCode());
-				if(count == 0) {
-					MainComment commentChild = mapper.selectMainComment(main.getMainCommentCode());
-					MainComment commentParents = mapper.selectMainComment(commentChild.getMainParentsCommentCode());
-					if(mapper.mainReCommentCount(commentChild.getMainParentsCommentCode()) == 1 && commentParents.getMainCommentText() == null) {
+				if(count == 0) { // 대댓글이 없으면
+					
+					MainComment commentParents = mapper.selectMainComment(main.getMainParentsCommentCode());
+					if(mapper.mainReCommentCount(main.getMainParentsCommentCode()) == 1 && commentParents.getMainCommentText() == null) {
 						mapper.deleteMainComment(main.getMainCommentCode());
-						mapper.deleteMainComment(commentChild.getMainParentsCommentCode());
+						mapper.deleteMainComment(main.getMainParentsCommentCode());
 					}else {
 						mapper.deleteMainComment(main.getMainCommentCode());
 					}
@@ -41,14 +41,15 @@ public class RemoveMemberService {
 				}
 		}
 		
+		ArrayList<MeetingsComment> meetList = mapper.selectMeet(id);
 		for(MeetingsComment meet : meetList) {
 			int count = mapper.meetingReCommentCount(meet.getMeetCommentCode());
 				if(count == 0) {
-					MeetingsComment commentChild = mapper.selectMeetComment(meet.getMeetCommentCode());
-					MeetingsComment commentParents = mapper.selectMeetComment(commentChild.getMeetParentsCommentCode());
-					if(mapper.meetingReCommentCount(commentChild.getMeetParentsCommentCode()) == 1 && commentParents.getMeetCommentText() == null) {
+					
+					MeetingsComment commentParents = mapper.selectMeetComment(meet.getMeetParentsCommentCode());
+					if(mapper.meetingReCommentCount(meet.getMeetParentsCommentCode()) == 1 && commentParents.getMeetCommentText() == null) {
 						mapper.deleteMeetingComment(meet.getMeetCommentCode());
-						mapper.deleteMeetingComment(commentChild.getMeetParentsCommentCode());
+						mapper.deleteMeetingComment(meet.getMeetParentsCommentCode());
 					}else {
 						mapper.deleteMeetingComment(meet.getMeetCommentCode());
 					}

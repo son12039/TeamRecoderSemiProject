@@ -303,6 +303,12 @@ public class MemberController {
 	    removeService.deleteAllMeeting(mem.getId());
 	    // membershipUserList 삭제
 	    
+	    try { // 이미지 파일 삭제
+			fileDelete(mem.getMemberImg(), mem.getId());
+		} catch (Exception e) {
+			System.out.println("!!!!!!!!!!!!!파일삭제 오류!!!!!!!!!!!");
+			return false;
+		}
 	    // 로그아웃 처리
 	    SecurityContextHolder.getContext().setAuthentication(authentication);
 	    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();

@@ -3,6 +3,8 @@ package com.damoim.controller;
 import java.io.File;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -405,11 +407,12 @@ public class MemberController {
 	// 성철 파일 삭제 메서드 해당유저 프로필사진 변경시 사용!! 실 사용때는 조건에 만약 보내준 링크가 null이면 변하지 않도록
 	public void fileDelete(String fileName, String id) throws IllegalStateException, IOException {
 
-		if (fileName == null || fileName.isEmpty()) {
+		if (fileName == null) {
 			System.out.println("삭제할 파일이 없습니다");
 		} else {
+			String decodedString = URLDecoder.decode(fileName, StandardCharsets.UTF_8.name());
 			System.out.println("삭제될 URL : " + fileName);
-			File file = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + fileName);
+			File file = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + decodedString);
 			file.delete();
 		}
 		

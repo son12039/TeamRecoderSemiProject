@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -456,7 +458,8 @@ public class MembershipController {
 			System.out.println("삭제할 파일이 없습니다");
 		} else {
 			System.out.println("삭제될 URL : " + file);
-			File f = new File("\\\\192.168.10.51\\damoim\\membership\\" + Integer.toString(code) + "\\" + file);
+			String decodedString = URLDecoder.decode(file, StandardCharsets.UTF_8.name());
+			File f = new File("\\\\192.168.10.51\\damoim\\membership\\" + Integer.toString(code) + "\\" + decodedString);
 			f.delete();
 
 		}

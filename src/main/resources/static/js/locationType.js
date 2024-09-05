@@ -16,12 +16,12 @@ $("#locationLaNameForm").click(function() {
 	$('.locationLaDiv').toggle();
 })
 $("#locationSNameForm").click(function() {
-	if($(".locationSDiv").css("display")=="none"&&laName!=="" && laName!==null){	
+	if ($(".locationSDiv").css("display") == "none" && laName !== "" && laName !== null) {
 		$('.locationLaDiv').hide();
 		$('.typeLaDiv').hide();
 		$('.typeSDiv').hide();
 		$('.locationSDiv').toggle();
-	}else{
+	} else {
 		$('.locationSDiv').hide();
 	}
 })
@@ -33,73 +33,81 @@ $("#typeLaNameSelect").click(function() {
 	$('.typeLaDiv').toggle();
 })
 $("#typeSNameForm").click(function() {
-	if($(".typeSDiv").css("display")=="none" && typeLLa !=="" && typeLLa !==null){
+	if ($(".typeSDiv").css("display") == "none" && typeLLa !== "" && typeLLa !== null) {
 		$('.locationSDiv').hide();
 		$('.locationLaDiv').hide();
 		$('.typeLaDiv').hide();
-		$('.typeSDiv').toggle();	
-	}else{
+		$('.typeSDiv').toggle();
+	} else {
 		$('.typeSDiv').hide();
 	}
 })
-let laName =""
+let laName = ""
+let locationLaFriend =""
 $("#locationLaNameForm input[type=checkbox]").change(function() {
 	// 아이콘 처리 하는 부분
 	const link = document.createElement('link');
 	link.rel = 'stylesheet';
 	link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
 	document.head.appendChild(link);
-	
+
 	urlParams.delete("locationLaName");
 	urlParams.delete("locationSName");
 	// ajax 체인걸어놔서 두번째까지는 안와서 변수선언
 	const location = $(this);
 	//체인지하면서 css 변경
 	// 체크 이벤트 
-	laName = $(this).val()==laName ?  "" : $(this).val();
-	
+	laName = $(this).val() == laName ? "" : $(this).val();
+
 	// 타입 눌렀을떄 사용자가 선택한거 옆에 보여줄 친구
-	let locationLaFriend = "<div class='locationLaFriend'>" +$(this).val()+"</div>";
-	
+	locationLaFriend = "<div class='locationLaFriend'>" + $(this).val() + "</div>";
+
 	if ($(this).prop('checked')) {
 		//console.log($(this).val()) // 서울 경기 부산 ...
 		// 체크 걸면서 css도 같이 주기
 		// 친구 지우기
 		$(".locationLaFriend").remove()
 		$('#locationLaNameForm input[type=checkbox]')
-							.prop('checked', false)
-							.next("label")
-							.css({
-								background : ""
-							});
+			.prop('checked', false)
+			.next("label")
+			.css({
+				background: ""
+			});
 		$(this).prop('checked', true)
 		if (laName !== '') {
 			urlParams.append('locationLaName', laName);
-			$(this).prop('checked', true)			
-					.next("label")
-					.css({
-						background : "#dbdbdb"
-					})
+			$(this).prop('checked', true)
+				.next("label")
+				.css({
+					background: "#dbdbdb"
+				})
 			$("#locationSNameForm").css({
-				backgroundColor : "#FCA35B",
-				color : "white",
+				backgroundColor: "#FCA35B",
+				color: "white",
 				cursor: "pointer"
 			})
 			// 친구 만들기
 			$(".locationLaStar").append(locationLaFriend)
-		}
-	}else{
-		// 버튼 자기 자신 선택했을때 지우기
-		$(this).prop('checked', false)			
-				.next("label")
-				.css({
-					background : "#f3f3f3"
-				})
-		$("#locationSNameForm").css({
-				backgroundColor : "",
-				color : "",
+			//전체보기 눌렀을때
+		} else if (laName === '') {
+			$("#locationSNameForm").css({
+				backgroundColor: "",
+				color: "",
 				cursor: ""
-			})	
+			})
+		}
+	} else {
+		// 버튼 자기 자신 선택했을때 지우기
+		$(this).prop('checked', false)
+			.next("label")
+			.css({
+				background: ""
+			})
+		$("#locationSNameForm").css({
+			backgroundColor: "",
+			color: "",
+			cursor: ""
+		})
 		// 친구 지우기
 		$(".locationLaFriend").remove()
 	}
@@ -140,41 +148,53 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 					}
 					// 소분류 친구 만들기
 					let locationSList = [];
-					let locationSFreind ="";
+					let locationSFriend = "";
 					$("#locationSNameForm input[type=checkbox]").change(function() {
+						$(".locationSFriend").remove()
 						window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 						const locationSName = $(this).val();
-						locationSList.push($(this).val());
 						if ($(this).is(':checked')) {
-							$(this).prop("checked",true)
-									.next("label")
-									.css({
-										background : "#dbdbdb"
-									})
-							
+							$(".locationSFriend").remove()
+							// 친구들 배열에 넣어주기
+							locationSList.push($(this).val());
+							$(this).prop("checked", true)
+								.next("label")
+								.css({
+									background: "#dbdbdb"
+								})
+
 							urlParams.append('locationSName', locationSName);
 						} else {
-							$(this).prop("checked",false)
-									.next("label")
-									.css({
-										background : "#f3f3f3"
-									})
+							$(".locationSFriend").remove()
+							$(this).prop("checked", false)
+								.next("label")
+								.css({
+									background: "#f3f3f3"
+								})
 							// 여기서부터 집에서 시작하기 (친구들 만들기)
-							for(let i=0;i<locationSList.length;i++){
-								if(locationSList[i] == ($(this).val())){
-									locationSList.splice(i,1);
+							for (let i = 0; i < locationSList.length; i++) {
+								if (locationSList[i] == ($(this).val())) {
+									locationSList.splice(i, 1);
 									urlParams.delete("locationSName");
 								}
-							}				
+							}
 							urlParams.delete('locationSName');
 							const inputAll = $(this).parent().find("input[type=checkbox]");
 							for (let input of inputAll) {
 								if (input.checked) {
 									urlParams.append("locationSName", input.value)
-									
+
 								}
 							}
 						}
+						let locationSVal = locationSList.length - 1
+						locationSFriend = locationSList.length <= 1 ? "<div class='locationSFriend'>" + locationSList[0] + "</div>" : "<div class='locationSFriend'>" + locationSList[0] + " 외 " + locationSVal + "</div>";
+						$(".locationSBox").append(locationSFriend);
+						
+						if(locationSVal === 0){
+							$(".locationSFriend").remove()
+						}
+						
 						history.pushState({}, null, url);
 						// 지역 작은놈들 페이징
 						page = 1;
@@ -201,88 +221,96 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 
 
 
- // 로케이션
+// 로케이션
 $("#locSNameAll").change(function() {
 	if ($("#locSNameAll").is(":checked")) {
 		for (let item of $('#locationSNameForm input[name="locationSName"]')) {
 			item.checked = false;
 		}
-	} 
+	}
 });
 $('#locationSNameForm input[name="locationSName"]').change(function() {
 	if ($("#locSNameAll").is(":checked")) {
 		$("#locSNameAll")[0].checked = false;
 	}
 })
- // 타입
- $("#typeSNameAll").change(function() {
-	  if ($("#typeSNameAll").is(":checked")) {
-			for (let item of $('#typeSNameForm input[name="typeSName"]')) {
-				item.checked = false;
-			}
-	  }
- });
+// 타입
+$("#typeSNameAll").change(function() {
+	if ($("#typeSNameAll").is(":checked")) {
+		for (let item of $('#typeSNameForm input[name="typeSName"]')) {
+			item.checked = false;
+		}
+	}
+});
 
- $('#typeSNameForm input[name="typeSName"]').change(function() {
-	  if ($("#typeSNameAll").is(":checked")) {
-			$("#typeSNameAll")[0].checked = false;
-	  }
- })
+$('#typeSNameForm input[name="typeSName"]').change(function() {
+	if ($("#typeSNameAll").is(":checked")) {
+		$("#typeSNameAll")[0].checked = false;
+	}
+})
 
 /*타입 클릭시*/
-let typeLLa =""
+let typeLLa = ""
 let typeSNameFreind = ""
 $("#typeLaNameSelect input[type=checkbox]").change(function() {
 	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 	urlParams.delete('typeLaName')
 	urlParams.delete('typeSName')
-	
+
 	const typeLaName = $(this).val();
 	const typeLa = $(this);
 	typeLLa = typeLaName == typeLLa ? "" : typeLaName;
 	// 타입 눌렀을떄 사용자가 선택한거 옆에 보여줄 친구
-	let typeLaFriend = "<div class='typeLaFriend'>" +$(this).val()+"</div>";
+	let typeLaFriend = "<div class='typeLaFriend'>" + $(this).val() + "</div>";
 	if ($(this).prop('checked')) {
 		// 친구 지우기
 		$(".typeLaFriend").remove()
 		$('#typeLaNameSelect input[type=checkbox]')
-							.prop('checked', false)
-							.next("label")
-							.css({
-								background : ""
-							});
+			.prop('checked', false)
+			.next("label")
+			.css({
+				background: ""
+			});
 		$(this).prop('checked', true)
 		$("#typeSNameForm").css({
-				backgroundColor : "#FCA35B",
-				color : "white",
-				cursor: "pointer"
+			backgroundColor: "#FCA35B",
+			color: "white",
+			cursor: "pointer"
 		})
-			
+
 		if (typeLaName !== '') {
 			urlParams.append('typeLaName', typeLaName)
 			// 친구 만들기
 			$(".typeLaStar").append(typeLaFriend)
-			$(this).prop('checked', true)		
-					.next("label")
-					.css({
-						background : "#dbdbdb"
-					})
-		}
-	}
-	if(!$(this).prop('checked')){
-		// 친구 지우기
-		$(".typeLaFriend").remove()
-		$(this).prop('checked', false)		
+			$(this).prop('checked', true)
 				.next("label")
 				.css({
-					background : "#f3f3f3"
+					background: "#dbdbdb"
 				})
+				//전체보기 눌렀을때
+		} else if (typeLaName === '') {
+			$("#typeSNameForm").css({
+				backgroundColor: "",
+				color: "",
+				cursor: ""
+			})
+		}
+	} else {
+		$(this).prop('checked', false)
+			.next("label")
+			.css({
+				background: ""
+			})
 		$("#typeSNameForm").css({
-			backgroundColor : "",
-			color : "",
+			backgroundColor: "",
+			color: "",
 			cursor: ""
 		})
+		// 친구 지우기
+		$(".typeLaFriend").remove()
 	}
+
+
 	history.pushState({}, null, url);
 	let list = "";
 	page = 1;
@@ -315,7 +343,7 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 					}
 					// 소분류 친구 만들기
 					let typeSList = [];
-					let tpyeSFreind ="";
+					let tpyeSFreind = "";
 					$("#typeSNameForm input[type=checkbox]").change(function() {
 						$(".typeSFriend").remove()
 						window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
@@ -325,26 +353,26 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 							// 클릭한 애들넣기
 							typeSList.push($(this).val())
 							urlParams.append('typeSName', typeSName);
-							$(this).prop("checked",true)
-								   .next("label")
-								   .css({
-										backgroundColor : "#dbdbdb"
-								   });
+							$(this).prop("checked", true)
+								.next("label")
+								.css({
+									backgroundColor: "#dbdbdb"
+								});
 						} else {
 							$(".typeSFriend").remove()
 							urlParams.delete('typeSName')
 							//배열로 언체크드 되면 삭제하기
-							for(let i=0;i<typeSList.length;i++){
-								if(typeSList[i] == ($(this).val())){
-									typeSList.splice(i,1);
+							for (let i = 0; i < typeSList.length; i++) {
+								if (typeSList[i] == ($(this).val())) {
+									typeSList.splice(i, 1);
 									urlParams.delete('typeSName')
 								}
-							}						
-							$(this).prop("checked",false)
-								   .next("label")
-								   .css({
-										backgroundColor : ""
-								   });
+							}
+							$(this).prop("checked", false)
+								.next("label")
+								.css({
+									backgroundColor: ""
+								});
 							const inputAll = $(this).parent().find("input[type=checkbox]");
 							for (let input of inputAll) {
 								if (input.checked) {
@@ -352,13 +380,12 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 								}
 							}
 						}
-						let typeSVal = typeSList.length-1
-						tpyeSFreind = typeSList.length <= 1 ? "<div class='typeSFriend'>"+typeSList[0]+"</div>" : "<div class='typeSFriend'>" +typeSList[0]+" 외 "+typeSVal+"</div>";
-						console.log(typeSList)
+						let typeSVal = typeSList.length - 1
+						tpyeSFreind = typeSList.length <= 1 ? "<div class='typeSFriend'>" + typeSList[0] + "</div>" : "<div class='typeSFriend'>" + typeSList[0] + " 외 " + typeSVal + "</div>";
 						// 친구 넣기
-						$(".typeSStar").append(tpyeSFreind);
+						$(".typeSBox").append(tpyeSFreind);
 						// 0일때 친구 지우기
-						if(typeSList.length === 0){
+						if (typeSList.length === 0) {
 							$(".typeSFriend").remove()
 						}
 						history.pushState({}, null, url);
@@ -407,7 +434,7 @@ function renderClubList(clubList) {
 			'<h1 class="membership-name">' + club.membershipName + '</h1>' +
 			'<h2>' + club.membershipSimpleText + '</h2>' +
 			'<h3><i class="fa-solid fa-users"></i> : ' + club.count + '/' + club.membershipMax + '</h3>' +
-			'<a href="/userInfo/'+club.nickname+'">'+
+			'<a href="/userInfo/' + club.nickname + '">' +
 			'<div class="host">';
 		if (club.memberImg != null) {
 			ajaxLocationType += '<img class="user-img" src="http://192.168.10.51:8081/member/' + club.id + '/' + club.memberImg + '">';
@@ -418,7 +445,7 @@ function renderClubList(clubList) {
 			'<input type="hidden" name="code" value="' + club.membershipCode + '">' +
 			'<br>' +
 			'</div>' +
-			'</a>'+
+			'</a>' +
 			'<div class="locationTypeBox">' +
 			'<div class="location">';
 		for (let location of club.locations) {

@@ -5,19 +5,15 @@
 */
 .locationLaFriend{
 	color : #0077b6;
-	border-redius : bold
 }
 .locationSFriend{
 	color : #0077b6;
-	border-redius : bold	
 }
 .typeLaFriend{
 	color : #0077b6;
-	border-redius : bold
 }
 .typeSFriend{
 	color : #0077b6;
-	border-redius : bold	
 }
 /*
 	지역 선택했을때 옆에 오는 친구들
@@ -143,6 +139,7 @@
 }
 .locationSBox{
 	display: flex;
+	border:b
 }
 .locationSDiv{
 	display: none;

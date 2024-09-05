@@ -1,0 +1,40 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.RemoveMemberShipMapper">
+
+	<!--  membership Map -->
+	<resultMap type="Membership" id="membershipMap">
+		<id property="membershipCode" column="membership_code" />
+		<result property="membershipName" column="membership_name" />
+		<result property="membershipImg" column="membership_img" />
+		<result property="membershipInfo" column="membership_info" />
+		<result property="membershipDate" column="membership_date" />
+		<result property="membershipGrade" column="membership_grade" />
+		<result property="membershipMax" column="membership_max" />
+		<result property="membershipSimpleText" column="membership_simple_text" />
+		<result property="membershipAccessionText" column="membership_accession_text"/>
+	</resultMap>
+	
+	
+     <resultMap id="MembershipMeetingsResultMap" type="MembershipMeetings">
+        <id property="meetCode" column="meet_code"/>
+        <result property="membershipCode" column="membership_code"/>
+        <result property="meetDateStart" column="meet_date_start"/>
+        <result property="meetDateEnd" column="meet_date_end"/>
+        <result property="meetInfo" column="meet_info"/>
+        <result property="meetTitle" column="meet_title"/>
+        <result property="meetCreateDate" column="meet_create_date"/>
+        <result property="id" column="id"/>
+        <result property="color" column="color"/>
+    </resultMap>
+   <resultMap id="MeetingsAgreeMap" type="MeetingsAgree">
+        <id property="meetAgreeCode" column="meet_agree_code"/>
+         <result property="meetCode" column="meet_code"/>
+        <result property="id" column="id"/>
+        </resultMap>
+ 
+ 
+ 	<!--  탈퇴 로직전 해당 맴버쉽에 게스트가 아닌 회원 체크 < membership -->
+
+    
+    
+</mapper>

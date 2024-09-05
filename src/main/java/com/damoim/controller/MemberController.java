@@ -348,7 +348,18 @@ public class MemberController {
 				.membershipUserList(infoService.selectMemberUserList(member.getId())).build();
 		System.out.println(mem);
 		model.addAttribute("mem", mem);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+		if(authentication.getPrincipal().equals("anonymousUser")) {
+				System.out.println("로그인 X ");
+				return "member/userInfo";
+		}
+			Member loginMember = (Member) authentication.getPrincipal();
+		if(loginMember.getNickname().equals(nickname)) {
+			System.out.println("본인 ");
+			return "mypage/mypage";			
+			}
+		System.out.println("그외 ");
 		return "member/userInfo";
 	}
 

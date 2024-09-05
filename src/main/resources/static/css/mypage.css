@@ -160,12 +160,12 @@ input[type=text] {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#all-club, #manage-club, #wait-club {
+#all-club, #manage-club, #wait-club ,#all-meet {
 	display: flex;
 	flex-direction: column;
 }
 
-#manage-club, #wait-club {
+#manage-club, #wait-club, #all-club, #all-meet {
 	display: none;
 }
 

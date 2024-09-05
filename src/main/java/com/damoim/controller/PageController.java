@@ -16,6 +16,7 @@ import com.damoim.model.dto.MembershipDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
+import com.damoim.service.MembershipMeetingService;
 import com.damoim.service.MembershipService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,6 +27,9 @@ public class PageController {
 
 	@Autowired
 	private MembershipService infoService; // 맴버쉽 서비스
+	
+	@Autowired
+	private MembershipMeetingService meetService;
 	/*
 	 * 성일
 	 * 인덱스에 현재 호스트가 존재하는 모든 클럽들 모두 출력
@@ -52,6 +56,14 @@ public class PageController {
 	public String mypage(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member member = (Member) authentication.getPrincipal();
+		
+		
+		String id = member.getMemberListDTO().get(0).getId();
+		
+		model.addAttribute("meetings", meetService.allMeetings1(id));
+		
+		
+		
 		
 		ArrayList<MembershipUserList> membershipList = (ArrayList<MembershipUserList>) infoService.selectMemberUserList(member.getId());
 		model.addAttribute("list", membershipList);

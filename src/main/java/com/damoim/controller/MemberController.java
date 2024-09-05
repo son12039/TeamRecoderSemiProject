@@ -33,12 +33,14 @@ import com.damoim.model.dto.RecommendationDTO;
 import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
+import com.damoim.model.vo.MembershipMeetings;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
 import com.damoim.model.vo.UserInfoPaging;
 import com.damoim.service.EmailService;
 import com.damoim.service.MainCommentService;
 import com.damoim.service.MemberService;
+import com.damoim.service.MembershipMeetingService;
 import com.damoim.service.MembershipService;
 import com.damoim.service.RemoveMemberService;
 
@@ -61,6 +63,9 @@ public class MemberController {
 	
 	@Autowired // 회원 탈퇴 댓글 삭제 서비스
 	private RemoveMemberService removeService;
+	
+	@Autowired
+	private MembershipMeetingService meetingService;
 
 
 	/*
@@ -339,6 +344,9 @@ public class MemberController {
 	 */
 	@GetMapping("/userInfo/{nickname}")
 	public String getMethodName(@PathVariable("nickname") String nickname, Model model) {
+		
+	
+		
 		Member member = service.nicknameCheck(new Member().builder().nickname(nickname).build());
 
 		MemberInfoDTO mem = new MemberInfoDTO().builder().member(member)

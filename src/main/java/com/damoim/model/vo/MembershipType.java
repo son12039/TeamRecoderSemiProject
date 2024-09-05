@@ -1,10 +1,11 @@
 package com.damoim.model.vo;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @AllArgsConstructor @NoArgsConstructor
+@Data @AllArgsConstructor @NoArgsConstructor @Builder
 public class MembershipType {
     private int memTypeCode; // 클럽 유형 리스트 코드
     private int typeSmallCode; // 소분류이름

@@ -97,14 +97,15 @@
 
 	<script>
 		$("#button").click(() => {
+			console.log("머고")
 			if (!$("#checkbox").is(":checked")) {
                 alert("동의란에 체크해주세요");
                 return; 
             }
 			$.ajax({
-				type: "post",
+				type: "POST",
 				url: "/memberStatus",
-				data: pwdCheck : $("#pwdCheck").val(),
+				data: { pwdCheck: $("#pwdCheck").val() },
 				success: function (result){
 					if(result){
 						// true면 마지막 비밀번호 체크 페이지 이동

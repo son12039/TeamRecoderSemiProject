@@ -285,6 +285,7 @@ public class MemberController {
 	@PostMapping("/memberStatus")
 	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response ,String pwdCheck) {
 	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    System.out.println("입력한 비번옴? : " + pwdCheck);
 	    Member mem = (Member) authentication.getPrincipal();
 	    boolean check = false;
 	    for(MemberListDTO dto : mem.getMemberListDTO()) {
@@ -295,6 +296,7 @@ public class MemberController {
 	        return false;
 	    	}
 	    if(!service.updateCheck(mem, pwdCheck)) { // 비밀번호 확인에서 틀렸을 경우
+	    	System.out.println("비번트림 ㅠ");
 	    	return false;
 	    }
 	    
@@ -354,7 +356,18 @@ public class MemberController {
 				.membershipUserList(infoService.selectMemberUserList(member.getId())).build();
 		System.out.println(mem);
 		model.addAttribute("mem", mem);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+		if(authentication.getPrincipal().equals("anonymousUser")) {
+				System.out.println("로그인 X ");
+				return "member/userInfo";
+		}
+			Member loginMember = (Member) authentication.getPrincipal();
+		if(loginMember.getNickname().equals(nickname)) {
+			System.out.println("본인 ");
+			return "mypage/mypage";			
+			}
+		System.out.println("그외 ");
 		return "member/userInfo";
 	}
 

@@ -10,8 +10,10 @@ import org.apache.ibatis.annotations.Options;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.vo.BasicRoomListVo;
+import com.damoim.model.vo.LocationCategory;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
+import com.damoim.model.vo.MembershipLocation;
 import com.damoim.model.vo.MembershipType;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
@@ -58,12 +60,39 @@ public interface MembershipMapper {
 	void updateMembershipInfo(Membership membershipInfo);// 아마 맴버쉽 정보 업데이트
 	
 	// ??????????????????????????
-	void makeMembership(Membership membership); // 클럽 만들기????
-	
 
 	
 
-	void resignUserList(String id); // 아이디 받아서 membership_user_list 테이블 삭제
+	
+	// _클럽 생성 ===============================================
+			void makeMembership(Membership membership); // 클럽 만들기????
+			
+			// 지역 추가
+			void makeLocationMembership(MembershipLocation membershipLocation);
+
+			// 유형 추가
+			void makeTypeMembership(MembershipType membershipType);
+			
+			// 지역- 이름으로 찾기
+			int findLocationCode(LocationCategory locationCategory);
+			
+			// 유형- 이름으로 찾기
+			int findTypeCode(TypeCategory typeCategory);
+			
+			// 클럽명 중복확인
+			Membership membershipNameCheck(Membership membership);
+			
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
 

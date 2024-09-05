@@ -191,25 +191,30 @@
 					</c:forEach>
 				</sec:authorize>
 				<c:if test="${adminClub == 'host' || adminClub == 'admin'}">
-					<div class="membership-each">
-						<div>
-							<img class="membership-img"
-								src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"
-								alt="Membership Image">
+					<a href="/club/${mem.membership.membershipCode}">
+						<div class="membership-each">
+							<div>
+								<img class="membership-img"
+									src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"
+									alt="Membership Image">
+									
+							</div>
+							<div class="membership-String">
+								<div>
+									<p>${mem.membership.membershipName}</p>
+									<c:if test="${adminClub != 'host'}">
+									<button  class="btn" onclick="deleteList('${adminClub}',${mem.membership.membershipCode})" >탈퇴</button>
+									</c:if>
+									
+									
+										
+									
+								</div>
+							</div>
 						</div>
-						<div class="membership-String">
-							<h4>${mem.membership.membershipName}</h4>
-							<p>${mem.membership.membershipSimpleText}</p>
-							<c:if test="${mem.membership.membershipSimpleText == null}">
-								<p>클럽의 소개글이 없습니다</p>
-							</c:if>
-							<c:if test="${adminClub != 'host'}">
-								<button class="btn"
-									onclick="deleteList('${adminClub}',${mem.membership.membershipCode})">탈퇴</button>
-							</c:if>
-						</div>
-					</div>
-
+					</a>
+					비밀번호 확인<input type="password" name="pwdCheck" id="pwdCheck">
+										<button class="btn" onclick="allDeleteMembership()">클럽 삭제</button>
 				</c:if>
 			</c:forEach>
 		</div>
@@ -285,6 +290,17 @@
 
 					</div>
 				</div>
+				<input type="checkbox" id="toggle" hidden>
+				<label for="toggle" id="label">클럽 생성및 수정 <ion-icon
+						name="chevron-down-outline" id="arrow"></ion-icon>
+				</label>
+				<ul id="menu">
+					<a href="/makeMembership">클럽 만들기</a>
+					<form action="/updateMembership">
+						<button id="update-club" type="submit" value="클럽수정">클럽 정보
+							수정</button>
+					</form>
+				</ul>
 			</c:otherwise>
 		</c:choose>
 	</div>

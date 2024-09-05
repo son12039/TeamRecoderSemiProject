@@ -20,6 +20,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.damoim.model.vo.Membership;
+import com.damoim.model.vo.MembershipLocation;
+import com.damoim.model.vo.MembershipType;
+
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.damoim.model.dto.CommentDTO;
@@ -32,13 +35,19 @@ import com.damoim.service.MembershipMeetingService;
 import com.damoim.model.dto.SearchDTO;
 import com.damoim.service.LocationTypeService;
 import com.damoim.service.MainCommentService;
+import com.damoim.service.MemberService;
 import com.damoim.service.MembershipService;
+import com.damoim.service.RemoveMembershipService;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import com.damoim.model.vo.LocationCategory;
 import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.MembershipUserList;
+import com.damoim.model.vo.TypeCategory;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -58,28 +67,157 @@ public class MembershipController {
 	// 08-22 채승훈 클럽메인페이지에 지역과 타입 추가
 	@Autowired
 	private LocationTypeService locationTypeService;
+	
+	
+	@Autowired
+	private MemberService memberService;
+	
 
 	@Autowired
-	private MembershipMeetingService meetingService;
-
+	private  MembershipMeetingService meetingService;
+	
+	@Autowired
+	private RemoveMembershipService removeService;
 	/*
 	 * 
 	 * */
 	/*
 	 * 
 	 * */
-	@GetMapping("/createclub")
-	public String createclub() {
-		return "mypage/createclub";
-
+	@GetMapping("/makeMembership") // 클럽 생성페이지로 이동
+	public String makeMembership(SearchDTO search, Model model) {
+		model.addAttribute("locLaNameList", locationTypeService.locLaNameList());
+		model.addAttribute("typeLaNameList", locationTypeService.typeLaNameList());
+		return "mypage/makeMembership";
 	}
 
-	@PostMapping("/createclub")
-	public String createclub(Membership membership) {
-		membership.setMembershipInfo(null);
-		return "redirect:/"; // 클럽 생성 후 인덱스 페이지로 리다이렉션
+	// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	/*
+	 * ???
+	 * 
+	 * 
+	 * 영민 클럽 생성기능 추가
+	 *
+	 * 성철 만들어진거에 사진첨부만 추가
+	 */
+	@PostMapping("/makeMembership") // 클럽 생성
+	public String makeMembership(Membership vo, MultipartFile file, String LB, String TB) throws Exception {
+		System.out.println("지역 확인 : " + LB); // 인천 = 중구, 미추홀구, 남동구
+		System.out.println("유형 확인 : " + TB); // 스터디 = 코딩, 자격증, 토론
+		System.out.println("맴버쉽 정보 : " + vo);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		Membership membership = Membership.builder().membershipName(vo.getMembershipName())
+				.membershipMax((vo.getMembershipMax()))
+				.membershipAccessionText(vo.getMembershipAccessionText())
+				.membershipSimpleText(vo.getMembershipSimpleText()).build();
+	
+		service.makeMembership(membership);
+		System.out.println("코드 : " + membership.getMembershipCode());
+		// 맴버쉽 코드 사용
+		int code = membership.getMembershipCode();
+		// 폴더 생성
+		Path directoryPath = Paths.get( "\\\\192.168.10.51\\damoim\\membership\\" + code + "\\");
+		Files.createDirectories(directoryPath);
+		// 파일 업로드
+		Membership m = Membership.builder().membershipCode(membership.getMembershipCode())
+				.membershipImg(fileUpload(file, code)).build();
+		service.membershipImg(m);
+
+		// 로케이션
+		String locLaName = LB.split(" = ")[0]; // 대분류 이름 소분류 이름 분리
+		String[] locLaSName = LB.split(" = ")[1].split(", ");
+		LocationCategory lc = LocationCategory.builder().locLaName(locLaName).build();
+
+		for (String s : locLaSName) {
+			lc.setLocSName(s);
+			int locationCode = service.findLocationCode(lc);
+			MembershipLocation location = MembershipLocation.builder().locSmallCode(locationCode).membershipCode(code).build();
+			service.makeLocationMembership(location); // MembershipLocation
+		}
+		// 타입
+		String typeLaName = TB.split(" = ")[0];
+		String[] typeSName = TB.split(" = ")[1].split(", ");
+		TypeCategory tc = TypeCategory.builder().typeLaName(typeLaName).build();
+
+		for (String s : typeSName) {
+			tc.setTypeSName(s);
+			int typeCode = service.findTypeCode(tc);
+
+			MembershipType type = MembershipType.builder().typeSmallCode(typeCode).membershipCode(code).build();
+			service.makeTypeMembership(type);
+		}
+		// 호스트 담기용 DTO 생성
+		MemberListDTO list = new MemberListDTO();
+				list.setId(mem.getId());
+				list.setListGrade("host");
+				list.setMembershipCode(membership.getMembershipCode());
+		// 호스트로 추가
+		service.host(list);
+		// 세션에 호스트 정보 추가
+		ArrayList<MemberListDTO> dtolist =	(ArrayList<MemberListDTO>) mem.getMemberListDTO();
+		dtolist.add(list);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		return "redirect:/";
 	}
 
+	/*
+	 * 영민 클럽명 중복 체크용 Ajax
+	 * 
+	 */
+	@ResponseBody
+	@PostMapping("/membershipNameCheck")
+	public boolean membershipNameCheck(Membership membership) {
+		return service.membershipNameCheck(membership) == null;
+	}
+	
+	/*
+	 * 성철
+	 * 클럽 삭제 
+	 * */
+	@ResponseBody
+	@PostMapping("/allDeleteMembership")	
+	public boolean allDeleteMembership(String pwdCheck){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();	
+		Member mem = (Member) authentication.getPrincipal();
+		if(memberService.updateCheck(mem, pwdCheck)) {
+				// 삭제전 비밀번호 확인
+		int membershipCode = -1;
+		for(MemberListDTO dto: mem.getMemberListDTO()) {
+			if(dto.getListGrade().equals("host")) {
+				System.out.println("이사람이 삭제하려는 클럽 코드는 : "  + dto.getMembershipCode());
+				membershipCode = dto.getMembershipCode();
+			}
+		}
+		Membership membership = service.selectMembership(membershipCode);
+		boolean ck = removeService.allDeleteMembership(membershipCode);
+		if(ck && membership != null) {
+			// 파일도 삭제
+			try {
+				fileDelete(membership.getMembershipImg(), membershipCode);
+			} catch (Exception e) {
+				return false;
+			}
+			System.out.println("파일 삭제 완료");
+			ArrayList<MemberListDTO> list = (ArrayList<MemberListDTO>) mem.getMemberListDTO();
+			for(int i = 0; i < list.size(); i++) {
+				if(list.get(i).getMembershipCode() == membershipCode) {
+					System.out.println("삭제될 DTO : " + list.get(i));
+					list.remove(i);
+					break;
+					
+				}
+		}
+		
+		}
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		System.out.println("업데이트 완료");
+	 	return true;
+		} 
+		return false;
+	}
+	
 	/*
 	 * 성일 카운트 관련 VO에 합쳐버림 성철 댓글 대댓글 글 관련 로직 추가
 	 */
@@ -129,7 +267,6 @@ public class MembershipController {
 		}
 
 		model.addAttribute("comment", dtoList);
-		System.out.println("커맨트 dio " + dtoList);
 		// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
 		model.addAttribute("location", locationTypeService.locationList(membershipCode));
 		model.addAttribute("type", locationTypeService.typeList(membershipCode));
@@ -197,45 +334,7 @@ public class MembershipController {
 		service.agreeMemeber(member);
 	}
 
-	/*
-	 * 
-	 * */
-	@GetMapping("/makeMembership") // 클럽 생성페이지로 이동
-	public String makeMembership() {
-		return "mypage/makeMembership";
-	}
 
-	/*
-	 * ???
-	 * 
-	 * 
-	 * 
-	 * 성철 만들어진거에 사진첨부만 추가
-	 */
-	@PostMapping("/makeMembership") // 클럽 생성
-	public String makeMembership(MembershipDTO dto, MultipartFile file) throws IOException {
-		Membership membership = Membership.builder().membershipName(dto.getMembershipName())
-				.membershipInfo(dto.getMembershipInfo()).membershipMax(Integer.parseInt(dto.getMembershipMax()))
-				.build();
-		// 클럽생성?
-		service.makeMembership(membership);
-		Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\membership\\"
-				+ Integer.toString(membership.getMembershipCode()) + "\\");
-		Files.createDirectories(directoryPath);
-		Membership m = Membership.builder().membershipCode(membership.getMembershipCode())
-				.membershipImg(fileUpload(file, membership.getMembershipCode())).build();
-		System.out.println("해당 맴버쉽 코드 : " + m.getMembershipCode());
-		System.out.println("이미지 URL 테스트 " + m.getMembershipImg());
-		service.membershipImg(m);
-		// 멤버쉽 유저 리스트에 등록 절차
-		MemberListDTO list = new MemberListDTO();
-		list.setId(dto.getId());
-		list.setListGrade(dto.getListGrade());
-		list.setMembershipCode(membership.getMembershipCode());
-		// 호스트로 보유중인 클럽 유무 확인
-		service.host(list);
-		return "redirect:/";
-	}
 
 	/*
 	 * 성철 세션에 맴버가 해당 클럽에 가입 X 상황일시 신청가능한 메서드
@@ -280,31 +379,58 @@ public class MembershipController {
 	}
 
 	/*
-	 * 성철 : 클럽 홍보글 작성 페이지
+	 * 성철 : 클럽 홍보글 작성 페이지 이동
 	 */
 
 	@GetMapping("/club/{membershipCode}/membershipPromotionDetail")
 	public String membershipPromotionDetail(@PathVariable("membershipCode") Integer membershipCode, Model model) {
-		System.out.println(membershipCode);
-		System.out.println("맴버쉽" + service.selectMembership(membershipCode));
+	
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member m1 = (Member) authentication.getPrincipal();
+	
+		boolean check = false;
+		
+		// 권한 체크 
+	 for(int i=0; i < m1.getMemberListDTO().size(); i++) {
+		 if(m1.getMemberListDTO().get(i).getMembershipCode() == membershipCode && !(m1.getMemberListDTO().get(i).getListGrade().equals("guest") || m1.getMemberListDTO().get(i).getListGrade().equals("regular"))) {
+			 
+			 check = true;
+		 }
+	 
+ }
+
+		if(!check) {
+			
+			return "error";
+		}
+
 		model.addAttribute("memInfo", service.selectMembership(membershipCode));
 		model.addAttribute("code", membershipCode);
 		return "membership/membershipPromotionDetail";
 	}
 
 	/*
-	 * 성철 : 클럽 홍보글 작성 페이지
+	 * 성철 : 클럽 홍보글 작성
 	 */
 	@ResponseBody
 	@PostMapping("/membershipInfoUpdate")
 	public void test(int membershipCode, String test) {
-		System.out.println("맴버쉽 코드 : " + membershipCode);
-		System.out.println("테스트 : " + test);
+
 		Membership membership = new Membership().builder().membershipCode(membershipCode).membershipInfo(test).build();
 		service.updateMembershipInfo(membership);
-		System.out.println("DB 통과");
-	}
 
+	}
+	
+	
+	@ResponseBody
+	@PostMapping("/deleteMembership")
+	public boolean deleteMembership(int membershipCode) {
+		
+		return true;
+	}
+	
+	
+	
 	/*
 	 * 성철 파일 삽입 메서드 해당맴버쉽 프로필사진 !!
 	 * 

@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.vo.BasicRoomListVo;
+import com.damoim.model.vo.LocationCategory;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
+import com.damoim.model.vo.MembershipLocation;
 import com.damoim.model.vo.MembershipType;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
@@ -56,11 +58,6 @@ public class MembershipService {
 	   mapper.membershipApply(member);
 	  
    }
-
-	
-	public void makeMembership(Membership membership) {
-		mapper.makeMembership(membership);
-	}
 	
 	public void membershipImg(Membership membership) {
 		mapper.membershipImg(membership);
@@ -188,9 +185,39 @@ public class MembershipService {
 		
 		}
 	
-	public void resignUserList(String id) {
-		 mapper.resignUserList(id);
+	// 클럽 생성
+	public void makeMembership(Membership membership) {
+		mapper.makeMembership(membership);
 	}
+	
+	// 지역 추가
+	public void makeLocationMembership(MembershipLocation membershipLocation) {
+		mapper.makeLocationMembership(membershipLocation);
+	}
+
+	// 유형 추가
+	public void makeTypeMembership(MembershipType membershipType) {
+		mapper.makeTypeMembership(membershipType);
+	}
+			
+	// 지역- 이름으로 찾기
+	public int findLocationCode(LocationCategory locationCategory) {
+		return mapper.findLocationCode(locationCategory);	
+	}
+			
+	// 유형- 이름으로 찾기
+	public int findTypeCode(TypeCategory typeCategory) {
+		return mapper.findTypeCode(typeCategory);	
+	}
+	
+	// 클럽명 중복 체크
+	public Membership membershipNameCheck(Membership membership) {
+		return mapper.membershipNameCheck(membership);
+	}
+
+	
+	
+	
 	
 }
 

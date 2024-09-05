@@ -148,13 +148,18 @@
     	WHERE meet_code = #{meetCode}
     </update>
     
+    <delete id="deleteAllMeetComment" parameterType="int">
+		DELETE FROM meetings_comment
+		WHERE meet_code = #{meetCode};
+	</delete>
+    
     <!-- 해당 글삭제 (참여자가 0명이면)  -->
       <delete id="deleteMeeting" parameterType="int">
     	DELETE FROM membership_meetings
     	WHERE meet_code = #{meetCode}
     </delete>
     
-    
+
  
     
     

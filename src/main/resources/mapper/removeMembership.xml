@@ -1,0 +1,87 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.RemoveMemberShipMapper">
+
+	<!--  membership Map -->
+	<resultMap type="Membership" id="membershipMap">
+		<id property="membershipCode" column="membership_code" />
+		<result property="membershipName" column="membership_name" />
+		<result property="membershipImg" column="membership_img" />
+		<result property="membershipInfo" column="membership_info" />
+		<result property="membershipDate" column="membership_date" />
+		<result property="membershipGrade" column="membership_grade" />
+		<result property="membershipMax" column="membership_max" />
+		<result property="membershipSimpleText" column="membership_simple_text" />
+		<result property="membershipAccessionText" column="membership_accession_text"/>
+	</resultMap>
+	
+	
+     <resultMap id="MembershipMeetingsResultMap" type="MembershipMeetings">
+        <id property="meetCode" column="meet_code"/>
+        <result property="membershipCode" column="membership_code"/>
+        <result property="meetDateStart" column="meet_date_start"/>
+        <result property="meetDateEnd" column="meet_date_end"/>
+        <result property="meetInfo" column="meet_info"/>
+        <result property="meetTitle" column="meet_title"/>
+        <result property="meetCreateDate" column="meet_create_date"/>
+        <result property="id" column="id"/>
+        <result property="color" column="color"/>
+    </resultMap>
+   <resultMap id="MeetingsAgreeMap" type="MeetingsAgree">
+        <id property="meetAgreeCode" column="meet_agree_code"/>
+         <result property="meetCode" column="meet_code"/>
+        <result property="id" column="id"/>
+        </resultMap>
+ 
+ 
+ 	<!--  탈퇴 로직전 해당 맴버쉽에 게스트가 아닌 회원 체크 < membershipxml에 카운트 어쩌구 -->
+	
+	<!-- membershipUserList 모두 삭제(사실상 신청자만 삭제) -->
+	<delete id="deleteMembershipList" parameterType="int">
+		DELETE FROM membership_user_list
+		WHERE membership_code = #{membershipCode};
+	</delete>
+	
+	<!--  코드로 홍보글 댓글 삭제 -->
+	<delete id="deleteMainComment" parameterType="int">
+		DELETE FROM main_comment
+		WHERE membership_code = #{membershipCode};
+	</delete>
+	
+	<!--  지역정보 삭제 -->
+	<delete id="deleteLocation" parameterType="int">
+		DELETE FROM 
+		membership_location
+		WHERE membership_code = #{membershipCode};
+	</delete>
+	<!--  타입 정보 삭제 -->
+	<delete id="deleteType" parameterType="int">
+		DELETE FROM 
+		membership_type
+		WHERE membership_code = #{membershipCode};
+	</delete>
+	
+		<!--  해당 맴버쉽 코드로 작성된 미팅 게시판 -->
+	<select id="findMeetCode" parameterType="int" resultType="Integer">
+		SELECT meet_code
+		FROM membership_meetings
+		WHERE membership_code = #{membershipCode};
+	</select>
+	
+	 <update id="deleteMeetingUpdatePlus" parameterType="int">
+    	UPDATE membership_meetings
+    	SET meet_info = null,
+    		color = null,
+    		meet_title = null,
+    		membership_code = null
+    	WHERE meet_code = #{meetCode}
+    </update>
+	<!--  
+
+		미팅 삭제 로직은 remove 어쩌구 확인
+	 -->
+         <delete id="deleteMembership" parameterType="int">
+    	DELETE FROM membership
+    	WHERE membership_code = #{membershipCode}
+    </delete>
+    
+</mapper>

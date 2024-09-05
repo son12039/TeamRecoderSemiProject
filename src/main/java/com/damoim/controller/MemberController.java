@@ -228,12 +228,12 @@ public class MemberController {
 	public String updateMemberInfo(Member vo, Model model, String addrDetail, String beforePwd) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-
-		if (!service.updateCheck(mem, beforePwd)) {
-
-			System.out.println("실패함 ");
-			model.addAttribute("text", "변경 실패");
-			System.out.println("실패함1 ");
+		
+		if(!service.updateCheck(mem, beforePwd)) {
+			
+			
+			model.addAttribute("text" , "변경 실패");
+		
 			return "mypage/updateMemberInfo";
 
 		}
@@ -266,14 +266,33 @@ public class MemberController {
 	 */
 	@ResponseBody
 	@PostMapping("/memberStatus")
-	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response, String pwdCheck) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member mem = (Member) authentication.getPrincipal();
-		boolean check = false;
-		for (MemberListDTO dto : mem.getMemberListDTO()) {
-			if (dto.getListGrade().equals("host"))
-				check = true;
-		}
+	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response ,String pwdCheck) {
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    System.out.println("입력한 비번옴? : " + pwdCheck);
+	    Member mem = (Member) authentication.getPrincipal();
+	    boolean check = false;
+	    for(MemberListDTO dto : mem.getMemberListDTO()) {
+	    	if(dto.getListGrade().equals("host"))
+				   check = true; 
+	    		}
+	    if (check) { // 해당 유저가 가입된 클럽 중  호스트인게 있다면!
+	        return false;
+	    	}
+	    if(!service.updateCheck(mem, pwdCheck)) { // 비밀번호 확인에서 틀렸을 경우
+	    	System.out.println("비번트림 ㅠ");
+	    	return false;
+	    }
+	    
+	    service.memberStatus(mem); // 멤버 상태 업데이트
+	    removeService.deleteAllComment(mem.getId());
+	    removeService.deleteMembershipUserList(mem.getId());
+	    removeService.deleteAllMeeting(mem.getId());
+	    // membershipUserList 삭제
+	    
+	    // 로그아웃 처리
+	    SecurityContextHolder.getContext().setAuthentication(authentication);
+	    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+	    logoutHandler.logout(request, response, authentication);
 
 		if (check) { // 해당 유저가 가입된 클럽 중 호스트인게 있다면!
 			return false;
@@ -360,7 +379,18 @@ public class MemberController {
 				.membershipUserList(infoService.selectMemberUserList(member.getId())).build();
 		System.out.println(mem);
 		model.addAttribute("mem", mem);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+		if(authentication.getPrincipal().equals("anonymousUser")) {
+				System.out.println("로그인 X ");
+				return "member/userInfo";
+		}
+			Member loginMember = (Member) authentication.getPrincipal();
+		if(loginMember.getNickname().equals(nickname)) {
+			System.out.println("본인 ");
+			return "mypage/mypage";			
+			}
+		System.out.println("그외 ");
 		return "member/userInfo";
 	}
 

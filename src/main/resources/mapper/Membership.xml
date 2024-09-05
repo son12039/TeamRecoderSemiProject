@@ -160,14 +160,45 @@
 		list_grade != "guest"
 		GROUP BY membership_code
 	</select>
+	
 
-	<!-- 클럽 생성관련 쿼리 -->
-	<insert id="makeMembership" parameterType="Membership"
-		useGeneratedKeys="true" keyProperty="membershipCode">
-		INSERT INTO
-		membership(membership_name,membership_info,membership_max)
-		VALUES(#{membershipName},#{membershipInfo},#{membershipMax})
+
+	<!--  클럽 생성관련 쿼리  -->
+	<insert id="makeMembership" parameterType="Membership" useGeneratedKeys="true" keyProperty="membershipCode"> 
+		INSERT INTO membership(membership_name, membership_max,membership_accession_text,membership_simple_text)
+		VALUES(#{membershipName},#{membershipMax},
+			#{membershipAccessionText},#{membershipSimpleText})
 	</insert>
+	
+	<!-- 로케이션 코드 맴버쉽 코드로 로케이션추가 -->
+	<insert id="makeLocationMembership" parameterType="MembershipLocation"> 
+		INSERT INTO membership_location(loc_code,membership_code) 
+		VALUES(#{locSmallCode}, #{membershipCode}) 
+	</insert>
+	<!-- 타입 코드 맴버쉽 코드로 타입추가 -->
+	<insert id="makeTypeMembership" parameterType="MembershipType"> 
+		INSERT INTO membership_type(type_code, membership_code) 
+		VALUES(#{typeSmallCode},#{membershipCode}); 
+	</insert>
+	<!--  로케이션 가져와서 코드로 반환 -->
+	<select id="findLocationCode" parameterType="LocationCategory" resultType="int"> 
+		SELECT loc_code 
+		FROM location_category 
+		WHERE loc_la_name = #{locLaName} 
+		AND loc_s_name = #{locSName} 
+	</select>
+	<!--  타입을 가져와서 코드로 반환 -->
+	<select id="findTypeCode" parameterType="TypeCategory" resultType="int"> 
+		SELECT type_code 
+		FROM type_category 
+		WHERE type_la_name = #{typeLaName} AND type_s_name = #{typeSName} 
+	</select>
+	<!--  클럽 이름 중복체크 -->
+	<select id="membershipNameCheck" parameterType="Membership" resultMap="membershipMap"> 
+		SELECT * 
+		FROM membership 
+		WHERE membership_name = #{membershipName} 
+	</select>
 
 	<!-- 클럽 생성시 코드가 없어서 폴더생성이 안대니까 업데이트로 이미지(썸네일) 추가 -->
 	<update id="membershipImg" parameterType="Membership">

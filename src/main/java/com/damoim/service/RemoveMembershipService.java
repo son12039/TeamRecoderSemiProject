@@ -20,6 +20,8 @@ public class RemoveMembershipService {
 	@Autowired
 	private RemoveMemberShipMapper removeMembershipMapper;
 	
+
+	
 	public boolean allDeleteMembership(int membershipCode) {
 		int clubCount = membershipMapper.membershipUserCount(membershipCode); // 해당클럽에 남아있는 인원수 
 		// 해당클럽에 1명만 남은경우 (호스트 본인)

@@ -80,6 +80,9 @@ public class MembershipController {
 	
 	@Autowired
 	private RemoveMembershipService removeService;
+	
+	@Autowired
+	private RemoveMembershipService removeMembership;
 	/*
 	 * 
 	 * */
@@ -564,7 +567,7 @@ public class MembershipController {
 			fileDelete(imgUrl, vo.getMembershipCode()); // 실 파일 삭제	
 			vo.setMembershipImg(fileUpload(vo.getFile(), vo.getMembershipCode())); // 파일 업로드 + DB에 URL추가
 		}
-		System.out.println("보내는 정보에서 사진 정보 포함 : " +vo);
+		
 
 
 		
@@ -572,7 +575,7 @@ public class MembershipController {
 		// 만들어놓은 membership update 돌리기 
 		
 		
-		
+		service.updateMembership(vo);
 		
 		
 		

@@ -334,7 +334,7 @@
 			        img.setAttribute('src', event.target.result);
 			        /* container == #image_container 그럼 그 컨테이너의 자식의 img */
 			        console.log("이미지",img);
-			        console.log("컨테이너",container);
+			        console.log("컨테이너",container)
 			        container.appendChild(img);
 					
 			    };

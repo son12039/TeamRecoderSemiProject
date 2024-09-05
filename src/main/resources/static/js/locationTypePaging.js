@@ -25,82 +25,62 @@ window.addEventListener("scroll", () => {
       },
       success: function (clubList) {
         let div = $(".membership-list");
-        $.each(clubList, function (index, club) {
-          let ajaxLocationType =
-            '<div class="membership-card">' +
-            '<div class="membership-img">' +
-            '<a href="/' +
-            club.membershipCode +
-            '">';
-          if (club.membershipImg != null) {
-            ajaxLocationType +=
-              '<img src="http://192.168.10.51:8081/membership/' +
-              club.membershipCode +
-              "/" +
-              club.membershipImg +
-              '">';
-          } else {
-            ajaxLocationType +=
-              '<img src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">';
-          }
-          ajaxLocationType +=
-            "</a>" +
-            "</div>" +
-            '<div class="membership-info">' +
-            '<h1 class="membership-name">' +
-            club.membershipName +
-            "</h1>" +
-            "<h2>" +
-            club.membershipSimpleText +
-            "</h2>" +
-            "<h3><i class='fa-solid fa-users'></i> :" +
-            club.count +
-            "/" +
-            club.membershipMax +
-            "</h3>" +
-			'<a href="/userInfo/'+club.nickname+'">' + // ddddddddd
-            '<div class="host">';
-          if (club.memberImg != null) {
-            ajaxLocationType +=
-              '<img class="user-img" src="http://192.168.10.51:8081/member/' +
-              club.id +
-              "/" +
-              club.memberImg +
-              '">';
-          } else {
-            ajaxLocationType +=
-              '<img class="user-img"src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">';
-          }
-          ajaxLocationType +=
-            "<h2>호스트 : " +
-            club.nickname +
-            "</h2>" +
-            '<input type="hidden" name="code" value="' +
-            club.membershipCode +
-            '">' +
-            "<br>" +
-            "</div>" +
-			'</a>'+
-            '<div class="locationTypeBox">' +
-            '<div class="location">';
-          for (let location of club.locations) {
-            ajaxLocationType +=
-              '<div class="locationList">' +
-              "#" +
-              location.locLaName +
-              "#" +
-              location.locSName +
-              "</div>";
-          }
-          ajaxLocationType += "</div>" + "<br>" + '<div class="type">';
-          for (let type of club.types) {
-            ajaxLocationType +=
-              '<div class="typeList">' + type.typeSName + "</div>";
-          }
-          ajaxLocationType += "</div>" + "</div>" + "</div>" + "</div>";
+		$.each(clubList, function(index, club) {
+			let ajaxLocationType =
+				'<div class="membership-card">' +
+				'<div class="membership-img">' +
+				'<a href="/' + club.membershipCode + '">';
+			if (club.membershipImg) {
+				ajaxLocationType += '<img src="http://192.168.10.51:8081/membership/' + club.membershipCode + '/' + club.membershipImg + '">';
+			} else {
+				ajaxLocationType += '<img src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">';
+			}
+			ajaxLocationType += '</a>' +
+				'</div>' +
+				'<div class="membership-info">' +
+				'<h1 class="membership-name">' + club.membershipName + '</h1>' +
+				'<h2>' + club.membershipSimpleText + '</h2>' +
 
-          div.append(ajaxLocationType);
-        });
+				'<a href="/userInfo/' + club.nickname + '">' +
+				'<div class="host">';
+			if (club.memberImg) {
+				ajaxLocationType += '<img class="user-img" src="http://192.168.10.51:8081/member/' + club.id + '/' + club.memberImg + '">';
+			} else {
+				ajaxLocationType += '<img class="user-img" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">';
+			}
+			ajaxLocationType += '<h2>호스트 : ' + club.nickname + '</h2>' +
+				'<input type="hidden" name="code" value="' + club.membershipCode + '">' +
+				'<div class="memberMannerIndex">';
+
+			if (club.memberManner < 30) {
+				ajaxLocationType += '<span style="color: red"><i class="fa-solid fa-face-angry fa-2x"></i></span>' +
+					'<p>' + club.memberManner + '℃</p>';
+			} else if (club.memberManner >= 30 && club.memberManner <= 40) {
+				ajaxLocationType += '<span style="color: rgb(252, 177, 3)"><i class="fa-solid fa-face-smile fa-2x"></i></span>' +
+					'<p>' + club.memberManner + '℃</p>';
+			} else {
+				ajaxLocationType += '<span style="color: green"><i class="fa-solid fa-face-grin fa-2x"></i></span>' +
+					'<p>' + club.memberManner + '℃</p>';
+			}
+			ajaxLocationType += '</div>' +
+				'</div>' +
+				'</a>' +
+				'<h3><i class="fa-solid fa-users"></i> : ' + club.count + '/' + club.membershipMax + '</h3>' +
+				'<div class="locationTypeBox">' +
+				'<div class="location">';
+			$.each(club.locations, function(i, location) {
+				ajaxLocationType += '<div class="locationList"># ' + location.locLaName + ' ' + location.locSName + '</div>';
+			});
+			ajaxLocationType += '</div>' + '<br>' +
+				'<div class="type">';
+			$.each(club.types, function(i, type) {
+				ajaxLocationType += '<div class="typeList">' + type.typeSName + '</div>';
+			});
+			ajaxLocationType += '</div>' +
+				'</div>' +
+				'</div>';
+			div.append(ajaxLocationType);
+		});
         isLoading = false; // 로딩 상태 해제
       },
     });

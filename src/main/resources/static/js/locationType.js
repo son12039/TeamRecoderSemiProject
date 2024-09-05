@@ -43,7 +43,7 @@ $("#typeSNameForm").click(function() {
 	}
 })
 let laName = ""
-let locationLaFriend =""
+let locationLaFriend = ""
 $("#locationLaNameForm input[type=checkbox]").change(function() {
 	// 아이콘 처리 하는 부분
 	const link = document.createElement('link');
@@ -190,11 +190,11 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 						let locationSVal = locationSList.length - 1
 						locationSFriend = locationSList.length <= 1 ? "<div class='locationSFriend'>" + locationSList[0] + "</div>" : "<div class='locationSFriend'>" + locationSList[0] + " 외 " + locationSVal + "</div>";
 						$(".locationSBox").append(locationSFriend);
-						
-						if(locationSVal === 0){
+
+						if (locationSVal < 0) {
 							$(".locationSFriend").remove()
 						}
-						
+
 						history.pushState({}, null, url);
 						// 지역 작은놈들 페이징
 						page = 1;
@@ -287,7 +287,7 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 				.css({
 					background: "#dbdbdb"
 				})
-				//전체보기 눌렀을때
+			//전체보기 눌렀을때
 		} else if (typeLaName === '') {
 			$("#typeSNameForm").css({
 				backgroundColor: "",
@@ -414,7 +414,6 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 
 
 
-
 function renderClubList(clubList) {
 	let div = $(".membership-list");
 	div.empty();
@@ -423,7 +422,7 @@ function renderClubList(clubList) {
 			'<div class="membership-card">' +
 			'<div class="membership-img">' +
 			'<a href="/' + club.membershipCode + '">';
-		if (club.membershipImg != null) {
+		if (club.membershipImg) {
 			ajaxLocationType += '<img src="http://192.168.10.51:8081/membership/' + club.membershipCode + '/' + club.membershipImg + '">';
 		} else {
 			ajaxLocationType += '<img src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">';
@@ -433,37 +432,49 @@ function renderClubList(clubList) {
 			'<div class="membership-info">' +
 			'<h1 class="membership-name">' + club.membershipName + '</h1>' +
 			'<h2>' + club.membershipSimpleText + '</h2>' +
-			'<h3><i class="fa-solid fa-users"></i> : ' + club.count + '/' + club.membershipMax + '</h3>' +
+
 			'<a href="/userInfo/' + club.nickname + '">' +
 			'<div class="host">';
-		if (club.memberImg != null) {
+		if (club.memberImg) {
 			ajaxLocationType += '<img class="user-img" src="http://192.168.10.51:8081/member/' + club.id + '/' + club.memberImg + '">';
 		} else {
 			ajaxLocationType += '<img class="user-img" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">';
 		}
 		ajaxLocationType += '<h2>호스트 : ' + club.nickname + '</h2>' +
 			'<input type="hidden" name="code" value="' + club.membershipCode + '">' +
-			'<br>' +
-			'</div>' +
-			'</a>' +
-			'<div class="locationTypeBox">' +
-			'<div class="location">';
-		for (let location of club.locations) {
-			ajaxLocationType += '<div class="locationList">' + '# ' + location.locLaName + location.locSName + '</div>';
-		}
-		ajaxLocationType += '</div>' + '<br>' +
-			'<div class="type">';
-		for (let type of club.types) {
-			ajaxLocationType += '<div class="typeList">' + type.typeSName + '</div>';
+			'<div class="memberMannerIndex">';
+
+		if (club.memberManner < 30) {
+			ajaxLocationType += '<span style="color: red"><i class="fa-solid fa-face-angry fa-2x"></i></span>' +
+				'<p>' + club.memberManner + '℃</p>';
+		} else if (club.memberManner >= 30 && club.memberManner <= 40) {
+			ajaxLocationType += '<span style="color: rgb(252, 177, 3)"><i class="fa-solid fa-face-smile fa-2x"></i></span>' +
+				'<p>' + club.memberManner + '℃</p>';
+		} else {
+			ajaxLocationType += '<span style="color: green"><i class="fa-solid fa-face-grin fa-2x"></i></span>' +
+				'<p>' + club.memberManner + '℃</p>';
 		}
 		ajaxLocationType += '</div>' +
 			'</div>' +
+			'</a>' +
+			'<h3><i class="fa-solid fa-users"></i> : ' + club.count + '/' + club.membershipMax + '</h3>' +
+			'<div class="locationTypeBox">' +
+			'<div class="location">';
+		$.each(club.locations, function(i, location) {
+			ajaxLocationType += '<div class="locationList"># ' + location.locLaName + ' ' + location.locSName + '</div>';
+		});
+		ajaxLocationType += '</div>' + '<br>' +
+			'<div class="type">';
+		$.each(club.types, function(i, type) {
+			ajaxLocationType += '<div class="typeList">' + type.typeSName + '</div>';
+		});
+		ajaxLocationType += '</div>' +
 			'</div>' +
 			'</div>';
-
 		div.append(ajaxLocationType);
 	});
 }
+
 
 window.addEventListener('load', () => {
 	const baseUrl = window.location.origin + '/';

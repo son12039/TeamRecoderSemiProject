@@ -37,6 +37,7 @@ public class PageController {
 	 * 회원가입 페이지 이동 
 	 * (나중에 추가 가능하면 휴대전화 api랑 나이 생년월일 선택으로 자동계산 반환, 승인버튼 버튼색 조건되야 변경기능)
 	 * */
+	
 	@GetMapping("/signUp")
 	public String signUp() {
 		return "signUp/signUp";
@@ -68,11 +69,7 @@ public class PageController {
 		return "mypage/mypage";
 	}
 	
-	// 개인 유저 페이지
-	@GetMapping("/user")
-	public String user() {
-		return "member/user";
-	}
+
 	
 	// 내 중요 정보 수정
 	@GetMapping("/updateMemberInfo")

@@ -81,6 +81,14 @@ public class MemberService implements UserDetailsService {
 		mapper.updateMember(vo);
 	}
 	
+	// 기본 사진으로 변경
+	public void defualtFile(String id) {
+		mapper.defualtFile(id);
+	}
+	
+	
+	
+	
 	// 비밀번호 맞나 틀리나
 	public boolean updateCheck(Member vo, String pwdCheck) {
 		if (bcpe.matches(pwdCheck, vo.getPwd())) {
@@ -94,9 +102,6 @@ public class MemberService implements UserDetailsService {
 	// 비밀번호 재설정시 암호화
 	public void updateMemberInfo(Member member, String beforePwd) {
 		
-		
-		
-			
 			member.setPwd(bcpe.encode(member.getPwd()));
 			mapper.updateMemberInfo(member);
 			
@@ -106,10 +111,6 @@ public class MemberService implements UserDetailsService {
 	// 탈퇴시 status 조정
 	public boolean memberStatus(Member member) {
 		return mapper.memberStatus(member);
-	}
-	// host인사람 골라서 회원탈퇴 방지
-	public List<MemberListDTO> resignSelect(String id) {
-		return mapper.resignSelect(id);
 	}
 	
 	// 회원 추천 + 해당회원에 쿨타임 업데이트 ==================================
@@ -161,4 +162,7 @@ public class MemberService implements UserDetailsService {
 		
 		return member;
 	}
+	
+	
+	
 }

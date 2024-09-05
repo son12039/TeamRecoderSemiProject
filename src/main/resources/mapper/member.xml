@@ -90,8 +90,7 @@
 		SET
 		member_img = #{memberImg},
 		member_info = #{memberInfo},
-		member_hobby =
-		#{memberHobby}
+		member_hobby = #{memberHobby}
 		WHERE id = #{id}
 	</update>
 	
@@ -182,15 +181,17 @@
 		SET last_recommendation_time = now()
 		WHERE id = #{id}
 	</update>
-
-	<select id="resignSelect" parameterType="String"
-		resultMap="memberListmap">
-		SELECT * 
-		FROM member
-		JOIN membership_user_list USING (id)
-		WHERE list_grade = 'host' AND id =#{id}
-	</select>
-
+	
+	<update id="defualtFile" parameterType="String">
+		UPDATE member
+		SET member_img =#{memberImg}
+		WHERE id=#{id}
+	</update>
+	
+	
+	
+	
+	
 </mapper>
 	
 

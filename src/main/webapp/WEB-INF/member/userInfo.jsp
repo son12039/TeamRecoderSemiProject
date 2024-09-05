@@ -34,28 +34,32 @@
 						</c:otherwise>
 					</c:choose>
 					<div class="info">
-						<div class="info_group">
+						<div class="count_info">
 							<span>모임 참여 횟수 ${mem.memberMeetCount}회</span>
-							<div class="tem_info">
-								<i class="fa-solid fa-temperature-quarter"></i>
-								<c:if test="${mem.member.memberManner < 30}">
-									<span>${mem.member.memberManner}℃</span>
-									<span style="color: red"><i
-										class="fa-solid fa-face-angry fa-2x"></i></span>
-								</c:if>
-								<c:if
-									test="${mem.member.memberManner >= 30 && mem.member.memberManner <= 40}">
-									<span>${mem.member.memberManner}℃</span>
-									<span style="color: rgb(252, 177, 3)"><i
-										class="fa-solid fa-face-smile fa-2x"></i></span>
-								</c:if>
-								<c:if test="${mem.member.memberManner > 40}">
-									<span>${mem.member.memberManner}℃</span>
-									<span style="color: green"><i
-										class="fa-solid fa-face-grin fa-2x"></i></span>
-								</c:if>
-							</div>
 						</div>
+						<div class="tem_info">
+
+							<c:if test="${mem.member.memberManner < 30}">
+								<i class="fa-solid fa-temperature-quarter"></i>
+								<span>${mem.member.memberManner}℃</span>
+								<span style="color: red"><i
+									class="fa-solid fa-face-angry fa-2x"></i></span>
+							</c:if>
+							<c:if
+								test="${mem.member.memberManner >= 30 && mem.member.memberManner <= 40}">
+								<i class="fa-solid fa-temperature-half"></i>
+								<span>${mem.member.memberManner}℃</span>
+								<span style="color: rgb(252, 177, 3)"><i
+									class="fa-solid fa-face-smile fa-2x"></i></span>
+							</c:if>
+							<c:if test="${mem.member.memberManner > 40}">
+								<i class="fa-solid fa-temperature-three-quarters"></i>
+								<span>${mem.member.memberManner}℃</span>
+								<span style="color: green"><i
+									class="fa-solid fa-face-grin fa-2x"></i></span>
+							</c:if>
+						</div>
+
 					</div>
 					<div class="memberInfo_div">
 						<h1>
@@ -88,24 +92,20 @@
 						</div>
 						<div id="rating">
 							<button id="plus-btn" data-target-member-id="${mem.member.id}"
-								data-login-member-id="${loginMember.id}" class="rating-btn">
-								<p id="plus-minus">추천</p>
-								<span id="emoji-plus"> <i
-									class="fa-solid fa-thumbs-up fa-3x"></i>
-								</span>
+								data-login-member-id="${loginMember.id}" class="left-btn">
+								<i class="fa-solid fa-thumbs-up fa-3x"></i>
 							</button>
 							<button id="minus-btn" data-target-member-id="${mem.member.id}"
-								data-login-member-id="${loginMember.id}" class="rating-btn">
-								<p id="plus-minus">비추천</p>
-								<span id="emoji-minus"> <i
-									class="fa-solid fa-thumbs-down fa-3x"></i>
-								</span>
+								data-login-member-id="${loginMember.id}" class="right-btn">
+								<i class="fa-solid fa-thumbs-down fa-3x"></i>
 							</button>
+
 						</div>
 					</sec:authorize>
 					<div id="section2">
 						<div class="section2_memberInfo">
 							<h1>가입한 클럽</h1>
+							<i class="fa-solid fa-users"></i>
 						</div>
 						<div class="club_info">
 							<c:forEach items="${mem.membershipUserList}" var="list">
@@ -121,24 +121,27 @@
 						</div>
 						<div class="section2_memberInfo">
 							<h1>가입신청한 클럽</h1>
-							<div class="club_info">
-								<c:forEach items="${mem.membershipUserList}" var="list">
-									<c:if test="${list.listGrade == 'guest'}">
-										<div class="club_box">
-											<a href="/${list.membership.membershipCode}"> <img
-												class="club_img"
-												src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}">
-												<p>${list.membership.membershipName}</p>
-											</a>
-										</div>
-									</c:if>
-								</c:forEach>
-							</div>
+							<i class=" fa-solid fa-user-plus"></i>
 						</div>
+						<div class="club_info">
+							<c:forEach items="${mem.membershipUserList}" var="list">
+								<c:if test="${list.listGrade == 'guest'}">
+									<div class="club_box">
+										<a href="/${list.membership.membershipCode}"> <img
+											class="club_img"
+											src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}">
+											<p>${list.membership.membershipName}</p>
+										</a>
+									</div>
+								</c:if>
+							</c:forEach>
+						</div>
+
 					</div>
 				</div>
 			</div>
 		</div>
+
 	</main>
 	<jsp:include page="../footer/footer.jsp" />
 	<script src="${pageContext.request.contextPath}/js/userInfo.js"></script>

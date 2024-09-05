@@ -3,27 +3,56 @@ main {
 }
 
 /* 폰트 어썸 아이콘*/
-.fa-solid.fa-crown{
+.fa-solid.fa-crown {
 	color: #fca311;
 	font-size: 1.2rem;
 }
-.fa-solid.fa-users{
+.fa-solid.fa-users {
 	font-size: 1.2rem;
+	margin-left: 10px;
 }
 .fa-solid.fa-user-plus {
 	font-size: 1.2rem;
+	margin-left: 10px;
 }
-.fa-solid.fa-temperature-quarter{
-	font-size: 1.8rem;
-	color:#004e98;
+
+.fa-solid.fa-users {
+	font-size: 1.2rem;
 }
-.fa-solid.fa-temperature-half{
-	font-size: 1.8rem;
-	color:#ffd100;
+
+.fa-solid.fa-user-plus {
+	font-size: 1.2rem;
 }
-.fa-solid.fa-temperature-three-quarters{
+
+.fa-solid.fa-temperature-quarter {
 	font-size: 1.8rem;
-	color:#a4161a;
+	color: #004e98;
+}
+
+.fa-solid.fa-temperature-half {
+	font-size: 1.8rem;
+	color: #ffd100;
+}
+
+.fa-solid.fa-temperature-three-quarters {
+	font-size: 1.8rem;
+	color: #a4161a;
+}
+
+.fa-solid.fa-thumbs-up.fa-3x {
+	color: green;
+}
+
+.fa-solid.fa-thumbs-down.fa-3x {
+	color: red;
+}
+
+
+h1 {
+	font-size: 1.3rem;
+	font-weight: bolder;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
 .box {
@@ -44,7 +73,7 @@ main {
 	align-items: center;
 	flex-direction: column;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	background: honeydew;
+	background: #FFE8CF;
 	margin-bottom: 20px;
 }
 
@@ -55,58 +84,82 @@ main {
 	flex-direction: column;
 	padding-top: 50px;
 	padding-bottom: 50px;
-	justify-content: center;
-	display: flex;
 }
 
 .user-img {
 	width: 250px;
 	height: 250px;
 	border-radius: 50px;
-	margin-bottom: 50px;
+	margin-bottom: 30px;
 }
 
 #align {
 	display: flex;
 	justify-content: center;
+	padding-top: 15px;
+    padding-bottom: 15px;
+	
 }
-
+/* 추천 버튼 */
 #rating {
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
+	align-items: center;
+	width: 200px;
+	height: 60px;
+	margin-bottom: 20px;
+
+}
+.left-btn {
+	width: 100px;
+	height: 60px;
+	border-right: 1px black solid;
+	background: #14213D;
+	border-radius: 20px 0px 0px 20px;
+}
+.left-btn:hover{
+	background-color: #1B2A41;
+	border-right: 1px #FFE8CF solid;
+	border: 3px solid black;
+	.fa-solid.fa-thumbs-up.fa-3x {
+		color:yellow;
+	}
+}
+.right-btn{
+	width: 100px;
+	height: 60px;
+	border-left: 1px black solid;
+	background: #14213D;
+	border-radius: 0px 20px 20px 0px;
+}
+.right-btn:hover{
+	background-color: #1B2A41;
+	border-right: 1px #FFE8CF solid;
+	border: 3px solid black;
+	.fa-solid.fa-thumbs-down.fa-3x{
+		color: #CCC9DC;
+	}
+}
+
+
+#plus-minus {
+	text-align: center;
 }
 
 #emoji-plus {
 	color: green;
 	padding: 5px;
 	border-radius: 50%;
-	background-color: #dddd;
 }
 
 #emoji-minus {
 	color: red;
 	padding: 5px;
 	border-radius: 50%;
-	background-color: #dddd;
-}
-
-.rating-btn {
-	align-items: center;
-	flex-direction: column;
-	display: flex;
-	font-weight: bold;
-	border: none;
-	background-color: white;
-	margin: 0px 10px;
-	cursor: pointer;
-}
-
-#plus-minus {
-	text-align: center;
 }
 
 .memberInfo_div h1 {
-	font-size: 1.5rem;
+	font-size: 1.3rem;
 	font-weight: bolder;
 	padding: 10px;
 }
@@ -114,7 +167,7 @@ main {
 .memberInfo_div h2 {
 	padding-top: 10px;
 	padding-bottom: 10px;
-	font-size: 1.4rem;
+	font-size: 1.3rem;
 	font-weight: bolder;
 }
 
@@ -131,26 +184,36 @@ main {
 .info {
 	text-wrap: nowrap;
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
 	width: 100%;
 	align-items: center;
-}
 
-.info_group {
-	width: 40%;
-	display: flex;
-	align-items: center;
-	justify-content: space-around;
+}
+.count_info span {
+	padding-right: 15px;
+	font-size: 1.2rem;
+	font-weight: bolder;
 }
 
 .tem_info {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	align-items: center;
+}
+
+.tem_info>* {
+	padding-left: 10px;
+}
+.tem_info span{
+	padding-left: 15px;
+	font-size: 1.2rem;
+	font-weight: bolder;
 }
 
 .info_group span {
 	font-weight: bolder;
+	font-size: 1.2rem;
 }
 
 .info_group div h1 {
@@ -180,26 +243,29 @@ main {
 
 #section2 {
 	width: 100%;
+	max-width: 800px;
 	margin-top: 10px;
 	display: flex;
 	padding: 20px;
-	background-color: #f9f9f9;
 	flex-direction: column;
 	justify-content: space-between;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	background-color: #f9f9f9;
 }
-
-.section2_memberInfo h1 {
-	font-size: 1rem;
-	font-weight: bolder;
-	padding-top: 20px;
-	padding-bottom: 20px;
+.section2_memberInfo{
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	
 }
 
 .club_info {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-start;
-	height: 100px;
+	align-items: center;
+	height: 100%;
 }
 
 .club_img {
@@ -214,9 +280,9 @@ main {
 	height: 100px;
 	display: flex;
 	flex-direction: column;
-	margin: 0px 10px;
-	border-radius: 50%;
-	background-color: #dddd;
+	margin: 10px 10px 10px;
+	border-radius: 20%;
+	background-color: #C0B9DD;
 	justify-content: center;
 	align-items: center;
 }

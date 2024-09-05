@@ -37,7 +37,7 @@ public interface MemberMapper {
 	// 회원정보 업데이트 ===============================
 	void updateMember(Member vo); // 회원정보(중요)업데이트
 	void updateMemberInfo(Member member); // 회원정보(비중요) 업데이트
-	List<MemberListDTO> resignSelect(String id); // 호스트인 회원 검색
+	void defualtFile(String id); // 기본 사진으로 변경 2024/09/05 DM
 	
 	// 회원탈퇴 ======================================
 	boolean memberStatus(Member member); // 회원 탈퇴시 해당 회원의 스테이터스를 false로 변경

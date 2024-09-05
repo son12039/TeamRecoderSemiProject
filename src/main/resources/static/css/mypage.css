@@ -6,29 +6,44 @@ body {
 	background-color: #f4f4f4;
 }
 
-/* 폰트 어썸 아이콘*/
-.fa-solid.fa-crown{
+/* 폰트 어썸 아이콘 % 외부 클래스*/
+.fa-solid.fa-crown {
 	color: #fca311;
 	font-size: 1.2rem;
 }
-.fa-solid.fa-users{
+
+.fa-solid.fa-users {
 	font-size: 1.2rem;
 }
+
 .fa-solid.fa-user-plus {
 	font-size: 1.2rem;
 }
-.fa-solid.fa-temperature-quarter{
+
+.fa-solid.fa-temperature-quarter {
 	font-size: 1.8rem;
-	color:#004e98;
+	color: #004e98;
 }
-.fa-solid.fa-temperature-half{
+
+.fa-solid.fa-temperature-half {
 	font-size: 1.8rem;
-	color:#ffd100;
+	color: #ffd100;
 }
-.fa-solid.fa-temperature-three-quarters{
+
+.fa-solid.fa-temperature-three-quarters {
 	font-size: 1.8rem;
-	color:#a4161a;
+	color: #a4161a;
 }
+
+.fc .fc-toolbar-title{
+	font-size: 1.5rem;
+	margin: 0px;
+}
+
+
+
+
+
 
 input[type=text] {
 	width: 100%;
@@ -38,6 +53,8 @@ input[type=text] {
 	border-radius: 10px;
 	background-color: rgb(233, 233, 233);
 }
+
+
 
 .form-control {
 	display: none;
@@ -57,6 +74,7 @@ input[type=text] {
 	border-radius: 4px;
 	color: white;
 }
+
 .profile_file_button:hover {
 	background-color: #e76f00;
 }
@@ -91,7 +109,7 @@ input[type=text] {
 	align-items: center;
 	flex-direction: column;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	background: honeydew;
+	background-color: #FFE8CF;
 	margin-bottom: 20px;
 }
 
@@ -104,6 +122,7 @@ input[type=text] {
 	justify-content: center;
 	align-items: center;
 }
+
 .profile_file {
 	display: flex;
 	align-items: center;
@@ -124,8 +143,6 @@ input[type=text] {
 	border: 3px #14213D solid;
 }
 
-
-
 .profile_update>* {
 	margin-bottom: 20px;
 }
@@ -138,12 +155,14 @@ input[type=text] {
 	font-weight: bolder;
 	height: 70px;
 }
-.profile_manner_info{
+
+.profile_manner_info {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
 }
+
 .profile_manner p {
 	font-size: 1.5rem;
 	font-weight: bolder;
@@ -183,51 +202,10 @@ input[type=text] {
 	flex-direction: column;
 	align-items: center;
 }
-.list_grade_text{
+
+.list_grade_text {
 	display: flex;
 	flex-direction: row;
-	
-}
-#submit {
-	background-color: #fca311;
-	color: white;
-	padding: 10px 15px;
-	border: none;
-	border-radius: 6px;
-	width: 50%;
-	height: 50px;
-	margin-top: 20px;
-	font-size: 1rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-#updateCheck {
-	background-color: #14213D;
-	color: white;
-	padding: 10px 15px;
-	border: none;
-	border-radius: 6px;
-	width: 50%;
-	height: 50px;
-	margin-top: 20px;
-	font-size: 1rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-#submit:hover {
-	background-color: #e76f00;
-}
-
-#updateCheck:hover {
-	background-color: #000000;
-}
-
-#updateSubmit:hover {
-	background-color: #e76f00;
 }
 
 #all-club, #manage-club, #wait-club {
@@ -248,6 +226,8 @@ input[type=text] {
 }
 
 .membership-card {
+	width: 90%;
+	max-width: 800px;
 	display: none;
 	padding: 20px;
 	border: 1px solid #ddd;
@@ -256,7 +236,7 @@ input[type=text] {
 	margin-bottom: 20px;
 	overflow: hiddlen;
 	white-space: nowrap;
-	width: 90%;
+	
 }
 
 .membership-card h1 {
@@ -303,10 +283,9 @@ input[type=text] {
 .membership-String p {
 	padding-bottom: 20px;
 	white-space: nowrap;
-	
-	
 }
-.membership-text{
+
+.membership-text {
 	margin-bottom: 20px;
 }
 
@@ -317,11 +296,51 @@ input[type=text] {
 	line-height: 30px;
 }
 
-
 /* 버튼 스타일 */
-#make-club, #all-club-button, #manage-club-button, #wait-club-button,
-	#update-club {
-	width: 204px;
+#submit {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #fca311;
+	color: white;
+	padding: 10px 15px;
+	border: none;
+	border-radius: 6px;
+	width: 50%;
+	height: 50px;
+	margin-top: 20px;
+	font-size: 1rem;
+	font-weight: bolder;
+}
+
+#updateCheck {
+	background-color: #14213D;
+	color: white;
+	padding: 10px 15px;
+	border: none;
+	border-radius: 6px;
+	width: 50%;
+	height: 50px;
+	margin-top: 20px;
+	font-size: 1rem;
+	font-weight: bolder;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#submit:hover,#updateCheck:hover {
+	background-color: #e76f00;
+}
+
+
+#updateSubmit:hover {
+	background-color: #e76f00;
+}
+
+#all-club-button, #manage-club-button, #wait-club-button,
+	#all-meet-button {
+	width: 25%;
 	background-color: #fca311;
 	color: white;
 	border: none;
@@ -331,17 +350,36 @@ input[type=text] {
 	align-items: center;
 	justify-content: center;
 	padding: 10px 10px;
-	margin: 20px;
+	margin: 10px 17px 10px 17px;
 	overflow: hiddlen;
 	white-space: nowrap;
+	font-weight: bolder;
+	overflow: hiddlen;
 }
 
 #all-club-button:hover, #manage-club-button:hover, #wait-club-button:hover,
-	#update-club-button:hover, #make-club:hover, #update-club:hover {
+	#update-club-button:hover, #make-club:hover, #update-club:hover,
+	#all-meet-button:hover {
 	background-color: #e76f00;
 	font-weight: bolder;
 	overflow: hiddlen;
 	white-space: nowrap;
+}
+
+.btn {
+	background-color: #14213D;
+	color: white;
+	border: none;
+	border-radius: 6px;
+	width: 100px;
+	height: 40px;
+	font-size: 1rem;
+	font-weight: bolder;
+}
+
+.btn:hover {
+	background-color: #9a8c98;
+	color: black;
 }
 
 :root {
@@ -360,19 +398,6 @@ input[type=text] {
 	flex-flow: column;
 }
 
-#label {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 1.1rem;
-	font-weight: bolder;
-	margin-bottom: 10px;
-	overflow: hiddlen;
-	white-space: nowrap;
-	width: 30%;
-	height: 50px;
-}
-
 #arrow {
 	width: calc(var(--btn-height)* 0.4);
 	height: calc(var(--btn-height)* 0.4);
@@ -381,40 +406,51 @@ input[type=text] {
 	transition: 0.3s ease-in-out;
 }
 
+#toggle_menu {
+	width: 100%;
+}
+
 #menu {
-	display: flex;
-	flex-flow: column;
-	justify-content: center;
-	align-items: center;
-	opacity: 0;
+	flex-direction: row;
 	overflow: hidden;
 	transition: 0.5s ease-in-out;
-	width: 50%;
+	width: 100%;
+	display: none;
 }
 
-#toggle:checked ~ #menu {
-	min-height: var(--menu-min-height);
-	opacity: 1;
+#icon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
 }
 
-#toggle:checked ~ #label>#arrow {
-	transform: rotate(180deg);
-}
-.btn{
-	background-color: #14213D;
-	color: white;
-	border: none;
-	border-radius: 6px;
-	width: 100px;
-	height: 40px;
-	font-size: 1rem;
+#icon h1 {
+	font-size: 1.5rem;
 	font-weight: bolder;
 }
-.menu-name {
-	width: var(--btn-width);
-	color: rgb(0, 0, 0);
-	text-decoration: none;
-	font-size: var(--font-size);
-	font-weight: 900;
-	line-height: 20px;
+
+.toggle_form {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+}
+
+#make-club, #update-club {
+	background-color: #14213D;
+	color: white;
+	padding: 10px 15px;
+	border: none;
+	border-radius: 6px;
+	width: 50%;
+	height: 50px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-size: 1rem;
+	font-weight: bolder;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }

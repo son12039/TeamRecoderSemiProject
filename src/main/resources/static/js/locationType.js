@@ -1,3 +1,4 @@
+
 // 현재 페이지에 대한 url 저장하기
 const url = new URL(location.href);
 // 현재 페이지에 대한 url 파라미터 가져오기기
@@ -8,77 +9,40 @@ const urlParams = url.searchParams;
 
 // 파라미터값 존재여부 체크 & 파라미터 값 가져오기
 // 상위 지역 필터 
-$("#locationLaNameForm").click(function(){
-	if($(".locationLaDiv").css("display")=="none"){
-		$(".locationLaDiv").css({display : "block"})
-		$(".locationSDiv").css({display : "none"})
-		$(".typeLaDiv").css({display : "none"})
-		$(".typeSDiv").css({display : "none"})
-	}else{
-		$(".locationLaDiv").css({display : "none"})
-	}
+$("#locationLaNameForm").click(function() {
+	$('.locationSDiv').hide();
+	$('.typeLaDiv').hide();
+	$('.typeSDiv').hide();
+	$('.locationLaDiv').toggle();
 })
-$("#locationSNameForm").click(function(){
-	if($(".locationSDiv").css("display")=="none"&&laName!=="" && laName!==null){
-		$(".locationSDiv").css({display : "block"})
-		$(".locationLaDiv").css({display : "none"})
-		$(".typeSDiv").css({display : "none"})
-		$(".typeLaDiv").css({display : "none"})
+$("#locationSNameForm").click(function() {
+	if($(".locationSDiv").css("display")=="none"&&laName!=="" && laName!==null){	
+		$('.locationLaDiv').hide();
+		$('.typeLaDiv').hide();
+		$('.typeSDiv').hide();
+		$('.locationSDiv').toggle();
 	}else{
-		$(".locationSDiv").css({display : "none"})
+		$('.locationSDiv').hide();
 	}
 })
 
-$("#typeLaNameSelect").click(function(){
-	if($(".typeLaDiv").css("display")=="none"){
-		$(".typeLaDiv").css({display : "block"})
-		$(".locationLaDiv").css({display : "none"})
-		$(".locationSDiv").css({display : "none"})
-		$(".typeSDiv").css({display : "none"})
-	}else{
-		$(".typeLaDiv").css({display : "none"})
-	}
+$("#typeLaNameSelect").click(function() {
+	$('.locationSDiv').hide();
+	$('.locationLaDiv').hide();
+	$('.typeSDiv').hide();
+	$('.typeLaDiv').toggle();
 })
-$("#typeSNameForm").click(function(){
+$("#typeSNameForm").click(function() {
 	if($(".typeSDiv").css("display")=="none" && typeLLa !=="" && typeLLa !==null){
-		$(".typeSDiv").css({display : "block"})
-		$(".locationLaDiv").css({display : "none"})
-		$(".locationSDiv").css({display : "none"})
-		$(".typeLaDiv").css({display : "none"})	
+		$('.locationSDiv').hide();
+		$('.locationLaDiv').hide();
+		$('.typeLaDiv').hide();
+		$('.typeSDiv').toggle();	
 	}else{
-		$(".typeSDiv").css({display : "none"})
+		$('.typeSDiv').hide();
 	}
 })
-
-let laName=urlParams.get('locationLaName');
-if (urlParams.has("locationLaName")) {
-	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });;// 클릭시 해당 위치로
-	const locationLaName = urlParams.get('locationLaName');
-	const list = $('#locationLaNameForm input');
-	for (let item of list) {
-		if (locationLaName === item.value) {
-			item.setAttribute('checked', true);
-			$item.css('background-color', 'red');
-		}
-	}
-	$('#locationSNameForm').css({
-		background: '#FCA35B',
-		color : 'white'
-	})
-}
-if (urlParams.has("locationSName")) {
-	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
-	const locationSName = urlParams.getAll('locationSName');
-	const list = $('#locationSNameForm input');
-	for (let item of list) {
-		if (locationSName.includes(item.value)) {
-			item.setAttribute("checked", true);
-		}
-	}
-}
-
-
-
+let laName =""
 $("#locationLaNameForm input[type=checkbox]").change(function() {
 	// 아이콘 처리 하는 부분
 	const link = document.createElement('link');
@@ -93,9 +57,15 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 	//체인지하면서 css 변경
 	// 체크 이벤트 
 	laName = $(this).val()==laName ?  "" : $(this).val();
+	
+	// 타입 눌렀을떄 사용자가 선택한거 옆에 보여줄 친구
+	let locationLaFriend = "<div class='locationLaFriend'>" +$(this).val()+"</div>";
+	
 	if ($(this).prop('checked')) {
 		//console.log($(this).val()) // 서울 경기 부산 ...
 		// 체크 걸면서 css도 같이 주기
+		// 친구 지우기
+		$(".locationLaFriend").remove()
 		$('#locationLaNameForm input[type=checkbox]')
 							.prop('checked', false)
 							.next("label")
@@ -115,6 +85,8 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 				color : "white",
 				cursor: "pointer"
 			})
+			// 친구 만들기
+			$(".locationLaStar").append(locationLaFriend)
 		}
 	}else{
 		// 버튼 자기 자신 선택했을때 지우기
@@ -128,6 +100,8 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 				color : "",
 				cursor: ""
 			})	
+		// 친구 지우기
+		$(".locationLaFriend").remove()
 	}
 
 
@@ -164,9 +138,13 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 						})
 						$(".locationSDiv").html(list);
 					}
+					// 소분류 친구 만들기
+					let locationSList = [];
+					let locationSFreind ="";
 					$("#locationSNameForm input[type=checkbox]").change(function() {
 						window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 						const locationSName = $(this).val();
+						locationSList.push($(this).val());
 						if ($(this).is(':checked')) {
 							$(this).prop("checked",true)
 									.next("label")
@@ -181,7 +159,13 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 									.css({
 										background : "#f3f3f3"
 									})
-													
+							// 여기서부터 집에서 시작하기 (친구들 만들기)
+							for(let i=0;i<locationSList.length;i++){
+								if(locationSList[i] == ($(this).val())){
+									locationSList.splice(i,1);
+									urlParams.delete("locationSName");
+								}
+							}				
 							urlParams.delete('locationSName');
 							const inputAll = $(this).parent().find("input[type=checkbox]");
 							for (let input of inputAll) {
@@ -245,39 +229,9 @@ $('#locationSNameForm input[name="locationSName"]').change(function() {
 	  }
  })
 
-
- let typeLLa =urlParams.get("typeLaName");
- if (urlParams.has("typeLaName")) {
- 	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
- 	let typeLaName = urlParams.get("typeLaName")
- 	let list = $('#typeLaNameSelect input')
- 	for (let item of list) {
- 		if (typeLaName === item.value) {
- 			item.setAttribute("checked", true)
- 		}
- 	}
- 	$('#typeSNameForm').css({
- 		background: '#FCA35B',
-		color : "white"
- 	})
- }
- 
- 
- if (urlParams.has("typeSName")) {
- 	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
- 	const typeSName = urlParams.getAll('typeSName');
- 	const list = $('#typeSNameForm input');
- 	for (let item of list) {
- 		if (typeSName.includes(item.value)) {
- 			item.setAttribute("checked", true);
- 		}
- 	}
- }
-
-
-
-
 /*타입 클릭시*/
+let typeLLa =""
+let typeSNameFreind = ""
 $("#typeLaNameSelect input[type=checkbox]").change(function() {
 	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 	urlParams.delete('typeLaName')
@@ -361,11 +315,13 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 					}
 					// 소분류 친구 만들기
 					let typeSList = [];
-					let tpyeSFreind = 0;
+					let tpyeSFreind ="";
 					$("#typeSNameForm input[type=checkbox]").change(function() {
+						$(".typeSFriend").remove()
 						window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 						const typeSName = $(this).val();
 						if ($(this).is(':checked')) {
+							$(".typeSFriend").remove()
 							// 클릭한 애들넣기
 							typeSList.push($(this).val())
 							urlParams.append('typeSName', typeSName);
@@ -375,28 +331,35 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 										backgroundColor : "#dbdbdb"
 								   });
 						} else {
+							$(".typeSFriend").remove()
+							urlParams.delete('typeSName')
 							//배열로 언체크드 되면 삭제하기
 							for(let i=0;i<typeSList.length;i++){
 								if(typeSList[i] == ($(this).val())){
-									typeSList.splice(i)
+									typeSList.splice(i,1);
+									urlParams.delete('typeSName')
 								}
-								tpyeSFreind = typeSList.length > 1 ? 10 : 0;
-							}
-							console.log("1번"+typeSList.length)
-							console.log("2번"+tpyeSFreind)
-							
+							}						
 							$(this).prop("checked",false)
 								   .next("label")
 								   .css({
 										backgroundColor : ""
 								   });
-							urlParams.delete('typeSName');
 							const inputAll = $(this).parent().find("input[type=checkbox]");
 							for (let input of inputAll) {
 								if (input.checked) {
 									urlParams.append('typeSName', input.value);
 								}
 							}
+						}
+						let typeSVal = typeSList.length-1
+						tpyeSFreind = typeSList.length <= 1 ? "<div class='typeSFriend'>"+typeSList[0]+"</div>" : "<div class='typeSFriend'>" +typeSList[0]+" 외 "+typeSVal+"</div>";
+						console.log(typeSList)
+						// 친구 넣기
+						$(".typeSStar").append(tpyeSFreind);
+						// 0일때 친구 지우기
+						if(typeSList.length === 0){
+							$(".typeSFriend").remove()
 						}
 						history.pushState({}, null, url);
 						// 타입 작은놈들
@@ -475,13 +438,9 @@ function renderClubList(clubList) {
 	});
 }
 
-// 새로고침시 모든 url 정보 사라지게 하기
-/*
-window.addEventListener('load', (e) => {
-	window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+window.addEventListener('load', () => {
 	const baseUrl = window.location.origin + '/';
 	if (window.location.search) {
 		window.location.href = baseUrl;
 	}
 });
-*/

@@ -1,5 +1,30 @@
 /*color:  #fca35b;*/
 
+/*
+	지역 선택했을때 옆에 오는 친구들
+*/
+.locationLaFriend{
+	color : #0077b6;
+	border-redius : bold
+}
+.locationSFriend{
+	color : #0077b6;
+	border-redius : bold	
+}
+.typeLaFriend{
+	color : #0077b6;
+	border-redius : bold
+}
+.typeSFriend{
+	color : #0077b6;
+	border-redius : bold	
+}
+/*
+	지역 선택했을때 옆에 오는 친구들
+*/
+
+
+
 .locationTypeBody {
 	display: flex;
 	width: 100%;
@@ -201,10 +226,6 @@
 .typeLaStar{
 	display: flex;
 }
-.typeLaFriend{
-	color : #0077b6;
-	border-redius : bold
-}
 .typeLaCss:hover{
 
 }
@@ -247,6 +268,9 @@
     border: 1px solid #e3e3e3;
     background: #f3f3f3;
     color: #818181;
+}
+.typeSStar{
+	display: flex;
 }
 
  

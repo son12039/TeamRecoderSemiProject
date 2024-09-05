@@ -49,7 +49,7 @@
 					<div class="locationLaStar">도시별&nbsp;</div>&nbsp;<p>∨</p>
 						<input type="checkbox" value="" id="locLaNameAll" />
 				</div>
-				<div class="locationSDiv">
+				<div class="locationLaDiv">
 					<label class="locLaNameLabel" for="locLaNameAll">전체보기</label>
 					<c:forEach items="${locLaNameList}" var="locLaName">
 						<input type="checkbox" value="${locLaName}" id="${locLaName}"
@@ -180,6 +180,23 @@
 		</c:forEach>
 	</div>
 	<jsp:include page="footer/footerIndex.jsp" />
+	
+	 
+    
+    <script>
+ 	// 세부지역 리스트 값 있으면 가져오기 (처음 뿌려지거나 새로고쳤을때)
+    let locSNameList = [];
+    const locString = "${locSNameList}".replace("[", '').replace("]", "").trim();
+    if (locString !== '') {
+    	locSNameList = locString.split(', ').map(item => item);
+    }
+ 	// 세부분류 리스트 값 있으면 가져오기 (처음 뿌려지거나 새로고쳤을때)
+ 	let typeSNameList = [];
+    const typeString = "${typeSNameList}".replace("[", '').replace("]", "").trim();
+    if (typeString !== '') {
+    	typeSNameList = typeString.split(", ").map(item => item.trim());
+    }
+    </script>
 
 	<!-- <a href="/dummyUpdate">!!!!!!!!!!!주의!!!!!!!!!!!! 기존 유저들 비밀번호 암호화하는거임 건드리지 말것</a> -->
 	<!-- <div class="membership-list"> -->

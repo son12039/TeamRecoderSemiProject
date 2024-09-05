@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -119,7 +121,7 @@ public class MembershipController {
 		service.membershipImg(m);
 
 		// 로케이션
-		String locLaName = LB.split(" = ")[0]; // 대분류 이름 소분류 이름 분리
+		String locLaName = LB.split(" = ")[0]; // 대분류 이름 소분류 이름 분리 
 		String[] locLaSName = LB.split(" = ")[1].split(", ");
 		LocationCategory lc = LocationCategory.builder().locLaName(locLaName).build();
 
@@ -403,7 +405,8 @@ public class MembershipController {
 			System.out.println("삭제할 파일이 없습니다");
 		} else {
 			System.out.println("삭제될 URL : " + file);
-			File f = new File("\\\\192.168.10.51\\damoim\\membership\\" + Integer.toString(code) + "\\" + file);
+			String decodedString = URLDecoder.decode(file, StandardCharsets.UTF_8.name());
+			File f = new File("\\\\192.168.10.51\\damoim\\membership\\" + Integer.toString(code) + "\\" + decodedString);
 			f.delete();
 
 		}
@@ -485,6 +488,70 @@ public class MembershipController {
 
 		return code;
 
+	}
+	@PostMapping("/updateMembership") // 클럽 수정
+	public String updateMembership(Membership vo, MultipartFile file, String LB, String TB) throws Exception {
+		System.out.println("지역 확인 : " + LB); // 인천 = 중구, 미추홀구, 남동구
+		System.out.println("유형 확인 : " + TB); // 스터디 = 코딩, 자격증, 토론
+		System.out.println("맴버쉽 정보 : " + vo);
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		// 맴버쉽 코드 사용
+		int code = vo.getMembershipCode();
+		Membership oldMembership = service.selectMembership(vo.getMembershipCode());
+		
+		String imgUrl = oldMembership.getMembershipImg(); // 기존 맴버쉽 정보의 이미지 URL
+		// 파일 업로드를 안했을 경우 ! >> 수정전 멤버쉽의 사진으로 
+		// 파일 업로드를 했을 경우 ! >> 기존 멤버쉽 폴더의 사진 삭제후 재 업로드 
+		System.out.println("보내는 정보에서 사진 정보 제외하고 + " + vo);
+		if(vo.getFile() == null) { // 사진 변경을 안함(기존 그대로인 imgURL을 사용해야함)
+				vo.setMembershipImg(imgUrl);
+		}else { // 사진이 바뀜 먼가 바낌
+			fileDelete(imgUrl, vo.getMembershipCode()); // 실 파일 삭제	
+			vo.setMembershipImg(fileUpload(vo.getFile(), vo.getMembershipCode())); // 파일 업로드 + DB에 URL추가
+		}
+		System.out.println("보내는 정보에서 사진 정보 포함 : " +vo);
+
+
+		
+		// 타입이랑 로케이션 삭제 
+		// 만들어놓은 membership update 돌리기 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		// 로케이션
+		String locLaName = LB.split(" = ")[0]; // 대분류 이름 소분류 이름 분리 
+		String[] locLaSName = LB.split(" = ")[1].split(", ");
+		LocationCategory lc = LocationCategory.builder().locLaName(locLaName).build();
+
+		for (String s : locLaSName) {
+			lc.setLocSName(s);
+			int locationCode = service.findLocationCode(lc);
+			MembershipLocation location = MembershipLocation.builder().locSmallCode(locationCode).membershipCode(code).build();
+			service.makeLocationMembership(location); // MembershipLocation
+		}
+		// 타입
+		String typeLaName = TB.split(" = ")[0];
+		String[] typeSName = TB.split(" = ")[1].split(", ");
+		TypeCategory tc = TypeCategory.builder().typeLaName(typeLaName).build();
+
+		for (String s : typeSName) {
+			tc.setTypeSName(s);
+			int typeCode = service.findTypeCode(tc);
+
+			MembershipType type = MembershipType.builder().typeSmallCode(typeCode).membershipCode(code).build();
+			service.makeTypeMembership(type);
+		}
+		
+
+		return "redirect:/";
 	}
 
 }

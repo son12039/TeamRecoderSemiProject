@@ -199,10 +199,15 @@ typeBtncancel.addEventListener("click", function() {
 
 function validate() { // 생성버튼 눌렀을때 작동
 	
+	alert("??")
+	
 	let membershipName = $("#membershipName").val();
 	let f = document.getElementById('file');
+	
+
 	let file = f.files[0];
 	
+	let membershipCode =$("#membershipCode").val();
 	let membershipAccessionText = $("#membershipAccessionText").val();
 	let membershipSimpleText = $("#membershipSimpleText").val();
 	let membershipMax = $("#membershipMax").val();
@@ -215,15 +220,18 @@ function validate() { // 생성버튼 눌렀을때 작동
 	let formData = new FormData(); // FormData 객체를 사용하여 파일과 데이터를 함께 전송합니다.
 	//formData.append('dto', JSON.stringify(data));
 	formData.append('membershipName',membershipName)
+	formData.append('membershipCode',membershipCode)
 	formData.append('membershipAccessionText',membershipAccessionText)
 	formData.append('membershipSimpleText',membershipSimpleText)
 	formData.append('membershipMax',membershipMax)
+	if(file !== undefined){
 	formData.append('file', file);
+	}
 	formData.append('LB', loc);
 	formData.append('TB', tp);
 	$.ajax({
 		type: 'post',
-		url: '/makeMembership',
+		url: '/updateMembership',
 		data: formData,
 		processData: false,
 		contentType: false,

@@ -2,6 +2,8 @@ package com.damoim.controller;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import org.eclipse.tags.shaded.org.apache.bcel.generic.NEW;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +18,7 @@ import com.damoim.model.dto.MembershipDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
+import com.damoim.service.LocationTypeService;
 import com.damoim.service.MembershipMeetingService;
 import com.damoim.service.MembershipService;
 
@@ -30,6 +33,9 @@ public class PageController {
 	
 	@Autowired
 	private MembershipMeetingService meetService;
+	
+	@Autowired
+	private LocationTypeService locTypeService;
 	/*
 	 * 성일
 	 * 인덱스에 현재 호스트가 존재하는 모든 클럽들 모두 출력
@@ -99,12 +105,55 @@ public class PageController {
 
 	// 멤버쉽 정보 수정 ????????????????
 	@GetMapping("/updateMembership")
-	public String updateMembership() {
+	public String updateMembership(Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member member = (Member) authentication.getPrincipal();
+	
+		
 		if(member == null) {
 			return "error";
+		};
+		
+		int code = -1;
+		for(int i=0; i<member.getMemberListDTO().size(); i++) {
+			if(member.getMemberListDTO().get(i).getListGrade().equals("host")) {
+				 code = member.getMemberListDTO().get(i).getMembershipCode();
+			}
+			
 		}
+		locTypeService.locationList(code);
+		locTypeService.typeList(code);
+		String loc = locTypeService.locationList(code).get(0).getLocLaName()+" =";
+		String type= locTypeService.typeList(code).get(0).getTypeLaName()+" ="; 
+		
+		
+		for(int i=0; i<locTypeService.locationList(code).size(); i++) {
+		    if(i != locTypeService.locationList(code).size() -1)
+			loc +=" "+locTypeService.locationList(code).get(i).getLocSName()+",";
+		    else {
+		    	loc +=" "+locTypeService.locationList(code).get(i).getLocSName();
+		    }
+			
+		}
+		
+		for(int i=0; i<locTypeService.typeList(code).size(); i++) {
+		    if(i != locTypeService.typeList(code).size() -1)
+			type +=" "+locTypeService.typeList(code).get(i).getTypeSName()+",";
+		    else {
+		    	type +=" "+locTypeService.typeList(code).get(i).getTypeSName();
+		    }
+			
+		}
+		
+		model.addAttribute("locLaNameList", locTypeService.locLaNameList());
+		model.addAttribute("typeLaNameList", locTypeService.typeLaNameList());
+		
+		model.addAttribute("type", type);
+		model.addAttribute("locList", loc);
+		System.out.println("이게멀까? " + locTypeService.locationList(code));
+		
+	   model.addAttribute("membership", infoService.selectMembership(code));
+	   //model.addAllAttributes("location",infoService.);
 		return "membership/updateMembership";
 	}
 	

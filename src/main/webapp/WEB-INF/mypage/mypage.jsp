@@ -197,24 +197,25 @@
 								<img class="membership-img"
 									src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"
 									alt="Membership Image">
-									
+
 							</div>
 							<div class="membership-String">
 								<div>
 									<p>${mem.membership.membershipName}</p>
 									<c:if test="${adminClub != 'host'}">
-									<button  class="btn" onclick="deleteList('${adminClub}',${mem.membership.membershipCode})" >탈퇴</button>
+										<button class="btn"
+											onclick="deleteList('${adminClub}',${mem.membership.membershipCode})">탈퇴</button>
 									</c:if>
-									
-									
-										
-									
+
+
+
+
 								</div>
 							</div>
 						</div>
 					</a>
 					비밀번호 확인<input type="password" name="pwdCheck" id="pwdCheck">
-										<button class="btn" onclick="allDeleteMembership()">클럽 삭제</button>
+					<button class="btn" onclick="allDeleteMembership()">클럽 삭제</button>
 				</c:if>
 			</c:forEach>
 		</div>
@@ -270,11 +271,11 @@
 		</div>
 		<c:choose>
 			<c:when test="${hasHost}">
-					<p>저 클럽 카드 정보주에 내가 호스트인 클럽 1개 보여주면서 inpuit 비밀번호 받는거 어쩌구</p>
-						<form action="/updateMembership" class="toggle_form">
-							<button id="update-club" type="submit" value="클럽수정">클럽
-								정보 수정</button>
-						</form>
+				<p>저 클럽 카드 정보주에 내가 호스트인 클럽 1개 보여주면서 inpuit 비밀번호 받는거 어쩌구</p>
+				<form action="/updateMembership" class="toggle_form">
+					<button id="update-club" type="submit" value="클럽수정">클럽 정보
+						수정</button>
+				</form>
 			</c:when>
 			<c:otherwise>
 				<div id="icon" onclick="show()">
@@ -283,24 +284,9 @@
 				</div>
 				<div id="toggle_menu">
 					<div id="menu">
-						<form action="/makeMembership" class="toggle_form">
-							<input type="hidden" name="id" value="${mem.id}">
-							<button id="make-club" type="submit" value="클럽생성">클럽 만들기</button>
-						</form>
-
+						<a href="/makeMembership">클럽 만들기</a>
 					</div>
 				</div>
-				<input type="checkbox" id="toggle" hidden>
-				<label for="toggle" id="label">클럽 생성및 수정 <ion-icon
-						name="chevron-down-outline" id="arrow"></ion-icon>
-				</label>
-				<ul id="menu">
-					<a href="/makeMembership">클럽 만들기</a>
-					<form action="/updateMembership">
-						<button id="update-club" type="submit" value="클럽수정">클럽 정보
-							수정</button>
-					</form>
-				</ul>
 			</c:otherwise>
 		</c:choose>
 	</div>
@@ -342,30 +328,33 @@
 			 var reader = new FileReader();
 			    
 			    reader.onload = function(event) {
-			        var container = document.getElementById('image_container');
-			        container.innerHTML = '';
-
+			        var container = document.querySelector('image_container');
 			        var img = document.createElement('img');
+			        
 			        img.setAttribute('src', event.target.result);
+			        /* container == #image_container 그럼 그 컨테이너의 자식의 img */
+			        console.log("이미지",img);
+			        console.log("컨테이너",container);
 			        container.appendChild(img);
+					
 			    };
 			   
+			    console.log("파일 길이" , event.target.files.length);
+			    
 			    if (event.target.files.length > 0) {
 			        reader.readAsDataURL(event.target.files[0]);
 			    }
+			    
 		}
 		
 		// 기본 사진으로 변경
 		$("#defualt-file").click(() => {
-			const formData = new FormData();
-			formData.append("file", $("#defualt-file")[0].files[0]);
 			$.ajax({
 				type: "post",
-				url: "/defualt-file",
-				data: formData,
+				url: "/defualtFile",
 				 contentType: false,
-	                processData: false,
-	                success: function(result) {
+	             processData: false,
+	             success: function(result) {
 	                	console.log(result);
 	                    if (result) {
 	                        alert("기본 사진으로 변경되었습니다");
@@ -376,6 +365,7 @@
 	                }
 			});
 		});
+		
 		
         // 파일 업로드 및 정보 수정 처리
         $("#submit").click(() => {

@@ -228,12 +228,11 @@ public class MemberController {
 	public String updateMemberInfo(Member vo, Model model, String addrDetail, String beforePwd) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		
-		if(!service.updateCheck(mem, beforePwd)) {
-			
-			
-			model.addAttribute("text" , "변경 실패");
-		
+
+		if (!service.updateCheck(mem, beforePwd)) {
+
+			model.addAttribute("text", "변경 실패");
+
 			return "mypage/updateMemberInfo";
 
 		}
@@ -266,38 +265,20 @@ public class MemberController {
 	 */
 	@ResponseBody
 	@PostMapping("/memberStatus")
-	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response ,String pwdCheck) {
-	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    System.out.println("입력한 비번옴? : " + pwdCheck);
-	    Member mem = (Member) authentication.getPrincipal();
-	    boolean check = false;
-	    for(MemberListDTO dto : mem.getMemberListDTO()) {
-	    	if(dto.getListGrade().equals("host"))
-				   check = true; 
-	    		}
-	    if (check) { // 해당 유저가 가입된 클럽 중  호스트인게 있다면!
-	        return false;
-	    	}
-	    if(!service.updateCheck(mem, pwdCheck)) { // 비밀번호 확인에서 틀렸을 경우
-	    	System.out.println("비번트림 ㅠ");
-	    	return false;
-	    }
-	    
-	    service.memberStatus(mem); // 멤버 상태 업데이트
-	    removeService.deleteAllComment(mem.getId());
-	    removeService.deleteMembershipUserList(mem.getId());
-	    removeService.deleteAllMeeting(mem.getId());
-	    // membershipUserList 삭제
-	    
-	    // 로그아웃 처리
-	    SecurityContextHolder.getContext().setAuthentication(authentication);
-	    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
-	    logoutHandler.logout(request, response, authentication);
-
+	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response, String pwdCheck) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println("입력한 비번옴? : " + pwdCheck);
+		Member mem = (Member) authentication.getPrincipal();
+		boolean check = false;
+		for (MemberListDTO dto : mem.getMemberListDTO()) {
+			if (dto.getListGrade().equals("host"))
+				check = true;
+		}
 		if (check) { // 해당 유저가 가입된 클럽 중 호스트인게 있다면!
 			return false;
 		}
 		if (!service.updateCheck(mem, pwdCheck)) { // 비밀번호 확인에서 틀렸을 경우
+			System.out.println("비번트림 ㅠ");
 			return false;
 		}
 
@@ -305,6 +286,7 @@ public class MemberController {
 		removeService.deleteAllComment(mem.getId());
 		removeService.deleteMembershipUserList(mem.getId());
 		removeService.deleteAllMeeting(mem.getId());
+		// membershipUserList 삭제
 
 		// 로그아웃 처리
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -312,8 +294,27 @@ public class MemberController {
 		logoutHandler.logout(request, response, authentication);
 
 		return true;
+
+//		if (check) { // 해당 유저가 가입된 클럽 중 호스트인게 있다면!
+//			return false;
+//		}
+//		if (!service.updateCheck(mem, pwdCheck)) { // 비밀번호 확인에서 틀렸을 경우
+//			return false;
+//		}
+//
+//		service.memberStatus(mem); // 멤버 상태 업데이트
+//		removeService.deleteAllComment(mem.getId());
+//		removeService.deleteMembershipUserList(mem.getId());
+//		removeService.deleteAllMeeting(mem.getId());
+//
+//		// 로그아웃 처리
+//		SecurityContextHolder.getContext().setAuthentication(authentication);
+//		SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+//		logoutHandler.logout(request, response, authentication);
+//
+//		return true;
 	}
-	
+
 	// 기본 사진으로 변경
 	@ResponseBody
 	@PostMapping("/defualtFile")
@@ -325,7 +326,7 @@ public class MemberController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		return true;
 	}
-	
+
 	// 프로필, info 업데이트
 	@ResponseBody
 	@PostMapping("/updateMember")
@@ -337,21 +338,13 @@ public class MemberController {
 			fileDelete(mem.getMemberImg(), mem.getId());
 			String url = fileUpload(file, mem.getId());
 			mem.setMemberImg(url);
-			
+
 		}
-		
-		// 멤버 취미 입력 했을경우
-		if (vo.getMemberHobby() != null) {
-			mem.setMemberHobby(vo.getMemberHobby());
-			System.out.println("취미 변경 input : " + vo.getMemberHobby());
-		}
-		
-		// 멤버 소개 입력 했을경우
-		if (vo.getMemberInfo() != null) {
-			mem.setMemberInfo(vo.getMemberInfo());
-			System.out.println("한줄소개 변경 input : " + vo.getMemberInfo());
-		}
-		
+
+		mem.setMemberHobby(vo.getMemberHobby());
+
+		mem.setMemberInfo(vo.getMemberInfo());
+
 		service.updateMember(mem);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -364,32 +357,22 @@ public class MemberController {
 
 	@GetMapping("/userInfo/{nickname}")
 	public String getMethodName(@PathVariable("nickname") String nickname, Model model) {
-		// 닉네임 체크
 		Member member = service.nicknameCheck(new Member().builder().nickname(nickname).build());
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member m2 = (Member) authentication.getPrincipal();
-
-		// 본인 자신이면 마이페이지로 이동
-		if (m2.getNickname().equals(nickname)) {
-			return "mypage/mypage";
-		}
-
-		MemberInfoDTO mem = new MemberInfoDTO().builder().member(member) // 닉네임 체크한 멤버를 빌드로 set
+		MemberInfoDTO mem = new MemberInfoDTO().builder().member(member)
 				.memberMeetCount(infoService.meetCount(member.getId()))
 				.membershipUserList(infoService.selectMemberUserList(member.getId())).build();
 		System.out.println(mem);
 		model.addAttribute("mem", mem);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-		if(authentication.getPrincipal().equals("anonymousUser")) {
-				System.out.println("로그인 X ");
-				return "member/userInfo";
+		if (authentication.getPrincipal().equals("anonymousUser")) {
+			System.out.println("로그인 X ");
+			return "member/userInfo";
 		}
-			Member loginMember = (Member) authentication.getPrincipal();
-		if(loginMember.getNickname().equals(nickname)) {
+		Member loginMember = (Member) authentication.getPrincipal();
+		if (loginMember.getNickname().equals(nickname)) {
 			System.out.println("본인 ");
-			return "mypage/mypage";			
-			}
+			return "mypage/mypage";
+		}
 		System.out.println("그외 ");
 		return "member/userInfo";
 	}

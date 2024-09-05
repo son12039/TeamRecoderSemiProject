@@ -33,4 +33,5 @@ public interface RemoveMemberMapper {
 	int selectMeetingAgreeMemberCount(int meetCode); // 해당 글의 참여자가 있나 확인
 	void deleteMeetingUpdate(int meetCode); // 해당 글의 참여자가 있을시 업데이트로 널처리
 	void deleteMeeting(int meetCode); // 참여자가 0명이면 삭제
+	void deleteAllMeetComment(int meetCode); // 미트코드로 해당 미팅 게시판 댓글 삭제
 }

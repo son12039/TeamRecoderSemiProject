@@ -33,8 +33,55 @@
         </resultMap>
  
  
- 	<!--  탈퇴 로직전 해당 맴버쉽에 게스트가 아닌 회원 체크 < membership -->
+ 	<!--  탈퇴 로직전 해당 맴버쉽에 게스트가 아닌 회원 체크 < membershipxml에 카운트 어쩌구 -->
+	
+	<!-- membershipUserList 모두 삭제(사실상 신청자만 삭제) -->
+	<delete id="deleteMembershipList" parameterType="int">
+		DELETE FROM membership_user_list
+		WHERE membership_code = #{membershipCode};
+	</delete>
+	
+	<!--  코드로 홍보글 댓글 삭제 -->
+	<delete id="deleteMainComment" parameterType="int">
+		DELETE FROM main_comment
+		WHERE membership_code = #{membershipCode};
+	</delete>
+	
+	<!--  지역정보 삭제 -->
+	<delete id="deleteLocation" parameterType="int">
+		DELETE FROM 
+		membership_location
+		WHERE membership_code = #{membershipCode};
+	</delete>
+	<!--  타입 정보 삭제 -->
+	<delete id="deleteType" parameterType="int">
+		DELETE FROM 
+		membership_type
+		WHERE membership_code = #{membershipCode};
+	</delete>
+	
+		<!--  해당 맴버쉽 코드로 작성된 미팅 게시판 -->
+	<select id="findMeetCode" parameterType="int" resultType="Integer">
+		SELECT meet_code
+		FROM membership_meetings
+		WHERE membership_code = #{membershipCode};
+	</select>
+	
+	 <update id="deleteMeetingUpdatePlus" parameterType="int">
+    	UPDATE membership_meetings
+    	SET meet_info = null,
+    		color = null,
+    		meet_title = null,
+    		membership_code = null
+    	WHERE meet_code = #{meetCode}
+    </update>
+	<!--  
 
-    
+		미팅 삭제 로직은 remove 어쩌구 확인
+	 -->
+         <delete id="deleteMembership" parameterType="int">
+    	DELETE FROM membership
+    	WHERE membership_code = #{membershipCode}
+    </delete>
     
 </mapper>

@@ -165,10 +165,16 @@
 									<c:if test="${adminClub != 'host'}">
 									<button  class="btn" onclick="deleteList('${adminClub}',${mem.membership.membershipCode})" >탈퇴</button>
 									</c:if>
+									
+									
+										
+									
 								</div>
 							</div>
 						</div>
 					</a>
+					비밀번호 확인<input type="password" name="pwdCheck" id="pwdCheck">
+										<button class="btn" onclick="allDeleteMembership()">클럽 삭제</button>
 				</c:if>
 			</c:forEach>
 		</div>

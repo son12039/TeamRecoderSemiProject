@@ -49,6 +49,10 @@ select count(*)
 from meetings_agree
 where meet_code = 71;
 
+insert into membership_user_list(membership_code, list_grade, id)
+values(135, 'host','user077');
+select * from membership_user_list;
+
 
 
 
@@ -60,11 +64,21 @@ join membership_user_list using(id)
 where meet_code  = #{meetCode}
 and meet_agree_yn = 1;
 */
-		SELECT list_grade, id, membership_code 
-		FROM membership_user_list
-		WHERE id = 'asd123';
+		delete 
+		FROM membership_meetings
+		WHERE  meet_code = 63;
+        
+        update membership_meetings
+        set membership_code = null
+        where meet_code = 63;
+        
+        insert into membership(membership_name)
+        values("지워짐?");
+        
+        delete from membership
+        where membership_name = "지워짐?";
 select* 
-FROM main_comment;
+FROM membership;
 select * from membership;
 		SELECT
 		count(*)
@@ -85,11 +99,17 @@ JOIN main_comment USING (id)
 JOIN meetings_comment USING(id)
 WHERE id = 'sdm12345';
 
-select * from membership
+
+
+select meet_code from membership
 join membership_type using(membership_code)
+join membership_location using(membership_code)
+join main_comment using(membership_code)
+join membership_meetings using(membership_code)
 where membership_code = 10;
 
-UPDATE member
+
+UPDATE member 
 SET status = 1
 WHERE id = 'sdm12345';
 

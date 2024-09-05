@@ -68,8 +68,9 @@ public class RemoveMemberService {
 		
 		for(MembershipMeetings met: list) {
 			int count = mapper.selectMeetingAgreeMemberCount(met.getMeetCode());
-			if(count == 0) {
-				mapper.deleteMeeting(met.getMeetCode());
+			mapper.deleteAllMeetComment(met.getMeetCode()); // 댓글 삭제
+			if(count == 0) {		
+				mapper.deleteMeeting(met.getMeetCode()); // 미팅 삭제
 			}else {
 				mapper.deleteMeetingUpdate(met.getMeetCode());
 			}
@@ -79,6 +80,7 @@ public class RemoveMemberService {
 	}
 	// 해당 미팅 글 삭제 눌렀을때 진행 로직
 	public void deleteMeeting(int MeetCode) {
+		mapper.deleteAllMeetComment(MeetCode); // 댓글 삭제
 		int count = mapper.selectMeetingAgreeMemberCount(MeetCode);
 		if(count == 0) {
 			mapper.deleteMeeting(MeetCode);

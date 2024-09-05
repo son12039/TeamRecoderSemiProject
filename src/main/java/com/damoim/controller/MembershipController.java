@@ -169,14 +169,27 @@ public class MembershipController {
 
 	/*
 	 * 영민 클럽명 중복 체크용 Ajax
+	 * 성일 수정때도 체크 가능하게 변경
 	 * 
 	 */
 	@ResponseBody
 	@PostMapping("/membershipNameCheck")
 	public boolean membershipNameCheck(Membership membership) {
-		return service.membershipNameCheck(membership) == null;
+		int code2 = membership.getMembershipCode(); // JSP에서 온코드 OR 0
+	 // 이름으로 멤버쉽을 조회 !
+	if(service.membershipNameCheck(membership) == null) { // 중복이 아닌 상황임  중복인데 0이 아님  make 중복인데 1 이 아님 update
+		return true;                    // 무조건 바로 그냥 트루
+	}else if(code2 != 0) {       // 중복이지만 업데이트 상황임
+		if(code2 == service.membershipNameCheck(membership).getMembershipCode()) {
+			return true;
+		}
+			
 	}
 	
+	return false;
+	
+		
+	}
 	/*
 	 * 성철
 	 * 클럽 삭제 

@@ -64,7 +64,7 @@ public class PageController {
 		Member member = (Member) authentication.getPrincipal();
 		
 		
-		String id = member.getMemberListDTO().get(0).getId();
+		String id = member.getId();
 		
 		model.addAttribute("meetings", meetService.allMeetings1(id));
 		

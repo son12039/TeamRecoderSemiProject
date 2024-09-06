@@ -35,13 +35,12 @@ select {
 		<form enctype="multipart/form-data">
 
 			<label for="membershipName"> 클럽이름 : <span class="name" id="name"></span></label> 
-				<input type="text" id="membershipName"
-				name="membershipName" maxlength="50"><br> 
-				사진첨부: <input type="file" name="file" id="file" accept="image/*"><br>
-				클럽 가입조건 : <input type="text" id="membershipAccessionText" name="membershipAccessionText"><br>
-				클럽 간단한 설명:<input type="text" id="membershipSimpleText" name="membershipSimpleText"><br>
-				최대 인원 : <span class="max" id="max"></span> <input type="number"
-				for="membershipMax" id="membershipMax" name="membershipMax"><br>
+				<input type="text" id="membershipName" name="membershipName" maxlength="50">
+				사진첨부: <input type="file" name="file" id="file" accept="image/*">
+				클럽 가입조건 : <input type="text" id="membershipAccessionText" name="membershipAccessionText">
+				클럽 간단한 설명:<input type="text" id="membershipSimpleText" name="membershipSimpleText">
+				최대 인원 : <span class="max" id="max"></span> <input type="text"
+				for="membershipMax" id="membershipMax" name="membershipMax">
 
 
 			<!-- 08-20 채승훈 -->
@@ -57,7 +56,7 @@ select {
 			</select>
 			<div id="test1" class="select"></div>
 			<input type="button" value="추가" id="locationBtn">
-			<input type="button" value="취소" id="locationBtncancel"><br><br>
+			<input type="button" value="취소" id="locationBtncancel">
 			<p>유형</p>
 			<select id="typeLaNameMem">
 				<option>전체보기</option>
@@ -69,24 +68,20 @@ select {
 			</select>
 			<div id="test2" class="select"></div>
 			<input type="button" value="추가" id="typeBtn"> 
-			<input type="button" value="취소" id="typeBtncancel"><br><br>
+			<input type="button" value="취소" id="typeBtncancel">
 			<button type="button" onclick="validate(event)">클럽생성</button>
 			<div>
-				<h2>${mem.id}</h2>
-				<input type="hidden" name="id" value="${mem.id}"> <input
-					type="hidden" name="listGrade" value="host"><br> <a href="/"
+		
+				 <a href="/"
 					id="toIndex">생성 취소</a>
 			</div>
 		</form>
 	</sec:authorize>
 
 	<script src="${pageContext.request.contextPath}/js/makeMembership.js"></script>
-
-
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
+	<script src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

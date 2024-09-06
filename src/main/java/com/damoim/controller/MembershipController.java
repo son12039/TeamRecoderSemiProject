@@ -105,11 +105,10 @@ public class MembershipController {
 	 *
 	 * 성철 만들어진거에 사진첨부만 추가
 	 */
+	@ResponseBody
 	@PostMapping("/makeMembership") // 클럽 생성
-	public String makeMembership(Membership vo, MultipartFile file, String LB, String TB) throws Exception {
-		System.out.println("지역 확인 : " + LB); // 인천 = 중구, 미추홀구, 남동구
-		System.out.println("유형 확인 : " + TB); // 스터디 = 코딩, 자격증, 토론
-		System.out.println("맴버쉽 정보 : " + vo);
+	public int makeMembership(Membership vo, MultipartFile file, String LB, String TB) throws Exception {
+		System.out.println("가져온 정보 : " + vo);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
@@ -117,11 +116,11 @@ public class MembershipController {
 				.membershipMax((vo.getMembershipMax()))
 				.membershipAccessionText(vo.getMembershipAccessionText())
 				.membershipSimpleText(vo.getMembershipSimpleText()).build();
-	
+		System.out.println("생성될 예정 : " + vo);
 		service.makeMembership(membership);
-		System.out.println("코드 : " + membership.getMembershipCode());
 		// 맴버쉽 코드 사용
 		int code = membership.getMembershipCode();
+		System.out.println("맴버쉽 코드 " + code);
 		// 폴더 생성
 		Path directoryPath = Paths.get( "\\\\192.168.10.51\\damoim\\membership\\" + code + "\\");
 		Files.createDirectories(directoryPath);
@@ -160,11 +159,14 @@ public class MembershipController {
 				list.setMembershipCode(membership.getMembershipCode());
 		// 호스트로 추가
 		service.host(list);
+		System.out.println("호스트 DTO: " + list);
 		// 세션에 호스트 정보 추가
 		ArrayList<MemberListDTO> dtolist =	(ArrayList<MemberListDTO>) mem.getMemberListDTO();
 		dtolist.add(list);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		return "redirect:/";
+		System.out.println("생성 및 호스트 추가 완료");
+
+		return code ;
 	}
 
 	/*
@@ -454,7 +456,7 @@ public class MembershipController {
 	 * 
 	 */
 	public String fileUpload(MultipartFile file, int code) throws IllegalStateException, IOException {
-		if (file.getOriginalFilename() == "") {
+		if (file == null || file.getOriginalFilename() == "") {
 			System.out.println("NULL 리턴");
 			return null;
 		}

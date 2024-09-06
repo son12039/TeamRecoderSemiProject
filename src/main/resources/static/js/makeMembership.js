@@ -124,11 +124,11 @@ locationBtn.addEventListener("click", function(e) {
 // 앞에 두글자가 선택된 이름의 값과 다르면서 공백이 아닐때 
 
 	if ($("#test1").html().substr(0, 2) != locationbig && $("#test1").html() != "") {
-		alert("어허");
+		alert("하나의 카태고리에서만 선택할수 있습니다!");
 		return;
 	}
 	if ($("#test1").html().includes(locationsmall) && $("#test1").html() !== "") {
-		alert("어허2");
+		alert("중복선택은 불가능합니다!");
 		return;
 	}
 	if ($("#test1").html() == "") {
@@ -167,11 +167,11 @@ typeBtn.addEventListener("click", function(e) {
 	let string = "";
 
 	if ($("#test2").html().substr(0, 2) !== typebig.substr(0, 2) && $("#test2").html() !== "") {
-		alert("어허");
+		alert("하나의 카태고리에서만 선택할수 있습니다!");
 		return;
 	}
 	if ($("#test2").html().includes(typesmall) && $("#test2").html() !== "") {
-		alert("어허2");
+		alert("중복선택은 불가능합니다!");
 		return;
 	}
 	if ($("#test2").html() == "") {
@@ -213,30 +213,48 @@ function validate() { // 생성버튼 눌렀을때 작동
 	
 
 	let formData = new FormData(); // FormData 객체를 사용하여 파일과 데이터를 함께 전송합니다.
-	//formData.append('dto', JSON.stringify(data));
+	console.log("머고");
 	formData.append('membershipName',membershipName)
 	formData.append('membershipAccessionText',membershipAccessionText)
 	formData.append('membershipSimpleText',membershipSimpleText)
 	formData.append('membershipMax',membershipMax)
+	if(file !== undefined){
 	formData.append('file', file);
+	}
 	formData.append('LB', loc);
 	formData.append('TB', tp);
-	$.ajax({
-		type: 'post',
+	console.log(membershipName);
+	console.log(membershipAccessionText);
+	console.log(membershipSimpleText);
+	console.log(membershipMax);
+	console.log(loc);
+	console.log(tp);
+	console.log(file);
+	console.log([...formData.entries()]);
+	if(!membershipNameCheck){
+		alert("클럽명을 확인해주세요");
+	}else if(tp === ""){
+		alert("타입을 선택해 주세요");
+	}else if(loc === ""){
+		alert("지역을 선택해 주세요");
+	}else if(!membershipMaxSubmit){
+		alert("최대 인원 설정을 확인해 주세요");
+	}else{ 
+		$.ajax({
+		type: 'POST',
 		url: '/makeMembership',
 		data: formData,
 		processData: false,
 		contentType: false,
-		success: function() {
-
-			
-			//  mypage 페이지로 이동
-			window.location.href = '/mypage';
+		success: function(code) {
+			alert("클럽 생성 성공!");
+			window.location.replace("/club/" + code);
+			//  클럽 페이지로 이동
 			
 		}
 		
 	});
-	
+	}
 	
 
 }

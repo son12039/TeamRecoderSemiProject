@@ -34,7 +34,7 @@ membershipName.addEventListener('input', function() {
 });
 
 // 클럽 인원수 설정
-const membershipMaxRegExp = /^[0-9]{2,100}$/;
+const membershipMaxRegExp = /^[0-9]$/;
 
 let membershipMaxSubmit = false; // 최대인원 설정 여부를 나타내는 변수 초기화
 
@@ -45,10 +45,12 @@ membershipMax.addEventListener('input', function() {
 	if (membershipMaxValue === '') {
 		$('#max').text(" 필수 입력사항입니다").css('color', 'red');
 		membershipMaxSubmit = false; // 제출 불가 상태로 
-	} else if (membershipMaxValue <= 1 || membershipMaxValue >= 101) {
+	}
+	else if (membershipMaxValue <= 1 || membershipMaxValue >= 101) {
 		$('#max').text("설정 가능한 최소 인원은 2명 최대 인원수는 100명입니다").css('color', 'red');
 		membershipMaxSubmit = false;
-	} else {
+	}
+	 else {
 		$('#max').text("설정 가능한 인원수 입니다").css('color', 'green');
 		membershipMaxSubmit = true;
 	}

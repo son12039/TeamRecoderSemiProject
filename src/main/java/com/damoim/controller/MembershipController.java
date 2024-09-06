@@ -108,7 +108,7 @@ public class MembershipController {
 	@ResponseBody
 	@PostMapping("/makeMembership") // 클럽 생성
 	public int makeMembership(Membership vo, MultipartFile file, String LB, String TB) throws Exception {
-		System.out.println("가져온 정보 : " + vo);
+		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
@@ -116,11 +116,11 @@ public class MembershipController {
 				.membershipMax((vo.getMembershipMax()))
 				.membershipAccessionText(vo.getMembershipAccessionText())
 				.membershipSimpleText(vo.getMembershipSimpleText()).build();
-		System.out.println("생성될 예정 : " + vo);
+		
 		service.makeMembership(membership);
 		// 맴버쉽 코드 사용
 		int code = membership.getMembershipCode();
-		System.out.println("맴버쉽 코드 " + code);
+		
 		// 폴더 생성
 		Path directoryPath = Paths.get( "\\\\192.168.10.51\\damoim\\membership\\" + code + "\\");
 		Files.createDirectories(directoryPath);

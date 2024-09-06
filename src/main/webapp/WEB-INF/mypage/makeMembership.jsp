@@ -39,7 +39,7 @@ select {
 				사진첨부: <input type="file" name="file" id="file" accept="image/*">
 				클럽 가입조건 : <input type="text" id="membershipAccessionText" name="membershipAccessionText">
 				클럽 간단한 설명:<input type="text" id="membershipSimpleText" name="membershipSimpleText">
-				최대 인원 : <span class="max" id="max"></span> <input type="text"
+				최대 인원 : <span class="max" id="max"></span> <input type="number"
 				for="membershipMax" id="membershipMax" name="membershipMax">
 
 

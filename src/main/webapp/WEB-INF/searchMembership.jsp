@@ -21,7 +21,6 @@
 	
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
-
 <body>
 
 	<!-- 인덱스 헤드만 헤더1 -->
@@ -97,16 +96,19 @@
 	</div>
 
 
+<div id="search">
+<form action="/search">
+모임명 검색 :<input id="searchName" type="text" name="membershipName">
+<input type="submit" value="검색" id="sub">
+</form>
+</div>
+
+
 	<br>
 	<div class="membership-list">
 		<c:forEach items="${list}" var="info" varStatus="status">
 			<div class="membership-card">
-			<c:if test="${info.membershipDate >  today30 && today > info.membershipDate}">
-			<img alt="" src="http://192.168.10.51:8081/sungil/2%ED%8A%B8.png" class="new">
-				</c:if>
 				<div class="membership-img">
-			
-				
 					<a href="/${info.membershipCode}">
 					 <c:choose>
 							<c:when test="${info.membershipImg != null}">
@@ -167,11 +169,7 @@
 	<script src="${pageContext.request.contextPath}/js/index.js"></script>
 	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
 	
-	
-	<script
-		src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
-		
- 
+
 
 
 

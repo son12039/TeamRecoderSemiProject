@@ -174,7 +174,21 @@ public class MembershipController {
 	@ResponseBody
 	@PostMapping("/membershipNameCheck")
 	public boolean membershipNameCheck(Membership membership) {
-		return service.membershipNameCheck(membership) == null;
+		int code2 = membership.getMembershipCode(); // JSP에서 온코드 OR 0 
+
+	 // 이름으로 멤버쉽을 조회 !
+	if(service.membershipNameCheck(membership) == null) { // 중복이 아닌 상황임  중복인데 0이 아님  make 중복인데 1 이 아님 update 
+		return true;                    // 무조건 바로 그냥 트루 
+	}else if(code2 != 0) {       // 중복이지만 업데이트 상황임  
+		if(code2 == service.membershipNameCheck(membership).getMembershipCode()) {
+			return true;
+		}
+			
+	}
+	
+	return false;
+	
+		
 	}
 	
 	/*
@@ -545,11 +559,13 @@ public class MembershipController {
 		return code;
 
 	}
+	@ResponseBody
 	@PostMapping("/updateMembership") // 클럽 수정
-	public String updateMembership(Membership vo, MultipartFile file, String LB, String TB) throws Exception {
+	public String updateMembership(Membership vo, MultipartFile file, String LB, String TB,int zIndex) throws Exception {
 		System.out.println("지역 확인 : " + LB); // 인천 = 중구, 미추홀구, 남동구
 		System.out.println("유형 확인 : " + TB); // 스터디 = 코딩, 자격증, 토론
-		System.out.println("맴버쉽 정보 : " + vo);
+		System.out.println(zIndex);
+		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
@@ -561,8 +577,14 @@ public class MembershipController {
 		// 파일 업로드를 안했을 경우 ! >> 수정전 멤버쉽의 사진으로 
 		// 파일 업로드를 했을 경우 ! >> 기존 멤버쉽 폴더의 사진 삭제후 재 업로드 
 		System.out.println("보내는 정보에서 사진 정보 제외하고 + " + vo);
-		if(vo.getFile() == null) { // 사진 변경을 안함(기존 그대로인 imgURL을 사용해야함)
+		if(vo.getFile() == null  ) { // 사진 변경을 안함(기존 그대로인 imgURL을 사용해야함)
+			if( zIndex == -1) {
+				System.out.println("이사람 프사 고르다가 취소하고 원래 프사 쓰기로함 ");
 				vo.setMembershipImg(imgUrl);
+			} else {
+				System.out.println("이사람 프사 고르다가 취소하고 사이트 기본 프사 쓰기로함  ");
+				vo.setMembershipImg(null);
+			}
 		}else { // 사진이 바뀜 먼가 바낌
 			fileDelete(imgUrl, vo.getMembershipCode()); // 실 파일 삭제	
 			vo.setMembershipImg(fileUpload(vo.getFile(), vo.getMembershipCode())); // 파일 업로드 + DB에 URL추가

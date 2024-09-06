@@ -2,16 +2,102 @@
 					//(현재 페이지,제목 문자열, 현재 페이지 경로를 포함된 URL )
 history.replaceState({}, null, location.pathname); // {}: 현재 페이지 상태 저장을 위한 빈칸 사용, 저장 필요 없으면 null 사용가능  
 
+
+
+
+
+
+
+
+let zIndex = -1;
+
+function imgShow(event) {
+	 var reader = new FileReader();
+	   
+	    reader.onload = function(event) {
+	    	console.log(container)
+	        var container = document.getElementById('image_container');
+	     
+	        var img = document.createElement('img');
+	        img.className = 'image'
+	        
+	        img.setAttribute('src', event.target.result);
+	        container.appendChild(img);
+	      
+	        
+	    };
+	   
+	   
+	    
+	    if (event.target.files.length > 0) {
+	    
+	    	
+	        reader.readAsDataURL(event.target.files[0]);
+	     	zIndex = -1 ;
+	        $("#default").css('z-index', zIndex)
+	        
+	    } else {
+	    	
+	    	zIndex = -1 ;
+	    	 $("#default").css('z-index', zIndex)
+	    	$(".image").remove();
+	    	
+	    }
+}
+
+
+
+
+
+
+
+	   function asd() {
+	    
+	     document.getElementById('file').value = "";
+	    	 zIndex = 10 ;
+	        $('#default').css('z-index', zIndex); 
+	    };
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //@@@@@@@@@@@@@@@@@@@@@@@@
 // 클럽명 중복 체크
-let membershipNameCheck = false;
+let membershipNameCheck = true;
 membershipName.addEventListener('input', function() {
 	const membershipNameValue = $(this).val().trim();
+	const membershipCodeValue = $("#membershipCode").val()
 
 	$.ajax({
 		type: 'POST',
 		url: '/membershipNameCheck', // 컨트롤러 URL
-		data: { membershipName: membershipNameValue },
+		data: { membershipName: membershipNameValue,
+			membershipCode : membershipCodeValue
+		 },
 		success: function(result) {
 			if (result) {
 				if (membershipNameValue === "") {
@@ -34,23 +120,30 @@ membershipName.addEventListener('input', function() {
 });
 
 // 클럽 인원수 설정
-const membershipMaxRegExp = /^[0-9]{2,100}$/;
+/*const membershipMaxRegExp = /^[0-9]{2,100}$/;*/
 
-let membershipMaxSubmit = false; // 최대인원 설정 여부를 나타내는 변수 초기화
+let membershipMaxSubmit = true; // 최대인원 설정 여부를 나타내는 변수 초기화
 
 // membershipMax 요소에 입력 이벤트 리스너 추가
 membershipMax.addEventListener('input', function() {
 	const membershipMaxValue = $(this).val().trim(); // jQuery를 사용하여 현재 값 가져오기
-
+	const inputNumber = parseFloat(membershipMaxValue);
+	
 	if (membershipMaxValue === '') {
 		$('#max').text(" 필수 입력사항입니다").css('color', 'red');
-		membershipMaxSubmit = false; // 제출 불가 상태로 
-	} else if (membershipMaxValue <= 1 || membershipMaxValue >= 101) {
-		$('#max').text("설정 가능한 최소 인원은 2명 최대 인원수는 100명입니다").css('color', 'red');
-		membershipMaxSubmit = false;
-	} else {
+		membershipMaxSubmit = false; // 제출 불가 상태로
+		// 최소지정 2 < 지금 4  
+		// 최대값을 지정  최소인원 현재원  ~ 최대원 
+		// 최대 인원 < 100 
+		// 정한 최대인원이 지금 현재인원보다 작아서는 안된다 
+		// 최대인원이 현재 인원보다 크거나 같으면서 101보다는 작다 
+		// 현재인원 <= 최대인원 < 101 
+	} else if (inputNumber >= $("#count").text() && inputNumber < 101) {
 		$('#max').text("설정 가능한 인원수 입니다").css('color', 'green');
-		membershipMaxSubmit = true;
+				membershipMaxSubmit = true;	
+	} else {
+			$('#max').text("설정 가능한 최소 인원은 "+$("#count").text()+"명 최대 인원수는 100명입니다").css('color', 'red');
+			membershipMaxSubmit = false;
 	}
 });
 
@@ -124,11 +217,11 @@ locationBtn.addEventListener("click", function(e) {
 // 앞에 두글자가 선택된 이름의 값과 다르면서 공백이 아닐때 
 
 	if ($("#test1").html().substr(0, 2) != locationbig && $("#test1").html() != "") {
-		alert("어허");
+		alert("하나의 카테고리에서만 선택할 수 있습니다!");
 		return;
 	}
 	if ($("#test1").html().includes(locationsmall) && $("#test1").html() !== "") {
-		alert("어허2");
+		alert("중복선택은 불가능합니다");
 		return;
 	}
 	if ($("#test1").html() == "") {
@@ -167,11 +260,11 @@ typeBtn.addEventListener("click", function(e) {
 	let string = "";
 
 	if ($("#test2").html().substr(0, 2) !== typebig.substr(0, 2) && $("#test2").html() !== "") {
-		alert("어허");
+		alert("하나의 카테고리에서만 선택할 수 있습니다!");
 		return;
 	}
 	if ($("#test2").html().includes(typesmall) && $("#test2").html() !== "") {
-		alert("어허2");
+		alert("중복선택은 불가능합니다!");
 		return;
 	}
 	if ($("#test2").html() == "") {
@@ -215,6 +308,26 @@ function validate() { // 생성버튼 눌렀을때 작동
 	let tp = $("#test2").text();
 
 	
+if(!membershipNameCheck){
+	
+	alert("클럽명을 다시 확인해주세요!")
+	
+	return;
+}	
+	
+if(!membershipMaxSubmit){
+	
+	alert("인원 수를 다시 확인해주세요!")
+	
+	return;
+}	
+		
+if(loc === "" || tp === ""){
+	alert("지역 혹은 타입을 확인해주세요! ")
+	return;
+	
+}
+	
 	
 
 	let formData = new FormData(); // FormData 객체를 사용하여 파일과 데이터를 함께 전송합니다.
@@ -224,11 +337,21 @@ function validate() { // 생성버튼 눌렀을때 작동
 	formData.append('membershipAccessionText',membershipAccessionText)
 	formData.append('membershipSimpleText',membershipSimpleText)
 	formData.append('membershipMax',membershipMax)
+	formData.append('zIndex', zIndex)
 	if(file !== undefined){
 	formData.append('file', file);
 	}
 	formData.append('LB', loc);
 	formData.append('TB', tp);
+		console.log(membershipName);
+		console.log(membershipAccessionText);
+		console.log(membershipSimpleText);
+		console.log(membershipMax);
+		console.log(loc);
+		console.log(tp);
+		console.log(file);
+		console.log(zIndex);
+		console.log([...formData.entries()]);
 	$.ajax({
 		type: 'post',
 		url: '/updateMembership',

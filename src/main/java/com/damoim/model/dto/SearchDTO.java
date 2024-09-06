@@ -26,6 +26,7 @@ public class SearchDTO {
 	private String typeLaName;
 	private String typeSName;
 	
+	
 	private List<String> locationSNameList;
 	private List<String> typeSNameList;
 	

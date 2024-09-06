@@ -51,6 +51,7 @@ CREATE TABLE membership ( -- 클럽
     membership_accession_text text,
 	membership_simple_text VARCHAR(255)
 );
+create schema damoim_beta_test;
 select * from membership;
 CREATE TABLE membership_type  ( -- 클럽 유형 리스트 다 vs 대 풀어주기 
     mem_type_code INT PRIMARY KEY auto_increment, -- 클럽 유형 리스트 코드

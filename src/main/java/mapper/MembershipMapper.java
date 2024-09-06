@@ -10,8 +10,10 @@ import org.apache.ibatis.annotations.Options;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.vo.BasicRoomListVo;
+import com.damoim.model.vo.LocationCategory;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
+import com.damoim.model.vo.MembershipLocation;
 import com.damoim.model.vo.MembershipType;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
@@ -34,7 +36,7 @@ public interface MembershipMapper {
 
 	// 클럽 가입 신청 =========================================
 	void membershipApply(MemberListDTO member); // 가입 신청 누르면 자동으로 해당 클럽의 게스트로 추가
-	
+	void deleteList(MemberListDTO member); // 가입 취소, 탈퇴
 	// 클럽 생성 ============================================
 	void membershipImg(Membership membership); // 클럽 창설때 IMG 추가 업데이트 형식으로 추가
 	void host(MemberListDTO list); // 클럽 생성시 해당 클럽 코드 + 호스트 추가
@@ -55,14 +57,36 @@ public interface MembershipMapper {
 	List<BasicRoomListVo> roomlist(); // 체팅?
 	
 	// 멤버쉽 업데이트 ============================	
-	void updateMembershipInfo(Membership membershipInfo);// 아마 맴버쉽 정보 업데이트
+	void updateMembershipInfo(Membership membershipInfo);// 홍보글 수정,작성
 	
+	void updateMembership(Membership membership); // 맴버쉽 정보 업데이트
 	// ??????????????????????????
-	void makeMembership(Membership membership); // 클럽 만들기????
+
 	
 
 	
-	
+	// _클럽 생성 ===============================================
+			void makeMembership(Membership membership); // 클럽 만들기????
+			
+			// 지역 추가
+			void makeLocationMembership(MembershipLocation membershipLocation);
+
+			// 유형 추가
+			void makeTypeMembership(MembershipType membershipType);
+			
+			// 지역- 이름으로 찾기
+			int findLocationCode(LocationCategory locationCategory);
+			
+			// 유형- 이름으로 찾기
+			int findTypeCode(TypeCategory typeCategory);
+			
+			// 클럽명 중복확인
+			Membership membershipNameCheck(Membership membership);
+			
+			
+			
+			
+
 	
 	
 	

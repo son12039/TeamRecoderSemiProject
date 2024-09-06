@@ -40,3 +40,6 @@ $(".agreeMember").click((e) => {
     },
   });
 });
+
+
+

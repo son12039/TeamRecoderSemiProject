@@ -8,12 +8,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>클럽 홍보게시판</title>
-<link
+<title>모임 게시판</title>
+
+	<link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>  
+    
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/reset.css" />
 <link rel="stylesheet"
@@ -30,88 +33,85 @@
 	<jsp:include page="../header/header.jsp"></jsp:include>
 
 <div id="box">
-<div class="accordion" id="accordionExample">
+	<div class="accordion" id="accordionExample">
 				<div class="accordion-item">
 					<h2 class="accordion-header">
 						<button class="accordion-button collapsed " type="button"
 							data-bs-toggle="collapse" data-bs-target="#collapseOne"
-							aria-expanded="false" aria-controls="collapseOne" >
-							참여하는 멤버들</button>
+							aria-expanded="true" aria-controls="collapseOne" >
+							함께하는 멤버들</button>
 					</h2>
 					<div id="collapseOne" class="accordion-collapse collapse "
 						data-bs-parent="#accordionExample">
 						<div class="accordion-body">
 						
-					    <c:forEach items="${list}" var="list">
+					    <c:forEach items="${agree}" var="list">
 					    
             <div class="memberTable">
          
-              
+                
                         <ul> 
-                             <c:if test="${list. meetAgreeYn == false}">
-                            <div class="member-img-info-hobby-location">
+                        <div class="member-img-icon-nickname-manner">
+                        <div class="member-img-icon">
+                        
+                        <div class="member-icon">
+                        <c:if test="${list.listGrade == 'host'}">
+                            <li class="member-grade"><span><i class="fa-solid fa-crown"></i></span></li>
+                            </c:if>
+                            <c:if test="${list.listGrade == 'regular' }">
+                         <li class="member-grade">   일반회원 </li>
+                            </c:if>
+                            <c:if test="${list.listGrade == 'admin' }">
+                           <li class="member-grade">   관리자 </li>
+                            </c:if>
+                           </div>
+                           
                             <div class="member-img">
                             <c:if test="${list.member.memberImg != null}">
-                            <li><img class="allmemberImg" src="http://192.168.10.51:8081/member/${list.member.id}/${list.member.memberImg}" alt="회원 이미지"></li>
+                            <li><img class="allmemberImg" src="http://192.168.10.51:8081/member/${cMember.member.id}/${cMember.member.memberImg}" alt="회원 이미지"></li>
                             </c:if>
                             <c:if test="${list.member.memberImg == null}">
                             <img class="allmemberImg" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg" alt="회원 이미지">
                             </c:if>
                             </div>
-                            <div class="member-info-hobby-location">
-                            <div class="member-info">
-                            ${list.member.memberInfo}
                             </div>
-                            <div class="member-hobby-location">
-                            ${list.member.memberHobby} / ${list.member.memberLocation}
-                            </div>
-                            </div>
-                            </div>
-                            <div class="nickname-age-fm-manner">
-                            <div class="nickname-age-fm">
+                          
+                          
+                            <div class="nickname-manner">
+                            
                             <div class="nickname">
                             ${list.member.nickname}
                             </div>
+                     
                          
-                            <div class="age-fm">
-                            
-                            <div class="member-age">
-                            ${list.member.age}
-                            </div>
-                            <div class="member-fm">
-                     <c:if test="${list.member.gender eq 'M'.charAt(0)}">
-                       <span id="man"> <i class="fa-solid fa-person"></i></span>
-                          </c:if>
-                         
-                          <c:if test="${list.member.gender eq 'F'.charAt(0)}">
-                     <span id="femail">   <i class="fa-solid fa-person-dress"></i></span>
-                          </c:if>
+                  		<div class="manner">
+							<c:if test="${list.member.memberManner < 30}">
+								<p>${list.member.memberManner}℃</p>
+								<span style="color: red"><i
+									class="fa-solid fa-face-angry fa-2x"></i></span>
+							</c:if>
+							<c:if test="${list.member.memberManner >= 30 && list.member.memberManner <= 40}">
+								<p>${list.member.memberManner}℃</p>
+								<span style="color: rgb(252, 177, 3)"><i
+									class="fa-solid fa-face-smile fa-2x"></i></span>
+							</c:if>
+							<c:if test="${list.member.memberManner > 40}">
+								<p>${list.member.memberManner}℃</p>
+								<span style="color: green"><i
+									class="fa-solid fa-face-grin fa-2x"></i></span>
+							</c:if>
+						</div>
+                        
                           </div>
-                             </div>
-                             </div>
-                           <div class="manner">
-                           <c:if test="${list.member.memberManner < 36.5}">
-                           <p> ${list.member.memberManner}℃</p> <span style="color:rgb(252, 177, 3)" ><i class="fa-solid fa-face-meh fa-2x"></i></span> 
-                           </c:if>
-                           <c:if test="${list.member.memberManner == 36.5}">
-                           <p> ${list.member.memberManner}℃</p> <span style="color:rgb(252, 177, 3)" ><i class="fa-solid fa-face-smile fa-2x"></i></span> 
-                           </c:if>
-                           <c:if test="${list.member.memberManner > 36.5}">
-                           <p> ${list.member.memberManner}℃</p> <span style="color:rgb(252, 177, 3)" ><i class="fa-solid fa-face-grin fa-2x"></i></span> 
-                           </c:if>
-                         
-                        </div>
                           </div>
-                           </c:if>
                         </ul>
-                       
              
-            </div>
+            </div> <!--  멤버 테이블 반복 출력  -->
         </c:forEach>
 					
 					
 					
-						</div>
+						</div> <!-- 여기까지가 아코디언 바디임  -->
 					</div>
 				</div>
 			
@@ -136,8 +136,7 @@
 
 
 
-
-
+<div id="box-container">
 	<div id="container">
 
 	<img id="membershipMain-img"
@@ -165,46 +164,88 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 			</div>
 			
 		</div>
-		
+		<div id="info-container">${allInfo.get(0).membership.membershipInfo }</div>
+		<div id="meetDateStart" style="display: none">${meet.meetDateStart}</div>
+		<div id="meetDateEnd" style="display: none">${meet.meetDateEnd}</div>
 		<div id="meetInfo" >${meet.meetInfo}</div>
 		
 		
-		<c:forEach items="${list}" var="list" >
-<c:if test="${list.meetAgreeYn == true }">
-<p>참석여부 현황 : ${list.member.nickname} ---- 참여</p> 
-</c:if>
-<c:if test="${list.meetAgreeYn == false }">
-<p>참석여부 현황 : ${list.member.nickname} ---- 불참</p> 
-</c:if>
-	<sec:authorize access="isAuthenticated()" var="principal">
-<sec:authentication property="principal" var="member" />
-<c:if test="${member.nickname == list.member.nickname}">
+		
+		<div id="calendar-info">
+		
+		 <p>일정 한눈에 보기</p>
+		<div id="calendar"></div>
+		</div>
+		
+		<div id="buttones">
+		<div id="back">
+		<button type="button" onclick="location.href='/club/${allInfo.get(0).membership.membershipCode}'" >돌아가기</button>	
+		</div>
+		<div id="button3">
+	
+	<sec:authentication property="principal" var="member" />
+		
+ <c:if test="${ !fn:contains(agree, member.id)}">
 <form id="go">
 <input type="hidden" name="meetCode" value="${meet.meetCode}">
 <input type="hidden" name="id" value="${member.id}">
-<input type="hidden" name="meetAgreeYn" value="${list.meetAgreeYn}"> 
-
-<c:choose>
-    <c:when test="${list.meetAgreeYn == false}">
-        <input class="agree" type="submit" value="참가">
-    </c:when>
-    <c:otherwise>
-        <input class="agree" type="submit" value="참가취소">
-    </c:otherwise>
-</c:choose>
+<input type="hidden" name="yN" value="yes">
+<input class="agree" type="submit"  value="참가" id="gogo">
 </form>
 </c:if>
-</sec:authorize>
 
-</c:forEach>
+
+ <c:if test="${ fn:contains(agree, member.id)}">
+<form id="go">
+<input type="hidden" name="meetCode" value="${meet.meetCode}">
+<input type="hidden" name="id" value="${member.id}">
+<input type="hidden" name="yN" value="no">
+<input class="agree" type="submit"  value="참가취소" id="gogo">
+</form>
+</c:if>
+
+
+
+
+
+
+
+
+
+<c:choose>
+     <c:when test="${ writer.id == member.id }">
+     
+     <form action="/meetingDelete">
+     <input type="hidden" name="meetCode" value="${meet.meetCode}">
+    <input class="agree" type="submit" value="삭제">
+  </form>
+
+<form action="/meetingUpdate">
+  <input type="hidden" name="meetCode" value="${meet.meetCode}">
+
+  <input class="agree" type="submit" value="수정">
+  </form>
+ </c:when>
+ 
+ <c:when test="${member.id == allInfo.get(0).member.id }">
+ 
+   <form action="/meetingDelete">
+     
+     <input type="hidden" name="meetCode" value="${meet.meetCode}">
+     <input class="agree" type="submit" value="삭제">
+  </form>
+ </c:when>
+</c:choose>
+
+ 
+ 
 		</div>
 
-		
+	
 
 
-
-
-
+</div>
+</div>
 
 
 
@@ -435,6 +476,13 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 	
 	
 	</div>
+	
+
+	
+	
+	</div>
+	
+	
 	<jsp:include page="../footer/footer.jsp" />
 
 	
@@ -447,5 +495,62 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
 		integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
 		crossorigin="anonymous"></script>
+		
+		 <script>
+  
+  
+   // 참가 , 참가 취소 관련 스크립트 
+        $(document).ready(function() {
+            $('#go').on('submit', function(event) {
+                event.preventDefault(); // 폼의 기본 제출을 막습니다.
+                
+                $.ajax({
+                    url: '/go', // 요청을 보낼 URL
+                    type: 'POST',
+                    data: $(this).serialize(), // 폼의 데이터를 직렬화합니다.
+                    success: function(response) {
+                        alert($(".agree").val()+" 완료되었습니다 !!");
+                         location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        alert('오류가 발생했습니다.');
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+    
+    
+    <script>
+   
+    const allDates = [];
+    
+    let allMeet = {};
+    const endDate = [];
+    <c:forEach items="${allmeet}" var="item" varStatus="status">
+    const a${status.index} = new Date("${item.meetDateEnd}")
+   a${status.index}.setDate(a${status.index}.getDate()+1)
+    a${status.index}1 = a${status.index}.toISOString().split('T')[0];
+   endDate.push(a${status.index}1);
+    </c:forEach>
+ 
+    <c:forEach items="${allmeet}" var="item" varStatus="status">
+    
+    	allMeet.title = "${item.meetTitle}";
+    	
+    	allMeet.start = "${item.meetDateStart}"; 	
+    	allMeet.end = endDate[${status.index}];
+    	allMeet.color = "${item.color}";
+    	allMeet.meetCode= "${item.meetCode}";
+    	<c:if test="${item.meetTitle != null}">
+    	allDates.push(allMeet);
+    	</c:if>
+    	allMeet = {};
+    </c:forEach>
+    
+   
+    </script>
+      <script src="${pageContext.request.contextPath}/js/calendar.js"></script>
 </body>
 </html>

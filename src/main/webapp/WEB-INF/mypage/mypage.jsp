@@ -17,12 +17,11 @@
 <title>Document</title>
 <script src="https://kit.fontawesome.com/ef885bd654.js"
 	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <style>
-.membership-card {
-	display: none;
-}
 </style>
 <body>
 
@@ -50,10 +49,11 @@
 				<c:choose>
 					<c:when test="${member.memberImg != null}">
 						<div>
-						<img src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}"
-							alt="Profile Image" id="image_container">
+							<img
+								src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}"
+								alt="Profile Image" id="image_container">
 						</div>
-						
+
 					</c:when>
 					<c:otherwise>
 						<img src="http://192.168.10.51:8081/기본프사.jpg"
@@ -94,7 +94,7 @@
 				</div>
 				<div class="profile_submit">
 					<input type="button" id="submit" value="수정"> <a
-						href="/updateCheck" id="updateCheck">회원정보 수정</a>
+						href="/updateMemberInfo" id="updateCheck">회원정보 수정</a>
 				</div>
 			</div>
 		</form>
@@ -103,10 +103,11 @@
 	<!-- 가입 대기중인 클럽 보기 -->
 	<div class="container">
 		<div class="club-button">
-			<a id="all-club-button">가입 중인 모든 클럽</a> <a id="manage-club-button">내가
-				관리중인 클럽</a> <a id="wait-club-button">가입 대기중인 클럽</a>
+			<a id="all-club-button">가입 중인 모든 클럽</a> <a id="manage-club-button">내가관리중인
+				클럽</a> <a id="wait-club-button">가입 대기중인 클럽</a> <a id="all-meet-button">나의
+				모임 정보</a>
 		</div>
-		<div class="membership-card" id="wait-club">
+		<div class="membership-card" id="wait-club" >
 			<h1>가입 대기중인 클럽</h1>
 			<c:forEach items="${membership}" var="mem">
 				<sec:authorize access="isAuthenticated()" var="principal">
@@ -129,6 +130,9 @@
 						<div class="membership-String">
 							<div>
 								<p>${mem.membership.membershipName}</p>
+								<button class="btn"
+									onclick="deleteList('${guestClub}',${mem.membership.membershipCode})">신청
+									취소</button>
 							</div>
 						</div>
 					</div>
@@ -156,20 +160,31 @@
 								<img class="membership-img"
 									src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"
 									alt="Membership Image">
+
 							</div>
 							<div class="membership-String">
 								<div>
 									<p>${mem.membership.membershipName}</p>
+									<c:if test="${adminClub != 'host'}">
+										<button class="btn"
+											onclick="deleteList('${adminClub}',${mem.membership.membershipCode})">탈퇴</button>
+									</c:if>
+									
+									
+										
+									
 								</div>
 							</div>
 						</div>
 					</a>
+					비밀번호 확인<input type="password" name="pwdCheck" id="pwdCheck">
+										<button class="btn" onclick="allDeleteMembership()">클럽 삭제</button>
 				</c:if>
 			</c:forEach>
 		</div>
 
 		<!-- 가입 된 클럽 보기 -->
-		<div class="membership-card" id="all-club" style="display: block;">
+		<div class="membership-card" id="all-club" style="display: block">
 
 			<h1>가입 된 클럽</h1>
 			<c:forEach items="${membership}" var="mem">
@@ -194,6 +209,10 @@
 							<div class="membership-String">
 								<div>
 									<p>${mem.membership.membershipName}</p>
+									<c:if test="${myClub != 'host'}">
+										<button class="btn"
+											onclick="deleteList('${myClub}',${mem.membership.membershipCode})">탈퇴</button>
+									</c:if>
 								</div>
 							</div>
 						</div>
@@ -201,11 +220,16 @@
 				</c:if>
 			</c:forEach>
 		</div>
-	</div>
 
-	<!-- 토글 -->
+		<div class="membership-card" id="all-meet">
+			<div id="calendar"></div>
+
+		</div>
+
+		<!-- 토글 -->
 	</div>
 	<div class="container">
+
 		<c:choose>
 			<c:when test="${hasHost}">
 				<p>클럽 생성 기능이 활성화되지 않았습니다. 이미 보유중인 클럽이 있습니다.</p>
@@ -216,10 +240,7 @@
 						name="chevron-down-outline" id="arrow"></ion-icon>
 				</label>
 				<ul id="menu">
-					<form action="/makeMembership">
-						<input type="hidden" name="id" value="${mem.id}">
-						<button id="make-club" type="submit" value="클럽생성">클럽 만들기</button>
-					</form>
+					<a href="/makeMembership">클럽 만들기</a>
 					<form action="/updateMembership">
 						<button id="update-club" type="submit" value="클럽수정">클럽 정보
 							수정</button>
@@ -228,11 +249,42 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
+
 </body>
 <script type="module"
 	src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule
 	src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script>
+   
+    const allDates = [];
+    
+    let allMeet = {};
+    const endDate = [];
+    <c:forEach items="${meetings}" var="item" varStatus="status">
+    const a${status.index} = new Date("${item.meetDateEnd}")
+   a${status.index}.setDate(a${status.index}.getDate()+1)
+    a${status.index}1 = a${status.index}.toISOString().split('T')[0];
+   endDate.push(a${status.index}1);
+    </c:forEach>
+ 
+    <c:forEach items="${meetings}" var="item" varStatus="status">
+    
+    	allMeet.title = "${item.meetTitle}";
+    	
+    	allMeet.start = "${item.meetDateStart}"; 	
+    	allMeet.end = endDate[${status.index}];
+    	allMeet.color = "${item.color}";
+    	allMeet.meetCode= "${item.meetCode}";
+    	<c:if test="${item.meetTitle != null}">
+    	allDates.push(allMeet);
+    	</c:if>
+    	allMeet = {};
+    </c:forEach>
+    
+   
+    </script>
+<script src="${pageContext.request.contextPath}/js/calendar.js"></script>
 <script src="${pageContext.request.contextPath}/js/mypage.js"></script>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -275,5 +327,7 @@
             });
         });
     </script>
+
+
 </body>
 </html>

@@ -3,7 +3,7 @@
 let check = false;
 
 function validate() {
-  if ($("#id").val() == "") {
+/*  if ($("#id").val() == "") {
     alert("아이디를 입력해주세요!");
     $("#id").focus();
    return false;
@@ -12,7 +12,7 @@ function validate() {
     alert("비밀번호를 입력해주세요!");
 	return false;
   } 
-
+*/
   
   return true;
   

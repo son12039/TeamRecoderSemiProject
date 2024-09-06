@@ -50,6 +50,23 @@ public void participation (MeetingsAgree ma) {
 }
 
 
+public void participationCancle (MeetingsAgree ma) {
+	
+	mapper.participationCancle(ma);
+}
+
+public void meetingDelete(MembershipMeetings meetings) {
+	
+	mapper.meetingDelete(meetings);
+}
+
+	 public void meetingUpdate(MembershipMeetings meetings) {
+		 mapper.meetingUpdate(meetings);
+	 }
 	 
+	 public List<MembershipMeetings> allMeetings1(String id){
+		 
+		return  mapper.allMeetings1(id);
+	 }
 	 
 }

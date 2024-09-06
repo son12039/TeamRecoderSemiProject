@@ -41,6 +41,7 @@
 					<sec:authorize access="isAuthenticated()" var="principal">
 						<sec:authentication property="principal" var="member" />
 							<div class="main_header_right_user"> 
+						
 								<div class="main_header_right_nickname">${member.nickname}</div>
 								<c:choose>
 									<c:when test="${member.memberImg != null}">

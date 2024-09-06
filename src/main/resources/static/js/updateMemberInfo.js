@@ -16,10 +16,11 @@ const emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA
 
 let pwdSubmit = false;
 let pwdcSubmit = false;
-let nicknameSubmit = false;
-let emailSubmit = false;
-let ageSubmit = false;
-let nameSubmit = false;
+let nicknameSubmit = true;
+let emailSubmit = true;
+let ageSubmit = true;
+let nameSubmit = true;
+let beforePwd = false;
 
 
 
@@ -133,17 +134,6 @@ nameInput.addEventListener('input', function() { // 이름 확인
 function validate() {
 
 	
-	if(!pwdSubmit)pwd.focus();
-	
-	else if(!pwdcSubmit)pwdc.focus();
-	
-	else if(!ageSubmit)age.focus();
-	
-	else if(!nameSubmit)nameInput.focus();
-	
-	else if(!nicknameSubmit)nickname.focus();
-	
-	else if(!emailSubmit)email.focus();
 	
 	if(!(pwdSubmit && pwdcSubmit && ageSubmit && nicknameSubmit&& emailSubmit && nameSubmit)){
 
@@ -157,7 +147,7 @@ function validate() {
 	}
 	if((pwdSubmit && pwdcSubmit && ageSubmit && nicknameSubmit&& emailSubmit && nameSubmit)){
 
-		alert(nick +"님 환영합니다!");
+		alert("변경완료");
 	}
 	
 	return pwdSubmit && pwdcSubmit && ageSubmit && nicknameSubmit && emailSubmit &&nameSubmit;

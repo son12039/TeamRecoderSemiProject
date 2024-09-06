@@ -17,7 +17,7 @@
 	href="${pageContext.request.contextPath}/css/memberDelete.css" />
 </head>
 <body>
-	<sec:authorize access="isAuthenticated()" var="principal">
+	
 		<sec:authentication property="principal" var="member" />
 		<jsp:include page="/WEB-INF/header/mypageHeader.jsp" />
 
@@ -80,40 +80,39 @@
 			</section>
 			<section class="confirmation">
 				<div>
-					<form action="/memberStatus" method="post" id="form">
+					
 					<label for="checkbox">
-						<p>
-							안내 사항을 모두 확인하였으며, 이에 동의합니다. 
+						<p>안내 사항을 모두 확인하였으며, 이에 동의합니다. 
 							<input type="checkbox" id="checkbox"
 								name="checkbox">
 						</p>
 						</label>
 						<div>
-
+							<label>비밀번호 확인<input type="password" id="pwdCheck" name="pwdCheck"></label>
 							<input type="button" id="button" value="회원탈퇴" />
 						</div>
-					</form>
 				</div>
 			</section>
 		</div>
-	</sec:authorize>
+
 	<script>
 		$("#button").click(() => {
+			console.log("머고")
 			if (!$("#checkbox").is(":checked")) {
                 alert("동의란에 체크해주세요");
                 return; 
             }
 			$.ajax({
-				type: "post",
+				type: "POST",
 				url: "/memberStatus",
-				data: $("#form").serialize(),
+				data: { pwdCheck: $("#pwdCheck").val() },
 				success: function (result){
 					if(result){
 						// true면 마지막 비밀번호 체크 페이지 이동
 						alert("회원탈퇴 완료되었습니다");
 						window.location.href = "/";
 					} else {
-						alert("회원님의 등급이 호스트입니다 계시물을 확인해주세요");
+						alert("회원님의 등급이 호스트이거나 비밀번호가 틀렸습니다.");
 						location.reload();
 					}
 				},

@@ -1,348 +1,49 @@
-INSERT INTO location_category (loc_la_name, loc_s_name) VALUES
--- 서울 소분류
-('서울', '종로구'),
-('서울', '중구'),
-('서울', '용산구'),
-('서울', '성동구'),
-('서울', '광진구'),
-('서울', '동대문구'),
-('서울', '중랑구'),
-('서울', '성북구'),
-('서울', '강북구'),
-('서울', '도봉구'),
-('서울', '노원구'),
-('서울', '은평구'),
-('서울', '서대문구'),
-('서울', '마포구'),
-('서울', '양천구'),
-('서울', '강서구'),
-('서울', '구로구'),
-('서울', '금천구'),
-('서울', '영등포구'),
-('서울', '동작구'),
-('서울', '관악구'),
-('서울', '서초구'),
-('서울', '강남구'),
-('서울', '송파구'),
-('서울', '강동구'),
+-- create schema test;
 
--- 부산 소분류
-('부산', '중구'),
-('부산', '서구'),
-('부산', '동구'),
-('부산', '영도구'),
-('부산', '부산진구'),
-('부산', '동래구'),
-('부산', '남구'),
-('부산', '북구'),
-('부산', '해운대구'),
-('부산', '사하구'),
-('부산', '금정구'),
-('부산', '강서구'),
-('부산', '연제구'),
-('부산', '수영구'),
-('부산', '사상구'),
+drop table membership_user_list;
+drop table member;
+drop table membership;
 
--- 대구 소분류
-('대구', '중구'),
-('대구', '동구'),
-('대구', '서구'),
-('대구', '남구'),
-('대구', '북구'),
-('대구', '수성구'),
-('대구', '달서구'),
-('대구', '달성군'),
+CREATE TABLE member ( -- 회원가입
+    id VARCHAR(50) PRIMARY KEY, -- 아이디
+    pwd VARCHAR(255) NOT NULL, -- 비밀번호
+    addr VARCHAR(255), -- 주소
+    phone VARCHAR(20), -- 전화번호
+    email VARCHAR(100) UNIQUE, -- 이메일
+    name VARCHAR(50), -- 이름
+    age INT, -- 나이
+    gender CHAR(1), -- 성별 M/F
+    status BOOLEAN DEFAULT TRUE, -- 유저 가입,탈퇴 여부
+	member_manner DECIMAL(4,2) DEFAULT (36.50), -- 유저온도 0.00 ~ 99.99까지가능
+    nickname VARCHAR(50) UNIQUE, -- 닉네임
+    member_img VARCHAR(255), -- 유저프로필사진
+    member_hobby TEXT, -- 유저 관심사
+    member_info TEXT, -- 유저 간단한 자기소개
+    last_recommendation_time TIMESTAMP NULL DEFAULT NULL ,-- 유저의 마지막 추천 시간
+    deleted_at DATETIME DEFAULT NULL -- 정보 삭제까지의 유예기간
+    
+);
 
--- 인천 소분류
-('인천', '중구'),
-('인천', '동구'),
-('인천', '미추홀구'),
-('인천', '연수구'),
-('인천', '남동구'),
-('인천', '부평구'),
-('인천', '계양구'),
-('인천', '서구'),
+CREATE TABLE membership ( -- 클럽
+    membership_code INT PRIMARY KEY auto_increment, -- 클럽코드
+    membership_name VARCHAR(100) UNIQUE, -- 클럽이름
+    membership_img TEXT, -- 클럽메인사진
+	membership_info LONGTEXT, -- 클럽소개
+    membership_date DATE DEFAULT(current_date), -- 클럽생성날짜
+    membership_max INT, -- 클럽최대인원
+    membership_accession_text text,
+	membership_simple_text VARCHAR(255)
+);
 
--- 광주 소분류
-('광주', '동구'),
-('광주', '서구'),
-('광주', '남구'),
-('광주', '북구'),
-('광주', '광산구'),
+CREATE TABLE membership_user_list( -- 클럽유저정보 다 vs 대 풀어주기
+    list_code INT PRIMARY KEY auto_increment, -- 클럽가입한 멤버코드
+    list_grade VARCHAR(50), -- 멤버등급 호스트, 관리자, 일반회원, 비회원(신청만한사람)
+    id VARCHAR(50), -- 유저코드 /외래키
+    membership_code INT -- 클럽코드 /외래키
+);
 
--- 대전 소분류
-('대전', '동구'),
-('대전', '중구'),
-('대전', '서구'),
-('대전', '유성구'),
-('대전', '대덕구'),
-
--- 울산 소분류
-('울산', '중구'),
-('울산', '남구'),
-('울산', '동구'),
-('울산', '북구'),
-('울산', '울주군'),
-
--- 세종 소분류
-('세종', '세종시'),
-
--- 경기 소분류
-('경기', '수원시'),
-('경기', '광주시'),
-('경기', '성남시'),
-('경기', '용인시'),
-('경기', '고양시'),
-('경기', '화성시'),
-('경기', '평택시'),
-('경기', '안양시'),
-('경기', '부천시'),
-('경기', '광명시'),
-('경기', '과천시'),
-('경기', '오산시'),
-('경기', '의정부시'),
-('경기', '구리시'),
-('경기', '포천시'),
-('경기', '남양주시'),
-('경기', '동두천시'),
-('경기', '양주시'),
-('경기', '가평군'),
-('경기', '연천군'),
-('경기', '여주군'),
-('경기', '이천시'),
-('경기', '안성시'),
-
--- 강원 소분류
-('강원', '춘천시'),
-('강원', '원주시'),
-('강원', '강릉시'),
-('강원', '동해시'),
-('강원', '속초시'),
-('강원', '삼척시'),
-('강원', '홍천군'),
-('강원', '횡성군'),
-('강원', '영월군'),
-('강원', '평창군'),
-('강원', '정선군'),
-('강원', '철원군'),
-('강원', '화천군'),
-('강원', '양구군'),
-('강원', '인제군'),
-('강원', '고성군'),
-('강원', '양양군'),
-
--- 충북 소분류
-('충북', '청주시'),
-('충북', '충주시'),
-('충북', '제천시'),
-('충북', '보은군'),
-('충북', '옥천군'),
-('충북', '영동군'),
-('충북', '진천군'),
-('충북', '괴산군'),
-('충북', '음성군'),
-('충북', '단양군'),
-
--- 충남 소분류
-('충남', '천안시'),
-('충남', '공주시'),
-('충남', '보령시'),
-('충남', '아산시'),
-('충남', '서산시'),
-('충남', '논산시'),
-('충남', '계룡시'),
-('충남', '당진시'),
-('충남', '금산군'),
-('충남', '부여군'),
-('충남', '서천군'),
-('충남', '청양군'),
-('충남', '홍성군'),
-('충남', '예산군'),
-
--- 전북 소분류
-('전북', '전주시'),
-('전북', '익산시'),
-('전북', '군산시'),
-('전북', '정읍시'),
-('전북', '남원시'),
-('전북', '김제시'),
-('전북', '완주군'),
-('전북', '진안군'),
-('전북', '무주군'),
-('전북', '장수군'),
-('전북', '임실군'),
-('전북', '순창군'),
-('전북', '고창군'),
-('전북', '부안군'),
-
--- 전남 소분류
-('전남', '광양시'),
-('전남', '목포시'),
-('전남', '순천시'),
-('전남', '여수시'),
-('전남', '담양군'),
-('전남', '장흥군'),
-('전남', '강진군'),
-('전남', '고흥군'),
-('전남', '곡성군'),
-('전남', '구례군'),
-('전남', '나주군'),
-('전남', '무안군'),
-('전남', '신안군'),
-('전남', '영광군'),
-('전남', '영암군'),
-('전남', '완도군'),
-('전남', '장성군'),
-('전남', '함평군'),
-
--- 경북 소분류
-('경북', '경산시'),
-('경북', '경주시'),
-('경북', '구미시'),
-('경북', '김천시'),
-('경북', '문경시'),
-('경북', '상주시'),
-('경북', '안동시'),
-('경북', '영주시'),
-('경북', '영천시'),
-('경북', '포항시'),
-('경북', '봉화군'),
-('경북', '영양군'),
-('경북', '울진군'),
-('경북', '울릉군'),
-('경북', '청송군'),
-('경북', '군위군'),
-('경북', '의성군'),
-('경북', '청도군'),
-('경북', '고령군'),
-('경북', '성주군'),
-('경북', '칠곡군'),
-
--- 경남 소분류
-('경남', '김해시'),
-('경남', '진주시'),
-('경남', '창원시'),
-('경남', '양산시'),
-('경남', '거제시'),
-('경남', '통영시'),
-('경남', '사천시'),
-('경남', '밀양시'),
-('경남', '함안군'),
-('경남', '의령군'),
-('경남', '함양군'),
-('경남', '산청군'),
-('경남', '거창군'),
-('경남', '창녕군'),
-('경남', '고성군'),
-('경남', '하동군'),
-('경남', '남해군'),
-
--- 제주 소분류
-('제주', '제주시'),
-('제주', '서귀포시');
--- 타입추가
-
-INSERT INTO type_category (type_la_name, type_s_name) VALUES
-('종교', '기독교'),
-('종교', '불교'),
-('종교', '원불교'),
-('종교', '천주교'),
-('종교', '기타 종교');
-INSERT INTO type_category (type_la_name, type_s_name) VALUES
-('금융', '투자 세미나'),
-('금융', '주식 투자'),
-('금융', '부동산 투자'),
-('금융', '암호화폐'),
-('금융', '재무 계획'),
-('금융', '기타');
-
-INSERT INTO type_category (type_la_name, type_s_name) VALUES
-('취미', '공예'),
-('취미', '독서'),
-('취미', '보드게임'),
-('취미', '드로잉'),
-('취미', 'PC게임'),
-('취미', '모바일게임'),
-('취미', '요리'),
-('취미', '기타');
-
--- 문화예술 대분류 및 소분류 데이터 삽입
-INSERT INTO type_category (type_la_name, type_s_name) VALUES
-('문화예술', '영화'),
-('문화예술', '전시'),
-('문화예술', '페스티벌'),
-('문화예술', '힙합'),
-('문화예술', '미술'),
-('문화예술', '대중가요'),
-('문화예술', '콘서트'),
-('문화예술', '기타');
-
--- 스터디 대분류 및 소분류 데이터 삽입
-INSERT INTO type_category (type_la_name, type_s_name) VALUES
-('스터디', '코딩'),
-('스터디', '공무원'),
-('스터디', '자격증'),
-('스터디', '영어'),
-('스터디', '중국어'),
-('스터디', '일본어'),
-('스터디', '토론'),
-('스터디', '기타');
-
--- 푸드 & 드링크 대분류 및 소분류 데이터 삽입
-INSERT INTO type_category (type_la_name, type_s_name) VALUES
-('푸드 & 드링크', '맛집투어'),
-('푸드 & 드링크', '베이킹'),
-('푸드 & 드링크', '카페'),
-('푸드 & 드링크', '위스키'),
-('푸드 & 드링크', '전통주'),
-('푸드 & 드링크', '기타');
-
--- 여행 대분류 및 소분류 데이터 삽입
-INSERT INTO type_category (type_la_name, type_s_name) VALUES
-('여행', '해외여행'),
-('여행', '국내여행'),
-('여행', '캠핑'),
-('여행', '기타');
-
--- 스포츠 대분류 및 소분류 데이터 삽입
-INSERT INTO type_category (type_la_name, type_s_name) VALUES
-('스포츠', '축구'),
-('스포츠', '야구'),
-('스포츠', '농구'),
-('스포츠', '배구'),
-('스포츠', '당구'),
-('스포츠', '배드민턴'),
-('스포츠', '스키'),
-('스포츠', '수영'),
-('스포츠', '기타');
-
--- 건강 & 웰빙 대분류 및 소분류 데이터 삽입
-INSERT INTO type_category (type_la_name, type_s_name) VALUES
-('건강 & 웰빙', '요가'),
-('건강 & 웰빙', '명상'),
-('건강 & 웰빙', '헬스'),
-('건강 & 웰빙', '피트니스'),
-('건강 & 웰빙', '다이어트'),
-('건강 & 웰빙', '필라테스'),
-('건강 & 웰빙', '기타');
-
--- 사회적 활동 대분류 및 소분류 데이터 삽입
-INSERT INTO type_category (type_la_name, type_s_name) VALUES
-('사회적 활동', '자원봉사'),
-('사회적 활동', '사회적 기업'),
-('사회적 활동', '지역 사회 활동'),
-('사회적 활동', '커뮤니티 행사'),
-('사회적 활동', '기타');
-
-INSERT INTO type_category (type_la_name, type_s_name) VALUES
-('반려동물', '반려견'),
-('반려동물', '반려묘'),
-('반려동물', '기타');
-
-
-
--- 맴버 추가
-select * from member;
+ALTER TABLE membership_user_list ADD  FOREIGN KEY (id) REFERENCES member(id);
+ALTER TABLE membership_user_list ADD  FOREIGN KEY (membership_code) REFERENCES membership(membership_code);
 
 INSERT INTO member (id, pwd, nickname, addr, phone, email, name, age, gender, status, member_manner, member_hobby, member_info) 
 VALUES
@@ -666,7 +367,6 @@ INSERT INTO membership_user_list (list_grade, id, membership_code) VALUES
 ('host', 'user049', 49),
 ('host', 'user050', 50);
 
--- 51~100 어드민 추가
 INSERT INTO membership_user_list (list_grade, id, membership_code) VALUES
 ('admin', 'user051', 1),
 ('admin', 'user052', 2),
@@ -718,105 +418,6 @@ INSERT INTO membership_user_list (list_grade, id, membership_code) VALUES
 ('admin', 'user098', 48),
 ('admin', 'user099', 49),
 ('admin', 'user100', 50);
-
-INSERT INTO membership_user_list (list_grade, id, membership_code) VALUES
-('regular', 'user101', 1),
-('regular', 'user102', 2),
-('regular', 'user103', 3),
-('regular', 'user104', 4),
-('regular', 'user105', 5),
-('regular', 'user106', 6),
-('regular', 'user107', 7),
-('regular', 'user108', 8),
-('regular', 'user109', 9),
-('regular', 'user110', 10),
-('regular', 'user111', 11),
-('regular', 'user112', 12),
-('regular', 'user113', 13),
-('regular', 'user114', 14),
-('regular', 'user115', 15),
-('regular', 'user116', 16),
-('regular', 'user117', 17),
-('regular', 'user118', 18),
-('regular', 'user119', 19),
-('regular', 'user120', 20),
-('regular', 'user121', 21),
-('regular', 'user122', 22),
-('regular', 'user123', 23),
-('regular', 'user124', 24),
-('regular', 'user125', 25),
-('regular', 'user126', 26),
-('regular', 'user127', 27),
-('regular', 'user128', 28),
-('regular', 'user129', 29),
-('regular', 'user130', 30),
-('regular', 'user131', 31),
-('regular', 'user132', 32),
-('regular', 'user133', 33),
-('regular', 'user134', 34),
-('regular', 'user135', 35),
-('regular', 'user136', 36),
-('regular', 'user137', 37),
-('regular', 'user138', 38),
-('regular', 'user139', 39),
-('regular', 'user140', 40),
-('regular', 'user141', 41),
-('regular', 'user142', 42),
-('regular', 'user143', 43),
-('regular', 'user144', 44),
-('regular', 'user145', 45),
-('regular', 'user146', 46),
-('regular', 'user147', 47),
-('regular', 'user148', 48),
-('regular', 'user149', 49),
-('regular', 'user150', 50),
-('regular', 'user151', 1),
-('regular', 'user152', 2),
-('regular', 'user153', 3),
-('regular', 'user154', 4),
-('regular', 'user155', 5),
-('regular', 'user156', 6),
-('regular', 'user157', 7),
-('regular', 'user158', 8),
-('regular', 'user159', 9),
-('regular', 'user160', 10),
-('regular', 'user161', 11),
-('regular', 'user162', 12),
-('regular', 'user163', 13),
-('regular', 'user164', 14),
-('regular', 'user165', 15),
-('regular', 'user166', 16),
-('regular', 'user167', 17),
-('regular', 'user168', 18),
-('regular', 'user169', 19),
-('regular', 'user170', 20),
-('regular', 'user171', 21),
-('regular', 'user172', 22),
-('regular', 'user173', 23),
-('regular', 'user174', 24),
-('regular', 'user175', 25),
-('regular', 'user176', 26),
-('regular', 'user177', 27),
-('regular', 'user178', 28),
-('regular', 'user179', 29),
-('regular', 'user180', 30),
-('regular', 'user181', 31),
-('regular', 'user182', 32),
-('regular', 'user183', 33),
-('regular', 'user184', 34),
-('regular', 'user185', 35),
-('regular', 'user186', 36),
-('regular', 'user187', 37),
-('regular', 'user188', 38),
-('regular', 'user189', 39),
-('regular', 'user190', 40),
-('regular', 'user191', 41),
-('regular', 'user192', 42),
-('regular', 'user193', 43),
-('regular', 'user194', 44),
-('regular', 'user195', 45),
-('regular', 'user196', 46),
-('regular', 'user197', 47),
-('regular', 'user198', 48),
-('regular', 'user199', 49),
-('regular', 'user200', 50);
+select * from member;
+select * from membership;
+select * from membership_user_list;

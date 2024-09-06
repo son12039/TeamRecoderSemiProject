@@ -182,10 +182,11 @@ public class MemberController {
 	 * 성철 단순히 더미데이터 비밀번호 처리
 	 */
 	@GetMapping("/dummyUpdate")
-	public String dummyUpdate() {
-		service.dummyUpdate();
+	public String dummyUpdate() throws IOException {
+		service.dummyUpdate();// 더미 비밀번호 업데이트 // 폴더생성
 		return "redirect:/";
 	}
+
 	/*
 	 * 성철
 	 * 업데이트시 본인꺼 OR 중복 X 확인

@@ -70,7 +70,7 @@ function allDeleteMembership() {
 				if (bo) {
 					alert("클럽 삭제 완료");
 				} else {
-					alert("클럽 삭제 실패");
+					alert("클럽 인원을 확인해주세요");
 				}
 				location.reload();
 			},

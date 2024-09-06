@@ -54,25 +54,13 @@ public class PageController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member member = (Member) authentication.getPrincipal();
 		
+		// 2024/09/05 mypage 구조 수정 (DM)
 		ArrayList<MembershipUserList> membershipList = (ArrayList<MembershipUserList>) infoService.selectMemberUserList(member.getId());
 		for(MembershipUserList li : membershipList) {
 			 li.setCount(infoService.membershipUserCount(li.getMembership().getMembershipCode()));
 		}
 		model.addAttribute("mypage", membershipList);
 		
-		
-		
-		
-		List<MembershipUserList> list = new ArrayList<MembershipUserList>(); // 내가 가입한 모든 클럽
-		for (MemberListDTO m : member.getMemberListDTO()) { // 내가 가입한 모든 클럽의 맴버쉽 코드를 담기 위한거?
-			list.add((MembershipUserList) infoService.main(m.getMembershipCode()));
-			
-		}
-		for (int i = 0; i < list.size(); i++) {
-			list.get(i).setCount(list.get(i).getMembership().getMembershipCode());
-		}
-		// 내 등급별 클럽
-		model.addAttribute("membership", list);
 		return "mypage/mypage";
 	}
 	

@@ -1,7 +1,3 @@
-main {
-	background-color: rgb(244, 243, 234);
-}
-
 /* 폰트 어썸 아이콘*/
 .fa-solid.fa-crown {
 	color: #fca311;
@@ -39,12 +35,14 @@ main {
 	color: #a4161a;
 }
 
-.fa-solid.fa-thumbs-up.fa-3x {
+.fa-regular.fa-thumbs-up {
 	color: green;
+	font-size: 2.5rem;
 }
 
-.fa-solid.fa-thumbs-down.fa-3x {
+.fa-regular.fa-thumbs-down {
 	color: red;
+	font-size: 2.5rem;
 }
 
 
@@ -56,6 +54,7 @@ h1 {
 }
 
 .box {
+	background-color: #F4F3EA;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
@@ -73,7 +72,7 @@ h1 {
 	align-items: center;
 	flex-direction: column;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	background: #FFE8CF;
+	background: #FFFFFF;
 	margin-bottom: 20px;
 }
 
@@ -114,30 +113,30 @@ h1 {
 	width: 100px;
 	height: 60px;
 	border-right: 1px black solid;
-	background: #14213D;
+	background: #F4F3EA;
 	border-radius: 20px 0px 0px 20px;
 }
 .left-btn:hover{
-	background-color: #1B2A41;
+	background-color: #FFFFFF;
 	border-right: 1px #FFE8CF solid;
 	border: 3px solid black;
-	.fa-solid.fa-thumbs-up.fa-3x {
-		color:yellow;
+	.fa-regular.fa-thumbs-up {
+		color:black;
 	}
 }
 .right-btn{
 	width: 100px;
 	height: 60px;
 	border-left: 1px black solid;
-	background: #14213D;
+	background:#F4F3EA;
 	border-radius: 0px 20px 20px 0px;
 }
 .right-btn:hover{
-	background-color: #1B2A41;
+	background-color:  #FFFFFF;
 	border-right: 1px #FFE8CF solid;
 	border: 3px solid black;
-	.fa-solid.fa-thumbs-down.fa-3x{
-		color: #CCC9DC;
+	.fa-regular.fa-thumbs-down{
+		color: black;
 	}
 }
 
@@ -249,9 +248,8 @@ h1 {
 	padding: 20px;
 	flex-direction: column;
 	justify-content: space-between;
-	border: 1px solid #ddd;
 	border-radius: 8px;
-	background-color: #f9f9f9;
+	background-color: #FFFFFF;
 }
 .section2_memberInfo{
 	display: flex;
@@ -281,10 +279,15 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	margin: 10px 10px 10px;
+	border: 7px solid #F4F3EA;
 	border-radius: 20%;
-	background-color: #C0B9DD;
+	background-color: #E5E5E5;
 	justify-content: center;
 	align-items: center;
+}
+.club_box:hover{
+	background-color: #FFFFFF;
+	border: none;
 }
 
 .club_box>a {

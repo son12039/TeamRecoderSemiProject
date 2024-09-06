@@ -286,7 +286,6 @@ public class MemberController {
 		removeService.deleteAllComment(mem.getId());
 		removeService.deleteMembershipUserList(mem.getId());
 		removeService.deleteAllMeeting(mem.getId());
-		// membershipUserList 삭제
 
 		// 로그아웃 처리
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -295,24 +294,6 @@ public class MemberController {
 
 		return true;
 
-//		if (check) { // 해당 유저가 가입된 클럽 중 호스트인게 있다면!
-//			return false;
-//		}
-//		if (!service.updateCheck(mem, pwdCheck)) { // 비밀번호 확인에서 틀렸을 경우
-//			return false;
-//		}
-//
-//		service.memberStatus(mem); // 멤버 상태 업데이트
-//		removeService.deleteAllComment(mem.getId());
-//		removeService.deleteMembershipUserList(mem.getId());
-//		removeService.deleteAllMeeting(mem.getId());
-//
-//		// 로그아웃 처리
-//		SecurityContextHolder.getContext().setAuthentication(authentication);
-//		SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
-//		logoutHandler.logout(request, response, authentication);
-//
-//		return true;
 	}
 
 	// 기본 사진으로 변경
@@ -330,20 +311,40 @@ public class MemberController {
 	// 프로필, info 업데이트
 	@ResponseBody
 	@PostMapping("/updateMember")
-	public boolean updateMember(Member vo, MultipartFile file) throws IllegalStateException, IOException {
+	public boolean updateMember(MultipartFile file,String memberInfo, String memberHobby) throws IllegalStateException, IOException {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		// 파일이름이 있거나 멤버가 가진 프로필 사진이 없을때?
-		if (file.getOriginalFilename() != null || mem.getMemberImg() == null) {
-			fileDelete(mem.getMemberImg(), mem.getId());
-			String url = fileUpload(file, mem.getId());
-			mem.setMemberImg(url);
-
+		// 1. 추가한 파일이 null이 아니고 비어있지 않을경우
+	    if (file != null && !file.isEmpty()) {
+	        if (mem.getMemberImg() != null) {
+	        	// 2. 멤버가 가지고있는 파일이미지가 null이 아닐경우 기존 파일 삭제
+	            fileDelete(mem.getMemberImg(), mem.getId());
+	        }
+	        
+	        // 3. 그 뒤에 url 파일 업로드 후 멤버의 이미지에 추가
+	        String url = fileUpload(file, mem.getId());
+	        mem.setMemberImg(url);
+	        
+	        
+	        
+	        
+	        
+	    } else if (file == null) {
+	    	
+	    	// 4. 추가한 파일이 없거나 기존 이미지로 유지할 경우 기존 이미지 유지
+	        mem.setMemberImg(mem.getMemberImg());
+	    }
+	    
+		if(memberHobby != null) {
+			// 5. 멤버 취미란에 수정사항이 있으면
+			mem.setMemberHobby(memberHobby);
 		}
-
-		mem.setMemberHobby(vo.getMemberHobby());
-
-		mem.setMemberInfo(vo.getMemberInfo());
+		
+		if(memberInfo != null) {
+			// 6. 멤버 소개란에 수정사항이 있으면
+			mem.setMemberInfo(memberInfo);
+		}
+		
 
 		service.updateMember(mem);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -373,6 +374,7 @@ public class MemberController {
 			System.out.println("본인 ");
 			return "mypage/mypage";
 		}
+		
 		System.out.println("그외 ");
 		return "member/userInfo";
 	}

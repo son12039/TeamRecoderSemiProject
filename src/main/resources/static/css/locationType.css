@@ -1,3 +1,6 @@
+
+
+/* ================================================ */
 /*color:  #fca35b;*/
 
 
@@ -16,7 +19,6 @@
 	border-radius: 7px;
 	border: 1px solid #d5d5d5;
 	
-
 }
 /*중단 locationLa 이벤트 놈들*/
 .line{
@@ -127,7 +129,7 @@
 }
 /*중단 locationS 이벤트 놈들*/
 
- .classiFication{
+ .TclassiFication{
  width: 100%;
  height: 100%;
  display: flex;
@@ -208,4 +210,3 @@
 	background-color:  rgb(253, 207, 170);
 	border-radius : 20px;
 }
- 

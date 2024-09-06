@@ -1,3 +1,4 @@
+ALTER TABLE member ADD COLUMN deleted_at DATETIME DEFAULT NULL;
 -- 프로젝트 application.properties에 한국시간 맞춰야함
 -- (요놈들 추가)
 -- jdbc:mysql://localhost:3306/damoim?serverTimezone=Asia/Seoul 

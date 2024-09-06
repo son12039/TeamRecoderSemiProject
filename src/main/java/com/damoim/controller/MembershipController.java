@@ -213,7 +213,7 @@ public class MembershipController {
 		}
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		System.out.println("업데이트 완료");
-	 	return true;
+	 	return ck;
 		} 
 		return false;
 	}

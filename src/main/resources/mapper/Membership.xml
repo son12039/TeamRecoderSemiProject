@@ -305,13 +305,7 @@
 		membership_name,membership_code FROM
 		membership
 	</select>
-	
-	<!-- 동문 -->
-	<!-- 아이디 받아서 해당유저 membership_user_list 테이블 삭제 -->
-	<delete id="resignUserList" parameterType="String">
-		DELETE FROM membership_user_list
-		WHERE id=#{id}
-	</delete>
+
 	
 	
 	

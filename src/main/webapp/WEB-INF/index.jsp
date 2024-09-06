@@ -15,10 +15,11 @@
 	href="${pageContext.request.contextPath}/css/index.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/locationType.css" />
-	<head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<head>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-	
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
@@ -44,25 +45,25 @@
 	<div class="locationTypeBody">
 		<div class="locationTypeBodyBox">
 			<form id="locationLaNameForm">
-					<div class="locationBoxHead">
-						<div class="locationLaStar">도시별</div>
-							<input type="checkbox" value="초기화" id="locLaNameAll" /> 
-							<label class="locLaNameLabel" for="locLaNameAll">초기화</label>
-					</div>
-						<div class="locationLaDiv">
-							<c:forEach items="${locLaNameList}" var="locLaName">
-								<input type="checkbox" value="${locLaName}" id="${locLaName}"
-									name="locationLaName">
-								<label for="${locLaName}" class="locationLaCss">${locLaName}</label>
-							</c:forEach>
-						</div>
+				<div class="locationBoxHead">
+					<div class="locationLaStar">도시별</div>
+					<input type="checkbox" value="초기화" id="locLaNameAll" /> <label
+						class="locLaNameLabel" for="locLaNameAll">초기화</label>
+				</div>
+				<div class="locationLaDiv">
+					<c:forEach items="${locLaNameList}" var="locLaName">
+						<input type="checkbox" value="${locLaName}" id="${locLaName}"
+							name="locationLaName">
+						<label for="${locLaName}" class="locationLaCss">${locLaName}</label>
+					</c:forEach>
+				</div>
 			</form>
 			<div class="line"></div>
-	
+
 			<form id="locationSNameForm">
 				<div class="locationSStar">지역별</div>
 				<div class="locationSDiv">
-				<div class="classiFication">지역을 선택해주세요</div>
+					<div class="classiFication">지역을 선택해주세요</div>
 					<c:forEach items="${locSNameList}" var="locSName">
 						<input type="checkbox" value="${locSName}" id="${locSName}"
 							name="locationSName">
@@ -102,8 +103,7 @@
 		<c:forEach items="${list}" var="info" varStatus="status">
 			<div class="membership-card">
 				<div class="membership-img">
-					<a href="/${info.membershipCode}">
-					 <c:choose>
+					<a href="/${info.membershipCode}"> <c:choose>
 							<c:when test="${info.membershipImg != null}">
 								<img
 									src="http://192.168.10.51:8081/membership/${info.membershipCode}/${info.membershipImg}">
@@ -117,9 +117,12 @@
 				</div>
 				<div class="membership-info">
 					<h1 class="membership-name">${info.membershipName}</h1>
-					
+
 					<h2>${info.membershipSimpleText}</h2>
-					<h3><i class="fa-solid fa-users"></i> : ${info.count}/${info.membershipMax}</h3>
+					<h3>
+						<i class="fa-solid fa-users"></i> :
+						${info.count}/${info.membershipMax}
+					</h3>
 					<a href="/userInfo/${info.nickname}">
 						<div class="host">
 							<c:choose>

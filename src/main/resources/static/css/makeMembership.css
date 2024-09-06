@@ -1,0 +1,506 @@
+@charset "UTF-8";
+/* 클럽생성 CSS 2024/09/06 (SDM) */
+.box {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	padding-top: 120px;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 100%;
+	margin: auto;
+}
+
+.select-group {
+	width: 80%;
+	height: 30vh;
+	background-color: #FFE8CF;
+}
+
+.select-title {
+	display: flex;
+	justify-content: flex-start;
+	background-color: orange;
+	width: 100%;
+	font-size: 2.5rem;
+	font-family: "Do Hyeon", sans-serif;
+}
+
+.select-menu {
+	display: flex;
+	justify-content: flex-start;
+	background-color: yellow;
+	width: 100%;
+}
+
+.select {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	height: 50%;
+	width: 100%;
+}
+
+.select-option {
+	width: 100%;
+}
+
+.select-input {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 40%;
+	height: 50px;
+	background-color: gray;
+}
+
+.form-group {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
+
+.button-group {
+	display: flex;
+}
+
+.select-btn {
+	background-color: #fca311;
+	color: black;
+	border: none;
+	border-radius: 6px;
+	width: 40%;
+	height: 30px;
+	font-size: 1rem;
+	font-weight: bolder;
+}
+
+.select-btn:hover {
+	background-color: #e76f00;
+}
+
+.btn {
+	display: inline-block;
+	text-align: center;
+	background-color: #FFA500;
+	padding: 15px 25px;
+	width: 300px;
+}
+/*==============================================*/
+/*color:  #fca35b;*/
+.locationTypeBody {
+	padding-top: 40px;
+	padding-bottom: 20px;
+	width: 100%;
+	margin: auto;
+}
+
+.locationTypeBodyBox {
+	display: flex;
+	margin: auto;
+	max-width: 900px;
+	height: 250px;
+	background-color: white;
+	border-radius: 7px;
+	border: 1px solid #d5d5d5;
+}
+/*중단 locationLa 이벤트 놈들*/
+.line {
+	width: 1px;
+	height: 180px;
+	background-color: #d5d5d5;
+	margin: auto;
+}
+
+#locationLaNameForm input[type="checkbox"] {
+	display: none;
+}
+
+#locationLaNameForm {
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+}
+
+.locationBoxHead {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.locationLaStar {
+	padding: 5px 10px 10px 10px;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.locationLaDiv {
+	background-color: #efefef;
+	width: 100%;
+	height: 190px;
+	border-radius: 7px;
+	padding: 7px;
+}
+
+.locationLaCss {
+	cursor: pointer;
+	display: inline-block;
+	width: 99px;
+	height: 31px;
+	margin: 2px 0px 2px 0px;
+	background-color: white;
+	border-radius: 7px;
+	text-align: center;
+	line-height: 31px;
+	color: #293241;
+	font-weight: bold;
+}
+
+.locLaNameLabel {
+	font-size: 18px;
+	font-weight: bold;
+	cursor: pointer;
+	color: white;
+	background-color: #457b9d;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.locationLaCss:hover {
+	
+}
+
+.locLaNameLabel:hover {
+	
+}
+/*중단 locationLa 이벤트 놈들*/
+
+/*
+  position: sticky;
+  top: 80px;
+
+*/
+/*중단 locationS 이벤트 놈들*/
+#locationSNameForm input[type="checkbox"] {
+	display: none;
+}
+
+#locationSNameForm {
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+}
+
+.locationSStar {
+	padding: 5px 10px 10px 10px;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.locationTypeCss {
+	
+}
+
+.locationSDiv {
+	background-color: #efefef;
+	width: 100%;
+	height: 190px;
+	border-radius: 7px;
+	padding: 7px;
+}
+
+.locationTypeCss {
+	cursor: pointer;
+	display: inline-block;
+	width: 78px;
+	height: 31px;
+	margin: 2px 0px 2px 0px;
+	background-color: white;
+	border-radius: 7px;
+	text-align: center;
+	line-height: 31px;
+	color: #293241;
+	font-weight: bold;
+}
+/*중단 locationS 이벤트 놈들*/
+.classiFication {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #ADD8E6;
+	font-size: 30px;
+	font-weight: bold;
+	font-family: "Do Hyeon", sans-serif;
+}
+
+#typeStickyBox {
+	position: sticky;
+	top: 80px;
+	background-color: #ffe5e5;
+	width: 100%;
+	height: auto;
+	font-family: "Noto Sans KR", sans-serif;
+}
+
+/*중단 TypeLa 이벤트 놈들*/
+#typeLaNameSelect input[type="checkbox"] {
+	display: none;
+}
+
+#typeLaNameSelect {
+	width: 100%;
+	max-width: 1280px;
+	margin: auto;
+	font-size: 20px;
+	padding: 5px;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #2c2c2c;
+}
+
+.typeLaNameLabel {
+	padding: 5px 5px;
+	cursor: pointer;
+}
+
+.typeLaNameLabel:hover {
+	background-color: rgb(253, 207, 170);
+	border-radius: 20px;
+}
+
+.typeLaCss {
+	padding: 5px 5px;
+	margin: 0px 5px;
+	cursor: pointer;
+}
+
+.typeLaCss:hover {
+	background-color: rgb(253, 207, 170);
+	border-radius: 20px;
+}
+/*중단 TypeLa 이벤트 놈들*/
+#typeSNameForm input[type="checkbox"] {
+	display: none;
+}
+
+#typeSNameForm {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: white;
+	font-weight: bold;
+	font-size: 18px;
+	width: 100%;
+}
+
+.typeSCss {
+	padding: 4px 10px;
+	margin: 1px 1px;
+	cursor: pointer;
+}
+
+.typeSCss:hover {
+	background-color: rgb(253, 207, 170);
+	border-radius: 20px;
+}
+
+/* ========================================= */
+/* 유형별 */
+.typeBody {
+	padding-top: 40px;
+	padding-bottom: 20px;
+	width: 100%;
+	margin: auto;
+}
+
+.typeBodyBox {
+	display: flex;
+	margin: auto;
+	max-width: 900px;
+	height: 250px;
+	background-color: white;
+	border-radius: 7px;
+	border: 1px solid #d5d5d5;
+}
+
+.line {
+	width: 1px;
+	height: 180px;
+	background-color: #d5d5d5;
+	margin: auto;
+}
+
+#typeLaNameForm input[type="checkbox"] {
+	display: none;
+}
+
+#typeLaNameForm {
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+}
+
+.typeBoxHead {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.typeLaStar {
+	padding: 5px 10px 10px 10px;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.typeLaDiv {
+	background-color: #efefef;
+	width: 100%;
+	height: 190px;
+	border-radius: 7px;
+	padding: 7px;
+}
+
+.typeLaCss {
+	cursor: pointer;
+	display: inline-block;
+	width: 99px;
+	height: 31px;
+	margin: 2px 0px 2px 0px;
+	background-color: white;
+	border-radius: 7px;
+	text-align: center;
+	line-height: 31px;
+	color: #293241;
+	font-weight: bold;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.typeLaNameLabel {
+	font-size: 18px;
+	font-weight: bold;
+	cursor: pointer;
+	color: white;
+	background-color: #457b9d;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+#typeSNameForm input[type="checkbox"] {
+	display: none;
+}
+
+#typeSNameForm {
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+}
+
+.typeSStar {
+	padding: 5px 10px 10px 10px;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.typeSDiv {
+	background-color: #efefef;
+	width: 100%;
+	height: 190px;
+	border-radius: 7px;
+	padding: 7px;
+}
+
+.typeCss {
+	cursor: pointer;
+	display: inline-block;
+	width: 78px;
+	height: 31px;
+	margin: 2px 0px 2px 0px;
+	background-color: white;
+	border-radius: 7px;
+	text-align: center;
+	line-height: 31px;
+	color: #293241;
+	font-weight: bold;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+/*중단 locationS 이벤트 놈들*/
+.typeClassiFication {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #ADD8E6;
+	font-size: 30px;
+	font-weight: bold;
+	font-family: "Do Hyeon", sans-serif;
+}
+
+/*중단 TypeLa 이벤트 놈들*/
+/* 유형별은 typeT */
+#typeTLaNameSelect input[type="checkbox"] {
+	display: none;
+}
+
+#typeTLaNameSelect {
+	width: 100%;
+	max-width: 1280px;
+	margin: auto;
+	font-size: 20px;
+	padding: 5px;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #2c2c2c;
+}
+
+.typeTLaNameLabel {
+	padding: 5px 5px;
+	cursor: pointer;
+}
+
+.typeTLaNameLabel:hover {
+	background-color: rgb(253, 207, 170);
+	border-radius: 20px;
+}
+
+.typeTLaCss {
+	padding: 5px 5px;
+	margin: 0px 5px;
+	cursor: pointer;
+}
+
+.typeTLaCss:hover {
+	background-color: rgb(253, 207, 170);
+	border-radius: 20px;
+}
+/*중단 TypeLa 이벤트 놈들*/
+#typeTSNameForm input[type="checkbox"] {
+	display: none;
+}
+
+#typeTSNameForm {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: white;
+	font-weight: bold;
+	font-size: 18px;
+	width: 100%;
+}

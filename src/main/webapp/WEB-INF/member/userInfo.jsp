@@ -20,7 +20,7 @@
 </head>
 <body>
 	<jsp:include page="../header/header.jsp"></jsp:include>
-	<main>
+
 		<div class="box">
 			<div class="container">
 				<div class="section">
@@ -93,11 +93,11 @@
 						<div id="rating">
 							<button id="plus-btn" data-target-member-id="${mem.member.id}"
 								data-login-member-id="${loginMember.id}" class="left-btn">
-								<i class="fa-solid fa-thumbs-up fa-3x"></i>
+								<i class="fa-regular fa-thumbs-up"></i>
 							</button>
 							<button id="minus-btn" data-target-member-id="${mem.member.id}"
 								data-login-member-id="${loginMember.id}" class="right-btn">
-								<i class="fa-solid fa-thumbs-down fa-3x"></i>
+								<i class="fa-regular fa-thumbs-down"></i>
 							</button>
 
 						</div>
@@ -142,7 +142,6 @@
 			</div>
 		</div>
 
-	</main>
 	<jsp:include page="../footer/footer.jsp" />
 	<script src="${pageContext.request.contextPath}/js/userInfo.js"></script>
 </body>

@@ -99,7 +99,11 @@
 				</foreach>
 				)
 			</if>
+			<if test="keyword != null">
+			  AND membership_name like CONCAT('%',#{keyword},'%')
+			</if>
 		</where>
+		order by 1
 		LIMIT #{offset}, #{limit}
 	</select>
 

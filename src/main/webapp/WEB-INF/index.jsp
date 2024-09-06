@@ -46,14 +46,14 @@
 		<div class="locationTypeBodyBox">
 			<form id="locationLaNameForm">
 				<div class="locationLaBox">
-					<div class="locationLaStar">도시별&nbsp;</div>&nbsp;<p></p>
+					<div class="locationLaStar">도시별&nbsp;</div>&nbsp;
 						<input type="checkbox" value="" id="locLaNameAll" />
 				</div>
 				<div class="locationLaDiv">
 					<label class="locLaNameLabel" for="locLaNameAll">전체보기</label>
 					<c:forEach items="${locLaNameList}" var="locLaName">
 						<input type="checkbox" value="${locLaName}" id="${locLaName}"
-							name="locationLaName">
+							name="locationLaName" >
 						<label for="${locLaName}" class="locationLaCss">${locLaName}</label>
 					</c:forEach>
 				</div>
@@ -61,12 +61,12 @@
 	
 			<form id="locationSNameForm">
 				<div class="locationSBox">
-					<div class="locationSStar">지역별&nbsp;</div>&nbsp;<p></p>
+					<div class="locationSStar">지역별&nbsp;</div>&nbsp;
 				</div>
 					<div class="locationSDiv">
 						<c:forEach items="${locSNameList}" var="locSName">
 							<input type="checkbox" value="${locSName}" id="${locSName}"
-								name="locationSName">
+								name="locationSName" onchange="locationSelect(event)">
 							<label for="${locSName}" class="locationSCss">${locSName}</label>
 						</c:forEach>
 					</div>
@@ -74,7 +74,7 @@
 			<!-- 타입별 -->
 			<form id="typeLaNameSelect">
 				<div class="typeLaBox">
-					<div class="typeLaStar">타입별&nbsp;</div>&nbsp;<p></p>
+					<div class="typeLaStar">타입별&nbsp;</div>&nbsp;
 						<input type="checkbox" value="" id="typeLaNameAll" />
 				</div>
 				<div class="typeLaDiv">
@@ -90,7 +90,7 @@
 
 			<form id="typeSNameForm">
 				<div class="typeSBox">
-					<div class="typeSStar">분류별&nbsp;</div>&nbsp;<p></p>
+					<div class="typeSStar">분류별&nbsp;</div>&nbsp;
 				</div>
 					<div class="typeSDiv">
 					<c:forEach items="${typeSNameList}" var="typeSName">
@@ -100,6 +100,10 @@
 					</c:forEach>
 				</div>
 			</form>
+		</div>
+		<div class="locationTypeSearch">
+			<input type="text" name="keyword" id="keyword" placeholder="검색.."/>
+			<button type="button" onclick="search()">검색</button>
 		</div>
 	</div>
 
@@ -129,6 +133,8 @@
 					<h2>${info.membershipSimpleText}</h2>
 					<a href="/userInfo/${info.nickname}">
 						<div class="host">
+						<div class="hostImg">
+							<span style="color:rgb(252, 177, 3)"><i class="fa-solid fa-crown"></i></span>
 							<c:choose>
 								<c:when test="${info.memberImg != null}">
 									<img class="user-img"
@@ -139,6 +145,7 @@
 										src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
 								</c:otherwise>
 							</c:choose>
+						</div>
 							<h2>호스트 : ${info.nickname}</h2> 
 							<input type="hidden" name="code" value="${info.membershipCode}">
 								<div class="memberMannerIndex">
@@ -182,31 +189,14 @@
 	<jsp:include page="footer/footerIndex.jsp" />
 	
 	 
-    
-    <script>
- 	// 세부지역 리스트 값 있으면 가져오기 (처음 뿌려지거나 새로고쳤을때)
-    let locSNameList = [];
-    const locString = "${locSNameList}".replace("[", '').replace("]", "").trim();
-    if (locString !== '') {
-    	locSNameList = locString.split(', ').map(item => item);
-    }
- 	// 세부분류 리스트 값 있으면 가져오기 (처음 뿌려지거나 새로고쳤을때)
- 	let typeSNameList = [];
-    const typeString = "${typeSNameList}".replace("[", '').replace("]", "").trim();
-    if (typeString !== '') {
-    	typeSNameList = typeString.split(", ").map(item => item.trim());
-    }
-    </script>
+
 
 	<!-- <a href="/dummyUpdate">!!!!!!!!!!!주의!!!!!!!!!!!! 기존 유저들 비밀번호 암호화하는거임 건드리지 말것</a> -->
 	<!-- <div class="membership-list"> -->
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="${pageContext.request.contextPath}/js/index.js"></script>
 	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
-
-
+	<script src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
 
 </body>
 </html>

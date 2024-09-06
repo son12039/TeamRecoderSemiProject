@@ -128,6 +128,10 @@ function updateForm(commentCode) {
 	let formElement = $(formId);
 	formElement.toggle();
     }
+	
+	
+	
+	
 // 수정 클릭처리
 function updateComment(e, commentCode){
 	const inputs = $(e.target).prev();

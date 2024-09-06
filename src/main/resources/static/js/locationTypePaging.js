@@ -1,4 +1,3 @@
-let page = 1;
 let isLoading = false; // 로딩 상태를 추적
 window.addEventListener("scroll", () => {
 	const link = document.createElement('link');
@@ -12,17 +11,11 @@ window.addEventListener("scroll", () => {
   if (document.body.offsetHeight - 700 <= window.scrollY + window.innerHeight) {
     isLoading = true; // 로딩 상태 설정
 
-    page++;
+    searchDto.page++;
     $.ajax({
       url: "list",
       type: "get",
-      data: {
-        page: page,
-        locationLaName: urlParams.get("locationLaName"),
-        locationSName: urlParams.getAll("locationSName"),
-        typeLaName: urlParams.get("typeLaName"),
-        typeSName: urlParams.getAll("typeSName"),
-      },
+      data: searchDto,
       success: function (clubList) {
         let div = $(".membership-list");
 		$.each(clubList, function(index, club) {

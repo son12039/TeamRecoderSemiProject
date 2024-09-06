@@ -47,7 +47,7 @@
 }
 .footer_box{
 	width: 100%;
-	max-width: 1280px;
+	max-width: 800px;
 	height : 100%;
 	margin : auto;
 	padding-top : 50px;
@@ -61,6 +61,9 @@
 .first_item{
 	font-size : 16px;
 	font-weight: bold;
+}
+.footer_item p{
+	color : #ffffff;
 }
 .footer_item a{
 	color : #ffffff;

@@ -68,9 +68,18 @@ body {
 .host img {
 	width: 35px;
 	height: 35px;
-	margin-right: 10px;
 }
 
+.host h2{
+	margin-left: 15px;
+}
+
+.hostImg{
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .membership-info h1 {
 	font-weight: bolder;
 	width: 100%;
@@ -95,7 +104,6 @@ body {
 	align-items: center;
 	width: 100%
 }
-
 .user-img {
 	border-radius: 50%;
 	width: 50px;

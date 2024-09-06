@@ -5,23 +5,25 @@
 */
 .locationLaFriend{
 	color : #0077b6;
+	font-weight: bold;
 }
 .locationSFriend{
 	color : #0077b6;
+	font-weight: bold;
 }
 .typeLaFriend{
 	color : #0077b6;
+	font-weight: bold;
 }
 .typeSFriend{
 	color : #0077b6;
+	font-weight: bold;
 }
 /*
 	지역 선택했을때 옆에 오는 친구들
 */
-
-
-
 .locationTypeBody {
+	margin: auto;
 	display: flex;
 	width: 100%;
 	justify-content: center;
@@ -29,11 +31,12 @@
 	top: 80px;
 	background-color: #F9F7F3;
 	margin-top:50px;
+	width: 1280px;
+	border-bottom: 1.5px solid #c5c5c5;
+	justify-content: space-between;
 }
 .locationTypeBodyBox {	
-	width: 1280px;
 	display: flex;
-	border-bottom: 1.5px solid #c5c5c5;
 }
 .locationTypeBodyBox >form{
 	background-color: #FCA35B;
@@ -41,9 +44,7 @@
 	margin: 10px 10px 10px 0px;
 	border-radius: 10px;
 }
-.locationTypeBodyBox div p{
- 	font-weight: bold;
-}
+
 #locationLaNameForm input[type="checkbox"] {
    display:none;
  }
@@ -73,6 +74,7 @@
     border: 1px solid #b1b1b1;
 }
 .locationLaCss{
+	cursor: pointer;
 	background-color: white;
     display: inline-block;
     margin: 3px 1px;
@@ -270,4 +272,15 @@
 	display: flex;
 }
 
- 
+.locationTypeSearch{
+	display: flex;
+    margin: 10px;
+}
+.locationTypeSearch input{
+    border: 1px solid gray;
+    border-radius: 7px;
+    padding: 10px;
+}
+.locationTypeSearch button{
+	 display: none;
+}

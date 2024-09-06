@@ -19,6 +19,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/meetingDetail.css" />
 
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <script src="https://kit.fontawesome.com/ef885bd654.js"
@@ -207,30 +208,35 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 
 
 
-	
-<div id="comment-container">
+		
+	<div id="comment-container">
 		<sec:authorize access="isAuthenticated()">
 			<form id="comment-frm">
 				<div id="comment-box">
 					<div class="prof">
-						<label for="textbox"> ${member.nickname}</label>
 						<c:choose>
 							<c:when test="${member.memberImg != null}">
 								<img class="user-img"
 									src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}">
 							</c:when>
-
 							<c:otherwise>
 								<img class="user-img"
 									src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
 							</c:otherwise>
 						</c:choose>
 					</div>
-					<input id="textbox" type="text" name="meetCommentText"
-						placeholder="댓글을 입력하세요"  > <input type="hidden" name="id"
-						value="${member.id}"> <input type="hidden"
-						name="meetCode" value="${meet.meetCode}">
-					<button class="btn" id="submit-comment" type="button">댓글 등록</button>
+					<div id="textboxBox">
+						<div class=commentNick>
+							<label for="textbox">${member.nickname}</label>
+						</div>
+						<input id="textbox" type="text" name="mainCommentText"
+							placeholder="댓글을 입력하세요.."> <input type="hidden" name="id"
+							value="${member.id}"> <input type="hidden"
+							name="membershipCode" value="${meet.meetCode}">
+
+					</div>
+					<button class="btn" id="submit-comment" type="button">댓글
+						등록</button>
 				</div>
 			</form>
 		</sec:authorize>
@@ -244,25 +250,27 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 						<p>삭제된 댓글입니다.</p>
 					</c:if>
 					<c:if test="${com.meetCommentText != null}">
-						<div class="comment-head">
-						
-						<a href="/userInfo/${com.nickname}">
-						
-							<div class="prof" >${com.nickname}
-							
-								<c:choose>
-									<c:when test="${com.memberImg != null}">
-										<img class="user-img"
-											src="http://192.168.10.51:8081/member/${com.id}/${com.memberImg}">
-									</c:when>
 
-									<c:otherwise>
-										<img class="user-img"
-											src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
-										
-									</c:otherwise>
-								</c:choose>
-							</div></a>${com.meetCommentDate}</div>
+						<div class="comment-head">
+
+							<a href="/userInfo/${com.nickname}">
+
+								<div class="prof">
+									<c:choose>
+										<c:when test="${com.memberImg != null}">
+											<img class="user-img"
+												src="http://192.168.10.51:8081/member/${com.id}/${com.memberImg}">
+										</c:when>
+
+										<c:otherwise>
+											<img class="user-img"
+												src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+
+										</c:otherwise>
+									</c:choose>
+									<div class=commentNick>${com.nickname}</div>
+								</div>
+							</a>${com.meetCommentDate}</div>
 						<div class="comment-text">${com.meetCommentText}</div>
 						<c:if
 							test="${com.nickname == member.nickname || memberGrade == 'host' || memberGrade == 'admin'}">
@@ -276,8 +284,6 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 								<form id="comment-frm-${com.meetCommentCode}">
 									<div id="comment-box-update-${com.meetCommentCode}">
 										<div class="prof">
-											<label for="textbox-update-${com.meetCommentCode}">
-												${member.nickname}</label>
 											<c:choose>
 												<c:when test="${member.memberImg != null}">
 													<img class="user-img"
@@ -289,9 +295,11 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 														src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
 												</c:otherwise>
 											</c:choose>
+
 										</div>
 										<input id="textbox-update-${com.meetCommentCode}" type="text"
-											name="meetCommentText" value="${com.meetCommentText}" onclick="updateKey(${com.meetCommentCode})">
+											name="mainCommentText" value="${com.meetCommentText}"
+											onclick="updateKey(${com.meetCommentCode})">
 										<button type="button" class="btn"
 											onclick="updateComment(event,${com.meetCommentCode})">댓글
 											수정</button>
@@ -311,46 +319,75 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 							<c:forEach items="${com.recoment}" var="recom">
 								<div id="comm-${recom.meetCommentCode}" class="re-comment">
 									<div class="comment-head">
-										<a href="/userInfo/${recom.nickname}">
-										<div class="prof">${recom.nickname}
-											<c:choose>
-												<c:when test="${recom.memberImg != null}">
-													<img class="user-img"
-														src="http://192.168.10.51:8081/member/${recom.id}/${recom.memberImg}">
-												</c:when>
+										<div class="profBox">
+											<a href="/userInfo/${recom.nickname}">
+												<div class="prof">
+													<c:choose>
+														<c:when test="${recom.memberImg != null}">
+															<img class="user-img"
+																src="http://192.168.10.51:8081/member/${recom.id}/${recom.memberImg}">
+														</c:when>
 
-												<c:otherwise>
-													<img class="user-img"
-														src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
-												</c:otherwise>
-											</c:choose>
-										</div></a>${recom.meetCommentDate}</div>
-									<br />
-									<div class="comment-text">${recom.meetCommentText}</div>
-									<c:if
-										test="${recom.nickname == member.nickname || memberGrade == 'host' || memberGrade == 'admin'}">
-										<button type="button" class="btn"
-											onclick="deleteComment(event, ${recom.meetCommentCode})">삭제</button>
-									</c:if>
-									<c:if test="${recom.nickname == member.nickname}">
-										<button type="button" class="btn"
-											onclick="updateForm(${recom.meetCommentCode})">수정</button>
-										<div id="update-form-${recom.meetCommentCode}"
-											class="update-form">
-											<form id="comment-frm-${recom.meetCommentCode}">
-												<div id="comment-box-update-${recom.meetCommentCode}">
-													<label for="textbox-update-${recom.meetCommentCode}">
-														${member.nickname} : </label> <input
-														id="textbox-update-${recom.meetCommentCode}" type="text"
-														name="mainCommentText" value="${recom.meetCommentText}"
-														onclick="updateKey(${recom.meetCommentCode})">
-													<button type="button" class="btn"
-														onclick="updateComment(event,${recom.meetCommentCode})">댓글
-														수정</button>
+														<c:otherwise>
+															<img class="user-img"
+																src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+														</c:otherwise>
+													</c:choose>
+													<div class="nickCommentBox">
+														<div class=commentNick>${recom.nickname}</div>
+														<div class="comment-text">${recom.meetCommentText}</div>
+													</div>
 												</div>
-											</form>
+											</a>
+											<div></div>
+											<div class="textBtnBox">
+												<div class="tetxDate">${recom.meetCommentDate}</div>
+												<div class="textBtn">
+													<c:if
+														test="${recom.nickname == member.nickname || memberGrade == 'host' || memberGrade == 'admin'}">
+														<button type="button" class="btn"
+															onclick="deleteComment(event, ${recom.meetCommentCode})">삭제</button>
+													</c:if>
+													
+													
+													<c:if test="${recom.nickname == member.nickname}">
+														<button type="button" class="btn"
+															onclick="updateForm(${recom.meetCommentCode})">수정</button>
+													</c:if>
+												</div>
+											</div>
 										</div>
-									</c:if>
+										<c:if test="${recom.nickname == member.nickname}">
+											<div id="update-form-${recom.meetCommentCode}"
+												class="update-form">
+												<form id="comment-frm-${recom.meetCommentCode}">
+													<div id="comment-box-update-${recom.meetCommentCode}">
+														<c:choose>
+															<c:when test="${com.memberImg != null}">
+																<img class="user-img"
+																	src="http://192.168.10.51:8081/member/${com.id}/${com.memberImg}">
+															</c:when>
+															<c:otherwise>
+																<img class="user-img"
+																	src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+															</c:otherwise>
+														</c:choose>
+														<div class = "text-update-box">
+															<label for="textbox-update-${recom.meetCommentCode}">
+																${member.nickname} : </label> <input
+																id="textbox-update-${recom.meetCommentCode}" type="text"
+																name="mainCommentText" value="${recom.meetCommentText}"
+																onclick="updateKey(${recom.meetCommentCode})">
+														</div>
+														<button type="button" class="btn"
+															onclick="updateComment(event,${recom.meetCommentCode})">댓글
+															수정</button>
+													</div>
+												</form>
+											</div>
+										</c:if>
+									</div>
+
 								</div>
 							</c:forEach>
 						</c:if>
@@ -360,8 +397,6 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 									<div id="comment-box-${com.meetCommentCode}">
 
 										<div class="prof">
-											<label for="textbox${com.meetCommentCode}">
-												${member.nickname}</label>
 											<c:choose>
 												<c:when test="${member.memberImg != null}">
 													<img class="user-img"
@@ -374,11 +409,16 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 												</c:otherwise>
 											</c:choose>
 										</div>
-										<input id="textbox${com.meetCommentCode}" type="text"
-											name="meetCommentText" placeholder="대댓글을 입력하세요" onclick="reCommentKey(${com.meetCommentCode})"> 
-											<input type="hidden" name="id" value="${member.id}"> 
-											<input type="hidden" name="meetCode" value="${com.meetCode}">
-										<button type="button"
+										<div class="textBoxImg">
+											<label for="textbox${com.meetCommentCode}">${member.nickname}</label>
+											<input id="textbox${com.meetCommentCode}" type="text"
+												name="mainCommentText" placeholder="대댓글을 입력하세요"
+												onclick="reCommentKey(${com.meetCommentCode})"> <input
+												type="hidden" name="id" value="${member.id}"> <input
+												type="hidden" name="membershipCode"
+												value="${com.meetCode}">
+										</div>
+										<button type="button" class="btn"
 											onclick="recomment(event, ${com.meetCommentCode})">댓글
 											등록</button>
 									</div>
@@ -391,6 +431,8 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 			</c:forEach>
 		</c:if>
 	</div>
+	
+	
 	
 	</div>
 	<jsp:include page="../footer/footer.jsp" />

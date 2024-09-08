@@ -234,10 +234,7 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 							  borderRadius : ""
 						});
 	}
-	history.pushState({}, null, url);
-	let list = "";
-	page = 1;
-	$.ajax({
+	history.pushStat+ajax({
 		url: "list",
 		type: "get",
 		data: {

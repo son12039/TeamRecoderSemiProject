@@ -81,7 +81,7 @@
 					<label class="typeLaNameLabel" for="typeLaNameAll">전체보기</label>
 					<c:forEach items="${typeLaNameList}" var="typeLaName">
 						<input type="checkbox" value="${typeLaName}" id="${typeLaName}"
-							name="typeLaName">
+							name="typeLaName" onchange="typeSelect(event)">
 						<label for="${typeLaName}" class="typeLaCss">${typeLaName}</label>
 					</c:forEach>
 				</div>

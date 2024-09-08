@@ -108,7 +108,7 @@ public class LocationTypeController {
 	
 	@ResponseBody
 	@GetMapping("locationSList")
-	public List<String> locationSList(String laName,Model model) {
+	public List<String> locationSList(String laName) {
 		return locationTypeservice.locSNameList(laName);
 	}
 	

@@ -125,6 +125,7 @@
 
 .locationSStar{
 	font-weight: bold;
+	display: flex;
 }
 .locationSCss{
 	background-color: white;
@@ -195,7 +196,7 @@
 	display: none;
     background-color: white;
     width: 501px;
-    height: 200px;
+    height: 150px;
     position: absolute;
     top: 46px;
     left: 0px;
@@ -247,7 +248,7 @@
 	display: none;
     background-color: white;
     width: 501px;
-    height: 200px;
+    height: 150px;
     position: absolute;
     top: 46px;
     left: 0px;

@@ -1,3 +1,7 @@
+// ******************************************************
+// 읽기전 변수명에 Friend 붙은 애들은 다 로케이션,타입 눌렀을때 옆에 뜨는 애들임
+// ******************************************************
+
 // 아이콘 처리 하는 부분
 const link = document.createElement('link');
 link.rel = 'stylesheet';
@@ -12,6 +16,7 @@ const url = new URL(location.href);
 // 현재 페이지에 대한 url 파라미터 가져오기기
 const urlParams = url.searchParams;
 
+
 // 상위 지역 : locationLaName, 하위 지역들 : locationSName, 
 // 상위 유형 : typeLaName, 하위 유형들 : typeSName
 // 검색 : keyword
@@ -23,8 +28,6 @@ const searchDto = {
 	typeSName: urlParams.getAll("typeSName"),
 	keyword: null
 }
-
-
 // 화면단 -> 네비게이션 바 스타일링만 (새로고침했을때 남아있게)
 if (searchDto.locationLaName !== null) {
 	const check = $(`#locationLaNameForm input[type=checkbox][value="${searchDto.locationLaName}"]`)[0];
@@ -36,7 +39,11 @@ if (searchDto.locationLaName !== null) {
 		color: "white",
 		cursor: "pointer"
 	})
+	// 로케이션 눌렀을떄 사용자가 선택한거 옆에 보여줄 친구
+	let locationLaFriend = "<div class='locationLaFriend'>" + urlParams.get("locationLaName") + "</div>";
+	$(".locationLaStar").append(locationLaFriend)
 }
+
 if (searchDto.locationSName.length > 0) {
 	for (let name of searchDto.locationSName) {
 		const check = $(`#locationSNameForm input[type=checkbox][value="${name}"]`)[0];
@@ -44,10 +51,43 @@ if (searchDto.locationSName.length > 0) {
 			background: "#dbdbdb"
 		})
 	}
+	// 로케이션 눌렀을땐 사용자가 선택한거 옆에 보여줄 친구
+	let locationSLength = urlParams.getAll("locationSName").length -1
+	let locationSFriend = urlParams.getAll("locationSName").length <= 1 ? 
+								"<div class='locationSFriend'>" + urlParams.getAll("locationSName")[0] + "</div>" : 
+								"<div class='locationSFriend'>" + urlParams.getAll("locationSName")[0] + " 외 " + locationSLength + "</div>"
+	$(".locationSStar").append(locationSFriend)													
 }
 
+if(searchDto.typeLaName !== null){
+	const check = $(`#typeLaNameSelect input[type=checkbox][value="${searchDto.typeLaName}"]`)[0]; 
+	$(check).next("label").css({
+		background: "#dbdbdb"
+	})
+	$("#typeSNameForm").css({
+		backgroundColor: "#FCA35B",
+		color: "white",
+		cursor: "pointer"
+	})
+	// 로케이션 눌렀을떄 사용자가 선택한거 옆에 보여줄 친구
+	let typeLaFriend = "<div class='typeLaFriend'>" + urlParams.get("typeLaName") + "</div>";
+	$(".typeLaStar").append(typeLaFriend)
+}
 
-
+if(searchDto.typeSName.length > 0 ){
+	for(let name of searchDto.typeSName){
+		const check = $(`#typeSNameForm input[type=checkbox][value="${name}"]`)[0]
+		$(check).prop("checked",true).next("label").css({
+			background: "#dbdbdb"
+		})
+	}
+	// 로케이션 눌렀을땐 사용자가 선택한거 옆에 보여줄 친구
+	let typeSLength = urlParams.getAll("typeSName").length -1
+	let typeSFriend = urlParams.getAll("typeSName").length <= 1 ? 
+								"<div class='typeSFriend'>" + urlParams.getAll("typeSName")[0] + "</div>" : 
+								"<div class='typeSFriend'>" + urlParams.getAll("typeSName")[0] + " 외 " + typeSLength + "</div>"
+	$(".typeSStar").append(typeSFriend)		
+}
 
 // 결과값에 대한 걸 먼저 생각!
 // locationSNameList, typeSNameList, list
@@ -77,6 +117,11 @@ const typeSNameList = (callback) => {
 		type: 'get',
 		data: "typeLaName=" + searchDto.typeLaName,
 		success: function(result) {
+			typeSNameListResult ="";
+			$.each(result, function(index, item) {
+				typeSNameListResult += `<input type="checkbox" value="${item}" id="${item}" name="locationSName" onchange="typeSelect(event)">
+					<label for="${item}" class="locationSCss">${item}</label>`
+			})
 			if (callback) callback(result);
 		}
 	})
@@ -104,8 +149,6 @@ $("#locationLaNameForm").click(function() {
 	$('.locationLaDiv').toggle();
 });
 
-
-
 // 도시별 해당 지역 눌렀을 때 
 // -> 하단 지역별 리스트 가져와야 하고, 리스트도 새로 가져와야 하고
 $("#locationLaNameForm input[type=checkbox]").change(function() {
@@ -114,17 +157,15 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 	searchDto.locationSName = [];
 	const laName = $(this).val();
 	$(".locationSDiv").empty();
-
-	// 타입 눌렀을떄 사용자가 선택한거 옆에 보여줄 친구
-	locationLaFriend = "<div class='locationLaFriend'>" + laName + "</div>";
-
+	// 새로 눌러졌을때 둘다 삭제하기
+	$(".locationLaFriend").remove()
+	//삭제하면서 다시 초기화
+	$(".locationSFriend").remove()
+	
+	// 로케이션 눌렀을떄 사용자가 선택한거 옆에 보여줄 친구
+	let locationLaFriend = "<div class='locationLaFriend'>" + laName + "</div>";
 
 	if ($(this).prop('checked') && laName !== '') {
-
-		// 새로 눌러졌을때 둘다 삭제하기
-		$(".locationLaFriend").remove()
-		//삭제하면서 다시 초기화
-		$(".locationSFriend").remove()
 
 		$("#locationLaNameForm input[type=checkbox]").prop('checked', false).next('label').css({
 			background: ""
@@ -166,8 +207,6 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 			color: "",
 			cursor: ""
 		})
-		// 친구 지우기
-		$(".locationLaFriend").remove()
 	}
 	history.pushState({}, null, url);
 	div.empty();
@@ -189,7 +228,14 @@ $("#locationSNameForm").click(function() {
 
 // 지역별 해당 지역들 눌렀을 때 -> 리스트만 가져오기??? 위에 url 리스트로 뿌리고
 function locationSelect(event) {
+
 	const locationSName = $(event.target).val();
+	console.log("나 찍힘?")
+	//다시 클릭했으니 초기화 하고 새로운 정보넣기
+	$(".locationSFriend").remove()
+	let locationSLength = ""
+	let loctionSFriend = ""
+
 	if ($(event.target).is(':checked')) {
 		urlParams.append('locationSName', locationSName);
 		$(event.target).prop("checked", true)
@@ -198,6 +244,13 @@ function locationSelect(event) {
 				background: "#dbdbdb"
 			})
 		searchDto.locationSName.push(locationSName);
+		locationSLength = urlParams.getAll("locationSName").length-1
+		loctionSFriend = urlParams.getAll("locationSName").length <= 1 ? 
+										"<div class='locationSFriend'>" + urlParams.getAll("locationSName")[0] + "</div>" : 
+										"<div class='locationSFriend'>" + urlParams.getAll("locationSName")[0] + " 외 " + locationSLength + "</div>"
+		// 로케이션 눌렀을땐 사용자가 선택한거 옆에 보여줄 친구
+		$(".locationSStar").append(loctionSFriend)
+
 	} else {
 		urlParams.delete('locationSName');
 		searchDto.locationSName = [];
@@ -213,6 +266,15 @@ function locationSelect(event) {
 			.css({
 				background: "#f3f3f3"
 			})
+		locationSLength = urlParams.getAll("locationSName").length-1
+		loctionSFriend = urlParams.getAll("locationSName").length <= 1 ? 
+										"<div class='locationSFriend'>" + urlParams.getAll("locationSName")[0] + "</div>" : 
+										"<div class='locationSFriend'>" + urlParams.getAll("locationSName")[0] + " 외 " + locationSLength + "</div>"
+		// 로케이션 눌렀을땐 사용자가 선택한거 옆에 보여줄 친구 (눌린 버튼 눌럿을때도 변화게끔)
+		$(".locationSStar").append(loctionSFriend)
+		if(locationSLength === -1){
+			$(".locationSFriend").remove()
+		}
 	}
 	
 	history.pushState({}, null, url);
@@ -234,26 +296,33 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 	searchDto.typeSName = [];
 	const typeLa = $(this).val();
 	$(".typeSDiv").empty();
+	// 클릭할때 친구들 지우기
+	$(".typeLaFriend").remove()
+	$(".typeSFriend").remove()
+	// 로케이션 눌렀을떄 사용자가 선택한거 옆에 보여줄 친구
+	let typeLaFriend = "<div class='typeLaFriend'>" + typeLa + "</div>";
+	
 	if ($(this).prop('checked') && typeLa !== '') {
-		$('#typeLaNameSelect input[type=checkbox]').prop('checked', false)
-				.next("label")
-				.css({
-					background: ""
-				});
-		$(this).prop('checked', true)
-				.next('label')
-				.css({
-					background: "#dbdbdb"
-				})
+
+		
+		$('#typeLaNameSelect input[type=checkbox]').prop('checked', false).next("label").css({
+			background: ""
+		});
+		$(this).prop('checked', true).next('label').css({
+			background: "#dbdbdb"
+		})
+		
 		searchDto.typeLaName = typeLa;
 		
 		if(urlParams.has("typeLaName")){
+			// 친구 만들기
+			$(".typeLaStar").append(typeLaFriend)
 			urlParams.set('typeLaName', searchDto.typeLaName)	
 		}else{
+			// 친구 만들기
+			$(".typeLaStar").append(typeLaFriend)
 			urlParams.append('typeLaName', searchDto.typeLaName)
 		}
-		
-		
 		$("#typeSNameForm").css({
 			backgroundColor: "#FCA35B",
 			color: "white",
@@ -266,11 +335,9 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 	}else{
 		searchDto.typeLaName = null;
 		urlParams.delete('typeLaName')
-		$("#typeLaNameSelect input[type=checkbox]").prop('checked', false)
-					.next("label")
-					.css({
-						background: ""
-					})
+		$("#typeLaNameSelect input[type=checkbox]").prop('checked', false).next("label").css({
+			background: ""
+		})
 		$("#typeSNameForm").css({
 			backgroundColor: "",
 			color: "",
@@ -297,9 +364,56 @@ $("#typeSNameForm").click(function() {
 	}
 })
 // 분류별 해당 분류별들 눌렀을 때
+function typeSelect(event){
+	
+	let typeSName = $(event.target).val()
+	
+	//다시 클릭했으니 초기화 하고 새로운 정보넣기
+	$(".typeSFriend").remove()
+	let typeSLength = ""
+	let typeSFriend = ""
 
-
-
+	if($(event.target).is(":checked")){
+		
+		urlParams.append("typeSName", typeSName)
+		$(event.target).prop("checked",true).next("label").css({
+			background : "#dbdbdb"
+		})
+		searchDto.typeSName.push(typeSName)
+		typeSLength = urlParams.getAll("typeSName").length-1
+		typeSFriend = urlParams.getAll("typeSName").length <= 1 ? 
+										"<div class='typeSFriend'>" + urlParams.getAll("typeSName")[0] + "</div>" : 
+										"<div class='typeSFriend'>" + urlParams.getAll("typeSName")[0] + " 외 " + typeSLength + "</div>"
+		// 로케이션 눌렀을땐 사용자가 선택한거 옆에 보여줄 친구
+		$(".typeSStar").append(typeSFriend)
+	}else{
+		
+		urlParams.delete('typeSName');
+		searchDto.typeSName = [];
+		const inputAll = $(event.target).parent().find("input[type=checkbox]");
+		for(let input of inputAll){
+			if(input.checked){
+				urlParams.append("typeSName", input.value)
+				searchDto.typeSName.push(input.value);	
+			}
+		}
+		$(event.target).prop("checked",false).next("label").css({
+			background: "#f3f3f3"
+		})
+		typeSLength = urlParams.getAll("typeSName").length-1
+		typeSFriend = urlParams.getAll("typeSName").length <= 1 ? 
+										"<div class='typeSFriend'>" + urlParams.getAll("typeSName")[0] + "</div>" : 
+										"<div class='typeSFriend'>" + urlParams.getAll("typeSName")[0] + " 외 " + typeSLength + "</div>"
+		// 로케이션 눌렀을땐 사용자가 선택한거 옆에 보여줄 친구
+		$(".typeSStar").append(typeSFriend)
+		if(typeSLength === -1){
+			$(".typeSFriend").remove()
+		}
+	}
+	history.pushState({}, null, url);
+	div.empty()
+	list(1)
+}
 
 
 
@@ -319,9 +433,9 @@ function search() {
 	const keyword = $('#keyword').val();
 	urlParams.append('keyword', keyword);
 	searchDto.keyword = keyword;
+	history.pushState({}, null, url);
 	div.empty();
 	list(1);
-	history.pushState({}, null, url);
 }
 
 function renderClubList(clubList) {

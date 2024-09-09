@@ -25,8 +25,12 @@ window.addEventListener("scroll", () => {
         let div = $(".membership-list");
         $.each(clubList, function (index, club) {
           let ajaxLocationType =
-            '<div class="membership-card">' +
-            '<div class="membership-img">' +
+            '<div class="membership-card">' ;
+			if (club.membershipDate > today30 && today > club.membershipDate) {
+				ajaxLocationType +=
+					'<img alt="" src="http://192.168.10.51:8081/sungil/2%ED%8A%B8.png" class="new">';
+			}
+            ajaxLocationType += '<div class="membership-img">' +
             '<a href="/' +
             club.membershipCode +
             '">';

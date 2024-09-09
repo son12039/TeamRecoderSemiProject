@@ -9,9 +9,6 @@ link.href =
 	"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css";
 document.head.appendChild(link);
 
-// 리스트 담는 부분
-let div = $(".membership-list"); // 이게 문제였음
-
 // 현재 페이지에 대한 url 저장하기
 const url = new URL(location.href);
 // 현재 페이지에 대한 url 파라미터 가져오기기
@@ -137,7 +134,7 @@ const typeSNameList = (callback) => {
 	$.ajax({
 		url: "typeSName",
 		type: "get",
-		data: "typeLaName=" + searchDto.typeLaName,
+		data: $.param({ typeLaName: searchDto.typeLaName }),
 		success: function(result) {
 			typeSNameListResult = "";
 			$.each(result, function(index, item) {
@@ -474,19 +471,22 @@ function search() {
 	list(1);
 }
 
+
 function renderClubList(clubList) {
 	let div = $(".membership-list");
 
 	div.empty();
 
 	$.each(clubList, function(index, club) {
-		let ajaxLocationType =
-			'<div class="membership-card">' +
-			'<div class="membership-img">' +
+		let ajaxLocationType = '<div class="membership-card">';
+		if (club.membershipDate > today30 && today > club.membershipDate) {
+			ajaxLocationType +=
+				'<img alt="" src="http://192.168.10.51:8081/sungil/2%ED%8A%B8.png" class="new">';
+		}
+		ajaxLocationType += '<div class="membership-img">' +
 			'<a href="/' +
 			club.membershipCode +
 			'">';
-
 		if (club.membershipImg) {
 			ajaxLocationType +=
 				'<img src="http://192.168.10.51:8081/membership/' +
@@ -592,4 +592,69 @@ function renderClubList(clubList) {
 
 		div.append(ajaxLocationType);
 	});
+}
+
+// 초기화 (태초마을로 가자)
+function reset() {
+	window.scrollTo({ top: 900, left: 0, behavior: "smooth" });
+	$(".locationSDiv").hide();
+	$(".typeLaDiv").hide();
+	$(".typeSDiv").hide();
+	$(".locationLaDiv").hide();
+	urlParams.delete("locationLaName");
+	urlParams.delete("locationSName");
+	urlParams.delete("typeLaName");
+	urlParams.delete("typeSName");
+	urlParams.delete("keyword");
+	searchDto.locationLaName = null;
+	searchDto.locationSName = [];
+	searchDto.typeLaName = null;
+	searchDto.typeSName = [];
+	searchDto.keyword = null;
+	$("#keyword").val("");
+	if (searchDto.locationLaName === null) {
+		const check = $(`#locationLaNameForm input[type=checkbox]`);
+		$(check).next("label").css({
+			background: "",
+		});
+		$("#locationSNameForm").css({
+			backgroundColor: "",
+			color: "",
+			cursor: "",
+		});
+		$(".locationLaFriend").remove();
+	}
+	if (searchDto.locationSName.length == 0) {
+		for (let name of searchDto.locationSName) {
+			const check = $(`#locationSNameForm input[type=checkbox]`);
+			$(check).prop("checked", true).next("label").css({
+				background: "",
+			});
+		}
+		$(".locationSFriend").remove();
+	}
+	if (searchDto.typeLaName === null) {
+		const check = $(`#typeLaNameSelect input[type=checkbox]`);
+		$(check).next("label").css({
+			background: "",
+		});
+		$("#typeSNameForm").css({
+			backgroundColor: "",
+			color: "",
+			cursor: "",
+		});
+		$(".typeLaFriend").remove();
+	}
+	if (searchDto.typeSName.length == 0) {
+		for (let name of searchDto.typeSName) {
+			const check = $(`#typeSNameForm input[type=checkbox]`);
+			$(check).prop("checked", true).next("label").css({
+				background: "",
+			});
+		}
+		$(".typeSFriend").remove();
+	}
+	
+	history.pushState({}, null, url);
+	list(1);
 }

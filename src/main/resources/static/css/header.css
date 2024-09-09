@@ -7,7 +7,7 @@
   width: 100%;
   height: 80px;
   z-index: 1000;
-  background-color: #ADD8E6;
+  background-color: #add8e6;
 }
 .main_header_body {
   height: 100%;
@@ -30,7 +30,7 @@
   font-size: 18px;
   font-weight: bold;
   margin-right: 15px;
-  color: #14213D;
+  color: #14213d;
   font-family: "Do Hyeon", sans-serif;
 }
 /*헤더 센터*/
@@ -61,18 +61,18 @@
   font-weight: bold;
 }
 .main_header_right a {
-  color: #14213D;
+  color: #14213d;
   font-family: "Do Hyeon", sans-serif;
   padding-right: 10px;
 }
 
 .main_header_right a:hover {
-	color: #9a8c98;
+  color: #9a8c98;
 }
 
 .main_header_right_nickname {
   margin-right: 10px;
-  color: #14213D;
+  color: #14213d;
   font-family: "Do Hyeon", sans-serif;
 }
 .main_header_right_user {

@@ -1,6 +1,21 @@
 /* ================================================ */
 /*color:  #fca35b;*/
 
+/*리셋*/
+.resetBth{
+    margin: 10px 10px 10px 0px;
+    border-radius: 10px;
+    display: inline-block;
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    background: #3e89ff;
+    font-family: "Noto Sans KR", sans-serif;
+}
+.resetBth:hover{
+	background: #2a5599;
+}
+
 /*
 	지역 선택했을때 옆에 오는 친구들
 */
@@ -35,6 +50,7 @@
   width: 1280px;
   border-bottom: 1.5px solid #c5c5c5;
   justify-content: space-between;
+  z-index: 1;
 }
 .locationTypeBodyBox {
   display: flex;
@@ -66,13 +82,13 @@
   display: none;
   background-color: white;
   width: 501px;
-  height: 310px;
   position: absolute;
   top: 46px;
   left: 0px;
   padding: 20px;
   border-radius: 10px;
   border: 1px solid #b1b1b1;
+  z-index: 1000;
 }
 .locationLaCss {
   cursor: pointer;
@@ -145,13 +161,13 @@
   display: none;
   background-color: white;
   width: 501px;
-  height: 410px;
   position: absolute;
   top: 46px;
   left: 0px;
   padding: 20px;
   border-radius: 10px;
   border: 1px solid #b1b1b1;
+  z-index: 1000;
 }
 .locationTypeCss {
   margin: 3px 1px;
@@ -190,13 +206,13 @@
   display: none;
   background-color: white;
   width: 501px;
-  height: 200px;
   position: absolute;
   top: 46px;
   left: 0px;
   padding: 20px;
   border-radius: 10px;
   border: 1px solid #b1b1b1;
+  z-index: 1000;
 }
 .typeLaBox {
   display: flex;
@@ -239,13 +255,13 @@
   display: none;
   background-color: white;
   width: 501px;
-  height: 150px;
   position: absolute;
   top: 46px;
   left: 0px;
   padding: 20px;
   border-radius: 10px;
   border: 1px solid #b1b1b1;
+  z-index: 1000;
 }
 #typeSCss {
   background-color: white;

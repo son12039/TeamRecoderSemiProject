@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MembershipDTO;
+import com.damoim.model.dto.SearchDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
@@ -121,8 +122,10 @@ public class PageController {
 			}
 			
 		}
+		
 		locTypeService.locationList(code);
 		locTypeService.typeList(code);
+		
 		String loc = locTypeService.locationList(code).get(0).getLocLaName()+" =";
 		String type= locTypeService.typeList(code).get(0).getTypeLaName()+" ="; 
 		
@@ -153,6 +156,7 @@ public class PageController {
 		System.out.println("이게멀까? " + locTypeService.locationList(code));
 		
 	   model.addAttribute("membership", infoService.selectMembership(code));
+	   model.addAttribute("count" , infoService.membershipUserCount(code));
 	   //model.addAllAttributes("location",infoService.);
 		return "membership/updateMembership";
 	}
@@ -212,6 +216,23 @@ public class PageController {
 		 return "login/loginFail";
 	 }
 
+	 @GetMapping("/makeTest") // 클럽 생성페이지로 이동
+		public String makeMembership(SearchDTO search, Model model) {
+			model.addAttribute("locLaNameList", locTypeService.locLaNameList());
+			model.addAttribute("typeLaNameList", locTypeService.typeLaNameList());
+			return "makeTest";
+		}
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 }
 
 

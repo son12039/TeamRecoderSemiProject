@@ -14,7 +14,7 @@ const urlParams = url.searchParams;
 if (urlParams.has("locationLaName")) {
 	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });;// 클릭시 해당 위치로
 	const locationLaName = urlParams.get('locationLaName');
-	const list = $('#locationLaNameForm input');
+	const list = $('#locationLaNameForm1 input');
 	for (let item of list) {
 		if (locationLaName === item.value) {
 			item.setAttribute('checked', true);
@@ -24,7 +24,7 @@ if (urlParams.has("locationLaName")) {
 if (urlParams.has("locationSName")) {
 	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 	const locationSName = urlParams.getAll('locationSName');
-	const list = $('#locationSNameForm input');
+	const list = $('#locationSNameForm1 input');
 	for (let item of list) {
 		if (locationSName.includes(item.value)) {
 			item.setAttribute("checked", true);
@@ -34,7 +34,7 @@ if (urlParams.has("locationSName")) {
 
 
 
-$("#locationLaNameForm input[type=checkbox]").change(function() {
+$("#locationLaNameForm1 input[type=checkbox]").change(function() {
 	
 	
 	// 아이콘 처리 하는 부분
@@ -52,7 +52,7 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 	const laName = $(this).val();
 	if ($(this).prop('checked')) {
 		// 체크 걸면서 css도 같이 주기
-		$('#locationLaNameForm input[type=checkbox]')
+		$('#locationLaNameForm1 input[type=checkbox]')
 							.prop('checked', false)
 							.next("label")
 							.css({backgroundColor : "",
@@ -103,7 +103,7 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 				type: 'get',
 				data: "laName=" + laName,
 				success: function(locationS) {
-					$(".locationSDiv").empty();
+					$(".locationSDiv1").empty();
 					if (location.prop('checked')) {
 						$.each(locationS, function(index, item) {
 							list += `
@@ -170,30 +170,30 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 
 
  // 로케이션
-$("#locSNameAll").change(function() {
-	if ($("#locSNameAll").is(":checked")) {
-		for (let item of $('#locationSNameForm input[name="locationSName"]')) {
+$("#locSNameAll1").change(function() {
+	if ($("#locSNameAll1").is(":checked")) {
+		for (let item of $('#locationSNameForm1 input[name="locationSName"]')) {
 			item.checked = false;
 		}
 	} 
 });
-$('#locationSNameForm input[name="locationSName"]').change(function() {
-	if ($("#locSNameAll").is(":checked")) {
-		$("#locSNameAll")[0].checked = false;
+$('#locationSNameForm1 input[name="locationSName1"]').change(function() {
+	if ($("#locSNameAll1").is(":checked")) {
+		$("#locSNameAll1")[0].checked = false;
 	}
 })
  // 타입
- $("#typeSNameAll").change(function() {
-	  if ($("#typeSNameAll").is(":checked")) {
-			for (let item of $('#typeSNameForm input[name="typeSName"]')) {
+ $("#typeSNameAll1").change(function() {
+	  if ($("#typeSNameAll1").is(":checked")) {
+			for (let item of $('#typeSNameForm1 input[name="typeSName"]')) {
 				item.checked = false;
 			}
 	  }
  });
 
- $('#typeSNameForm input[name="typeSName"]').change(function() {
-	  if ($("#typeSNameAll").is(":checked")) {
-			$("#typeSNameAll")[0].checked = false;
+ $('#typeSNameForm1 input[name="typeSName1"]').change(function() {
+	  if ($("#typeSNameAll1").is(":checked")) {
+			$("#typeSNameAll1")[0].checked = false;
 	  }
  })
 
@@ -202,7 +202,7 @@ $('#locationSNameForm input[name="locationSName"]').change(function() {
 
 
 /*타입 클릭시*/
-$("#typeLaNameSelect input[type=checkbox]").change(function() {
+$("#typeLaNameSelect1 input[type=checkbox]").change(function() {
 	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 	urlParams.delete('typeLaName')
 	urlParams.delete('typeSName')
@@ -210,7 +210,7 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 	const typeLa = $(this);
 	if ($(this).prop('checked')) {
 		
-		$('#typeLaNameSelect input[type=checkbox]')
+		$('#typeLaNameSelect1 input[type=checkbox]')
 							.prop('checked', false)
 							.next('label')
 							.css({backgroundColor : "",
@@ -259,23 +259,23 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 				type: 'get',
 				data: $.param({ typeLaName: typeLaName }),
 				success: function(result) {
-					$("#typeSNameForm").empty();
+					$("#typeSNameForm1").empty();
 					
 					if (typeLa.prop('checked')) {
-						$("#typeSNameForm").css({height : "30px"})
+						$("#typeSNameForm1").css({height : "30px"})
 						$.each(result, function(index, item) {
 							list += `<input type="checkbox" value="${item}" id="${item}"
 							name="typeSName">
 							<label for="${item}" class="typeSCss">${item}</label>`
 						})
-						$("#typeSNameForm").html(list)
+						$("#typeSNameForm1").html(list)
 						if(typeLa.val() === '전체보기'){
 							$("#typeSNameForm").css({height : ""})	
 						}
 					}else{
-						$("#typeSNameForm").css({height : ""})
+						$("#typeSNameForm1").css({height : ""})
 					}
-					$("#typeSNameForm input[type=checkbox]").change(function() {
+					$("#typeSNameForm1 input[type=checkbox]").change(function() {
 						window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 						const typeSName = $(this).val();
 						if ($(this).is(':checked')) {
@@ -326,7 +326,7 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 	})
 })
 
-$("#typeLaNameSelect input[type=checkbox]").change(function() {
+$("#typeLaNameSelect1 input[type=checkbox]").change(function() {
 	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 	urlParams.delete('typeLaName')
 	urlParams.delete('typeSName')
@@ -334,7 +334,7 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 	const typeLa = $(this);
 	if ($(this).prop('checked')) {
 		
-		$('#typeLaNameSelect input[type=checkbox]')
+		$('#typeLaNameSelect1 input[type=checkbox]')
 							.prop('checked', false)
 							.next('label')
 							.css({backgroundColor : "",
@@ -386,7 +386,7 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 					$("#typeSNameForm").empty();
 					
 					if (typeLa.prop('checked')) {
-						$("#typeSNameForm").css({height : "30px"})
+						$("#typeSNameForm1").css({height : "30px"})
 						$.each(result, function(index, item) {
 							list += `<input type="checkbox" value="${item}" id="${item}"
 							name="typeSName">

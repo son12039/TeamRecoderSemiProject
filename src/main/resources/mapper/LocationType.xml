@@ -13,6 +13,7 @@
 		<result column="membership_date" property="membershipDate"/>
 		<result column="membership_grade" property="membershipGrade"/>
 		<result column="membership_max" property="membershipMax"/>
+	
 		<result column="membership_simple_text" property="membershipSimpleText"/>
 	</resultMap>
 
@@ -87,6 +88,9 @@
 				</foreach>
 				)
 			</if>
+			<if test="keyword != null">
+			  AND membership_name like CONCAT('%',#{keyword},'%')
+			</if>
 		</where>
 		LIMIT #{offset}, #{limit}
 	</select>
@@ -153,6 +157,9 @@
 		WHERE list_grade = 'host'
 		AND membership_code = #{code}
 	</select>
+	
+	<!--  추가 -->
+	
 	
 		
 </mapper>

@@ -26,19 +26,6 @@
 
 	<!-- 인덱스 헤드만 헤더1 -->
 	<jsp:include page="header/headerIndex.jsp" />
-	<div class="body_img_box_body">
-		<div class="body_img_box">
-			<img class="body_img" src="http://192.168.10.51:8081/mainImg2.jpg" />
-			<div class=body_text>
-				<p class="text_event1">다모임</p>
-				<p class="text_event2">우리들의 만남은 지금부터 시작입니다.</p>
-				<p class="text_event3">사랑하는 사람들과 함께 좋은 추억을 만들어봐요.</p>
-				<p class="text_event4">"별이 총총한 밤, 바람이 속삭이는 순간, 우리의 눈이 마주치고 두 손이
-					살짝 맞닿을 때, 마치 운명처럼 모든 것이 정해진 듯한 따뜻한 감동이 퍼진다. 그 만남이 만들어내는 작은 기적, 우리만의
-					특별한 순간."</p>
-			</div>
-		</div>
-	</div>
 
 
 	<!-- 08-20 채승훈 -->
@@ -73,6 +60,44 @@
 			</form>
 		</div>
 	</div>
+	
+	
+	
+	<div class="locationTypeBody1">
+		<div class="locationTypeBodyBox1">
+			<form id="locationLaNameForm1">
+					<div class="locationBoxHead1">
+						<div class="locationLaStar1">도시별</div>
+							<input type="checkbox" value="초기화" id="locLaNameAll1" /> 
+							<label class="locLaNameLabel1" for="locLaNameAll1">초기화</label>
+					</div>
+						<div class="locationLaDiv1">
+							<c:forEach items="${typeLaNameList}" var="typeLaName">
+								<input type="checkbox" value="${typeLaName}" id="${typeLaName}"
+									name="locationLaName1">
+								<label for="${typeLaName}" class="locationLaCss">${typeLaName}</label>
+							</c:forEach>
+						</div>
+			</form>
+			<div class="line"></div>
+	
+			<form id="locationSNameForm1">
+				<div class="locationSStar1">지역별</div>
+				<div class="locationSDiv1">
+				<div class="classiFication1">지역을 선택해주세요</div>
+					<c:forEach items="${typeSNameList}" var="typeSName">
+						<input type="checkbox" value="${typeSName}" id="${typeSName}"
+							name="locationSName1">
+						<label for="${typeSName}" class="locationTypeCss1">${typeSName}</label>
+					</c:forEach>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	
+	
+	
 
 	<div id="typeStickyBox">
 		<form id="typeLaNameSelect">
@@ -166,6 +191,7 @@
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="${pageContext.request.contextPath}/js/index.js"></script>
 	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
+		<script src="${pageContext.request.contextPath}/js/locTypeTest1.js"></script>
 	
 	
 	<script

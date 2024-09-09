@@ -58,20 +58,17 @@ $("#textbox").keydown(function(key) {
 });
 //대댓글
 function recomment(e, code) {
-	const inputs = $(e.target).prevAll();
-	const meetCode = inputs[0].value;
-	const id = inputs[1].value;
-	const text = inputs[2].value;
+	const id = "#textbox" + code;
 
-	if (text != "") {
+	if ($(id).val() != "") {
 		$.ajax({
 			url: '/meetingsComment',
 			type: 'POST',
 			data: {
 				meetParentsCommentCode: code,
-				meetCommentText: text,
-				id: id,
-				meetCode: meetCode
+				meetCommentText: $(id).val(),
+				id: $(id).next().val(),
+				meetCode: $(id).next().next().val()
 			},
 			success: function() {
 				alert("대댓글 등록 완료!")

@@ -57,19 +57,18 @@ function showReplyForm(commentCode) {
   });
 //대댓글
 function recomment(e, code) {
-	const inputs = $(e.target).prevAll();
-	const membershipCode = inputs[0].value;
-	const id = inputs[1].value;
-	const text = inputs[2].value;
-	  if(text != ""){
+
+	const id = "#textbox" + code
+		
+	  if( $(id).val() != ""){
 	$.ajax({
 		url: '/mainComment', 
 		type: 'POST',
 		data: {
 			mainParentsCommentCode: code,
-			mainCommentText: text,
-			id: id,  
-			membershipCode: membershipCode
+			mainCommentText: $(id).val(),
+			id: $(id).next().val(),  
+			membershipCode: $(id).next().next().val()
 		},
 		success: function() {
 			alert("대댓글 등록 완료!")

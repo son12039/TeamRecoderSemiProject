@@ -432,6 +432,7 @@
 												</c:otherwise>
 											</c:choose>
 										</div>
+										
 										<div class="textBoxImg">
 											<label for="textbox${com.mainCommentCode}">${member.nickname}</label>
 											<input id="textbox${com.mainCommentCode}" type="text"
@@ -444,6 +445,7 @@
 										<button type="button" class="btn"
 											onclick="recomment(event, ${com.mainCommentCode})">댓글
 											등록</button>
+											
 									</div>
 								</form>
 							</sec:authorize>

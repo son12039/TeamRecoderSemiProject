@@ -215,7 +215,8 @@ public class MembershipController {
 		if(ck && membership != null) {
 			// 파일도 삭제
 			try {
-				fileDelete(membership.getMembershipImg(), membershipCode);
+//				fileDelete(membership.getMembershipImg(), membershipCode);
+				folderDelete(membershipCode);
 			} catch (Exception e) {
 				return false;
 			}
@@ -228,8 +229,9 @@ public class MembershipController {
 					break;
 					
 				}
+				
 		}
-		
+			return true;
 		}
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		System.out.println("업데이트 완료");
@@ -334,7 +336,6 @@ public class MembershipController {
 		model.addAttribute("adminList", service.adminUser(membershipCode));
 
 		model.addAttribute("allmeet", meetingService.allMeetings(membershipCode));
-		System.out.println(meetingService.allMeetings(membershipCode));
 
 		// 08-22 채승훈 클럽페이지 에 로케이션 타입 정보 추가
 		model.addAttribute("location", locationTypeService.locationList(membershipCode));
@@ -483,7 +484,33 @@ public class MembershipController {
 		}
 
 	}
-	
+	/*
+	 * 성철
+	 * 폴더 내의 파일 삭제
+	 * */
+	public boolean folderDelete(int code) {
+		 String path = "\\\\\\\\192.168.10.51\\\\damoim\\\\membership\\\\" + Integer.toString(code); 
+         File folder = new File(path); //
+         try {
+             while (folder.exists()) { // 폴더가 존재한다면
+                 File[] listFiles = folder.listFiles();
+
+                 for (File file : listFiles) { // 폴더 내 파일을 반복시켜서 삭제
+                     file.delete();
+                 }
+
+                 if (listFiles.length == 0 && folder.isDirectory()) { // 하위 파일이 없는지와 폴더인지 확인 후 폴더 삭제
+                     folder.delete();
+                 }
+             
+        
+             }
+         }
+        catch (Exception e) {
+        	return false;
+		}
+        return true;
+	}
 	
 	/* 성일
 	 * 어드민이나 호스트이냐 따라서 서로다른 맴버쉽 관리 페이지 이동처리

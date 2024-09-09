@@ -47,8 +47,6 @@
 		<result property="memberImg" column="member_img" />
 		<result property="memberHobby" column="member_hobby" />
 		<result property="memberInfo" column="member_info" />
-		<result property="memberLocation" column="member_location" />
-		<result property="memberType" column="member_type" />
 		<result property="lastRecommendationTime" column="last_recommendation_time"/>
     </resultMap>
 

@@ -9,7 +9,13 @@ FROM membership_location;
 
 SELECT *
 FROM location_category;
-
+select * from membership;
+select * from meetings_comment
+where meet_code = 0;
+select * from membership_user_list;
+insert into membership_user_list(list_grade, membership_code, id)
+values('host', 2, 'user077');
+select * from membership_meetings;
 select * 
 from membership_meetings;
 SELECT id, member_manner, last_recommendation_time
@@ -23,7 +29,10 @@ select * from membership_user_list
 where id = 'user037';
 
 delete from membership_user_list
-where list_code = 37;
+where list_grade = 'host';
+
+select * from main_comment
+where membership_code = 2;
 
 select *
 from member 

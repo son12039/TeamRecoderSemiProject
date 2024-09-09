@@ -4,7 +4,7 @@
 
 -- _은 자바 타입으로 매핑 해줘야 한다 
 
-INSERT INTO member(id,pwd,addr,phone,email,name,age,gender) VALUES ('asd','123','경기도','010-1111-2222','sdm@gmail.com','감자',22 ,'M');
+-- INSERT INTO member(id,pwd,addr,phone,email,name,age,gender) VALUES ('asd','123','경기도','010-1111-2222','sdm@gmail.com','감자',22 ,'M');
 
 -- _은 자바 타입으로 매핑 해줘야 한다 
 
@@ -48,23 +48,20 @@ CREATE TABLE membership ( -- 클럽
 	membership_info LONGTEXT, -- 클럽소개
     membership_date DATE DEFAULT(current_date), -- 클럽생성날짜
     membership_max INT, -- 클럽최대인원
-    membership_accession_text text,
-	membership_simple_text VARCHAR(255)
+    membership_accession_text text, -- 클럽 가입 조건 
+	membership_simple_text VARCHAR(255) -- 클럽 한줄소개 
 );
-create schema damoim_beta_test;
-select * from membership;
 CREATE TABLE membership_type  ( -- 클럽 유형 리스트 다 vs 대 풀어주기 
     mem_type_code INT PRIMARY KEY auto_increment, -- 클럽 유형 리스트 코드
     type_code INT, -- 소분류이름 / 외래키
     membership_code INT -- 클럽 /외래키
 );
-select * from membership_type;
+
 CREATE TABLE membership_location  ( -- 클럽 지역 리스트 다 vs 대 풀어주기
     mem_loc_code INT PRIMARY KEY auto_increment, -- 클럽 지역 리스트 코드
     loc_code INT, -- 소분류 / 외래키
     membership_code INT -- 클럽 /외래키
 );
-select * from membership_location;
 
 CREATE TABLE membership_user_list( -- 클럽유저정보 다 vs 대 풀어주기
     list_code INT PRIMARY KEY auto_increment, -- 클럽가입한 멤버코드
@@ -72,9 +69,6 @@ CREATE TABLE membership_user_list( -- 클럽유저정보 다 vs 대 풀어주기
     id VARCHAR(50), -- 유저코드 /외래키
     membership_code INT -- 클럽코드 /외래키
 );
-
-select * from membership_user_list;
-
 
 CREATE TABLE membership_meetings ( -- 클럽모임게시판
     meet_code INT PRIMARY KEY auto_increment, -- 모임게시판코드
@@ -87,7 +81,6 @@ CREATE TABLE membership_meetings ( -- 클럽모임게시판
     id VARCHAR(50), -- 작성자
     color VARCHAR(50) -- 선택한 색깔 
 );
-select * from membership_meetings;
 
 CREATE TABLE meetings_agree (-- 클럽 모임게시판 - 클럽 회원 리스트 참여여부 테이블 
 	meet_agree_code INT PRIMARY KEY auto_increment,
@@ -95,8 +88,6 @@ CREATE TABLE meetings_agree (-- 클럽 모임게시판 - 클럽 회원 리스트
     id VARCHAR(50),
     meet_code INT
 );
-select * from meetings_agree;
-
 
 -- 클럽 모임 게시판에 댓글기능 추가 
 CREATE TABLE meetings_comment (
@@ -108,7 +99,6 @@ CREATE TABLE meetings_comment (
 	meet_parents_comment_code INT -- /대댓글
 
 );
-select * from meetings_comment;
 
 -- 확정
 CREATE TABLE main_comment (
@@ -120,7 +110,7 @@ CREATE TABLE main_comment (
 	main_parents_comment_code INT -- /대댓글
 
 );
-select * from main_comment;
+
 
 
 --   타입코드 - 맴버쉽 타입 - 맴버쉽 코드 연결 

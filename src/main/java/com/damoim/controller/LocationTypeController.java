@@ -78,8 +78,6 @@ public class LocationTypeController {
 				dto.setNickname(member.getNickname());
 				dto.setId(member.getId());
 				dto.setMemberImg(member.getMemberImg());
-				dto.setMemberLocation(member.getMemberLocation());
-				dto.setMemberType(member.getMemberType());
 				dto.setCount(locationTypeservice.allMemberShipUser(dto.getMembershipCode()));
 				dto.setMemberManner(member.getMemberManner());
 			}

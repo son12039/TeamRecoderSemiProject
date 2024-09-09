@@ -45,7 +45,6 @@ select {
 
 				<!-- ======================================= -->
 				<!-- 08-20 채승훈 -->
-				<!-- 09/06 서동문 CSS 작업 -->
 				<div class="container">
 					<div class="select-group">
 						<div class="select-title">

@@ -314,7 +314,8 @@ public class MemberController {
 	public boolean updateMember(MultipartFile file,String memberInfo, String memberHobby) throws IllegalStateException, IOException {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		// 1. 추가한 파일이 null이 아니고 비어있지 않을경우
+		// 1. file 이 null 인 경우 (사용자가 파일을 선택하지 않고 제출 버튼을 눌렀을 때)
+		// 1-1 !file.isEmpty() (파일이 선택되었고 내용이 있는 경우)
 	    if (file != null && !file.isEmpty()) {
 	        if (mem.getMemberImg() != null) {
 	        	// 2. 멤버가 가지고있는 파일이미지가 null이 아닐경우 기존 파일 삭제

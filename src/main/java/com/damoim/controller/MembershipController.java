@@ -304,7 +304,7 @@ public class MembershipController {
 	 * 성철 해당 클럽에 가입된 회원이 그클럽에 정보와 클럽 가입 현황 볼수있는 페이지 이동
 	 */
 	@GetMapping("/club/{membershipCode}") // 클럽 페이지 이동
-	public String membershipPage(@PathVariable("membershipCode") Integer membershipCode, MemberListDTO memberListDTO,
+	public String membershipPage(@PathVariable("membershipCode") Integer membershipCode,
 			Model model) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

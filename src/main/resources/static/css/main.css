@@ -245,6 +245,19 @@ div[id^="comment-box"]>input {
 	transition: background-color 0.3s ease;
 	height: 30px;
 }
+.btn-del {
+	background-color: #fca311;
+	color: #fff;
+	border: none;
+	padding: 7px 10px;
+	text-transform: uppercase;
+	font-weight: bold;
+	cursor: pointer;
+	border-radius: 5px;
+	transition: background-color 0.3s ease;
+	height: 30px;
+	margin-left: 5px;
+}
 
 .textBtnBox {
 	display: flex;
@@ -266,7 +279,7 @@ div[id^="comment-box"]>input {
 	color: #fff;
 }
 
-button:hover {
+.btn:hover , .btn-del:hover {
 	background-color: #e76f00;
 }
 

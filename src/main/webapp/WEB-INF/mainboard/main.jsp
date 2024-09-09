@@ -370,7 +370,7 @@
 												<div class="textBtn">
 													<c:if
 														test="${recom.nickname == member.nickname || memberGrade == 'host' || memberGrade == 'admin'}">
-														<button type="button" class="btn"
+														<button type="button" class="btn-del" 
 															onclick="deleteComment(event, ${recom.mainCommentCode})">삭제</button>
 													</c:if>
 													<c:if test="${recom.nickname == member.nickname}">

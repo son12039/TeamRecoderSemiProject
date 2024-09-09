@@ -36,4 +36,6 @@ public interface MembershipMeetingMapper {
 	// 미팅 수정 
 	void meetingUpdate(MembershipMeetings meetings);
 	
+	List<MembershipMeetings> allMeetings1(String id);
+	
 }

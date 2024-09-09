@@ -14,11 +14,13 @@ public class MakeMembershipController {
 
 	@Autowired
 	private LocationTypeService locationTypeservice;
+	
 	@ResponseBody
 	@PostMapping("/memLocation")
 	public List<String> memLocation(String locationLaName) {		
 		return locationTypeservice.locSNameList(locationLaName);
 	}
+	
 	
 	@ResponseBody
 	@PostMapping("/memType")

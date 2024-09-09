@@ -1,277 +1,372 @@
-
-
 #main-container {
-	display: flex;
-	justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 #container {
-	width: 100%;
-	max-width: 1280px;
-	background: #f4f4f4;
-	border-radius: 12px;
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	margin-top: 80px;
+  width: 100%;
+  max-width: 1280px;
+  background: #f4f4f4;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 80px;
 }
 
 #container-top {
-	display: flex;
-	flex-direction: column;
-	background-color: #fefefe;
-	border: 2px solid black;
-	border-radius: 16px;
-	align-items: center;
-	position: relative;
-	bottom: 60px;
-	width: 70%;
-	padding: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fefefe;
+  border: 2px solid black;
+  border-radius: 16px;
+  align-items: center;
+  position: relative;
+  bottom: 60px;
+  width: 70%;
+  padding: 10px;
 }
 
 #hostImg {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	position: relative;
-	bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  bottom: 40px;
 }
 
 #hostName {
-	position: relative;
-	bottom: 40px;
+  position: relative;
+  bottom: 40px;
 }
 
 #membershipTitle {
-	position: relative;
-	bottom: 30px;
+  position: relative;
+  bottom: 30px;
 }
 
-#membershipTitle>h1 {
-	font-weight: bold;
-	font-size: 1.5rem;
+#membershipTitle > h1 {
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 
 #info-container {
-	width: 100%;
-	padding: 20px;
+  width: 100%;
+  padding: 20px;
 }
 
 #mainImg {
-	width: 70%;
-	height: auto;
+  width: 70%;
+  height: auto;
 }
 
 #info-container {
-	line-height: 2;
+  line-height: 2;
 }
 
-#info-container>p>img {
-	max-width: 90%;
+#info-container > p > img {
+  max-width: 90%;
 }
 
 #hostInfo {
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 #hostInfo-img {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #middle-container-top {
-	margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 #middle-container {
-	width: 100%;
-	padding: 20px;
+  width: 100%;
+  padding: 20px;
 }
 
 #name-and-info {
-	margin-left: 20px;
+  margin-left: 20px;
 }
 
 #hostInfo-name {
-	margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
-#together>p {
-	margin-top: 20px;
+#together > p {
+  margin-top: 20px;
 }
 
 #imageContainer {
-	margin-top: 20px;
+  margin-top: 20px;
 }
 
 .allmemberImg {
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 
 .memberTable {
-	border: 1px solid;
-	padding: 20px;
-	border-radius: 20px;
-	margin-bottom: 10px;
+  border: 1px solid;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 10px;
 }
 
 .memberTable ui {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .member-grade {
-	text-align: center;
-	font-weight: bold;
-	text-wrap: nowrap;
-	padding-bottom: 5px;
+  text-align: center;
+  font-weight: bold;
+  text-wrap: nowrap;
+  padding-bottom: 5px;
 }
 
 .member-grade span {
-	color: rgb(252, 177, 3);
-	font-size: 20px;
+  color: rgb(252, 177, 3);
+  font-size: 20px;
 }
 
 .member-img-icon-nickname-manner {
-	display: flex;
-	justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .member-img-icon {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	margin-right: 10px;
-	margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  margin-top: 5px;
 }
 
 .nickname-manner {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	position: relative;
-	font-weight: bolder;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: relative;
+  font-weight: bolder;
 }
 
 .manner {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .manner p {
-	margin-right: 10px;
+  margin-right: 10px;
 }
 
 .nickname {
-	text-align: center
+  text-align: center;
 }
 
 #accordionExample {
-	position: fixed;
-	left: 0px;
-	z-index: 99;
-	margin-top: 80px;
+  position: fixed;
+  left: 0px;
+  z-index: 99;
+  margin-top: 80px;
 }
 
 .accordion-button collapsed {
-	background-color: #14213d !important;
-	color: white !important;
-	font-weight: bold !important;
+  background-color: #14213d !important;
+  color: white !important;
+  font-weight: bold !important;
 }
 
 .accordion-header {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	word-break: break-all;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  word-break: break-all;
 }
 
 .accordion-collapse {
-	overflow: auto;
+  overflow: auto;
 }
 
 .accordion-collapse::-webkit-scrollbar {
-	display: none;
+  display: none;
 }
 
 .accordion-collapse.collapsing {
-	max-height: 700px !important;
+  max-height: 700px !important;
 }
 
 .accordion-body {
-	max-width: 310px;
-	max-height: 700px;
+  max-width: 310px;
+  max-height: 700px;
 }
 
 .accordion-button:not(.collapsed) {
-	background: #fca311; /* 펼쳐졌을 때 배경색 */
-	color: #ffffff; /* 텍스트 색상 */
+  background: #fca311; /* 펼쳐졌을 때 배경색 */
+  color: #ffffff; /* 텍스트 색상 */
 }
 
 .accordion-button.collapsed {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: #14213d; /* 닫혔을 때 배경색 */
-	color: #ffffff; /* 텍스트 색상 */
-	padding-right: 5px;
-	
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #14213d; /* 닫혔을 때 배경색 */
+  color: #ffffff; /* 텍스트 색상 */
+  padding-right: 5px;
 }
 
 #menu {
-	width: 16.4%;
-	position: fixed;
-	right: 0px;
-/* 	z-index: 99; */
-	margin-top: 80px;
-	border-top: 1px solid black;
-	border-left: 1px solid black;
-	border-right: 1px solid black;
-	background: white;
+  width: 16.4%;
+  position: fixed;
+  right: 0px;
+  /* 	z-index: 99; */
+  margin-top: 80px;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  background: white;
 }
 
 .mainMenu {
-	font-weight: bold;
-	font-size: 32px;
-	cursor: pointer;
+  font-weight: bold;
+  font-size: 32px;
+  cursor: pointer;
 }
 #menu li {
-	text-align: center;
-	padding-top: 10px;
-	padding-bottom: 10px;
-	border-bottom: 1px black solid;
-	background-color: #FCA311;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px black solid;
+  background-color: #fca311;
 }
 
 ul li:not(:first-of-type) {
-	display: none;
+  display: none;
 }
 
 #calendar-info {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 #calendar-info p {
-	font-family: "Do Hyeon", sans-serif;
-	font-size: 60px;
-	font-weight: bold;
-	padding: 10px;
+  font-family: "Do Hyeon", sans-serif;
+  font-size: 60px;
+  font-weight: bold;
+  padding: 10px;
 }
 
 #calendar {
-	background: white;
-	width: 500px;
-	height: 600px;
+  background: white;
+  width: 500px;
+  height: 600px;
+}
+
+#deleteMembership {
+  font-family: "Do Hyeon", sans-serif;
+  width: 600px;
+  height: 250px;
+  font-size: 20px;
+
+  background: gray;
+
+  position: fixed;
+  /*   position: absolute;*/
+  cursor: pointer;
+  top: 102px;
+  left: 658px;
+  z-index: 99;
+
+  background: white;
+  border: 0.5px solid black;
+  box-shadow: 5px 5px 5px #000;
+}
+
+#container-title {
+  width: 100%;
+  text-align: center;
+  height: 40px;
+
+  background: #add8e6;
+  color: #fca35b;
+  font-family: "Do Hyeon", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#container-main {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  background: white;
+}
+
+#container-main > * {
+  padding: 10px;
+}
+#deleteContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  height: 40px;
+  font-size: 32px;
+}
+#deleteCancle {
+  background: red;
+  height: 40px;
+  color: white;
+}
+#cancle {
+  color: white;
+  background: red;
+  border: none;
+  height: 40px;
+  border: 0.5px solid black;
+  border-top: none;
+  border-right: none;
+}
+
+#deleteBtn {
+  border: 1px solid black;
+  background: black;
+  color: white;
+  width: 115px;
+  height: 46px;
+  font-size: 20px;
+}
+#deleteBtn:hover {
+  border: 1px solid red;
+  background: red;
+  color: black;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+#title {
+  animation: blink 1s infinite; /* 1초 간격으로 무한 반복 */
 }

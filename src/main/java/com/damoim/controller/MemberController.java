@@ -3,6 +3,8 @@ package com.damoim.controller;
 import java.io.File;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,12 +35,14 @@ import com.damoim.model.dto.RecommendationDTO;
 import com.damoim.model.vo.MainComment;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
+import com.damoim.model.vo.MembershipMeetings;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
 import com.damoim.model.vo.UserInfoPaging;
 import com.damoim.service.EmailService;
 import com.damoim.service.MainCommentService;
 import com.damoim.service.MemberService;
+import com.damoim.service.MembershipMeetingService;
 import com.damoim.service.MembershipService;
 import com.damoim.service.RemoveMemberService;
 
@@ -61,6 +65,9 @@ public class MemberController {
 
 	@Autowired // 회원 탈퇴 댓글 삭제 서비스
 	private RemoveMemberService removeService;
+	
+	@Autowired
+	private MembershipMeetingService meetingService;
 
 	/*
 	 * 성일 로그인 시큐리티 처리(member서비스)
@@ -173,8 +180,8 @@ public class MemberController {
 	 * 성철 단순히 더미데이터 비밀번호 처리
 	 */
 	@GetMapping("/dummyUpdate")
-	public String dummyUpdate() {
-		service.dummyUpdate();
+	public String dummyUpdate() throws IOException {
+		service.dummyUpdate();// 더미 비밀번호 업데이트 // 폴더생성
 		return "redirect:/";
 	}
 
@@ -265,34 +272,39 @@ public class MemberController {
 	 */
 	@ResponseBody
 	@PostMapping("/memberStatus")
-	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response, String pwdCheck) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("입력한 비번옴? : " + pwdCheck);
-		Member mem = (Member) authentication.getPrincipal();
-		boolean check = false;
-		for (MemberListDTO dto : mem.getMemberListDTO()) {
-			if (dto.getListGrade().equals("host"))
-				check = true;
-		}
-		if (check) { // 해당 유저가 가입된 클럽 중 호스트인게 있다면!
+	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response ,String pwdCheck) {
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    System.out.println("입력한 비번옴? : " + pwdCheck);
+	    Member mem = (Member) authentication.getPrincipal();
+	    boolean check = false;
+	    for(MemberListDTO dto : mem.getMemberListDTO()) {
+	    	if(dto.getListGrade().equals("host"))
+				   check = true; 
+	    		}
+	    if (check) { // 해당 유저가 가입된 클럽 중  호스트인게 있다면!
+	        return false;
+	    	}
+	    if(!service.updateCheck(mem, pwdCheck)) { // 비밀번호 확인에서 틀렸을 경우
+	    	System.out.println("비번트림 ㅠ");
+	    	return false;
+	    }
+	    
+	    service.memberStatus(mem); // 멤버 상태 업데이트
+	    removeService.deleteAllComment(mem.getId());
+	    removeService.deleteMembershipUserList(mem.getId());
+	    removeService.deleteAllMeeting(mem.getId());
+	    // membershipUserList 삭제
+	    
+	    try { // 이미지 파일 삭제
+			fileDelete(mem.getMemberImg(), mem.getId());
+		} catch (Exception e) {
+			System.out.println("!!!!!!!!!!!!!파일삭제 오류!!!!!!!!!!!");
 			return false;
 		}
-		if (!service.updateCheck(mem, pwdCheck)) { // 비밀번호 확인에서 틀렸을 경우
-			System.out.println("비번트림 ㅠ");
-			return false;
-		}
-
-		service.memberStatus(mem); // 멤버 상태 업데이트
-		removeService.deleteAllComment(mem.getId());
-		removeService.deleteMembershipUserList(mem.getId());
-		removeService.deleteAllMeeting(mem.getId());
-
-		// 로그아웃 처리
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
-		logoutHandler.logout(request, response, authentication);
-
-		return true;
+	    // 로그아웃 처리
+	    SecurityContextHolder.getContext().setAuthentication(authentication);
+	    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+	    logoutHandler.logout(request, response, authentication);
 
 	}
 
@@ -359,6 +371,9 @@ public class MemberController {
 
 	@GetMapping("/userInfo/{nickname}")
 	public String getMethodName(@PathVariable("nickname") String nickname, Model model) {
+		
+	
+		
 		Member member = service.nicknameCheck(new Member().builder().nickname(nickname).build());
 		MemberInfoDTO mem = new MemberInfoDTO().builder().member(member)
 				.memberMeetCount(infoService.meetCount(member.getId()))
@@ -419,14 +434,16 @@ public class MemberController {
 	}
 
 	// 성철 파일 삭제 메서드 해당유저 프로필사진 변경시 사용!! 실 사용때는 조건에 만약 보내준 링크가 null이면 변하지 않도록
-	public void fileDelete(String fileName, String id) throws IllegalStateException, IOException {
-
-		if (fileName == null || fileName.isEmpty()) {
+	public void fileDelete(String file,  String id) throws IllegalStateException, IOException {
+		
+		if (file == null) {
 			System.out.println("삭제할 파일이 없습니다");
 		} else {
-			System.out.println("삭제될 URL : " + fileName);
-			File file = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + fileName);
-			file.delete();
+			System.out.println("삭제될 URL : " + file);
+			String decodedString = URLDecoder.decode(file, StandardCharsets.UTF_8.name());
+			File f = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + decodedString);
+			f.delete();
+
 		}
 
 	}

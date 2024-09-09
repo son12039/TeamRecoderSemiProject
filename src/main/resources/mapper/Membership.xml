@@ -305,8 +305,22 @@
 		membership_name,membership_code FROM
 		membership
 	</select>
-
 	
+	
+	
+	<!-- 멤버쉽 정보 수정  -->	
+	<update id="updateMembership" parameterType="Membership">
+	UPDATE  membership
+	SET membership_name =#{membershipName},
+	    membership_img = #{membershipImg},
+	    membership_max = #{membershipMax},
+	    membership_accession_text = #{membershipAccessionText},
+	    membership_simple_text = #{membershipSimpleText}
+	    WHERE membership_code = #{membershipCode}
+	    
+	
+	
+	</update>
 	
 	
 	

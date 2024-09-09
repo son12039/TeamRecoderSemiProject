@@ -31,17 +31,16 @@ select {
 	<jsp:include page="../header/header.jsp" />
 	<sec:authorize access="isAuthenticated()" var="principal">
 		<sec:authentication property="principal" var="member" />
-		<div class="box">
-			<form enctype="multipart/form-data">
-				<label for="membershipName"> 클럽이름 : <span class="name"
-					id="name"></span></label> <input type="text" id="membershipName"
-					name="membershipName" maxlength="50"><br> 사진첨부: <input
-					type="file" name="file" id="file" accept="image/*"><br>
-				클럽 가입조건 : <input type="text" id="membershipAccessionText"
-					name="membershipAccessionText"><br> 클럽 간단한 설명:<input
-					type="text" id="membershipSimpleText" name="membershipSimpleText"><br>
+
+		<form enctype="multipart/form-data">
+
+			<label for="membershipName"> 클럽이름 : <span class="name" id="name"></span></label> 
+				<input type="text" id="membershipName" name="membershipName" maxlength="50">
+				사진첨부: <input type="file" name="file" id="file" accept="image/*">
+				클럽 가입조건 : <input type="text" id="membershipAccessionText" name="membershipAccessionText">
+				클럽 간단한 설명:<input type="text" id="membershipSimpleText" name="membershipSimpleText">
 				최대 인원 : <span class="max" id="max"></span> <input type="number"
-					for="membershipMax" id="membershipMax" name="membershipMax"><br>
+				for="membershipMax" id="membershipMax" name="membershipMax">
 
 				<!-- ======================================= -->
 				<!-- 08-20 채승훈 -->
@@ -61,65 +60,33 @@ select {
 						</div>
 					</div>
 
-					<!-- ======================================= -->
-
-					<div class="select-group">
-						<div class="select-title">
-							<p>유형</p>
-						</div>
-						<div class="select-menu">
-							<div class="select">
-								<div class="select-option">
-									<select id="typeLaNameMem">
-										<option>전체보기</option>
-										<c:forEach items="${typeLaNameList}" var="typeLaName">
-											<option>${typeLaName}</option>
-										</c:forEach>
-									</select> <select id="typeSNameMem">
-										<option>전체보기</option>
-									</select>
-								</div>
-								<div class="select-input">
-									<input type="button" value="추가" id="typeBtn" class="select-btn">
-									<input type="button" value="취소" id="typeBtncancel"
-										class="select-btn">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-		<!-- 도시별 지역별 태그 선택 ============================================================== -->
-		<div class="locationTypeBody">
-			<div class="locationTypeBodyBox">
-				<form id="locationLaNameForm">
-					<div class="locationBoxHead">
-						<div class="locationLaStar">도시별</div>
-						<input type="checkbox" value="초기화" id="locLaNameAll" /> <label
-							class="locLaNameLabel" for="locLaNameAll">초기화</label>
-					</div>
-					<div class="locationLaDiv">
-						<c:forEach items="${locLaNameList}" var="locLaName">
-							<input type="checkbox" value="${locLaName}" id="${locLaName}"
-								name="locationLaName">
-							<label for="${locLaName}" class="locationLaCss">${locLaName}</label>
-						</c:forEach>
-					</div>
-				</form>
-				<div class="line"></div>
-				
-				<form id="locationSNameForm">
-					<div class="locationSStar">지역별</div>
-					<div class="locationSDiv">
-						<div class="classiFication">지역을 선택해주세요</div>
-						<c:forEach items="${locSNameList}" var="locSName">
-							<input type="checkbox" value="${locSName}" id="${locSName}"
-								name="locationSName">
-							<label for="${locSName}" class="locationTypeCss">${locSName}</label>
-						</c:forEach>
-					</div>
-				</form>
+				<option for="allviwe" class="all" id="all" name="all">전체보기</option>
+				<c:forEach items="${locLaNameList}" var="locationLaName">
+					<option id="addlocation">${locationLaName}</option>
+				</c:forEach>
+			</select> <select id="locationSNameMem">
+				<option>전체보기</option>
+			</select>
+			<div id="test1" class="select"></div>
+			<input type="button" value="추가" id="locationBtn">
+			<input type="button" value="취소" id="locationBtncancel">
+			<p>유형</p>
+			<select id="typeLaNameMem">
+				<option>전체보기</option>
+				<c:forEach items="${typeLaNameList}" var="typeLaName">
+					<option>${typeLaName}</option>
+				</c:forEach>
+			</select> <select id="typeSNameMem">
+				<option>전체보기</option>
+			</select>
+			<div id="test2" class="select"></div>
+			<input type="button" value="추가" id="typeBtn"> 
+			<input type="button" value="취소" id="typeBtncancel">
+			<button type="button" onclick="validate(event)">클럽생성</button>
+			<div>
+		
+				 <a href="/"
+					id="toIndex">생성 취소</a>
 			</div>
 		</div>
 		<!-- 도시별 지역별 태그 선택 ============================================================== -->
@@ -186,8 +153,7 @@ select {
 	<script src="${pageContext.request.contextPath}/js/makeMembership.js"></script>
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
+	<script src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

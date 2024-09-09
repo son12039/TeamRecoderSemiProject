@@ -1,5 +1,10 @@
 let page = 1;
 let isLoading = false; // 로딩 상태를 추적
+const currentDate = new Date(); // 오늘 
+const today= currentDate.toISOString().split('T')[0];
+	currentDate.setDate(currentDate.getDate() - 30);
+const today30 =	currentDate.toISOString().split('T')[0] // 30일전 
+
 window.addEventListener("scroll", () => {
 	const link = document.createElement('link');
 	link.rel = 'stylesheet';
@@ -11,6 +16,8 @@ window.addEventListener("scroll", () => {
 
   if (document.body.offsetHeight - 700 <= window.scrollY + window.innerHeight) {
     isLoading = true; // 로딩 상태 설정
+
+	
 
     page++;
     $.ajax({
@@ -26,12 +33,19 @@ window.addEventListener("scroll", () => {
       success: function (clubList) {
         let div = $(".membership-list");
         $.each(clubList, function (index, club) {
-          let ajaxLocationType =
-            '<div class="membership-card">' +
-            '<div class="membership-img">' +
-            '<a href="/' +
-            club.membershipCode +
-            '">';
+			let ajaxLocationType =
+				'<div class="membership-card">' 
+						if(club.membershipDate > today30 && club.membershipDate < today){
+							
+				ajaxLocationType+= 
+				'<img alt="" src="http://192.168.10.51:8081/sungil/2%ED%8A%B8.png" class="new">';
+						}
+				  		
+				
+				
+		ajaxLocationType +='<div class="membership-img">' +
+				'<a href="/' + club.membershipCode + '">';
+
           if (club.membershipImg != null) {
             ajaxLocationType +=
               '<img src="http://192.168.10.51:8081/membership/' +

@@ -14,6 +14,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import mapper.MemberMapper;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,11 +140,14 @@ public class MemberService implements UserDetailsService {
 
 	}
 	// 더미 2
-	public void dummyUpdate() {
+	public void dummyUpdate() throws IOException {
 		ArrayList<Member> list = dummyMember();
 		System.out.println(list);
 		for (Member m : list) {
+			Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\member\\" + m.getId() + "\\");
+			Files.createDirectories(directoryPath);
 			m.setPwd(bcpe.encode(m.getPwd()));
+			
 			mapper.dummyUpdate(m);
 
 		}

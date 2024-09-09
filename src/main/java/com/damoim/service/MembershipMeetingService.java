@@ -64,4 +64,9 @@ public void meetingDelete(MembershipMeetings meetings) {
 		 mapper.meetingUpdate(meetings);
 	 }
 	 
+	 public List<MembershipMeetings> allMeetings1(String id){
+		 
+		return  mapper.allMeetings1(id);
+	 }
+	 
 }

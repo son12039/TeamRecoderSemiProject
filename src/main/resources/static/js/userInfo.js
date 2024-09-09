@@ -40,7 +40,7 @@ $(document).ready(function() {
 	     const targetMemberId = $(this).data('target-member-id');
 	     const loginMemberId = $(this).data('login-member-id');
 		 if (confirm("추천&비추천은 24시간마다 가능합니다 정말로 해당 회원을 비추천 하시겠습니까?")) {
-		     recommendation(targetMemberId, loginMemberId, false);
+		     recommendation(targetMemberId, loginMemberId, true);
 		 } else {
 		     
 		 }

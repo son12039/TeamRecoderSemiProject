@@ -27,7 +27,7 @@ where list_code = 37;
 
 select *
 from member 
-where id = 'user037';
+where nickname = '정민34';
 
 select * 
 from membership_meetings
@@ -51,7 +51,17 @@ where meet_code = 71;
 
 insert into membership_user_list(membership_code, list_grade, id)
 values(135, 'host','user077');
+select * from membership_user_list
+where id = 'user077';
+select * 
+from meetings_comment;
+
+
+select * from membership;
+
 select * from membership_user_list;
+delete from membership
+where membership_code = 187;
 
 
 

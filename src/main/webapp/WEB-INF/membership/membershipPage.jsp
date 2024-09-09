@@ -260,10 +260,12 @@
 						success: function(bo) {
 							if(bo){
 							alert("클럽 삭제 완료");
+							location.href="/";
 							}else {
 								alert("클럽 삭제 실패");
+								location.reload();
 							}
-							location.reload();
+							
 						},
 						error : function(){
 							alert("클럽 삭제 실패")

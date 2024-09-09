@@ -193,6 +193,7 @@
 			</div>
 		</c:forEach>
 	</div>
+	<jsp:include page="chatting/chattingIndex.jsp" />
 	<jsp:include page="footer/footerIndex.jsp" />
 	
 	 

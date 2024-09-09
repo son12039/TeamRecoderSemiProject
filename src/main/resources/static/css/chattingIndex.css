@@ -1,0 +1,459 @@
+#reduce {
+	width: 65px;
+	position: fixed;
+	height: 65px;
+	border-radius: 50%;
+	z-index: 100000;
+	bottom: 50px;
+	right: 50px;
+	background: rgb(255 245 215);
+	text-align: center;
+	color: #FCA35B;
+	align-content: center;
+	cursor: pointer;
+	user-select: none;
+	margin-top: 3px;
+	line-height: 1.3;
+}
+.arrow {
+	font-size: 12px;
+	color: #FCA35B;
+	font-weight: 600;
+}
+.all {
+	display: flex;
+}
+
+.all .nickname img {
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	background-position: center;
+}
+
+.all>img {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	z-index: 1;
+}
+
+.nm {
+	padding-left: 8px;
+}
+
+.chat_li {
+	list-style: none;
+}
+
+#chat_box {
+	position: absolute;
+	z-index: 1000; /* 다른 요소보다 위에 위치 */
+}
+
+.swal-footer {
+	text-align: center;
+}
+
+/* 채팅방 목록 */
+#chatMain {
+	background-color: white;
+	width: 180px;
+	height: 160px;
+	border: 1px solid #80808047;
+	position: fixed;
+	z-index: 1000;
+	bottom: 100px;
+	right: 5px;
+	border-radius: 10px;
+	display: none;
+}
+
+ul li {
+	z-index: 124109;
+}
+
+#chatMain * {
+	font-size: 15px
+}
+
+
+#chatMain::before {
+	content: "";
+	position: absolute;
+	bottom: -9px;
+	left: -4px;
+	width: 0;
+	height: 0;
+	border-left: 3px solid transparent;
+	border-right: 15px solid transparent;
+	border-top: 15px solid white;
+	transform: rotate(30deg);
+	z-index: 1;
+}
+
+#chatMain::after {
+	content: "";
+	position: absolute;
+	bottom: -10px;
+	left: -5px;
+	width: 0;
+	height: 0;
+	border-left: 3px solid transparent;
+	border-right: 15px solid transparent;
+	border-top: 15px solid #80808047;
+	transform: rotate(30deg);
+	z-index: 0;
+}
+
+.chat_content>img {
+	width: 100px;
+	height: 100px;
+}
+
+#chatMain h1 {
+	padding: 10px;
+	height: 50px;
+	box-sizing: border-box;
+}
+
+#chatMain .new_chat {
+	top: 10px;
+	right: 10px;
+	border-radius: 3px;
+	padding: 3px;
+	background: #fff;
+	cursor: pointer;
+}
+
+#chatMain .new_chat:hover {
+	background: #eee;
+}
+
+#chatMain nav {
+	font-size: 1.4rem;
+	background-color: #ADD8E6;
+	padding-bottom: 3px;
+	border-bottom: 1px solid #80808047;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	color: #FCA35B;	 
+	display: flex;
+	height: 40px;
+	justify-content: space-around;
+	align-items: center;
+	cursor: pointer;
+}
+#na {
+	font-family: "Chewy", system-ui;
+	text-shadow: 2px 3px black;
+}
+#can {
+	font-size: 25px;
+	padding-left: 22px;
+	color: black;
+	text-shadow: none;
+	font-family: emoji;
+	padding-bottom: 4px;
+}
+
+#chatMain nav>span:first-child {
+	width: 80%;
+}
+
+#chatMain nav>span:last-child {
+	width: 20%;
+}
+
+#chatMain ul {
+	overflow-y: auto;
+	max-height: calc(100% - 50px);
+}
+
+#chatMain li {
+	font-size: 1.6rem;
+	width: 100%;
+	height: 40px;
+	padding: 7px;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	
+}
+
+#chatMain li:hover {
+	background: #eee;
+}
+
+#chatMain .chat_title {
+	width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font-size: 16px;
+	font-family: "Noto Sans KR", sans-serif;
+}
+
+#chatMain .chat_count {
+	width: 20%;
+	font-size: 16px;
+	font-family: "Noto Sans KR", sans-serif;
+}
+
+/* 채팅방 목록 */
+
+/* 채팅방 안 */
+.chat {
+	z-index: 10;
+	display: none;
+	position: fixed;
+	width: 400px;
+	height: 400px;
+	position: fixed;
+	z-index: 1000;
+	bottom: 50px;
+	right: 5px;
+	position: fixed;
+}
+
+.chat * {
+	font-size: 17px
+}
+
+.chat>div {
+	font-size: 2em;
+}
+
+.chat>div {
+	height: 100%;
+	display: flex;
+}
+
+.chat .chat_body {
+	background: #ffc9a8;
+	height: 100%;
+	width: 100%;
+	order: 1;
+	border: 1px solid #9d9d9d;
+	position: relative;
+}
+
+.chat h2 {
+	font-size: 2rem;
+	padding: 10px;
+	height: 50px;
+	box-sizing: border-box;
+	text-align: center;
+	background: #eee;
+}
+
+#chatMain ul::-webkit-scrollbar {
+	display: none; /* 스크롤바를 숨깁니다 */
+}
+#qweqwe {
+	width: 300px;
+	height: 300px;
+	z-index: 100;
+	background: white;
+	position: fixed;
+	top: 0px;
+	left: 300px;
+}
+.chat ul.chat_list::-webkit-scrollbar {
+	display: none; /* 스크롤바를 숨깁니다 */
+}
+
+.chat .chat_back {
+	width: 20px;
+	height: 20px;
+	font-size: 10px;
+	top: 3px;
+	left: 2px;
+	z-index: 1;
+	border: none;
+	cursor: pointer;
+	position: absolute;
+	background: #ffc9a8;
+}
+.chat .chat_size {
+	font-size: 15px;
+	top: 5px;
+	right: 5px;
+	z-index: 1;
+	border: none;
+	cursor: pointer;
+	position: absolute;
+	background: #ADD8E6;
+	transform: rotate(45deg);
+}
+.chat ul.chat_list {
+	overflow-y: auto;
+	height: calc(100% - 60px);
+	box-sizing: border-box;
+	padding: 5px 0;
+}
+
+.chat li {
+	font-size: 1.5rem;
+}
+
+.chat li>div {
+	padding: 8px;
+	display: flex;
+}
+
+.chat li .notification {
+	text-align: center;
+}
+
+.chat li .notification span {
+	margin: 0 auto;
+	border-radius: 15px;
+	padding: 5px 10px;
+	background: #ae9191;
+	color: #fff;
+	font-size: 13px;
+	font-family: "Noto Sans KR", sans-serif;
+}
+
+.chat li>div .nickname {
+	padding-bottom: 2px;
+}
+
+.chat li>div .message {
+	display: flex;
+}
+
+.chat .chat_me {
+	justify-content: end;
+}
+
+.chat .chat_other {
+	justify-content: start;
+}
+
+.chat .chat_other .chat_in_time {
+	order: 1;
+}
+
+.chat .chat_in_time {
+	font-size: 0.8rem;
+	margin: 0 5px;
+	display: flex;
+	align-items: flex-end;
+}
+
+.chat .chat_content {
+	padding: 5px;
+	border-radius: 3px;
+	box-shadow: 0px 2px 3px 0px rgb(0 0 0/ 25%);
+	display: flex;
+	flex-direction: column;
+	max-width: 250px;
+	max-height: 400px;
+	overflow-y: auto;
+	word-break: break-all;
+}
+
+.chat .chat_content img {
+	size: auto;
+}
+
+.chat .chat_me .chat_content {
+	background: #f8f8ed;
+}
+
+.chat .chat_other .chat_content {
+	background: #fff;
+}
+
+.chat .chat_input {
+	height: 60px;
+	display: flex;
+	background: #fff;
+}
+
+.chat_input .chat_input_area {
+	width: 87%;
+}
+
+.chat_input .chat_input_area textarea {
+	width: 100%;
+	height: 100%;
+	border: none;
+	resize: none;
+	padding: 8px;
+	box-sizing: border-box;
+}
+
+.chat_input .chat_input_area textarea:focus {
+	outline: none;
+}
+
+.chat_input_area textarea::placeholder {
+	font-size: 15px;
+	font-style: italic;
+	font-family: "Noto Sans KR", sans-serif;
+}
+
+.chat_body li .nickname img {
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	bottom: 70px;
+	left: 10px;
+}
+
+.chat_body>img {
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	bottom: 70px;
+	left: 10px;
+}
+
+.chat_input .chat_button_area {
+	width: 13%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.chat_input .chat_button_area button {
+	font-family: "Noto Sans KR", sans-serif;
+	background-color: #FCA35B;
+	color: white;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	padding: 5px;
+	width: 90%;
+	cursor: pointer;
+	margin-right: 5px;
+	font-weight: bold;
+}
+
+.chat .chat_users {
+	border: 1px solid #ddd;
+	width: 30%;
+	height: 300px;
+	margin-right: 3px;
+}
+
+/* 참가인원 */
+.chat .chat_users h2 {
+	font-size: 1.6rem;
+}
+
+.chat .chat_users .chat_nickname {
+	font-size: 1.6rem;
+	height: calc(100% - 50px);
+	overflow: auto;
+}
+
+.chat .chat_users .chat_nickname li {
+	padding: 5px;
+}
+
+#cancle {
+	font-size: 12px;
+}

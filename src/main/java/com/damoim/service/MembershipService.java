@@ -155,12 +155,14 @@ public class MembershipService {
 		
 		
 	}
-
+	// 체팅 서비스 ===================================
 	public List<BasicRoomListVo> roomlist() {
 		return mapper.roomlist();
 	}
 	
-	
+	public List<Integer> enterChattingroomCode(String id) {
+		return mapper.enterChattingroomCode(id);
+	}
 	
 
 	
@@ -234,9 +236,7 @@ public class MembershipService {
 			public List<TypeCategory> typeButton(int membershipCode){
 				 return mapper.typeButton(membershipCode);
 			 }
-			public List<Integer> enterChattingroomCode(String id) {
-				return mapper.enterChattingroomCode(id);
-			}
+
 	
 	
 }

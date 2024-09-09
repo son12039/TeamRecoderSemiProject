@@ -55,6 +55,7 @@ public interface MembershipMapper {
 	
 	// 채팅 ===================================
 	List<BasicRoomListVo> roomlist(); // 체팅?
+	List<Integer> enterChattingroomCode(String id);
 	
 	// 멤버쉽 업데이트 ============================	
 	void updateMembershipInfo(Membership membershipInfo);// 홍보글 수정,작성
@@ -87,8 +88,7 @@ public interface MembershipMapper {
 			// 클럽명 중복확인
 			Membership membershipNameCheck(Membership membership);
 			
-			// 체팅방
-			List<Integer> enterChattingroomCode(String id);
+
 			
 
 	

@@ -489,7 +489,7 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 	
 	</div>
 	
-	
+	<jsp:include page="../chatting/chattingIndex.jsp" />
 	<jsp:include page="../footer/footer.jsp" />
 
 	

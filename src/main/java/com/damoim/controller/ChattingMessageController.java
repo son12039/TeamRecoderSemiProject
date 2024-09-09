@@ -14,7 +14,6 @@ public class ChattingMessageController {
 	// chatting.js에서 호출되는 메서드들
 
 	// 채팅방 목록 업데이트용
-	// getmapping("/뭐시기") 리턴 "/"하는 얘랑 똑같음!
 	@MessageMapping("/socket/roomList")
 	@SendTo("/topic/roomList")
 	public String roomList() {

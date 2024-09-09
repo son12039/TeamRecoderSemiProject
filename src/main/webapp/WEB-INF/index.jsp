@@ -81,7 +81,7 @@
 					<label class="typeLaNameLabel" for="typeLaNameAll">전체보기</label>
 					<c:forEach items="${typeLaNameList}" var="typeLaName">
 						<input type="checkbox" value="${typeLaName}" id="${typeLaName}"
-							name="typeLaName" onchange="typeSelect(event)">
+							name="typeLaName" >
 						<label for="${typeLaName}" class="typeLaCss">${typeLaName}</label>
 					</c:forEach>
 				</div>
@@ -95,7 +95,7 @@
 					<div class="typeSDiv">
 					<c:forEach items="${typeSNameList}" var="typeSName">
 						<input type="checkbox" value="${typeSName}" id="${typeSName}"
-							name="typeSName">
+							name="typeSName" onchange="typeSelect(event)">
 						<label for="${typeSName}" id="typeSCss">${typeSName}</label>
 					</c:forEach>
 				</div>

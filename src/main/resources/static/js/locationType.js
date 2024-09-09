@@ -1,5 +1,5 @@
 // ******************************************************
-// 읽기전 변수명에 Friend 붙은 애들은 다 로케이션,타입 눌렀을때 옆에 뜨는 애들임
+// 읽기전 변수명에 Friend 붙은 애들은 다 로케이션,타입 눌렀을때 옆에 뜨는 애들임 (변수명 생각이 안나서 이렇게 지음)
 // ******************************************************
 
 // 아이콘 처리 하는 부분
@@ -9,7 +9,7 @@ link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css
 document.head.appendChild(link);
 
 // 리스트 담는 부분
-let div = $(".membership-list");
+let div = $(".membership-list");// 이게 문제였음
 
 // 현재 페이지에 대한 url 저장하기
 const url = new URL(location.href);
@@ -92,8 +92,7 @@ if(searchDto.typeSName.length > 0 ){
 // 결과값에 대한 걸 먼저 생각!
 // locationSNameList, typeSNameList, list
 let locationSNameListResult = "";
-const locationSNameList = (callback) => {
-
+const locationSNameList =  async (callback) => {
 	$.ajax({
 		url: 'locationSList',
 		type: 'get',
@@ -107,8 +106,9 @@ const locationSNameList = (callback) => {
 			if (callback) callback(result);
 		}
 	})
-
 }
+
+
 let typeSNameListResult = "";
 const typeSNameList = (callback) => {
 
@@ -152,7 +152,8 @@ $("#locationLaNameForm").click(function() {
 // 도시별 해당 지역 눌렀을 때 
 // -> 하단 지역별 리스트 가져와야 하고, 리스트도 새로 가져와야 하고
 $("#locationLaNameForm input[type=checkbox]").change(function() {
-	
+	// 체크 눌렀을때 그쪽 방향으로 이동
+	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 	urlParams.delete("locationSName");
 	searchDto.locationSName = [];
 	const laName = $(this).val();
@@ -209,7 +210,6 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 		})
 	}
 	history.pushState({}, null, url);
-	div.empty();
 	list(1);
 });
 
@@ -228,9 +228,9 @@ $("#locationSNameForm").click(function() {
 
 // 지역별 해당 지역들 눌렀을 때 -> 리스트만 가져오기??? 위에 url 리스트로 뿌리고
 function locationSelect(event) {
-
+	// 체크 눌렀을때 그쪽 방향으로 이동
+	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 	const locationSName = $(event.target).val();
-	console.log("나 찍힘?")
 	//다시 클릭했으니 초기화 하고 새로운 정보넣기
 	$(".locationSFriend").remove()
 	let locationSLength = ""
@@ -278,7 +278,6 @@ function locationSelect(event) {
 	}
 	
 	history.pushState({}, null, url);
-	div.empty();
 	list(1);
 }
 
@@ -291,7 +290,8 @@ $("#typeLaNameSelect").click(function() {
 })
 // 타입별 해당 분류 눌렀을 때
 $("#typeLaNameSelect input[type=checkbox]").change(function() {
-
+	// 체크 눌렀을때 그쪽 방향으로 이동
+	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 	urlParams.delete('typeSName')
 	searchDto.typeSName = [];
 	const typeLa = $(this).val();
@@ -345,7 +345,6 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 		})
 	}
 	history.pushState({}, null, url);
-	div.empty();
 	list(1);
 })
 
@@ -365,9 +364,9 @@ $("#typeSNameForm").click(function() {
 })
 // 분류별 해당 분류별들 눌렀을 때
 function typeSelect(event){
-	
+	// 체크 눌렀을때 그쪽 방향으로 이동
+	window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
 	let typeSName = $(event.target).val()
-	
 	//다시 클릭했으니 초기화 하고 새로운 정보넣기
 	$(".typeSFriend").remove()
 	let typeSLength = ""
@@ -411,7 +410,6 @@ function typeSelect(event){
 		}
 	}
 	history.pushState({}, null, url);
-	div.empty()
 	list(1)
 }
 
@@ -434,7 +432,6 @@ function search() {
 	urlParams.append('keyword', keyword);
 	searchDto.keyword = keyword;
 	history.pushState({}, null, url);
-	div.empty();
 	list(1);
 }
 

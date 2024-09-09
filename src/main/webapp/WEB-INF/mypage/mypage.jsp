@@ -171,9 +171,12 @@
 													<button class="Management-button" id="update-club"
 														type="submit" value="클럽수정">클럽 정보 수정</button>
 												</form>
-												<button class="Management-button"
-													onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">탈퇴</button>
+												
 											</c:if>
+											<c:if test="${myGrade != 'host'}">
+											<button class="Management-button"
+													onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">탈퇴</button>
+													</c:if>
 										</div>
 									</div>
 								</div>
@@ -234,10 +237,13 @@
 													<button class="Management-button" id="update-club"
 														type="submit" value="클럽수정">클럽 정보 수정</button>
 												</form>
-												<button class="Management-button"
-													onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">탈퇴</button>
+												
 											</div>
 										</c:if>
+										<c:if test="${myGrade != 'host'}">
+											<button class="Management-button"
+													onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">탈퇴</button>
+													</c:if>
 									</div>
 								</div>
 							</a>

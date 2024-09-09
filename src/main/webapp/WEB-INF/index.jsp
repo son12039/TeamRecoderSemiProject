@@ -48,7 +48,7 @@
 		<div class="locationTypeBodyBox">
 			<form id="locationLaNameForm">
 				<div class="locationLaBox">
-					<div class="locationLaStar">도시별&nbsp;</div>&nbsp;
+					<div class="locationLaStar">도시별&nbsp;</div>
 						<input type="checkbox" value="" id="locLaNameAll" />
 				</div>
 				<div class="locationLaDiv">
@@ -63,7 +63,7 @@
 	
 			<form id="locationSNameForm">
 				<div class="locationSBox">
-					<div class="locationSStar">지역별&nbsp;</div>&nbsp;
+					<div class="locationSStar">지역별&nbsp;</div>
 				</div>
 					<div class="locationSDiv">
 						<c:forEach items="${locSNameList}" var="locSName">
@@ -76,7 +76,7 @@
 			<!-- 타입별 -->
 			<form id="typeLaNameSelect">
 				<div class="typeLaBox">
-					<div class="typeLaStar">타입별&nbsp;</div>&nbsp;
+					<div class="typeLaStar">타입별&nbsp;</div>
 						<input type="checkbox" value="" id="typeLaNameAll" />
 				</div>
 				<div class="typeLaDiv">
@@ -92,7 +92,7 @@
 
 			<form id="typeSNameForm">
 				<div class="typeSBox">
-					<div class="typeSStar">분류별&nbsp;</div>&nbsp;
+					<div class="typeSStar">분류별&nbsp;</div>
 				</div>
 					<div class="typeSDiv">
 					<c:forEach items="${typeSNameList}" var="typeSName">
@@ -102,6 +102,7 @@
 					</c:forEach>
 				</div>
 			</form>
+			<input type="button" class="resetBth" onclick="reset()" value="초기화">
 		</div>
 		<div class="locationTypeSearch">
 			<input type="text" name="keyword" id="keyword" placeholder="검색.."/>
@@ -201,8 +202,9 @@
 	<!-- <div class="membership-list"> -->
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="${pageContext.request.contextPath}/js/index.js"></script>
-	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
 	<script src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
+	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
+	
 
 </body>
 </html>

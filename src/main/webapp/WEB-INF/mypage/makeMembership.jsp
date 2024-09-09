@@ -12,8 +12,7 @@
 	href="${pageContext.request.contextPath}/css/reset.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/makeMembership.css" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/locationType.css" />
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <style>
@@ -29,6 +28,7 @@ select {
 </style>
 </head>
 <body>
+	<jsp:include page="../header/header.jsp" />
 	<sec:authorize access="isAuthenticated()" var="principal">
 		<sec:authentication property="principal" var="member" />
 
@@ -42,10 +42,23 @@ select {
 				최대 인원 : <span class="max" id="max"></span> <input type="number"
 				for="membershipMax" id="membershipMax" name="membershipMax">
 
+				<!-- ======================================= -->
+				<!-- 08-20 채승훈 -->
+				<div class="container">
+					<div class="select-group">
+						<div class="select-title">
+							<p>지역 선택</p>
+						</div>
+						<div class="select-menu">
+							<div class="select">
+								<div class="select-option"></div>
 
-			<!-- 08-20 채승훈 -->
-			<p>지역</p>
-			<select id="locationLaNameMem">
+							</div>
+						</div>
+						<div id="test1">
+							<h1>선택한</h1>
+						</div>
+					</div>
 
 				<option for="allviwe" class="all" id="all" name="all">전체보기</option>
 				<c:forEach items="${locLaNameList}" var="locationLaName">
@@ -75,7 +88,66 @@ select {
 				 <a href="/"
 					id="toIndex">생성 취소</a>
 			</div>
-		</form>
+		</div>
+		<!-- 도시별 지역별 태그 선택 ============================================================== -->
+		
+		<!-- 유형별 취미 태그 선택 =============================================================== -->
+	 	<div class="typeBody">
+			<div class="typeBodyBox">
+				<form id="typeLaNameForm">
+					<div class="typeBoxHead">
+						<div class="typeLaStar">유형</div>
+						<input type="checkbox" value="초기화" id="typeNameAll" /> <label
+							class="typeLaNameLabel" for="typeNameAll">초기화</label>
+					</div>
+					<div class="typeLaDiv">
+						<c:forEach items="${typeLaNameList}" var="typeLaName">
+							<input type="checkbox" value="${typeLaName}" id="${typeLaName}"
+								name="locationLaName">
+							<label for="${typeLaName}" class="typeLaCss">${typeLaName}</label>
+						</c:forEach>
+					</div>
+				</form>
+				<div class="line"></div>
+				<form id="typeSNameForm">
+					<div class="typeSStar">취미별</div>
+					<div class="typeSDiv">
+						<div class="typeClassiFication">취미를 선택해주세요</div>
+						<c:forEach items="${typeSNameList}" var="typeSName">
+							<input type="checkbox" value="${typeSName}" id="${typeSName}"
+								name="typeSName">
+							<label for="${typeSName}" class="typeCss">${typeSName}</label>
+						</c:forEach>
+					</div>
+				</form>
+			</div>
+		</div>
+	
+		<div class="box">
+			<div class="container">
+
+				<div class="form-group">
+					<div id="test2" class="button-group">
+						<button type="button" onclick="validate(event)" class="btn">클럽생성</button>
+						<h2>${mem.id}</h2>
+						<input type="hidden" name="id" value="${mem.id}"> <input
+							type="hidden" name="listGrade" value="host">
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
 	</sec:authorize>
 
 	<script src="${pageContext.request.contextPath}/js/makeMembership.js"></script>

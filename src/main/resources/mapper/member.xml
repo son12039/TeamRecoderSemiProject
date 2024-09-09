@@ -6,7 +6,7 @@
 		<result column="list_grade" property="listGrade" />
 		<result column="membership_code" property="membershipCode" />
 	</resultMap>
-
+	
 	<resultMap type="MembershipDTO" id="MembershipDTOmap">
 		<result column="membership_name" property="membershipName" />
 		<result column="membership_info" property="membershipInfo" />
@@ -14,9 +14,7 @@
 		<result column="id" property="id" />
 		<result column="list_grade" property="listGrade" />
 	</resultMap>
-
-
-
+	
 	<resultMap id="MemberResultMap" type="Member">
 		<id property="id" column="id" />
 		<result property="pwd" column="pwd" />
@@ -34,7 +32,8 @@
 		<result property="memberInfo" column="member_info" />
 		<result property="memberLocation" column="member_location" />
 		<result property="memberType" column="member_type" />
-		<result property="lastRecommendationTime" column="last_recommendation_time"/>
+		<result property="lastRecommendationTime"
+			column="last_recommendation_time" />
 	</resultMap>
 
 
@@ -44,7 +43,7 @@
 		SELECT id, pwd
 		FROM member
 	</select>
-	<!--  더미용 쿼리 -->
+	<!-- 더미용 쿼리 -->
 	<update id="dummyUpdate" parameterType="Member">
 		UPDATE member
 		SET pwd =
@@ -64,17 +63,19 @@
 	<!-- 회원 상세 정보 업데이트 -->
 	<update id="updateMemberInfo" parameterType="Member">
 		UPDATE member
-		SET 
-		pwd = #{pwd} , 
+		SET
+		pwd
+		= #{pwd} ,
 		addr = #{addr},
 		name = #{name},
-		phone = #{phone}, 
-		email = #{email} , 
-		age = #{age} , 
+		phone = #{phone},
+		email =
+		#{email} ,
+		age = #{age} ,
 		nickname = #{nickname}
 		WHERE id = #{id}
 	</update>
-
+	
 	<!-- 회원 탈퇴시 status 조정 -->
 	<update id="memberStatus" parameterType="Member">
 		UPDATE member
@@ -82,10 +83,6 @@
 		status = 0
 		WHERE id = #{id}
 	</update>
-
-	
-	
-
 
 	<!-- 기본정보 업데이트 -->
 	<update id="updateMember" parameterType="Member">
@@ -97,9 +94,7 @@
 		WHERE id = #{id}
 	</update>
 	
-
-	
-	<!--  로그인 ID로 맴버 -->
+	<!-- 로그인 ID로 맴버 -->
 	<select id="login" parameterType="String"
 		resultMap="MemberResultMap">
 		SELECT *
@@ -108,24 +103,28 @@
 	</select>
 	
 	<!-- 회원가입 아이디 중복 체크 + 여러모로 id로 값가져올때 -->
-	<select id="idCheck" parameterType="Member" resultMap="MemberResultMap">
+	<select id="idCheck" parameterType="Member"
+		resultMap="MemberResultMap">
 		SELECT *
 		FROM member
 		WHERE id = #{id}
 	</select>
+	
 	<!-- 회원가입 닉네임 중복 체크 -->
 	<select id="nicknameCheck" parameterType="Member"
 		resultMap="MemberResultMap">
 		SELECT * FROM member
 		WHERE nickname = #{nickname}
 	</select>
+	
 	<!-- 회원가입 이메일 중복 체크 -->
 	<select id="emailCheck" parameterType="Member"
 		resultMap="MemberResultMap">
 		SELECT * FROM member
 		WHERE email = #{email}
 	</select>
-	<!--  회원가입 -->
+	
+	<!-- 회원가입 -->
 	<insert id="signUp" parameterType="Member"
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO member(id, pwd,
@@ -139,16 +138,15 @@
 		#{nickname},#{memberImg},#{memberHobby},#{memberInfo},#{memberLocation},#{memberType}
 		)
 	</insert>
-
+	
 	<!-- 이메일 아이디 확인 -->
-	
 	<update id="updatePassword" parameterType="Member">
-	UPDATE member
-	SET pwd = #{pwd}
-	WHERE id = #{id}
-	
+		UPDATE member
+		SET pwd = #{pwd}
+		WHERE id = #{id}
+
 	</update>
-	<!--  이메일 ID 비교해서 회원 찾기 (비밀번호 찾기용) -->
+	<!-- 이메일 ID 비교해서 회원 찾기 (비밀번호 찾기용) -->
 	<select id="memberEmailIdcheck" parameterType="Member"
 		resultType="Member">
 		SELECT *
@@ -156,7 +154,7 @@
 		WHERE id = #{id}
 		AND email = #{email}
 	</select>
-	<!--  이메일 이름 비교해서 회원찾기 (아이디 찾기용) -->
+	<!-- 이메일 이름 비교해서 회원찾기 (아이디 찾기용) -->
 	<select id="findMemberId" parameterType="Member"
 		resultType="Member">
 		SELECT *
@@ -164,26 +162,35 @@
 		WHERE name = #{name}
 		AND email = #{email}
 	</select>
-	<!--  회원 매너점수 조정하는 쿼리 -->
+	<!-- 회원 매너점수 조정하는 쿼리 -->
 	<update id="memberManner" parameterType="MemberMannerDTO">
-    UPDATE member 
-    SET member_manner = member_manner
-    <if test="!pulsMinus">
-        + 0.5
-    </if>
-    <if test="pulsMinus">
-        - 0.5
-    </if>
-    WHERE id = #{member.id}
+		UPDATE member
+		SET member_manner = member_manner
+		<if test="!pulsMinus">
+			+ 0.5
+		</if>
+		<if test="pulsMinus">
+			- 0.5
+		</if>
+		WHERE id = #{member.id}
 	</update>
-	<!--  회원 추천기능 쿨타임 용도 -->
+	<!-- 회원 추천기능 쿨타임 용도 -->
 	<update id="updateLastRecommendationTime" parameterType="String">
-	UPDATE member 
-	SET last_recommendation_time = now()
-	WHERE id = #{id}
+		UPDATE
+		member
+		SET last_recommendation_time = now()
+		WHERE id = #{id}
 	</update>
 	
-
+	<update id="defualtFile" parameterType="String">
+		UPDATE member
+		SET member_img =#{memberImg}
+		WHERE id=#{id}
+	</update>
+	
+	
+	
+	
 	
 </mapper>
 	

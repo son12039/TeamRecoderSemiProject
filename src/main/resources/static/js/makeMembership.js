@@ -1,3 +1,17 @@
+
+
+/* 이 위부터 유형별 체크박스 =========================================================*/
+
+/* ============================================================================= */
+
+
+
+
+
+
+
+
+
 // 현재 페이지의 URL에서 쿼리 문자열과 해시(#)를 제거할때 사용 
 					//(현재 페이지,제목 문자열, 현재 페이지 경로를 포함된 URL )
 history.replaceState({}, null, location.pathname); // {}: 현재 페이지 상태 저장을 위한 빈칸 사용, 저장 필요 없으면 null 사용가능  
@@ -7,7 +21,6 @@ history.replaceState({}, null, location.pathname); // {}: 현재 페이지 상�
 let membershipNameCheck = false;
 membershipName.addEventListener('input', function() {
 	const membershipNameValue = $(this).val().trim();
-
 	$.ajax({
 		type: 'POST',
 		url: '/membershipNameCheck', // 컨트롤러 URL
@@ -57,8 +70,16 @@ membershipMax.addEventListener('input', function() {
 });
 
 
-// 지역 선택 시 변경 이벤트
-$('#locationLaNameMem').change(function() {
+
+
+
+
+
+
+
+// 유형 선택 시 변경 이벤트
+/*
+$('#typeLaNameMem').change(function() {
 	let location = $(this).val()// 선택된 지역 값을 가져옴
 	let list = "";// 지역 하위 목록을 저장할 변수
 	let allList = `<option>전체보기</option>`;
@@ -68,7 +89,7 @@ $('#locationLaNameMem').change(function() {
 		data: 'locationLaName=' + location,
 		success: function(locationS) {
 			$.each(locationS, function(index, item) {
-				list += `<option>${item}</option>`;
+				list += `<checkbox>${item}</checkbox>`;
 			});
 			if (list !== "") {
 				$("#locationSNameMem").html(list);	// 하위 지역 목록을 업데이트
@@ -80,12 +101,14 @@ $('#locationLaNameMem').change(function() {
 
 	})
 });
+*/
 
 // 유형 선택 시 변경 이벤트
+/*
 $('#typeLaNameMem').change(function() {
 	let type = $(this).val()
 	let list = "";
-	let allList = `<option>전체보기</option>`;
+	let allList = `<checkbox>전체보기</checkbox>`;
 
 	$.ajax({
 		type: 'post',
@@ -93,9 +116,8 @@ $('#typeLaNameMem').change(function() {
 		data: $.param({ typeLaName: type }), // & 문자가 URL 쿼리 문자열에서 파라미터 구분자로 사용됨 그래서 URL인코딩 처리를 해줘야 함
 		success: function(typeS) {
 			$.each(typeS, function(index, item) {
-				list += `<option>${item}</option>`;
-
-
+				list += `<checkbox>${item}</checkbox>`;
+			
 			});
 			if (list !== "") {
 				$("#typeSNameMem").html(list);
@@ -110,7 +132,7 @@ $('#typeLaNameMem').change(function() {
 	});
 });
 
-
+*/
 
 // 클릭 이벤트 사용해서 클릭하면 선택한 정보가 따로 쌓이게
 let locationBtnCheck = false; // 클릭 상태를 나타내는 변수 (초기값은 false)
@@ -189,6 +211,12 @@ typeBtn.addEventListener("click", function(e) {
 	$("#test2").html(string);
 
 });
+
+
+
+
+
+
 
 // 유형 취소
 typeBtncancel.addEventListener("click", function() {

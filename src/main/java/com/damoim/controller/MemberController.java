@@ -53,7 +53,7 @@ import lombok.Builder;
 
 @Controller
 public class MemberController {
-	
+
 	@Autowired
 	private MemberService service; // 맴버 서비스
 
@@ -62,13 +62,12 @@ public class MemberController {
 
 	@Autowired
 	private EmailService emailService; // 이메일 서비스
-	
+
 	@Autowired // 회원 탈퇴 댓글 삭제 서비스
 	private RemoveMemberService removeService;
 	
 	@Autowired
 	private MembershipMeetingService meetingService;
-
 
 	/*
 	 * 성일 로그인 시큐리티 처리(member서비스)
@@ -77,6 +76,7 @@ public class MemberController {
 	/*
 	 * 성철 회원가입 할때 아이디(프라이머리키 제약조건) 중복회원 체크
 	 */
+
 	@ResponseBody
 	@PostMapping("/idCheck")
 	public boolean idCheck(Member member) {
@@ -95,9 +95,10 @@ public class MemberController {
 		return mem == null;
 
 	}
+
 	/*
 	 * 성철 회원가입할때 이메일 (유니크) 증복체크
-	 * */
+	 */
 	@ResponseBody
 	@PostMapping("/emailCheck") // 회원가입시 닉네임 중복 체크
 	public boolean emailCheck(Member member) {
@@ -123,28 +124,25 @@ public class MemberController {
 		return "login/loginPage";
 
 	}
-	
+
 	/*
-	 * 성철 
-	 * 회원의 이메일, 이름 받아서 아이디 찾기
-	 * */
+	 * 성철 회원의 이메일, 이름 받아서 아이디 찾기
+	 */
 	@PostMapping("/findMemberId")
 	public String findMemberId(Member member, Model model) {
-		
+
 		String str = service.findMemberId(member);
-		if(str == "") {
-			model.addAttribute("message" , "틀림");
-		}else {
-			model.addAttribute("message" , str);
+		if (str == "") {
+			model.addAttribute("message", "틀림");
+		} else {
+			model.addAttribute("message", str);
 		}
 		return "login/findId"; // 인덱스 페이지로 리다이렉트
 	}
 
 	/*
-	 * 성철 
-	 * 비밀번호 찾기
-	 * 로그인 X 한 상태에서 유저에게 ID랑 이메일 정보를 받아서 일치할시에 그 유저가 가입할때 넣은 이메일주소에 임시 비밀번호 발송 ->
-	 * 암호화 -> DB변경 (이메일서비스)
+	 * 성철 비밀번호 찾기 로그인 X 한 상태에서 유저에게 ID랑 이메일 정보를 받아서 일치할시에 그 유저가 가입할때 넣은 이메일주소에 임시
+	 * 비밀번호 발송 -> 암호화 -> DB변경 (이메일서비스)
 	 */
 
 	@PostMapping("/sendEmail")
@@ -159,10 +157,10 @@ public class MemberController {
 			System.out.println("서비스 진입전 member 정보 : " + mem);
 			emailService.processPasswordReset(mem);
 			System.out.println("서비스 진입성공");
-			if(mem != null) {
-			model.addAttribute("message", "임시 비밀번호가 이메일로 전송되었습니다.");
-			System.out.println("비밀번호 변경 완료");
-			}else {
+			if (mem != null) {
+				model.addAttribute("message", "임시 비밀번호가 이메일로 전송되었습니다.");
+				System.out.println("비밀번호 변경 완료");
+			} else {
 				System.out.println("아이디 비밀번호 일치 X");
 				model.addAttribute("message", "아이디와 이메일이 일치하지 않습니다.");
 			}
@@ -188,75 +186,71 @@ public class MemberController {
 	}
 
 	/*
-	 * 성철
-	 * 업데이트시 본인꺼 OR 중복 X 확인
-	 * */
+	 * 성철 업데이트시 본인꺼 OR 중복 X 확인
+	 */
 	@ResponseBody
 	@PostMapping("/updateNicknameCheck")
-	public boolean updateNicknameCheck(String nickname){
+	public boolean updateNicknameCheck(String nickname) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		// 로그인 회원
 		Member m1 = (Member) authentication.getPrincipal();
 		// 해당 닉네임 넣을시 회원이 있는가
 		Member m2 = service.nicknameCheck(new Member().builder().nickname(nickname).build());
-		// 해당 닉네임으로 생성된 회원정보가 없거나 
+		// 해당 닉네임으로 생성된 회원정보가 없거나
 		// 해당 닉네임으로 생성된 회원 정보가 로그인한 회원가 같을시
-		if (m2 == null || m2.getId().equals(m1.getId())) { 
+		if (m2 == null || m2.getId().equals(m1.getId())) {
 			// 트루 리턴
 			return true;
 		}
 		// 아니면 false 리턴
 		return false;
 	}
+
 	/*
-	 * 성철
-	 * 업데이트시 본인꺼 OR 중복 X 확인
-	 * */
+	 * 성철 업데이트시 본인꺼 OR 중복 X 확인
+	 */
 	@ResponseBody
 	@PostMapping("/emailUpdateCheck")
-	public boolean emailUpdateCheck(String email){
+	public boolean emailUpdateCheck(String email) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		// 로그인 회원
 		Member m1 = (Member) authentication.getPrincipal();
 		// 해당 이메일 넣을시 회원이 있는가
 		Member m2 = service.emailCheck(new Member().builder().email(email).build());
-		// 해당 이메일로 생성된 회원정보가 없거나 
+		// 해당 이메일로 생성된 회원정보가 없거나
 		// 해당 이메일로 생성된 회원 정보가 로그인한 회원가 같을시
-		if (m2 == null || m2.getId().equals(m1.getId())) { 
+		if (m2 == null || m2.getId().equals(m1.getId())) {
 			// 트루 리턴
 			return true;
 		}
 		// 아니면 false 리턴
 		return false;
 	}
+
 	/*
 	 * 
 	 * 회원 중요정보 수정
-	 * */
+	 */
 	@PostMapping("/updateMemberInfo")
-	public String updateMemberInfo(Member vo, Model model, String addrDetail,String beforePwd ) {
+	public String updateMemberInfo(Member vo, Model model, String addrDetail, String beforePwd) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		
-		if(!service.updateCheck(mem, beforePwd)) {
-			
-			
-			model.addAttribute("text" , "변경 실패");
-		
+
+		if (!service.updateCheck(mem, beforePwd)) {
+
+			model.addAttribute("text", "변경 실패");
+
 			return "mypage/updateMemberInfo";
-			
+
 		}
-  System.out.println("비번은 뚫음 ");
+		System.out.println("비번은 뚫음 ");
 		vo.setId(mem.getId());
 		String addr = vo.getAddr();
 		addr += "#" + addrDetail;
 		vo.setAddr(addr);
 
-		service.updateMemberInfo(vo,beforePwd); // 수정
-		
-		
-		
-		// 실제 로그인 회원 정보 업데이트
+		service.updateMemberInfo(vo, beforePwd); // 수정
+
 		mem.setNickname(vo.getNickname());
 		mem.setPwd(vo.getPwd());
 		mem.setName(vo.getName());
@@ -266,24 +260,16 @@ public class MemberController {
 		mem.setAge(vo.getAge());
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		
-		
-		
-		model.addAttribute("text" , "변경 성공");
-	
-		
-		
-	
+
+		model.addAttribute("text", "변경 성공");
+
 		return "mypage/mypage";
 	}
 
-	
 	/*
-	 * 성철
-	 * 탈퇴 로직에 댓글 자동삭제 추가
-	 * 로직 추가필요 ================================================
+	 * 성철 탈퇴 로직에 댓글 자동삭제 추가 로직 추가필요 ================================================
 	 * 
-	 * */
+	 */
 	@ResponseBody
 	@PostMapping("/memberStatus")
 	public boolean memberStatus(HttpServletRequest request, HttpServletResponse response ,String pwdCheck) {
@@ -319,71 +305,99 @@ public class MemberController {
 	    SecurityContextHolder.getContext().setAuthentication(authentication);
 	    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 	    logoutHandler.logout(request, response, authentication);
-
 	    return true;
 	}
 
+	// 기본 사진으로 변경
+	@ResponseBody
+	@PostMapping("/defualtFile")
+	public boolean defualtFile() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Member mem = (Member) authentication.getPrincipal();
+		mem.setMemberImg(null);
+		service.defualtFile(mem.getId());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		return true;
+	}
 
-	
 	// 프로필, info 업데이트
 	@ResponseBody
 	@PostMapping("/updateMember")
-	public String updateMember(Member vo, MultipartFile file) throws IllegalStateException, IOException {
+	public boolean updateMember(MultipartFile file,String memberInfo, String memberHobby) throws IllegalStateException, IOException {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-
-		// 삭제
-		if (file.getOriginalFilename() != null || mem.getMemberImg() == null) {
-
-			fileDelete(mem.getMemberImg(), mem.getId());
-			String url = fileUpload(file, mem.getId());
-			mem.setMemberImg(url);
+		// 1. file 이 null 인 경우 (사용자가 파일을 선택하지 않고 제출 버튼을 눌렀을 때)
+		// 1-1 !file.isEmpty() (파일이 선택되었고 내용이 있는 경우)
+	    if (file != null && !file.isEmpty()) {
+	        if (mem.getMemberImg() != null) {
+	        	// 2. 멤버가 가지고있는 파일이미지가 null이 아닐경우 기존 파일 삭제
+	            fileDelete(mem.getMemberImg(), mem.getId());
+	        }
+	        
+	        // 3. 그 뒤에 url 파일 업로드 후 멤버의 이미지에 추가
+	        String url = fileUpload(file, mem.getId());
+	        mem.setMemberImg(url);
+	        
+	        
+	        
+	        
+	        
+	    } else if (file == null) {
+	    	
+	    	// 4. 추가한 파일이 없거나 기존 이미지로 유지할 경우 기존 이미지 유지
+	        mem.setMemberImg(mem.getMemberImg());
+	    }
+	    
+		if(memberHobby != null) {
+			// 5. 멤버 취미란에 수정사항이 있으면
+			mem.setMemberHobby(memberHobby);
 		}
+		
+		if(memberInfo != null) {
+			// 6. 멤버 소개란에 수정사항이 있으면
+			mem.setMemberInfo(memberInfo);
+		}
+		
 
-		mem.setMemberHobby(vo.getMemberHobby());
-		mem.setMemberInfo(vo.getMemberInfo());
 		service.updateMember(mem);
-
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		return "redirect:/mypage";
+		return true;
 	}
 
-	
-	/* 성철
-	 * 닉네임값 받아서 해당유저의 상세페이지로 이동(그유저의 가입된 클럽 여부, 추천기능)
+	/*
+	 * 성철 닉네임값 받아서 해당유저의 상세페이지로 이동(그유저의 가입된 클럽 여부, 추천기능)
 	 */
+
 	@GetMapping("/userInfo/{nickname}")
 	public String getMethodName(@PathVariable("nickname") String nickname, Model model) {
 		
 	
 		
 		Member member = service.nicknameCheck(new Member().builder().nickname(nickname).build());
-
 		MemberInfoDTO mem = new MemberInfoDTO().builder().member(member)
 				.memberMeetCount(infoService.meetCount(member.getId()))
 				.membershipUserList(infoService.selectMemberUserList(member.getId())).build();
 		System.out.println(mem);
 		model.addAttribute("mem", mem);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-		if(authentication.getPrincipal().equals("anonymousUser")) {
-				System.out.println("로그인 X ");
-				return "member/userInfo";
+		if (authentication.getPrincipal().equals("anonymousUser")) {
+			System.out.println("로그인 X ");
+			return "member/userInfo";
 		}
-			Member loginMember = (Member) authentication.getPrincipal();
-		if(loginMember.getNickname().equals(nickname)) {
+		Member loginMember = (Member) authentication.getPrincipal();
+		if (loginMember.getNickname().equals(nickname)) {
 			System.out.println("본인 ");
-			return "mypage/mypage";			
-			}
+			return "mypage/mypage";
+		}
+		
 		System.out.println("그외 ");
 		return "member/userInfo";
 	}
 
 	/*
-	 * 성철
-	 * 유저 1명당 24시간마다 다른 유저에게 추천, 비추천 기능(온도 0.5도씩 업다운)
-	 * */
+	 * 성철 유저 1명당 24시간마다 다른 유저에게 추천, 비추천 기능(온도 0.5도씩 업다운)
+	 */
 	@ResponseBody
 	@PostMapping("/recommendation")
 	public boolean recommendation(String targetMember, String loginMember, boolean plusMinus) {
@@ -409,7 +423,7 @@ public class MemberController {
 			System.out.println("NULL 리턴");
 			return null;
 		}
-		
+
 		UUID uuid = UUID.randomUUID(); // 랜덤 파일명 부여
 		String fileName = uuid.toString() + "_" + file.getOriginalFilename();
 		File copyFile = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + fileName);

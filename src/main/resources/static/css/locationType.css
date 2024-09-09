@@ -1,110 +1,110 @@
+/* ================================================ */
 /*color:  #fca35b;*/
 
 /*
 	지역 선택했을때 옆에 오는 친구들
 */
-.locationLaFriend{
-	color : #0077b6;
-	font-weight: bold;
+.locationLaFriend {
+  color: #0077b6;
+  font-weight: bold;
 }
-.locationSFriend{
-	color : #0077b6;
-	font-weight: bold;
+.locationSFriend {
+  color: #0077b6;
+  font-weight: bold;
 }
-.typeLaFriend{
-	color : #0077b6;
-	font-weight: bold;
+.typeLaFriend {
+  color: #0077b6;
+  font-weight: bold;
 }
-.typeSFriend{
-	color : #0077b6;
-	font-weight: bold;
+.typeSFriend {
+  color: #0077b6;
+  font-weight: bold;
 }
 /*
 	지역 선택했을때 옆에 오는 친구들
 */
 .locationTypeBody {
-	margin: auto;
-	display: flex;
-	width: 100%;
-	justify-content: center;
-	position: sticky;
-	top: 80px;
-	background-color: #F9F7F3;
-	margin-top:50px;
-	width: 1280px;
-	border-bottom: 1.5px solid #c5c5c5;
-	justify-content: space-between;
+  margin: auto;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  position: sticky;
+  top: 80px;
+  background-color: #f9f7f3;
+  margin-top: 50px;
+  width: 1280px;
+  border-bottom: 1.5px solid #c5c5c5;
+  justify-content: space-between;
 }
-.locationTypeBodyBox {	
-	display: flex;
+.locationTypeBodyBox {
+  display: flex;
 }
-.locationTypeBodyBox >form{
-	background-color: #FCA35B;
-	padding : 10px 20px 10px 20px;
-	margin: 10px 10px 10px 0px;
-	border-radius: 10px;
+.locationTypeBodyBox > form {
+  background-color: #fca35b;
+  padding: 10px 20px 10px 20px;
+  margin: 10px 10px 10px 0px;
+  border-radius: 10px;
 }
 
 #locationLaNameForm input[type="checkbox"] {
-   display:none;
- }
-#locationLaNameForm{
-	cursor: pointer;
-	position: relative;
+  display: none;
 }
-.locationLaBox{
-	display: flex;
-	font-weight: bold;
-	color: white;
+#locationLaNameForm {
+  cursor: pointer;
+  position: relative;
 }
-.locationLaStar{
-	cursor: pointer;
-	display: flex;
+.locationLaBox {
+  display: flex;
+  font-weight: bold;
+  color: white;
 }
-.locationLaDiv{
-	display: none;
-    background-color: white;
-    width: 501px;
-    height: 310px;
-    position: absolute;
-    top: 46px;
-    left: 0px;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid #b1b1b1;
+.locationLaStar {
+  cursor: pointer;
+  display: flex;
 }
-.locationLaCss{
-	cursor: pointer;
-	background-color: white;
-    display: inline-block;
-    margin: 3px 1px;
-    width: 110px;
-    height: 47px;
-    text-align: center;
-    line-height: 47px;
-    border-radius: 5px;
-    border: 1px solid #e3e3e3;
-    background: #f3f3f3;
-    color: #818181;
+.locationLaDiv {
+  display: none;
+  background-color: white;
+  width: 501px;
+  height: 310px;
+  position: absolute;
+  top: 46px;
+  left: 0px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #b1b1b1;
 }
-.locLaNameLabel{
-	background-color: white;
-    display: inline-block;
-    margin: 3px 1px;
-    width: 110px;
-    height: 47px;
-    text-align: center;
-    line-height: 47px;
-    border-radius: 5px;
-    border: 1px solid #e3e3e3;
-    background: #f3f3f3;
-    color: #818181;
+.locationLaCss {
+  cursor: pointer;
+  background-color: white;
+  display: inline-block;
+  margin: 3px 1px;
+  width: 110px;
+  height: 47px;
+  text-align: center;
+  line-height: 47px;
+  border-radius: 5px;
+  border: 1px solid #e3e3e3;
+  background: #f3f3f3;
+  color: #818181;
+}
+.locLaNameLabel {
+  background-color: white;
+  display: inline-block;
+  margin: 3px 1px;
+  width: 110px;
+  height: 47px;
+  text-align: center;
+  line-height: 47px;
+  border-radius: 5px;
+  border: 1px solid #e3e3e3;
+  background: #f3f3f3;
+  color: #818181;
 }
 
-.locationLaCss:hover{
+.locationLaCss:hover {
 }
-.locLaNameLabel:hover{
-
+.locLaNameLabel:hover {
 }
 /*중단 locationLa 이벤트 놈들*/
 
@@ -115,173 +115,172 @@
 */
 /*중단 locationS 이벤트 놈들*/
 #locationSNameForm input[type="checkbox"] {
-   display:none;
- }
-#locationSNameForm{
+  display: none;
+}
+#locationSNameForm {
   cursor: default;
   background-color: #bfab9c;
   position: relative;
 }
 
-.locationSStar{
-	font-weight: bold;
-	display: flex;
+.locationSStar {
+  font-weight: bold;
+  display: flex;
 }
-.locationSCss{
-	background-color: white;
-    display: inline-block;
-    margin: 3px 1px;
-    width: 110px;
-    height: 47px;
-    text-align: center;
-    line-height: 47px;
-    border-radius: 5px;
-    border: 1px solid #e3e3e3;
-    background: #f3f3f3;
-    color: #818181;
+.locationSCss {
+  background-color: white;
+  display: inline-block;
+  margin: 3px 1px;
+  width: 110px;
+  height: 47px;
+  text-align: center;
+  line-height: 47px;
+  border-radius: 5px;
+  border: 1px solid #e3e3e3;
+  background: #f3f3f3;
+  color: #818181;
 }
-.locationSBox{
-	display: flex;
-	border:b
+.locationSBox {
+  display: flex;
+  border: b;
 }
-.locationSDiv{
-	display: none;
-    background-color: white;
-    width: 501px;
-    height: 410px;
-    position: absolute;
-    top: 46px;
-    left: 0px;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid #b1b1b1;
+.locationSDiv {
+  display: none;
+  background-color: white;
+  width: 501px;
+  height: 410px;
+  position: absolute;
+  top: 46px;
+  left: 0px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #b1b1b1;
 }
-.locationTypeCss{
-	margin: 3px 1px;
+.locationTypeCss {
+  margin: 3px 1px;
 }
 /*중단 locationS 이벤트 놈들*/
 
- .classiFication{
- font-family: "Do Hyeon", sans-serif;
- }
- 
+.classiFication {
+  font-family: "Do Hyeon", sans-serif;
+}
 
-#typeStickyBox{
-
-  
+#typeStickyBox {
 }
 
 /*중단 TypeLa 이벤트 놈들*/
 #typeLaNameSelect input[type="checkbox"] {
-   display:none;
- }
-#typeLaNameSelect{
-	cursor: pointer;
-	position: relative;
+  display: none;
 }
-.typeLaNameLabel{
-	background-color: white;
-    display: inline-block;
-    margin: 3px 1px;
-    width: 110px;
-    height: 47px;
-    text-align: center;
-    line-height: 47px;
-    border-radius: 5px;
-    border: 1px solid #e3e3e3;
-    background: #f3f3f3;
-    color: #818181;
+#typeLaNameSelect {
+  cursor: pointer;
+  position: relative;
 }
-.typeLaDiv{
-	display: none;
-    background-color: white;
-    width: 501px;
-    height: 200px;
-    position: absolute;
-    top: 46px;
-    left: 0px;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid #b1b1b1;
+.typeLaNameLabel {
+  background-color: white;
+  display: inline-block;
+  margin: 3px 1px;
+  width: 110px;
+  height: 47px;
+  text-align: center;
+  line-height: 47px;
+  border-radius: 5px;
+  border: 1px solid #e3e3e3;
+  background: #f3f3f3;
+  color: #818181;
 }
-.typeLaBox{
-	display: flex;
-	color: white;
-	font-weight: bold;
+.typeLaDiv {
+  display: none;
+  background-color: white;
+  width: 501px;
+  height: 200px;
+  position: absolute;
+  top: 46px;
+  left: 0px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #b1b1b1;
+}
+.typeLaBox {
+  display: flex;
+  color: white;
+  font-weight: bold;
 }
 
-.typeLaCss{
-	background-color: white;
-    display: inline-block;
-    margin: 3px 1px;
-    width: 110px;
-    height: 47px;
-    text-align: center;
-    line-height: 47px;
-    border-radius: 5px;
-    border: 1px solid #e3e3e3;
-    background: #f3f3f3;
-    color: #818181;
+.typeLaCss {
+  background-color: white;
+  display: inline-block;
+  margin: 3px 1px;
+  width: 110px;
+  height: 47px;
+  text-align: center;
+  line-height: 47px;
+  border-radius: 5px;
+  border: 1px solid #e3e3e3;
+  background: #f3f3f3;
+  color: #818181;
 }
-.typeLaStar{
-	display: flex;
+.typeLaStar {
+  display: flex;
 }
-.typeLaCss:hover{
+.typeLaCss:hover {
+}
+.typeLaCss:hover {
+  background-color: rgb(253, 207, 170);
+  border-radius: 20px;
+}
+/*중단 TypeLa 이벤트 놈들*/
 
-}
- /*중단 TypeLa 이벤트 놈들*/
- 
- 
 #typeSNameForm input[type="checkbox"] {
-   display:none;
- }
-#typeSNameForm{
-	cursor: default;
-	background-color: #bfab9c;
-	position: relative;
+  display: none;
 }
-.typeSBox{
-	display: flex;
-	font-weight: bold;
+#typeSNameForm {
+  cursor: default;
+  background-color: #bfab9c;
+  position: relative;
 }
-.typeSDiv{
-	display: none;
-    background-color: white;
-    width: 501px;
-    height: 150px;
-    position: absolute;
-    top: 46px;
-    left: 0px;
-    padding: 20px;
-    border-radius: 10px;
-    border: 1px solid #b1b1b1;
+.typeSBox {
+  display: flex;
+  font-weight: bold;
 }
-#typeSCss{
-	background-color: white;
-    display: inline-block;
-    margin: 3px 1px;
-    width: 110px;
-    height: 47px;
-    text-align: center;
-    line-height: 47px;
-    border-radius: 5px;
-    border: 1px solid #e3e3e3;
-    background: #f3f3f3;
-    color: #818181;
+.typeSDiv {
+  display: none;
+  background-color: white;
+  width: 501px;
+  height: 150px;
+  position: absolute;
+  top: 46px;
+  left: 0px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #b1b1b1;
 }
-.typeSStar{
-	display: flex;
+#typeSCss {
+  background-color: white;
+  display: inline-block;
+  margin: 3px 1px;
+  width: 110px;
+  height: 47px;
+  text-align: center;
+  line-height: 47px;
+  border-radius: 5px;
+  border: 1px solid #e3e3e3;
+  background: #f3f3f3;
+  color: #818181;
+}
+.typeSStar {
+  display: flex;
 }
 
-.locationTypeSearch{
-	display: flex;
-    margin: 10px;
+.locationTypeSearch {
+  display: flex;
+  margin: 10px;
 }
-.locationTypeSearch input{
-    border: 1px solid gray;
-    border-radius: 7px;
-    padding: 10px;
+.locationTypeSearch input {
+  border: 1px solid gray;
+  border-radius: 7px;
+  padding: 10px;
 }
-.locationTypeSearch button{
-	 display: none;
+.locationTypeSearch button {
+  display: none;
 }

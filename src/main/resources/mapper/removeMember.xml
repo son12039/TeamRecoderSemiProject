@@ -77,11 +77,12 @@
     </select>
     
 	<!--  미팅 -->
-       <select id="selectMeet" parameterType="String" resultMap="MeetingsCommentMap">
+    <select id="selectMeet" parameterType="String" resultMap="MeetingsCommentMap">
    		SELECT * FROM meetings_comment
     	JOIN member USING(id)
    		WHERE id = #{id}
     </select>
+    
         <delete id="deleteUpdateMeetingComment" parameterType="int">
 		UPDATE
 		meetings_comment

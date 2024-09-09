@@ -12,7 +12,6 @@ $(document).ready(function () {
     $(".membership-card").hide(); // 모든 카드 숨기기
     $("#wait-club").show(); // 가입 대기중인 클럽 카드만 보이기
   });
-
   $("#all-meet-button").click(function () {
     $(".membership-card").hide(); // 모든 카드 숨기기
     $("#all-meet").show(); // 가입 대기중인 클럽 카드만 보이기
@@ -20,17 +19,15 @@ $(document).ready(function () {
   });
 });
 
-// 토글 버튼
-const toggleIcon = document.querySelector(".toggle__icon");
-const membershipCreate = document.querySelector(".membership-create");
-
-if (toggleIcon !== null) {
-  toggleIcon.addEventListener("click", () => {
-    membershipCreate.classList.toggle("active");
-    toggleIcon.classList.toggle("active");
-  });
+function show() {
+  if ($("#menu").css("display") === "none") {
+    $("#menu").css("display", "block");
+    $("#arrow").css("transform", "rotate(180deg)");
+  } else {
+    $("#menu").css("display", "none");
+    $("#arrow").css("transform", "rotate(0deg)");
+  }
 }
-
 function deleteList(grade, membershipCode) {
   let text = "";
   if (grade === "admin") {
@@ -55,6 +52,7 @@ function deleteList(grade, membershipCode) {
     });
   }
 }
+
 function allDeleteMembership() {
   let pwdCheck = $("#pwdCheck").val();
   if (
@@ -71,10 +69,11 @@ function allDeleteMembership() {
       success: function (bo) {
         if (bo) {
           alert("클럽 삭제 완료");
+          location.href = "/";
         } else {
           alert("클럽 삭제 실패");
+          location.reload();
         }
-        location.reload();
       },
       error: function () {
         alert("클럽 삭제 실패");

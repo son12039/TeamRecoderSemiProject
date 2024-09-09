@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MembershipDTO;
+import com.damoim.model.dto.SearchDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.MembershipUserList;
 import com.damoim.model.vo.Paging;
@@ -47,6 +48,7 @@ public class PageController {
 	 * 회원가입 페이지 이동 
 	 * (나중에 추가 가능하면 휴대전화 api랑 나이 생년월일 선택으로 자동계산 반환, 승인버튼 버튼색 조건되야 변경기능)
 	 * */
+	
 	@GetMapping("/signUp")
 	public String signUp() {
 		return "signUp/signUp";
@@ -72,25 +74,23 @@ public class PageController {
 		
 		
 		ArrayList<MembershipUserList> membershipList = (ArrayList<MembershipUserList>) infoService.selectMemberUserList(member.getId());
-		model.addAttribute("list", membershipList);
+		for(MembershipUserList li : membershipList) {
+			 li.setCount(infoService.membershipUserCount(li.getMembership().getMembershipCode()));
+		}
+		model.addAttribute("mypage", membershipList);
 		
-		List<MembershipUserList> list = new ArrayList<MembershipUserList>();
-		for (MemberListDTO m : member.getMemberListDTO()) {
-			list.add((MembershipUserList) infoService.main(m.getMembershipCode()));
-		}
-		for (int i = 0; i < list.size(); i++) {
-			list.get(i).setCount(list.get(i).getListCode());
-		}
-		// 내 등급별 클럽
-		model.addAttribute("membership", list);
 		return "mypage/mypage";
 	}
 	
-	// 개인 유저 페이지
-	@GetMapping("/user")
-	public String user() {
-		return "member/user";
-	}
+	
+	
+	
+	
+	
+	
+	
+	
+
 	
 	// 내 중요 정보 수정
 	@GetMapping("/updateMemberInfo")
@@ -121,8 +121,10 @@ public class PageController {
 			}
 			
 		}
+		
 		locTypeService.locationList(code);
 		locTypeService.typeList(code);
+		
 		String loc = locTypeService.locationList(code).get(0).getLocLaName()+" =";
 		String type= locTypeService.typeList(code).get(0).getTypeLaName()+" ="; 
 		
@@ -153,6 +155,7 @@ public class PageController {
 		System.out.println("이게멀까? " + locTypeService.locationList(code));
 		
 	   model.addAttribute("membership", infoService.selectMembership(code));
+	   model.addAttribute("count" , infoService.membershipUserCount(code));
 	   //model.addAllAttributes("location",infoService.);
 		return "membership/updateMembership";
 	}
@@ -175,7 +178,7 @@ public class PageController {
 		model.addAttribute("list", infoService.selectMembership(num));
 		return "mypage/memberDelete";
 	}
-
+	
 	// 내가 가입한 맴버쉽 페이지 이동
 	/*
 	 * 성일
@@ -212,6 +215,23 @@ public class PageController {
 		 return "login/loginFail";
 	 }
 
+	 @GetMapping("/makeTest") // 클럽 생성페이지로 이동
+		public String makeMembership(SearchDTO search, Model model) {
+			model.addAttribute("locLaNameList", locTypeService.locLaNameList());
+			model.addAttribute("typeLaNameList", locTypeService.typeLaNameList());
+			return "makeTest";
+		}
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 }
 
 

@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -49,11 +50,9 @@ public class MemberService implements UserDetailsService {
 	public void signUp(Member member) {	
 		member.setPwd(bcpe.encode(member.getPwd()));// 비밀번호 암호화
 		mapper.signUp(member);
-
 	}
 	// ID로 맴버정보
 	public Member idCheck(Member member) {
-		 
 		return mapper.idCheck(member);
 
 	}
@@ -86,41 +85,37 @@ public class MemberService implements UserDetailsService {
 		mapper.updateMember(vo);
 	}
 	
+	// 기본 사진으로 변경
+	public void defualtFile(String id) {
+		mapper.defualtFile(id);
+	}
+	
+	
+	
+	
 	// 비밀번호 맞나 틀리나
 	public boolean updateCheck(Member vo, String pwdCheck) {
-
 		if (bcpe.matches(pwdCheck, vo.getPwd())) {
 			return true;
 		} else {
 			return false;
 		}
+		
 	}
-
+	
 	// 비밀번호 재설정시 암호화
 	public void updateMemberInfo(Member member, String beforePwd) {
 		
-		
-		
-			
 			member.setPwd(bcpe.encode(member.getPwd()));
 			mapper.updateMemberInfo(member);
 			
 		
 	}
 
-
 	// 탈퇴시 status 조정
-	
 	public boolean memberStatus(Member member) {
 		return mapper.memberStatus(member);
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 	// 회원 추천 + 해당회원에 쿨타임 업데이트 ==================================
 	public boolean memberManner(RecommendationDTO dto) {
@@ -171,8 +166,10 @@ public class MemberService implements UserDetailsService {
 			member.setMemberListDTO(infoService.grade(mapper.login(username)));
 
 		}
-
+		
 		return member;
 	}
-
+	
+	
+	
 }

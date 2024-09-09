@@ -51,8 +51,8 @@ public interface MembershipMapper {
 	// 회원 페이지 용도 ==============================
 	int meetCount (String string);// 해당 유저의 ID로  해당 맴버의 모임 참여 횟수
 	List<MembershipUserList> selectMemberUserList(String id);// 해당 맴버 ID로 그 회원의 모든 클럽(상세정보까지 반환)	
-		
-		
+	
+	
 	// 채팅 ===================================
 	List<BasicRoomListVo> roomlist(); // 체팅?
 	

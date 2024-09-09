@@ -21,8 +21,15 @@ setTimeout(function(){
 window.addEventListener("scroll", () => {	
 	//#14213d
 	if (1765 <= window.innerHeight + window.scrollY) {
+		// 첫화면
 		$(".main_header").css({ backgroundColor: "#ADD8E6" })
+		$(".main_header_right a").css({color : "#14213D"})
+		$(".main_header_right_nickname").css({color : "#14213D"})
+		
 	} else {
+		// 1765 스크롤 아래
 		$(".main_header").css({ backgroundColor: "" })
+		$(".main_header_right a").css({color : "#fca35b"})
+		$(".main_header_right_nickname").css({color : "#fca35b"})
 	}
 })

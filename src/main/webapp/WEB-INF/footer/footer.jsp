@@ -38,7 +38,6 @@
 <style>
 .bean_footer{
 	width: 100%;
-	height: 100px;
 }
 .footer{
 	width: 100%;

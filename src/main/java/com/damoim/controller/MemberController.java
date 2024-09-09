@@ -305,7 +305,7 @@ public class MemberController {
 	    SecurityContextHolder.getContext().setAuthentication(authentication);
 	    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 	    logoutHandler.logout(request, response, authentication);
-
+	    return true;
 	}
 
 	// 기본 사진으로 변경

@@ -602,3 +602,99 @@ input[type=password] {
 .create-btn:hover {
 	background-color: #E76F00;
 }
+
+#deleteMembership {
+  font-family: "Do Hyeon", sans-serif;
+  width: 600px;
+  height: 250px;
+  font-size: 20px;
+
+  background: gray;
+
+  position: fixed;
+  /*   position: absolute;*/
+  cursor: pointer;
+  top: 102px;
+  left: 658px;
+  z-index: 99;
+
+  background: white;
+  border: 0.5px solid black;
+  box-shadow: 5px 5px 5px #000;
+}
+
+#container-title {
+  width: 100%;
+  text-align: center;
+  height: 40px;
+
+  background: #add8e6;
+  color: #fca35b;
+  font-family: "Do Hyeon", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#container-main {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  background: white;
+}
+
+
+#deleteContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  height: 40px;
+  font-size: 32px;
+}
+#deleteCancle {
+  background: red;
+  height: 40px;
+  color: white;
+}
+#cancle {
+  color: white;
+  background: red;
+  border: none;
+  height: 40px;
+  border: 0.5px solid black;
+  border-top: none;
+  border-right: none;
+}
+
+#deleteBtn {
+  border: 1px solid black;
+  background: black;
+  color: white;
+  width: 115px;
+  height: 46px;
+  font-size: 20px;
+}
+#deleteBtn:hover {
+  border: 1px solid red;
+  background: red;
+  color: black;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+#title {
+  animation: blink 1s infinite; /* 1초 간격으로 무한 반복 */
+}

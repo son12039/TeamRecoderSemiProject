@@ -33,9 +33,6 @@
 	crossorigin="anonymous"></script>
 </head>
 <style>
-
-
-
 </style>
 <body>
 	<jsp:include page="../header/header.jsp" />
@@ -180,63 +177,78 @@
 				</c:forEach>
 				<c:if test="${memberGrade == 'host' || memberGrade == 'admin'}">
 					<li><a
-						href="/chatserver?membershipCode=${main.membership.membershipCode}" >채팅서버가기</a></li>
-						<c:if test="${memberGrade == 'host' }">
-						<li> <button id="deleteButton">클럽삭제 </button></li>
-					
-	
-		</c:if>
-				</ul>
+						href="/chatserver?membershipCode=${main.membership.membershipCode}">채팅서버가기</a></li>
+					<c:if test="${memberGrade == 'host' }">
+						<li>
+							<button id="deleteButton">클럽삭제</button>
+						</li>
+					</c:if>
+
+				</c:if>
+			</ul>
 		</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		</div>
-		
-		<c:set var="textColor">
-    <c:choose>
-        <c:when test="${main.count > 1}">
+
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+	<c:set var="textColor">
+		<c:choose>
+			<c:when test="${main.count > 1}">
             red
         </c:when>
-        <c:otherwise>
+			<c:otherwise>
             black
         </c:otherwise>
-    </c:choose>
-</c:set>
-		
-			<div id="deleteMembership"  style="display: none">
-			<div id="deleteContainer">
-			<div id="container-title"><span id="title">클럽 삭제 창</span></div> <div id="deleteCancle"><button id="cancle"><i class="fa-solid fa-x"></i></button></div>
+		</c:choose>
+	</c:set>
+
+	<div id="deleteMembership" style="display: none">
+		<div id="deleteContainer">
+			<div id="container-title">
+				<span id="title">클럽 삭제 창</span>
 			</div>
-			<div id="container-main">
-			<div id="delete-text"><span style="color : ${textColor}" >클럽원이 본인만 남아있는 클럽만</span> 삭제할 수 있으며 해당 클럽에 대한 모든 데이터는 삭제 처리 됩니다 그래도 삭제하시겠습니까?</div>
-				  
-					<div id="passwordCheck">비밀번호 확인 : <input type="password" name="pwdCheck" id="pwdCheck"> </div>
-						<div id="container-button">	
-						<c:if test="${main.count == 1 }">
-						<button id="deleteBtn"class="btn" onclick="allDeleteMembership()">클럽 삭제</button> 
-						</c:if>
-						<c:if test="${main.count > 1 }">
-						<button id="deleteBtn"class="btn" >삭제 불가</button>
-						</c:if>
-						
-						 </div>
-							
-							</div>
-							</div>
-	
+			<div id="deleteCancle">
+				<button id="cancle">
+					<i class="fa-solid fa-x"></i>
+				</button>
+			</div>
+		</div>
+		<div id="container-main">
+			<div id="delete-text">
+				<span style="color : ${textColor}">클럽원이 본인만 남아있는 클럽만</span> 삭제할 수
+				있으며 해당 클럽에 대한 모든 데이터는 삭제 처리 됩니다 그래도 삭제하시겠습니까?
+			</div>
+
+			<div id="passwordCheck">
+				비밀번호 확인 : <input type="password" name="pwdCheck" id="pwdCheck">
+			</div>
+			<div id="container-button">
+				<c:if test="${main.count == 1 }">
+					<button id="deleteBtn" class="btn" onclick="allDeleteMembership()">클럽
+						삭제</button>
+				</c:if>
+				<c:if test="${main.count > 1 }">
+					<button id="deleteBtn" class="btn">삭제 불가</button>
+				</c:if>
+
+			</div>
+
+		</div>
+	</div>
+
 	<jsp:include page="../footer/footer.jsp" />
-	
-	
+
+
 	<script>
 	function allDeleteMembership() {
 		let pwdCheck = $("#pwdCheck").val();
@@ -265,8 +277,8 @@
 			)}
 	};
 	</script>
-	
- <script>
+
+	<script>
     const allDates = [];
    
     let allMeet = {};
@@ -295,9 +307,9 @@
    
    
     </script>
-      <script src="${pageContext.request.contextPath}/js/calendar.js"></script>
-       <script src="${pageContext.request.contextPath}/js/moving.js"></script>
-       <script src="${pageContext.request.contextPath}/js/membershipPage.js"></script>
+	<script src="${pageContext.request.contextPath}/js/calendar.js"></script>
+	<script src="${pageContext.request.contextPath}/js/moving.js"></script>
+	<script src="${pageContext.request.contextPath}/js/membershipPage.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
 		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -347,7 +359,7 @@
 	
 	
 
-	</script>	
+	</script>
 
 
 </body>

@@ -20,277 +20,6 @@
 	src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
-<style>
-</style>
-<body>
-
-	<jsp:include page="/WEB-INF/header/mypageHeader.jsp" />
-
-	<!-- 로그인 정보에 따라 헤더와 메뉴 표시 -->
-	<c:set var="hasHost" value="${false}" />
-	<sec:authorize access="isAuthenticated()" var="principal">
-		<sec:authentication property="principal" var="member" />
-		<c:forEach items="${member.memberListDTO}" var="list">
-			<c:if test="${list.listGrade == 'host'}">
-				<c:set var="hasHost" value="${true}" />
-			</c:if>
-		</c:forEach>
-	</sec:authorize>
-
-
-	<!-- 프로필 수정 폼 -->
-	<div class="info_container">
-		<form action="/updateMember" method="post" id="form"
-			enctype="multipart/form-data">
-			<h1 class="profile">프로필 수정</h1>
-			<!-- 프로필 이미지 -->
-			<div class="profile_img">
-				<c:choose>
-					<c:when test="${member.memberImg != null}">
-						<div>
-							<img
-								src="http://192.168.10.51:8081/member/${member.id}/${member.memberImg}"
-								alt="Profile Image" id="image_container">
-						</div>
-
-					</c:when>
-					<c:otherwise>
-						<img src="http://192.168.10.51:8081/기본프사.jpg"
-							alt="Default Profile Image">
-					</c:otherwise>
-				</c:choose>
-			</div>
-			<!-- 프로필 업데이트 -->
-			<div class="profile_update">
-				<input class="form-control" name="file" type="file" accept="image/*"
-					id="file" onchange="imgShow(event)">
-				<div class="profile_manner">
-					<h1>${member.nickname}</h1>
-					<c:if test="${member.memberManner < 30}">
-						<p>${member.memberManner}℃</p>
-						<span style="color: red"><i
-							class="fa-solid fa-face-angry fa-2x"></i></span>
-					</c:if>
-					<c:if
-						test="${member.memberManner >= 30 && member.memberManner <= 40}">
-						<p>${member.memberManner}℃</p>
-						<span style="color: rgb(252, 177, 3)"><i
-							class="fa-solid fa-face-smile fa-2x"></i></span>
-					</c:if>
-					<c:if test="${member.memberManner > 40}">
-						<p>${member.memberManner}℃</p>
-						<span style="color: green"><i
-							class="fa-solid fa-face-grin fa-2x"></i></span>
-					</c:if>
-				</div>
-				<div class="profile_info">
-					<span>한줄소개 : </span> <input type="text" id="memberInfo"
-						name="memberInfo" value="${member.memberInfo}">
-				</div>
-				<div class="profile_info">
-					<span>취미 : </span> <input type="text" id="memberHobby"
-						name="memberHobby" value="${member.memberHobby}">
-				</div>
-				<div class="profile_submit">
-					<input type="button" id="submit" value="수정"> <a
-						href="/updateMemberInfo" id="updateCheck">회원정보 수정</a>
-				</div>
-			</div>
-		</form>
-	</div>
-
-	<!-- 가입 대기중인 클럽 보기 -->
-	<div class="container">
-		<div class="club-button">
-			<a id="all-club-button">가입 중인 모든 클럽</a> <a id="manage-club-button">내가관리중인
-				클럽</a> <a id="wait-club-button">가입 대기중인 클럽</a> <a id="all-meet-button">나의
-				모임 정보</a>
-		</div>
-		<div class="membership-card" id="wait-club" >
-			<h1>가입 대기중인 클럽</h1>
-			<c:forEach items="${membership}" var="mem">
-				<sec:authorize access="isAuthenticated()" var="principal">
-					<sec:authentication property="principal" var="member" />
-					<c:forEach items="${member.memberListDTO}" var="list">
-						<c:if
-							test="${list.membershipCode == mem.membership.membershipCode}">
-
-							<c:set var="guestClub" value="${list.listGrade}" />
-						</c:if>
-					</c:forEach>
-				</sec:authorize>
-				<c:if test="${guestClub == 'guest'}">
-					<div class="membership-each">
-						<div>
-							<img class="membership-img"
-								src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"
-								alt="Membership Image">
-						</div>
-						<div class="membership-String">
-							<div>
-								<p>${mem.membership.membershipName}</p>
-								<button class="btn"
-									onclick="deleteList('${guestClub}',${mem.membership.membershipCode})">신청
-									취소</button>
-							</div>
-						</div>
-					</div>
-				</c:if>
-			</c:forEach>
-		</div>
-
-		<!-- 관리중인 클럽 보기 -->
-		<div class="membership-card" id="manage-club">
-			<h1>관리중인 클럽</h1>
-			<c:forEach items="${membership}" var="mem">
-				<sec:authorize access="isAuthenticated()" var="principal">
-					<sec:authentication property="principal" var="member" />
-					<c:forEach items="${member.memberListDTO}" var="list">
-						<c:if
-							test="${list.membershipCode == mem.membership.membershipCode}">
-							<c:set var="adminClub" value="${list.listGrade}" />
-						</c:if>
-					</c:forEach>
-				</sec:authorize>
-				<c:if test="${adminClub == 'host' || adminClub == 'admin'}">
-					<a href="/club/${mem.membership.membershipCode}">
-						<div class="membership-each">
-							<div>
-								<img class="membership-img"
-									src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"
-									alt="Membership Image">
-
-							</div>
-							<div class="membership-String">
-								<div>
-									<p>${mem.membership.membershipName}</p>
-									<c:if test="${adminClub != 'host'}">
-										<button class="btn"
-											onclick="deleteList('${adminClub}',${mem.membership.membershipCode})">탈퇴</button>
-									</c:if>
-									
-									
-										
-									
-								</div>
-							</div>
-						</div>
-					</a>
-					비밀번호 확인<input type="password" name="pwdCheck" id="pwdCheck">
-										<button class="btn" onclick="allDeleteMembership()">클럽 삭제</button>
-				</c:if>
-			</c:forEach>
-		</div>
-
-		<!-- 가입 된 클럽 보기 -->
-		<div class="membership-card" id="all-club" style="display: block">
-
-			<h1>가입 된 클럽</h1>
-			<c:forEach items="${membership}" var="mem">
-				<sec:authorize access="isAuthenticated()" var="principal">
-					<sec:authentication property="principal" var="member" />
-					<c:forEach items="${member.memberListDTO}" var="list">
-						<c:if
-							test="${list.membershipCode == mem.membership.membershipCode}">
-							<c:set var="myClub" value="${list.listGrade}" />
-						</c:if>
-					</c:forEach>
-				</sec:authorize>
-				<c:if
-					test="${myClub == 'regular' || myClub == 'host' || myClub == 'admin'}">
-					<a href="/club/${mem.membership.membershipCode}">
-						<div class="membership-each">
-							<div>
-								<img class="membership-img"
-									src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"
-									alt="Membership Image">
-							</div>
-							<div class="membership-String">
-								<div>
-									<p>${mem.membership.membershipName}</p>
-									<c:if test="${myClub != 'host'}">
-										<button class="btn"
-											onclick="deleteList('${myClub}',${mem.membership.membershipCode})">탈퇴</button>
-									</c:if>
-								</div>
-							</div>
-						</div>
-					</a>
-				</c:if>
-			</c:forEach>
-		</div>
-
-		<div class="membership-card" id="all-meet">
-			<div id="calendar"></div>
-
-		</div>
-
-		<!-- 토글 -->
-	</div>
-	<div class="container">
-
-		<c:choose>
-			<c:when test="${hasHost}">
-				<p>클럽 생성 기능이 활성화되지 않았습니다. 이미 보유중인 클럽이 있습니다.</p>
-			</c:when>
-			<c:otherwise>
-				<input type="checkbox" id="toggle" hidden>
-				<label for="toggle" id="label">클럽 생성및 수정 <ion-icon
-						name="chevron-down-outline" id="arrow"></ion-icon>
-				</label>
-				<ul id="menu">
-					<a href="/makeMembership">클럽 만들기</a>
-					<form action="/updateMembership">
-						<button id="update-club" type="submit" value="클럽수정">클럽 정보
-							수정</button>
-					</form>
-				</ul>
-			</c:otherwise>
-		</c:choose>
-	</div>
-
-</body>
-<script type="module"
-	src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule
-	src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-<script>
-   
-    const allDates = [];
-    
-    let allMeet = {};
-    const endDate = [];
-    <c:forEach items="${meetings}" var="item" varStatus="status">
-    const a${status.index} = new Date("${item.meetDateEnd}")
-   a${status.index}.setDate(a${status.index}.getDate()+1)
-    a${status.index}1 = a${status.index}.toISOString().split('T')[0];
-   endDate.push(a${status.index}1);
-    </c:forEach>
- 
-    <c:forEach items="${meetings}" var="item" varStatus="status">
-    
-    	allMeet.title = "${item.meetTitle}";
-    	
-    	allMeet.start = "${item.meetDateStart}"; 	
-    	allMeet.end = endDate[${status.index}];
-    	allMeet.color = "${item.color}";
-    	allMeet.meetCode= "${item.meetCode}";
-    	<c:if test="${item.meetTitle != null}">
-    	allDates.push(allMeet);
-    	</c:if>
-    	allMeet = {};
-    </c:forEach>
-    
-   
-    </script>
-<script src="${pageContext.request.contextPath}/js/calendar.js"></script>
-<script src="${pageContext.request.contextPath}/js/mypage.js"></script>
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<!-- 캘린더 라이브러리 -->
-<script
-	src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
-</head>
 <body>
 	<jsp:include page="../header/header.jsp" />
 	<!-- 프로필 업데이트 -->
@@ -577,7 +306,7 @@
 				<!-- 호스트 일때 출력 -->
 				<c:if test="${host}">
 					<div class="host-Management-section">
-					
+
 						<div class="host-Management-img">
 							<c:forEach items="${mypage}" var="mem">
 								<c:set var="myGrade" value="${mem.listGrade}" />
@@ -611,27 +340,15 @@
 										<p>${mem.count}</p>
 										<p>/</p>
 										<p>${mem.membership.membershipMax}</p>
+										<c:set var="hostCount" value="${mem.count == 1}"/>
 									</div>
 								</c:if>
 							</c:forEach>
 
 							<div class="host-Management-input">
 								<!-- 클럽 삭제 -->
-								<input type="password" name="pwdCheck" id="pwdCheck"
-									placeholder="비밀번호를 입력하세요"><i class="fa-solid fa-lock"></i>
-								<c:choose>
-									<c:when test="${mem.count > 1}">
-										<!-- 클럽 회원이 본인 포함 한명 이상일 경우 삭제 버튼 비활성화 -->
-										<button class="btn" id="deleteButton"
-											onclick="allDeleteMembership()" disabled>삭제</button>
-										<p>회원이 본인 포함 1명 이상일 경우 삭제할 수 없습니다.</p>
-									</c:when>
-									<c:otherwise>
-										<!-- 클럽 회원이 본인만 있을 경우 삭제 버튼 활성화 -->
-										<button class="btn" id="deleteButton"
-											onclick="allDeleteMembership()">삭제</button>
-									</c:otherwise>
-								</c:choose>
+							
+								<button id="deleteButton">클럽삭제</button>
 							</div>
 						</div>
 					</div>
@@ -647,32 +364,42 @@
 				</c:if>
 
 			</div>
+				<div id="deleteMembership" style="display: none">
+		<div id="deleteContainer">
+			<div id="container-title">
+				<span id="title">클럽 삭제 창</span>
+			</div>
+			<div id="deleteCancle">
+				<button id="cancle">
+					<i class="fa-solid fa-x"></i>
+				</button>
+			</div>
+		</div>
+		<div id="container-main">
+			<div id="delete-text">
+				<span style="color : ${textColor}">클럽원이 본인만 남아있는 클럽만</span> 삭제할 수
+				있으며 해당 클럽에 대한 모든 데이터는 삭제 처리 됩니다 그래도 삭제하시겠습니까?
+			</div>
+
+			<div id="passwordCheck">
+				비밀번호 확인 : <input type="password" name="pwdCheck" id="pwdCheck">
+			</div>
+			<div id="container-button">
+				<c:if test="${hostCount}">
+					<button id="deleteBtn" class="btn" onclick="allDeleteMembership()">클럽
+						삭제</button>
+				</c:if>
+				<c:if test="${!hostCount}">
+					<button id="deleteBtn" class="btn">삭제 불가</button>
+				</c:if>
+
+			</div>
+
+		</div>
+	</div>
 		</sec:authorize>
 	</div>
 
-
-        // 파일 업로드 및 정보 수정 처리
-        $("#updateSubmit").click(() => {
-            const formData = new FormData();
-            formData.append("memberInfo", $("#memberInfo").val());
-            formData.append("memberHobby", $("#memberHobby").val());
-            formData.append("file", $("#file")[0].files[0]);
-            
-            $.ajax({
-                type: "post",
-                url: "/updateMember",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(result) {
-                    if (result) {
-                        alert("정보가 수정되었습니다");
-                        window.location.href = "/";
-                    }
-                }
-            });
-        });
-    </script>
 
 
 </body>
@@ -705,10 +432,50 @@
 	    </script>
 <script src="${pageContext.request.contextPath}/js/calendar.js"></script>
 <script src="${pageContext.request.contextPath}/js/mypage.js"></script>
-
-
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+	$(".mainMenu").mouseenter((e) => {
+		  let contents = $(e.target).siblings(); // 형제들
+	
+		 
+		  if (contents.css("display") === "none") {
+		    contents.slideDown();
+		  }
+		
+		});
+	
+	
+	$("#menu").mouseleave((e) => {
+		  let contents = $(".mainMenu").siblings(); // 본인 기준 바로 다음
+	
+		 
+		 
+			  contents.slideUp();
+			  
+		  
+		});
+	
+	
+	$("#deleteButton").click(()=>{
+		if($("#deleteMembership").css('display') == 'none'){
+			$("#deleteMembership").show();
+			
+		} else {
+			
+			$("#deleteMembership").hide();
+		}
+		
+	})
+	
+	$("#cancle").click(()=>{
+		$("#deleteMembership").hide();
+	})
+	
+	
+
+	</script>
+	
 <script>
 			function imgShow(event) {
 				 var reader = new FileReader();

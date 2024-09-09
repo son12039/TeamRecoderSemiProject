@@ -102,10 +102,7 @@
   color: #818181;
 }
 
-.locationLaCss:hover {
-}
-.locLaNameLabel:hover {
-}
+
 /*중단 locationLa 이벤트 놈들*/
 
 /*
@@ -223,12 +220,7 @@
 .typeLaStar {
   display: flex;
 }
-.typeLaCss:hover {
-}
-.typeLaCss:hover {
-  background-color: rgb(253, 207, 170);
-  border-radius: 20px;
-}
+
 /*중단 TypeLa 이벤트 놈들*/
 
 #typeSNameForm input[type="checkbox"] {

@@ -39,6 +39,7 @@ public class MemberLocTypeDTO {
     private String memberLocation;
     private String memberType;
     private int count;
+    private double memberManner; // 유저온도
     
     
     private MembershipLocation membershipLocation;

@@ -128,6 +128,10 @@ function updateForm(commentCode) {
 	let formElement = $(formId);
 	formElement.toggle();
     }
+	
+	
+	
+	
 // 수정 클릭처리
 function updateComment(e, commentCode){
 	const inputs = $(e.target).prev();
@@ -172,3 +176,14 @@ function updateKey(commentCode){
 	}
 
 )}
+
+
+// 채승훈 댓글 클릭시 밑에 보더 이벤트 주기
+$("#textbox").click(function(){
+	console.log($("#textbox"))
+	if($("#textbox")){
+		$("#textbox").css({borderBottom : "1px solid red"})
+	}else{
+		$("#textbox").css({borderBottom : ""})
+	}
+})

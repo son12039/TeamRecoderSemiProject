@@ -38,6 +38,7 @@
 <style>
 .bean_footer{
 	width: 100%;
+	height: 100px;
 }
 .footer{
 	width: 100%;
@@ -46,7 +47,7 @@
 }
 .footer_box{
 	width: 100%;
-	max-width: 800px;
+	max-width: 1280px;
 	height : 100%;
 	margin : auto;
 	padding-top : 50px;

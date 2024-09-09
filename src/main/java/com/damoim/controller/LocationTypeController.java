@@ -44,8 +44,7 @@ public class LocationTypeController {
 	private MembershipService memberService;
 	
 	public List<MemberLocTypeDTO> locationTypeList(SearchDTO search) {
-		
-		
+
 		
 		// '세종' 안에 null 이 아니면 '세종시' 넣고
 		if(search.getLocationSName()!=null) {
@@ -82,6 +81,7 @@ public class LocationTypeController {
 				dto.setMemberLocation(member.getMemberLocation());
 				dto.setMemberType(member.getMemberType());
 				dto.setCount(locationTypeservice.allMemberShipUser(dto.getMembershipCode()));
+				dto.setMemberManner(member.getMemberManner());
 			}
 			
 		}
@@ -131,9 +131,8 @@ public class LocationTypeController {
 		// 화면 상단바
 		model.addAttribute("locLaNameList", locationTypeservice.locLaNameList());
 		model.addAttribute("typeLaNameList", locationTypeservice.typeLaNameList());
-		
-	
-		
+		model.addAttribute("locSNameList", locationTypeservice.locSNameList(search.getLocationLaName()));
+		model.addAttribute("typeSNameList", locationTypeservice.typeSNameList(search.getTypeLaName()));
 		
 		return "index";
 	}
@@ -148,7 +147,7 @@ public class LocationTypeController {
 	
 	@ResponseBody
 	@GetMapping("locationSList")
-	public List<String> locationSList(String laName,Model model) {
+	public List<String> locationSList(String laName) {
 		return locationTypeservice.locSNameList(laName);
 	}
 	

@@ -62,14 +62,7 @@ input[type=text] {
 	background-color: rgb(233, 233, 233);
 }
 
-input[type=password] {
-	width: 100%;
-	height: 30px;
-	font-size: 1rem;
-	border: 2px solid black;
-	border-radius: 10px;
-	background-color: rgb(233, 233, 233);
-}
+
 
 .box {
 	display: flex;
@@ -363,9 +356,7 @@ input[type=password] {
 	margin-right: 10px;
 }
 
-.Management-button:hover {
-	background-color: #9a8c98;
-}
+
 /* 버튼 스타일 */
 #submit {
 	display: flex;
@@ -403,8 +394,11 @@ input[type=password] {
 	background-color: #e76f00;
 }
 
-#updateSubmit:hover {
+#updateSubmit:hover ,.Management-button:hover {
 	background-color: #e76f00;
+}
+#deleteButton{
+	margin-top: 79px;
 }
 
 #all-club-button, #manage-club-button, #wait-club-button,
@@ -419,10 +413,8 @@ input[type=password] {
 	justify-content: center;
 	padding: 20px;
 	margin: auto;
-	overflow: hiddlen;
 	white-space: nowrap;
 	font-weight: bolder;
-	overflow: hiddlen;
 }
 
 #all-club-button:hover, #manage-club-button:hover, #wait-club-button:hover,
@@ -430,7 +422,6 @@ input[type=password] {
 	#all-meet-button:hover {
 	background-color: #e76f00;
 	font-weight: bolder;
-	overflow: hiddlen;
 	white-space: nowrap;
 }
 
@@ -516,7 +507,7 @@ input[type=password] {
 	justify-content: space-around;
 	align-items: center;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-	background-color: #E5E5E5;
+	background-color: #f9f9f9;
 	margin-bottom: 30px;
 }
 
@@ -570,15 +561,7 @@ input[type=password] {
 	width: 100%;
 }
 
-#pwdCheck {
-	width: 70%;
-	height: 40px;
-	border-radius: 10px;
-	background-color: rgb(233, 233, 233);
-	margin-right: 10px;
-	margin-bottom: 20px;
-	padding-left: 20px;
-}
+
 
 .create-menu {
 	display: flex;
@@ -623,6 +606,9 @@ input[type=password] {
   box-shadow: 5px 5px 5px #000;
 }
 
+#container-main > * {
+    padding: 10px;
+}
 #container-title {
   width: 100%;
   text-align: center;
@@ -695,6 +681,7 @@ input[type=password] {
     opacity: 1;
   }
 }
+
 #title {
-  animation: blink 1s infinite; /* 1초 간격으로 무한 반복 */
+  animation: blink 3s infinite; /* 1초 간격으로 무한 반복 */
 }

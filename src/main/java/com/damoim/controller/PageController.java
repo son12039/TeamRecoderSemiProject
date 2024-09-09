@@ -33,10 +33,10 @@ public class PageController {
 	private MembershipService infoService; // 맴버쉽 서비스
 	
 	@Autowired
-	private MembershipMeetingService meetService;
+	private MembershipMeetingService meetService; // 미팅 관련 서비스
 	
 	@Autowired
-	private LocationTypeService locTypeService;
+	private LocationTypeService locTypeService; // 로케이션 타입
 	/*
 	 * 성일
 	 * 인덱스에 현재 호스트가 존재하는 모든 클럽들 모두 출력
@@ -73,7 +73,7 @@ public class PageController {
 		
 		
 		
-		ArrayList<MembershipUserList> membershipList = (ArrayList<MembershipUserList>) infoService.selectMemberUserList(member.getId());
+		ArrayList<MembershipUserList> membershipList = (ArrayList<MembershipUserList>) infoService.selectMemberUserList(id);
 		for(MembershipUserList li : membershipList) {
 			 li.setCount(infoService.membershipUserCount(li.getMembership().getMembershipCode()));
 		}
@@ -110,55 +110,22 @@ public class PageController {
 		Member member = (Member) authentication.getPrincipal();
 	
 		
-		if(member == null) {
-			return "error";
-		};
-		
 		int code = -1;
 		for(int i=0; i<member.getMemberListDTO().size(); i++) {
 			if(member.getMemberListDTO().get(i).getListGrade().equals("host")) {
 				 code = member.getMemberListDTO().get(i).getMembershipCode();
+				 break;
 			}
-			
 		}
-		
-		locTypeService.locationList(code);
-		locTypeService.typeList(code);
-		
-		String loc = locTypeService.locationList(code).get(0).getLocLaName()+" =";
-		String type= locTypeService.typeList(code).get(0).getTypeLaName()+" ="; 
-		
-		
-		for(int i=0; i<locTypeService.locationList(code).size(); i++) {
-		    if(i != locTypeService.locationList(code).size() -1)
-			loc +=" "+locTypeService.locationList(code).get(i).getLocSName()+",";
-		    else {
-		    	loc +=" "+locTypeService.locationList(code).get(i).getLocSName();
-		    }
-			
-		}
-		
-		for(int i=0; i<locTypeService.typeList(code).size(); i++) {
-		    if(i != locTypeService.typeList(code).size() -1)
-			type +=" "+locTypeService.typeList(code).get(i).getTypeSName()+",";
-		    else {
-		    	type +=" "+locTypeService.typeList(code).get(i).getTypeSName();
-		    }
-			
-		}
-		
+		model.addAttribute("membership", infoService.selectMembership(code));
+		model.addAttribute("count", infoService.membershipUserCount(code));
 		model.addAttribute("locLaNameList", locTypeService.locLaNameList());
 		model.addAttribute("typeLaNameList", locTypeService.typeLaNameList());
-		
-		model.addAttribute("type", type);
-		model.addAttribute("locList", loc);
-		System.out.println("이게멀까? " + locTypeService.locationList(code));
-		
-	   model.addAttribute("membership", infoService.selectMembership(code));
-	   model.addAttribute("count" , infoService.membershipUserCount(code));
-	   //model.addAllAttributes("location",infoService.);
+		model.addAttribute("locButton", infoService.locButton(code));
+		model.addAttribute("typeButton", infoService.typeButton(code));
 		return "membership/updateMembership";
 	}
+
 	
 	// 회원탈퇴 페이지 이동
 	@GetMapping("/memberDelete")
@@ -203,24 +170,14 @@ public class PageController {
 	 	return "login/findId";
 	 }
 	 
-  // 카카오맵 이동
-	 @GetMapping("/kakaoMap")
-	 public String kakaoMap() {
-		 
-		 return "kakaoMap";
-	 }
+
 	 
 	 @GetMapping("/loginFail") 
 	 public String loginFail() {
 		 return "login/loginFail";
 	 }
 
-	 @GetMapping("/makeTest") // 클럽 생성페이지로 이동
-		public String makeMembership(SearchDTO search, Model model) {
-			model.addAttribute("locLaNameList", locTypeService.locLaNameList());
-			model.addAttribute("typeLaNameList", locTypeService.typeLaNameList());
-			return "makeTest";
-		}
+
 	 
 	 
 	 

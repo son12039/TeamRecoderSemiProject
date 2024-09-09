@@ -56,6 +56,20 @@
 		<id column="membership_code" property="membershipCode" />
 		<result column="membership_name" property="membershipName" />
 	</resultMap>
+	
+	
+	<resultMap id="locbtn" type="LocationCategory">
+		<result property="locCode" column="loc_code" />
+		<result property="locLaName" column="loc_la_name" />
+		<result property="locSName" column="loc_s_name" />
+	</resultMap>
+<resultMap id="typebtn" type="TypeCategory">
+    <result property="typeCode" column="type_code"/>
+    <result property="typeLaName" column="type_la_name"/>
+    <result property="typeSName" column="type_s_name"/>
+</resultMap>
+	
+	
 
 	<!-- 인덱스에 클럽 띄울때 한번에 12개(Paging 메서드)씩 해당 클럽의 호스트와 클럽 모든정보 불러오는 쿼리 나중에 listMap에 
 		위치정보와 타입정보 추가 요망 -->
@@ -299,12 +313,7 @@
 	AND id = #{id};
 	</delete>
 	
-		<!-- 모든 채팅방리스트 불러옴 -->
-	<select id="roomlist" resultMap="roomListmap">
-		SELECT
-		membership_name,membership_code FROM
-		membership
-	</select>
+
 	
 	
 	
@@ -322,7 +331,41 @@
 	
 	</update>
 	
+	<!-- 정배 클럽 수정 시 지역타입버튼 눌려있게 하는 쿼리 -->
+	<select id="locButton" parameterType="Integer"
+		resultMap="locbtn">
+		select loc_la_name,loc_s_name from membership
+		join
+		membership_location using(membership_code)
+		join location_category using
+		(loc_code)
+		where membership_code = #{membershipCode};
+	</select>
+	<select id="typeButton" parameterType="Integer"
+		resultMap="typebtn">
+		select type_la_name,type_s_name from membership
+		join
+		membership_type using(membership_code)
+		join type_category using
+		(type_code)
+		where membership_code = #{membershipCode};
+	</select>
+	<!-- 모든 채팅방리스트 불러옴 -->
 	
+			<!-- 모든 채팅방리스트 불러옴 -->
+	<select id="roomlist" resultMap="roomListmap">
+		SELECT
+		membership_name,membership_code FROM
+		membership
+	</select>
+
+	<select id="enterChattingroomCode" parameterType="String"
+		resultType="int">
+		select membership_code
+		from membership_user_list
+		where list_grade!= 'guest'
+		AND id = #{id};
+	</select>
 	
 	
 	

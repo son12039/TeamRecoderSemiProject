@@ -110,8 +110,8 @@
 				</div>
 			</div>
 
-			<c:set var="info" value="${mem}" />
-			<c:set var="myGrade" value="${mem.listGrade}" />
+
+			
 			<div class="container">
 				<div class="club-button">
 					<a id="all-club-button">가입 한 클럽</a> <a id="manage-club-button">
@@ -351,13 +351,21 @@
 									</div>
 								</c:if>
 							</c:forEach>
-
+												<form action="/updateMembership"
+													style="margin: 0px; padding: 0px">
+													<button class="Management-button" id="update-club"
+														type="submit" value="클럽수정">클럽 정보 수정</button>
+												</form>
+												
+</div>
 							<div class="host-Management-input">
 								<!-- 클럽 삭제 -->
-							
-								<button id="deleteButton">클럽삭제</button>
+								
+						
+								<button class="Management-button" id="deleteButton">클럽삭제</button>
+								
 							</div>
-						</div>
+						
 					</div>
 				</c:if>
 
@@ -365,12 +373,24 @@
 					<!-- 호스트 아닐때 -->
 
 					<div id="create-menu">
+														
+											
 						<a href="/makeMembership" class="create-btn">클럽 만들기</a>
 					</div>
 
 				</c:if>
 
 			</div>
+<c:set var="textColor">
+    <c:choose>
+        <c:when test="${!hostCount}">
+            red
+        </c:when>
+        <c:otherwise>
+            black
+        </c:otherwise>
+    </c:choose>
+</c:set>
 				<div id="deleteMembership" style="display: none">
 		<div id="deleteContainer">
 			<div id="container-title">
@@ -392,9 +412,11 @@
 				비밀번호 확인 : <input type="password" name="pwdCheck" id="pwdCheck">
 			</div>
 			<div id="container-button">
-				<c:if test="${hostCount}">
+				<c:if test="${hostCount}">.
+
 					<button id="deleteBtn" class="btn" onclick="allDeleteMembership()">클럽
 						삭제</button>
+						
 				</c:if>
 				<c:if test="${!hostCount}">
 					<button id="deleteBtn" class="btn">삭제 불가</button>
@@ -438,6 +460,7 @@
 	    </c:forEach>
 	    </script>
 <script src="${pageContext.request.contextPath}/js/calendar.js"></script>
+<script src="${pageContext.request.contextPath}/js/moving.js"></script>
 <script src="${pageContext.request.contextPath}/js/mypage.js"></script>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

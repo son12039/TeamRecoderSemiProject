@@ -108,65 +108,69 @@ public class MembershipController {
 	@ResponseBody
 	@PostMapping("/makeMembership") // 클럽 생성
 	public int makeMembership(Membership vo, MultipartFile file, String LB, String TB) throws Exception {
-		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
 		Membership membership = Membership.builder().membershipName(vo.getMembershipName())
-				.membershipMax((vo.getMembershipMax()))
-				.membershipAccessionText(vo.getMembershipAccessionText())
+				.membershipMax((vo.getMembershipMax())).membershipAccessionText(vo.getMembershipAccessionText())
 				.membershipSimpleText(vo.getMembershipSimpleText()).build();
-		
 		service.makeMembership(membership);
 		// 맴버쉽 코드 사용
 		int code = membership.getMembershipCode();
-		
 		// 폴더 생성
-		Path directoryPath = Paths.get( "\\\\192.168.10.51\\damoim\\membership\\" + code + "\\");
+		Path directoryPath = Paths.get("\\\\192.168.10.51\\damoim\\membership\\" + code + "\\");
 		Files.createDirectories(directoryPath);
 		// 파일 업로드
 		Membership m = Membership.builder().membershipCode(membership.getMembershipCode())
 				.membershipImg(fileUpload(file, code)).build();
 		service.membershipImg(m);
-
 		// 로케이션
-		String locLaName = LB.split(" = ")[0]; // 대분류 이름 소분류 이름 분리 
-		String[] locLaSName = LB.split(" = ")[1].split(", ");
+		String locAll = LB.substring(1, (LB.length() - 1));
+		String locAllStr = locAll.replaceAll("\"", "");
+		String[] locList = locAllStr.split(","); // 대분류 이름 소분류 이름 분리
+		String locLaName = locList[0];
 		LocationCategory lc = LocationCategory.builder().locLaName(locLaName).build();
-
-		for (String s : locLaSName) {
-			lc.setLocSName(s);
-			int locationCode = service.findLocationCode(lc);
-			MembershipLocation location = MembershipLocation.builder().locSmallCode(locationCode).membershipCode(code).build();
-			service.makeLocationMembership(location); // MembershipLocation
+		
+		for (String s : locList) {
+			if (!s.equals(locLaName)) {
+				lc.setLocSName(s);
+				int locationCode = service.findLocationCode(lc);
+				MembershipLocation location = MembershipLocation.builder().locSmallCode(locationCode)
+						.membershipCode(code).build();
+				service.makeLocationMembership(location);
+			}
+			
 		}
-		// 타입
-		String typeLaName = TB.split(" = ")[0];
-		String[] typeSName = TB.split(" = ")[1].split(", ");
+		
+		
+		String typeAll = TB.substring(1, (TB.length() - 1));
+		String typeAllStr = typeAll.replaceAll("\"", "");
+		String[] typeList = typeAllStr.split(","); // 대분류 이름 소분류 이름 분리
+		String typeLaName = typeList[0];;
 		TypeCategory tc = TypeCategory.builder().typeLaName(typeLaName).build();
-
-		for (String s : typeSName) {
-			tc.setTypeSName(s);
-			int typeCode = service.findTypeCode(tc);
-
-			MembershipType type = MembershipType.builder().typeSmallCode(typeCode).membershipCode(code).build();
-			service.makeTypeMembership(type);
+		
+		
+		for (String s : typeList) {
+			if (!s.equals(typeLaName)) {
+				tc.setTypeSName(s);
+				int typeCode = service.findTypeCode(tc);
+				MembershipType type = MembershipType.builder().typeSmallCode(typeCode)
+						.membershipCode(code).build();
+				service.makeTypeMembership(type);
+			}		
 		}
+		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		// 호스트 담기용 DTO 생성
 		MemberListDTO list = new MemberListDTO();
-				list.setId(mem.getId());
-				list.setListGrade("host");
-				list.setMembershipCode(membership.getMembershipCode());
+		list.setId(mem.getId());
+		list.setListGrade("host");
+		list.setMembershipCode(code);
+		ArrayList<MemberListDTO> dtolist = (ArrayList<MemberListDTO>) mem.getMemberListDTO();
 		// 호스트로 추가
 		service.host(list);
-		System.out.println("호스트 DTO: " + list);
-		// 세션에 호스트 정보 추가
-		ArrayList<MemberListDTO> dtolist =	(ArrayList<MemberListDTO>) mem.getMemberListDTO();
+//		// 세션에 호스트 정보 추가
 		dtolist.add(list);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		System.out.println("생성 및 호스트 추가 완료");
-
-		return code ;
+		return code;
 	}
 
 	/*
@@ -584,77 +588,57 @@ public class MembershipController {
 		return code;
 
 	}
+
 	@ResponseBody
 	@PostMapping("/updateMembership") // 클럽 수정
-	public String updateMembership(Membership vo, MultipartFile file, String LB, String TB,int zIndex) throws Exception {
-		System.out.println("지역 확인 : " + LB); // 인천 = 중구, 미추홀구, 남동구
-		System.out.println("유형 확인 : " + TB); // 스터디 = 코딩, 자격증, 토론
-		System.out.println(zIndex);
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
+	public Integer updateMembership(Membership vo, MultipartFile file, String LB, String TB) throws Exception {
 		// 맴버쉽 코드 사용
-		int code = vo.getMembershipCode();
 		Membership oldMembership = service.selectMembership(vo.getMembershipCode());
-		
 		String imgUrl = oldMembership.getMembershipImg(); // 기존 맴버쉽 정보의 이미지 URL
-		// 파일 업로드를 안했을 경우 ! >> 수정전 멤버쉽의 사진으로 
-		// 파일 업로드를 했을 경우 ! >> 기존 멤버쉽 폴더의 사진 삭제후 재 업로드 
-		System.out.println("보내는 정보에서 사진 정보 제외하고 + " + vo);
-		if(vo.getFile() == null  ) { // 사진 변경을 안함(기존 그대로인 imgURL을 사용해야함)
-			if( zIndex == -1) {
-				System.out.println("이사람 프사 고르다가 취소하고 원래 프사 쓰기로함 ");
-				vo.setMembershipImg(imgUrl);
-			} else {
-				System.out.println("이사람 프사 고르다가 취소하고 사이트 기본 프사 쓰기로함  ");
-				vo.setMembershipImg(null);
-			}
-		}else { // 사진이 바뀜 먼가 바낌
-			fileDelete(imgUrl, vo.getMembershipCode()); // 실 파일 삭제	
+		// 파일 업로드를 안했을 경우 ! >> 수정전 멤버쉽의 사진으로
+		// 파일 업로드를 했을 경우 ! >> 기존 멤버쉽 폴더의 사진 삭제후 재 업로드
+		if (vo.getFile() == null) { // 사진 변경을 안함(기존 그대로인 imgURL을 사용해야함)
+			vo.setMembershipImg(imgUrl);
+		} else { // 사진이 바뀜 먼가 바낌
+			fileDelete(imgUrl, vo.getMembershipCode()); // 실 파일 삭제
 			vo.setMembershipImg(fileUpload(vo.getFile(), vo.getMembershipCode())); // 파일 업로드 + DB에 URL추가
 		}
-		
-
-
-		
-		// 타입이랑 로케이션 삭제 
-		// 만들어놓은 membership update 돌리기 
-		
-		
+		// 타입이랑 로케이션 삭제
+		// 만들어놓은 membership update 돌리기
 		service.updateMembership(vo);
-		
-		
-		
-		
-		
-		
 		// 로케이션
-		String locLaName = LB.split(" = ")[0]; // 대분류 이름 소분류 이름 분리 
-		String[] locLaSName = LB.split(" = ")[1].split(", ");
+		String locAll = LB.substring(1, (LB.length() - 1));
+		String locAllstr = locAll.replaceAll("\"", "");
+		String[] locList = locAllstr.split(","); // 대분류 이름 소분류 이름 분리
+		String locLaName = locList[0];
 		LocationCategory lc = LocationCategory.builder().locLaName(locLaName).build();
-
-		for (String s : locLaSName) {
-			lc.setLocSName(s);
-			int locationCode = service.findLocationCode(lc);
-			MembershipLocation location = MembershipLocation.builder().locSmallCode(locationCode).membershipCode(code).build();
-			service.makeLocationMembership(location); // MembershipLocation
+		for (String s : locList) {
+			if (!s.equals(locLaName)) {
+				lc.setLocSName(s);
+				int locationCode = service.findLocationCode(lc);
+				MembershipLocation location = MembershipLocation.builder().locSmallCode(locationCode)
+						.membershipCode(vo.getMembershipCode()).build();
+				service.makeLocationMembership(location); // MembershipLocation
+			}
 		}
 		// 타입
-		String typeLaName = TB.split(" = ")[0];
-		String[] typeSName = TB.split(" = ")[1].split(", ");
+		String typeAll = TB.substring(1, (TB.length() - 1));
+		String typeAllstr = typeAll.replaceAll("\"", "");
+		String[] typeList = typeAllstr.split(","); // 대분류 이름 소분류 이름 분리
+		String typeLaName = typeList[0];
+		;
 		TypeCategory tc = TypeCategory.builder().typeLaName(typeLaName).build();
-
-		for (String s : typeSName) {
-			tc.setTypeSName(s);
-			int typeCode = service.findTypeCode(tc);
-
-			MembershipType type = MembershipType.builder().typeSmallCode(typeCode).membershipCode(code).build();
-			service.makeTypeMembership(type);
+		System.out.println(tc);
+		for (String ss : typeList) {
+			if (!ss.equals(typeLaName)) {
+				tc.setTypeSName(ss);
+				int typeCode = service.findTypeCode(tc);
+				MembershipType type = MembershipType.builder().typeSmallCode(typeCode)
+						.membershipCode(vo.getMembershipCode()).build();
+				 service.makeTypeMembership(type);
+			}
 		}
-		
-
-		return "redirect:/";
+		return vo.getMembershipCode();
 	}
 
 }

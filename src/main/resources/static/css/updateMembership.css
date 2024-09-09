@@ -1,81 +1,388 @@
-/* 기본 스타일 */
+/* 기본 스타일 설정 */
 body {
-  font-family: Arial, sans-serif; /* 기본 글꼴 설정 */
-  line-height: 1.6; /* 줄 높이 조정 */
-  color: #333; /* 기본 텍스트 색상 */
-  background-color: #f4f4f4; /* 배경색 */
-  margin: 0;
-  padding: 0;
+  font-family: "Noto Sans KR", sans-serif;
+  background-color: #f4f4f4;
 }
 
-/* 컨테이너 */
+
+
+/* 버튼 공통 스타일 */
+button,
+input[type="submit"],
+#toIndex,
+.insert {
+  padding: 13px 17px; /* 버튼의 패딩 */
+  font-size: 15px; /* 폰트 사이즈 */
+  font-weight: 500; /* 폰트 굵기 */
+  border-radius: 8px; /* 모서리 둥글기 */
+  cursor: pointer; /* 커서 모양 */
+  transition: background-color 0.3s ease; /* 배경 색상 변경 시 애니메이션 */
+  border: none; /* 기본 테두리 제거 */
+}
+
+/* 버튼 스타일 */
+button,
+input[type="submit"],
+#toIndex {
+  background-color: #007bff; /* 기본 배경 색상 */
+  color: #fff; /* 텍스트 색상 */
+}
+
+button:hover,
+input[type="submit"]:hover,
+#toIndex:hover {
+  background-color: #0056b3; /* 호버 시 배경 색상 */
+}
+
+/* 생성 취소 버튼 스타일 */
+#toIndex {
+  background-color: #dc3545; /* 취소 버튼 배경 색상 */
+}
+
+#toIndex:hover {
+  background-color: #c82333; /* 취소 버튼 호버 시 배경 색상 */
+}
+
+/* 클럽 생성 버튼 스타일 */
+.insert {
+  background-color: #28a745; /* 생성 버튼 배경 색상 */
+  color: #fff; /* 텍스트 색상 */
+}
+
+.insert:hover {
+  background-color: #218838; /* 생성 버튼 호버 시 배경 색상 */
+}
+
+/* 페이지 내용 */
 .container {
-  width: 90%;
+  width: 80%;
   max-width: 800px;
-  margin: 20px auto;
+  margin: auto; /* 헤더를 고려하여 위쪽 여백 추가 */
   padding: 20px;
-  background-color: #fff; /* 배경색 */
-  border-radius: 8px; /* 둥근 모서리 */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 90px;
 }
 
-/* 제목 */
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #007bff; /* 제목 색상 */
-}
-
-/* 폼 그룹 */
-.form-group {
-  margin-bottom: 15px;
-}
-
-/* 레이블 */
-.form-group label {
-  display: block;
-  font-weight: bold; /* 레이블 텍스트 두껍게 */
-  margin-bottom: 5px;
-}
-
-/* 입력 필드 */
-.form-group input[type="text"],
-.form-group input[type="number"],
-.form-group textarea {
+/* 폼 및 입력 필드 스타일 */
+.bar {
   width: 100%;
+  margin-top: 10px;
   padding: 10px;
-  border: 1px solid #ddd; /* 테두리 색상 */
-  border-radius: 4px; /* 둥근 모서리 */
-  box-sizing: border-box; /* 박스 모델 설정 */
+  box-sizing: border-box;
 }
 
-/* 파일 입력 필드 */
-.form-group input[type="file"] {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
+input[type="text"],
+input[type="number"],
+input[type="file"],
+textarea {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+      width: 100%;
 }
 
-/* 텍스트 영역 */
-.form-group textarea {
-  resize: vertical; /* 세로로 크기 조절 가능 */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-/* 버튼 */
-button {
-  background-color: #007bff; /* 버튼 배경색 */
-  color: #fff; /* 버튼 텍스트 색상 */
+/* 클럽 생성 및 선택 스타일 */
+.box {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 120px;
+}
+
+/* 선택 그룹 */
+.select-group {
+  width: 80%;
+  height: 30vh;
+  background-color: #ffe8cf;
+}
+
+.select-title,
+.select-menu {
+  width: 100%;
+}
+
+.select-title {
+  display: flex;
+  justify-content: flex-start;
+  background-color: orange;
+  font-size: 2.5rem;
+  font-family: "Do Hyeon", sans-serif;
+}
+
+.select-menu {
+  display: flex;
+  justify-content: flex-start;
+  background-color: yellow;
+}
+
+.select {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 50%;
+}
+
+.select-option {
+  width: 100%;
+}
+
+.select-input {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 40%;
+  height: 50px;
+  background-color: gray;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.button-group {
+  display: flex;
+}
+
+.select-btn {
+  background-color: #fca311;
+  color: black;
   border: none;
-  padding: 10px 20px;
-  border-radius: 4px; /* 둥근 모서리 */
-  cursor: pointer; /* 커서 모양 변경 */
-  font-size: 16px; /* 폰트 크기 */
-  display: block;
-  width: 100%; /* 버튼 폭 100% */
-  text-align: center; /* 텍스트 중앙 정렬 */
-  margin-top: 20px;
+  border-radius: 6px;
+  width: 40%;
+  height: 30px;
+  font-size: 1rem;
+  font-weight: bolder;
 }
 
-button:hover {
-  background-color: #0056b3; /* 버튼 호버 시 배경색 변경 */
+.select-btn:hover {
+  background-color: #e76f00;
+}
+
+.btn {
+  display: inline-block;
+  text-align: center;
+  background-color: #ffa500;
+  padding: 15px 25px;
+  width: 300px;
+}
+
+/* 로케이션 및 타입 리스트 */
+.locationTypeBody,
+.typeBody {
+  padding-top: 40px;
+  padding-bottom: 20px;
+  width: 100%;
+  margin: auto;
+}
+
+.locationTypeBodyBox,
+.typeBodyBox {
+  display: flex;
+  margin: auto;
+  max-width: 900px;
+  height: 250px;
+  background-color: white;
+  border-radius: 7px;
+  border: 1px solid #d5d5d5;
+}
+
+.line {
+  width: 1px;
+  height: 180px;
+  background-color: #d5d5d5;
+  margin: auto;
+}
+
+/* 공통 체크박스 숨기기 */
+input[type="checkbox"] {
+  display: none; /* 기본 체크박스 숨기기 */
+}
+
+/* 체크박스 레이블 스타일 */
+.locLNCss,
+.typeLNCss {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px 15px;
+  margin: 5px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #293241;
+  background-color: #e0e0e0;
+  border: 2px solid #d5d5d5;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+#memberImg img{
+	display: flex;
+	margin : auto;
+	width: 100%;
+	padding : 10px;
+}
+
+
+/* 체크박스가 선택되었을 때의 스타일 */
+input[type="checkbox"]:checked + .locLNCss,
+input[type="checkbox"]:checked + .typeLNCss {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+/* 체크박스 호버 시 스타일 */
+.locLNCss:hover,
+.typeLNCss:hover {
+  background-color: #cce5ff;
+  border-color: #a6c1e8;
+}
+
+/* 체크박스 레이블 내 체크 아이콘 스타일 */
+
+/* 체크박스가 선택되었을 때 체크 아이콘 표시 */
+
+/* 로케이션 필터 스타일 */
+#locationLaNameForm {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+.locationBoxHead {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.locationLaStar,
+.locationSStar,
+.typeLaStar,
+.typeSStar {
+  padding: 5px 10px;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.locationLaDiv,
+.locationSDiv,
+.typeLaDiv,
+.typeSDiv {
+  background-color: #efefef;
+  width: 100%;
+  height: 190px;
+  border-radius: 7px;
+  padding: 7px;
+}
+
+.locationLaCss,
+.locationTypeCss,
+.typeLaCss,
+.typeCss {
+  cursor: pointer;
+  display: inline-block;
+  width: 99px;
+  height: 31px;
+  margin: 2px 0;
+  background-color: white;
+  border-radius: 7px;
+  text-align: center;
+  line-height: 31px;
+  color: #293241;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.locationLaCss:hover,
+.typeLaCss:hover,
+.typeCss:hover {
+  background-color: rgb(253, 207, 170);
+  border-radius: 20px;
+}
+
+.locLaNameLabel,
+.typeLaNameLabel,
+.typeTLaNameLabel {
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+  background-color: #457b9d;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.locLaNameLabel:hover,
+.typeLaNameLabel:hover,
+.typeTLaNameLabel:hover {
+  background-color: rgb(253, 207, 170);
+  border-radius: 20px;
+}
+
+/* 타입 필터 스타일 */
+#typeLaNameSelect {
+  width: 100%;
+  max-width: 1280px;
+  margin: auto;
+  font-size: 20px;
+  padding: 5px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2c2c2c;
+}
+
+.typeSCss {
+  padding: 4px 10px;
+  margin: 1px 1px;
+  cursor: pointer;
+}
+
+.typeSCss:hover {
+  background-color: rgb(253, 207, 170);
+  border-radius: 20px;
+}
+
+/* Sticky 박스 스타일 */
+#typeStickyBox {
+  position: sticky;
+  top: 80px;
+  background-color: #ffe5e5;
+  width: 100%;
+  height: auto;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+/* 공통 타입 필터 박스 */
+.typeClassiFication {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #add8e6;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: "Do Hyeon", sans-serif;
 }

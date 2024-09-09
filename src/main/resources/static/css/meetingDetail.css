@@ -210,6 +210,12 @@ button > img {
   height: 50px;
   border-radius: 50%;
 }
+.user-img{
+  margin: 0px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;	
+}
 
 #middle-container-top {
   margin-bottom: 20px;
@@ -357,6 +363,7 @@ body {
 
 #membershipMain-img {
   width: 100%;
+  border-radius: 12px
 }
 #hostImg {
   position: relative;

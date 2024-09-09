@@ -339,7 +339,8 @@ INSERT INTO type_category (type_la_name, type_s_name) VALUES
 ('반려동물', '반려묘'),
 ('반려동물', '기타');
 
-
+INSERT INTO type_category (type_la_name, type_s_name) VALUES
+('기타', '기타');
 
 -- 맴버 추가
 select * from member;
@@ -1347,6 +1348,11 @@ INSERT INTO member (id, pwd, nickname, addr, phone, email, name, age, gender, st
 ('user997', '123', '앵그리니슨', '서울 송파구 잠실동 56-3#208호', '010-1234-6789', 'user997@example.com', '정다빈', 30, 'F', TRUE, 22.00, '패션, 여행', '패션과 여행을 좋아하며, 주말에는 쇼핑과 여행 계획을 세웁니다.'),
 ('user998', '123', '리신', '부산 사하구 신평동 67-4#405호', '010-2345-6789', 'user998@example.com', '이준호', 29, 'M', TRUE, 23.00, '음악, 스포츠', '음악 감상과 스포츠를 즐기며, 주말에는 운동과 음악을 즐깁니다.'),
 ('user999', '123', '낌쩡한', '대구 중구 동인동 88-9#302호', '010-3456-7890', 'user999@example.com', '김미래', 28, 'F', TRUE, 21.50, '독서, 요리', '독서와 요리를 좋아하며, 주말에는 새로운 요리를 시도하거나 책을 읽습니다.');
+
+UPDATE member
+SET member_img = CONCAT(id, ".jpg")
+WHERE id like 'user%';
+
 
 -- 맴버쉽 추가
 INSERT INTO membership (membership_name, membership_simple_text, membership_accession_text, membership_date, membership_max) VALUES

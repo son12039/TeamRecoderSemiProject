@@ -57,7 +57,7 @@
 					<p>멤버소개</p>
 
 				</div>
-
+			<a href="/userInfo/${main.member.nickname}">
 				<div id="hostInfo">
 					<div id="hostInfo-img">
 						<span style="color: rgb(252, 177, 3)"><i
@@ -86,7 +86,7 @@
 					</div>
 
 				</div>
-
+</a>
 				<div id="together">
 					<p>함께하는 멤버</p>
 				</div>
@@ -168,7 +168,7 @@
 					${main.count}/${main.membership.membershipMax}
 				</p>
 
-				<p>가입조건 : 사지멀쩡한 남녀노소 누구나!!</p>
+				<p>가입조건 :${main.membership.membershipAccessionText} </p>
 
 			</div>
 

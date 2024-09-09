@@ -144,8 +144,8 @@ public class MemberService implements UserDetailsService {
 		ArrayList<Member> list = dummyMember();
 		System.out.println(list);
 		for (Member m : list) {
-			Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\member\\" + m.getId() + "\\");
-			Files.createDirectories(directoryPath);
+//			Path directoryPath = Paths.get("\\\\\\\\192.168.10.51\\\\damoim\\\\member\\" + m.getId() + "\\");
+//			Files.createDirectories(directoryPath);
 			m.setPwd(bcpe.encode(m.getPwd()));
 			
 			mapper.dummyUpdate(m);

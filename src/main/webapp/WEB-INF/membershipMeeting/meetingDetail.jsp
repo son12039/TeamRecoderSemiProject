@@ -270,10 +270,10 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 						<div class=commentNick>
 							<label for="textbox">${member.nickname}</label>
 						</div>
-						<input id="textbox" type="text" name="mainCommentText"
+						<input id="textbox" type="text" name="meetCommentText"
 							placeholder="댓글을 입력하세요.."> <input type="hidden" name="id"
 							value="${member.id}"> <input type="hidden"
-							name="membershipCode" value="${meet.meetCode}">
+							name="meetCode" value="${meet.meetCode}">
 
 					</div>
 					<button class="btn" id="submit-comment" type="button">댓글

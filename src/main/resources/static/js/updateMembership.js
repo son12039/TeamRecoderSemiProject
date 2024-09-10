@@ -1,5 +1,77 @@
+
+
+let zIndex = -1;
+function imgShow(event) {
+			 var reader = new FileReader();
+			   
+			    reader.onload = function(event) {
+			    	console.log(container)
+			        var container = document.getElementById('image_container');
+			     
+			       var img = document.createElement('img');
+				 
+		
+			       img.className = 'image'
+			        
+			        img.setAttribute('src', event.target.result);
+			    container.appendChild(img);
+			      
+			        
+			    };
+			   
+			   
+			    
+			    if (event.target.files.length > 0) {
+			    
+					$(".image").remove();
+				
+			        reader.readAsDataURL(event.target.files[0]);
+			     	zIndex = -1 ;
+			        $("#default").css('z-index', zIndex)
+					
+			        
+			    } else {
+			    	
+			    	zIndex = -1 ;
+			    	 $("#default").css('z-index', zIndex)
+			    	$(".image").remove();
+			    	
+			    }
+		}
+
+
+		function asd() {
+		 
+		  document.getElementById('file').value = "";
+		 	 zIndex = 10 ;
+		     $('#default').css('z-index', zIndex); 
+		 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 $(document).ready(function() {
 	// 클럽명 중복 체크
+
 	let membershipNameCheck = true;
 	membershipName.addEventListener('input', function() {
 		const membershipNameValue = $(this).val().trim();
@@ -95,7 +167,7 @@ $(document).ready(function() {
 	
 	
 	
-	
+
 	
 	$("#updateClub").on('click', function() {
 			const selLoc = [];
@@ -139,6 +211,7 @@ $(document).ready(function() {
 			formData.append('membershipSimpleText', membershipSimpleText)
 			formData.append('membershipMax', membershipMax)
 			formData.append('membershipCode', $("#membershipCode").val())
+			formData.append('zIndex', zIndex);
 			if(file !== undefined){
 			formData.append('file', file);
 			}
@@ -163,4 +236,6 @@ $(document).ready(function() {
 	
 	
 	
+
+		
 	

@@ -4,6 +4,16 @@ body {
   background-color: #f9f7f3;
   font-family: "Noto Sans KR", sans-serif;
 }
+.body_img_box{
+	width:100%;
+}
+
+.body_img{
+	width: 100%;
+}
+.locationTypeBody{
+	margin: 49px;
+}
 
 .container {
   align-items: flex-start;

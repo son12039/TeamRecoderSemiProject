@@ -105,11 +105,12 @@ $(document).ready(function() {
 	let membershipMaxSubmit = true; // 최대인원 설정 여부를 나타내는 변수 초기화
 	// membershipMax 요소에 입력 이벤트 리스너 추가
 	membershipMax.addEventListener('input', function() {
+		const count = Number($("#count").text());
 		const membershipMaxValue = $(this).val().trim(); // jQuery를 사용하여 현재 값 가져오기
 		if (membershipMaxValue === '') {
 			$('#max').text(" 필수 입력사항입니다").css('color', 'red');
 			membershipMaxSubmit = false; // 제출 불가 상태로
-		} else if (membershipMaxValue <= $("#count").text() || membershipMaxValue >= 101) {
+		} else if (membershipMaxValue < count || membershipMaxValue >= 101) {
 			$('#max').text("설정 가능한 최소 인원은 " +$("#count").text()+ "명 최대 인원수는 100명입니다").css('color', 'red');
 			membershipMaxSubmit = false;
 		} else {

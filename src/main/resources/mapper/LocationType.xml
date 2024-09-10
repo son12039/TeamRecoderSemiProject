@@ -36,8 +36,7 @@
         <id property="id" column="id" />
         <result property="memberImg" column="member_img" />
         <result property="nickname" column="nickname" />
-        <result property="memberLocation" column="member_location" />
-        <result property="memberType" column="member_type" />
+      
     </resultMap>
 
 	
@@ -151,7 +150,7 @@
 	
 	
 	<select id="selectMemberNickName" parameterType="int" resultMap="MemberMap">
-		SELECT nickname, member_img ,id , member_location, member_type
+		SELECT nickname, member_img ,id 
 		FROM membership_user_list
 		JOIN member USING (id)
 		WHERE list_grade = 'host'

@@ -607,7 +607,7 @@ public class MembershipController {
 		String imgUrl = oldMembership.getMembershipImg(); // 기존 맴버쉽 정보의 이미지 URL
 		// 파일 업로드를 안했을 경우 ! >> 수정전 멤버쉽의 사진으로 
 		// 파일 업로드를 했을 경우 ! >> 기존 멤버쉽 폴더의 사진 삭제후 재 업로드 
-		System.out.println("보내는 정보에서 사진 정보 제외하고 + " + vo);
+		
 		if(vo.getFile() == null  ) { // 사진 변경을 안함(기존 그대로인 imgURL을 사용해야함)
 			if( zIndex == -1) {
 				System.out.println("이사람 프사 고르다가 취소하고 원래 프사 쓰기로함 ");

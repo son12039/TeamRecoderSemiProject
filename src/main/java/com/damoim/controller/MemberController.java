@@ -379,7 +379,6 @@ public class MemberController {
 		MemberInfoDTO mem = new MemberInfoDTO().builder().member(member)
 				.memberMeetCount(infoService.meetCount(member.getId()))
 				.membershipUserList(infoService.selectMemberUserList(member.getId())).build();
-		System.out.println(mem);
 		model.addAttribute("mem", mem);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication.getPrincipal().equals("anonymousUser")) {

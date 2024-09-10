@@ -124,7 +124,9 @@ body {
   font-size: 12px;
   width: 100%;
 }
-
+.locationList{
+	padding: 0px 2px;
+}
 .type {
   display: flex;
   width: 100%;

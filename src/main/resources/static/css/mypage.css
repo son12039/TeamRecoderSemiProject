@@ -5,7 +5,9 @@ body {
 	padding: 0;
 	background-color: #f4f4f4;
 }
-
+button{
+	cursor:  pointer;
+}
 /* 폰트 어썸 아이콘 % 외부 클래스*/
 .fa-solid.fa-crown {
 	color: #fca311;
@@ -97,7 +99,6 @@ input[type=text] {
 }
 
 .profile_file_button {
-	border: 1px solid #ccc;
 	background-color: #fca311;
 	padding: 10px 12px;
 	cursor: pointer;
@@ -221,7 +222,7 @@ input[type=text] {
 
 .list_grade_text {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 }
 
 .host_text {
@@ -239,6 +240,8 @@ input[type=text] {
 }
 
 .membership-each {
+	overflow: hidden;
+	text-overflow: ellipsis;
 	display: flex;
 	align-items: center;
 	border-bottom: 1px solid #ddd;
@@ -247,6 +250,8 @@ input[type=text] {
 	justify-content: space-around;
 	width: 100%;
 	max-width: 800px;
+	
+	
 }
 
 .membership-card {
@@ -292,6 +297,8 @@ input[type=text] {
 	width: 400px;
 	height: 150px;
 	justify-content: space-around;
+		overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .membership-String h4 {
@@ -356,7 +363,7 @@ input[type=text] {
 	margin-right: 10px;
 }
 .Management-button:hover{
-	background-color: #03102C;
+	background-color: #36434f;
 
 	}
 
@@ -395,17 +402,11 @@ input[type=text] {
 	justify-content: center;
 }
 
-#submit:hover, #updateCheck:hover {
-	background-color: #e76f00;
+#updateCheck:hover{
+	background-color: #0D3B66;
 }
-
-
-#deleteButton{
-	margin-top: 79px;
-}
-
 #all-club-button, #manage-club-button, #wait-club-button,
-	#all-meet-button {
+	#all-meet-button, .profile_file_button {
 	width: 25%;
 	background-color: #fca311;
 	color: white;
@@ -415,13 +416,20 @@ input[type=text] {
 	align-items: center;
 	justify-content: center;
 	padding: 20px;
-	margin: auto;
 	white-space: nowrap;
 	font-weight: bolder;
+	border-radius: 6px;
+	
 }
-
+.profile_file_button {
+	width: 40%;
+}
+#all-club-button, #manage-club-button, #wait-club-button,
+	#all-meet-button{
+	border-radius: 0px; 
+	}
 #all-club-button:hover, #manage-club-button:hover, #wait-club-button:hover,
-	 #make-club:hover
+	#submit:hover, #all-meet-button:hover,.profile_file_button:hover
 	 {
 	background-color: #e76f00;
 	font-weight: bolder;
@@ -566,24 +574,29 @@ input[type=text] {
 
 
 
-.create-menu {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: row;
-	width: 70%;
+#create-menu {
+    display: flex;
+    width: 60%;
+    justify-content: center;
+    align-items: center;
 }
 
 .create-btn {
-	width: 100%;
-	background-color: #FFA500;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #fca311;
 	color: white;
-	padding: 15px 50px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
+	padding: 10px 15px;
+	border: none;
+	border-radius: 6px;
+	width: 50%;
+	height: 50px;
+	font-size: 1rem;
 	font-weight: bolder;
+	cursor: pointer;
 }
+
 
 .create-btn:hover {
 	background-color: #E76F00;

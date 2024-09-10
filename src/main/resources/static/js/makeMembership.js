@@ -44,7 +44,15 @@ $(document).ready(function() {
 	});
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	// 이 밑에만 슥 가져가시면 돼요!
+	let beforeSelLoc = ""
+
 	function locLaChoose() {
+		if (beforeSelLoc == $(this).val()) {
+			$(".locSbox").html("");
+			beforeSelLoc = "";
+			return;
+		}
+		beforeSelLoc = $(this).val();
 		const locL = $(this);
 		$('input[name="locationLaName"]').not(locL).prop('checked', false);
 		let locS = "";
@@ -64,7 +72,16 @@ $(document).ready(function() {
 		})
 	}
 	$('input[name="locationLaName"]').on('click', locLaChoose);
+
+	let beforeSelType = "";
+
 	function typeLaChoose() {
+		if (beforeSelType == $(this).val()) {
+			$(".typeSbox").html("");
+			beforeSelType = "";
+			return;
+		}
+		beforeSelType = $(this).val();
 		const typeL = $(this);
 		$('input[name="typeLaName"]').not(typeL).prop('checked', false);
 		let typeS = "";
@@ -84,8 +101,8 @@ $(document).ready(function() {
 		})
 	}
 	$('input[name="typeLaName"]').on('click', typeLaChoose);
-	
-	
+
+
 	$("#createClub").on('click', function() {
 		const selLoc = [];
 		selLoc.push($('input[name="locationLaName"]:checked').val());
@@ -97,20 +114,20 @@ $(document).ready(function() {
 		$('input[name="typeLN"]:checked').each(function() {
 			selType.push($(this).val());
 		});
-		
-		if(!membershipNameCheck){
+
+		if (!membershipNameCheck) {
 			alert("클럽명 확인해주세요")
 			return;
 		}
-		if(!membershipMaxSubmit){
+		if (!membershipMaxSubmit) {
 			alert("최대인원을 확인해주세요")
 			return;
 		}
-		if(selType.length === 1){
+		if (selType.length === 1) {
 			alert("타입을 확인해주세요")
 			return;
 		}
-		if(selLoc.length === 1){
+		if (selLoc.length === 1) {
 			alert("지역을 확인해주세요")
 			return;
 		}
@@ -125,22 +142,22 @@ $(document).ready(function() {
 		formData.append('membershipAccessionText', membershipAccessionText)
 		formData.append('membershipSimpleText', membershipSimpleText)
 		formData.append('membershipMax', membershipMax)
-		if(file !== undefined){
-		formData.append('file', file);
+		if (file !== undefined) {
+			formData.append('file', file);
 		}
 		formData.append('LB', JSON.stringify(selLoc));
 		formData.append('TB', JSON.stringify(selType));
-		if(selType.length != 1 && selLoc.length != 1 && membershipNameCheck && membershipMaxSubmit){
-		 $.ajax({
-			type: 'post',
-			url: '/makeMembership',
-			data: formData,
-			processData: false,
-			contentType: false,
-			success: function(code) {
-				window.location.replace(`/club/${code}`);
-			}
-		});
-	}
+		if (selType.length != 1 && selLoc.length != 1 && membershipNameCheck && membershipMaxSubmit) {
+			$.ajax({
+				type: 'post',
+				url: '/makeMembership',
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function(code) {
+					window.location.replace(`/club/${code}`);
+				}
+			});
+		}
 	});
 });

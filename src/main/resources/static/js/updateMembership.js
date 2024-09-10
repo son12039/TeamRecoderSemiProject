@@ -7,8 +7,9 @@ $(document).ready(function() {
 		$.ajax({
 			type: 'POST',
 			url: '/membershipNameCheck', // 컨트롤러 URL
-			data: { membershipName: membershipNameValue ,
-					membershipCode : membershipCode
+			data: {
+				membershipName: membershipNameValue,
+				membershipCode: membershipCode
 			},
 			success: function(result) {
 				if (result) {
@@ -34,11 +35,12 @@ $(document).ready(function() {
 	// membershipMax 요소에 입력 이벤트 리스너 추가
 	membershipMax.addEventListener('input', function() {
 		const membershipMaxValue = $(this).val().trim(); // jQuery를 사용하여 현재 값 가져오기
+		let count =  Number($("#count").text());
 		if (membershipMaxValue === '') {
 			$('#max').text(" 필수 입력사항입니다").css('color', 'red');
 			membershipMaxSubmit = false; // 제출 불가 상태로
-		} else if (membershipMaxValue <= $("#count").text() || membershipMaxValue >= 101) {
-			$('#max').text("설정 가능한 최소 인원은 " +$("#count").text()+ "명 최대 인원수는 100명입니다").css('color', 'red');
+		} else if (membershipMaxValue < count || membershipMaxValue >= 101) {
+			$('#max').text("설정 가능한 최소 인원은 " + count + "명 최대 인원수는 100명입니다").css('color', 'red');
 			membershipMaxSubmit = false;
 		} else {
 			$('#max').text("설정 가능한 인원수 입니다").css('color', 'green');
@@ -47,7 +49,21 @@ $(document).ready(function() {
 	});
 	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	// 이 밑에만 슥 가져가시면 돼요!
+
+	let beforeSelLoc = ""
+	function locLaFirst() {
+		$('input[name="locationLaName"]').filter(':checked').each(function() {
+			beforeSelLoc = $(this).val();
+		});
+	}
+	locLaFirst();
 	function locLaChoose() {
+		if (beforeSelLoc == $(this).val()) {
+			$(".locSbox").html("");
+			beforeSelLoc = "";
+			return;
+		}
+		beforeSelLoc = $(this).val();
 		const locL = $(this);
 		$('input[name="locationLaName"]').not(locL).prop('checked', false);
 		let locS = "";
@@ -67,11 +83,22 @@ $(document).ready(function() {
 		})
 	}
 	$('input[name="locationLaName"]').on('click', locLaChoose);
-	
-	  
 
-	  
+
+	let beforeSelType = "";
+	function typeLaFirst() {
+		$('input[name="typeLaName"]').filter(':checked').each(function() {
+			beforeSelType = $(this).val();
+		});
+	}
+	typeLaFirst();
 	function typeLaChoose() {
+		if (beforeSelType == $(this).val()) {
+			$(".typeSbox").html("");
+			beforeSelType = "";
+			return;
+		}
+		beforeSelType = $(this).val();
 		const typeL = $(this);
 		$('input[name="typeLaName"]').not(typeL).prop('checked', false);
 		let typeS = "";
@@ -91,76 +118,73 @@ $(document).ready(function() {
 		})
 	}
 	$('input[name="typeLaName"]').on('click', typeLaChoose);
-	
-	
-	
-	
-	
-	
-	$("#updateClub").on('click', function() {
-			const selLoc = [];
-			selLoc.push($('input[name="locationLaName"]:checked').val());
-			$('input[name="locLN"]:checked').each(function() {
-				selLoc.push($(this).val());
-				console.log(selLoc)
-			});
-			const selType = [];
-			selType.push($('input[name="typeLaName"]:checked').val());
-			$('input[name="typeLN"]:checked').each(function() {
-				selType.push($(this).val());
-				console.log(selType)
-			});
-			let membershipName = $("#membershipName").val();
-			let f = document.getElementById('file');
-			let file = f.files[0];
-			let membershipAccessionText = $("#membershipAccessionText").val();
-			let membershipSimpleText = $("#membershipSimpleText").val();
-			let membershipMax = $("#membershipMax").val();
-			let formData = new FormData();
-			if(!membershipNameCheck){
-					alert("클럽명 확인해주세요")
-					return;
-				}
-				if(!membershipMaxSubmit){
-					alert("최대인원을 확인해주세요")
-					return;
-				}
 
-				if(selType.length === 1){
-					alert("타입을 확인해주세요")
-					return;
-				}
-				if(selLoc.length === 1){
-					alert("지역을 확인해주세요")
-					return;
-				}
-			formData.append('membershipName', membershipName)
-			formData.append('membershipAccessionText', membershipAccessionText)
-			formData.append('membershipSimpleText', membershipSimpleText)
-			formData.append('membershipMax', membershipMax)
-			formData.append('membershipCode', $("#membershipCode").val())
-			if(file !== undefined){
+
+
+
+
+
+	$("#updateClub").on('click', function() {
+		const selLoc = [];
+		selLoc.push($('input[name="locationLaName"]:checked').val());
+		$('input[name="locLN"]:checked').each(function() {
+			selLoc.push($(this).val());
+			console.log(selLoc)
+		});
+		const selType = [];
+		selType.push($('input[name="typeLaName"]:checked').val());
+		$('input[name="typeLN"]:checked').each(function() {
+			selType.push($(this).val());
+			console.log(selType)
+		});
+		let membershipName = $("#membershipName").val();
+		let f = document.getElementById('file');
+		let file = f.files[0];
+		let membershipAccessionText = $("#membershipAccessionText").val();
+		let membershipSimpleText = $("#membershipSimpleText").val();
+		let membershipMax = $("#membershipMax").val();
+		let formData = new FormData();
+		if (!membershipNameCheck) {
+			alert("클럽명 확인해주세요")
+			return;
+		}
+		if (!membershipMaxSubmit) {
+			alert("최대인원을 확인해주세요")
+			return;
+		}
+
+		if (selType.length === 1) {
+			alert("타입을 확인해주세요")
+			return;
+		}
+		if (selLoc.length === 1) {
+			alert("지역을 확인해주세요")
+			return;
+		}
+		formData.append('membershipName', membershipName)
+		formData.append('membershipAccessionText', membershipAccessionText)
+		formData.append('membershipSimpleText', membershipSimpleText)
+		formData.append('membershipMax', membershipMax)
+		formData.append('membershipCode', $("#membershipCode").val())
+		if (file !== undefined) {
 			formData.append('file', file);
+		}
+		formData.append('LB', JSON.stringify(selLoc));
+		formData.append('TB', JSON.stringify(selType));
+
+		$.ajax({
+			type: 'post',
+			url: '/updateMembership',
+			data: formData,
+			processData: false,
+			contentType: false,
+			success: function(code) {
+				window.location.replace(`/club/${code}`);
 			}
-			formData.append('LB', JSON.stringify(selLoc));
-			formData.append('TB', JSON.stringify(selType));
-			
-	
-			console.log(formData);
-					 $.ajax({
-						type: 'post',
-						url: '/updateMembership',
-						data: formData,
-						processData: false,
-						contentType: false,
-						success: function(code) {
-							window.location.replace(`/club/${code}`);
-						}
-			
-					});
+
 		});
-		});
-	
-	
-	
-	
+	});
+});
+
+
+

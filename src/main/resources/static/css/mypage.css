@@ -355,6 +355,10 @@ input[type=text] {
 	font-weight: bolder;
 	margin-right: 10px;
 }
+.Management-button:hover{
+	background-color: #03102C;
+
+	}
 
 
 /* 버튼 스타일 */
@@ -372,6 +376,7 @@ input[type=text] {
 	margin-top: 20px;
 	font-size: 1rem;
 	font-weight: bolder;
+	cursor: pointer;
 }
 
 #updateCheck {
@@ -394,9 +399,7 @@ input[type=text] {
 	background-color: #e76f00;
 }
 
-#updateSubmit:hover ,.Management-button:hover {
-	background-color: #e76f00;
-}
+
 #deleteButton{
 	margin-top: 79px;
 }
@@ -418,8 +421,8 @@ input[type=text] {
 }
 
 #all-club-button:hover, #manage-club-button:hover, #wait-club-button:hover,
-	#update-club-button:hover, #make-club:hover, #update-club:hover,
-	#all-meet-button:hover {
+	 #make-club:hover
+	 {
 	background-color: #e76f00;
 	font-weight: bolder;
 	white-space: nowrap;

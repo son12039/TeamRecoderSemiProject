@@ -1,168 +1,192 @@
-
 body {
-
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }
-#box{
-	padding-top: 100px;
+
+#box {
+	padding-top: 80px;
+		background-image:
+		url(https://img.freepik.com/free-vector/flat-international-human-solidarity-day-background_23-2149877544.jpg?size=626&ext=jpg),
+		url(https://img.freepik.com/free-vector/flat-people-talking-illustration_52683-70831.jpg?size=626&ext=jpg),
+		url(https://img.freepik.com/free-vector/hand-drawn-diversity-illustration_52683-125683.jpg?size=626&ext=jpg),
+		url(https://img.freepik.com/free-vector/hand-drawn-working-environment-template_52683-149803.jpg?size=626&ext=jpg);
+	background-color: #f4f4f4;
+	background-position: left top, left bottom, right top, right bottom;
+	background-size: 50% 50%, /* 좌측 상단 이미지 크기 */
+        50% 50%, /* 좌측 하단 이미지 크기 */
+        50% 50%, /* 우측 상단 이미지 크기 */
+        50% 50%;
+	background-color: #f4f4f4;
+	background-repeat: 
+        no-repeat, 
+        no-repeat, 
+        no-repeat, 
+        no-repeat;
+}
+#formBoxIn{
+	display: flex;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #c5c5c5;
+    border-radius: 5px;
+    margin-top : 5px;
+}
+#formBoxIn input{
+	border : none;
+}
+#formBoxIn i{
+	margin-left: 10px;
+	color : #c5c5c5;
 }
 main {
-padding : 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	
+	width: 100%;
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
 }
 
 .container {
-  height: 100%;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  min-width: 530px;
-  padding: 40px 80px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
+	height: 100%;
+	background-color: rgba(255, 255, 255, 0.96);
+	border-radius: 8px;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	min-width: 500px;
+	padding: 20px 40px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
 }
-#focus{
+
+#focus {
 	margin-bottom: 5px;
 }
 
 /* 페이지 스타일 */
 .page {
-  display: none;
-  flex-direction: column;
+	display: none;
+	flex-direction: column;
 }
 
 .page.visible {
-  display: flex;
-  width: 100%;
-  max-width: 900px;
+	display: flex;
+	width: 100%;
+	max-width: 900px;
 }
 
 .page h2 {
-  margin: 0 0 30px;
-  font-size: 30px;
-  color: #000;
-  text-align: left;
+	margin: 0 0 30px;
+	font-size: 30px;
+	color: #000;
+	text-align: left;
 }
 
 .formBox {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 20px;
 }
 
 .formBox label {
-  align-self: flex-start;
-  text-align: left;
-  font-weight: bold;
-  font-size: 1rem;
-  color: #333;
+	align-self: flex-start;
+	text-align: left;
+	font-weight: bold;
+	font-size: 1rem;
+	color: #333;
+	display: flex;
 }
 
 .result {
-  align-self: center;
-  font-size: 0.6rem;
-  margin-left: 2px;
+	align-self: center;
+	font-size: 0.6rem;
+	margin-left: 2px;
 }
 
 .formBox input {
-  padding: 10px 15px;
-  margin-top: 5px;
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+	padding: 10px 15px;
+	width: 100%;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
 }
-
-
-
 
 #checkBox {
-  align-self: flex-start;
-  display: flex;
-  justify-content: space-between; 
-  flex-direction: row; 
-  width: 100%;
+	align-self: flex-start;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	width: 100%;
 }
 
-
 .genderBox {
-  display: flex;
-  flex-direction: row; 
-  align-items: center;
-  margin-right: 10px; 
-  justify-content: center;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-right: 10px;
+	justify-content: center;
 }
 
 /* 성별 선택 박스의 라벨 */
 .genderBox label {
-  margin-right: 5px; 
-  font-size: 0.8rem;
-  width: 80px;
-  align-self: center;
+	margin-right: 5px;
+	font-size: 0.8rem;
+	width: 80px;
+	align-self: center;
 }
 
-
-
-
-
 #ageResult {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 #addrDetail-box {
-  margin-top: 5px;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
+	margin-top: 5px;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
 }
 
 #addr-btn {
-  align-self: start;
-  padding: 5px;
-  width: 100px;
-  margin-right : 5px;
-  margin-top: 5px;
+	align-self: start;
+	padding: 5px;
+	width: 100px;
+	margin-right: 5px;
+	margin-top: 5px;
 }
 
 /* 네비게이션 버튼 */
 .pageButtons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 30px;
 }
 
-.pageButtons button,
-#singUp {
-  background-color: #fca311; /* 기본 회색 */
-  color: #ffffff;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
+.pageButtons button, #singUp {
+	background-color: #fca311; /* 기본 회색 */
+	color: #ffffff;
+	border: none;
+	padding: 12px 20px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s ease;
 }
 
-.pageButtons button:hover,
-#singUp:hover {
-  background-color: #14213d;
+.pageButtons button:hover, #singUp:hover {
+	background-color: #14213d;
 }
 
 /* 활성화 상태 버튼 색상 */
 .button-enabled {
-  background-color: #4caf50; /* 밝은 초록색 */
-  color: #ffffff;
+	background-color: #4caf50; /* 밝은 초록색 */
+	color: #ffffff;
 }
 
 .button-enabled:hover {
-  background-color: #45a049; /* 더 어두운 초록색 */
+	background-color: #45a049; /* 더 어두운 초록색 */
 }

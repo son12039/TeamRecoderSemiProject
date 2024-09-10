@@ -15,10 +15,11 @@
 	href="${pageContext.request.contextPath}/css/index.css" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/locationType.css" />
-	<head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<head>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-	
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 
@@ -43,57 +44,70 @@
 
 	<!-- 08-20 채승훈 -->
 	<div class="locationTypeBody">
+	<!-- 지역별 -->
 		<div class="locationTypeBodyBox">
 			<form id="locationLaNameForm">
-					<div class="locationBoxHead">
-						<div class="locationLaStar">도시별</div>
-							<input type="checkbox" value="초기화" id="locLaNameAll" /> 
-							<label class="locLaNameLabel" for="locLaNameAll">초기화</label>
-					</div>
-						<div class="locationLaDiv">
-							<c:forEach items="${locLaNameList}" var="locLaName">
-								<input type="checkbox" value="${locLaName}" id="${locLaName}"
-									name="locationLaName">
-								<label for="${locLaName}" class="locationLaCss">${locLaName}</label>
-							</c:forEach>
-						</div>
-			</form>
-			<div class="line"></div>
-	
-			<form id="locationSNameForm">
-				<div class="locationSStar">지역별</div>
-				<div class="locationSDiv">
-				<div class="classiFication">지역을 선택해주세요</div>
-					<c:forEach items="${locSNameList}" var="locSName">
-						<input type="checkbox" value="${locSName}" id="${locSName}"
-							name="locationSName">
-						<label for="${locSName}" class="locationTypeCss">${locSName}</label>
+				<div class="locationLaBox">
+					<div class="locationLaStar">도시별&nbsp;</div>
+						<input type="checkbox" value="" id="locLaNameAll" />
+				</div>
+				<div class="locationLaDiv">
+					<label class="locLaNameLabel" for="locLaNameAll">전체보기</label>
+					<c:forEach items="${locLaNameList}" var="locLaName">
+						<input type="checkbox" value="${locLaName}" id="${locLaName}"
+							name="locationLaName" >
+						<label for="${locLaName}" class="locationLaCss">${locLaName}</label>
 					</c:forEach>
 				</div>
 			</form>
+	
+			<form id="locationSNameForm">
+				<div class="locationSBox">
+					<div class="locationSStar">지역별&nbsp;</div>
+				</div>
+					<div class="locationSDiv">
+						<c:forEach items="${locSNameList}" var="locSName">
+							<input type="checkbox" value="${locSName}" id="${locSName}"
+								name="locationSName" onchange="locationSelect(event)">
+							<label for="${locSName}" class="locationSCss">${locSName}</label>
+						</c:forEach>
+					</div>
+			</form>
+			<!-- 타입별 -->
+			<form id="typeLaNameSelect">
+				<div class="typeLaBox">
+					<div class="typeLaStar">타입별&nbsp;</div>
+						<input type="checkbox" value="" id="typeLaNameAll" />
+				</div>
+				<div class="typeLaDiv">
+					<label class="typeLaNameLabel" for="typeLaNameAll">전체보기</label>
+					<c:forEach items="${typeLaNameList}" var="typeLaName">
+						<input type="checkbox" value="${typeLaName}" id="${typeLaName}"
+							name="typeLaName" >
+						<label for="${typeLaName}" class="typeLaCss">${typeLaName}</label>
+					</c:forEach>
+				</div>
+			</form>
+			
+
+			<form id="typeSNameForm">
+				<div class="typeSBox">
+					<div class="typeSStar">분류별&nbsp;</div>
+				</div>
+					<div class="typeSDiv">
+					<c:forEach items="${typeSNameList}" var="typeSName">
+						<input type="checkbox" value="${typeSName}" id="${typeSName}"
+							name="typeSName" onchange="typeSelect(event)">
+						<label for="${typeSName}" id="typeSCss">${typeSName}</label>
+					</c:forEach>
+				</div>
+			</form>
+			<input type="button" class="resetBth" onclick="reset()" value="초기화">
 		</div>
-	</div>
-
-	<div id="typeStickyBox">
-		<form id="typeLaNameSelect">
-			<input type="checkbox" value="전체보기" id="typeLaNameAll" /> <label
-				class="typeLaNameLabel" for="typeLaNameAll">전체보기</label>
-			<c:forEach items="${typeLaNameList}" var="typeLaName">
-				<input type="checkbox" value="${typeLaName}" id="${typeLaName}"
-					name="typeLaName">
-				<label for="${typeLaName}" class="typeLaCss">${typeLaName}</label>
-			</c:forEach>
-		</form>
-
-
-
-		<form id="typeSNameForm">
-			<c:forEach items="${typeSNameList}" var="typeSName">
-				<input type="checkbox" value="${typeSName}" id="${typeSName}"
-					name="typeSName">
-				<label for="${typeSName}" id="typeSCss">${typeSName}</label>
-			</c:forEach>
-		</form>
+		<div class="locationTypeSearch">
+			<input type="text" name="keyword" id="keyword" placeholder="검색.."/>
+			<button type="button" onclick="search()">검색</button>
+		</div>
 	</div>
 
 
@@ -122,11 +136,12 @@
 				</div>
 				<div class="membership-info">
 					<h1 class="membership-name">${info.membershipName}</h1>
-					
+
 					<h2>${info.membershipSimpleText}</h2>
-					<h3><i class="fa-solid fa-users"></i> : ${info.count}/${info.membershipMax}</h3>
 					<a href="/userInfo/${info.nickname}">
 						<div class="host">
+						<div class="hostImg">
+							<span style="color:rgb(252, 177, 3)"><i class="fa-solid fa-crown"></i></span>
 							<c:choose>
 								<c:when test="${info.memberImg != null}">
 									<img class="user-img"
@@ -137,10 +152,29 @@
 										src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
 								</c:otherwise>
 							</c:choose>
-							<h2>호스트 : ${info.nickname}</h2>
+						</div>
+							<h2>호스트 : ${info.nickname}</h2> 
 							<input type="hidden" name="code" value="${info.membershipCode}">
+								<div class="memberMannerIndex">
+									<c:if test="${info.memberManner < 30}">
+										<span style="color: red"><i
+											class="fa-solid fa-face-angry fa-2x"></i></span>
+										<p>${info.memberManner}℃</p>
+									</c:if>
+									<c:if test="${info.memberManner >= 30 && info.memberManner <= 40}">
+										<span style="color: rgb(252, 177, 3)"><i
+											class="fa-solid fa-face-smile fa-2x"></i></span>
+										<p>${info.memberManner}℃</p>
+									</c:if>
+									<c:if test="${info.memberManner > 40}">
+										<span style="color: green"><i
+											class="fa-solid fa-face-grin fa-2x"></i></span>
+										<p>${info.memberManner}℃</p>
+									</c:if>
+								</div>
 						</div>
 					</a>
+					<h3><i class="fa-solid fa-users"></i> : ${info.count}/${info.membershipMax}</h3>
 					<div class="locationTypeBox">
 						<div class="location">
 							<c:forEach items="${info.locations}" var="location">
@@ -159,21 +193,19 @@
 			</div>
 		</c:forEach>
 	</div>
-	<jsp:include page="footer/footer.jsp" />
+	<jsp:include page="chatting/chattingIndex.jsp" />
+	<jsp:include page="footer/footerIndex.jsp" />
+	
+	 
+
 
 	<!-- <a href="/dummyUpdate">!!!!!!!!!!!주의!!!!!!!!!!!! 기존 유저들 비밀번호 암호화하는거임 건드리지 말것</a> -->
 	<!-- <div class="membership-list"> -->
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="${pageContext.request.contextPath}/js/index.js"></script>
+	<script src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
 	<script src="${pageContext.request.contextPath}/js/locationType.js"></script>
 	
-	
-	<script
-		src="${pageContext.request.contextPath}/js/locationTypePaging.js"></script>
-		
- 
-
-
 
 </body>
 </html>

@@ -155,12 +155,14 @@ public class MembershipService {
 		
 		
 	}
-
+	// 체팅 서비스 ===================================
 	public List<BasicRoomListVo> roomlist() {
 		return mapper.roomlist();
 	}
 	
-	
+	public List<Integer> enterChattingroomCode(String id) {
+		return mapper.enterChattingroomCode(id);
+	}
 	
 
 	
@@ -227,11 +229,17 @@ public class MembershipService {
 	}
 
 	
-	
+	// 클럽수정시 지역타입 버튼눌린 상태로 만들기
+			public List<LocationCategory> locButton(int membershipCode){
+				 return mapper.locButton(membershipCode);
+			 }
+			public List<TypeCategory> typeButton(int membershipCode){
+				 return mapper.typeButton(membershipCode);
+			 }
+
 	
 	
 }
-
 
 
 

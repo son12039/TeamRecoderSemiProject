@@ -57,19 +57,18 @@ function showReplyForm(commentCode) {
   });
 //대댓글
 function recomment(e, code) {
-	const inputs = $(e.target).prevAll();
-	const membershipCode = inputs[0].value;
-	const id = inputs[1].value;
-	const text = inputs[2].value;
-	  if(text != ""){
+
+	const id = "#textbox" + code
+		
+	  if( $(id).val() != ""){
 	$.ajax({
 		url: '/mainComment', 
 		type: 'POST',
 		data: {
 			mainParentsCommentCode: code,
-			mainCommentText: text,
-			id: id,  
-			membershipCode: membershipCode
+			mainCommentText: $(id).val(),
+			id: $(id).next().val(),  
+			membershipCode: $(id).next().next().val()
 		},
 		success: function() {
 			alert("대댓글 등록 완료!")
@@ -128,6 +127,10 @@ function updateForm(commentCode) {
 	let formElement = $(formId);
 	formElement.toggle();
     }
+	
+	
+	
+	
 // 수정 클릭처리
 function updateComment(e, commentCode){
 	const inputs = $(e.target).prev();
@@ -172,3 +175,14 @@ function updateKey(commentCode){
 	}
 
 )}
+
+
+// 채승훈 댓글 클릭시 밑에 보더 이벤트 주기
+$("#textbox").click(function(){
+	console.log($("#textbox"))
+	if($("#textbox")){
+		$("#textbox").css({borderBottom : "1px solid red"})
+	}else{
+		$("#textbox").css({borderBottom : ""})
+	}
+})

@@ -1,85 +1,124 @@
+/* ================================================ */
 /*color:  #fca35b;*/
 
+/*리셋*/
+.resetBth{
+    margin: 10px 10px 10px 0px;
+    border-radius: 10px;
+    display: inline-block;
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    background: #3e89ff;
+    font-family: "Noto Sans KR", sans-serif;
+}
+.resetBth:hover{
+	background: #2a5599;
+}
 
+/*
+	지역 선택했을때 옆에 오는 친구들
+*/
+.locationLaFriend {
+  color: #0077b6;
+  font-weight: bold;
+}
+.locationSFriend {
+  color: #0077b6;
+  font-weight: bold;
+}
+.typeLaFriend {
+  color: #0077b6;
+  font-weight: bold;
+}
+.typeSFriend {
+  color: #0077b6;
+  font-weight: bold;
+}
+/*
+	지역 선택했을때 옆에 오는 친구들
+*/
 .locationTypeBody {
-	padding-top:40px;
-	padding-bottom : 20px;
-	width: 100%;
-	margin: auto;
+  margin: auto;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  position: sticky;
+  top: 80px;
+  background-color: #f9f7f3;
+  margin-top: 50px;
+  width: 1280px;
+  border-bottom: 1.5px solid #c5c5c5;
+  justify-content: space-between;
+  z-index: 1;
 }
-.locationTypeBodyBox {	
-	display: flex;
-	margin : auto;
-	max-width: 900px;
-	height: 250px;
-	background-color : white;
-	border-radius: 7px;
-	border: 1px solid #d5d5d5;
-	
+.locationTypeBodyBox {
+  display: flex;
+}
+.locationTypeBodyBox > form {
+  background-color: #fca35b;
+  padding: 10px 20px 10px 20px;
+  margin: 10px 10px 10px 0px;
+  border-radius: 10px;
+}
 
-}
-/*중단 locationLa 이벤트 놈들*/
-.line{
-	width: 1px;
-	height : 180px;
-	background-color: #d5d5d5;
-	margin : auto;
-}
 #locationLaNameForm input[type="checkbox"] {
-   display:none;
- }
-#locationLaNameForm{
-	width: 100%;
-	height : 100%;
-	padding: 10px;
+  display: none;
+}
+#locationLaNameForm {
+  cursor: pointer;
+  position: relative;
+}
+.locationLaBox {
+  display: flex;
+  font-weight: bold;
+  color: white;
+}
+.locationLaStar {
+  cursor: pointer;
+  display: flex;
+}
+.locationLaDiv {
+  display: none;
+  background-color: white;
+  width: 501px;
+  position: absolute;
+  top: 46px;
+  left: 0px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #b1b1b1;
+  z-index: 1000;
+}
+.locationLaCss {
+  cursor: pointer;
+  background-color: white;
+  display: inline-block;
+  margin: 3px 1px;
+  width: 110px;
+  height: 47px;
+  text-align: center;
+  line-height: 47px;
+  border-radius: 5px;
+  border: 1px solid #e3e3e3;
+  background: #f3f3f3;
+  color: #818181;
+}
+.locLaNameLabel {
+  background-color: white;
+  display: inline-block;
+  margin: 3px 1px;
+  width: 110px;
+  height: 47px;
+  text-align: center;
+  line-height: 47px;
+  border-radius: 5px;
+  border: 1px solid #e3e3e3;
+  background: #f3f3f3;
+  color: #818181;
+}
 
-}
-.locationBoxHead{
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-}
-.locationLaStar{
-	padding: 5px 10px 10px 10px;
-	font-size: 25px;
-	font-weight: bold;
-}
-.locationLaDiv{
-	background-color : #efefef;
-	width: 100%;
-	height: 190px;
-	border-radius: 7px;
-	padding: 7px;
-}
-.locationLaCss{
-	cursor: pointer;
-	display: inline-block;
-	width: 99px;
-	height: 31px;
-	margin: 2px 0px 2px 0px;
-	background-color: white;
-	border-radius: 7px;
-	text-align: center;
-	line-height: 31px;
-	color : #293241;
-	font-weight: bold;
-	
-}
-.locLaNameLabel{
-	font-size : 18px;
-	font-weight: bold;
-	cursor: pointer;
-	color: white;
-	background-color: #457b9d; 
-	padding: 5px;
-	border-radius: 5px;
-}
 
-.locationLaCss:hover{
-}
-.locLaNameLabel:hover{
-
-}
 /*중단 locationLa 이벤트 놈들*/
 
 /*
@@ -89,343 +128,167 @@
 */
 /*중단 locationS 이벤트 놈들*/
 #locationSNameForm input[type="checkbox"] {
-   display:none;
- }
-#locationSNameForm{
-	width: 100%;
-	height : 100%;
-	padding: 10px;
+  display: none;
 }
-.locationSStar{
-	padding: 5px 10px 10px 10px;
-	font-size: 25px;
-	font-weight: bold;
+#locationSNameForm {
+  cursor: default;
+  background-color: #bfab9c;
+  position: relative;
 }
-.locationTypeCss{
-	
+
+.locationSStar {
+  font-weight: bold;
+  display: flex;
 }
-.locationSDiv{
-	background-color : #efefef;
-	width: 100%;
-	height: 190px;
-	border-radius: 7px;
-	padding: 7px;
-	
+.locationSCss {
+  background-color: white;
+  display: inline-block;
+  margin: 3px 1px;
+  width: 110px;
+  height: 47px;
+  text-align: center;
+  line-height: 47px;
+  border-radius: 5px;
+  border: 1px solid #e3e3e3;
+  background: #f3f3f3;
+  color: #818181;
 }
-.locationTypeCss{
-	cursor: pointer;
-	display: inline-block;
-	width: 78px;
-	height: 31px;
-	margin: 2px 0px 2px 0px;
-	background-color: white;
-	border-radius: 7px;
-	text-align: center;
-	line-height: 31px;
-	color : #293241;
-	font-weight: bold;
+.locationSBox {
+  display: flex;
+  border: b;
+}
+.locationSDiv {
+  display: none;
+  background-color: white;
+  width: 501px;
+  position: absolute;
+  top: 46px;
+  left: 0px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #b1b1b1;
+  z-index: 1000;
+}
+.locationTypeCss {
+  margin: 3px 1px;
 }
 /*중단 locationS 이벤트 놈들*/
 
- .classiFication{
- width: 100%;
- height: 100%;
- display: flex;
- justify-content: center;
- align-items: center;
- color :#ADD8E6;
- font-size:30px;
- font-weight: bold;
- font-family: "Do Hyeon", sans-serif;
- }
- 
+.classiFication {
+  font-family: "Do Hyeon", sans-serif;
+}
 
-#typeStickyBox{
-  position: sticky;
-  top: 80px;
-  background-color: #ffe5e5;
-  width: 100%;
-  height: auto;
-  font-family: "Noto Sans KR", sans-serif;
-  
+#typeStickyBox {
 }
 
 /*중단 TypeLa 이벤트 놈들*/
 #typeLaNameSelect input[type="checkbox"] {
-   display:none;
-   
- }
-#typeLaNameSelect{
-	width: 100%;
-	max-width: 1280px;
-	margin:auto;
-	font-size:20px;
-	padding :5px;
-	font-weight: bold;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color : #2c2c2c;
+  display: none;
 }
-.typeLaNameLabel{
-	padding :5px 5px; 
-	cursor: pointer;
+#typeLaNameSelect {
+  cursor: pointer;
+  position: relative;
 }
-.typeLaNameLabel:hover{
-	background-color:  rgb(253, 207, 170);
-	border-radius : 20px;
+.typeLaNameLabel {
+  background-color: white;
+  display: inline-block;
+  margin: 3px 1px;
+  width: 110px;
+  height: 47px;
+  text-align: center;
+  line-height: 47px;
+  border-radius: 5px;
+  border: 1px solid #e3e3e3;
+  background: #f3f3f3;
+  color: #818181;
 }
-.typeLaCss{
-	padding :5px 5px;
-	margin : 0px 5px;
-	cursor: pointer;
+.typeLaDiv {
+  display: none;
+  background-color: white;
+  width: 501px;
+  position: absolute;
+  top: 46px;
+  left: 0px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #b1b1b1;
+  z-index: 1000;
 }
-.typeLaCss:hover{
-	background-color:  rgb(253, 207, 170);
-	border-radius : 20px;
-}
- /*중단 TypeLa 이벤트 놈들*/
- 
- 
-#typeSNameForm input[type="checkbox"] {
-   display:none;
- }
-#typeSNameForm{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: white;
-	font-weight: bold;
-	font-size: 18px;
-	width: 100%;
-}
-.typeSCss{
-	padding :4px 10px;
-	margin : 1px 1px;
-	cursor: pointer;
-}
-.typeSCss:hover {
-	background-color:  rgb(253, 207, 170);
-	border-radius : 20px;
-}
- 
- 
- 
- 
- 
- 
- 
- 
- 
- /*color:  #fca35b;*/
-
-
-.locationTypeBody1 {
-	padding-top:40px;
-	padding-bottom : 20px;
-	width: 100%;
-	margin: auto;
-}
-.locationTypeBodyBox1 {	
-	display: flex;
-	margin : auto;
-	max-width: 900px;
-	height: 250px;
-	background-color : white;
-	border-radius: 7px;
-	border: 1px solid #d5d5d5;
-	
-
-}
-/*중단 locationLa 이벤트 놈들*/
-.line1{
-	width: 1px;
-	height : 180px;
-	background-color: #d5d5d5;
-	margin : auto;
-}
-#locationLaNameForm1 input[type="checkbox"] {
-   display:none;
- }
-#locationLaNameForm1{
-	width: 100%;
-	height : 100%;
-	padding: 10px;
-
-}
-.locationBoxHead1{
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-}
-.locationLaStar1{
-	padding: 5px 10px 10px 10px;
-	font-size: 25px;
-	font-weight: bold;
-}
-.locationLaDiv1{
-	background-color : #efefef;
-	width: 100%;
-	height: 190px;
-	border-radius: 7px;
-	padding: 7px;
-}
-.locationLaCss1{
-	cursor: pointer;
-	display: inline-block;
-	width: 99px;
-	height: 31px;
-	margin: 2px 0px 2px 0px;
-	background-color: white;
-	border-radius: 7px;
-	text-align: center;
-	line-height: 31px;
-	color : #293241;
-	font-weight: bold;
-	
-}
-.locLaNameLabel1{
-	font-size : 18px;
-	font-weight: bold;
-	cursor: pointer;
-	color: white;
-	background-color: #457b9d; 
-	padding: 5px;
-	border-radius: 5px;
+.typeLaBox {
+  display: flex;
+  color: white;
+  font-weight: bold;
 }
 
-.locationLaCss:hover{
+.typeLaCss {
+  background-color: white;
+  display: inline-block;
+  margin: 3px 1px;
+  width: 110px;
+  height: 47px;
+  text-align: center;
+  line-height: 47px;
+  border-radius: 5px;
+  border: 1px solid #e3e3e3;
+  background: #f3f3f3;
+  color: #818181;
 }
-.locLaNameLabel:hover{
-
-}
-/*중단 locationLa 이벤트 놈들*/
-
-/*
-  position: sticky;
-  top: 80px;
-
-*/
-/*중단 locationS 이벤트 놈들*/
-#locationSNameForm1 input[type="checkbox"] {
-   display:none;
- }
-#locationSNameForm1{
-	width: 100%;
-	height : 100%;
-	padding: 10px;
-}
-.locationSStar1{
-	padding: 5px 10px 10px 10px;
-	font-size: 25px;
-	font-weight: bold;
-}
-.locationTypeCss{
-	
-}
-.locationSDiv1{
-	background-color : #efefef;
-	width: 100%;
-	height: 190px;
-	border-radius: 7px;
-	padding: 7px;
-	
-}
-.locationTypeCss1{
-	cursor: pointer;
-	display: inline-block;
-	width: 78px;
-	height: 31px;
-	margin: 2px 0px 2px 0px;
-	background-color: white;
-	border-radius: 7px;
-	text-align: center;
-	line-height: 31px;
-	color : #293241;
-	font-weight: bold;
-}
-/*중단 locationS 이벤트 놈들*/
-
- .classiFication1{
- width: 100%;
- height: 100%;
- display: flex;
- justify-content: center;
- align-items: center;
- color :#ADD8E6;
- font-size:30px;
- font-weight: bold;
- font-family: "Do Hyeon", sans-serif;
- }
- 
-
-#typeStickyBox1{
-  position: sticky;
-  top: 80px;
-  background-color: #ffe5e5;
-  width: 100%;
-  height: auto;
-  font-family: "Noto Sans KR", sans-serif;
-  
+.typeLaStar {
+  display: flex;
 }
 
 /*중단 TypeLa 이벤트 놈들*/
-#typeLaNameSelect1 input[type="checkbox"] {
-   display:none;
-   
- }
-#typeLaNameSelect1{
-	width: 100%;
-	max-width: 1280px;
-	margin:auto;
-	font-size:20px;
-	padding :5px;
-	font-weight: bold;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color : #2c2c2c;
+
+#typeSNameForm input[type="checkbox"] {
+  display: none;
 }
-.typeLaNameLabel1{
-	padding :5px 5px; 
-	cursor: pointer;
+#typeSNameForm {
+  cursor: default;
+  background-color: #bfab9c;
+  position: relative;
 }
-.typeLaNameLabel1:hover{
-	background-color:  rgb(253, 207, 170);
-	border-radius : 20px;
+.typeSBox {
+  display: flex;
+  font-weight: bold;
 }
-.typeLaCss1{
-	padding :5px 5px;
-	margin : 0px 5px;
-	cursor: pointer;
+.typeSDiv {
+  display: none;
+  background-color: white;
+  width: 501px;
+  position: absolute;
+  top: 46px;
+  left: 0px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #b1b1b1;
+  z-index: 1000;
 }
-.typeLaCss1:hover{
-	background-color:  rgb(253, 207, 170);
-	border-radius : 20px;
+#typeSCss {
+  background-color: white;
+  display: inline-block;
+  margin: 3px 1px;
+  width: 110px;
+  height: 47px;
+  text-align: center;
+  line-height: 47px;
+  border-radius: 5px;
+  border: 1px solid #e3e3e3;
+  background: #f3f3f3;
+  color: #818181;
 }
- /*중단 TypeLa 이벤트 놈들*/
- 
- 
-#typeSNameForm1 input[type="checkbox"] {
-   display:none;
- }
-#typeSNameForm1{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: white;
-	font-weight: bold;
-	font-size: 18px;
-	width: 100%;
+.typeSStar {
+  display: flex;
 }
-.typeSCss1{
-	padding :4px 10px;
-	margin : 1px 1px;
-	cursor: pointer;
+
+.locationTypeSearch {
+  display: flex;
+  margin: 10px;
 }
-.typeSCss1:hover {
-	background-color:  rgb(253, 207, 170);
-	border-radius : 20px;
+.locationTypeSearch input {
+  border: 1px solid gray;
+  border-radius: 7px;
+  padding: 10px;
 }
- 
- 
+.locationTypeSearch button {
+  display: none;
+}

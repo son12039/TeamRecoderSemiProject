@@ -17,6 +17,7 @@ public class MeetingsCommentService {
 	private MeetingsCommentMapper mapper;
 	
 	public void insertComment(MeetingsComment meetingsComment) {
+		System.out.println("서비스 도착");
 		mapper.insertComment(meetingsComment);
 	}
 	public ArrayList<MeetingsComment> allMeetingsComment(int meetCode){

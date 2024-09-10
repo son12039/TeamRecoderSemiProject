@@ -24,6 +24,7 @@ public class MeetingsCommentController {
 	@ResponseBody
 	@PostMapping("/meetingsComment")
 	public void insertComment (MeetingsComment meetingsComment) {
+		System.out.println("댓글정보 : " + meetingsComment);
 		service.insertComment(meetingsComment);
 		
 		

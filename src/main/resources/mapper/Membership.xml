@@ -15,8 +15,10 @@
 		<result property="membershipDate" column="membership_date" />
 		<result property="membershipGrade" column="membership_grade" />
 		<result property="membershipMax" column="membership_max" />
-		<result property="membershipSimpleText" column="membership_simple_text" />
-		<result property="membershipAccessionText" column="membership_accession_text"/>
+		<result property="membershipSimpleText"
+			column="membership_simple_text" />
+		<result property="membershipAccessionText"
+			column="membership_accession_text" />
 	</resultMap>
 
 	<resultMap type="MembershipUserList" id="listMap">
@@ -27,13 +29,13 @@
 			<result column="name" property="name" />
 			<result column="nickname" property="nickname" />
 			<result column="member_img" property="memberImg" />
-			<result column="member_info" property="memberInfo"/>
-			<result column="member_manner" property="memberManner"/>
-			 <result property="memberHobby" column="member_hobby" />
-			  <result property="memberLocation" column="member_location" />
-			  <result property="phone" column="phone"/>
-			   <result property="age" column="age" />
-        <result property="gender" column="gender" />
+			<result column="member_info" property="memberInfo" />
+			<result column="member_manner" property="memberManner" />
+			<result property="memberHobby" column="member_hobby" />
+			<result property="memberLocation" column="member_location" />
+			<result property="phone" column="phone" />
+			<result property="age" column="age" />
+			<result property="gender" column="gender" />
 		</association>
 		<association property="membership" javaType="Membership">
 			<id column="membership_code" property="membershipCode" />
@@ -43,8 +45,10 @@
 			<result column="Mebership_date" property="membershipDate" />
 			<result column="Membership_grade" property="membershipGrade" />
 			<result column="Membership_max" property="membershipMax" />
-			<result property="membershipSimpleText" column="membership_simple_text" />
-		<result property="membershipAccessionText" column="membership_accession_text"/>
+			<result property="membershipSimpleText"
+				column="membership_simple_text" />
+			<result property="membershipAccessionText"
+				column="membership_accession_text" />
 		</association>
 	</resultMap>
 
@@ -52,6 +56,20 @@
 		<id column="membership_code" property="membershipCode" />
 		<result column="membership_name" property="membershipName" />
 	</resultMap>
+	
+	
+	<resultMap id="locbtn" type="LocationCategory">
+		<result property="locCode" column="loc_code" />
+		<result property="locLaName" column="loc_la_name" />
+		<result property="locSName" column="loc_s_name" />
+	</resultMap>
+<resultMap id="typebtn" type="TypeCategory">
+    <result property="typeCode" column="type_code"/>
+    <result property="typeLaName" column="type_la_name"/>
+    <result property="typeSName" column="type_s_name"/>
+</resultMap>
+	
+	
 
 	<!-- 인덱스에 클럽 띄울때 한번에 12개(Paging 메서드)씩 해당 클럽의 호스트와 클럽 모든정보 불러오는 쿼리 나중에 listMap에 
 		위치정보와 타입정보 추가 요망 -->
@@ -65,8 +83,8 @@
 		USING (id)
 		WHERE list_grade = "host"
 		<!-- 08-21 14:30 채승훈 지움 parameterType="Paging" LIMIT #{offset}, #{limit} -->
-
 	</select>
+	
 	<!-- 맴버쉽 코드로 해당 맴버쉽 정보만 -->
 	<select id="selectMembership" parameterType="int"
 		resultMap="membershipMap">
@@ -76,6 +94,7 @@
 		WHERE membership_code =
 		#{membershipCode}
 	</select>
+	
 	<!--  클럽 홍보글 작성기능  -->
 	<update id="updateMembershipInfo" parameterType="Membership">
 		UPDATE
@@ -95,14 +114,14 @@
 		JOIN member USING (id)
 		WHERE membership_code =
 		#{membership_code}
-		ORDER BY 
-    CASE list_grade
-        WHEN 'host' THEN 1
-        WHEN 'admin' THEN 2
-        WHEN 'regular' THEN 3
-        WHEN 'guest' THEN 4
-        ELSE 5
-    END;
+		ORDER BY
+		CASE list_grade
+		WHEN 'host' THEN 1
+		WHEN 'admin' THEN 2
+		WHEN 'regular' THEN 3
+		WHEN 'guest' THEN 4
+		ELSE 5
+		END;
 	</select>
 	<!-- 해당 맴버쉽의 코드와 유저 ID (로그인) 정보 받아서 맴버쉽에 가입 신청 하는 기능 -->
 	
@@ -144,7 +163,7 @@
 		"${memebershipCode}" AND
 		list_grade = "host";
 	</select>
-	
+
 	<!-- 해당 클럽의 유저 현황을 클럽 코드를 가져와서 현재 인원만 반환해주는 쿼리 변경필요 -->
 	<select id="membershipUserCount" parameterType="Integer"
 		resultType="Integer">
@@ -227,7 +246,7 @@
 	<!-- 해당 맴버쉽 코드와 유저 정보를 가져와서 유저 등급을 변경하는 컬럼 -->
 	<update id="agreeMemeber" parameterType="MemberListDTO">
 		UPDATE
-		membership_user_list		
+		membership_user_list
 		SET list_grade = #{listGrade}
 		WHERE id = #{id} AND
 		membership_code =
@@ -237,16 +256,16 @@
 	<!--  호스트가 관리자에게 호스트 권한 넘겨주고 본인은 관리자로 변경 -->
 	<update id="hostChange" parameterType="MemberListDTO">
 		UPDATE
-		membership_user_list		
+		membership_user_list
 		SET list_grade = "admin"
-		WHERE list_grade = "host" AND 
+		WHERE list_grade = "host" AND
 		membership_code =
 		#{membershipCode}
 	</update>
 	
 	<!-- 호스트나 관리자가 본인보다 하위 등급인 클럽원 강퇴 -->
 	<delete id="expelMember" parameterType="MemberListDTO">
-	DELETE FROM membership_user_list
+		DELETE FROM membership_user_list
 		WHERE id = #{id} AND
 		membership_code =
 		#{membershipCode}
@@ -265,7 +284,7 @@
      <select id="ifHost" resultMap="listDTOMap" parameterType="String">
      SELECT *
      FROM membership_user_list
-     WHERE list_grade ="host" AND id= #{id}    
+     WHERE list_grade ="host" AND id= #{id}
      </select>
 
 	<!--  memberInfoDTO에 담을 수 있는 해당 맴버의 모임 참여 횟수 계산 -->
@@ -282,7 +301,7 @@
 		<!--  해당 맴버 ID로 그 회원의 모든 클럽(상세정보)까지 담기는 쿼리 -->
 	<select id="selectMemberUserList" parameterType="String"
 		resultMap="listMap">
-		SELECT * FROM 
+		SELECT * FROM
 		membership_user_list
 		JOIN membership USING(membership_code)
 		WHERE id = #{id}
@@ -294,12 +313,7 @@
 	AND id = #{id};
 	</delete>
 	
-		<!-- 모든 채팅방리스트 불러옴 -->
-	<select id="roomlist" resultMap="roomListmap">
-		SELECT
-		membership_name,membership_code FROM
-		membership
-	</select>
+
 	
 	
 	
@@ -317,7 +331,41 @@
 	
 	</update>
 	
+	<!-- 정배 클럽 수정 시 지역타입버튼 눌려있게 하는 쿼리 -->
+	<select id="locButton" parameterType="Integer"
+		resultMap="locbtn">
+		select loc_la_name,loc_s_name from membership
+		join
+		membership_location using(membership_code)
+		join location_category using
+		(loc_code)
+		where membership_code = #{membershipCode};
+	</select>
+	<select id="typeButton" parameterType="Integer"
+		resultMap="typebtn">
+		select type_la_name,type_s_name from membership
+		join
+		membership_type using(membership_code)
+		join type_category using
+		(type_code)
+		where membership_code = #{membershipCode};
+	</select>
+	<!-- 모든 채팅방리스트 불러옴 -->
 	
+			<!-- 모든 채팅방리스트 불러옴 -->
+	<select id="roomlist" resultMap="roomListmap">
+		SELECT
+		membership_name,membership_code FROM
+		membership
+	</select>
+
+	<select id="enterChattingroomCode" parameterType="String"
+		resultType="int">
+		select membership_code
+		from membership_user_list
+		where list_grade!= 'guest'
+		AND id = #{id};
+	</select>
 	
 	
 	

@@ -35,8 +35,6 @@ public class Member implements UserDetails {
     private String memberImg; // 유저프로필사진
     private String memberHobby; // 유저 관심사
     private String memberInfo; // 유저 간단한 자기소개
-    private String memberLocation; // 유저선호지역
-    private String memberType; // 유저 선호만남유형
     private LocalDateTime deletedAt; // 회원탈퇴시 날짜
     
     private MultipartFile file; // 이미지 업로드 파일

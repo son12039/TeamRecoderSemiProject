@@ -293,18 +293,19 @@ public class MemberController {
 	    removeService.deleteAllComment(mem.getId());
 	    removeService.deleteMembershipUserList(mem.getId());
 	    removeService.deleteAllMeeting(mem.getId());
+	    System.out.println("탙퇴 로직 도착");
 	    // membershipUserList 삭제
-	    if(!folderDelete(mem.getId())) {
-	    	System.out.println("파일 삭제 실패");
-	    	
-	    	return false;
-	    }
-	   
-	  
+	    boolean ck =  folderDelete(mem.getId());
+	    	System.out.println("파일 삭제 로직은 탐");
 	    // 로그아웃 처리
 	    SecurityContextHolder.getContext().setAuthentication(authentication);
 	    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 	    logoutHandler.logout(request, response, authentication);
+	    if(!ck) {
+	    	System.out.println("파일 삭제 실패");
+	    	return false;
+	    }
+	    System.out.println("리턴");
 	    return true;
 	}
 
@@ -453,19 +454,22 @@ public class MemberController {
 		 String path = "\\\\\\\\192.168.10.51\\\\damoim\\\\member\\\\" + id; 
         File folder = new File(path); //
         try {
-            while (folder.exists()) { // 폴더가 존재한다면
+            if (folder.exists()) { // 폴더가 존재한다면
                 File[] listFiles = folder.listFiles();
-
+                System.out.println("폴더 존재?");
                 for (File file : listFiles) { // 폴더 내 파일을 반복시켜서 삭제
+                	System.out.println("포문도착");
                     file.delete();
-                }
+                }	
+                	System.out.println("폴더 삭제");
+                	folder.delete();
 
-                if (listFiles.length == 0 && folder.isDirectory()) { // 하위 파일이 없는지와 폴더인지 확인 후 폴더 삭제
-                    folder.delete();
-                }
-            
-       
+//                if (listFiles.length == 0 && folder.isDirectory()) { // 하위 파일이 없는지와 폴더인지 확인 후 폴더 삭제
+//                
+//                }
             }
+       
+            
         }
        catch (Exception e) {
        	return false;

@@ -351,6 +351,7 @@
 									</div>
 								</c:if>
 							</c:forEach>
+							
 												<form action="/updateMembership"
 													style="margin: 0px; padding: 0px">
 													<button class="Management-button" id="update-club"
@@ -365,9 +366,10 @@
 								<button class="Management-button" id="deleteButton">클럽삭제</button>
 								
 							</div>
+							</c:if>
 						
 					</div>
-				</c:if>
+				
 
 				<c:if test="${!host}">
 					<!-- 호스트 아닐때 -->

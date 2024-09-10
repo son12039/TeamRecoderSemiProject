@@ -115,8 +115,10 @@
 	<div class="membership-list">
 		<c:forEach items="${list}" var="info" varStatus="status">
 			<div class="membership-card">
-			<c:if test="${info.membershipDate >  today30 && today > info.membershipDate}">
+				
+			<c:if test="${info.membershipDate >=  today30 &&  today >= info.membershipDate}">
 			<img alt="" src="http://192.168.10.51:8081/sungil/2%ED%8A%B8.png" class="new">
+		
 				</c:if>
 				<div class="membership-img">
 			

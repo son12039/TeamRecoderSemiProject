@@ -386,3 +386,22 @@ input[type="checkbox"]:checked + .typeLNCss {
   font-weight: bold;
   font-family: "Do Hyeon", sans-serif;
 }
+
+
+#default{
+z-index: -1;
+
+width: 500px;
+height: 500px;
+}
+
+#image_container{
+width: 500px;
+height: 500px;
+}
+
+#image_container img{
+position: absolute;
+width: 500px;
+height: 500px;
+}

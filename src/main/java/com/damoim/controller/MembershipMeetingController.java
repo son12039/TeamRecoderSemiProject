@@ -50,6 +50,7 @@ public class MembershipMeetingController {
 	private RemoveMemberService removeService;
 	
 	
+	// 멤버쉽 미팅 작성 페이지로 이동 
 	@GetMapping("/write")
 	public String write(int membershipCode, Model model) {
 		System.out.println("모임 컨트롤러 매핑 " + membershipCode);
@@ -78,6 +79,7 @@ public class MembershipMeetingController {
 		return "membershipMeeting/meetingWrite";
 	}
 	
+	// 작성완료 
 	@PostMapping("/write")
 	public String write1(int membershipCode, MembershipMeetings meeting) throws IOException {
 
@@ -100,6 +102,8 @@ public class MembershipMeetingController {
 		return "redirect:/club/"+membershipCode;
 	}
 	
+	
+	// 멤버쉽 미팅 상세 페이지로 이동 
 	@GetMapping("/meetingDetail")
 	public String meetingDetail(int meetCode , Model model) {
 		
@@ -232,6 +236,8 @@ System.out.println("어그리 " + agree);
 			
 		return "membershipMeeting/meetingDetail";
 	}
+	
+	
 	
 	@ResponseBody
 	@PostMapping("/go")

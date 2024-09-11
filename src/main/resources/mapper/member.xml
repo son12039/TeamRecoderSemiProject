@@ -182,7 +182,7 @@
 	
 	<update id="defualtFile" parameterType="String">
 		UPDATE member
-		SET member_img =#{memberImg}
+		SET member_img = null
 		WHERE id=#{id}
 	</update>
 	

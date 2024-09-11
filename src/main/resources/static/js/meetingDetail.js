@@ -179,6 +179,8 @@ function updateKey(commentCode) {
 const today = new Date()
 const now = today.toISOString().split('T')[0];
 const start = $("#meetDateStart").text();
+const end = $("#meetDateEnd").text();
+const gap = start -end;
 console.log(now)
 console.log($("#meetDateStart").text())
 if (start < now) {
@@ -187,4 +189,10 @@ if (start < now) {
 	$("#gogo").css("background", "black");
 
 }
+const oldDate = new Date(start);
+const newDate = new Date(end);
+newDate.setDate(newDate.getDate()+1);
+let diff = Math.abs(newDate.getTime() - oldDate.getTime());
+diff = Math.ceil(diff / (1000 * 60 * 60 * 24));
+$("#date").text("일정: "+start+" ~ "+end+"   ("+diff+"일)");
 

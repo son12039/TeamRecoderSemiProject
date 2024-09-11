@@ -45,10 +45,9 @@
 				</div>
 			</div>
 			<!-- br은 지우시면 됩니다! -->
-			<br>
-			<br>
+			
 			<div id="locLaText">지역을 선택해주세요</div>
-			<br>
+		
 			<div class="locLabox"> 
 			<c:forEach items="${locLaNameList}" var="locLN">
 				<input type="checkbox" value="${locLN}" id="${locLN}"
@@ -56,15 +55,10 @@
 				<label for="${locLN}" class="locLNCss">${locLN}</label>
 			</c:forEach>
 			</div>
-			<br><br>
-			<div class="locSbox"> 
+		
+			<div class="locSbox" style="display: none;"> 
 			</div>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
+
 			<div id="typeLaText">유형을 선택해주세요</div>
 			<div class="typeLabox"> 
 			<c:forEach items="${typeLaNameList}" var="typeLN">
@@ -73,10 +67,10 @@
 				<label for="${typeLN}" class="typeLNCss">${typeLN}</label>
 			</c:forEach>
 			</div>
-			<br><br>
-			<div class="typeSbox"> 
+
+			<div class="typeSbox" style="display: none;"> 
 			</div>
-			<br> <br> <br>
+
 			<!-- locationSList typeSName -->
 			<!-- 도시별 지역별 태그 선택 ============================================================== -->
 

@@ -399,6 +399,7 @@ button>img {
 	position: relative;
 	overflow: hidden; /* 컨테이너의 범위를 넘는 요소를 숨김 */
 	width: 600px; /* 컨테이너의 너비 조정 */
+	z-index: 1;
 }
 
 .image-item {

@@ -23,8 +23,9 @@ const searchDto = {
 	locationSName: urlParams.getAll("locationSName"), // 없으면 빈배열
 	typeLaName: urlParams.get("typeLaName"),
 	typeSName: urlParams.getAll("typeSName"),
-	keyword: null,
+	keyword: urlParams.get("keyword"), // 없으면 null
 };
+
 // 화면단 -> 네비게이션 바 스타일링만 (새로고침했을때 남아있게)
 if (searchDto.locationLaName !== null) {
 	const check = $(
@@ -109,6 +110,10 @@ if (searchDto.typeSName.length > 0) {
 			"</div>";
 	$(".typeSStar").append(typeSFriend);
 }
+// 새로고침했을때 정보 남아있게끔
+if(searchDto.keyword !== null){
+	$("#keyword").val(searchDto.keyword)
+}
 
 // 결과값에 대한 걸 먼저 생각!
 // locationSNameList, typeSNameList, list
@@ -153,7 +158,12 @@ const list = (page) => {
 		type: "get",
 		data: searchDto,
 		success: function(result) {
-			renderClubList(result);
+			if(result.length != 0){
+				renderClubList(result);	
+			}else{
+				renderClubList2();	
+			}			
+			
 		},
 	});
 };
@@ -171,7 +181,6 @@ $("#locationLaNameForm").click(function() {
 $("#locationLaNameForm input[type=checkbox]").change(function() {
 	// 체크 눌렀을때 그쪽 방향으로 이동
 	window.scrollTo({ top: 900, left: 0, behavior: "smooth" });
-	urlParams.delete("locationSName");
 	searchDto.locationSName = [];
 	const laName = $(this).val();
 	$(".locationSDiv").empty();
@@ -184,15 +193,10 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 	let locationLaFriend = "<div class='locationLaFriend'>" + laName + "</div>";
 
 	if ($(this).prop("checked") && laName !== "") {
-		$("#locationLaNameForm input[type=checkbox]")
-			.prop("checked", false)
-			.next("label")
-			.css({
-				background: "",
-			});
-		$(this).prop("checked", true).next("label").css({
-			background: "#dbdbdb",
-		});
+		$("#locationLaNameForm input[type=checkbox]").prop("checked", false)
+				.next("label").css({background: "",});
+		$(this).prop("checked", true)
+				.next("label").css({background: "#dbdbdb",});
 
 		// 전체보기 제외 클릭이 이루어질때
 		searchDto.locationLaName = laName;
@@ -206,29 +210,16 @@ $("#locationLaNameForm input[type=checkbox]").change(function() {
 			$(".locationLaStar").append(locationLaFriend);
 			urlParams.append("locationLaName", searchDto.locationLaName);
 		}
-		$("#locationSNameForm").css({
-			backgroundColor: "#FCA35B",
-			color: "white",
-			cursor: "pointer",
-		});
-
+		$("#locationSNameForm").css({backgroundColor: "#FCA35B",color: "white",cursor: "pointer",});
 		locationSNameList(() => {
 			$(".locationSDiv").html(locationSNameListResult);
 		});
 	} else {
 		searchDto.locationLaName = null;
 		urlParams.delete("locationLaName");
-		$("#locationLaNameForm input[type=checkbox]")
-			.prop("checked", false)
-			.next("label")
-			.css({
-				background: "",
-			});
-		$("#locationSNameForm").css({
-			backgroundColor: "",
-			color: "",
-			cursor: "",
-		});
+		$("#locationLaNameForm input[type=checkbox]").prop("checked", false)
+													.next("label").css({background: "",});
+		$("#locationSNameForm").css({backgroundColor: "",color: "",cursor: "",});
 	}
 	history.pushState({}, null, url);
 	list(1);
@@ -258,21 +249,13 @@ function locationSelect(event) {
 
 	if ($(event.target).is(":checked")) {
 		urlParams.append("locationSName", locationSName);
-		$(event.target).prop("checked", true).next("label").css({
-			background: "#dbdbdb",
-		});
+		$(event.target).prop("checked", true).next("label").css({background: "#dbdbdb",});
 		searchDto.locationSName.push(locationSName);
 		locationSLength = urlParams.getAll("locationSName").length - 1;
 		loctionSFriend =
 			urlParams.getAll("locationSName").length <= 1
-				? "<div class='locationSFriend'>" +
-				urlParams.getAll("locationSName")[0] +
-				"</div>"
-				: "<div class='locationSFriend'>" +
-				urlParams.getAll("locationSName")[0] +
-				" 외 " +
-				locationSLength +
-				"</div>";
+				? "<div class='locationSFriend'>" +urlParams.getAll("locationSName")[0] +"</div>"
+				: "<div class='locationSFriend'>" +urlParams.getAll("locationSName")[0] +" 외 " +locationSLength +"</div>";
 		// 로케이션 눌렀을땐 사용자가 선택한거 옆에 보여줄 친구
 		$(".locationSStar").append(loctionSFriend);
 	} else {
@@ -285,20 +268,12 @@ function locationSelect(event) {
 				searchDto.locationSName.push(input.value);
 			}
 		}
-		$(event.target).prop("checked", false).next("label").css({
-			background: "#f3f3f3",
-		});
+		$(event.target).prop("checked", false).next("label").css({background: "#f3f3f3",});
 		locationSLength = urlParams.getAll("locationSName").length - 1;
 		loctionSFriend =
-			urlParams.getAll("locationSName").length <= 1
-				? "<div class='locationSFriend'>" +
-				urlParams.getAll("locationSName")[0] +
-				"</div>"
-				: "<div class='locationSFriend'>" +
-				urlParams.getAll("locationSName")[0] +
-				" 외 " +
-				locationSLength +
-				"</div>";
+			urlParams.getAll("locationSName").length <= 1  
+			? "<div class='locationSFriend'>" +urlParams.getAll("locationSName")[0] +"</div>" 
+			: "<div class='locationSFriend'>" +urlParams.getAll("locationSName")[0] +" 외 " +locationSLength +"</div>";
 		// 로케이션 눌렀을땐 사용자가 선택한거 옆에 보여줄 친구 (눌린 버튼 눌럿을때도 변화게끔)
 		$(".locationSStar").append(loctionSFriend);
 		if (locationSLength === -1) {
@@ -321,7 +296,6 @@ $("#typeLaNameSelect").click(function() {
 $("#typeLaNameSelect input[type=checkbox]").change(function() {
 	// 체크 눌렀을때 그쪽 방향으로 이동
 	window.scrollTo({ top: 900, left: 0, behavior: "smooth" });
-	urlParams.delete("typeSName");
 	searchDto.typeSName = [];
 	const typeLa = $(this).val();
 	$(".typeSDiv").empty();
@@ -332,15 +306,8 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 	let typeLaFriend = "<div class='typeLaFriend'>" + typeLa + "</div>";
 
 	if ($(this).prop("checked") && typeLa !== "") {
-		$("#typeLaNameSelect input[type=checkbox]")
-			.prop("checked", false)
-			.next("label")
-			.css({
-				background: "",
-			});
-		$(this).prop("checked", true).next("label").css({
-			background: "#dbdbdb",
-		});
+		$("#typeLaNameSelect input[type=checkbox]").prop("checked", false).next("label").css({background: "",});
+		$(this).prop("checked", true).next("label").css({background: "#dbdbdb",});
 
 		searchDto.typeLaName = typeLa;
 
@@ -353,28 +320,15 @@ $("#typeLaNameSelect input[type=checkbox]").change(function() {
 			$(".typeLaStar").append(typeLaFriend);
 			urlParams.append("typeLaName", searchDto.typeLaName);
 		}
-		$("#typeSNameForm").css({
-			backgroundColor: "#FCA35B",
-			color: "white",
-			cursor: "pointer",
-		});
+		$("#typeSNameForm").css({backgroundColor: "#FCA35B",color: "white",cursor: "pointer",});
 		typeSNameList(() => {
 			$(".typeSDiv").html(typeSNameListResult);
 		});
 	} else {
 		searchDto.typeLaName = null;
 		urlParams.delete("typeLaName");
-		$("#typeLaNameSelect input[type=checkbox]")
-			.prop("checked", false)
-			.next("label")
-			.css({
-				background: "",
-			});
-		$("#typeSNameForm").css({
-			backgroundColor: "",
-			color: "",
-			cursor: "",
-		});
+		$("#typeLaNameSelect input[type=checkbox]").prop("checked", false).next("label").css({background: "",});
+		$("#typeSNameForm").css({backgroundColor: "",color: "",	cursor: "",});
 	}
 	history.pushState({}, null, url);
 	list(1);
@@ -403,21 +357,13 @@ function typeSelect(event) {
 
 	if ($(event.target).is(":checked")) {
 		urlParams.append("typeSName", typeSName);
-		$(event.target).prop("checked", true).next("label").css({
-			background: "#dbdbdb",
-		});
+		$(event.target).prop("checked", true).next("label").css({background: "#dbdbdb",});
 		searchDto.typeSName.push(typeSName);
 		typeSLength = urlParams.getAll("typeSName").length - 1;
 		typeSFriend =
 			urlParams.getAll("typeSName").length <= 1
-				? "<div class='typeSFriend'>" +
-				urlParams.getAll("typeSName")[0] +
-				"</div>"
-				: "<div class='typeSFriend'>" +
-				urlParams.getAll("typeSName")[0] +
-				" 외 " +
-				typeSLength +
-				"</div>";
+				? "<div class='typeSFriend'>" +urlParams.getAll("typeSName")[0] +"</div>"
+				: "<div class='typeSFriend'>" +urlParams.getAll("typeSName")[0] +" 외 " +typeSLength +"</div>";
 		// 로케이션 눌렀을땐 사용자가 선택한거 옆에 보여줄 친구
 		$(".typeSStar").append(typeSFriend);
 	} else {
@@ -430,20 +376,12 @@ function typeSelect(event) {
 				searchDto.typeSName.push(input.value);
 			}
 		}
-		$(event.target).prop("checked", false).next("label").css({
-			background: "#f3f3f3",
-		});
+		$(event.target).prop("checked", false).next("label").css({background: "#f3f3f3",});
 		typeSLength = urlParams.getAll("typeSName").length - 1;
 		typeSFriend =
 			urlParams.getAll("typeSName").length <= 1
-				? "<div class='typeSFriend'>" +
-				urlParams.getAll("typeSName")[0] +
-				"</div>"
-				: "<div class='typeSFriend'>" +
-				urlParams.getAll("typeSName")[0] +
-				" 외 " +
-				typeSLength +
-				"</div>";
+				? "<div class='typeSFriend'>" +urlParams.getAll("typeSName")[0] +"</div>"
+				: "<div class='typeSFriend'>" +urlParams.getAll("typeSName")[0] +" 외 " +	typeSLength +"</div>";
 		// 로케이션 눌렀을땐 사용자가 선택한거 옆에 보여줄 친구
 		$(".typeSStar").append(typeSFriend);
 		if (typeSLength === -1) {
@@ -470,11 +408,14 @@ function search() {
 	history.pushState({}, null, url);
 	list(1);
 }
-
+function renderClubList2(){
+	let div = $(".membership-list");
+	div.empty();
+	div.append(`<div class="noMember">해당 정보가 없습니다.. 😥</div>`);
+}
 
 function renderClubList(clubList) {
 	let div = $(".membership-list");
-
 	div.empty();
 
 	$.each(clubList, function(index, club) {
@@ -614,43 +555,27 @@ function reset() {
 	$("#keyword").val("");
 	if (searchDto.locationLaName === null) {
 		const check = $(`#locationLaNameForm input[type=checkbox]`);
-		$(check).next("label").css({
-			background: "",
-		});
-		$("#locationSNameForm").css({
-			backgroundColor: "",
-			color: "",
-			cursor: "",
-		});
+		$(check).next("label").css({background: "",});
+		$("#locationSNameForm").css({backgroundColor: "",color: "",cursor: "",});
 		$(".locationLaFriend").remove();
 	}
 	if (searchDto.locationSName.length == 0) {
 		for (let name of searchDto.locationSName) {
 			const check = $(`#locationSNameForm input[type=checkbox]`);
-			$(check).prop("checked", true).next("label").css({
-				background: "",
-			});
+			$(check).prop("checked", true).next("label").css({background: "",});
 		}
 		$(".locationSFriend").remove();
 	}
 	if (searchDto.typeLaName === null) {
 		const check = $(`#typeLaNameSelect input[type=checkbox]`);
-		$(check).next("label").css({
-			background: "",
-		});
-		$("#typeSNameForm").css({
-			backgroundColor: "",
-			color: "",
-			cursor: "",
-		});
+		$(check).next("label").css({background: "",});
+		$("#typeSNameForm").css({backgroundColor: "",color: "",cursor: "",});
 		$(".typeLaFriend").remove();
 	}
 	if (searchDto.typeSName.length == 0) {
 		for (let name of searchDto.typeSName) {
 			const check = $(`#typeSNameForm input[type=checkbox]`);
-			$(check).prop("checked", true).next("label").css({
-				background: "",
-			});
+			$(check).prop("checked", true).next("label").css({background: "",});
 		}
 		$(".typeSFriend").remove();
 	}
@@ -658,3 +583,6 @@ function reset() {
 	history.pushState({}, null, url);
 	list(1);
 }
+
+
+

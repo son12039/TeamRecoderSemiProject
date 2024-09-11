@@ -294,7 +294,6 @@ public class MemberController {
 	public boolean defualtFile() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Member mem = (Member) authentication.getPrincipal();
-		mem.setMemberImg(null);
 		service.defualtFile(mem.getId());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		return true;

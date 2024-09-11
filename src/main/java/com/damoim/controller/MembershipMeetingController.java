@@ -156,7 +156,7 @@ for( int i=0; i<service.meetMember(meetCode).size(); i++) {
 	
 }
 model.addAttribute("agree", agree);
-
+model.addAttribute("count",agree.size());
 
 	    model.addAttribute("regular", membershipService.MembershipAllRegular(membershipCode));
 		// 캘린더 추가 ? 

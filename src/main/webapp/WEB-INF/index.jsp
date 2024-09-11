@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,6 +43,7 @@
 	</div>
 
 
+	</div>
 	<!-- 08-20 채승훈 -->
 	<div class="locationTypeBody">
 	<!-- 지역별 -->
@@ -113,7 +115,14 @@
 
 	<br>
 	<div class="membership-list">
+	<c:if test="${fn:length(list) == 0}">
+			<div class="noMember">해당 정보가 없습니다.. 😥</div>
+		</c:if>
+
+	<c:if test="${fn:length(list) != 0}">
 		<c:forEach items="${list}" var="info" varStatus="status">
+
+		
 			<div class="membership-card">
 				
 			<c:if test="${info.membershipDate >=  today30 &&  today >= info.membershipDate}">
@@ -193,8 +202,11 @@
 					</div>
 				</div>
 			</div>
+			
 		</c:forEach>
+		</c:if>
 	</div>
+	
 	<jsp:include page="chatting/chattingIndex.jsp" />
 	<jsp:include page="footer/footerIndex.jsp" />
 	

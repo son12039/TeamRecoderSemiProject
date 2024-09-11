@@ -49,7 +49,7 @@ public class EmailService {
     }
     // 이메일로 임시 비밀번호 전송
     public void sendTemporaryPasswordEmail(String email, String tempPassword) {
-        String subject = "Dimoim 사이트 임시 비밀번호 안내";
+        String subject = "Damoim 사이트 임시 비밀번호 안내";
         String body = "당신의 임시 비밀번호는: " + tempPassword;
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email); // 수신자

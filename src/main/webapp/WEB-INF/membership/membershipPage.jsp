@@ -34,95 +34,144 @@
 
 
 
+
 </style>
 <body>
  <jsp:include page="../header/header.jsp" />
  
 
 		<sec:authentication property="principal" var="member" />
-	<div id="main-container">
-	
-		<div class="accordion" id="accordionExample">
-				<div class="accordion-item">
-					<h2 class="accordion-header">
-						<button class="accordion-button collapsed " type="button"
-							data-bs-toggle="collapse" data-bs-target="#collapseOne"
-							aria-expanded="true" aria-controls="collapseOne" >
-							함께하는 멤버들</button>
-					</h2>
-					<div id="collapseOne" class="accordion-collapse collapse "
-						data-bs-parent="#accordionExample">
-						<div class="accordion-body">
-						
-					    <c:forEach items="${allMember}" var="listMember">
-					   
-            <div class="memberTable">
-                        <ul>
-                        <div class="member-img-icon-nickname-manner">
-                        <div class="member-img-icon">
-                        <div class="member-icon">
-                        <c:if test="${listMember.listGrade == 'host'}">
-                            <li class="member-grade"><span><i class="fa-solid fa-crown"></i></span></li>
-                            </c:if>
-                            <c:if test="${listMember.listGrade == 'regular' }">
-                         <li class="member-grade">   일반회원 </li>
-                            </c:if>
-                            <c:if test="${listMember.listGrade == 'admin' }">
-                           <li class="member-grade">   관리자 </li>
-                            </c:if>
-                           </div>
-                            <div class="member-img">
-                            <c:if test="${listMember.member.memberImg != null}">
-                            <li><img class="allmemberImg" src="http://192.168.10.51:8081/member/${listMember.member.id}/${listMember.member.memberImg}" alt="회원 이미지"></li>
-                            </c:if>
-                            <c:if test="${listMember.member.memberImg == null}">
-                            <img class="allmemberImg" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg" alt="회원 이미지">
-                            </c:if>
-                            </div>
-                            </div>
-                          
-                          
-                            <div class="nickname-manner">
-                            
-                            <div class="nickname">
-                            ${listMember.member.nickname}
-                            </div>
-                     
-                         
-                  		<div class="manner">
-							<c:if test="${listMember.member.memberManner < 30}">
-								<p>${listMember.member.memberManner}℃</p>
-								<span style="color: red"><i
-									class="fa-solid fa-face-angry fa-2x"></i></span>
-							</c:if>
-							<c:if test="${listMember.member.memberManner >= 30 && listMember.member.memberManner <= 40}">
-								<p>${listMember.member.memberManner}℃</p>
-								<span style="color: rgb(252, 177, 3)"><i
-									class="fa-solid fa-face-smile fa-2x"></i></span>
-							</c:if>
-							<c:if test="${listMember.member.memberManner > 40}">
-								<p>${listMember.member.memberManner}℃</p>
-								<span style="color: green"><i
-									class="fa-solid fa-face-grin fa-2x"></i></span>
-							</c:if>
-						</div>
-                        
-                          </div>
-                          </div>
-                        </ul>
-             
-            </div> <!--  멤버 테이블 반복 출력  -->
-        </c:forEach>
-					
-					
-					
-						</div> <!-- 여기까지가 아코디언 바디임  -->
-					</div>
-				</div>
-			
-			</div>
+		<c:forEach items="${member.memberListDTO}" var="loginMember">
+				<c:if
+					test="${loginMember.membershipCode == main.membership.membershipCode}">
+					<c:set var="memberGrade" value="${loginMember.listGrade}" />
 
+				</c:if>
+			</c:forEach>
+	<div id="main-container">
+
+		<div class="accordion" id="accordionExample">
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed " type="button"
+						data-bs-toggle="collapse" data-bs-target="#collapseOne"
+						aria-expanded="true" aria-controls="collapseOne">함께하는
+						멤버들</button>
+				</h2>
+				<div id="collapseOne" class="accordion-collapse collapse "
+					data-bs-parent="#accordionExample">
+					<div class="accordion-body">
+
+						<c:forEach items="${allMember}" var="listMember">
+
+							<div class="memberTable">
+								<ul>
+									<div class="member-img-icon-nickname-manner">
+										<div class="member-img-icon">
+											<div class="member-icon">
+												<c:if test="${listMember.listGrade == 'host'}">
+													<li class="member-grade"><span><i
+															class="fa-solid fa-crown"></i></span></li>
+												</c:if>
+												<c:if test="${listMember.listGrade == 'regular' }">
+													<li class="member-grade">일반회원</li>
+												</c:if>
+												<c:if test="${listMember.listGrade == 'admin' }">
+													<li class="member-grade">관리자</li>
+												</c:if>
+											</div>
+											<div class="member-img">
+												<c:if test="${listMember.member.memberImg != null}">
+													<li><img class="allmemberImg"
+														src="http://192.168.10.51:8081/member/${listMember.member.id}/${listMember.member.memberImg}"
+														alt="회원 이미지"></li>
+												</c:if>
+												<c:if test="${listMember.member.memberImg == null}">
+													<img class="allmemberImg"
+														src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg"
+														alt="회원 이미지">
+												</c:if>
+											</div>
+										</div>
+
+
+										<div class="nickname-manner">
+
+											<div class="nickname">${listMember.member.nickname}</div>
+
+
+											<div class="manner">
+												<c:if test="${listMember.member.memberManner < 30}">
+													<p>${listMember.member.memberManner}℃</p>
+													<span style="color: red"><i
+														class="fa-solid fa-face-angry fa-2x"></i></span>
+												</c:if>
+												<c:if
+													test="${listMember.member.memberManner >= 30 && listMember.member.memberManner <= 40}">
+													<p>${listMember.member.memberManner}℃</p>
+													<span style="color: rgb(252, 177, 3)"><i
+														class="fa-solid fa-face-smile fa-2x"></i></span>
+												</c:if>
+												<c:if test="${listMember.member.memberManner > 40}">
+													<p>${listMember.member.memberManner}℃</p>
+													<span style="color: green"><i
+														class="fa-solid fa-face-grin fa-2x"></i></span>
+												</c:if>
+											</div>
+
+										</div>
+									</div>
+								</ul>
+
+							</div>
+							<!--  멤버 테이블 반복 출력  -->
+						</c:forEach>
+
+
+
+					</div>
+					<!-- 여기까지가 아코디언 바디임  -->
+				</div>
+			</div>
+			
+			<c:if test="${memberGrade == 'host' || memberGrade == 'admin'}">	
+			  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+      클럽 관리 
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+    
+		<div id="menu">
+		<ul>
+					
+					<li><a href="/club/${main.membership.membershipCode}/membershipPromotionDetail" >홍보글 작성</a></li>		
+					<li><a href="/write?membershipCode=${main.membership.membershipCode}">모임게시판작성하러가기</a></li>				
+					<li><a id="management"  href="/management?membershipCode=${main.membership.membershipCode}">멤버관리페이지	<c:if test="${newMember > 0}">
+					
+					<p class="ifNew">New</p>
+				
+					
+					 </c:if> </a></li>
+						<c:if test="${memberGrade == 'host'}">
+						<li><a href="/updateMembership">정보 수정하기</a></li>
+						<li><button id="deleteButton">클럽삭제 </button></li>
+					</c:if>
+				</ul>
+		</div>
+		
 	
+      </div>
+    </div>
+  </div>
+  </c:if>
+
+
+		</div>
+
+
 		<div id="container">
 		<c:if test="${main.membership.membershipImg != null}">
 			<img id="mainImg"
@@ -162,41 +211,22 @@
 			
 			
 		<div id="calendar-info">
-		
+		 
 		 <p>일정 한눈에 보기</p>
 		<div id="calendar"></div>
+		
 		</div>
 			
 		
 
 		
-		
+			<div class="alink-container"><a class="main-link" href="/${main.membership.membershipCode}">우리 클럽 홍보 게시판</a></div>
 		</div>
 		
-			<c:forEach items="${member.memberListDTO}" var="loginMember">
-				<c:if
-					test="${loginMember.membershipCode == main.membership.membershipCode}">
-					<c:set var="memberGrade" value="${loginMember.listGrade}" />
+			
+		
+		
 
-				</c:if>
-			</c:forEach>
-		
-		
-	<c:if test="${memberGrade == 'host' || memberGrade == 'admin'}">	
-		<div id="menu">
-		<ul>
-					<li class="mainMenu">클럽 관리</li>
-					<li><a href="/club/${main.membership.membershipCode}/membershipPromotionDetail" >홍보글 작성</a></li>		
-					<li><a href="/write?membershipCode=${main.membership.membershipCode}">모임게시판작성하러가기</a></li>				
-					<li><a id="management"  class="dropdown-item" href="/management?membershipCode=${main.membership.membershipCode}"> 멤버관리페이지 </a></li>
-						<c:if test="${memberGrade == 'host'}">
-						<li><a href="/updateMembership">정보 수정하기</a></li>
-						<li><button id="deleteButton">클럽삭제 </button></li>
-					</c:if>
-				</ul>
-		</div>
-		
-	</c:if>	
 		
 		
 		
@@ -204,8 +234,7 @@
 		
 		
 		
-		
-		
+	
 		
 		</div>
 		
@@ -247,15 +276,15 @@
 	<script>
 	function allDeleteMembership() {
 		let pwdCheck = $("#pwdCheck").val();
-		if (confirm("해당 클럽에 대한 모든 데이터는 삭제 처리 됩니다 그래도 삭제하시겠습니까?")) {
+		if (confirm("클럽원이 본인만 남아있는 클럽만 삭제할 수 있으며 해당 클럽에 대한 모든 데이터는 삭제 처리 됩니다 그래도 삭제하시겠습니까?")) {
 			$.ajax({
 						url: '/allDeleteMembership',
 						type: 'POST',
 						data: {
 							pwdCheck: pwdCheck
 						},
-						success: function(check) {
-							if(check){
+						success: function(bo) {
+							if(bo){
 							alert("클럽 삭제 완료");
 							location.href="/";
 							}else {

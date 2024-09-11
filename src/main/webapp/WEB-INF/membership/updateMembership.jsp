@@ -91,7 +91,7 @@ background: white;
 					<label for="${locLN}" class="locLNCss">${locLN}</label>
 				</c:forEach>
 			</div>
-			<div class="locSbox"></div>
+			<div class="locSbox" style="display: none;"></div>
 			<div id="typeLaText">유형을 선택해주세요</div>
 			<div class="typeLabox">
 				<c:forEach items="${typeLaNameList}" var="typeLN">
@@ -100,7 +100,7 @@ background: white;
 					<label for="${typeLN}" class="typeLNCss">${typeLN}</label>
 				</c:forEach>
 			</div>
-			<div class="typeSbox"></div>
+			<div class="typeSbox" style="display: none;"></div>
 			<!-- locationSList typeSName -->
 			<!-- 도시별 지역별 태그 선택 ============================================================== -->
 
@@ -143,7 +143,7 @@ $.ajax({
 			</c:forEach>
 			locS += "> <label for='" + i +"' class='locLNCss'>" + i + "</label>";
 		}
-		$(".locSbox").html(locS);
+		$(".locSbox").show().html(locS);
 	},
 })
 
@@ -166,7 +166,7 @@ $.ajax({
 			</c:forEach>
 			typeS += "> <label for='" + i +"' class='typeLNCss'>" + i + "</label>";
 		}
-		$(".typeSbox").html(typeS);
+		$(".typeSbox").show().html(typeS);
 	},
 })
 

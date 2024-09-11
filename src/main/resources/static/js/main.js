@@ -95,7 +95,7 @@ function reCommentKey(code){
 			membershipCode: $(id).next().next().val()
 		},
 		success: function() {
-			alert("대댓글 등록 완료!")
+			alert("댓글 등록!")
 			location.reload();
 		}
 	})

@@ -89,18 +89,23 @@ public class MemberController {
 	 * 성철 회원가입 할때 닉네임(유니크 제약조건) 중복회원 체크
 	 */
 	@ResponseBody
-	@PostMapping("/nicknameCheck") // 회원가입시 닉네임 중복 체크
+	@PostMapping("/nicknameCheck") // 회원가입시,정보 수정시 닉네임 중복 체크
 	public boolean nicknameCheck(Member member) {
 		Member mem = service.nicknameCheck(member);
 		if(mem == null) { // 중복이 아닐시 
 			return true;
 		}else { // 중복일시  
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			Member loginMember = (Member) authentication.getPrincipal();
-			if(loginMember.getId().equals(mem.getId())) { // 로그인한 회원과 중복인 회원의 id가 일치할시
-				return true;
+			try {
+				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+				Member loginMember = (Member) authentication.getPrincipal();
+				if(loginMember.getId().equals(mem.getId())) { 
+					return true;	// 로그인한 회원과 중복인 회원의 id가 일치할시(변경 없이 그대로 수정)
+				}
+					return false; // 회원정보 수정중 단순 중복 닉네임
+			} catch (Exception e) {
+				return false; // 중복이지만 회원가입 상황에 에러 유도 false 리턴
 			}
-			return false;
+			
 		}
 	}	
 	
@@ -114,12 +119,17 @@ public class MemberController {
 		if(mem == null) { // 중복이 아닐시 
 			return true;
 		}else { // 중복일시  
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			Member loginMember = (Member) authentication.getPrincipal();
-			if(loginMember.getId().equals(mem.getId())) { // 로그인한 회원과 중복인 회원의 id가 일치할시
-				return true;
+			try {
+				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+				Member loginMember = (Member) authentication.getPrincipal();
+				if(loginMember.getId().equals(mem.getId())) { // 로그인한 회원과 중복인 회원의 id가 일치할시
+					return true;
+				}
+				return false;
+			} catch (Exception e) {
+				return false;
 			}
-			return false;
+			
 		}
 
 	}
@@ -167,26 +177,19 @@ public class MemberController {
 		Member member = new Member();
 		member.setId(id);
 		member.setEmail(email);
-		System.out.println("DB에 보낼 정보 : " + member);
 		Member mem = emailService.memberEmailIdcheck(member);
-		System.out.println("DB의 정보 : " + mem);
-		try {
-			System.out.println("서비스 진입전 member 정보 : " + mem);
-			emailService.processPasswordReset(mem);
-			System.out.println("서비스 진입성공");
+		try {	
 			if (mem != null) {
+				emailService.processPasswordReset(mem);
 				model.addAttribute("message", "임시 비밀번호가 이메일로 전송되었습니다.");
-				System.out.println("비밀번호 변경 완료");
 			} else {
-				System.out.println("아이디 비밀번호 일치 X");
 				model.addAttribute("message", "아이디와 이메일이 일치하지 않습니다.");
 			}
 		} catch (Exception e) {
 			model.addAttribute("message", "비밀번호 재설정에 실패했습니다.");
-			System.out.println("비밀번호 변경 실패");
 		}
 
-		return "login/findPassword"; // 인덱스 페이지로 리다이렉트
+		return "login/findPassword"; 
 	}
 
 	/*
@@ -422,30 +425,20 @@ public class MemberController {
 	}
 	// 성철 회원 탈퇴시 id 값을 받아서 폴더도 삭제
 	public boolean folderDelete(String id) {
-		 String path = "\\\\\\\\192.168.10.51\\\\damoim\\\\member\\\\" + id; 
-        File folder = new File(path); //
-        try {
+		String path = "\\\\\\\\192.168.10.51\\\\damoim\\\\member\\\\" + id; 
+        File folder = new File(path); // 폴더 경로 지정   
             if (folder.exists()) { // 폴더가 존재한다면
                 File[] listFiles = folder.listFiles();
-                System.out.println("폴더 존재?");
                 for (File file : listFiles) { // 폴더 내 파일을 반복시켜서 삭제
-                	System.out.println("포문도착");
                     file.delete();
-                }	
-                	System.out.println("폴더 삭제");
-                	folder.delete();
-
-//                if (listFiles.length == 0 && folder.isDirectory()) { // 하위 파일이 없는지와 폴더인지 확인 후 폴더 삭제
-//                
-//                }
-            }
-       
+                	}	
+                folder.delete();
+                return true;
+            }       
+            else return false;
             
-        }
-       catch (Exception e) {
-       	return false;
 		}
-       return true;
-	}
+       
+	
 
 }

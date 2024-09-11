@@ -247,15 +247,15 @@
 	<script>
 	function allDeleteMembership() {
 		let pwdCheck = $("#pwdCheck").val();
-		if (confirm("클럽원이 본인만 남아있는 클럽만 삭제할 수 있으며 해당 클럽에 대한 모든 데이터는 삭제 처리 됩니다 그래도 삭제하시겠습니까?")) {
+		if (confirm("해당 클럽에 대한 모든 데이터는 삭제 처리 됩니다 그래도 삭제하시겠습니까?")) {
 			$.ajax({
 						url: '/allDeleteMembership',
 						type: 'POST',
 						data: {
 							pwdCheck: pwdCheck
 						},
-						success: function(bo) {
-							if(bo){
+						success: function(check) {
+							if(check){
 							alert("클럽 삭제 완료");
 							location.href="/";
 							}else {

@@ -191,23 +191,21 @@ public class MembershipController {
 		if(memberService.updateCheck(mem, pwdCheck)) { // 삭제전 비밀번호 확인			
 		int membershipCode = -1;
 		for(MemberListDTO dto: mem.getMemberListDTO()) {
-			if(dto.getListGrade().equals("host")) { // 해당 회원이 호스트인 클럽 삭제
-				membershipCode = dto.getMembershipCode();
+			if(dto.getListGrade().equals("host")) { // 해당 회원이 호스트인 클럽 찾기
+				membershipCode = dto.getMembershipCode(); // 코드 저장함
 			}
 		}
-		Membership membership = service.selectMembership(membershipCode);
 		boolean ck = removeService.allDeleteMembership(membershipCode); // 삭제 성공 실패 유무
-		if(membership == null)	return false; // 호스트인 클럽 존재 X 
 		if(ck) { // 삭제 로직 성공
 			try {
 				folderDelete(membershipCode); // 폴더와 하위 파일 삭제
 			} catch (Exception e) {
-				return false; // 파일삭제 실패
+				 // 파일&폴더 삭제 실패
 			}
 			ArrayList<MemberListDTO> list = (ArrayList<MemberListDTO>) mem.getMemberListDTO(); // 로그인 회원 정보
 			for(int i = 0; i < list.size(); i++) {
 				if(list.get(i).getMembershipCode() == membershipCode) {
-					list.remove(i); // 해당 DTO에서 삭제한 DTO 제거
+					list.remove(i); // 로그인 세션에서 삭제한 DTO 제거
 					break;	//반복문 빠져나감
 				}		
 			}	
@@ -376,45 +374,35 @@ public class MembershipController {
 	
 	
 	
-	/*
-	 * 성철 파일 삽입 메서드 해당맴버쉽 프로필사진 !!
-	 * 
-	 */
+	
+	 //  성철 파일 삽입 메서드 !!
 	public String fileUpload(MultipartFile file, int code) throws IllegalStateException, IOException {
 		if (file == null || file.getOriginalFilename() == "") {
-			return null;
+			return null; // 파일이 오지 않은경우 파일명(DB에 넣어줄 정보)null
 		}
 		UUID uuid = UUID.randomUUID(); // 랜덤 파일명 부여
 		String fileName = uuid.toString() + "_" + file.getOriginalFilename();
 		File copyFile = new File("\\\\192.168.10.51\\damoim\\membership\\" + Integer.toString(code) + "\\" + fileName);
 		file.transferTo(copyFile);
-		return fileName;
+		return fileName; // 파일 실 서버에 추가후 DB에는 경로 다빼고 이름만 추가
 	}
 
-	/*
-	 * 성철 파일 삭제 메서드 해당유저 프로필사진 변경시 사용!! 실 사용때는 조건에 만약 보내준 링크가 null이면 변하지 않도록
-	 */
+	 // 성철 파일 삭제 메서드 사진 변경시 사용!! 조건에 만약 보내준 링크가 null이면 변하지 않도록
 	public void fileDelete(String file, int code) throws IllegalStateException, IOException {
-		if (file == null) {
-		} else {
-			String decodedString = URLDecoder.decode(file, StandardCharsets.UTF_8.name());
+		if (file != null) { // 보내준 DB저장된 파일명이 null이 아니면
+			String decodedString = URLDecoder.decode(file, StandardCharsets.UTF_8.name()); // 한글 디코딩 처리
 			File f = new File("\\\\192.168.10.51\\damoim\\membership\\" + Integer.toString(code) + "\\" + decodedString);
-			f.delete();
-
+			f.delete(); // 파일 삭제
 		}
-
 	}
-	/*
-	 * 성철
-	 * 폴더 내의 파일 삭제(클럽 삭제시)
-	 * */
+
+	 // 성철 폴더 내의 파일 삭제(클럽 삭제시)
 	public boolean folderDelete(int code) {
 		 String path = "\\\\\\\\192.168.10.51\\\\damoim\\\\membership\\\\" + Integer.toString(code); 
-         File folder = new File(path); //
+         File folder = new File(path); // 해당 폴더 경로 지정후
          try {
              if (folder.exists()) { // 폴더가 존재한다면
-                 File[] listFiles = folder.listFiles();
-
+                 File[] listFiles = folder.listFiles(); // 폴더안의 파일을 리스트로
                  for (File file : listFiles) { // 폴더 내 파일을 반복시켜서 삭제
                      file.delete();
                  }

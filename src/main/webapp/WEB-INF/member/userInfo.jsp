@@ -110,12 +110,14 @@
 						<div class="club_info">
 							<c:forEach items="${mem.membershipUserList}" var="list">
 								<c:if test="${list.listGrade != 'guest'}">
+								<a href="/${list.membership.membershipCode}">
 									<div class="club_box">
-										<a href="/${list.membership.membershipCode}"><img
+										<img
 											class="club_img"
 											src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}">
-											<p>${list.membership.membershipName}</p> </a>
+											<div class="club-text">${list.membership.membershipName}</div> 
 									</div>
+									</a>
 								</c:if>
 							</c:forEach>
 						</div>
@@ -126,13 +128,15 @@
 						<div class="club_info">
 							<c:forEach items="${mem.membershipUserList}" var="list">
 								<c:if test="${list.listGrade == 'guest'}">
+									<a href="/${list.membership.membershipCode}">
 									<div class="club_box">
-										<a href="/${list.membership.membershipCode}"> <img
+										 <img
 											class="club_img"
 											src="http://192.168.10.51:8081/membership/${list.membership.membershipCode}/${list.membership.membershipImg}">
-											<p>${list.membership.membershipName}</p>
-										</a>
+											<div class="club-text">${list.membership.membershipName}</div>
+										
 									</div>
+									</a>
 								</c:if>
 							</c:forEach>
 						</div>

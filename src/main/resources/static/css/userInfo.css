@@ -298,11 +298,8 @@ h1 {
 	align-items: center;
 }
 
-.club_box p {
-	font-weight: bolder;
-}
 
-.club_info p {
+.club-text {
 	font-size: 0.8rem;
 	margin-top: 5px;
 	overflow: hidden;

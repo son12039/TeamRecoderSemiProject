@@ -96,14 +96,14 @@ nickname.addEventListener('input', function() { // 닉네임 체크
 			url: '/nicknameCheck', // 컨트롤러 URL
 			data: { nickname: nicknameValue },
 			success: function(result) {
-				if (result) { // 서버 응답을 'true' 또는 'false'로 가정
+				if (result) { // 리턴은 boolean
 					console.log(result);
 					$('#nicknameResult').html('<img src="https://cdn-icons-png.flaticon.com/512/11433/11433360.png" width="13px">');
 					nick = nicknameValue;
 					nicknameSubmit = true;
 				} else {
 					console.log(result);
-					$('#nicknameResult').text(" 중복 닉네임 입니다").css('color', 'red');
+					$('#nicknameResult').text("중복 닉네임 입니다").css('color', 'red');
 					nicknameSubmit = false;
 				}
 			}
@@ -191,13 +191,6 @@ function validate() {
 	else if (!emailSubmit) email.focus();
 
 	if (!(idSubmit && pwdSubmit && pwdcSubmit && ageSubmit && nicknameSubmit && emailSubmit && nameSubmit)) {
-		console.log("아이디 : " + idSubmit);
-		console.log("비밀번호 : " + pwdSubmit);
-		console.log("비밀번호확인 : " + pwdcSubmit);
-		console.log("나이 : " + ageSubmit);
-		console.log("닉네임 : " + nicknameSubmit);
-		console.log("이메일 : " + emailSubmit);
-		console.log("이름 : " + nameSubmit);
 		alert("!! 다시 확인해주십시오!!");
 	}
 	if ((idSubmit && pwdSubmit && pwdcSubmit && ageSubmit && nicknameSubmit && emailSubmit && nameSubmit)) {

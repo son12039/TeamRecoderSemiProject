@@ -2,10 +2,6 @@
 
 $(document).ready(function() {
     function recommendation(targetMember, loginMember, plusMinus) {
-        console.log("대상 " + targetMember);
-        console.log("로그인 유저 " + loginMember);
-		console.log("추천비추천 여부 불리언 " + plusMinus);
-	
 		$.ajax({
 			url: '/recommendation', 
 					type: 'POST',
@@ -16,7 +12,7 @@ $(document).ready(function() {
 					},
 					success: function(date) {
 						if(date){
-							alert("추천&비추천 성공")
+							alert("추천&비추천이 완료되었습니다")
 						}else {
 							alert("회원 추천기능은 24시간마다 가능합니다.")
 						}

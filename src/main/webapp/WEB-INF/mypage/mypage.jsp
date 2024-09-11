@@ -149,9 +149,10 @@
 					<c:forEach items="${mypage}" var="mem">
 						<c:set var="myGrade" value="${mem.listGrade}" />
 						<c:if test="${myGrade != 'guest'}">
-							<a href="/club/${mem.membership.membershipCode}">
+							
 								<div class="membership-each">
 									<div>
+									<a href="/club/${mem.membership.membershipCode}">
 										<c:if test="${mem.membership.membershipImg != null}">
 											<img class="membership-img"
 												src="http://192.168.10.51:8081/membership/${mem.membership.membershipCode}/${mem.membership.membershipImg}"
@@ -162,6 +163,7 @@
 												src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">
 										</c:if>
 									</div>
+									</a>
 									<div class="membership-String">
 										<div class="member-grade">
 											<c:if test="${myGrade == 'host'}">
@@ -201,7 +203,7 @@
 										</div>
 									</div>
 								</div>
-							</a>
+							
 						</c:if>
 					</c:forEach>
 				</div>
@@ -220,8 +222,9 @@
 					<c:forEach items="${mypage}" var="mem">
 						<c:set var="myGrade" value="${mem.listGrade}" />
 						<c:if test="${myGrade == 'host' || myGrade == 'admin'}">
-							<a href="/club/${mem.membership.membershipCode}">
+							
 								<div class="membership-each">
+								<a href="/club/${mem.membership.membershipCode}">
 									<div>
 										<c:if test="${mem.membership.membershipImg != null}">
 											<img class="membership-img"
@@ -233,6 +236,7 @@
 												src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">
 										</c:if>
 									</div>
+									</a>
 									<div class="membership-String">
 										<div class="member-grade">
 											<c:if test="${myGrade == 'host'}">
@@ -262,7 +266,7 @@
 													<button class="Management-button" id="update-club"
 														type="submit" value="클럽수정">클럽 정보 수정</button>
 												</form>
-												<button class="Management-button">클럽삭제</button>
+												<button id="deleteButton" class="Management-button">클럽삭제</button>
 											</c:if>
 											<c:if test="${myGrade != 'host'}">
 												<button class="Management-button"
@@ -271,7 +275,7 @@
 										</div>
 									</div>
 								</div>
-							</a>
+							
 						</c:if>
 					</c:forEach>
 				</div>
@@ -290,8 +294,9 @@
 					<c:forEach items="${mypage}" var="mem">
 						<c:set var="myGrade" value="${mem.listGrade}" />
 						<c:if test="${myGrade == 'guest'}">
-							<a href="/${mem.membership.membershipCode}">
+							
 								<div class="membership-each">
+								<a href="/${mem.membership.membershipCode}">
 									<div>
 										<c:if test="${mem.membership.membershipImg != null}">
 											<img class="membership-img"
@@ -302,7 +307,7 @@
 											<img class="membership-img"
 												src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%EB%AA%A8%EC%9E%84%EC%9D%B4%EB%AF%B8%EC%A7%80.jpg">
 										</c:if>
-
+									</a>
 									</div>
 									<div class="membership-String">
 										<h4>${mem.membership.membershipName}</h4>
@@ -321,7 +326,7 @@
 											취소</button>
 									</div>
 								</div>
-							</a>
+							
 						</c:if>
 					</c:forEach>
 
@@ -337,6 +342,12 @@
 					<c:if test="${loginMemberGrade.listGrade == 'host'}">
 						<!-- grade가 호스트이면 set 변경 -->
 						<c:set var="host" value="${true}" />
+						<c:set var= "hostCode" value="${loginMemberGrade.membershipCode}"/>
+							<c:forEach items="${mypage}" var="mem">
+								<c:if test="${hostCode == mem.membership.membershipCode}">
+								<c:set var="hostCount" value="${mem.count == 1}" />
+								</c:if>
+							</c:forEach>
 					</c:if>
 				</c:forEach>
 

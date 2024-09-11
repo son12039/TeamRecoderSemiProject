@@ -1,120 +1,155 @@
-#box{
-  		padding-top: 100px;
-  		background-color: #e5e5e5;
-  		height: 100%;
+#box {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 120px;
+	padding-bottom: 70px;
+	background-color: #e5e5e5;
+	height: 100%;
 }
-#container{
-	padding: 30px 310px;
-	
-	
+
+#container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 60%;
+	height: 100%;
 }
+
 #colors {
 	border: none;
 	width: 30px;
 	height: 30px;
 	appearance: none;
-	background-color:  #ffff;
+	background-color: #ffff;
 	border-radius: 50%;
-	
 }
-#colors::-webkit-color-swatch{
+
+#colors::-webkit-color-swatch {
 	border-radius: 50%;
 	border: none;
 }
-#input-box{
-	display: flex;
-	justify-content: space-between;
+
+#input-box {
 	margin-bottom: 10px;
-	
 }
-#title{
+
+#title {
 	padding: 10px;
-	min-width: 500px;
-	max-width: 1000px;
 	width: 100%;
 }
 
-#input-left > h1, #input-left > label{
-	font-size: 2rem;
+#input-top>h1, #input-top>label {
+	font-size: 2.3rem;
 	font-family: "Jua", sans-serif;
 	margin-bottom: 10px;
 	align-self: center;
-	
 }
-#input-right{
+
+#input-bottom {
 	display: flex;
-    justify-content: center;
-    align-items: center;
+	justify-content: space-between;
+	white-space: nowrap;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	width: 100%;
 }
-#input-right > h2{
+#input-bottom-left{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#input-bottom-left h2 {
+	font-size: 1.5rem;
+	font-weight: bolder;
+	padding-right: 15px;
+}
+#input-bottom-right{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+#input-bottom-right h2 {
+	font-size: 1.5rem;
+	font-weight: bolder;
+}
+#input-bottom>h2 {
 	font-size: 1.2rem;
 	font-family: "Jua", sans-serif;
 }
-#input-right > input{
+
+#input-bottom>input {
 	margin: 5px;
 }
+
 .day {
-  position: relative;
-  border: none; 
-  font-family: "Jua", sans-serif;
-  padding: 10px 5px;
-  background-color: #f88c1d;
-  color: white;
-  border-radius: 8px;
-  text-align: center;
-  font-size: 1rem;
-  margin-bottom: 20px;
+	position: relative;
+	border: none;
+	font-family: "Jua", sans-serif;
+	padding: 10px 5px;
+	background-color: #f88c1d;
+	color: white;
+	border-radius: 8px;
+	text-align: center;
+	font-size: 1rem;
+	margin-left: 15px;
+	margin-right: 15px;
 }
-
-
+.day:hover{
+	background-color: #e76f00;
+}
 .day::-webkit-calendar-picker-indicator {
-  position: absolute; 
-  width: 100%;
-  height: 100%;
-  background: transparent; 
-  color: transparent; 
-  cursor: pointer;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	color: transparent;
+	cursor: pointer;
 }
 
 .day::before {
-  content: attr(placeholder); 
-  width: 100%;
-  height: 100%;
+	content: attr(placeholder);
+	width: 100%;
+	height: 100%;
 }
-
 
 .day:valid::before {
-  display: none; 
+	display: none;
 }
-#button-box{
+
+#button-box {
 	padding-top: 10px;
 	display: flex;
-	flex-direction: row-reverse;	
+	flex-direction: row-reverse;
 }
+
 .button {
-  background-color: #f88c1d;
-  color: #fff;
-  border: none;
-  font-size : 1.2rem;
-  padding: 8px 15px;
-  text-transform: uppercase;
-  
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-  margin-left: 10px;
-  font-family: "Jua", sans-serif;
+	background-color: #f88c1d;
+	color: #fff;
+	border: none;
+	font-size: 1.2rem;
+	padding: 8px 15px;
+	text-transform: uppercase;
+	cursor: pointer;
+	border-radius: 5px;
+	transition: background-color 0.3s ease;
+	margin-left: 10px;
+	font-family: "Jua", sans-serif;
 }
+
 .button:hover {
-  background-color: #e76f00;
+	background-color: #e76f00;
 }
-#back-button{
-	 background-color: #555;
-	 color: white;
-	 display: flex;
-	 justify-content: center;
-	 align-items: center;
+
+#back-button {
+	background-color: #555;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
+
 #back-button:hover {
 	background-color: #000;
 }

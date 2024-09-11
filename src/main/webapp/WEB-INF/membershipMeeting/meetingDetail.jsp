@@ -28,14 +28,7 @@
 <script src="https://kit.fontawesome.com/ef885bd654.js"
 	crossorigin="anonymous"></script>
 
-	<style>
-		button {
-    margin: 0;
-    font-size: 0.8rem;
-    font-family:;
-	</style>
 </head>
-
 <body>
 	<jsp:include page="../header/header.jsp"></jsp:include>
 
@@ -75,10 +68,10 @@
                            
                             <div class="member-img">
                             <c:if test="${list.member.memberImg != null}">
-                            <li><img class="allmemberImg" src="http://192.168.10.51:8081/member/${list.member.id}/${list.member.memberImg}" ></li>
+                            <li><img class="allmemberImg" src="http://192.168.10.51:8081/member/${cMember.member.id}/${cMember.member.memberImg}" alt="회원 이미지"></li>
                             </c:if>
                             <c:if test="${list.member.memberImg == null}">
-                            <img class="allmemberImg" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg">
+                            <img class="allmemberImg" src="http://192.168.10.51:8081/%EA%B8%B0%EB%B3%B8%ED%94%84%EC%82%AC.jpg" alt="회원 이미지">
                             </c:if>
                             </div>
                             </div>
@@ -283,7 +276,7 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 							name="meetCode" value="${meet.meetCode}">
 
 					</div>
-					<button class="btn-com" id="submit-comment" type="button">댓글
+					<button class="btn" id="submit-comment" type="button">댓글
 						등록</button>
 				</div>
 			</form>
@@ -322,11 +315,11 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 						<div class="comment-text">${com.meetCommentText}</div>
 						<c:if
 							test="${com.nickname == member.nickname || memberGrade == 'host' || memberGrade == 'admin'}">
-							<button type="button" class="btn-com"
+							<button type="button" class="btn"
 								onclick="deleteComment(event, ${com.meetCommentCode})">삭제</button>
 						</c:if>
 						<c:if test="${com.nickname == member.nickname}">
-							<button type="button" class="btn-com"
+							<button type="button" class="btn"
 								onclick="updateForm(${com.meetCommentCode})">수정</button>
 							<div id="update-form-${com.meetCommentCode}" class="update-form">
 								<form id="comment-frm-${com.meetCommentCode}">
@@ -348,7 +341,7 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 										<input id="textbox-update-${com.meetCommentCode}" type="text"
 											name="mainCommentText" value="${com.meetCommentText}"
 											onclick="updateKey(${com.meetCommentCode})">
-										<button type="button" class="btn-com"
+										<button type="button" class="btn"
 											onclick="updateComment(event,${com.meetCommentCode})">댓글
 											수정</button>
 									</div>
@@ -356,7 +349,7 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 							</div>
 						</c:if>
 					</c:if>
-					<button type="button" class="btn-com"
+					<button type="button" class="btn"
 						onclick="showReplyForm(${com.meetCommentCode})">
 						답글
 						<c:if test="${fn:length(com.recoment) != 0}">(${fn:length(com.recoment)})</c:if>
@@ -393,13 +386,13 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 												<div class="textBtn">
 													<c:if
 														test="${recom.nickname == member.nickname || memberGrade == 'host' || memberGrade == 'admin'}">
-														<button type="button" class="btn-com-del"
+														<button type="button" class="btn"
 															onclick="deleteComment(event, ${recom.meetCommentCode})">삭제</button>
 													</c:if>
 													
 													
 													<c:if test="${recom.nickname == member.nickname}">
-														<button type="button" class="btn-com"
+														<button type="button" class="btn"
 															onclick="updateForm(${recom.meetCommentCode})">수정</button>
 													</c:if>
 												</div>
@@ -422,12 +415,12 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 														</c:choose>
 														<div class = "text-update-box">
 															<label for="textbox-update-${recom.meetCommentCode}">
-																${member.nickname} : </label> <input
+																${member.nickname}</label> <input
 																id="textbox-update-${recom.meetCommentCode}" type="text"
 																name="mainCommentText" value="${recom.meetCommentText}"
 																onclick="updateKey(${recom.meetCommentCode})">
 														</div>
-														<button type="button" class="btn-com"
+														<button type="button" class="btn"
 															onclick="updateComment(event,${recom.meetCommentCode})">댓글
 															수정</button>
 													</div>
@@ -466,7 +459,7 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 												type="hidden" name="membershipCode"
 												value="${com.meetCode}">
 										</div>
-										<button type="button" class="btn-com"
+										<button type="button" class="btn"
 											onclick="recomment(event, ${com.meetCommentCode})">댓글
 											등록</button>
 									</div>
@@ -489,7 +482,7 @@ src="http://192.168.10.51:8081/membership/${allInfo.get(0).membership.membership
 	
 	</div>
 	
-	<jsp:include page="../chatting/chattingIndex.jsp" />
+	
 	<jsp:include page="../footer/footer.jsp" />
 
 	

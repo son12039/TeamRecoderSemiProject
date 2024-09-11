@@ -140,7 +140,7 @@ ALTER TABLE main_comment ADD  FOREIGN KEY (membership_code) REFERENCES membershi
  alter table member ADD unique key (email);
  
  -- 유저간 추천 쿨타임 24시간 이벤트
-CREATE EVENT update_recommendations_test2
+CREATE EVENT update_recommendations
 ON SCHEDULE EVERY 5 minute
 DO
   UPDATE member

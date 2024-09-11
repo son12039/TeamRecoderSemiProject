@@ -66,7 +66,7 @@ nickname.addEventListener("input", function () {
   } else {
     $.ajax({
       type: "POST",
-      url: "/updateNicknameCheck", // 컨트롤러 URL
+      url: "/nicknameCheck", // 컨트롤러 URL
       data: { nickname: nicknameValue },
       success: function (result) {
         if (result) {
@@ -98,7 +98,7 @@ email.addEventListener("input", function () {
   } else {
     $.ajax({
       type: "POST",
-      url: "/emailUpdateCheck", // 컨트롤러 URL
+      url: "/emailCheck", // 컨트롤러 URL
       data: { email: emailValue },
       success: function (result) {
         if (result) {

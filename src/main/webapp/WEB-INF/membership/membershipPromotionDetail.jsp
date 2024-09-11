@@ -12,7 +12,6 @@
    <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
-   
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css" />
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jodit@3.6.9/build/jodit.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -21,14 +20,12 @@
     <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/membershipPromotionDetail.css" />
 	
-
 </head>
 <body>
 <jsp:include page="../header/header.jsp"></jsp:include>
 	
 	<input id="hiddenCode" type="hidden" value="${code}">
   <div id="box">
-  
   <div id="container">
   <h1>모임 홍보글 작성</h1>
     <textarea id="editor" name="editor">${memInfo.membershipInfo}</textarea>
@@ -39,47 +36,31 @@
     </div>
   </div>
   <jsp:include page="../footer/footer.jsp" />
-  
   <script src="https://cdn.jsdelivr.net/npm/jodit@3.6.9/build/jodit.min.js"></script>
   <script>
-    const editor = new Jodit('#editor', {
-      uploader: {
-        insertImageAsBase64URI: true,
-        url: 'upload_image.php', // 서버 측 이미지 업로드 핸들러 URL
-      },
-      height: 500,
-      toolbar: true,
-      buttons: [
-    	  
-    	  "bold",
-          "italic",
-          "underline",
-          "strikethrough",
-          "|",
-          "ul",
-          "ol",
-          "|",
-          "outdent",
-          "indent",
-          "|",
-          "link",
-          "image",
-        'fontsize'
-      ],
-      // 추가적인 설정이 필요할 경우 여기에 작성
-    });
+	const editor = new Jodit("#editor", {
+		uploader : {
+			insertImageAsBase64URI : true, // 이미지 업로드 시 base64로 변환
+			// 업로드 핸들러 URL 설정 (서버 측에서 처리)
+			url : "upload_image.php", // 실제 파일 업로드를 처리할 서버 URL
+		},
+		height : 500, // 에디터의 높이 설정
+		toolbar : true, // 툴바 표시
+		buttons : [ "bold", "italic", "underline", "strikethrough", "|",
+				"ul", "ol", "|", "outdent", "indent", "|", "link", "image",
+				'fontsize' ], // 툴바에 표시할 버튼들
+	});
 	let code = ${code};
 	console.log(code);
     function getEditorContent() {
       const content = editor.getEditorValue();
-      console.log(content); 
+      console.log(content);
       $.ajax({
-          url: '/membershipInfoUpdate', 
+          url: '/membershipInfoUpdate',
           type: 'POST',
           data: {membershipCode : code,
         	  		test : content},
           success: function(response) {
-              
               location.href = "/club/" + code;
           },
           error: function(error) {
@@ -88,7 +69,5 @@
       });
     }
   </script>
-  
-  
   </body>
 </html>

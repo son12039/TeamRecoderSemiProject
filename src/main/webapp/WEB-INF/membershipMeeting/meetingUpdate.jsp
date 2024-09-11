@@ -30,17 +30,30 @@ uri="http://www.springframework.org/security/tags" %>
    <div id="box">
    <div id="container">
    <div id="input-box">
-   <div id="input-left">
-   <h1>모임 게시판 글 수정</h1>
-  <input type="text" id="title" name="meetTitle" placeholder="제목을 입력해 주세요." autofocus="autofocus" value="${meetingInfo.meetTitle}" />
-    </div>
-    <div id="input-right">
-    <h2>달력 색상 선택 : </h2><input type="color" id="colors" name="color" value="${meetingInfo.color}" />  
-    <h2>시작 날짜 : </h2><input class="day" type="date" id="start" name="meetDateStart" value="${meetingInfo.meetDateStart}"/>
-    <h2>종료 날짜 : </h2><input class="day" type="date" id="end" name="meetDateEnd" value="${meetingInfo.meetDateEnd }" />
-    <input  type="hidden" id="code" name="membershipCode" value="${membershipCode}" />
-	</div>
-	</div>
+				<div id="input-top">
+					<h1>모임 게시판 글 작성</h1>
+					<input type="text" id="title" name="meetTitle"
+						placeholder="제목을 입력해 주세요." autofocus="autofocus"
+						value="${meetingInfo.meetTitle}" />
+				</div>
+				<!-- 2024/09/09 DM CSS 작업 -->
+				<div id="input-bottom">
+					<div id="input-bottom-left">
+						<h2>달력 색상 선택 :</h2>
+						<input type="color" id="colors" name="color"
+							value="${meetingInfo.color}" />
+					</div>
+					<div id="input-bottom-right">
+						<h2>시작 날짜 :</h2>
+						<input class="day" type="date" id="start" name="meetDateStart" value="${meetingInfo.meetDateStart}" />
+						<h2>종료 날짜 :</h2>
+						<input class="day" type="date" id="end" name="meetDateEnd" value="${meetingInfo.meetDateEnd}" /> <input
+							type="hidden" id="code" name="membershipCode"
+							value="${membershipCode}" />
+					</div>
+
+				</div>
+			</div>
     <textarea id="editor" name="editor">${meetingInfo.meetInfo}</textarea>
 
     <!-- 제출 버튼 -->

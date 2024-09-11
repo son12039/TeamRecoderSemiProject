@@ -71,12 +71,13 @@ public class MemberController {
 
 	/*
 	 * 성일 로그인 시큐리티 처리(member서비스)
+	 * 
+	 * 
 	 */
 
 	/*
 	 * 성철 회원가입 할때 아이디(프라이머리키 제약조건) 중복회원 체크
 	 */
-
 	@ResponseBody
 	@PostMapping("/idCheck")
 	public boolean idCheck(Member member) {
@@ -84,7 +85,6 @@ public class MemberController {
 		return mem == null;
 
 	}
-
 	/*
 	 * 성철 회원가입 할때 닉네임(유니크 제약조건) 중복회원 체크
 	 */
@@ -92,10 +92,18 @@ public class MemberController {
 	@PostMapping("/nicknameCheck") // 회원가입시 닉네임 중복 체크
 	public boolean nicknameCheck(Member member) {
 		Member mem = service.nicknameCheck(member);
-		return mem == null;
-
-	}
-
+		if(mem == null) { // 중복이 아닐시 
+			return true;
+		}else { // 중복일시  
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			Member loginMember = (Member) authentication.getPrincipal();
+			if(loginMember.getId().equals(mem.getId())) { // 로그인한 회원과 중복인 회원의 id가 일치할시
+				return true;
+			}
+			return false;
+		}
+	}	
+	
 	/*
 	 * 성철 회원가입할때 이메일 (유니크) 증복체크
 	 */
@@ -103,7 +111,16 @@ public class MemberController {
 	@PostMapping("/emailCheck") // 회원가입시 닉네임 중복 체크
 	public boolean emailCheck(Member member) {
 		Member mem = service.emailCheck(member);
-		return mem == null;
+		if(mem == null) { // 중복이 아닐시 
+			return true;
+		}else { // 중복일시  
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			Member loginMember = (Member) authentication.getPrincipal();
+			if(loginMember.getId().equals(mem.getId())) { // 로그인한 회원과 중복인 회원의 id가 일치할시
+				return true;
+			}
+			return false;
+		}
 
 	}
 
@@ -185,47 +202,6 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	/*
-	 * 성철 업데이트시 본인꺼 OR 중복 X 확인
-	 */
-	@ResponseBody
-	@PostMapping("/updateNicknameCheck")
-	public boolean updateNicknameCheck(String nickname) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		// 로그인 회원
-		Member m1 = (Member) authentication.getPrincipal();
-		// 해당 닉네임 넣을시 회원이 있는가
-		Member m2 = service.nicknameCheck(new Member().builder().nickname(nickname).build());
-		// 해당 닉네임으로 생성된 회원정보가 없거나
-		// 해당 닉네임으로 생성된 회원 정보가 로그인한 회원가 같을시
-		if (m2 == null || m2.getId().equals(m1.getId())) {
-			// 트루 리턴
-			return true;
-		}
-		// 아니면 false 리턴
-		return false;
-	}
-
-	/*
-	 * 성철 업데이트시 본인꺼 OR 중복 X 확인
-	 */
-	@ResponseBody
-	@PostMapping("/emailUpdateCheck")
-	public boolean emailUpdateCheck(String email) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		// 로그인 회원
-		Member m1 = (Member) authentication.getPrincipal();
-		// 해당 이메일 넣을시 회원이 있는가
-		Member m2 = service.emailCheck(new Member().builder().email(email).build());
-		// 해당 이메일로 생성된 회원정보가 없거나
-		// 해당 이메일로 생성된 회원 정보가 로그인한 회원가 같을시
-		if (m2 == null || m2.getId().equals(m1.getId())) {
-			// 트루 리턴
-			return true;
-		}
-		// 아니면 false 리턴
-		return false;
-	}
 
 	/*
 	 * 
@@ -402,15 +378,15 @@ public class MemberController {
 	@ResponseBody
 	@PostMapping("/recommendation")
 	public boolean recommendation(String targetMember, String loginMember, boolean plusMinus) {
-		Member m1 = new Member().builder().id(targetMember).build();
-		Member m2 = new Member().builder().id(loginMember).build();
-		RecommendationDTO dto = new RecommendationDTO(service.idCheck(m1), service.idCheck(m2), plusMinus);
+		Member target = new Member().builder().id(targetMember).build();
+		Member login = new Member().builder().id(loginMember).build();
+		RecommendationDTO dto = new RecommendationDTO(service.idCheck(target), service.idCheck(login), plusMinus);
 		// 추천 성공, 실패 여부 블리언으로 반환
 		boolean check = service.memberManner(dto);
 		if (check) {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 			Member mem = (Member) authentication.getPrincipal();
-			mem.setLastRecommendationTime(service.idCheck(m2).getLastRecommendationTime());
+			mem.setLastRecommendationTime(service.idCheck(login).getLastRecommendationTime());
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 		}
 		return check;
@@ -421,16 +397,12 @@ public class MemberController {
 	 */
 	public String fileUpload(MultipartFile file, String id) throws IllegalStateException, IOException {
 		if (file.getOriginalFilename() == "") {
-			System.out.println("NULL 리턴");
 			return null;
 		}
-
 		UUID uuid = UUID.randomUUID(); // 랜덤 파일명 부여
 		String fileName = uuid.toString() + "_" + file.getOriginalFilename();
 		File copyFile = new File("\\\\192.168.10.51\\damoim\\member\\" + id + "\\" + fileName);
 		file.transferTo(copyFile);
-		System.out.println("파일1개 추가!");
-		System.out.println("파일 이름 : " + fileName);
 		return fileName;
 	}
 

@@ -1,6 +1,6 @@
 #box{
   		padding-top: 100px;
-  		background-color: #e5e5e5;
+  		background-color: #E5E5E5;
   		height: 100%;
 }
 #container{
@@ -20,13 +20,12 @@
 	flex-direction: row-reverse;	
 }
 .button {
-  background-color: #f88c1d;
+  background-color: #F88C1D;
   color: #fff;
   border: none;
   font-size : 1.2rem;
   padding: 8px 15px;
   text-transform: uppercase;
-  
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s ease;
@@ -34,7 +33,7 @@
   font-family: "Jua", sans-serif;
 }
 .button:hover {
-  background-color: #e76f00;
+  background-color: #E76F00;
 }
 #back-button{
 	 background-color: #555;

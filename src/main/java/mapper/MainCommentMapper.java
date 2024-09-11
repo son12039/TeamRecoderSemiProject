@@ -12,7 +12,7 @@ public interface MainCommentMapper {
 	
 	void insertComment(MainComment mainComment);
 	ArrayList<MainComment>allMainComment(int membershipCode);
-	ArrayList<MainComment>mainReComment(int membershipCode, int mainCommentCode);
+	ArrayList<MainComment>mainReComment(int mainCommentCode);
 	void deleteUpdateComment(int mainCommentCode);
 	void deleteComment(int mainCommentCode);
 	int reCommentCount(int mainCommentCode);

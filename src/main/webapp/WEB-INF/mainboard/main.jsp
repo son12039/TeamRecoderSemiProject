@@ -397,14 +397,12 @@
 														</c:choose>
 														<div class = "text-update-box">
 															<label for="textbox-update-${recom.mainCommentCode}">
-																${member.nickname} : </label> <input
-																id="textbox-update-${recom.mainCommentCode}" type="text"
-																name="mainCommentText" value="${recom.mainCommentText}"
+																${member.nickname}</label> 
+																<input id="textbox-update-${recom.mainCommentCode}" type="text"	name="mainCommentText" value="${recom.mainCommentText}"
 																onclick="updateKey(${recom.mainCommentCode})">
 														</div>
 														<button type="button" class="btn"
-															onclick="updateComment(event,${recom.mainCommentCode})">댓글
-															수정</button>
+															onclick="updateComment(event,${recom.mainCommentCode})">댓글수정</button>
 													</div>
 												</form>
 											</div>

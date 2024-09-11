@@ -45,11 +45,11 @@
 		main_parents_comment_code)
 		VALUES(
 		#{mainCommentText} , #{id}, #{membershipCode}
-		<!-- 댓글인 경우 -->
+		<!-- 댓글인 경우 부모 댓글코드가 X -->
 		<if test="mainParentsCommentCode == 0">
 			, null
 		</if>
-		<!-- 대댓글인 경우 -->
+		<!-- 대댓글인 경우 부모 댓글 코드가 O -->
 		<if test="mainParentsCommentCode != 0">
 			, #{mainParentsCommentCode}
 		</if>

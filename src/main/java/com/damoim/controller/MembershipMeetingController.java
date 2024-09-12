@@ -296,7 +296,7 @@ model.addAttribute("count",agree.size());
   
   @PostMapping("/meetingUpdate")
 	public String updateSubmit(MembershipMeetings meetings, Model model) {
-		
+		System.out.println(meetings);
 	  int meetCode = meetings.getMeetCode();
 	  
 	  int membershipCode = service.meetSelect(meetCode).getMembershipCode();
@@ -328,19 +328,5 @@ model.addAttribute("count",agree.size());
 	
 	
 	
-	
-	
-	public void fileDelete(String file, int membershipCode, int meetCode) throws IllegalStateException, IOException {
-		if(file == null) {
-			System.out.println("삭제할 파일이 없습니다");
-		}
-		else {
-			System.out.println("삭제될 URL : "  + file);
-		File f = new File("\\\\192.168.10.51\\damoim\\membership\\"+ Integer.toString(membershipCode) + "\\"+Integer.toString(meetCode) + "\\" + file);
-		f.delete();
-		
-		}
-	
-	}
-	
+
 }

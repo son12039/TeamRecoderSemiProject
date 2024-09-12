@@ -25,7 +25,6 @@ import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.dto.MembershipDTO;
 import com.damoim.model.dto.RankDTO;
 import com.damoim.model.dto.SearchDTO;
-import com.damoim.model.dto.searchAjaxDTO;
 import com.damoim.model.vo.LocationCategory;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;

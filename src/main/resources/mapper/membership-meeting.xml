@@ -89,6 +89,16 @@
         WHERE id =#{id} AND meet_code = #{meetCode}
         </delete>
         
+        <update id="meetingUpdate" parameterType="MembershipMeetings">
+      UPDATE membership_meetings
+      SET meet_title=#{meetTitle},
+          meet_date_start =#{meetDateStart},
+          meet_date_end=#{meetDateEnd},
+          meet_info=#{meetInfo},
+          color=#{color}
+     WHERE meet_code =#{meetCode}
+      </update>
+        
    
     
     

@@ -10,6 +10,8 @@ import com.damoim.model.vo.MeetingsAgree;
 import com.damoim.model.vo.MembershipMeetings;
 
 import mapper.MembershipMeetingMapper;
+import mapper.RemoveMemberMapper;
+import mapper.RemoveMemberShipMapper;
 
 
 
@@ -19,6 +21,12 @@ public class MembershipMeetingService {
 	
 	@Autowired
 	private MembershipMeetingMapper mapper;
+	
+	@Autowired
+	private RemoveMemberMapper removeMapper;
+	
+	@Autowired
+	private RemoveMemberShipMapper removeMemMapper;
 	
 	public void addMeeting(MembershipMeetings meetings) {
 		
@@ -55,9 +63,17 @@ public void participationCancle (MeetingsAgree ma) {
 	mapper.participationCancle(ma);
 }
 
+
+
 public void meetingDelete(MembershipMeetings meetings) {
+	int count = removeMapper.selectMeetingAgreeMemberCount(meetings.getMeetCode()); 
+	removeMapper.deleteAllMeetComment(meetings.getMeetCode()); // 게시판 댓글 전부삭제
+		if(count == 0) { // 진행 전이거나 참가자가 없는경우	
+			removeMapper.deleteMeeting(meetings.getMeetCode()); // 미팅 정보 삭제
+		}else { // 참가자가 남아있는 경우(유저별 모임 참여 횟수 저장용)
+			removeMemMapper.deleteMeetingUpdatePlus(meetings.getMeetCode()); // 미팅 삭제 X 정보만 null처리		
+		}
 	
-	mapper.meetingDelete(meetings);
 }
 
 	 public void meetingUpdate(MembershipMeetings meetings) {

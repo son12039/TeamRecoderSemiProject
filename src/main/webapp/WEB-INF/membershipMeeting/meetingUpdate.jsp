@@ -9,7 +9,7 @@ uri="http://www.springframework.org/security/tags" %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    		 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/reset.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/meetingWrite.css" />
-    <title>모임 게시판 글 작성</title>
+    <title>모임 게시판 글 수정</title>
       <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
@@ -47,9 +47,8 @@ uri="http://www.springframework.org/security/tags" %>
 						<h2>시작 날짜 :</h2>
 						<input class="day" type="date" id="start" name="meetDateStart" value="${meetingInfo.meetDateStart}" />
 						<h2>종료 날짜 :</h2>
-						<input class="day" type="date" id="end" name="meetDateEnd" value="${meetingInfo.meetDateEnd}" /> <input
-							type="hidden" id="code" name="membershipCode"
-							value="${membershipCode}" />
+						<input class="day" type="date" id="end" name="meetDateEnd" value="${meetingInfo.meetDateEnd}" />
+						<input type="hidden" id="code" name="meetCode" value="${meetingInfo.meetCode}" />
 					</div>
 
 				</div>
@@ -133,11 +132,11 @@ uri="http://www.springframework.org/security/tags" %>
               meetDateStart: start,
               meetDateEnd: end,
               color: color,
-              membershipCode: code,
+              meetCode: code,
             }, 
             success: function (response) {
               alert("수정 완료되었습니다 !!");
-              window.location.href = '/club/'+code;
+              window.location.href = '/meetingDetail?meetCode=' + code;
             },
             error: function (xhr, status, error) {
               alert("오류가 발생했습니다.");

@@ -112,13 +112,7 @@ public class ChattingController {
 
 	// 컨트롤러
 
-	// 메인화면
-	@GetMapping("/chatserver/{code}")
-	public String chatServer(Model model) {
-		Member mem = (Member) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		model.addAttribute("member", mem);
-		return "chatting/chatting";
-	}
+
 
 	// 채팅방 목록
 	// 모든 클럽정보를 가져와서 클럽마다 채팅서버1개씩 생성, 서버를 처음 작동했을 때만 작동함

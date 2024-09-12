@@ -255,40 +255,17 @@ model.addAttribute("count",agree.size());
 		return "redirect:/meetingDetail";
 	}
 		
-	
-	
-	
-	
-  public String fileUpload(MultipartFile file,int membershipCode,int meetCode) throws IllegalStateException, IOException {
-		
-		UUID uuid= UUID.randomUUID();
-		
-		String fileName = uuid.toString() + "_" + file.getOriginalFilename();
-			
-		File copyFile = new File("\\\\\\\\192.168.10.51\\\\damoim\\\\membership\\"+ membershipCode+"\\"+meetCode+"\\"+fileName);  
-		
-		file.transferTo(copyFile); 
-		
-	
-		
-	
-		
-		return fileName;
-		
-		
-	}
 		
   @GetMapping("/meetingUpdate")
 	public String update(MembershipMeetings meetings, Model model) {
-		
-	  int meetCode = meetings.getMeetCode();
-	  
-	  model.addAttribute("meetingInfo" ,service.meetSelect(meetCode));
-	  
-	 
-	  
-	  
-	  
+	  Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		//로그인 정보 가져옴
+		Member mem = (Member) authentication.getPrincipal();
+		model.addAttribute("meetingInfo" ,service.meetSelect(meetings.getMeetCode()));
+
+		if(!mem.getId().equals(service.meetSelect(meetings.getMeetCode()).getId()))
+			return "error";
+ 
 		return "membershipMeeting/meetingUpdate";
 	}
   
@@ -297,11 +274,8 @@ model.addAttribute("count",agree.size());
   @PostMapping("/meetingUpdate")
 	public String updateSubmit(MembershipMeetings meetings, Model model) {
 		System.out.println(meetings);
-	  int meetCode = meetings.getMeetCode();
-	  
-	  int membershipCode = service.meetSelect(meetCode).getMembershipCode();
-	  
-	 
+	  int meetCode = meetings.getMeetCode();	  
+	  int membershipCode = service.meetSelect(meetCode).getMembershipCode();	 
 	  service.meetingUpdate(meetings);
 	  
 	  

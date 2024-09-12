@@ -53,7 +53,7 @@ strong {
 	max-width: 800px;
 	padding: 20px;
 	margin-top: 120px;
-	background: honeydew;
+	background: white;
 	border-radius: 8px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -171,10 +171,18 @@ strong {
 	flex-direction: column;
 	height: 50px;	
     font-weight: bolder;
+        text-wrap: nowrap;
+}
+#check-box-line  label{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 #pwdCheck{
-	padding: 2.5px 0px;
-	margin-left: 10px;
+	width: 70%;
+    padding: 2.5px 0px;
+
+    padding-left: 10px;
 }
 #check-box-button{
 	display: flex;

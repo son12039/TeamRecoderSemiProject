@@ -21,6 +21,10 @@ $(document).ready(function() {
 				.then(function(roomList) {
 					const codeSet = new Set(codeList.map(String));
 					let listHtml = "";
+					if(codeSet.size == 0){
+						$("main ul").html(`<li>읍서</li>`);
+						return;
+					}
 					for (let i = 0; i < roomList.length; i++) {
 						if (codeSet.has(roomList[i].roomNumber)) {
 							listHtml += `
@@ -323,12 +327,18 @@ $(document).ready(function() {
 			})
 
 	});
+	const isImageFile = (file) => {
+			return file && file.type.startsWith('image/');
+		};
 
 	$(".chat_input_area textarea").on('drop', (e) => {
 		e.preventDefault();
 		$(this).attr('placeholder', '');
 		const files = e.originalEvent.dataTransfer.files;
-
+		if (!isImageFile(files[0])) {
+						alert("이미지 파일만 첨부 가능합니다.");
+						return;
+					}
 		const reader = new FileReader();
 
 		reader.onload = function(event) {

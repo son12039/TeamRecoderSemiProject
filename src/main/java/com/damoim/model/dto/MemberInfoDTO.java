@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class MemberInfoDTO {
-
 	private Member member;
 	private List<MembershipUserList> membershipUserList; // 해당맴버가 가입되어있는 맴버쉽 정보+ 등급
     private int memberMeetCount; // 해당 멤버의 모임 참여 횟수

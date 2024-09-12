@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
-public class MemberListDTO {
+public class MemberListDTO { // 로그인 세션에 저장해둘 클럽정보
 	
 		
 	    private int membershipCode; // 코드

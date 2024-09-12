@@ -37,7 +37,7 @@
     <thead>
     <tr>
        <th style="background: black">아이디</th>
-                    <th>이름</th>
+                    <th>닉네임</th>
                     <th style="background: black">성별</th>
                     <th>나이</th>
                     
@@ -50,6 +50,7 @@
      <!-- 데이터 행을 여기에 추가합니다 -->
                 <c:forEach items="${allMember}" var="list" >
                 <c:set var="memberGrade" value="none" />
+                <c:set var="code" value="${list.membership.membershipCode}"/>
 			<c:forEach items="${member.memberListDTO}" var="loginMember">
 				<c:if
 					test="${loginMember.membershipCode == list.membership.membershipCode}">
@@ -59,7 +60,7 @@
 			</c:forEach>
                 <tr>
                     <td id="${list.member.id}" class="${list.membership.membershipCode}" style="background: beige">${list.member.id}</td>
-                    <td>${list.member.nickname}</td>
+                   <td><a href="/userInfo/${list.member.nickname}">${list.member.nickname}</a></td>
                     <td class="gender">${list.member.gender }</td>
                     <td>${list.member.age }</td>
                    
@@ -184,6 +185,7 @@
    
     </tbody>
 </table>
+<div style="margin-top: 20px; "><a id="back-btn" class="btn" href="/club/${code}">뒤로가기</a></div>
 </div>
 </div>
 

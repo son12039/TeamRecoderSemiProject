@@ -186,7 +186,31 @@
 		WHERE id=#{id}
 	</update>
 	
+	<select id="top5" resultMap="MemberResultMap">
 	
+ SELECT*
+  FROM member
+  WHERE status = 1
+  order by member_manner DESC
+  LIMIT 5;
+	
+	</select>
+	
+	<select id="veteran"  resultType="RankDTO">
+	<![CDATA[
+		SELECT
+		nickname,
+        count(*) meetCount
+		FROM meetings_agree
+		JOIN membership_meetings USING (meet_code)
+        JOIN member ON (member.id = meetings_agree.id)
+		AND  meet_date_start <= NOW()
+        GROUP BY nickname
+        order by  meetCount DESC
+        LIMIT 5;
+	]]>
+	
+	</select>
 	
 	
 	

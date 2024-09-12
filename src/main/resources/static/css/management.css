@@ -54,9 +54,7 @@ thead {
   text-align: center;
 }
 
-a {
-  color: #73685d;
-}
+
   
  @media all and (max-width: 1280px) {
     
@@ -105,7 +103,7 @@ a {
 
 .buttones{
 
-display: flex;
+
 align-items: center;
 
 text-align: left;
@@ -124,6 +122,17 @@ width: 80px;
     font-size:1.2rem;
     cursor: pointer;
 }
+#back-btn{
+	display: flex; 
+	justify-content: center; 
+	align-items: center; 
+	background: #fca311;
+    color: black;
+}
+#back-btn:hover{
+  background: #E76F00;
+  
+  }
 .last{
 	
 	width: 300px;

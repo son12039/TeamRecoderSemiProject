@@ -20,7 +20,7 @@ h1 {
 h2 {
 	font-size: 1.2rem;
 	font-weight: bolder;
-	padding-left: 10px;
+
 }
 h3 {
 	font-size: 1rem;
@@ -139,6 +139,7 @@ strong {
 	padding: 15px;
 	margin-bottom: 20px;
 	border-radius: 5px;
+	line-height: 1.7;
 }
 
 .confirmation {
@@ -148,11 +149,7 @@ strong {
 	border-radius: 5px;
 }
 
-.confirmation div {
-	display: flex;
-	align-items: center;
-	justify-content: space-around;
-}
+
 
 .confirmation p {
 	font-weight: bolder;
@@ -164,7 +161,25 @@ strong {
 	height: 100px;
 	border-radius:15px;
 }
-
+#check-box{
+	display: flex;
+	justify-content: space-between;
+}
+#check-box-line{
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	height: 50px;	
+    font-weight: bolder;
+}
+#pwdCheck{
+	padding: 2.5px 0px;
+	margin-left: 10px;
+}
+#check-box-button{
+	display: flex;
+	
+}
 
 #button {
 	background-color: #fca311;
@@ -173,7 +188,6 @@ strong {
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
-	width: 50%;
 	font-size: 1rem;
 }
 

@@ -316,27 +316,15 @@ public class MemberController {
 	        // 3. 그 뒤에 url 파일 업로드 후 멤버의 이미지에 추가
 	        String url = fileUpload(file, mem.getId());
 	        mem.setMemberImg(url);
-	        
-	        
-	        
-	        
-	        
+        
 	    } else if (file == null) {
 	    	
 	    	// 4. 추가한 파일이 없거나 기존 이미지로 유지할 경우 기존 이미지 유지
 	        mem.setMemberImg(mem.getMemberImg());
 	    }
-	    
-		if(memberHobby != null) {
-			// 5. 멤버 취미란에 수정사항이 있으면
-			mem.setMemberHobby(memberHobby);
-		}
-		
-		if(memberInfo != null) {
-			// 6. 멤버 소개란에 수정사항이 있으면
-			mem.setMemberInfo(memberInfo);
-		}
-		
+
+		mem.setMemberHobby(memberHobby);
+		mem.setMemberInfo(memberInfo);
 
 		service.updateMember(mem);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -349,29 +337,21 @@ public class MemberController {
 	 */
 
 	@GetMapping("/userInfo/{nickname}")
-	public String getMethodName(@PathVariable("nickname") String nickname, Model model) {
-		
-	
-		
+	public String getMethodName(@PathVariable("nickname") String nickname, Model model) {	
 		Member member = service.nicknameCheck(new Member().builder().nickname(nickname).build());
 		MemberInfoDTO mem = new MemberInfoDTO().builder().member(member)
 				.memberMeetCount(infoService.meetCount(member.getId()))
 				.membershipUserList(infoService.selectMemberUserList(member.getId())).build();
 		model.addAttribute("mem", mem);
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication.getPrincipal().equals("anonymousUser")) {
-			System.out.println("로그인 X ");
+		if (authentication.getPrincipal().equals("anonymousUser")) { // 비회원이 유저페이지로 간 경우
 			return "member/userInfo";
 		}
 		Member loginMember = (Member) authentication.getPrincipal();
-		if (loginMember.getNickname().equals(nickname)) {
-			System.out.println("본인 ");
-			
+		if (loginMember.getNickname().equals(nickname)) { // 클릭한 대상이 본인인 경우
 			return "redirect:/mypage";
 		}
-		
-		System.out.println("그외 ");
-		return "member/userInfo";
+		return "member/userInfo"; // 다른 유저의 페이지로 간 경우
 	}
 
 	/*
@@ -398,7 +378,7 @@ public class MemberController {
 	 * 성철 파일 업로드 각각 mamber의 id 폴더에 저장후 URL 리턴
 	 */
 	public String fileUpload(MultipartFile file, String id) throws IllegalStateException, IOException {
-		if (file.getOriginalFilename() == "") {
+		if (file == null || file.getOriginalFilename() == "") {
 			return null;
 		}
 		UUID uuid = UUID.randomUUID(); // 랜덤 파일명 부여

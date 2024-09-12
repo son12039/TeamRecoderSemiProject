@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.damoim.model.dto.LocationTypeDTO;
 import com.damoim.model.dto.MemberLocTypeDTO;
 import com.damoim.model.dto.MembershipDTO;
+import com.damoim.model.dto.RankDTO;
 import com.damoim.model.dto.SearchDTO;
 import com.damoim.model.dto.searchAjaxDTO;
 import com.damoim.model.vo.LocationCategory;
@@ -30,6 +31,7 @@ import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 import com.damoim.model.vo.TypeCategory;
 import com.damoim.service.LocationTypeService;
+import com.damoim.service.MemberService;
 import com.damoim.service.MembershipService;
 
 // 승훈 - 0814 수정
@@ -42,6 +44,9 @@ public class LocationTypeController {
 
 	@Autowired
 	private MembershipService memberService;
+	
+	@Autowired
+	private MemberService mem;
 	
 	public List<MemberLocTypeDTO> locationTypeList(SearchDTO search) {
 
@@ -121,6 +126,40 @@ public class LocationTypeController {
 	        String thirtyDaysAgoFormatted = sdf.format(thirtyDaysAgo);
 	        
 	        // 결과를 출력합니다.
+	        List<RankDTO> mannerDto = new ArrayList<RankDTO>();
+	        List<RankDTO> meetDto = new ArrayList<RankDTO>();
+	    
+	   
+	      
+	       
+	      for(int i=0; i<mem.top5().size(); i++) {
+	    	  int count=0;
+	    	
+	    	  for(int j=0; j<mem.top5().size(); j++) {
+	    	  if(mem.top5().get(i).getMemberManner() < mem.top5().get(j).getMemberManner()) {
+	    		  count ++; 		 
+	    	  }	    		 
+	    	  }
+	    	  mannerDto.add(new RankDTO().builder().memberManner(mem.top5().get(i).getMemberManner()).nickname(mem.top5().get(i).getNickname()).rank(count).build()); 	
+	      }
+	     
+	     
+	      for(int i=0; i<mem.veteran().size(); i++) {
+	    	  int count=0;
+	    	
+	    	  for(int j=0; j<mem.veteran().size(); j++) {
+	    	  if(mem.veteran().get(i).getMeetCount() < mem.veteran().get(j).getMeetCount()) {
+	    		  count ++; 		 
+	    	  }	    		 
+	    	  }
+	    	  meetDto.add(new RankDTO().builder().meetCount(mem.veteran().get(i).getMeetCount()).nickname(mem.veteran().get(i).getNickname()).rank(count).build()); 	
+	      }
+	     
+	     
+	     
+	      System.out.println("참여랭킹 " + meetDto);
+	model.addAttribute("meetRank", meetDto);
+	model.addAttribute("mannerRank", mannerDto);
 
 	
 	        model.addAttribute("today30", thirtyDaysAgoFormatted);

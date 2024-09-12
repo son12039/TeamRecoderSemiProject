@@ -51,7 +51,7 @@ public class PageController {
 	
 	@GetMapping("/signUp")
 	public String signUp() {
-		return "signUp/signUp";
+		return "login/signUp";
 	}
 
 	
@@ -143,6 +143,7 @@ public class PageController {
 		}
 		// 호스트인 클럽을 담음 호스트인게 없으면 null담김
 		model.addAttribute("list", infoService.selectMembership(num));
+		model.addAttribute("count" , infoService.membershipUserCount(num));
 		return "mypage/memberDelete";
 	}
 	

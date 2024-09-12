@@ -213,8 +213,9 @@
 		<div id="calendar-info">
 		 
 		 <p>일정 한눈에 보기</p>
+		 <div id ="calendar-box">
 		<div id="calendar"></div>
-		
+		</div>
 		</div>
 			
 		

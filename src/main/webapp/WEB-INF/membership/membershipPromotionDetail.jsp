@@ -24,7 +24,7 @@
 <body>
 <jsp:include page="../header/header.jsp"></jsp:include>
 	
-	<input id="hiddenCode" type="hidden" value="${code}">
+	
   <div id="box">
   <div id="container">
   <h1>모임 홍보글 작성</h1>
@@ -36,7 +36,7 @@
     </div>
   </div>
   <jsp:include page="../footer/footer.jsp" />
-  <script src="https://cdn.jsdelivr.net/npm/jodit@3.6.9/build/jodit.min.js"></script>
+  
   <script>
 	const editor = new Jodit("#editor", {
 		uploader : {
@@ -50,7 +50,7 @@
 				"ul", "ol", "|", "outdent", "indent", "|", "link", "image",
 				'fontsize' ], // 툴바에 표시할 버튼들
 	});
-	let code = ${code};
+	let code = ${memInfo.membershipCode};
 	console.log(code);
     function getEditorContent() {
       const content = editor.getEditorValue();
@@ -69,5 +69,6 @@
       });
     }
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/jodit@3.6.9/build/jodit.min.js"></script>
   </body>
 </html>

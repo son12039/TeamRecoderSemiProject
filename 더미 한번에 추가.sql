@@ -111,6 +111,13 @@ INSERT INTO location_category (loc_la_name, loc_s_name) VALUES
 ('경기', '여주군'),
 ('경기', '이천시'),
 ('경기', '안성시'),
+('경기', '하남시'),
+('경기', '시흥시'),  -- 추가된 부분
+('경기', '김포시'),  -- 추가된 부분
+('경기', '군포시'),  -- 추가된 부분
+('경기', '안산시'),  -- 추가된 부분
+('경기', '파주시'),  -- 추가된 부분
+('경기', '양평군'),
 
 -- 강원 소분류
 ('강원', '춘천시'),
@@ -241,6 +248,7 @@ INSERT INTO location_category (loc_la_name, loc_s_name) VALUES
 ('제주', '제주시'),
 ('제주', '서귀포시');
 -- 타입추가
+
 
 INSERT INTO type_category (type_la_name, type_s_name) VALUES
 ('종교', '기독교'),

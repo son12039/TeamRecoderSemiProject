@@ -289,13 +289,14 @@
 
 	<!--  memberInfoDTO에 담을 수 있는 해당 맴버의 모임 참여 횟수 계산 -->
 	<select id="meetCount" parameterType="String" resultType="int">
+	<![CDATA[
 		SELECT
 		count(*)
 		FROM meetings_agree
 		JOIN membership_meetings USING (meet_code)
 		WHERE meetings_agree.id = #{id}
-		AND meet_date_start
-		&lt; now() 
+		AND meet_date_start  <=  now() 
+	]]>	
 	</select>
 
 		<!--  해당 맴버 ID로 그 회원의 모든 클럽(상세정보)까지 담기는 쿼리 -->

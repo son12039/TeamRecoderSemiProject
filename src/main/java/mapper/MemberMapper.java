@@ -14,6 +14,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MemberMannerDTO;
+import com.damoim.model.dto.RankDTO;
 import com.damoim.model.vo.Member;
 import com.damoim.model.vo.Membership;
 
@@ -54,6 +55,10 @@ public interface MemberMapper {
 	// 회원 추천기능 ==========================================
 	void memberManner(MemberMannerDTO dto);
 	void updateLastRecommendationTime(String id);
+	
+	// 랭킹 ============================
+	List<Member> top5();
+	List<RankDTO> veteran();
 	
 	// 아래 2개 더미 비밀번호 암호화용도 ========================
 	ArrayList<Member> dummyMember();

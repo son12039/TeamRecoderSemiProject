@@ -290,7 +290,7 @@
 
 #calendar-info p {
   font-family: "Do Hyeon", sans-serif;
-  font-size: 60px;
+  font-size: 2.5rem;
   font-weight: bold;
   padding: 10px;
 }
@@ -424,4 +424,55 @@ background: #E76F00;
 }
 .fc-day-sat .fc-daygrid-day-number{
 	color:blue;
+}
+/*캘린더*/
+.fc-toolbar-title {
+	padding: 10px;
+}
+.fc-toolbar-chunk{
+	padding: 10px;
+}
+.fc .fc-daygrid-day-top{
+	flex-direction: inherit;
+}
+
+.fc .fc-toolbar-title{
+	font-weight: bold;
+}
+
+.fc-day-sun > div > a{
+	color: red;
+}
+.fc-day-sat > div > a {
+	color : #7e7eff;	
+}
+
+
+.fc-scrollgrid-sync-table tbody tr td:nth-child(1) a {
+	color: red;
+}
+.fc-scrollgrid-sync-table tbody tr td:nth-child(7) a {
+	color:#7e7eff;;
+}
+/*캘린더*/
+#calendar-box {
+	align-items: center;
+    justify-content: center;
+    display: flex;
+	width: 90%;
+	max-width: 800px;
+	padding: 40px 20px 80px 20px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	background-color: white;
+	margin-bottom: 50px;
+	overflow: hiddlen;
+	white-space: nowrap;
+}
+
+.membership-card h1 {
+	font-weight: bolder;
+	font-size: 1.2rem;
+	padding-bottom: 15px;
+	padding-right: 10px;
 }

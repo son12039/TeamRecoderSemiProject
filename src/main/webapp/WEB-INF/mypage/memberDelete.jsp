@@ -77,7 +77,7 @@ uri="http://www.springframework.org/security/tags"%>
               <strong>(단, 질문자/답변자 아이디가 비공개 처리됨)</strong>
             </h3>
             <c:if test="${list != null}">
-              <h2>가입되어있는 클럽명 : (${list.membershipName} )</h2>
+              <h2>회원님이 호스트인 클럽명 : (${list.membershipName} )</h2>
               <div>
                 <a href="/club/${list.membershipCode}">
                   <img
@@ -86,6 +86,7 @@ uri="http://www.springframework.org/security/tags"%>
 									${list.membershipCode}/${list.membershipImg}"
                     alt="Membership Image"
                   />
+               <p> <i class="fa-solid fa-user-group"></i> ${count} / ${list.membershipMax}</p>
                 </a>
               </div>
               <h2>회원님의 등급 : ( 호스트 )</h2>
@@ -101,20 +102,24 @@ uri="http://www.springframework.org/security/tags"%>
           </div>
         </section>
         <section class="confirmation">
-          <div>
-            <label for="checkbox">
-              <p>
+          <div id ="check-box">
+          <div id="check-box-line">
+            <label>    
                 안내 사항을 모두 확인하였으며, 이에 동의합니다.
-                <input type="checkbox" id="checkbox" name="checkbox" />
-              </p>
+             <input type="checkbox" id="checkbox" name="checkbox" />  
             </label>
             <div>
               <label
                 >비밀번호 확인<input
                   type="password"
                   id="pwdCheck"
-                  name="pwdCheck" /></label
-              ><input type="button" id="button" value="회원탈퇴" />
+                  name="pwdCheck" placeholder="비밀번호를 입력해 주십시오." /></label
+              >
+            </div>
+         
+            </div>
+               <div id="check-box-button">
+            <input type="button" id="button" value="회원탈퇴" />
             </div>
           </div>
         </section>

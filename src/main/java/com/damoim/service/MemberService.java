@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.damoim.model.dto.MemberInfoDTO;
 import com.damoim.model.dto.MemberListDTO;
 import com.damoim.model.dto.MemberMannerDTO;
+import com.damoim.model.dto.RankDTO;
 import com.damoim.model.dto.RecommendationDTO;
 import com.damoim.model.vo.Member;
 
@@ -151,6 +152,16 @@ public class MemberService implements UserDetailsService {
 			mapper.dummyUpdate(m);
 
 		}
+	}
+	//랭킹  ===========
+	public List<Member> top5(){
+		
+		return mapper.top5();
+	}
+	
+	public List<RankDTO> veteran(){
+		
+		return mapper.veteran();
 	}
 
 	@Override // 로그인하면 일로옴 ====================

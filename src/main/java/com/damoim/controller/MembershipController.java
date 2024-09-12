@@ -83,7 +83,7 @@ public class MembershipController {
 		// 생성 페이지에 DB에 있는 타입, 지역 정보 
 		model.addAttribute("locLaNameList", locationTypeService.locLaNameList());
 		model.addAttribute("typeLaNameList", locationTypeService.typeLaNameList());
-		return "mypage/makeMembership";
+		return "membership/makeMembership";
 	}
 
 	/*  

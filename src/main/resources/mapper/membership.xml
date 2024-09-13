@@ -165,8 +165,8 @@
 	</select>
 
 	<!-- 해당 클럽의 유저 현황을 클럽 코드를 가져와서 현재 인원만 반환해주는 쿼리 변경필요 -->
-	<select id="membershipUserCount" parameterType="Integer"
-		resultType="Integer">
+	<select id="membershipUserCount" parameterType="int"
+		resultType="int">
 		SELECT count(membership_code) as count
 		FROM
 		membership_user_list

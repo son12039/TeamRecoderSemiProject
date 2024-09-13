@@ -55,10 +55,19 @@ id.addEventListener('input', function() { // 아이디 체크
 		});
 	}
 });
-
+$('#pwd').on('keydown', function(event) {
+	if (event.key === ' ' || event.keyCode === 32) {
+		event.preventDefault();
+	}
+});
+$('#pwdc').on('keydown', function(event) {
+	if (event.key === ' ' || event.keyCode === 32) {
+		event.preventDefault();
+	}
+}); 
 pwd.addEventListener('input', function() { // 비밀번호 체크
 	const pwdValue = $(this).val().trim();
-
+	
 	if (pwdValue === '') {
 		$('#pwdResult').text(" 필수 입력사항입니다").css('color', 'red');
 		pwdSubmit = false;

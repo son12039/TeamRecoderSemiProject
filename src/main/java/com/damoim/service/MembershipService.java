@@ -62,8 +62,8 @@ public class MembershipService {
 		return mapper.main(membershipCode);
 	}
    
-   public int membershipUserCount(int count){
-		return mapper.membershipUserCount(count);
+   public int membershipUserCount(int code){
+		return mapper.membershipUserCount(code);
  	}
    public void membershipApply(MemberListDTO member) {
 	   mapper.membershipApply(member);

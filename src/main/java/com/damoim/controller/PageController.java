@@ -140,10 +140,12 @@ public class PageController {
 		for(MemberListDTO m : mem.getMemberListDTO()) {
 			if(m.getListGrade().equals("host"))
 				num = m.getMembershipCode();
+			model.addAttribute("list", infoService.selectMembership(num));
+			model.addAttribute("count" , infoService.membershipUserCount(num));
 		}
+		
 		// 호스트인 클럽을 담음 호스트인게 없으면 null담김
-		model.addAttribute("list", infoService.selectMembership(num));
-		model.addAttribute("count" , infoService.membershipUserCount(num));
+
 		return "mypage/memberDelete";
 	}
 	

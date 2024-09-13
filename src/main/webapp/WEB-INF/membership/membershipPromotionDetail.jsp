@@ -59,7 +59,7 @@
           url: '/membershipInfoUpdate',
           type: 'POST',
           data: {membershipCode : code,
-        	  		test : content},
+        	  	text : content},
           success: function(response) {
               location.href = "/club/" + code;
           },

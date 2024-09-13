@@ -295,14 +295,15 @@ public class MemberController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		System.out.println("오긴옴");
 		Member mem = (Member) authentication.getPrincipal();
-		service.defualtFile(mem.getId());
-		mem.setMemberImg(null);
-		SecurityContextHolder.getContext().setAuthentication(authentication);
 		try {
 			fileDelete(mem.getMemberImg(),mem.getId());
 		} catch (Exception e) {
 			return false;
 		}
+		service.defualtFile(mem.getId());
+		mem.setMemberImg(null);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
 		return true;
 	}
 

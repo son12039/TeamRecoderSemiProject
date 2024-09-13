@@ -62,7 +62,6 @@ $(document).ready(function() {
 			method: 'GET',
 			data: { laName: locL.val() },
 			success: function(re) {
-				$(".locSbox").html();
 				$(".locSbox").css("padding",  "5px");
 				
 				for (const i of re)

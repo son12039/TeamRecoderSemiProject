@@ -122,7 +122,7 @@
 		<div class="locationTypeBodyBox">
 			<form id="locationLaNameForm">
 				<div class="locationLaBox">
-					<div class="locationLaStar">도시별&nbsp;</div>
+					<div class="locationLaStar">지역별&nbsp;</div>
 						<input type="checkbox" value="" id="locLaNameAll" />
 				</div>
 				<div class="locationLaDiv">
@@ -137,7 +137,7 @@
 	
 			<form id="locationSNameForm">
 				<div class="locationSBox">
-					<div class="locationSStar">지역별&nbsp;</div>
+					<div class="locationSStar">도시별&nbsp;</div>
 				</div>
 					<div class="locationSDiv">
 						<c:forEach items="${locSNameList}" var="locSName">

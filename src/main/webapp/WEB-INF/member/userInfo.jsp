@@ -85,21 +85,38 @@
 										</c:if>
 									</c:forEach>
 								</c:if>
+								<c:set var="thisPlusManner" value="${mem.member.memberManner > 0.5}"/>
+								<c:set var="thisMinusManner" value="${mem.member.memberManner < 99.5}"/>
 							</c:forEach>
-							<c:if test="${ck}">
+							<c:if test="${ck}"> 
 								<p>나와 같은 클럽에 속한 회원입니다!</p>
 							</c:if>
 						</div>
 						<div id="rating">
+						<c:if test="${thisMinusManner}">
 							<button id="plus-btn" data-target-member-id="${mem.member.id}"
 								data-login-member-id="${loginMember.id}" class="left-btn">
 								<i class="fa-regular fa-thumbs-up"></i>
 							</button>
+						</c:if>	
+						<c:if test="${!thisMinusManner}">
+							<button disabled="disabled" id="plus-btn" data-target-member-id="${mem.member.id}"
+								data-login-member-id="${loginMember.id}" class="left-btn-dis">
+								<i class="fa-regular fa-thumbs-up"></i>
+							</button>
+						</c:if>	 
+						<c:if test="${thisPlusManner}">
 							<button id="minus-btn" data-target-member-id="${mem.member.id}"
 								data-login-member-id="${loginMember.id}" class="right-btn">
 								<i class="fa-regular fa-thumbs-down"></i>
 							</button>
-
+						</c:if>
+						<c:if test="${!thisPlusManner}">
+							<button disabled="disabled" id="minus-btn" data-target-member-id="${mem.member.id}"
+								data-login-member-id="${loginMember.id}" class="right-btn-dis">
+								<i class="fa-regular fa-thumbs-down"></i>
+							</button>
+						</c:if>
 						</div>
 					</sec:authorize>
 					<div id="section2">

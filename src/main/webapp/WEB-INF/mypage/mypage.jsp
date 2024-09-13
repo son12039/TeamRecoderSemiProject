@@ -198,7 +198,7 @@
 											</c:if>
 											<c:if test="${myGrade != 'host'}">
 												<button class="Management-button"
-													onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">탈퇴</button>
+													onclick="deleteList('${myGrade}',${mem.membership.membershipCode})">탈퇴</button>
 											</c:if>
 										</div>
 									</div>
@@ -270,7 +270,7 @@
 											</c:if>
 											<c:if test="${myGrade != 'host'}">
 												<button class="Management-button"
-													onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">탈퇴</button>
+													onclick="deleteList('${myGrade}',${mem.membership.membershipCode})">탈퇴</button>
 											</c:if>
 										</div>
 									</div>
@@ -322,7 +322,7 @@
 											<p>클럽의 소개글이 없습니다</p>
 										</c:if>
 										<button class="btn"
-											onclick="deleteList('${loginMemberGrade}',${mem.membership.membershipCode})">신청
+											onclick="deleteList('${myGrade}',${mem.membership.membershipCode})">신청
 											취소</button>
 									</div>
 								</div>

@@ -109,7 +109,7 @@ h1 {
 	margin-bottom: 20px;
 
 }
-.left-btn {
+.left-btn , .left-btn-dis{
 	width: 100px;
 	height: 60px;
 	border-right: 1px black solid;
@@ -124,7 +124,7 @@ h1 {
 		color:black;
 	}
 }
-.right-btn{
+.right-btn, .right-btn-dis{
 	width: 100px;
 	height: 60px;
 	border-left: 1px black solid;

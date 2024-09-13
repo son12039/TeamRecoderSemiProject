@@ -481,3 +481,6 @@ height: 500px;
   border: 2px solid #D5D5D5;
   transition: background-color 0.3s, border-color 0.3s;
 }
+.typeSbox, .locSbox{
+	padding: 0px;
+}

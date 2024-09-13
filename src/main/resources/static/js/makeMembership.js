@@ -49,6 +49,7 @@ $(document).ready(function() {
 	function locLaChoose() {
 		if (beforeSelLoc == $(this).val()) {
 			$(".locSbox").html("");
+			$(".locSbox").css("padding",  "0px");
 			beforeSelLoc = "";
 			return;
 		}
@@ -62,6 +63,8 @@ $(document).ready(function() {
 			data: { laName: locL.val() },
 			success: function(re) {
 				$(".locSbox").html();
+				$(".locSbox").css("padding",  "5px");
+				
 				for (const i of re)
 					locS += `
 				        <input type="checkbox" value="${i}" id="${i}" name="locLN">
@@ -78,6 +81,7 @@ $(document).ready(function() {
 	function typeLaChoose() {
 		if (beforeSelType == $(this).val()) {
 			$(".typeSbox").html("");
+			$(".typeSbox").css("padding",  "0px");
 			beforeSelType = "";
 			return;
 		}
@@ -90,7 +94,8 @@ $(document).ready(function() {
 			method: 'GET',
 			data: { typeLaName: typeL.val() },
 			success: function(re) {
-				$(".locSbox").html();
+				
+				$(".typeSbox").css("padding",  "5px");
 				for (const i of re)
 					typeS += `
 					        <input type="checkbox" value="${i}" id="${i}" name="typeLN">

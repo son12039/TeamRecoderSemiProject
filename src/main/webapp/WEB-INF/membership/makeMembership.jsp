@@ -56,7 +56,7 @@
 			</c:forEach>
 			</div>
 		
-			<div class="locSbox" style="display: none;"> 
+			<div class="locSbox" > 
 			</div>
 
 			<div id="typeLaText">유형을 선택해주세요</div>
@@ -68,7 +68,7 @@
 			</c:forEach>
 			</div>
 
-			<div class="typeSbox" style="display: none;"> 
+			<div class="typeSbox" > 
 			</div>
 
 			<!-- locationSList typeSName -->
